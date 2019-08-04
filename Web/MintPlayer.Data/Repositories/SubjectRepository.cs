@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using MintPlayer.Data.Dtos;
 using MintPlayer.Data.Repositories.Interfaces;
+using Nest;
 
 namespace MintPlayer.Data.Repositories
 {
@@ -12,11 +15,123 @@ namespace MintPlayer.Data.Repositories
         private IHttpContextAccessor http_context;
         private MintPlayerContext mintplayer_context;
         private UserManager<Entities.User> user_manager;
-        public SubjectRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager)
+        private Nest.IElasticClient elastic_client;
+        public SubjectRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager, Nest.IElasticClient elastic_client)
         {
             this.http_context = http_context;
             this.mintplayer_context = mintplayer_context;
             this.user_manager = user_manager;
+            this.elastic_client = elastic_client;
+        }
+
+        public async Task<List<Subject>> Suggest(string[] subjects, string search_term)
+        {
+            IEnumerable<Subject> person_options = new Person[0], artist_options = new Artist[0], song_options = new Song[0];
+
+            #region People
+            if (subjects.Contains("person"))
+            {
+                var people = await elastic_client.SearchAsync<Person>(p => p
+                    .Suggest(su => su
+                        .Completion("person-completion", p_desc => p_desc
+                            .Field(f => f.NameSuggest)
+                            .Prefix(search_term)
+                            .Fuzzy(f => f
+                                .Fuzziness(Fuzziness.Auto)
+                            )
+                            .Analyzer("simple")
+                            .Size(5)
+                        )
+                    )
+                );
+                person_options = people.Suggest.Values.SelectMany(
+                    suggest => suggest.SelectMany(
+                        s => s.Options.Select(o => o.Source)
+                    )
+                ).Cast<Subject>();
+            }
+            #endregion
+            #region Artists
+            if (subjects.Contains("artist"))
+            {
+                var artists = await elastic_client.SearchAsync<Artist>(a => a
+                    .Suggest(su => su
+                        .Completion("artist-completion", a_desc => a_desc
+                            .Field(f => f.NameSuggest)
+                            .Prefix(search_term)
+                            .Fuzzy(f => f
+                                .Fuzziness(Fuzziness.Auto)
+                            )
+                            .Analyzer("simple")
+                            .Size(5)
+                        )
+                    )
+                );
+                artist_options = artists.Suggest.Values.SelectMany(
+                    suggest => suggest.SelectMany(
+                        s => s.Options.Select(o => o.Source)
+                    )
+                ).Cast<Subject>();
+            }
+            #endregion
+            #region Songs
+            if (subjects.Contains("song"))
+            {
+                var songs = await elastic_client.SearchAsync<Song>(s => s
+                    .Suggest(su => su
+                        .Completion("song-completion", s_desc => s_desc
+                            .Field(f => f.TitleSuggest)
+                            .Prefix(search_term)
+                            .Fuzzy(f => f
+                                .Fuzziness(Fuzziness.Auto)
+                            )
+                            .Analyzer("simple")
+                            .Size(5)
+                        )
+                    )
+                );
+                song_options = songs.Suggest.Values.SelectMany(
+                    suggest => suggest.SelectMany(
+                        s => s.Options.Select(o => o.Source)
+                    )
+                ).Cast<Subject>();
+            }
+            #endregion
+
+            return person_options.Union(artist_options).Union(song_options).ToList();
+        }
+
+        public async Task<List<Subject>> Search(string[] subjects, string search_term)
+        {
+            IEnumerable<Subject> person_results = new Person[0], artist_results = new Artist[0], song_results = new Song[0];
+            if (subjects.Contains("person"))
+            {
+                var people = await elastic_client.SearchAsync<Person>(
+                    a => a.Query(q1 => q1.MultiMatch(
+                        mm => mm.Query(search_term).Fields(m => m.Fields(f => f.FirstName, f => f.LastName)).Fuzziness(Fuzziness.Auto)
+                    ))
+                );
+                person_results = people.Documents.Cast<Subject>();
+            }
+            if (subjects.Contains("artist"))
+            {
+                var artists = await elastic_client.SearchAsync<Artist>(
+                    a => a.Query(q1 => q1.MultiMatch(
+                        mm => mm.Query(search_term).Fields(m => m.Fields(f => f.Name)).Fuzziness(Nest.Fuzziness.EditDistance(2)).PrefixLength(1)
+                    ))
+                );
+                artist_results = artists.Documents.Cast<Subject>();
+            }
+            if (subjects.Contains("song"))
+            {
+                var songs = await elastic_client.SearchAsync<Song>(
+                    a => a.Query(q1 => q1.MultiMatch(
+                        mm => mm.Query(search_term).Fields(m => m.Fields(f => f.Title)).Fuzziness(Nest.Fuzziness.EditDistance(2)).PrefixLength(1)
+                    ))
+                );
+                song_results = songs.Documents.Cast<Subject>();
+            }
+            return person_results.Union(artist_results).Union(song_results).ToList();
         }
 
         public async Task<Tuple<int, int>> GetLikes(int subjectId)

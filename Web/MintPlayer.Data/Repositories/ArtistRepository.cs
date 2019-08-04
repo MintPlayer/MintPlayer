@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MintPlayer.Data.Repositories.Interfaces;
 using MintPlayer.Data.Helpers;
+using MintPlayer.Data.Dtos;
 
 namespace MintPlayer.Data.Repositories
 {
@@ -16,12 +17,14 @@ namespace MintPlayer.Data.Repositories
         private MintPlayerContext mintplayer_context;
         private UserManager<Entities.User> user_manager;
         private ArtistHelper artist_helper;
-        public ArtistRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager, ArtistHelper artist_helper)
+        private Nest.IElasticClient elastic_client;
+        public ArtistRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager, ArtistHelper artist_helper, Nest.IElasticClient elastic_client)
         {
             this.http_context = http_context;
             this.mintplayer_context = mintplayer_context;
             this.user_manager = user_manager;
             this.artist_helper = artist_helper;
+            this.elastic_client = elastic_client;
         }
 
         public IEnumerable<Dtos.Artist> GetArtists(bool include_relations = false)
@@ -81,7 +84,10 @@ namespace MintPlayer.Data.Repositories
             mintplayer_context.Artists.Add(entity_artist);
             await mintplayer_context.SaveChangesAsync();
 
+            // Index
             var new_artist = ToDto(entity_artist);
+            var index_status = await elastic_client.IndexDocumentAsync(new_artist);
+
             return new_artist;
         }
 
@@ -111,8 +117,11 @@ namespace MintPlayer.Data.Repositories
             var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
             artist_entity.UserUpdate = user;
 
-            var new_artist = ToDto(artist_entity);
-            return new_artist;
+            // Index
+            var updated_artist = ToDto(artist_entity);
+            await elastic_client.UpdateAsync<Artist>(updated_artist, u => u.Doc(updated_artist));
+
+            return updated_artist;
         }
 
         public async Task DeleteArtist(int artist_id)
@@ -123,6 +132,10 @@ namespace MintPlayer.Data.Repositories
             // Get current user
             var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
             artist.UserDelete = user;
+
+            // Index
+            var artist_dto = ToDto(artist);
+            await elastic_client.DeleteAsync<Artist>(artist_dto);
         }
 
         public async Task SaveChangesAsync()

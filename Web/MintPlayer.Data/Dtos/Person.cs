@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Nest;
+using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace MintPlayer.Data.Dtos
@@ -11,6 +13,9 @@ namespace MintPlayer.Data.Dtos
         public DateTime? Died { get; set; }
 
         public string Text => $"{FirstName} {LastName}";
+
+        [JsonIgnore]
+        public CompletionField NameSuggest => new CompletionField { Input = new[] { $"{FirstName} {LastName}" } };
 
         public List<Artist> Artists { get; set; }
     }

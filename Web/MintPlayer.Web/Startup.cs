@@ -35,6 +35,11 @@ namespace MintPlayer.Web
                 };
             });
 
+            services.AddElasticSearch(options => {
+                options.Url = Configuration["elasticsearch:url"];
+                options.DefaultIndex = Configuration["elasticsearch:index"];
+            });
+
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MintPlayer.Data.Dtos;
 using MintPlayer.Data.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,13 @@ namespace MintPlayer.Data.Repositories
         private IHttpContextAccessor http_context;
         private MintPlayerContext mintplayer_context;
         private UserManager<Entities.User> user_manager;
-        public PersonRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager)
+        private Nest.IElasticClient elastic_client;
+        public PersonRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager, Nest.IElasticClient elastic_client)
         {
             this.http_context = http_context;
             this.mintplayer_context = mintplayer_context;
             this.user_manager = user_manager;
+            this.elastic_client = elastic_client;
         }
 
         public IEnumerable<Dtos.Person> GetPeople(bool include_relations = false)
@@ -73,7 +76,10 @@ namespace MintPlayer.Data.Repositories
             mintplayer_context.People.Add(entity_person);
             await mintplayer_context.SaveChangesAsync();
 
+            // Index
             var new_person = ToDto(entity_person);
+            var index_status = await elastic_client.IndexDocumentAsync(new_person);
+
             return new_person;
         }
 
@@ -95,8 +101,11 @@ namespace MintPlayer.Data.Repositories
             // Update in database
             mintplayer_context.Entry(entity_person).State = EntityState.Modified;
 
-            var new_person = ToDto(entity_person);
-            return new_person;
+            // Index
+            var updated_person = ToDto(entity_person);
+            await elastic_client.UpdateAsync<Person>(updated_person, u => u.Doc(updated_person));
+
+            return updated_person;
         }
 
         public async Task DeletePerson(int person_id)
@@ -107,6 +116,10 @@ namespace MintPlayer.Data.Repositories
             // Get current user
             var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
             person.UserDelete = user;
+
+            // Index
+            var person_dto = ToDto(person);
+            await elastic_client.DeleteAsync<Person>(person_dto);
         }
 
         public async Task SaveChangesAsync()
