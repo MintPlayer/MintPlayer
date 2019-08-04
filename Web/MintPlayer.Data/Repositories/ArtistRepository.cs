@@ -138,8 +138,10 @@ namespace MintPlayer.Data.Repositories
                     Name = artist.Name,
                     YearStarted = artist.YearStarted,
                     YearQuit = artist.YearQuit,
+
                     PastMembers = artist.Members.Where(ap => !ap.Active).Select(ap => PersonRepository.ToDto(ap.Person)).ToList(),
-                    CurrentMembers = artist.Members.Where(ap => ap.Active).Select(ap => PersonRepository.ToDto(ap.Person)).ToList()
+                    CurrentMembers = artist.Members.Where(ap => ap.Active).Select(ap => PersonRepository.ToDto(ap.Person)).ToList(),
+                    Songs = artist.Songs.Select(@as => SongRepository.ToDto(@as.Song)).ToList()
                 };
             }
             else

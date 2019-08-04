@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MintPlayer.Data.Dtos
 {
@@ -11,6 +12,6 @@ namespace MintPlayer.Data.Dtos
 
         public string Text => $"{FirstName} {LastName}";
 
-        //public List<Artist> Artists { get; set; }
+        public List<Artist> Artists { get; set; }
     }
 }

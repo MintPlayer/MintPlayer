@@ -32,7 +32,9 @@ namespace MintPlayer.Data.Extensions
                 .AddScoped<IRoleRepository, RoleRepository>()
                 .AddScoped<IPersonRepository, PersonRepository>()
                 .AddScoped<IArtistRepository, ArtistRepository>()
-                .AddTransient<ArtistHelper>();
+                .AddScoped<ISongRepository, SongRepository>()
+                .AddTransient<ArtistHelper>()
+                .AddTransient<SongHelper>();
 
             services
                 .AddAuthentication(auth_options =>

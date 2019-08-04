@@ -12,5 +12,6 @@ namespace MintPlayer.Data.Dtos
 
         public List<Person> PastMembers { get; set; }
         public List<Person> CurrentMembers { get; set; }
+        public List<Song> Songs { get; set; }
     }
 }
