@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MintPlayer.Data.Options;
+using MintPlayer.Data.Repositories.Interfaces;
+using MintPlayer.Data.Repositories;
 
 namespace MintPlayer.Data.Extensions
 {
@@ -23,6 +25,10 @@ namespace MintPlayer.Data.Extensions
             services.AddIdentity<Entities.User, Entities.Role>()
                 .AddEntityFrameworkStores<MintPlayerContext>()
                 .AddDefaultTokenProviders();
+
+            services
+                .AddScoped<IAccountRepository, AccountRepository>()
+                .AddScoped<IRoleRepository, RoleRepository>();
 
             services
                 .AddAuthentication(auth_options =>
