@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down';
 
 @Component({
@@ -22,6 +22,15 @@ export class SidebarComponent implements OnInit {
     } else {
       this.level1menu = menu;
     }
+  }
+
+  onLogout() {
+    this.itemSelected.emit();
+  }
+
+  @Output() itemSelected: EventEmitter<any> = new EventEmitter();
+  onItemSelected() {
+    this.itemSelected.emit();
   }
 
   ngOnInit() {

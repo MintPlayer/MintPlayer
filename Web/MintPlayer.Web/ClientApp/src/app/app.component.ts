@@ -26,4 +26,11 @@ export class AppComponent {
         break;
     }
   }
+
+  collapseSidebar() {
+    if (window.innerWidth < 768) {
+      this.toggleButtonState = eToggleButtonState.closed;
+      this.sidebarState = eSidebarState.hide;
+    }
+  }
 }

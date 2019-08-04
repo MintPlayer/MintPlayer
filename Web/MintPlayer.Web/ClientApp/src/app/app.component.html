@@ -6,7 +6,7 @@
     </a>
   </div>
   <div class="app-body" [ngClass]="sidebarState" id="app-body">
-    <app-sidebar></app-sidebar>
+    <app-sidebar (itemSelected)="collapseSidebar()"></app-sidebar>
     <div class="main-body pb-1">
       <div class="main-content m-4 p-4">
         <div [ngClass]="{'mx-auto': true, 'main-container': true, 'width-100': fullWidth}">
