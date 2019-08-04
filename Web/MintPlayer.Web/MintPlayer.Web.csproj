@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -9,12 +9,16 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 
     <!-- Set this to true if you enable server-side prerendering -->
-    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <BuildServerSideRenderer>true</BuildServerSideRenderer>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.6.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
@@ -27,6 +31,17 @@
 
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="ClientApp\tsconfig.app.json" />
+    <None Remove="ClientApp\tsconfig.json" />
+    <None Remove="ClientApp\tsconfig.server.json" />
+    <None Remove="ClientApp\tsconfig.spec.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\tsconfig.app.json" />
+    <Content Include="ClientApp\tsconfig.json" />
+    <Content Include="ClientApp\tsconfig.server.json" />
+    <Content Include="ClientApp\tsconfig.spec.json" />
   </ItemGroup>
 
   <ItemGroup>
