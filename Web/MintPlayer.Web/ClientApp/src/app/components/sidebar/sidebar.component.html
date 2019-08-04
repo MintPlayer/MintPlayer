@@ -1,0 +1,123 @@
+<div class="sidebar">
+  <nav>
+    <ul>
+      <li>
+        <a [routerLink]='["/"]' title="Homepage">
+          <i class="fa fa-home"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <span title="Artists" [ngClass]="{'open':level1menu === 'artists'}" (click)="level1toggle('artists')">
+          <i class="fa fa-user-circle"></i>
+          Artists
+        </span>
+        <ul [@slideUpDown]="level1menu == 'artists' ? 'in' : 'out'">
+          <li>
+            <a [routerLink]='["/artist"]' title="All artists">
+              All artists
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/artist/create"]' title="Add artist">
+              <i class="fa fa-plus"></i>
+              Add artist
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span title="People" [ngClass]="{'open':level1menu === 'people'}" (click)="level1toggle('people')">
+          <i class="fa fa-user-o"></i>
+          People
+        </span>
+        <ul [@slideUpDown]="level1menu == 'people' ? 'in' : 'out'">
+          <li>
+            <a [routerLink]='["/person"]' title="All people">
+              <i class="fa fa-list"></i>
+              All people
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/person/create"]' title="Add person">
+              <i class="fa fa-plus"></i>
+              Add person
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span title="Songs" [ngClass]="{'open':level1menu === 'songs'}" (click)="level1toggle('songs')">
+          <i class="fa fa-music"></i>
+          Songs
+        </span>
+        <ul [@slideUpDown]="level1menu == 'songs' ? 'in' : 'out'">
+          <li>
+            <a [routerLink]='["/song"]' title="All songs">
+              <i class="fa fa-list"></i>
+              All songs
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/song/create"]' title="Add song">
+              <i class="fa fa-plus"></i>
+              Add song
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span title="Manage media" [ngClass]="{'open':level1menu === 'media'}" (click)="level1toggle('media')">
+          <i class="fa fa-medium"></i>
+          Manage media
+        </span>
+        <ul [@slideUpDown]="level1menu == 'media' ? 'in' : 'out'">
+          <li>
+            <a [routerLink]='["/mediumtype"]' title="Manage media">
+              <i class="fa fa-list"></i>
+              All media
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/mediumtype/create"]' title="Add medium">
+              <i class="fa fa-plus"></i>
+              Add medium
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span title="Account" [ngClass]="{'open':level1menu === 'account'}" (click)="level1toggle('account')">
+          <i class="fa fa-user"></i>
+          Account
+        </span>
+        <ul [@slideUpDown]="level1menu == 'account' ? 'in' : 'out'">
+          <li>
+            <a [routerLink]='["/login"]' title="Login">
+              <i class="fa fa-sign-in"></i>
+              Login
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/register"]' title="Create account">
+              <i class="fa fa-user-plus"></i>
+              Register
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/profile"]' title="Profile">
+              <i class="fa fa-user-o"></i>
+              Profile
+            </a>
+          </li>
+          <li>
+            <a title="Log out">
+              <i class="fa fa-sign-out"></i>
+              Sign out
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>

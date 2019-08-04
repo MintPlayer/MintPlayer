@@ -1,0 +1,161 @@
+@import "../styles/variables.scss";
+
+h1 {
+  text-align: center;
+}
+
+.app-header {
+  width: 100%;
+  position: fixed;
+  z-index: $z-index-main;
+  height: $header-height;
+  border-bottom: $grey-border;
+  background: $white;
+
+  .logo {
+    font-size: 2.5rem;
+    line-height: 1.15;
+  }
+}
+
+.app-body {
+  padding-top: $header-height;
+  display: block;
+}
+
+app-navbar-toggler {
+  position: absolute;
+  left: 0;
+}
+
+.main-footer {
+  position: fixed;
+  z-index: $z-index-main;
+  border-top: $grey-border;
+  padding: 0;
+  line-height: $footer-height;
+  transition: left 0.3s, width 0.3s;
+  background: $white;
+  bottom: 0;
+  left: $sidebar-width-lg;
+  right: 0;
+}
+
+.main-content {
+  background: $white;
+  margin-bottom: calc(1.5rem + 45px) !important;
+}
+
+.main-container {
+  max-width: 760px;
+}
+
+.main-container.width-100 {
+  max-width: initial;
+}
+
+app-sidebar {
+  position: fixed;
+  height: calc(100% - #{$header-height});
+  transition: all 0.3s;
+  z-index: 200;
+}
+
+@mixin sidebar-hide-lg {
+  app-sidebar {
+    width: $sidebar-width-lg;
+    margin-left: -$sidebar-width-lg;
+  }
+
+  .main-body {
+    margin-left: 0;
+  }
+
+  .main-footer {
+    left: 0;
+  }
+}
+
+@mixin sidebar-show-lg {
+  app-sidebar {
+    width: $sidebar-width-lg;
+    margin-left: 0;
+  }
+
+  .main-body {
+    margin-left: $sidebar-width-lg;
+  }
+
+  .main-footer {
+    left: $sidebar-width-lg;
+  }
+}
+
+@mixin sidebar-hide-sm {
+  app-sidebar {
+    width: 100%;
+    margin-left: -100%;
+  }
+
+  .main-body {
+    margin-left: 0;
+  }
+
+  .main-footer {
+    left: 0;
+  }
+}
+
+@mixin sidebar-show-sm {
+  app-sidebar {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .main-body {
+    margin-left: 0;
+  }
+
+  .main-footer {
+    left: 0;
+  }
+}
+
+/// Small screen
+@media (max-width: 767px) {
+  .sidebar-auto {
+    @include sidebar-hide-sm;
+  }
+
+  .sidebar-show {
+    @include sidebar-show-sm;
+  }
+
+  .sidebar-hide {
+    @include sidebar-hide-sm;
+  }
+}
+
+/// Wide screen
+@media (min-width: 768px) {
+  .sidebar-auto {
+    @include sidebar-show-lg;
+  }
+
+  .sidebar-show {
+    @include sidebar-show-lg;
+  }
+
+  .sidebar-hide {
+    @include sidebar-hide-lg;
+  }
+}
+
+.main-body {
+  transition: all 0.3s;
+}
+
+.breadcrumb {
+  background: $white;
+  border-bottom: $grey-border;
+}

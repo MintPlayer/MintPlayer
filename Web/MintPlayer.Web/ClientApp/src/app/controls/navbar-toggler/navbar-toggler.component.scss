@@ -1,0 +1,46 @@
+@import "../../../styles/variables.scss";
+
+@mixin toggle-button-cross {
+  > div:nth-of-type(1) {
+    -webkit-transform: rotate(-45deg) translate(-7px, 5px);
+    transform: rotate(-45deg) translate(-7px, 5px);
+  }
+
+  > div:nth-of-type(2) {
+    opacity: 0;
+  }
+
+  > div:nth-of-type(3) {
+    -webkit-transform: rotate(45deg) translate(-6px, -4px);
+    transform: rotate(45deg) translate(-6px, -4px);
+  }
+}
+
+.navbar-toggler {
+  width: $header-height;
+  padding: 0.75rem;
+
+  > div {
+    width: 25px;
+    height: 2px;
+    background: #BBB;
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+
+  &.open {
+    // sidebar forced visible
+    @include toggle-button-cross;
+  }
+
+  &.closed {
+    // sidebar forced hidden
+  }
+
+  &.auto {
+    @media (min-width:768px) {
+      // sidebar auto
+      @include toggle-button-cross;
+    }
+  }
+}
