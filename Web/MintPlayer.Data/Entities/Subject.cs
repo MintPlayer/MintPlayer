@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MintPlayer.Data.Entities
@@ -8,6 +9,8 @@ namespace MintPlayer.Data.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        public List<Like> Likes { get; set; }
 
         public User UserInsert { get; set; }
         public User UserUpdate { get; set; }

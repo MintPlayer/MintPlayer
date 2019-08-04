@@ -9,6 +9,7 @@ namespace MintPlayer.Data
         internal DbSet<Person> People { get; set; }
         internal DbSet<Artist> Artists { get; set; }
         internal DbSet<Song> Songs { get; set; }
+        internal DbSet<Like> Likes { get; set; }
 
         public MintPlayerContext() : base()
         {
@@ -54,6 +55,11 @@ namespace MintPlayer.Data
                 .HasValue<Person>("person")
                 .HasValue<Artist>("artist")
                 .HasValue<Song>("song");
+
+            // Many-to-many Subject-User (Like)
+            modelBuilder.Entity<Like>().HasKey(like => new { like.SubjectId, like.UserId });
+            modelBuilder.Entity<Like>().HasOne(like => like.Subject).WithMany(s => s.Likes).HasForeignKey(su => su.SubjectId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Like>().HasOne(like => like.User).WithMany(u => u.Likes).HasForeignKey(su => su.UserId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
