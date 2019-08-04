@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MintPlayer.Data.Options;
 using MintPlayer.Data.Repositories.Interfaces;
 using MintPlayer.Data.Repositories;
+using MintPlayer.Data.Helpers;
 
 namespace MintPlayer.Data.Extensions
 {
@@ -29,7 +30,9 @@ namespace MintPlayer.Data.Extensions
             services
                 .AddScoped<IAccountRepository, AccountRepository>()
                 .AddScoped<IRoleRepository, RoleRepository>()
-                .AddScoped<IPersonRepository, PersonRepository>();
+                .AddScoped<IPersonRepository, PersonRepository>()
+                .AddScoped<IArtistRepository, ArtistRepository>()
+                .AddTransient<ArtistHelper>();
 
             services
                 .AddAuthentication(auth_options =>
