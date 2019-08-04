@@ -33,6 +33,8 @@ namespace MintPlayer.Data.Repositories
                         .ThenInclude(ap => ap.Person)
                     .Include(artist => artist.Songs)
                         .ThenInclude(@as => @as.Song)
+                    .Include(artist => artist.Media)
+                        .ThenInclude(m => m.Type)
                     .Select(artist => ToDto(artist, true));
                 return artists;
             }
@@ -53,6 +55,8 @@ namespace MintPlayer.Data.Repositories
                         .ThenInclude(ap => ap.Person)
                     .Include(a => a.Songs)
                         .ThenInclude(@as => @as.Song)
+                    .Include(a => a.Media)
+                        .ThenInclude(m => m.Type)
                     .SingleOrDefault(a => a.Id == id);
                 return ToDto(artist, true);
             }
@@ -141,7 +145,8 @@ namespace MintPlayer.Data.Repositories
 
                     PastMembers = artist.Members.Where(ap => !ap.Active).Select(ap => PersonRepository.ToDto(ap.Person)).ToList(),
                     CurrentMembers = artist.Members.Where(ap => ap.Active).Select(ap => PersonRepository.ToDto(ap.Person)).ToList(),
-                    Songs = artist.Songs.Select(@as => SongRepository.ToDto(@as.Song)).ToList()
+                    Songs = artist.Songs.Select(@as => SongRepository.ToDto(@as.Song)).ToList(),
+                    Media = artist.Media.Select(medium => MediumRepository.ToDto(medium, true)).ToList()
                 };
             }
             else
@@ -175,6 +180,13 @@ namespace MintPlayer.Data.Repositories
                 return new Entities.ArtistPerson(entity_artist, entity_person) { Active = false };
             }));
             entity_artist.Members = artist_person.ToList();
+            #endregion
+            #region Media
+            entity_artist.Media = artist.Media.Select(m => {
+                var medium = MediumRepository.ToEntity(m, mintplayer_context);
+                medium.Subject = entity_artist;
+                return medium;
+            }).ToList();
             #endregion
 
             return entity_artist;

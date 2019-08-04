@@ -27,6 +27,8 @@ namespace MintPlayer.Data.Repositories
                 var people = mintplayer_context.People
                     .Include(person => person.Artists)
                         .ThenInclude(ap => ap.Artist)
+                    .Include(person => person.Media)
+                        .ThenInclude(m => m.Type)
                     .Select(person => ToDto(person, true));
                 return people;
             }
@@ -45,6 +47,8 @@ namespace MintPlayer.Data.Repositories
                 var person = mintplayer_context.People
                     .Include(p => p.Artists)
                         .ThenInclude(ap => ap.Artist)
+                    .Include(p => p.Media)
+                        .ThenInclude(m => m.Type)
                     .SingleOrDefault(p => p.Id == id);
                 return ToDto(person, true);
             }
@@ -124,7 +128,8 @@ namespace MintPlayer.Data.Repositories
                     Born = person.Born,
                     Died = person.Died,
 
-                    Artists = person.Artists.Select(ap => ArtistRepository.ToDto(ap.Artist)).ToList()
+                    Artists = person.Artists.Select(ap => ArtistRepository.ToDto(ap.Artist)).ToList(),
+                    Media = person.Media.Select(medium => MediumRepository.ToDto(medium, true)).ToList()
                 };
             }
             else
@@ -150,6 +155,11 @@ namespace MintPlayer.Data.Repositories
                 Born = person.Born,
                 Died = person.Died
             };
+            entity_person.Media = person.Media.Select(m => {
+                var medium = MediumRepository.ToEntity(m, mintplayer_context);
+                medium.Subject = entity_person;
+                return medium;
+            }).ToList();
             return entity_person;
         }
         #endregion

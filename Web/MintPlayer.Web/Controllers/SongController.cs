@@ -14,9 +14,11 @@ namespace MintPlayer.Web.Controllers
     public class SongController : Controller
     {
         private ISongRepository songRepository;
-        public SongController(ISongRepository songRepository)
+        private IMediumRepository mediumRepository;
+        public SongController(ISongRepository songRepository, IMediumRepository mediumRepository)
         {
             this.songRepository = songRepository;
+            this.mediumRepository = mediumRepository;
         }
 
         // GET: api/Song
@@ -39,6 +41,7 @@ namespace MintPlayer.Web.Controllers
         public async Task<Song> Post([FromBody] SongCreateVM songCreateVM)
         {
             var song = await songRepository.InsertSong(songCreateVM.Song);
+            await mediumRepository.StoreMedia(songCreateVM.Song, songCreateVM.Song.Media);
             return song;
         }
         // PUT: api/Song/5
@@ -47,6 +50,7 @@ namespace MintPlayer.Web.Controllers
         public async Task Put(int id, [FromBody] SongUpdateVM songUpdateVM)
         {
             await songRepository.UpdateSong(songUpdateVM.Song);
+            await mediumRepository.StoreMedia(songUpdateVM.Song, songUpdateVM.Song.Media);
             await songRepository.SaveChangesAsync();
         }
         // DELETE: api/ApiWithActions/5

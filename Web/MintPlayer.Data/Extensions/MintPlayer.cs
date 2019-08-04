@@ -35,6 +35,7 @@ namespace MintPlayer.Data.Extensions
                 .AddScoped<ISongRepository, SongRepository>()
                 .AddScoped<ISubjectRepository, SubjectRepository>()
                 .AddScoped<IMediumTypeRepository, MediumTypeRepository>()
+                .AddScoped<IMediumRepository, MediumRepository>()
                 .AddTransient<ArtistHelper>()
                 .AddTransient<SongHelper>();
 

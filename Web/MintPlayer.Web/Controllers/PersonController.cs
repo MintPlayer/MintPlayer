@@ -15,9 +15,11 @@ namespace MintPlayer.Web.Controllers
     public class PersonController : Controller
     {
         private IPersonRepository personRepository;
-        public PersonController(IPersonRepository personRepository)
+        private IMediumRepository mediumRepository;
+        public PersonController(IPersonRepository personRepository, IMediumRepository mediumRepository)
         {
             this.personRepository = personRepository;
+            this.mediumRepository = mediumRepository;
         }
 
         // GET: api/Person
@@ -42,6 +44,7 @@ namespace MintPlayer.Web.Controllers
         public async Task<Person> Post([FromBody] PersonCreateVM personCreateVM)
         {
             var person = await personRepository.InsertPerson(personCreateVM.Person);
+            await mediumRepository.StoreMedia(personCreateVM.Person, personCreateVM.Person.Media);
             return person;
         }
 
@@ -51,6 +54,7 @@ namespace MintPlayer.Web.Controllers
         public async Task Put(int id, [FromBody] PersonUpdateVM personUpdateVM)
         {
             await personRepository.UpdatePerson(personUpdateVM.Person);
+            await mediumRepository.StoreMedia(personUpdateVM.Person, personUpdateVM.Person.Media);
             await personRepository.SaveChangesAsync();
         }
 

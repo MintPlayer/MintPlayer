@@ -10,6 +10,7 @@ namespace MintPlayer.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public List<Medium> Media { get; set; }
         public List<Like> Likes { get; set; }
 
         public User UserInsert { get; set; }

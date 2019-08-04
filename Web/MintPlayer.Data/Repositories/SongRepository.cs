@@ -32,6 +32,8 @@ namespace MintPlayer.Data.Repositories
                     .Include(song => song.Lyrics)
                     .Include(song => song.Artists)
                         .ThenInclude(@as => @as.Artist)
+                    .Include(song => song.Media)
+                        .ThenInclude(m => m.Type)
                     .Select(song => ToDto(song, true));
                 return songs;
             }
@@ -52,6 +54,8 @@ namespace MintPlayer.Data.Repositories
                     .Include(s => s.Lyrics)
                     .Include(s => s.Artists)
                         .ThenInclude(@as => @as.Artist)
+                    .Include(s => s.Media)
+                        .ThenInclude(m => m.Type)
                     .SingleOrDefault(s => s.Id == id);
                 return ToDto(song, true);
             }
@@ -154,7 +158,8 @@ namespace MintPlayer.Data.Repositories
                     Released = song.Released,
                     Lyrics = song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault()?.Text,
 
-                    Artists = song.Artists.Select(@as => ArtistRepository.ToDto(@as.Artist)).ToList()
+                    Artists = song.Artists.Select(@as => ArtistRepository.ToDto(@as.Artist)).ToList(),
+                    Media = song.Media.Select(medium => MediumRepository.ToDto(medium, true)).ToList()
                 };
             }
             else
@@ -186,6 +191,11 @@ namespace MintPlayer.Data.Repositories
             entity_song.Lyrics = new List<Entities.Lyrics>(new[] {
                 new Entities.Lyrics { Song = entity_song, User = user, Text = song.Lyrics }
             });
+            entity_song.Media = song.Media.Select(m => {
+                var medium = MediumRepository.ToEntity(m, mintplayer_context);
+                medium.Subject = entity_song;
+                return medium;
+            }).ToList();
             return entity_song;
         }
         #endregion

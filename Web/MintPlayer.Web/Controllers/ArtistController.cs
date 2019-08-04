@@ -14,9 +14,11 @@ namespace MintPlayer.Web.Controllers
     public class ArtistController : Controller
     {
         private IArtistRepository artistRepository;
-        public ArtistController(IArtistRepository artistRepository)
+        private IMediumRepository mediumRepository;
+        public ArtistController(IArtistRepository artistRepository, IMediumRepository mediumRepository)
         {
             this.artistRepository = artistRepository;
+            this.mediumRepository = mediumRepository;
         }
 
         // GET: api/Artist
@@ -41,6 +43,7 @@ namespace MintPlayer.Web.Controllers
         public async Task<Artist> Post([FromBody] ArtistCreateVM artistCreateVM)
         {
             var artist = await artistRepository.InsertArtist(artistCreateVM.Artist);
+            await mediumRepository.StoreMedia(artistCreateVM.Artist, artistCreateVM.Artist.Media);
             return artist;
         }
 
@@ -50,6 +53,7 @@ namespace MintPlayer.Web.Controllers
         public async Task Put(int id, [FromBody] ArtistUpdateVM artistUpdateVM)
         {
             await artistRepository.UpdateArtist(artistUpdateVM.Artist);
+            await mediumRepository.StoreMedia(artistUpdateVM.Artist, artistUpdateVM.Artist.Media);
             await artistRepository.SaveChangesAsync();
         }
 
