@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Data.Extensions;
+using MintPlayer.Data.Options;
 
 namespace MintPlayer.Web
 {
@@ -67,6 +68,15 @@ namespace MintPlayer.Web
                     // User settings
                     options.User.RequireUniqueEmail = true;
                     options.User.AllowedUserNameCharacters = string.Empty;
+
+                })
+                .Configure<JwtIssuerOptions>(options =>
+                {
+                    options.Issuer = Configuration["JwtIssuerOptions:Issuer"];
+                    options.Subject = Configuration["JwtIssuerOptions:Subject"];
+                    options.Audience = Configuration["JwtIssuerOptions:Audience"];
+                    options.ValidFor = Configuration.GetValue<TimeSpan>("JwtIssuerOptions:ValidFor");
+                    options.Key = Configuration["JwtIssuerOptions:Key"];
 
                 });
         }

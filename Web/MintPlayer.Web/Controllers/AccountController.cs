@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MintPlayer.Data.Dtos;
 using MintPlayer.Data.Exceptions.Account;
 using MintPlayer.Data.Repositories.Interfaces;
 using MintPlayer.Web.ViewModels.Account;
@@ -35,6 +37,32 @@ namespace MintPlayer.Web.Controllers
             {
                 return StatusCode(500);
             }
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody]LoginVM loginVM)
+        {
+            try
+            {
+                var login_result = await accountRepository.LocalLogin(loginVM.Email, loginVM.Password, true);
+                return Ok(login_result);
+            }
+            catch (LoginException loginEx)
+            {
+                return Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("current-user")]
+        public async Task<User> GetCurrentUser()
+        {
+            var user = await accountRepository.GetCurrentUser(User);
+            return user;
         }
     }
 }
