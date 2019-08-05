@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down';
+import { User } from '../../interfaces/account/user';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +15,8 @@ export class SidebarComponent implements OnInit {
   constructor() {
   }
 
+  @Input() activeUser: User;
+
   level1menu: string = "";
   level2menu: string = "";
   level1toggle(menu: string) {
@@ -24,7 +27,9 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  @Output() logoutClicked: EventEmitter<string> = new EventEmitter();
   onLogout() {
+    this.logoutClicked.emit();
     this.itemSelected.emit();
   }
 

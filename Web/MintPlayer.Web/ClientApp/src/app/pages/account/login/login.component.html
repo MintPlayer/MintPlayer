@@ -1,1 +1,47 @@
-<p>login works!</p>
+<div class="container">
+  <form (submit)="login()">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-center">Login</h1>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="txt_email" class="input-label col-sm-4 col-xl-3">Email address</label>
+      <div class="col-sm-8 col-xl-9">
+        <div class="input-group">
+          <input type="text" [(ngModel)]="email" class="form-control" id="txt_email" name="email" />
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="txt_password" class="input-label col-sm-4 col-xl-3">Password</label>
+      <div class="col-sm-8 col-xl-9">
+        <div class="input-group">
+          <input type="password" [(ngModel)]="password" class="form-control" id="txt_password" name="password" />
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-sign-in"></i>
+          Login
+        </button>
+        <button (click)="forgotPassword()" class="btn btn-default background-none" title="Forgot password">
+          <i class="fa fa-question-circle-o"></i>
+          Forgot password
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center">
+        <div *ngIf="loginResult.status == false" class="alert alert-danger" role="alert">
+          <p>
+            <b>{{ loginResult.error }}</b>
+          </p>
+          <p>{{ loginResult.errorDescription }}</p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

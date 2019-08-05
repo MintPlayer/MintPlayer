@@ -64,5 +64,13 @@ namespace MintPlayer.Web.Controllers
             var user = await accountRepository.GetCurrentUser(User);
             return user;
         }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logoout()
+        {
+            await accountRepository.Logout();
+            return Ok();
+        }
     }
 }

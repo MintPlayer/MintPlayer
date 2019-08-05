@@ -94,6 +94,15 @@ namespace MintPlayer.Data.Repositories
             return ToDto(user);
         }
 
+        public async Task Logout()
+        {
+            // In case you use cookies
+            //await signin_manager.SignOutAsync();
+
+            // In case you use JWT
+            // In case you would want to blacklist the token, you can do so here
+        }
+
         #region Helper methods
         private string CreateToken(Entities.User user)
         {

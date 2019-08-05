@@ -33,6 +33,8 @@
     <None Remove=".gitignore" />
     <None Remove="ClientApp\src\app\enums\eSidebarState.ts" />
     <None Remove="ClientApp\src\app\enums\eToggleButtonState.ts" />
+    <None Remove="ClientApp\src\app\interfaces\account\userData.ts" />
+    <None Remove="ClientApp\src\app\interfaces\loginResult.ts" />
     <None Remove="ClientApp\src\styles\animations\slide-up-down.ts" />
     <None Remove="ClientApp\tsconfig.app.json" />
     <None Remove="ClientApp\tsconfig.json" />

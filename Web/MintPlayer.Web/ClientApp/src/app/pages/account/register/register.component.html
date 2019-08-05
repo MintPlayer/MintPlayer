@@ -1,1 +1,47 @@
-<p>register works!</p>
+<div class="container">
+  <form (submit)="register()">
+    <div class="form-group row">
+      <div class="col-12">
+        <h1 class="d-inline-block">Create account</h1>
+        <span class="float-right">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            Create account
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="txt_username" class="input-label col-sm-4 col-xl-3">Username</label>
+      <div class="col-sm-8 col-xl-9">
+        <div class="input-group">
+          <input type="text" [(ngModel)]="data.user.userName" class="form-control" id="txt_username" name="username" />
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="txt_email" class="input-label col-sm-4 col-xl-3">Email address</label>
+      <div class="col-sm-8 col-xl-9">
+        <div class="input-group">
+          <input type="text" [(ngModel)]="data.user.email" class="form-control" id="txt_email" name="email" />
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="txt_password" class="input-label col-sm-4 col-xl-3">Password</label>
+      <div class="col-sm-8 col-xl-9">
+        <div class="input-group">
+          <input type="password" [(ngModel)]="data.password" class="form-control" id="txt_password" name="password" />
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="txt_password_confirmation" class="input-label col-sm-4 col-xl-3">Repeat password</label>
+      <div class="col-sm-8 col-xl-9">
+        <div class="input-group">
+          <input type="password" [(ngModel)]="data.passwordConfirmation" class="form-control" id="txt_password_confirmation" name="password_confirmation" />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

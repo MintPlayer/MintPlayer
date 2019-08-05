@@ -15,6 +15,7 @@
         <ul [@slideUpDown]="level1menu == 'artists' ? 'in' : 'out'">
           <li>
             <a [routerLink]='["/artist"]' title="All artists" (click)="onItemSelected()">
+              <i class="fa fa-list"></i>
               All artists
             </a>
           </li>
@@ -92,25 +93,25 @@
           Account
         </span>
         <ul [@slideUpDown]="level1menu == 'account' ? 'in' : 'out'">
-          <li>
+          <li *ngIf="activeUser === null">
             <a [routerLink]='["/login"]' title="Login" (click)="onItemSelected()">
               <i class="fa fa-sign-in"></i>
               Login
             </a>
           </li>
-          <li>
+          <li *ngIf="activeUser === null">
             <a [routerLink]='["/register"]' title="Create account" (click)="onItemSelected()">
               <i class="fa fa-user-plus"></i>
               Register
             </a>
           </li>
-          <li>
+          <li *ngIf="activeUser !== null">
             <a [routerLink]='["/profile"]' title="Profile" (click)="onItemSelected()">
               <i class="fa fa-user-o"></i>
               Profile
             </a>
           </li>
-          <li>
+          <li *ngIf="activeUser !== null">
             <a title="Log out" (click)="onLogout()">
               <i class="fa fa-sign-out"></i>
               Sign out
