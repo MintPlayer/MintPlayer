@@ -1,1 +1,64 @@
-<p>show works!</p>
+<div class="container" *ngIf="song != null">
+  <div class="form-group row">
+    <div class="col-12">
+      <h1 class="d-inline-block">{{ song.title }}</h1>
+      <span class="float-none d-block float-sm-right d-sm-inline-block">
+        <span class="float-none d-block float-sm-right d-sm-inline-block">
+          <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/song", song.id, "edit"]'>
+            <i class="fa fa-edit"></i>
+            Edit
+          </a>
+          <button class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto" (click)="deleteSong()">
+            <i class="fa fa-trash"></i>
+            Remove
+          </button>
+        </span>
+        <br class="d-none d-sm-inline-block" />
+        <subject-like [subject]="song" class="float-none d-block float-sm-right d-sm-inline-block"></subject-like>
+      </span>
+    </div>
+  </div>
+  <card class="d-block mb-3">
+    <header>
+      <i class="fa fa-info"></i>
+      General information
+    </header>
+    <content>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5 col-xl-3">
+            <label class="font-weight-bold">Title</label>
+          </div>
+          <div class="col-sm-7 col-xl-9">
+            <label>{{ song.title }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 col-xl-3">
+            <label class="font-weight-bold">Released</label>
+          </div>
+          <div class="col-sm-7 col-xl-9">
+            <label>{{ song.released | date:'dd-MM-yyyy' }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 col-xl-3">
+            <label class="font-weight-bold">Artists</label>
+          </div>
+          <div class="col-sm-7 col-xl-9 comma-list">
+            <a *ngFor="let artist of song.artists; let last = last" [routerLink]='["/artist",artist.id]' title="Details for {{ artist.name }}">{{ artist.name }}</a>
+          </div>
+        </div>
+      </div>
+    </content>
+  </card>
+  <card>
+    <header>
+      <i class="fa fa-music"></i>
+      Lyrics
+    </header>
+    <content>
+      <pre class="font-family-inherit font-size-inherit">{{ song.lyrics }}</pre>
+    </content>
+  </card>
+</div>

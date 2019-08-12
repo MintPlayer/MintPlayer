@@ -1,1 +1,54 @@
-<p>edit works!</p>
+<div class="container">
+  <form (submit)="updateSong()">
+    <div class="form-group row">
+      <div class="col-12">
+        <h1 class="d-inline-block">Edit song: {{ oldSongTitle }}</h1>
+        <span class="float-right">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            Update song
+          </button>
+        </span>
+      </div>
+    </div>
+    <card class="d-block mb-3">
+      <header>
+        <i class="fa fa-info"></i>
+        General information
+      </header>
+      <content>
+        <div class="form-group row">
+          <label for="txt_title" class="input-label col-sm-4 col-xl-2">Title</label>
+          <div class="col-sm-8 col-xl-10">
+            <div class="input-group">
+              <input type="text" [(ngModel)]="song.title" class="form-control" id="txt_title" name="title" autofocus />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="txt_released" class="input-label col-sm-4 col-xl-2">Released</label>
+          <div class="col-sm-8 col-xl-10">
+            <div class="input-group">
+              <input type="date" [ngModel]="song.released | date:'yyyy-MM-dd'" (ngModelChange)="song.released = $event" name="released" class="form-control" id="txt_released" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="sel_artists" class="input-label col-sm-4 col-xl-2">Artists</label>
+          <div class="col-sm-8 col-xl-10">
+            <div class="input-group">
+              <select2 [url]="'/api/subject/search/suggest/artist'" [method]="'get'" [headers]="httpHeaders" [items]="song.artists" (itemChanged)="artistChanged($event)"></select2>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="txt_lyrics" class="input-label col-sm-4 col-xl-2">Lyrics</label>
+          <div class="col-sm-8 col-xl-10">
+            <textarea [(ngModel)]="song.lyrics" class="form-control" rows="15" id="txt_lyrics" name="lyrics"></textarea>
+            <button class="btn btn-warning w-100">Remove [ and ]</button>
+          </div>
+        </div>
+      </content>
+    </card>
+  </form>
+</div>
