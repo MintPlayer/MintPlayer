@@ -36,12 +36,14 @@
     <None Remove="ClientApp\src\app\enums\eSidebarState.ts" />
     <None Remove="ClientApp\src\app\enums\eSubjectType.ts" />
     <None Remove="ClientApp\src\app\enums\eToggleButtonState.ts" />
+    <None Remove="ClientApp\src\app\helpers\playerTypeHelper.ts" />
     <None Remove="ClientApp\src\app\interfaces\account\userData.ts" />
     <None Remove="ClientApp\src\app\interfaces\artist.ts" />
     <None Remove="ClientApp\src\app\interfaces\loginResult.ts" />
     <None Remove="ClientApp\src\app\interfaces\medium-type.ts" />
     <None Remove="ClientApp\src\app\interfaces\medium.ts" />
     <None Remove="ClientApp\src\app\interfaces\person.ts" />
+    <None Remove="ClientApp\src\app\interfaces\playerType.ts" />
     <None Remove="ClientApp\src\app\interfaces\SearchResults.ts" />
     <None Remove="ClientApp\src\app\interfaces\song.ts" />
     <None Remove="ClientApp\src\app\interfaces\subjectLikeResponse.ts" />

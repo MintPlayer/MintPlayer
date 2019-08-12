@@ -1,1 +1,43 @@
-<p>show works!</p>
+<div class="container">
+  <div class="form-group row">
+    <div class="col-12">
+      <h1 class="d-inline-block">{{ mediumType.description }}</h1>
+      <span class="float-right">
+        <a class="btn btn-primary" [routerLink]='["/mediumtype", mediumType.id, "edit"]'>
+          <i class="fa fa-edit"></i>
+          Edit
+        </a>
+        <button class="btn btn-secondary" (click)="deleteMediumType()">
+          <i class="fa fa-trash"></i>
+          Remove
+        </button>
+      </span>
+    </div>
+  </div>
+  <card class="d-block mb-3">
+    <header>
+      <i class="fa fa-info"></i>
+      General information
+    </header>
+    <content>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Description</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label>{{ mediumType.description }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Player type</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label>{{ playerTypeEnum[mediumType.playerType] }}</label>
+          </div>
+        </div>
+      </div>
+    </content>
+  </card>
+</div>
