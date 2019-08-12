@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonService } from '../../../services/person/person.service';
+import { Person } from '../../../interfaces/person';
 
 @Component({
   selector: 'app-create',
@@ -7,7 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private personService: PersonService, private mediumTypeService: MediumTypeService, private router: Router, private titleService: Title) {
+    this.titleService.setTitle('Create person');
+  }
+
+  public person: Person = {
+    id: 0,
+    firstName: "",
+    lastName: "",
+    born: null,
+    died: null,
+    artists: [],
+    media: [],
+    text: ""
+  };
+
+  public savePerson() {
+    this.personService.createPerson(this.person).subscribe((person) => {
+      this.router.navigate(["person", person.id]);
+    });
+  }
 
   ngOnInit() {
   }

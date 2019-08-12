@@ -1,1 +1,89 @@
-<p>show works!</p>
+<div class="container" *ngIf="person != null">
+  <div class="form-group row">
+    <div class="col-12">
+      <h1 class="d-inline-block">{{ person.firstName + " " + person.lastName }}</h1>
+      <span class="float-none d-block float-sm-right d-sm-inline-block">
+        <span class="float-none d-block float-sm-right d-sm-inline-block">
+          <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/person", person.id, "edit"]'>
+            <i class="fa fa-edit"></i>
+            Edit
+          </a>
+          <button class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto" (click)="deletePerson()">
+            <i class="fa fa-trash"></i>
+            Remove
+          </button>
+        </span>
+        <br class="d-none d-sm-inline-block" />
+        <!--<subject-like [subject]="person" class="float-none d-block float-sm-right d-sm-inline-block"></subject-like>-->
+      </span>
+    </div>
+  </div>
+  <card-component class="d-block mb-3">
+    <header>
+      <i class="fa fa-info"></i>
+      General information
+    </header>
+    <content>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">First name</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label>{{ person.firstName }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Last name</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label>{{ person.lastName }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Birth day</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label>{{ person.born | date:'dd-MM-yyyy' }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Died</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label>{{ person.died | date:'dd-MM-yyyy' }}</label>
+          </div>
+        </div>
+      </div>
+    </content>
+  </card-component>
+  <card-component class="d-block mb-3">
+    <header>
+      <i class="fa fa-user-circle"></i>
+      Member of
+    </header>
+    <content>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover m-0">
+          <thead>
+            <tr>
+              <th>Artist name</th>
+              <th>Joined</th>
+              <th>Left</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let artist of person.artists">
+              <td><a [routerLink]='["/artist",artist.id]' title="Details for {{ artist.name }}">{{ artist.name }}</a></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </content>
+  </card-component>
+</div>

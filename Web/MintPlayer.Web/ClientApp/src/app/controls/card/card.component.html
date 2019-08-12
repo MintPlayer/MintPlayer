@@ -1,0 +1,8 @@
+<div class="card">
+  <div class="card-header">
+    <ng-content select="header"></ng-content>
+  </div>
+  <div class="card-body" [ngClass]="{'p-0':noPadding}">
+    <ng-content select="content"></ng-content>
+  </div>
+</div>

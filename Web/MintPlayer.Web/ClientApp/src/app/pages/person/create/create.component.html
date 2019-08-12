@@ -1,1 +1,55 @@
-<p>create works!</p>
+<div class="container">
+  <form (submit)="savePerson()">
+    <div class="form-group row">
+      <div class="col-12">
+        <h1 class="d-inline-block">Create new person</h1>
+        <span class="float-right">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            Create person
+          </button>
+        </span>
+      </div>
+    </div>
+    <card-component>
+      <header>
+        <i class="fa fa-info"></i>
+        General information
+      </header>
+      <content>
+        <div class="form-group row">
+          <label for="txt_first_name" class="input-label col-sm-4 col-xl-2">First name</label>
+          <div class="col-sm-8 col-xl-10">
+            <div class="input-group">
+              <input type="text" [(ngModel)]="person.firstName" class="form-control" id="txt_first_name" name="first_name" autofocus />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="txt_last_name" class="input-label col-sm-4 col-xl-2">Last name</label>
+          <div class="col-sm-8 col-xl-10">
+            <div class="input-group">
+              <input type="text" [(ngModel)]="person.lastName" class="form-control" id="txt_last_name" name="last_name" autofocus />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="txt_born" class="input-label col-sm-4 col-xl-2">Birth day</label>
+          <div class="col-sm-8 col-xl-10">
+            <div class="input-group">
+              <input type="date" [ngModel]="person.born | date:'yyyy-MM-dd'" (ngModelChange)="person.born = $event" name="born" class="form-control" id="txt_born" autofocus />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="txt_died" class="input-label col-sm-4 col-xl-2">Died</label>
+          <div class="col-sm-8 col-xl-10">
+            <div class="input-group">
+              <input type="date" [ngModel]="person.died | date:'yyyy-MM-dd'" (ngModelChange)="person.died = $event" name="died" class="form-control" id="txt_died" autofocus />
+            </div>
+          </div>
+        </div>
+      </content>
+    </card-component>
+  </form>
+</div>

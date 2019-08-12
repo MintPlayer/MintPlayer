@@ -1,0 +1,8 @@
+<button title="I like this" (click)="like(true)" [disabled]="!data.authenticated || (data.like == true)" [style.visibility]="loading ? 'hidden' : 'visible'" class="btn btn-success m-0 d-block d-sm-inline-block w-100 w-sm-auto">
+  <i class="fa fa-thumbs-up"></i>
+  {{ data.likes }}
+</button>
+<button title="I don't like this" (click)="like(false)" [disabled]="!data.authenticated || (data.like == false)" [style.visibility]="loading ? 'hidden' : 'visible'" class="btn btn-danger m-0 d-block d-sm-inline-block w-100 w-sm-auto">
+  <i class="fa fa-thumbs-down"></i>
+  {{ data.dislikes }}
+</button>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { SubjectModule } from './subject/subject.module';
 
 
 
@@ -11,10 +12,12 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    SubjectModule
   ],
   exports: [
-    SidebarComponent
+    SidebarComponent,
+    SubjectModule
   ]
 })
 export class ComponentsModule { }
