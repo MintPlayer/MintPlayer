@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ISelect2Element } from './ISelect2Element';
 
 @Component({
-  selector: 'app-select2',
+  selector: 'select2',
   templateUrl: './select2.component.html',
   styleUrls: ['./select2.component.scss'],
 	host: {

@@ -1,1 +1,63 @@
-<p>edit works!</p>
+<div class="container">
+  <form (submit)="updateArtist()">
+    <div class="form-group row">
+      <div class="col-12">
+        <h1 class="d-inline-block">Edit artist: {{ oldName }}</h1>
+        <span class="float-right">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            Update artist
+          </button>
+        </span>
+      </div>
+    </div>
+    <card>
+      <header>
+        <i class="fa fa-info"></i>
+        General information
+      </header>
+      <content>
+        <div class="form-group row">
+          <label for="txt_name" class="input-label col-sm-4 col-xl-3">Name</label>
+          <div class="col-sm-8 col-xl-9">
+            <div class="input-group">
+              <input type="text" [(ngModel)]="artist.name" class="form-control" id="txt_name" name="name" autofocus />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="txt_year_started" class="input-label col-sm-4 col-xl-3">Year started</label>
+          <div class="col-sm-8 col-xl-9">
+            <div class="input-group">
+              <input type="number" [(ngModel)]="artist.yearStarted" class="form-control" id="txt_year_started" name="year_started" autofocus />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="txt_quit" class="input-label col-sm-4 col-xl-3">Year quit</label>
+          <div class="col-sm-8 col-xl-9">
+            <div class="input-group">
+              <input type="number" [(ngModel)]="artist.yearQuit" class="form-control" id="txt_quit" name="year_quit" autofocus />
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="sel_current_members" class="input-label col-sm-4 col-xl-3">Current members</label>
+          <div class="col-sm-8 col-xl-9">
+            <div class="input-group">
+              <select2 [url]="'/api/subject/search/suggest/person'" [method]="'get'" [headers]="httpHeaders" [(items)]="artist.currentMembers" (itemChanged)="CurrentMemberChanged($event)"></select2>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="sel_current_members" class="input-label col-sm-4 col-xl-3">Past members</label>
+          <div class="col-sm-8 col-xl-9">
+            <div class="input-group">
+              <select2 [url]="'/api/subject/search/suggest/person'" [method]="'get'" [headers]="httpHeaders" [(items)]="artist.pastMembers" (itemChanged)="PastMemberChanged($event)"></select2>
+            </div>
+          </div>
+        </div>
+      </content>
+    </card>
+  </form>
+</div>

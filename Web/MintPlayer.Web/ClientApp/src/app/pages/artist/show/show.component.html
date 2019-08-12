@@ -1,1 +1,71 @@
-<p>show works!</p>
+<div class="container" *ngIf="artist != null">
+  <div class="form-group row">
+    <div class="col-12">
+      <h1 class="d-inline-block">{{ artist.name }}</h1>
+      <span class="float-none d-block float-sm-right d-sm-inline-block">
+        <span class="float-none d-block float-sm-right d-sm-inline-block">
+          <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/artist", artist.id, "edit"]'>
+            <i class="fa fa-edit"></i>
+            Edit
+          </a>
+          <button class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto" (click)="deleteArtist()">
+            <i class="fa fa-trash"></i>
+            Remove
+          </button>
+        </span>
+        <br class="d-none d-sm-inline-block" />
+        <!--<subject-like [subject]="artist" class="float-none d-block float-sm-right d-sm-inline-block"></subject-like>-->
+      </span>
+    </div>
+  </div>
+  <card class="d-block mb-3">
+    <header>
+      <i class="fa fa-info"></i>
+      General information
+    </header>
+    <content>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Name</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label>{{ artist.name }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Year started</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label>{{ artist.yearStarted }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Year quit</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label>{{ artist.yearQuit }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Current members</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label *ngFor="let person of artist.currentMembers">{{ person.firstName + ' ' + person.lastName }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Past members</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label *ngFor="let person of artist.pastMembers">{{ person.firstName + ' ' + person.lastName }}</label>
+          </div>
+        </div>
+      </div>
+    </content>
+  </card>
+</div>

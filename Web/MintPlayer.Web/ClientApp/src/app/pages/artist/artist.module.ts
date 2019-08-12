@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { ArtistRoutingModule } from './artist-routing.module';
@@ -18,6 +19,7 @@ import { ControlsModule } from '../../controls/controls.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ControlsModule,
     ArtistRoutingModule
   ]
