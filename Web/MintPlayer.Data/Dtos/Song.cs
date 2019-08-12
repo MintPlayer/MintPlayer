@@ -14,6 +14,7 @@ namespace MintPlayer.Data.Dtos
         public string Text => Title;
 
         [JsonIgnore]
+        [Completion]
         public CompletionField TitleSuggest => new CompletionField { Input = new[] { Title } };
 
         public List<Artist> Artists { get; set; }

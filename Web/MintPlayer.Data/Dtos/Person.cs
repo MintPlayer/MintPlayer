@@ -15,6 +15,7 @@ namespace MintPlayer.Data.Dtos
         public string Text => $"{FirstName} {LastName}";
 
         [JsonIgnore]
+        [Completion]
         public CompletionField NameSuggest => new CompletionField { Input = new[] { $"{FirstName} {LastName}" } };
 
         public List<Artist> Artists { get; set; }

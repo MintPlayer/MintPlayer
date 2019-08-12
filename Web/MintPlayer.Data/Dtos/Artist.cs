@@ -13,6 +13,7 @@ namespace MintPlayer.Data.Dtos
         public string Text => Name;
 
         [JsonIgnore]
+        [Completion]
         public CompletionField NameSuggest => new CompletionField { Input = new[] { Name } };
 
         public List<Person> PastMembers { get; set; }
