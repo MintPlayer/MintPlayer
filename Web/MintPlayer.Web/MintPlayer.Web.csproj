@@ -31,15 +31,28 @@
 
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="ClientApp\src\app\enums\ePlayerType.ts" />
     <None Remove="ClientApp\src\app\enums\eSidebarState.ts" />
+    <None Remove="ClientApp\src\app\enums\eSubjectType.ts" />
     <None Remove="ClientApp\src\app\enums\eToggleButtonState.ts" />
     <None Remove="ClientApp\src\app\interfaces\account\userData.ts" />
+    <None Remove="ClientApp\src\app\interfaces\artist.ts" />
     <None Remove="ClientApp\src\app\interfaces\loginResult.ts" />
+    <None Remove="ClientApp\src\app\interfaces\medium-type.ts" />
+    <None Remove="ClientApp\src\app\interfaces\medium.ts" />
+    <None Remove="ClientApp\src\app\interfaces\person.ts" />
+    <None Remove="ClientApp\src\app\interfaces\SearchResults.ts" />
+    <None Remove="ClientApp\src\app\interfaces\song.ts" />
+    <None Remove="ClientApp\src\app\interfaces\subjectLikeResponse.ts" />
     <None Remove="ClientApp\src\styles\animations\slide-up-down.ts" />
     <None Remove="ClientApp\tsconfig.app.json" />
     <None Remove="ClientApp\tsconfig.json" />
     <None Remove="ClientApp\tsconfig.server.json" />
     <None Remove="ClientApp\tsconfig.spec.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\app\interfaces\subject.ts" />
   </ItemGroup>
 
   <ItemGroup>
