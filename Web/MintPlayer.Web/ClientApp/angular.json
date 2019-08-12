@@ -30,7 +30,8 @@
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/font-awesome/scss/font-awesome.scss"
+              "node_modules/font-awesome/scss/font-awesome.scss",
+              "src/styles/general.scss"
             ],
             "scripts": [
               "node_modules/bootstrap/js/src/index.js"
