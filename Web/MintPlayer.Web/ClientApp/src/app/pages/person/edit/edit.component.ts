@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { PersonService } from '../../../services/person/person.service';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { Person } from '../../../interfaces/person';
+import { MediumType } from '../../../interfaces/medium-type';
 
 @Component({
   selector: 'app-edit',
@@ -18,11 +19,15 @@ export class EditComponent implements OnInit {
       this.titleService.setTitle(`Edit person: ${person.firstName} ${person.lastName}`);
       this.oldPersonName = person.firstName + " " + person.lastName;
     });
+    this.mediumTypeService.getMediumTypes(false).subscribe((mediumTypes) => {
+      this.mediumTypes = mediumTypes;
+    });
   }
 
   ngOnInit() {
   }
 
+  mediumTypes: MediumType[] = [];
   oldPersonName: string = "";
   person: Person = {
     id: 0,

@@ -5,6 +5,8 @@ import { Title } from '@angular/platform-browser';
 import { Song } from '../../../interfaces/song';
 import { Artist } from '../../../interfaces/artist';
 import { SongService } from '../../../services/song/song.service';
+import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
+import { MediumType } from '../../../interfaces/medium-type';
 
 @Component({
   selector: 'app-edit',
@@ -12,20 +14,24 @@ import { SongService } from '../../../services/song/song.service';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  constructor(private songService: SongService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+  constructor(private songService: SongService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
     var id = parseInt(this.route.snapshot.paramMap.get("id"));
     this.songService.getSong(id, true).subscribe(song => {
       this.song = song;
       this.titleService.setTitle(`Edit song: ${song.title}`);
       this.oldSongTitle = song.title;
     });
+    this.mediumTypeService.getMediumTypes(false).subscribe((mediumTypes) => {
+      this.mediumTypes = mediumTypes;
+    });
   }
 
   ngOnInit() {
   }
 
-  public oldSongTitle: string = "";
-  public song: Song = {
+  mediumTypes: MediumType[] = [];
+  oldSongTitle: string = "";
+  song: Song = {
     id: 0,
     title: "",
     released: null,
@@ -35,11 +41,11 @@ export class EditComponent implements OnInit {
     text: ""
   };
 
-  public httpHeaders: HttpHeaders = new HttpHeaders({
+  httpHeaders: HttpHeaders = new HttpHeaders({
     'include_relations': String(true)
   });
 
-  public artistChanged(artist: [Artist, string]) {
+  artistChanged(artist: [Artist, string]) {
     var action = artist[1]; // add, remove
     switch (action) {
       case 'add':
@@ -51,7 +57,7 @@ export class EditComponent implements OnInit {
     }
   }
 
-  public updateSong() {
+  updateSong() {
     this.songService.updateSong(this.song).subscribe(() => {
       this.router.navigate(["song", this.song.id]);
     });

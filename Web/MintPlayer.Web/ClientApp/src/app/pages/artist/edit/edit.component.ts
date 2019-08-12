@@ -5,6 +5,8 @@ import { Title } from '@angular/platform-browser';
 import { Artist } from '../../../interfaces/artist';
 import { Person } from '../../../interfaces/person';
 import { ArtistService } from '../../../services/artist/artist.service';
+import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
+import { MediumType } from '../../../interfaces/medium-type';
 
 @Component({
   selector: 'app-edit',
@@ -13,15 +15,19 @@ import { ArtistService } from '../../../services/artist/artist.service';
 })
 export class EditComponent implements OnInit {
 
-  constructor(private artistService: ArtistService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+  constructor(private artistService: ArtistService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
     var id = parseInt(this.route.snapshot.paramMap.get("id"));
     this.artistService.getArtist(id, true).subscribe((artist) => {
       this.artist = artist;
       this.titleService.setTitle(`Edit artist: ${artist.name}`);
       this.oldName = artist.name;
     });
+    this.mediumTypeService.getMediumTypes(false).subscribe((mediumTypes) => {
+      this.mediumTypes = mediumTypes;
+    });
   }
 
+  mediumTypes: MediumType[] = [];
   oldName: string = '';
   artist: Artist = {
     id: 0,

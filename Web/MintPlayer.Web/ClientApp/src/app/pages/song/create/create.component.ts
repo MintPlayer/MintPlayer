@@ -5,6 +5,8 @@ import { Title } from '@angular/platform-browser';
 import { Song } from '../../../interfaces/song';
 import { Artist } from '../../../interfaces/artist';
 import { SongService } from '../../../services/song/song.service';
+import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
+import { MediumType } from '../../../interfaces/medium-type';
 
 @Component({
   selector: 'app-create',
@@ -13,13 +15,17 @@ import { SongService } from '../../../services/song/song.service';
 })
 export class CreateComponent implements OnInit {
 
-  constructor(private songService: SongService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+  constructor(private songService: SongService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
     this.titleService.setTitle('Add new song');
+    this.mediumTypeService.getMediumTypes(false).subscribe((mediumTypes) => {
+      this.mediumTypes = mediumTypes;
+    });
   }
 
   ngOnInit() {
   }
 
+  mediumTypes: MediumType[] = [];
   oldSongTitle: string = "";
   song: Song = {
     id: 0,

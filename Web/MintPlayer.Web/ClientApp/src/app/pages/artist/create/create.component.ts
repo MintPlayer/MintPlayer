@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Artist } from '../../../interfaces/artist';
 import { Person } from '../../../interfaces/person';
 import { HttpHeaders } from '@angular/common/http';
+import { MediumType } from '../../../interfaces/medium-type';
+import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 
 @Component({
   selector: 'app-create',
@@ -11,10 +13,13 @@ import { HttpHeaders } from '@angular/common/http';
   styleUrls: ['./create.component.scss']
 })
 export class CreateComponent implements OnInit {
-  constructor(private artistService: ArtistService, private router: Router) {
+  constructor(private artistService: ArtistService, private mediumTypeService: MediumTypeService, private router: Router) {
+    this.mediumTypeService.getMediumTypes(false).subscribe((mediumTypes) => {
+      this.mediumTypes = mediumTypes;
+    });
   }
 
-  public artist: Artist = {
+  artist: Artist = {
     id: 0,
     name: '',
     yearStarted: null,
@@ -26,7 +31,7 @@ export class CreateComponent implements OnInit {
     text: ''
   };
 
-  public currentMemberChanged(person: [Person, string]) {
+  currentMemberChanged(person: [Person, string]) {
     var action = person[1]; // add, remove
     switch (action) {
       case 'add':
@@ -38,7 +43,7 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  public pastMemberChanged(person: [Person, string]) {
+  pastMemberChanged(person: [Person, string]) {
     var action = person[1]; // add, remove
     switch (action) {
       case 'add':
@@ -56,7 +61,8 @@ export class CreateComponent implements OnInit {
     })
   }
 
-  public httpHeaders: HttpHeaders = new HttpHeaders({
+  mediumTypes: MediumType[] = [];
+  httpHeaders: HttpHeaders = new HttpHeaders({
     'include_relations': String(true),
     'Content-Type': 'application/json'
   });
