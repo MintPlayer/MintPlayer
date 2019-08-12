@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Data.Dtos;
 using MintPlayer.Data.Exceptions.Account;
@@ -14,9 +15,11 @@ namespace MintPlayer.Web.Controllers
     public class AccountController : Controller
     {
         private IAccountRepository accountRepository;
-        public AccountController(IAccountRepository accountRepository)
+        private IDataProtectionProvider dataProtectionProvider;
+        public AccountController(IAccountRepository accountRepository, IDataProtectionProvider dataProtectionProvider)
         {
             this.accountRepository = accountRepository;
+            this.dataProtectionProvider = dataProtectionProvider;
         }
 
         [HttpPost("register")]
@@ -40,11 +43,19 @@ namespace MintPlayer.Web.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]LoginVM loginVM)
+        public async Task<IActionResult> Login([FromBody]LoginVM loginVM, [FromHeader(Name = "Use-Cookies")]bool useCookies = false)
         {
             try
             {
                 var login_result = await accountRepository.LocalLogin(loginVM.Email, loginVM.Password, true);
+
+                if (useCookies)
+                {
+                    var protector = dataProtectionProvider.CreateProtector("Login");
+                    var protected_token = protector.Protect(login_result.Token);
+                    Response.Cookies.Append("mintplayer", protected_token, new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddDays(90), Secure = true });
+                }
+
                 return Ok(login_result);
             }
             catch (LoginException loginEx)
@@ -70,6 +81,7 @@ namespace MintPlayer.Web.Controllers
         public async Task<IActionResult> Logoout()
         {
             await accountRepository.Logout();
+            Response.Cookies.Delete("mintplayer");
             return Ok();
         }
     }

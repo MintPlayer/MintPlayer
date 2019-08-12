@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -104,6 +105,21 @@ namespace MintPlayer.Web
                 .UseForwardedHeaders()
                 .UseStaticFiles()
                 .UseSpaStaticFiles();
+
+            app.Use((context, next) =>
+            {
+                if (!context.Request.Headers.ContainsKey("Authorization"))
+                {
+                    if (context.Request.Cookies.ContainsKey("mintplayer"))
+                    {
+                        var dataprotectorProvider = context.RequestServices.GetService<IDataProtectionProvider>();
+                        var dataprotector = dataprotectorProvider.CreateProtector("Login");
+                        var token = dataprotector.Unprotect(context.Request.Cookies["mintplayer"]);
+                        context.Request.Headers.Add("Authorization", $"bearer {token}");
+                    }
+                }
+                return next();
+            });
 
             app.UseAuthentication();
 

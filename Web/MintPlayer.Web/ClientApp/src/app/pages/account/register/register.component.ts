@@ -34,7 +34,6 @@ export class RegisterComponent implements OnInit {
         this.data.user.email, this.data.password
       ).subscribe((login_result) => {
         if (login_result.status === true) {
-          localStorage.setItem('auth_token', login_result.token);
           this.router.navigate(['/']);
           this.loginComplete.emit(login_result.user);
         } else {

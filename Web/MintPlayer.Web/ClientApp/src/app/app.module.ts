@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ControlsModule } from './controls/controls.module';
 import { ComponentsModule } from './components/components.module';
-import { BearerTokenInterceptor } from './interceptors/bearerTokenInterceptor';
 
 @NgModule({
   declarations: [
@@ -22,13 +21,6 @@ import { BearerTokenInterceptor } from './interceptors/bearerTokenInterceptor';
     AppRoutingModule,
     ControlsModule,
     ComponentsModule
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: BearerTokenInterceptor,
-      multi: true
-    }
   ],
   bootstrap: [AppComponent]
 })
