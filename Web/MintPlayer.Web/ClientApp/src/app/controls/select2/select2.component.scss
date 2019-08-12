@@ -1,0 +1,68 @@
+:host {
+  display: block;
+  position: relative;
+  width: 100%;
+  border: 1px solid #ced4da;
+  min-height: 38px;
+  padding: 0 5px 3px 5px;
+  cursor: text;
+}
+
+:host > span {
+  display: inline-block;
+  background-color: #E4E4E4;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  margin-top: 5px;
+  margin-right: 5px;
+  padding: 0 5px;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+
+  > span {
+    cursor: pointer;
+    color: #999;
+
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
+input {
+  border: none;
+  outline: 0;
+  margin: 5px 0 2px 0;
+  background: none;
+}
+
+input + ul {
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  left: 0;
+  border: 1px solid #ccc;
+  background: #FFF;
+  cursor: default;
+  z-index: 200;
+  list-style-type: none;
+  padding-left: 0;
+  overflow-y: auto;
+  margin: 0;
+  margin-top: 4px;
+
+  > li {
+    padding: 10px;
+    cursor: pointer;
+
+    &.selected {
+      background: #ddd;
+    }
+
+    &:hover {
+      color: #FFF;
+      background: #5897fb;
+    }
+  }
+}

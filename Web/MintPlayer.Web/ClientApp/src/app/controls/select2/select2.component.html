@@ -1,0 +1,8 @@
+<span *ngFor="let item of items" (click)="itemClicked($event)">
+  <span (click)="removeItem(item,$event)">×</span>
+  {{ item.text }}
+</span>
+<input type="text" #searchbox id="searchbox" autocomplete="off" [(ngModel)]="searchText" (ngModelChange)="textChanged()" [style.width.px]="searchWidth" />
+<ul *ngIf="dropdownVisible" (clickOutside)="clickedOutside($event)">
+  <li *ngFor="let suggestion of suggestions" (click)="suggestionClicked(suggestion)" [class.selected]="items | inList:suggestion.id">{{ suggestion.text }}</li>
+</ul>

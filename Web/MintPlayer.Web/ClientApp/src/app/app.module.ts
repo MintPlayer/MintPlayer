@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ControlsModule } from './controls/controls.module';
 import { ComponentsModule } from './components/components.module';
+import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ComponentsModule } from './components/components.module';
     FormsModule,
     AppRoutingModule,
     ControlsModule,
-    ComponentsModule
+    ComponentsModule,
+    PipesModule
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonService } from '../../../services/person/person.service';
 import { Person } from '../../../interfaces/person';
+import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
+import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create',
