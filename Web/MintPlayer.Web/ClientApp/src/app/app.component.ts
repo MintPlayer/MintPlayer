@@ -19,6 +19,11 @@ export class AppComponent {
   sidebarState: eSidebarState = eSidebarState.auto;
 
   constructor(private accountService: AccountService) {
+    this.accountService.currentUser().subscribe((user) => {
+      this.activeUser = user;
+    }, (error) => {
+      this.activeUser = null;
+    });
   }
 
   updateSidebarState(state: eToggleButtonState) {

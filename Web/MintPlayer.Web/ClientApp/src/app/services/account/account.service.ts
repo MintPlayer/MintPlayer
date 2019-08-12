@@ -23,4 +23,7 @@ export class AccountService {
   public logout() {
     return this.httpClient.post(`${this.baseUrl}/api/account/logout`, {});
   }
+  public getToken() {
+    return localStorage.getItem('auth_token');
+  }
 }
