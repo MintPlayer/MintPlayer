@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../../services/account/account.service';
 import { LoginResult } from '../../../interfaces/loginResult';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -12,8 +12,16 @@ import { User } from '../../../interfaces/account/user';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private accountService: AccountService, private router: Router) {
+  constructor(private accountService: AccountService, private router: Router, private route: ActivatedRoute) {
   }
+
+  ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      this.returnUrl = params['return'] || '/';
+    });
+  }
+
+  private returnUrl: string = '';
 
   email: string;
   password: string;
@@ -29,7 +37,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.accountService.login(this.email, this.password).subscribe((result) => {
       if (result.status === true) {
-        this.router.navigate(['/']);
+        this.router.navigateByUrl(this.returnUrl);
         this.loginComplete.emit(result.user);
       } else {
         this.loginResult = result;
@@ -49,10 +57,6 @@ export class LoginComponent implements OnInit {
   @Output() loginComplete: EventEmitter<User> = new EventEmitter();
 
   forgotPassword() {
-  }
-
-
-  ngOnInit() {
   }
 
 }
