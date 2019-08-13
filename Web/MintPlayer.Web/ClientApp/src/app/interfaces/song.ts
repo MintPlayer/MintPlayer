@@ -6,7 +6,9 @@ export interface Song extends Subject {
 	released: Date;
 	lyrics: string;
 
-	text: string;
+  text: string;
+  youtubeId: string;
+  description: string;
 
   artists: Artist[];
 }

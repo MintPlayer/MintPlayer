@@ -18,6 +18,9 @@
       </span>
     </div>
   </div>
+  <div *ngIf="song.youtubeId != null" class="yt-image mw-100 mx-auto" [ngStyle]="{'width':'480px','height':'360px','background-image':'url(https://i.ytimg.com/vi/' + song.youtubeId + '/hqdefault.jpg)'}">
+    <youtube-play-button (click)="doAddToPlaylist()"></youtube-play-button>
+  </div>
   <card class="d-block mb-3">
     <header>
       <i class="fa fa-info"></i>

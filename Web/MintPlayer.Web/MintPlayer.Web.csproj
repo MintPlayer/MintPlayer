@@ -39,6 +39,7 @@
     <None Remove="ClientApp\src\app\enums\eSubjectType.ts" />
     <None Remove="ClientApp\src\app\enums\eToggleButtonState.ts" />
     <None Remove="ClientApp\src\app\helpers\playerTypeHelper.ts" />
+    <None Remove="ClientApp\src\app\helpers\youtubeHelper.ts" />
     <None Remove="ClientApp\src\app\interfaces\account\userData.ts" />
     <None Remove="ClientApp\src\app\interfaces\artist.ts" />
     <None Remove="ClientApp\src\app\interfaces\loginResult.ts" />

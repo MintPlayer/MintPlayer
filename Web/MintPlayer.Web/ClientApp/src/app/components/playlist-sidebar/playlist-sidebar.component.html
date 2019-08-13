@@ -1,0 +1,9 @@
+<div class="sidebar-right">
+  <ul class="fancy-scroll">
+    <li *ngFor="let song of songs" (click)="openSong(song)">
+      <div class="m-1 mr-2 equalizer" *ngIf="current == song"></div>
+      <span>{{ song.description }}</span>
+      <button class="btn btn-playlist-remove pull-right" title="Remove song" (click)="removeSong($event,song)"><i class="fa fa-trash"></i></button>
+    </li>
+  </ul>
+</div>

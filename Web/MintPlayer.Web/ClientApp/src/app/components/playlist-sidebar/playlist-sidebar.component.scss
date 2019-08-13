@@ -1,0 +1,52 @@
+@import "../../../styles/variables.scss";
+
+:host {
+  position: fixed;
+  top: $header-height;
+  width: $playlist-width-lg;
+  height: calc(100% - #{$header-height} - #{$footer-height} + 1px);
+  background: white;
+  border: $grey-border;
+  margin-top: -1px;
+  transition: right 0.3s;
+
+  &.open {
+    right: 0;
+  }
+
+  &.closed {
+    right: -$playlist-width-lg;
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+
+  > li {
+    padding: 10px;
+    border-bottom: $grey-border;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #DCDCDC;
+    }
+  }
+}
+
+.btn-playlist-remove {
+  margin-top: -6.5px;
+  margin-right: -7px;
+  background: none;
+}
+
+.equalizer {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  background-image: url('/img/now_playing.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: text-bottom;
+}

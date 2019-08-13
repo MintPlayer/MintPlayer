@@ -4,6 +4,7 @@
     <a [routerLink]='["/"]' class="no-underline" title="MintPlayer">
       <span class="text-dark font-weight-bold d-inline-block my-1 logo">MintPlayer</span>
     </a>
+    <playlist-toggler class="float-right" [(state)]="playlistToggleButtonState"></playlist-toggler>
   </div>
   <div class="app-body" [ngClass]="sidebarState" id="app-body">
     <app-sidebar (itemSelected)="collapseSidebar()" (logoutClicked)="logoutClicked()" [activeUser]="activeUser"></app-sidebar>
@@ -17,5 +18,9 @@
         &copy; MintPlayer
       </div>
     </div>
+    <playlist-sidebar [songs]="playlist" [current]="currentSong" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
+  </div>
+  <div>
+    <youtube-player [domId]="'player'" [width]="320" [height]="240"></youtube-player>
   </div>
 </body>

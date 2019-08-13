@@ -4,12 +4,18 @@ import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubjectModule } from './subject/subject.module';
 import { SocialLoginsModule } from './social-logins/social-logins.module';
+import { YoutubePlayerComponent } from './youtube-player/youtube-player.component';
+import { YoutubePlayButtonComponent } from './youtube-play-button/youtube-play-button.component';
+import { PlaylistSidebarComponent } from './playlist-sidebar/playlist-sidebar.component';
 
 
 
 @NgModule({
   declarations: [
-    SidebarComponent
+    SidebarComponent,
+    YoutubePlayerComponent,
+    YoutubePlayButtonComponent,
+    PlaylistSidebarComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +25,10 @@ import { SocialLoginsModule } from './social-logins/social-logins.module';
   ],
   exports: [
     SidebarComponent,
-    SubjectModule
+    SubjectModule,
+    YoutubePlayerComponent,
+    YoutubePlayButtonComponent,
+    PlaylistSidebarComponent
   ]
 })
 export class ComponentsModule { }

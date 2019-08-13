@@ -1,0 +1,61 @@
+@import "../../../styles/variables.scss";
+
+@mixin playlist-button-cross {
+  > div:nth-of-type(1) {
+    -webkit-transform: rotate(-45deg) translate(-7px, 5px);
+    transform: rotate(-45deg) translate(-7px, 5px);
+  }
+
+  > div:nth-of-type(2) {
+    -webkit-transform: rotate(90deg) translate(0px, 14px);
+    transform: rotate(90deg) translate(0px, 14px);
+    opacity: 0;
+  }
+
+  > div:nth-of-type(3) {
+    -webkit-transform: rotate(45deg) translate(-6px, -4px);
+    transform: rotate(45deg) translate(-6px, -4px);
+  }
+}
+
+@mixin playlist-button-play {
+  > div:nth-of-type(1) {
+    -webkit-transform: rotate(-30deg) translate(-10px, 11px);
+    transform: rotate(-30deg) translate(-10px, 11px);
+  }
+
+  > div:nth-of-type(2) {
+    -webkit-transform: rotate(90deg) translate(0px, 14px);
+    transform: rotate(90deg) translate(0px, 14px);
+    opacity: 1;
+  }
+
+  > div:nth-of-type(3) {
+    -webkit-transform: rotate(30deg) translate(-10px, -11px);
+    transform: rotate(30deg) translate(-10px, -11px);
+  }
+}
+
+.playlist-toggler {
+  width: $header-height;
+  padding: 0.75rem;
+  cursor: pointer;
+
+  > div {
+    width: 25px;
+    height: 2px;
+    background: #BBB;
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+
+  &.open {
+    // sidebar visible
+    @include playlist-button-cross;
+  }
+
+  &.closed {
+    // sidebar hidden
+    @include playlist-button-play
+  }
+}

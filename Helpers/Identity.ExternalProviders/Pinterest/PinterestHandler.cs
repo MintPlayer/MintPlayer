@@ -14,7 +14,7 @@ namespace Identity.ExternalProviders.Pinterest
 {
     internal class PinterestHandler : OAuthHandler<PinterestOptions>
     {
-        internal PinterestHandler(IOptionsMonitor<PinterestOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
+        public PinterestHandler(IOptionsMonitor<PinterestOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
         {
         }
 

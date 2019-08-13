@@ -14,7 +14,7 @@ namespace Identity.ExternalProviders.GitHub
 {
     internal class GitHubHandler : OAuthHandler<GitHubOptions>
     {
-        internal GitHubHandler(IOptionsMonitor<GitHubOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
+        public GitHubHandler(IOptionsMonitor<GitHubOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
         {
         }
 

@@ -7,6 +7,7 @@ import { CardComponent } from './card/card.component';
 import { Select2Component } from './select2/select2.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { PlaylistTogglerComponent } from './playlist-toggler/playlist-toggler.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
     NavbarTogglerComponent,
     CardComponent,
     Select2Component,
-    AutocompleteComponent
+    AutocompleteComponent,
+    PlaylistTogglerComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
     NavbarTogglerComponent,
     CardComponent,
     Select2Component,
-    AutocompleteComponent
+    AutocompleteComponent,
+    PlaylistTogglerComponent
   ]
 })
 export class ControlsModule { }

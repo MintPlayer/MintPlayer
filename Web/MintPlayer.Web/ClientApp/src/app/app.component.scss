@@ -159,3 +159,9 @@ app-sidebar {
   background: $white;
   border-bottom: $grey-border;
 }
+
+youtube-player {
+  position: fixed;
+  right: 15px;
+  bottom: calc(#{$footer-height} + 15px);
+}

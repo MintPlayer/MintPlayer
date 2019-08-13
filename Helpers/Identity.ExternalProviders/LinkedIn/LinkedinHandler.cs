@@ -13,7 +13,7 @@ namespace Identity.ExternalProviders.LinkedIn
 {
     internal class LinkedinHandler : OAuthHandler<LinkedInOptions>
     {
-        internal LinkedinHandler(IOptionsMonitor<LinkedInOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
+        public LinkedinHandler(IOptionsMonitor<LinkedInOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
             : base(options, logger, encoder, clock)
         {
         }

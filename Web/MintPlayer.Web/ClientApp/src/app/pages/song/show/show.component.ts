@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { SongService } from '../../../services/song/song.service';
@@ -24,10 +24,15 @@ export class ShowComponent implements OnInit {
     });
   }
 
+  @Output() addToPlaylist: EventEmitter<Song> = new EventEmitter();
+  public doAddToPlaylist() {
+    this.addToPlaylist.emit(this.song);
+  }
+
   ngOnInit() {
-    //this.route.params.subscribe(routeParams => {
-    //	this.loadSong(routeParams.id);
-    //});
+    this.route.params.subscribe(routeParams => {
+    	this.loadSong(routeParams.id);
+    });
   }
 
   public deleteSong() {
@@ -43,6 +48,8 @@ export class ShowComponent implements OnInit {
     artists: [],
     media: [],
     lyrics: "",
-    text: ""
+    text: "",
+    description: "",
+    youtubeId: ""
   };
 }
