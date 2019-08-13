@@ -8,10 +8,12 @@ import { PersonModule } from './person/person.module';
 import { ArtistModule } from './artist/artist.module';
 import { SongModule } from './song/song.module';
 import { MediumTypeModule } from './medium-type/medium-type.module';
+import { SearchComponent } from './search/search.component';
+import { ControlsModule } from '../controls/controls.module';
 
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, SearchComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
@@ -19,7 +21,8 @@ import { MediumTypeModule } from './medium-type/medium-type.module';
     PersonModule,
     ArtistModule,
     SongModule,
-    MediumTypeModule
+    MediumTypeModule,
+    ControlsModule
   ]
 })
 export class PagesModule { }

@@ -8,6 +8,12 @@
         </a>
       </li>
       <li>
+        <a [routerLink]='["/search"]' title="Search" (click)="onItemSelected()">
+          <i class="fa fa-search"></i>
+          Search
+        </a>
+      </li>
+      <li>
         <span title="Artists" [ngClass]="{'open':level1menu === 'artists'}" (click)="level1toggle('artists')">
           <i class="fa fa-user-circle"></i>
           Artists

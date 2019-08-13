@@ -1,0 +1,62 @@
+<h1 class="text-center">Search for anything</h1>
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <autocomplete [(searchterm)]="searchterm" [suggestionUrl]="'/api/subject/search/suggest/all'" [suggestionMethod]="'get'" (submit)="doSearch()" (suggestionSelected)="gotoSubject($event)"></autocomplete>
+    </div>
+  </div>
+  <div class="row" *ngIf="searchResults.artists.length + searchResults.people.length + searchResults.songs.length > 0">
+    <div class="col-lg-6">
+      <h2 class="text-center">Artists</h2>
+      <span *ngIf="searchResults.artists.length === 0" class="d-block text-center">No artists found</span>
+      <a [routerLink]='["/artist",artist.id]' *ngFor="let artist of searchResults.artists">
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-auto">
+              <img src="//placehold.it/50" class="img-fluid" />
+            </div>
+            <div class="col d-flex flex-column justify-content-center">
+              <div class="card-block px-2">
+                <p class="card-text">{{ artist.text }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <h2 class="text-center mt-4">People</h2>
+      <span *ngIf="searchResults.people.length === 0" class="d-block text-center">No people found</span>
+      <a [routerLink]='["/person",person.id]' *ngFor="let person of searchResults.people">
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-auto">
+              <img src="//placehold.it/50" class="img-fluid" />
+            </div>
+            <div class="col d-flex flex-column justify-content-center">
+              <div class="card-block p-2">
+                <p class="card-text">{{ person.text }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-lg-6">
+      <h2 class="text-center">Songs</h2>
+      <span *ngIf="searchResults.songs.length === 0" class="d-block text-center">No songs found</span>
+      <a [routerLink]='["/song",song.id]' *ngFor="let song of searchResults.songs">
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-auto">
+              <img src="//placehold.it/50" class="img-fluid" />
+            </div>
+            <div class="col d-flex flex-column justify-content-center">
+              <div class="card-block px-2">
+                <p class="card-text">{{ song.text }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
