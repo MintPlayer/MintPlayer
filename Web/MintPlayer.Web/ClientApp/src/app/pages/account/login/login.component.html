@@ -37,6 +37,7 @@
       <div class="col-md-12">
         <h2>Or use a social login instead</h2>
         <app-facebook-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-facebook-login>
+        <app-microsoft-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-microsoft-login>
       </div>
     </div>
     <div class="row">

@@ -1,0 +1,19 @@
+.ms-login-btn {
+  background: #fff;
+  color: #333;
+  padding: 5px 10px;
+
+  &:not([disabled]):hover {
+    background: #eee;
+  }
+}
+
+.icon {
+  background: url('/assets/social/windows.png');
+  background-size: cover;
+  vertical-align: inherit;
+  margin-top: -4px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}

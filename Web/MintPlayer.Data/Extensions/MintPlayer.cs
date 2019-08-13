@@ -71,6 +71,10 @@ namespace MintPlayer.Data.Extensions
                 .AddFacebook(fb_options => {
                     fb_options.AppId = opt.FacebookOptions.AppId;
                     fb_options.AppSecret = opt.FacebookOptions.AppSecret;
+                })
+                .AddMicrosoftAccount(ms_options => {
+                    ms_options.ClientId = opt.MicrosoftOptions.ClientId;
+                    ms_options.ClientSecret = opt.MicrosoftOptions.ClientSecret;
                 });
 
             services.AddDataProtection();

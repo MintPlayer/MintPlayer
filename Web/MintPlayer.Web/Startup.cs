@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +40,11 @@ namespace MintPlayer.Web
                 {
                     AppId = Configuration["FacebookOptions:AppId"],
                     AppSecret = Configuration["FacebookOptions:AppSecret"]
+                };
+                options.MicrosoftOptions = new MicrosoftAccountOptions
+                {
+                    ClientId = Configuration["MicrosoftOptions:AppId"],
+                    ClientSecret = Configuration["MicrosoftOptions:AppSecret"]
                 };
             });
 
