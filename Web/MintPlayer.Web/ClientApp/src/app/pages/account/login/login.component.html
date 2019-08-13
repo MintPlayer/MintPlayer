@@ -39,6 +39,7 @@
         <app-facebook-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-facebook-login>
         <app-microsoft-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-microsoft-login>
         <app-google-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-google-login>
+        <app-twitter-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-twitter-login>
       </div>
     </div>
     <div class="row">

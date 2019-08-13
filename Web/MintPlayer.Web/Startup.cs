@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
+using Microsoft.AspNetCore.Authentication.Twitter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -51,6 +52,11 @@ namespace MintPlayer.Web
                 {
                     ClientId = Configuration["GoogleOptions:AppId"],
                     ClientSecret = Configuration["GoogleOptions:AppSecret"]
+                };
+                options.TwitterOptions = new TwitterOptions
+                {
+                    ConsumerKey = Configuration["TwitterOptions:ApiKey"],
+                    ConsumerSecret = Configuration["TwitterOptions:ApiSecret"]
                 };
             });
 

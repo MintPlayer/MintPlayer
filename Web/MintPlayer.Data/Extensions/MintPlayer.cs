@@ -79,7 +79,12 @@ namespace MintPlayer.Data.Extensions
                 .AddGoogle(g_options => {
                     g_options.ClientId = opt.GoogleOptions.ClientId;
                     g_options.ClientSecret = opt.GoogleOptions.ClientSecret;
-                });
+                })
+                .AddTwitter(tw_options => {
+                    tw_options.ConsumerKey = opt.TwitterOptions.ConsumerKey;
+                    tw_options.ConsumerSecret = opt.TwitterOptions.ConsumerSecret;
+                    tw_options.RetrieveUserDetails = true;
+                }); ;
 
             services.AddDataProtection();
 

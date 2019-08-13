@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
+using Microsoft.AspNetCore.Authentication.Twitter;
 
 namespace MintPlayer.Data.Options
 {
@@ -11,5 +12,6 @@ namespace MintPlayer.Data.Options
         public FacebookOptions FacebookOptions { get; set; }
         public MicrosoftAccountOptions MicrosoftOptions { get; set; }
         public GoogleOptions GoogleOptions { get; set; }
+        public TwitterOptions TwitterOptions { get; set; }
     }
 }
