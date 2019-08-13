@@ -84,7 +84,7 @@ namespace MintPlayer.Data.Extensions
                     tw_options.ConsumerKey = opt.TwitterOptions.ConsumerKey;
                     tw_options.ConsumerSecret = opt.TwitterOptions.ConsumerSecret;
                     tw_options.RetrieveUserDetails = true;
-                }); ;
+                });
 
             services.AddDataProtection();
 

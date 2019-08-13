@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Web", "Web\MintPlayer.Web\MintPlayer.Web.csproj", "{0B37F58C-F009-4B21-90E9-39553F24233C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Web", "Web\MintPlayer.Web\MintPlayer.Web.csproj", "{0B37F58C-F009-4B21-90E9-39553F24233C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{984A9E18-38EE-44B0-8603-D6A3285AC41E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Data", "Web\MintPlayer.Data\MintPlayer.Data.csproj", "{7F829F79-E466-4F9D-BF81-551D49194BFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Data", "Web\MintPlayer.Data\MintPlayer.Data.csproj", "{7F829F79-E466-4F9D-BF81-551D49194BFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{BED30911-E609-4EB7-A9BE-F649049429EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.ExternalProviders", "Helpers\Identity.ExternalProviders\Identity.ExternalProviders.csproj", "{2EEDEA9C-B957-46AC-8381-FC42B44252E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +27,10 @@ Global
 		{7F829F79-E466-4F9D-BF81-551D49194BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F829F79-E466-4F9D-BF81-551D49194BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F829F79-E466-4F9D-BF81-551D49194BFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EEDEA9C-B957-46AC-8381-FC42B44252E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EEDEA9C-B957-46AC-8381-FC42B44252E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EEDEA9C-B957-46AC-8381-FC42B44252E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EEDEA9C-B957-46AC-8381-FC42B44252E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0B37F58C-F009-4B21-90E9-39553F24233C} = {984A9E18-38EE-44B0-8603-D6A3285AC41E}
 		{7F829F79-E466-4F9D-BF81-551D49194BFE} = {984A9E18-38EE-44B0-8603-D6A3285AC41E}
+		{2EEDEA9C-B957-46AC-8381-FC42B44252E6} = {BED30911-E609-4EB7-A9BE-F649049429EC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {655DEA36-8270-4317-B1B7-7363B0CC715C}
