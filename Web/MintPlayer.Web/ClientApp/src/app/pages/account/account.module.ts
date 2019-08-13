@@ -6,6 +6,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SocialLoginsModule } from '../../components/social-logins/social-logins.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ProfileComponent } from './profile/profile.component';
   imports: [
     CommonModule,
     FormsModule,
+    SocialLoginsModule,
     AccountRoutingModule
   ]
 })

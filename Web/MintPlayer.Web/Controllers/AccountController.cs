@@ -42,6 +42,13 @@ namespace MintPlayer.Web.Controllers
             }
         }
 
+        void AttachCookie(Microsoft.AspNetCore.Http.HttpResponse response, string token)
+        {
+            var protector = dataProtectionProvider.CreateProtector("Login");
+            var protected_token = protector.Protect(token);
+            response.Cookies.Append("mintplayer", protected_token, new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddDays(90), Secure = true });
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]LoginVM loginVM, [FromHeader(Name = "Use-Cookies")]bool useCookies = false)
         {
@@ -50,11 +57,7 @@ namespace MintPlayer.Web.Controllers
                 var login_result = await accountRepository.LocalLogin(loginVM.Email, loginVM.Password, true);
 
                 if (useCookies)
-                {
-                    var protector = dataProtectionProvider.CreateProtector("Login");
-                    var protected_token = protector.Protect(login_result.Token);
-                    Response.Cookies.Append("mintplayer", protected_token, new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTime.Now.AddDays(90), Secure = true });
-                }
+                    AttachCookie(Response, login_result.Token);
 
                 return Ok(login_result);
             }
@@ -65,6 +68,56 @@ namespace MintPlayer.Web.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500);
+            }
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet("connect/{provider}")]
+        public async Task<ActionResult> ExternalLogin(string provider)
+        {
+            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { provider });
+            var properties = accountRepository.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        [HttpGet("connect/{provider}/callback")]
+        public async Task<ActionResult> ExternalLoginCallback([FromRoute]string provider)
+        {
+            var model = new TokenMessageVM();
+            try
+            {
+                var login_result = await accountRepository.PerfromExternalLogin();
+                if (login_result.Status)
+                {
+                    model.AccessToken = login_result.Token;
+                    model.Platform = login_result.Platform;
+
+                    AttachCookie(Response, login_result.Token);
+
+                    return View(model);
+                }
+                else
+                {
+                    model.Error = login_result.Error;
+                    model.ErrorDescription = login_result.ErrorDescription;
+                    model.Platform = login_result.Platform;
+                    return View(model);
+                }
+            }
+            catch (OtherAccountException otherAccountEx)
+            {
+                model.Error = "Could not login";
+                model.ErrorDescription = otherAccountEx.Message;
+                model.Platform = provider;
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                model.Error = "Could not login";
+                model.ErrorDescription = "There was an error with your social login";
+                model.Platform = provider;
+                return View(model);
             }
         }
 

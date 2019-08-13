@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubjectModule } from './subject/subject.module';
+import { SocialLoginsModule } from './social-logins/social-logins.module';
 
 
 
@@ -13,7 +14,8 @@ import { SubjectModule } from './subject/subject.module';
   imports: [
     CommonModule,
     RouterModule,
-    SubjectModule
+    SubjectModule,
+    SocialLoginsModule
   ],
   exports: [
     SidebarComponent,

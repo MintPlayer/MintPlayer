@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,11 @@ namespace MintPlayer.Web
                     Subject = Configuration["JwtIssuerOptions:Subject"],
                     ValidFor = Configuration.GetValue<TimeSpan>("JwtIssuerOptions:ValidFor"),
                     Key = Configuration["JwtIssuerOptions:Key"],
+                };
+                options.FacebookOptions = new FacebookOptions
+                {
+                    AppId = Configuration["FacebookOptions:AppId"],
+                    AppSecret = Configuration["FacebookOptions:AppSecret"]
                 };
             });
 

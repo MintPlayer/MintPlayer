@@ -34,6 +34,12 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-md-12">
+        <h2>Or use a social login instead</h2>
+        <app-facebook-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-facebook-login>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-12 text-center">
         <div *ngIf="loginResult.status == false" class="alert alert-danger" role="alert">
           <p>

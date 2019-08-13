@@ -67,6 +67,10 @@ namespace MintPlayer.Data.Extensions
                         ValidateLifetime = true
                     };
                     jwt_options.SaveToken = false;
+                })
+                .AddFacebook(fb_options => {
+                    fb_options.AppId = opt.FacebookOptions.AppId;
+                    fb_options.AppSecret = opt.FacebookOptions.AppSecret;
                 });
 
             services.AddDataProtection();
