@@ -55,7 +55,6 @@ export class LoginComponent implements OnInit {
   }
 
   socialLoginDone(result: LoginResult) {
-    debugger;
     if (result.status) {
       this.accountService.currentUser().subscribe((user) => {
         this.loginComplete.emit(user);

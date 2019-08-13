@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -45,6 +46,11 @@ namespace MintPlayer.Web
                 {
                     ClientId = Configuration["MicrosoftOptions:AppId"],
                     ClientSecret = Configuration["MicrosoftOptions:AppSecret"]
+                };
+                options.GoogleOptions = new GoogleOptions
+                {
+                    ClientId = Configuration["GoogleOptions:AppId"],
+                    ClientSecret = Configuration["GoogleOptions:AppSecret"]
                 };
             });
 

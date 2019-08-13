@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 
 namespace MintPlayer.Data.Options
@@ -9,5 +10,6 @@ namespace MintPlayer.Data.Options
         public JwtIssuerOptions JwtIssuerOptions { get; set; }
         public FacebookOptions FacebookOptions { get; set; }
         public MicrosoftAccountOptions MicrosoftOptions { get; set; }
+        public GoogleOptions GoogleOptions { get; set; }
     }
 }

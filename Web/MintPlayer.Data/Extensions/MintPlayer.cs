@@ -75,6 +75,10 @@ namespace MintPlayer.Data.Extensions
                 .AddMicrosoftAccount(ms_options => {
                     ms_options.ClientId = opt.MicrosoftOptions.ClientId;
                     ms_options.ClientSecret = opt.MicrosoftOptions.ClientSecret;
+                })
+                .AddGoogle(g_options => {
+                    g_options.ClientId = opt.GoogleOptions.ClientId;
+                    g_options.ClientSecret = opt.GoogleOptions.ClientSecret;
                 });
 
             services.AddDataProtection();
