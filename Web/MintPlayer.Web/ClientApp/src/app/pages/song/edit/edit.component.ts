@@ -38,7 +38,9 @@ export class EditComponent implements OnInit {
     artists: [],
     media: [],
     lyrics: "",
-    text: ""
+    text: "",
+    description: "",
+    youtubeId: ""
   };
 
   httpHeaders: HttpHeaders = new HttpHeaders({

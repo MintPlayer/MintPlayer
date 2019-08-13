@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { eToggleButtonState } from './enums/eToggleButtonState';
 import { eSidebarState } from './enums/eSidebarState';
 import { User } from './interfaces/account/user';
@@ -8,6 +8,7 @@ import { ShowComponent as SongShowComponent } from './pages/song/show/show.compo
 import { AccountService } from './services/account/account.service';
 import { YoutubeHelper } from './helpers/youtubeHelper';
 import { Song } from './interfaces/song';
+import { YoutubePlayerComponent } from './components/youtube-player/youtube-player.component';
 
 @Component({
   selector: 'app-root',
@@ -69,9 +70,34 @@ export class AppComponent {
   //#region Playlist
   playlist: Song[] = [];
   currentSong: Song = null;
+  endOfPlaylist: boolean = true;
   addToPlaylist = (song: Song) => {
     this.playlist.push(song);
+    if (this.endOfPlaylist) {
+      this.playSong(song);
+    }
   }
+
+  private playSong(song: Song) {
+    if (song.youtubeId !== null) {
+      this.player.playSong(song.youtubeId);
+      this.endOfPlaylist = false;
+      this.currentSong = song;
+    }
+  }
+
+  songEnded() {
+    var current_index = this.playlist.indexOf(this.currentSong);
+    if (this.playlist.length > current_index + 1) {
+      var song = this.playlist[current_index + 1];
+      this.playSong(song);
+    } else {
+      this.endOfPlaylist = true;
+      this.currentSong = null;
+    }
+  }
+
+  @ViewChild('player', { static: false }) player: YoutubePlayerComponent;
   //#endregion
 
   routingActivated(element: ElementRef) {

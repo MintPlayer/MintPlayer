@@ -34,7 +34,9 @@ export class CreateComponent implements OnInit {
     artists: [],
     media: [],
     lyrics: "",
-    text: ""
+    text: "",
+    description: "",
+    youtubeId: ""
   };
 
   public artistChanged(artist: [Artist, string]) {

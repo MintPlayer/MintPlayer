@@ -1,6 +1,6 @@
 /// <reference path="../../../../node_modules/@types/youtube/index.d.ts" />
 
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { YoutubeHelper } from '../../helpers/youtubeHelper';
 
 @Component({
@@ -17,6 +17,8 @@ export class YoutubePlayerComponent implements OnInit, AfterViewInit {
   @Input() width: number;
   @Input() height: number;
 
+  @Output() songEnded: EventEmitter<any> = new EventEmitter();
+
   private player: YT.Player;
   private isApiReady: boolean = false;
 
@@ -28,10 +30,23 @@ export class YoutubePlayerComponent implements OnInit, AfterViewInit {
       this.isApiReady = ready;
       if (ready && !this.player) {
         this.player = new YT.Player(this.domId, {
-          videoId: 'EHfx9LXzxpw',
           width: this.width,
           height: this.height,
-          playerVars: {
+          events: {
+            onReady: () => {
+
+            },
+            onStateChange: (state: any) => {
+              switch (state.data) {
+                case YT.PlayerState.PLAYING:
+                  break;
+                case YT.PlayerState.PAUSED:
+                  break;
+                case YT.PlayerState.ENDED:
+                  this.songEnded.emit();
+                  break;
+              }
+            }
           }
         });
       }
