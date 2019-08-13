@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace Identity.ExternalProviders.LinkedIn
 {
-    public class LinkedinHandler : OAuthHandler<LinkedInOptions>
+    internal class LinkedinHandler : OAuthHandler<LinkedInOptions>
     {
-        public LinkedinHandler(IOptionsMonitor<LinkedInOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
+        internal LinkedinHandler(IOptionsMonitor<LinkedInOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
             : base(options, logger, encoder, clock)
         {
         }

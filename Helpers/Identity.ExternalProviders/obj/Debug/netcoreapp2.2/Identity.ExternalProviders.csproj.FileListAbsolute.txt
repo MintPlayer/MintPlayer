@@ -1,5 +1,0 @@
-C:\Users\pidc\source\repos\MintPlayer\Helpers\Identity.ExternalProviders\bin\Debug\netcoreapp2.2\Identity.ExternalProviders.deps.json
-C:\Users\pidc\source\repos\MintPlayer\Helpers\Identity.ExternalProviders\bin\Debug\netcoreapp2.2\Identity.ExternalProviders.dll
-C:\Users\pidc\source\repos\MintPlayer\Helpers\Identity.ExternalProviders\obj\Debug\netcoreapp2.2\Identity.ExternalProviders.csproj.CoreCompileInputs.cache
-C:\Users\pidc\source\repos\MintPlayer\Helpers\Identity.ExternalProviders\obj\Debug\netcoreapp2.2\Identity.ExternalProviders.AssemblyInfoInputs.cache
-C:\Users\pidc\source\repos\MintPlayer\Helpers\Identity.ExternalProviders\obj\Debug\netcoreapp2.2\Identity.ExternalProviders.AssemblyInfo.cs

@@ -1,4 +1,5 @@
 using System;
+using Identity.ExternalProviders.GitHub;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
@@ -57,6 +58,11 @@ namespace MintPlayer.Web
                 {
                     ConsumerKey = Configuration["TwitterOptions:ApiKey"],
                     ConsumerSecret = Configuration["TwitterOptions:ApiSecret"]
+                };
+                options.GitHubOptions = new GitHubOptions
+                {
+                    ClientId = Configuration["GithubOptions:ClientId"],
+                    ClientSecret = Configuration["GithubOptions:ClientSecret"],
                 };
             });
 

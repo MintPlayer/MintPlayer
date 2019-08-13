@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.Facebook;
+﻿using Identity.ExternalProviders.GitHub;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 using Microsoft.AspNetCore.Authentication.Twitter;
@@ -13,5 +14,6 @@ namespace MintPlayer.Data.Options
         public MicrosoftAccountOptions MicrosoftOptions { get; set; }
         public GoogleOptions GoogleOptions { get; set; }
         public TwitterOptions TwitterOptions { get; set; }
+        public GitHubOptions GitHubOptions { get; set; }
     }
 }

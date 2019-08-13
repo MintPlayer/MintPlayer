@@ -4,14 +4,15 @@ import { FacebookLoginComponent } from './facebook-login/facebook-login.componen
 import { MicrosoftLoginComponent } from './microsoft-login/microsoft-login.component';
 import { GoogleLoginComponent } from './google-login/google-login.component';
 import { TwitterLoginComponent } from './twitter-login/twitter-login.component';
+import { GithubLoginComponent } from './github-login/github-login.component';
 
 
 
 @NgModule({
-  declarations: [FacebookLoginComponent, MicrosoftLoginComponent, GoogleLoginComponent, TwitterLoginComponent],
+  declarations: [FacebookLoginComponent, MicrosoftLoginComponent, GoogleLoginComponent, TwitterLoginComponent, GithubLoginComponent],
   imports: [
     CommonModule
   ],
-  exports: [FacebookLoginComponent, MicrosoftLoginComponent, GoogleLoginComponent, TwitterLoginComponent]
+  exports: [FacebookLoginComponent, MicrosoftLoginComponent, GoogleLoginComponent, TwitterLoginComponent, GithubLoginComponent]
 })
 export class SocialLoginsModule { }

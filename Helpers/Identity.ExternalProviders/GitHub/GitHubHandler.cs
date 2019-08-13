@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace Identity.ExternalProviders.GitHub
 {
-    public class GitHubHandler : OAuthHandler<GitHubOptions>
+    internal class GitHubHandler : OAuthHandler<GitHubOptions>
     {
-        public GitHubHandler(IOptionsMonitor<GitHubOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
+        internal GitHubHandler(IOptionsMonitor<GitHubOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
         {
         }
 

@@ -8,6 +8,7 @@ using MintPlayer.Data.Options;
 using MintPlayer.Data.Repositories.Interfaces;
 using MintPlayer.Data.Repositories;
 using MintPlayer.Data.Helpers;
+using Identity.ExternalProviders.GitHub;
 
 namespace MintPlayer.Data.Extensions
 {
@@ -84,6 +85,10 @@ namespace MintPlayer.Data.Extensions
                     tw_options.ConsumerKey = opt.TwitterOptions.ConsumerKey;
                     tw_options.ConsumerSecret = opt.TwitterOptions.ConsumerSecret;
                     tw_options.RetrieveUserDetails = true;
+                })
+                .AddGitHub(g_options => {
+                    g_options.ClientId = opt.GitHubOptions.ClientId;
+                    g_options.ClientSecret = opt.GitHubOptions.ClientSecret;
                 });
 
             services.AddDataProtection();

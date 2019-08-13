@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace Identity.ExternalProviders.Pinterest
 {
-    public class PinterestHandler : OAuthHandler<PinterestOptions>
+    internal class PinterestHandler : OAuthHandler<PinterestOptions>
     {
-        public PinterestHandler(IOptionsMonitor<PinterestOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
+        internal PinterestHandler(IOptionsMonitor<PinterestOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) : base(options, logger, encoder, clock)
         {
         }
 

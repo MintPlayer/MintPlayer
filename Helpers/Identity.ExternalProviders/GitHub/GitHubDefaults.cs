@@ -1,11 +1,11 @@
 ﻿namespace Identity.ExternalProviders.GitHub
 {
-    public static class GitHubDefaults
+    internal static class GitHubDefaults
     {
-        public static readonly string DisplayName = "GitHub";
-        public static readonly string AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
-        public static readonly string TokenEndpoint = "https://github.com/login/oauth/access_token";
-        public static readonly string UserInformationEndpoint = "https://api.github.com/user";
-        public const string AuthenticationScheme = "GitHub";
+        internal static readonly string DisplayName = "GitHub";
+        internal static readonly string AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
+        internal static readonly string TokenEndpoint = "https://github.com/login/oauth/access_token";
+        internal static readonly string UserInformationEndpoint = "https://api.github.com/user";
+        internal const string AuthenticationScheme = "GitHub";
     }
 }
