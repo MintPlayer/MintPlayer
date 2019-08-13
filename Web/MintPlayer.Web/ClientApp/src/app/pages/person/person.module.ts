@@ -8,6 +8,7 @@ import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { ShowComponent } from './show/show.component';
 import { ControlsModule } from '../../controls/controls.module';
+import { SubjectModule } from '../../components/subject/subject.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ControlsModule } from '../../controls/controls.module';
     CommonModule,
     FormsModule,
     ControlsModule,
+    SubjectModule,
     PersonRoutingModule
   ]
 })
