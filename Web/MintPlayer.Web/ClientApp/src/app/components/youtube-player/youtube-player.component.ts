@@ -26,31 +26,31 @@ export class YoutubePlayerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    //this.youtubeHelper.apiReady.subscribe((ready) => {
-    //  this.isApiReady = ready;
-    //  if (ready && !this.player) {
-    //    this.player = new YT.Player(this.domId, {
-    //      width: this.width,
-    //      height: this.height,
-    //      events: {
-    //        onReady: () => {
+    this.youtubeHelper.apiReady.subscribe((ready) => {
+      this.isApiReady = ready;
+      if (ready && !this.player) {
+        this.player = new YT.Player(this.domId, {
+          width: this.width,
+          height: this.height,
+          events: {
+            onReady: () => {
 
-    //        },
-    //        onStateChange: (state: any) => {
-    //          switch (state.data) {
-    //            case YT.PlayerState.PLAYING:
-    //              break;
-    //            case YT.PlayerState.PAUSED:
-    //              break;
-    //            case YT.PlayerState.ENDED:
-    //              this.songEnded.emit();
-    //              break;
-    //          }
-    //        }
-    //      }
-    //    });
-    //  }
-    //});
+            },
+            onStateChange: (state: any) => {
+              switch (state.data) {
+                case YT.PlayerState.PLAYING:
+                  break;
+                case YT.PlayerState.PAUSED:
+                  break;
+                case YT.PlayerState.ENDED:
+                  this.songEnded.emit();
+                  break;
+              }
+            }
+          }
+        });
+      }
+    });
   }
 
   public playSong(youtubeId: string) {

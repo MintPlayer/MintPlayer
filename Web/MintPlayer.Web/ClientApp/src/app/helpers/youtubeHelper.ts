@@ -20,5 +20,11 @@ export class YoutubeHelper {
   //  });
   //}
 
-  //public apiReady = new BehaviorSubject<boolean>(window['YT'] !== undefined);
+  public apiReady = new BehaviorSubject<boolean>((() => {
+    if (typeof window !== 'undefined') {
+      return window['YT'] !== undefined;
+    } else {
+      return false;
+    }
+  })());
 }
