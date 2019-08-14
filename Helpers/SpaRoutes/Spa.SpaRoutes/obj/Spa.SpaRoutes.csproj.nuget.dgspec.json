@@ -1,0 +1,124 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes\\Spa.SpaRoutes.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes.Abstractions\\Spa.SpaRoutes.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes.Abstractions\\Spa.SpaRoutes.Abstractions.csproj",
+        "projectName": "Spa.SpaRoutes.Abstractions",
+        "projectPath": "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes.Abstractions\\Spa.SpaRoutes.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\pidc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\pidc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes\\Spa.SpaRoutes.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes\\Spa.SpaRoutes.csproj",
+        "projectName": "Spa.SpaRoutes",
+        "projectPath": "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes\\Spa.SpaRoutes.csproj",
+        "packagesPath": "C:\\Users\\pidc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\pidc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes.Abstractions\\Spa.SpaRoutes.Abstractions.csproj": {
+                "projectPath": "C:\\Users\\pidc\\source\\repos\\MintPlayer\\Helpers\\SpaRoutes\\Spa.SpaRoutes.Abstractions\\Spa.SpaRoutes.Abstractions.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.AspNetCore.SpaServices.Extensions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Data.Options;
+using Spa.SpaRoutes;
 
 namespace MintPlayer.Web
 {
@@ -173,7 +174,33 @@ namespace MintPlayer.Web
                         ? new AngularCliBuilder(npmScript: "build:ssr")
                         : null;
                     options.ExcludeUrls = new[] { "/sockjs-node" };
+                    options.SupplyData = (context, data) =>
+                    {
+
+                    };
                 });
+
+                spa.DefineSpaRoutes(routes => routes
+                    .Route("", "home")
+                    .Group("person", "person", person_routes => person_routes
+                        .Route("", "list")
+                        .Route("create", "create")
+                        .Route("{id}", "show")
+                        .Route("{id}/edit", "edit")
+                    )
+                    .Group("artist", "artist", artist_routes => artist_routes
+                        .Route("", "list")
+                        .Route("create", "create")
+                        .Route("{id}", "show")
+                        .Route("{id}/edit", "edit")
+                    )
+                    .Group("song", "song", song_routes => song_routes
+                        .Route("", "list")
+                        .Route("create", "create")
+                        .Route("{id}", "show")
+                        .Route("{id}/edit", "edit")
+                    )
+                );
 
                 if (env.IsDevelopment())
                 {

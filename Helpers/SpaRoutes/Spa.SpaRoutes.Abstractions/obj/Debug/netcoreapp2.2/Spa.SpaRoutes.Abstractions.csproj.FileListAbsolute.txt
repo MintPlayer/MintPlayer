@@ -1,0 +1,9 @@
+C:\Users\pidc\source\repos\MintPlayer\Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\bin\Debug\netcoreapp2.2\Spa.SpaRoutes.Abstractions.deps.json
+C:\Users\pidc\source\repos\MintPlayer\Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\bin\Debug\netcoreapp2.2\Spa.SpaRoutes.Abstractions.dll
+C:\Users\pidc\source\repos\MintPlayer\Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\bin\Debug\netcoreapp2.2\Spa.SpaRoutes.Abstractions.pdb
+C:\Users\pidc\source\repos\MintPlayer\Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\obj\Debug\netcoreapp2.2\Spa.SpaRoutes.Abstractions.csprojAssemblyReference.cache
+C:\Users\pidc\source\repos\MintPlayer\Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\obj\Debug\netcoreapp2.2\Spa.SpaRoutes.Abstractions.csproj.CoreCompileInputs.cache
+C:\Users\pidc\source\repos\MintPlayer\Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\obj\Debug\netcoreapp2.2\Spa.SpaRoutes.Abstractions.AssemblyInfoInputs.cache
+C:\Users\pidc\source\repos\MintPlayer\Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\obj\Debug\netcoreapp2.2\Spa.SpaRoutes.Abstractions.AssemblyInfo.cs
+C:\Users\pidc\source\repos\MintPlayer\Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\obj\Debug\netcoreapp2.2\Spa.SpaRoutes.Abstractions.dll
+C:\Users\pidc\source\repos\MintPlayer\Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\obj\Debug\netcoreapp2.2\Spa.SpaRoutes.Abstractions.pdb
