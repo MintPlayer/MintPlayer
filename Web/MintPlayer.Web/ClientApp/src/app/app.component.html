@@ -21,6 +21,6 @@
     <playlist-sidebar [songs]="playlist" [current]="currentSong" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
   </div>
   <div>
-    <youtube-player #player [domId]="'player'" [hidden]="currentSong !== null" (songEnded)="songEnded()" [width]="320" [height]="240"></youtube-player>
+    <youtube-player #player [domId]="'player'" [hidden]="currentSong === null" (songEnded)="songEnded()" [width]="320" [height]="240"></youtube-player>
   </div>
 </body>
