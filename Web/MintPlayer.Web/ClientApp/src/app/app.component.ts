@@ -29,10 +29,10 @@ export class AppComponent {
     }, (error) => {
       this.activeUser = null;
     });
-    this.youtubeHelper.loadApi().then(() => {
-      console.log('loaded youtube api');
-      this.youtubeHelper.apiReady.next(true);
-    });
+    //this.youtubeHelper.loadApi().then(() => {
+    //  console.log('loaded youtube api');
+    //  this.youtubeHelper.apiReady.next(true);
+    //});
   }
 
   updateSidebarState(state: eToggleButtonState) {

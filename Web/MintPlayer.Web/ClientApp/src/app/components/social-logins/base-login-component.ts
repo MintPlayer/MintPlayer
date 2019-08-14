@@ -27,6 +27,7 @@ export class BaseLoginComponent {
   }
 
   showPopup() {
+    debugger;
     this.authWindow = window.open(`${this.baseUrl}/api/Account/${this.action}/${this.platform}`, null, 'width=600,height=400');
     this.isOpen = true;
     var timer = setInterval(() => {
@@ -47,7 +48,12 @@ export class BaseLoginComponent {
       if (message.data.messageSource.indexOf("AUGURY_") > -1) return;
     // Filter out any other trash
     if (message.data == "" || message.data === null || message.data === undefined) return;
+    // Filter out Webpack
+    if (message.data.type !== undefined) return;
 
+    console.log(message.data.type);
+
+    debugger;
     const result = <LoginResult>JSON.parse(message.data);
     if (result.platform == this.platform) {
       this.authWindow.close();

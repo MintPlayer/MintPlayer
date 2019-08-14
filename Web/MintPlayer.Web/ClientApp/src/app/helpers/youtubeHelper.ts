@@ -6,19 +6,19 @@ import { Promise } from 'q';
   providedIn: 'root'
 })
 export class YoutubeHelper {
-  public loadApi() {
-    return Promise((resolve) => {
+  //public loadApi() {
+  //  return Promise((resolve) => {
 
-      window['onYouTubeIframeAPIReady'] = resolve;
+  //    window['onYouTubeIframeAPIReady'] = resolve;
 
-      const tag = window.document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
+  //    const tag = window.document.createElement('script');
+  //    tag.src = 'https://www.youtube.com/iframe_api';
 
-      const firstScriptTag = window.document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  //    const firstScriptTag = window.document.getElementsByTagName('script')[0];
+  //    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    });
-  }
+  //  });
+  //}
 
-  public apiReady = new BehaviorSubject<boolean>(window['YT'] !== undefined);
+  //public apiReady = new BehaviorSubject<boolean>(window['YT'] !== undefined);
 }
