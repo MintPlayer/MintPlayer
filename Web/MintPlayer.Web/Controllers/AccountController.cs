@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -71,6 +72,13 @@ namespace MintPlayer.Web.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet("providers")]
+        public async Task<List<string>> Providers()
+        {
+            var result = await accountRepository.GetExternalLoginProviders();
+            return result.Select(s => s.DisplayName).ToList();
+        }
 
         [AllowAnonymous]
         [HttpGet("connect/{provider}")]
@@ -119,6 +127,51 @@ namespace MintPlayer.Web.Controllers
                 model.Platform = provider;
                 return View(model);
             }
+        }
+
+        [Authorize]
+        [HttpGet("logins")]
+        public async Task<List<string>> GetExternalLogins()
+        {
+            var logins = await accountRepository.GetExternalLogins(User);
+            return logins.Select(l => l.ProviderDisplayName).ToList();
+        }
+
+        [Authorize]
+        [HttpGet("add/{provider}")]
+        public async Task<ActionResult> AddExternalLogin(string provider)
+        {
+            var redirectUrl = Url.Action(nameof(AddExternalLoginCallback), "Account", new { provider });
+            var properties = accountRepository.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        [Authorize]
+        [HttpGet("add/{provider}/callback")]
+        public async Task<ActionResult> AddExternalLoginCallback([FromRoute]string provider)
+        {
+            var model = new TokenMessageVM();
+            try
+            {
+                await accountRepository.AddExternalLogin(User);
+                model.Platform = provider;
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                model.Error = "Could not login";
+                model.ErrorDescription = "There was an error with your social login. " + ex.Message;
+                model.Platform = provider;
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        [HttpDelete("logins/{provider}")]
+        public async Task<IActionResult> DeleteLogin(string provider)
+        {
+            await accountRepository.RemoveExternalLogin(User, provider);
+            return Ok();
         }
 
         [Authorize]

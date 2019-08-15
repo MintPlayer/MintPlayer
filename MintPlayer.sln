@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.ExternalProviders"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spa.SpaRoutes", "Helpers\SpaRoutes\Spa.SpaRoutes\Spa.SpaRoutes.csproj", "{BE6CCA09-B080-45D9-B5A0-237011B0FC2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spa.SpaRoutes.Abstractions", "Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\Spa.SpaRoutes.Abstractions.csproj", "{0F0CE518-A61D-488A-8D2C-F6E5FA284C75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spa.SpaRoutes.Abstractions", "Helpers\SpaRoutes\Spa.SpaRoutes.Abstractions\Spa.SpaRoutes.Abstractions.csproj", "{0F0CE518-A61D-488A-8D2C-F6E5FA284C75}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SpaRoutes", "SpaRoutes", "{78035DC2-A6FA-4D45-BD61-5A0E6C5311EF}"
 EndProject

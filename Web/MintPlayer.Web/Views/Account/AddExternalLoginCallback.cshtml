@@ -1,0 +1,34 @@
+﻿@model MintPlayer.Web.ViewModels.Account.TokenMessageVM
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Bezig met verwerken...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <script>
+		@if (string.IsNullOrEmpty(Model.Error))
+		{
+			<text>
+			var message = {
+				status: true,
+				platform: "@Model.Platform"
+			};
+			</text>
+		}
+		else
+		{
+			<text>
+			var message = {
+				status: false,
+				platform: "@Model.Platform",
+				error: "@Model.Error",
+				errorDescription: "@Model.ErrorDescription"
+			};
+			</text>
+		}
+		window.opener.postMessage(JSON.stringify(message), window.location.origin);
+    </script>
+</body>
+</html>

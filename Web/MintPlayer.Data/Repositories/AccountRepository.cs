@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -90,6 +91,12 @@ namespace MintPlayer.Data.Repositories
             }
         }
 
+        public async Task<IEnumerable<AuthenticationScheme>> GetExternalLoginProviders()
+        {
+            var providers = await signin_manager.GetExternalAuthenticationSchemesAsync();
+            return providers.ToList();
+        }
+
         public AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl)
         {
             var properties = signin_manager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
@@ -154,6 +161,48 @@ namespace MintPlayer.Data.Repositories
             };
         }
 
+        public async Task<IEnumerable<UserLoginInfo>> GetExternalLogins(ClaimsPrincipal userProperty)
+        {
+            // Get current user
+            var user = await user_manager.GetUserAsync(userProperty);
+            if (user == null) throw new UnauthorizedAccessException();
+
+            var user_logins = await user_manager.GetLoginsAsync(user);
+            return user_logins;
+        }
+
+        public async Task AddExternalLogin(ClaimsPrincipal userProperty)
+        {
+            // Get current user
+            var user = await user_manager.GetUserAsync(userProperty);
+            if (user == null) throw new UnauthorizedAccessException();
+
+            // Get login info
+            var info = await signin_manager.GetExternalLoginInfoAsync();
+            if (info == null) throw new UnauthorizedAccessException();
+
+            var new_email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            if (new_email != user.Email)
+                throw new Exception($"The email address of this {info.ProviderDisplayName} account must match your email address");
+
+            var result = await user_manager.AddLoginAsync(user, info);
+            if (!result.Succeeded) throw new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
+        }
+
+        public async Task RemoveExternalLogin(ClaimsPrincipal userProperty, string provider)
+        {
+            // Get current user
+            var user = await user_manager.GetUserAsync(userProperty);
+            if (user == null) throw new UnauthorizedAccessException();
+
+            var user_logins = await user_manager.GetLoginsAsync(user);
+            var login = user_logins.FirstOrDefault(l => l.LoginProvider == provider);
+
+            if (login == null) throw new InvalidOperationException($"Could not remove {provider} login");
+
+            var result = await user_manager.RemoveLoginAsync(user, login.LoginProvider, login.ProviderKey);
+            if (!result.Succeeded) throw new Exception($"Could not remove {provider} login");
+        }
 
         public async Task<User> GetCurrentUser(ClaimsPrincipal userProperty)
         {

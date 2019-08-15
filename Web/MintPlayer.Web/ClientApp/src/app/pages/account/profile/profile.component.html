@@ -1,1 +1,86 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="form-group row">
+    <div class="col-12">
+      <h1 class="d-inline-block">Update profile</h1>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-header">
+      Social logins
+    </div>
+    <div class="card-body">
+      <div class="form-group row" *ngIf="loginProviders.indexOf('Microsoft') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-microsoft-login class="d-block" *ngIf="userLogins.indexOf('Microsoft') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-microsoft-login>
+          <button *ngIf="userLogins.indexOf('Microsoft') > -1" (click)="removeSocialLogin('Microsoft')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            Remove Microsoft login
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 align-self-center">
+          <span *ngIf="userLogins.indexOf('Microsoft') == -1">Add Microsoft login</span>
+          <span *ngIf="userLogins.indexOf('Microsoft') > -1">Microsoft account registered</span>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="loginProviders.indexOf('Facebook') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-facebook-login class="d-block" *ngIf="userLogins.indexOf('Facebook') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-facebook-login>
+          <button *ngIf="userLogins.indexOf('Facebook') > -1" (click)="removeSocialLogin('Facebook')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            Remove Facebook login
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 align-self-center">
+          <span *ngIf="userLogins.indexOf('Facebook') == -1">Add Facebook login</span>
+          <span *ngIf="userLogins.indexOf('Facebook') > -1">Facebook account registered</span>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="loginProviders.indexOf('Twitter') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-twitter-login class="d-block" *ngIf="userLogins.indexOf('Twitter') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-twitter-login>
+          <button *ngIf="userLogins.indexOf('Twitter') > -1" (click)="removeSocialLogin('Twitter')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            Remove Twitter login
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 align-self-center">
+          <span *ngIf="userLogins.indexOf('Twitter') == -1">Add Twitter login</span>
+          <span *ngIf="userLogins.indexOf('Twitter') > -1">Twitter account registered</span>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="loginProviders.indexOf('Google') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-google-login class="d-block" *ngIf="userLogins.indexOf('Google') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-google-login>
+          <button *ngIf="userLogins.indexOf('Google') > -1" (click)="removeSocialLogin('Google')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            Remove Google login
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 align-self-center">
+          <span *ngIf="userLogins.indexOf('Google') == -1">Add Google login</span>
+          <span *ngIf="userLogins.indexOf('Google') > -1">Google account registered</span>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="loginProviders.indexOf('GitHub') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-github-login class="d-block" *ngIf="userLogins.indexOf('GitHub') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-github-login>
+          <button *ngIf="userLogins.indexOf('GitHub') > -1" (click)="removeSocialLogin('GitHub')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            Remove GitHub login
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 align-self-center">
+          <span *ngIf="userLogins.indexOf('GitHub') == -1">Add GitHub login</span>
+          <span *ngIf="userLogins.indexOf('GitHub') > -1">GitHub account registered</span>
+        </div>
+      </div>
+      <div class="row" *ngIf="errorMessage != null">
+        <div class="col-md-12">
+          <div class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
