@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Identity.ExternalProviders.GitHub;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -72,9 +74,11 @@ namespace MintPlayer.Web
                 options.DefaultIndex = Configuration["elasticsearch:index"];
             });
 
-            services
-                .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options => {
+                options.RespectBrowserAcceptHeader = true; // false by default
+            })
+            .AddXmlSerializerFormatters()
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -105,6 +109,14 @@ namespace MintPlayer.Web
                     // User settings
                     options.User.RequireUniqueEmail = true;
                     options.User.AllowedUserNameCharacters = string.Empty;
+
+
+                }).Configure<RazorViewEngineOptions>(options =>
+                {
+                    var new_locations = options.ViewLocationFormats.Select(vlf => $"/Server{vlf}").ToList();
+                    options.ViewLocationFormats.Clear();
+                    foreach (var format in new_locations)
+                        options.ViewLocationFormats.Add(format);
 
                 })
                 .Configure<JwtIssuerOptions>(options =>
