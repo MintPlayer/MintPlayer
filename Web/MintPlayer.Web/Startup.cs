@@ -217,6 +217,11 @@ namespace MintPlayer.Web
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+
+                    // Run: 
+                    // ng build --prod
+                    // http -server -p 9000 -c-1 dist/ClientApp
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:9000");
                 }
             });
         }

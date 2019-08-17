@@ -10,6 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>true</BuildServerSideRenderer>
+    <Configurations>Debug;Release;Debug (HttpServer)</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { ControlsModule } from './controls/controls.module';
 import { ComponentsModule } from './components/components.module';
 import { PipesModule } from './pipes/pipes.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { PipesModule } from './pipes/pipes.module';
     AppRoutingModule,
     ControlsModule,
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   bootstrap: [AppComponent]
 })
