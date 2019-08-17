@@ -6,6 +6,6 @@ namespace Spa.SpaRoutes
     {
         public string Name { get; set; }
         public string Path { get; set; }
-        public Dictionary<string, object> Parameters { get; set; }
+        public Dictionary<string, string> Parameters { get; set; }
     }
 }

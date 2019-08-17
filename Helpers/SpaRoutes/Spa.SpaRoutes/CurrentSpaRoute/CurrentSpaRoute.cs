@@ -21,17 +21,50 @@ namespace Spa.SpaRoutes.CurrentSpaRoute
             var match = allRoutes.FirstOrDefault(r => IsMatch(httpContext.Request.Path, r.FullPath));
 
             if (match == null)
+            {
                 return null;
+            }
+            else if (!string.IsNullOrEmpty(match.FullPath))
+            {
+                // Get parameter names
+                var rgx_keys = @"(?<=\{)[a-zA-Z0-9]+(?=\})";
+                var parameter_keys = Regex.Matches(match.FullPath, rgx_keys).Select(m => m.Value).ToList(); // [id, ...]
+
+                var rgx_values = PlaceholderString2WildcardString(match.FullPath);
+                var parameter_match = Regex.Match(httpContext.Request.Path, rgx_values);
+                if (!parameter_match.Success) throw new System.Exception("Unexpected exception: parameter match should be successful");
+
+                var parameter_values = parameter_match.Groups.Where(g => g.GetType() == typeof(Group)).Select(g => g.Value).ToList();
+                if (parameter_keys.Count != parameter_values.Count) throw new System.Exception("Unexpected exception: number of keys and values should be equal");
+
+                return new SpaRoute
+                {
+                    Name = match.FullName,
+                    Path = match.FullPath,
+                    Parameters = Enumerable.Range(0, parameter_keys.Count).ToDictionary(
+                        (index) => parameter_keys[index],
+                        (index) => parameter_values[index]
+                    )
+                };
+            }
             else
-                return new SpaRoute { Name = match.FullName, Path = match.FullPath, Parameters = new Dictionary<string, object>() };
+            {
+                return new SpaRoute { Name = match.FullName, Path = match.FullPath, Parameters = new Dictionary<string, string>() };
+            }
         }
 
         private bool IsMatch(string path, string route)
         {
+            var formatted_route = PlaceholderString2WildcardString(route);
+            return Regex.IsMatch(path, $"^/{formatted_route}$");
+        }
+
+        private string PlaceholderString2WildcardString(string input)
+        {
             var rgx = @"\{[a-zA-Z0-9]+\}";
             var replace = "(.*)";
-            var formatted_route = Regex.Replace(route, rgx, replace);
-            return Regex.IsMatch(path, $"^/{formatted_route}$");
+            var wildcardString = Regex.Replace(input, rgx, replace);
+            return wildcardString;
         }
     }
 }
