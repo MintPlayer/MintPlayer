@@ -5,4 +5,8 @@
     <Configurations>Debug;Release;Debug (HttpServer)</Configurations>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
 </Project>

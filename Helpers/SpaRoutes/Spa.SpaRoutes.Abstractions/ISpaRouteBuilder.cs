@@ -7,6 +7,6 @@ namespace Spa.SpaRoutes.Abstractions
     {
         ISpaRouteBuilder Route(string path, string name);
         ISpaRouteBuilder Group(string path, string name, Action<ISpaRouteBuilder> builder);
-        ISpaRouteCollection Build();
+        //ISpaRouteCollection Build();
     }
 }

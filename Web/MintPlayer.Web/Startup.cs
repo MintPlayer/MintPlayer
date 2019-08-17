@@ -86,6 +86,29 @@ namespace MintPlayer.Web
                 configuration.RootPath = "ClientApp/dist";
             });
 
+            // Define the SPA-routes for our helper
+            services.AddSpaRoutes(routes => routes
+                .Route("", "home")
+                .Group("person", "person", person_routes => person_routes
+                    .Route("", "list")
+                    .Route("create", "create")
+                    .Route("{id}", "show")
+                    .Route("{id}/edit", "edit")
+                )
+                .Group("artist", "artist", artist_routes => artist_routes
+                    .Route("", "list")
+                    .Route("create", "create")
+                    .Route("{id}", "show")
+                    .Route("{id}/edit", "edit")
+                )
+                .Group("song", "song", song_routes => song_routes
+                    .Route("", "list")
+                    .Route("create", "create")
+                    .Route("{id}", "show")
+                    .Route("{id}/edit", "edit")
+                )
+            );
+
             services
                 .Configure<ForwardedHeadersOptions>(options =>
                 {
@@ -191,28 +214,6 @@ namespace MintPlayer.Web
 
                     };
                 });
-
-                spa.DefineSpaRoutes(routes => routes
-                    .Route("", "home")
-                    .Group("person", "person", person_routes => person_routes
-                        .Route("", "list")
-                        .Route("create", "create")
-                        .Route("{id}", "show")
-                        .Route("{id}/edit", "edit")
-                    )
-                    .Group("artist", "artist", artist_routes => artist_routes
-                        .Route("", "list")
-                        .Route("create", "create")
-                        .Route("{id}", "show")
-                        .Route("{id}/edit", "edit")
-                    )
-                    .Group("song", "song", song_routes => song_routes
-                        .Route("", "list")
-                        .Route("create", "create")
-                        .Route("{id}", "show")
-                        .Route("{id}/edit", "edit")
-                    )
-                );
 
                 if (env.IsDevelopment())
                 {

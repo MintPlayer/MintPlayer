@@ -2,7 +2,7 @@
 
 namespace Spa.SpaRoutes.Abstractions
 {
-    public interface ISpaRoute
+    public interface ISpaRouteItem
     {
         string Name { get; set; }
         string Path { get; set; }

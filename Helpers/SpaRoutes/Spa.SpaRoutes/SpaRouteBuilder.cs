@@ -10,34 +10,24 @@ namespace Spa.SpaRoutes
     {
         public SpaRouteBuilder()
         {
-            routes = new List<ISpaRoute>();
+            routes = new List<ISpaRouteItem>();
         }
 
-        public List<ISpaRoute> routes { get; private set; }
+        public List<ISpaRouteItem> routes { get; private set; }
 
         public ISpaRouteBuilder Route(string path, string name)
         {
-            var route = new SpaRoute { Path = path, Name = name };
+            var route = new SpaRouteItem { Path = path, Name = name, FullName = name };
             routes.Add(route);
             return this;
         }
 
         public ISpaRouteBuilder Group(string path, string name, Action<ISpaRouteBuilder> builder)
         {
-            var group = new SpaRoute { Path = path, Name = name };
+            var group = new SpaRouteItem { Path = path, Name = name, FullName = name };
             builder(group);
             routes.Add(group);
             return this;
-        }
-
-        public ISpaRouteCollection Build()
-        {
-            var routeCollection = new SpaRouteCollection();
-            foreach (var route in routes)
-            {
-                routeCollection.Add(route);
-            }
-            return routeCollection;
         }
     }
 }
