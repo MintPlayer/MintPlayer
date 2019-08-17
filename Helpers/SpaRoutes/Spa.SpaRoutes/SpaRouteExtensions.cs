@@ -11,7 +11,7 @@ namespace Spa.SpaRoutes
         {
             var routes = new SpaRouteBuilder();
             builder(routes);
-            services.AddSingleton<ICurrentSpaRoute, CurrentSpaRoute.CurrentSpaRoute>();
+            services.AddSingleton<ICurrentSpaRoute>(provider => new CurrentSpaRoute.CurrentSpaRoute(routes));
             return services;
         }
     }

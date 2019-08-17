@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Data.Options;
 using Spa.SpaRoutes;
+using Spa.SpaRoutes.CurrentSpaRoute.Interfaces;
 
 namespace MintPlayer.Web
 {
@@ -154,7 +155,7 @@ namespace MintPlayer.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ICurrentSpaRoute currentSpaRoute)
         {
             if (env.IsDevelopment())
             {
@@ -211,7 +212,7 @@ namespace MintPlayer.Web
                     options.ExcludeUrls = new[] { "/sockjs-node" };
                     options.SupplyData = (context, data) =>
                     {
-
+                        var route = currentSpaRoute.GetCurrentRoute(context);
                     };
                 });
 
