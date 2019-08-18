@@ -156,7 +156,7 @@ namespace MintPlayer.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ICurrentSpaRoute currentSpaRoute/*, IPersonRepository personRepository, IArtistRepository artistRepository, ISongRepository songRepository, IMediumTypeRepository mediumTypeRepository*/)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ICurrentSpaRoute currentSpaRoute)
         {
             if (env.IsDevelopment())
             {
@@ -229,12 +229,6 @@ namespace MintPlayer.Web
                                 }
                                 break;
                             case "person-show":
-                                {
-                                    var id = Convert.ToInt32(route.Parameters["id"]);
-                                    var person = personRepository.GetPerson(id, true);
-                                    data["person"] = person;
-                                }
-                                break;
                             case "person-edit":
                                 {
                                     var id = Convert.ToInt32(route.Parameters["id"]);
@@ -249,12 +243,6 @@ namespace MintPlayer.Web
                                 }
                                 break;
                             case "artist-show":
-                                {
-                                    var id = Convert.ToInt32(route.Parameters["id"]);
-                                    var artist = artistRepository.GetArtist(id, true);
-                                    data["artist"] = artist;
-                                }
-                                break;
                             case "artist-edit":
                                 {
                                     var id = Convert.ToInt32(route.Parameters["id"]);
@@ -269,12 +257,6 @@ namespace MintPlayer.Web
                                 }
                                 break;
                             case "song-show":
-                                {
-                                    var id = Convert.ToInt32(route.Parameters["id"]);
-                                    var song = songRepository.GetSong(id, true);
-                                    data["song"] = song;
-                                }
-                                break;
                             case "song-edit":
                                 {
                                     var id = Convert.ToInt32(route.Parameters["id"]);
@@ -290,12 +272,6 @@ namespace MintPlayer.Web
                                 }
                                 break;
                             case "mediumtype-show":
-                                {
-                                    var id = Convert.ToInt32(route.Parameters["id"]);
-                                    var mediumType = mediumTypeRepository.GetMediumType(id, true);
-                                    data["mediumType"] = mediumType;
-                                }
-                                break;
                             case "mediumtype-edit":
                                 {
                                     var id = Convert.ToInt32(route.Parameters["id"]);
