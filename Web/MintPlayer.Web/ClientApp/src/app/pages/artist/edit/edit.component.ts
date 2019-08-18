@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
@@ -15,13 +15,16 @@ import { MediumType } from '../../../interfaces/medium-type';
 })
 export class EditComponent implements OnInit {
 
-  constructor(private artistService: ArtistService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
-    var id = parseInt(this.route.snapshot.paramMap.get("id"));
-    this.artistService.getArtist(id, true).subscribe((artist) => {
-      this.artist = artist;
-      this.titleService.setTitle(`Edit artist: ${artist.name}`);
-      this.oldName = artist.name;
-    });
+  constructor(private artistService: ArtistService, @Inject('ARTIST') private artistInj: Artist, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+    if (artistInj === null) {
+      var id = parseInt(this.route.snapshot.paramMap.get("id"));
+      this.artistService.getArtist(id, true).subscribe((artist) => {
+        this.setArtist(artist);
+      });
+    } else {
+      this.setArtist(artistInj);
+    }
+
     this.mediumTypeService.getMediumTypes(false).subscribe((mediumTypes) => {
       this.mediumTypes = mediumTypes;
     });
@@ -44,6 +47,14 @@ export class EditComponent implements OnInit {
   httpHeaders: HttpHeaders = new HttpHeaders({
     'include_relations': String(true)
   });
+
+  private setArtist(artist: Artist) {
+    this.artist = artist;
+    if (artist !== null) {
+      this.titleService.setTitle(`Edit artist: ${artist.name}`);
+      this.oldName = artist.name;
+    }
+  }
 
   public CurrentMemberChanged(person: [Person, string]) {
     var action = person[1]; // add, remove

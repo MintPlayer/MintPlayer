@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { PersonService } from '../../../services/person/person.service';
@@ -12,16 +12,26 @@ import { MediumType } from '../../../interfaces/medium-type';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  constructor(private personService: PersonService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
-    var id = parseInt(this.route.snapshot.paramMap.get("id"));
-    this.personService.getPerson(id, true).subscribe(person => {
-      this.person = person;
-      this.titleService.setTitle(`Edit person: ${person.firstName} ${person.lastName}`);
-      this.oldPersonName = person.firstName + " " + person.lastName;
-    });
+  constructor(private personService: PersonService, @Inject('PERSON') private personInj: Person, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+    if (personInj === null) {
+      var id = parseInt(this.route.snapshot.paramMap.get("id"));
+      this.personService.getPerson(id, true).subscribe(person => {
+        this.setPerson(person);
+      });
+    } else {
+      this.setPerson(personInj);
+    }
     this.mediumTypeService.getMediumTypes(false).subscribe((mediumTypes) => {
       this.mediumTypes = mediumTypes;
     });
+  }
+
+  private setPerson(person: Person) {
+    this.person = person;
+    if (person !== null) {
+      this.titleService.setTitle(`Edit person: ${person.firstName} ${person.lastName}`);
+      this.oldPersonName = person.firstName + " " + person.lastName;
+    }
   }
 
   ngOnInit() {

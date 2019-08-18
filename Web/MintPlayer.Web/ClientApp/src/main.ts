@@ -1,4 +1,4 @@
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, StaticProvider } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
@@ -8,8 +8,16 @@ export function getBaseUrl() {
   return document.getElementsByTagName('base')[0].href;
 }
 
-const providers = [
-  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }
+const providers: StaticProvider[] = [
+  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
+  { provide: 'PEOPLE', useValue: null },
+  { provide: 'PERSON', useValue: null },
+  { provide: 'ARTISTS', useValue: null },
+  { provide: 'ARTIST', useValue: null },
+  { provide: 'SONGS', useValue: null },
+  { provide: 'SONG', useValue: null },
+  { provide: 'MEDIUMTYPES', useValue: null },
+  { provide: 'MEDIUMTYPE', useValue: null },
 ];
 
 if (environment.production) {

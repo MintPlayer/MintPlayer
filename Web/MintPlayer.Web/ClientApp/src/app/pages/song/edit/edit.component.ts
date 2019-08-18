@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
@@ -14,16 +14,26 @@ import { MediumType } from '../../../interfaces/medium-type';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  constructor(private songService: SongService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+  constructor(private songService: SongService, @Inject('SONG') private songInj: Song, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
     var id = parseInt(this.route.snapshot.paramMap.get("id"));
-    this.songService.getSong(id, true).subscribe(song => {
-      this.song = song;
-      this.titleService.setTitle(`Edit song: ${song.title}`);
-      this.oldSongTitle = song.title;
-    });
+    if (songInj === null) {
+      this.songService.getSong(id, true).subscribe(song => {
+        this.setSong(song);
+      });
+    } else {
+      this.setSong(songInj);
+    }
     this.mediumTypeService.getMediumTypes(false).subscribe((mediumTypes) => {
       this.mediumTypes = mediumTypes;
     });
+  }
+
+  private setSong(song: Song) {
+    this.song = song;
+    if (song !== null) {
+      this.titleService.setTitle(`Edit song: ${song.title}`);
+      this.oldSongTitle = song.title;
+    }
   }
 
   ngOnInit() {

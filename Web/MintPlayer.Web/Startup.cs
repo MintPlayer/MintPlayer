@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Data.Options;
+using MintPlayer.Data.Repositories.Interfaces;
 using Spa.SpaRoutes;
 using Spa.SpaRoutes.CurrentSpaRoute.Interfaces;
 
@@ -155,7 +156,7 @@ namespace MintPlayer.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ICurrentSpaRoute currentSpaRoute)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ICurrentSpaRoute currentSpaRoute/*, IPersonRepository personRepository, IArtistRepository artistRepository, ISongRepository songRepository, IMediumTypeRepository mediumTypeRepository*/)
         {
             if (env.IsDevelopment())
             {
@@ -213,6 +214,96 @@ namespace MintPlayer.Web
                     options.SupplyData = (context, data) =>
                     {
                         var route = currentSpaRoute.GetCurrentRoute(context);
+
+                        var personRepository = context.RequestServices.GetRequiredService<IPersonRepository>();
+                        var artistRepository = context.RequestServices.GetRequiredService<IArtistRepository>();
+                        var songRepository = context.RequestServices.GetRequiredService<ISongRepository>();
+                        var mediumTypeRepository = context.RequestServices.GetRequiredService<IMediumTypeRepository>();
+
+                        switch (route.Name)
+                        {
+                            case "person-list":
+                                {
+                                    var people = personRepository.GetPeople();
+                                    data["people"] = people;
+                                }
+                                break;
+                            case "person-show":
+                                {
+                                    var id = Convert.ToInt32(route.Parameters["id"]);
+                                    var person = personRepository.GetPerson(id, true);
+                                    data["person"] = person;
+                                }
+                                break;
+                            case "person-edit":
+                                {
+                                    var id = Convert.ToInt32(route.Parameters["id"]);
+                                    var person = personRepository.GetPerson(id, true);
+                                    data["person"] = person;
+                                }
+                                break;
+                            case "artist-list":
+                                {
+                                    var artists = artistRepository.GetArtists();
+                                    data["artists"] = artists;
+                                }
+                                break;
+                            case "artist-show":
+                                {
+                                    var id = Convert.ToInt32(route.Parameters["id"]);
+                                    var artist = artistRepository.GetArtist(id, true);
+                                    data["artist"] = artist;
+                                }
+                                break;
+                            case "artist-edit":
+                                {
+                                    var id = Convert.ToInt32(route.Parameters["id"]);
+                                    var artist = artistRepository.GetArtist(id, true);
+                                    data["artist"] = artist;
+                                }
+                                break;
+                            case "song-list":
+                                {
+                                    var songs = songRepository.GetSongs();
+                                    data["songs"] = songs;
+                                }
+                                break;
+                            case "song-show":
+                                {
+                                    var id = Convert.ToInt32(route.Parameters["id"]);
+                                    var song = songRepository.GetSong(id, true);
+                                    data["song"] = song;
+                                }
+                                break;
+                            case "song-edit":
+                                {
+                                    var id = Convert.ToInt32(route.Parameters["id"]);
+                                    var song = songRepository.GetSong(id, true);
+                                    data["song"] = song;
+                                }
+                                break;
+
+                            case "mediumtype-list":
+                                {
+                                    var mediumTypes = mediumTypeRepository.GetMediumTypes();
+                                    data["mediumTypes"] = mediumTypes;
+                                }
+                                break;
+                            case "mediumtype-show":
+                                {
+                                    var id = Convert.ToInt32(route.Parameters["id"]);
+                                    var mediumType = mediumTypeRepository.GetMediumType(id, true);
+                                    data["mediumType"] = mediumType;
+                                }
+                                break;
+                            case "mediumtype-edit":
+                                {
+                                    var id = Convert.ToInt32(route.Parameters["id"]);
+                                    var mediumType = mediumTypeRepository.GetMediumType(id, true);
+                                    data["mediumType"] = mediumType;
+                                }
+                                break;
+                        }
                     };
                 });
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { SongService } from '../../../services/song/song.service';
@@ -10,21 +10,30 @@ import { Song } from '../../../interfaces/song';
   styleUrls: ['./show.component.scss']
 })
 export class ShowComponent implements OnInit {
-  constructor(private songService: SongService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+  constructor(private songService: SongService, @Inject('SONG') private songInj: Song, private router: Router, private route: ActivatedRoute, private titleService: Title) {
     var id = parseInt(this.route.snapshot.paramMap.get("id"));
-    this.loadSong(id);
+    if (songInj === null) {
+      this.loadSong(id);
+    } else {
+      this.setSong(songInj);
+    }
   }
 
   private loadSong(id: number) {
     this.songService.getSong(id, true).subscribe(song => {
-      this.song = song;
-      if (song != null) {
-        this.titleService.setTitle(`${song.title}: Video and lyrics`);
-      }
+      this.setSong(song);
     });
   }
 
   @Output() addToPlaylist: EventEmitter<Song> = new EventEmitter();
+
+  private setSong(song: Song) {
+    this.song = song;
+    if (song != null) {
+      this.titleService.setTitle(`${song.title}: Video and lyrics`);
+    }
+  }
+
   public doAddToPlaylist() {
     this.addToPlaylist.emit(this.song);
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { SongService } from '../../../services/song/song.service';
@@ -10,9 +10,13 @@ import { Song } from '../../../interfaces/song';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  constructor(private songService: SongService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+  constructor(private songService: SongService, @Inject('SONGS') private songsInj: Song[], private router: Router, private route: ActivatedRoute, private titleService: Title) {
     this.titleService.setTitle('All songs');
-    this.loadSongs();
+    if (songsInj === null) {
+      this.loadSongs();
+    } else {
+      this.songs = songsInj;
+    }
   }
 
   private loadSongs() {

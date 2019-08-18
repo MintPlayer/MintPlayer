@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { PlayerTypeHelper } from '../../../helpers/playerTypeHelper';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,15 +13,17 @@ import { PlayerType } from '../../../interfaces/playerType';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  constructor(private mediumTypeService: MediumTypeService, private playerTypeHelper: PlayerTypeHelper, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+  constructor(private mediumTypeService: MediumTypeService, @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType, private playerTypeHelper: PlayerTypeHelper, private router: Router, private route: ActivatedRoute, private titleService: Title) {
     var id = parseInt(this.route.snapshot.paramMap.get("id"));
     this.playerTypes = this.playerTypeHelper.getPlayerTypes();
 
-    this.mediumTypeService.getMediumType(id, false).subscribe(mediumtype => {
-      this.mediumType = mediumtype;
-      this.titleService.setTitle(`Edit medium type: ${mediumtype.description}`);
-      this.oldMediumTypeDescription = mediumtype.description;
-    });
+    if (mediumTypeInj === null) {
+      this.mediumTypeService.getMediumType(id, false).subscribe(mediumtype => {
+        this.setMediumType(mediumtype);
+      });
+    } else {
+      this.setMediumType(mediumTypeInj);
+    }
   }
 
   public oldMediumTypeDescription: string = "";
@@ -32,6 +34,15 @@ export class EditComponent implements OnInit {
   };
 
   public playerTypes: PlayerType[] = [];
+
+  private setMediumType(mediumtype: MediumType) {
+    this.mediumType = mediumtype;
+    if (mediumtype !== null) {
+      this.titleService.setTitle(`Edit medium type: ${mediumtype.description}`);
+      this.oldMediumTypeDescription = mediumtype.description;
+    }
+  }
+
   public playerTypeSelected(playerType: number) {
     this.mediumType.playerType = ePlayerType[ePlayerType[playerType]];
   }

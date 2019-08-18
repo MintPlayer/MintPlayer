@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { ArtistService } from '../../../services/artist/artist.service';
@@ -11,9 +11,13 @@ import { Artist } from '../../../interfaces/artist';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private artistService: ArtistService, private router: Router, private titleService: Title) {
+  constructor(private artistService: ArtistService, @Inject('ARTISTS') private artistsInj: Artist[], private router: Router, private titleService: Title) {
     this.titleService.setTitle('Artists');
-    this.loadArtists();
+    if (artistsInj === null) {
+      this.loadArtists();
+    } else {
+      this.artists = artistsInj;
+    }
   }
 
   ngOnInit() {
