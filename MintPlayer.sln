@@ -33,9 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SitemapXml", "Helpers\Sitem
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crawler", "Crawler", "{96E8278D-3ABE-43BA-94F3-103FC08E5274}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayerCrawler.Data", "Crawler\MintPlayerCrawler.Data\MintPlayerCrawler.Data.csproj", "{40C72EBC-2437-47EE-AAFA-7905F8FA79B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayerCrawler.Data", "Crawler\MintPlayerCrawler.Data\MintPlayerCrawler.Data.csproj", "{40C72EBC-2437-47EE-AAFA-7905F8FA79B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayerCrawler.Web", "Crawler\MintPlayerCrawler.Web\MintPlayerCrawler.Web.csproj", "{A9682BB2-743A-4339-8AAB-3217A96E66C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayerCrawler.Web", "Crawler\MintPlayerCrawler.Web\MintPlayerCrawler.Web.csproj", "{A9682BB2-743A-4339-8AAB-3217A96E66C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayerCrawler.Service", "Crawler\MintPlayerCrawler.Service\MintPlayerCrawler.Service.csproj", "{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -345,6 +347,30 @@ Global
 		{A9682BB2-743A-4339-8AAB-3217A96E66C0}.Release|x64.Build.0 = Release|Any CPU
 		{A9682BB2-743A-4339-8AAB-3217A96E66C0}.Release|x86.ActiveCfg = Release|Any CPU
 		{A9682BB2-743A-4339-8AAB-3217A96E66C0}.Release|x86.Build.0 = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|ARM.Build.0 = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|x64.Build.0 = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Debug|x86.Build.0 = Debug|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|ARM.ActiveCfg = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|ARM.Build.0 = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|iPhone.Build.0 = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|x64.ActiveCfg = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|x64.Build.0 = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|x86.ActiveCfg = Release|Any CPU
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -363,6 +389,7 @@ Global
 		{813103B8-05D3-43FF-945B-D3F167457BB1} = {BED30911-E609-4EB7-A9BE-F649049429EC}
 		{40C72EBC-2437-47EE-AAFA-7905F8FA79B7} = {96E8278D-3ABE-43BA-94F3-103FC08E5274}
 		{A9682BB2-743A-4339-8AAB-3217A96E66C0} = {96E8278D-3ABE-43BA-94F3-103FC08E5274}
+		{1BC3BC31-F737-4998-8AC7-70F3ABD40F19} = {96E8278D-3ABE-43BA-94F3-103FC08E5274}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {655DEA36-8270-4317-B1B7-7363B0CC715C}
