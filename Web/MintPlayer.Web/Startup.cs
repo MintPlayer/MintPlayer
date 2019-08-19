@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Data.Options;
 using MintPlayer.Data.Repositories.Interfaces;
+using SitemapXml;
 using Spa.SpaRoutes;
 using Spa.SpaRoutes.CurrentSpaRoute.Interfaces;
 
@@ -110,6 +111,8 @@ namespace MintPlayer.Web
                     .Route("{id}/edit", "edit")
                 )
             );
+
+            services.AddSitemapXml();
 
             services
                 .Configure<ForwardedHeadersOptions>(options =>
@@ -220,65 +223,68 @@ namespace MintPlayer.Web
                         var songRepository = context.RequestServices.GetRequiredService<ISongRepository>();
                         var mediumTypeRepository = context.RequestServices.GetRequiredService<IMediumTypeRepository>();
 
-                        switch (route.Name)
+                        if (route != null)
                         {
-                            case "person-list":
-                                {
-                                    var people = personRepository.GetPeople();
-                                    data["people"] = people;
-                                }
-                                break;
-                            case "person-show":
-                            case "person-edit":
-                                {
-                                    var id = Convert.ToInt32(route.Parameters["id"]);
-                                    var person = personRepository.GetPerson(id, true);
-                                    data["person"] = person;
-                                }
-                                break;
-                            case "artist-list":
-                                {
-                                    var artists = artistRepository.GetArtists();
-                                    data["artists"] = artists;
-                                }
-                                break;
-                            case "artist-show":
-                            case "artist-edit":
-                                {
-                                    var id = Convert.ToInt32(route.Parameters["id"]);
-                                    var artist = artistRepository.GetArtist(id, true);
-                                    data["artist"] = artist;
-                                }
-                                break;
-                            case "song-list":
-                                {
-                                    var songs = songRepository.GetSongs();
-                                    data["songs"] = songs;
-                                }
-                                break;
-                            case "song-show":
-                            case "song-edit":
-                                {
-                                    var id = Convert.ToInt32(route.Parameters["id"]);
-                                    var song = songRepository.GetSong(id, true);
-                                    data["song"] = song;
-                                }
-                                break;
+                            switch (route.Name)
+                            {
+                                case "person-list":
+                                    {
+                                        var people = personRepository.GetPeople();
+                                        data["people"] = people;
+                                    }
+                                    break;
+                                case "person-show":
+                                case "person-edit":
+                                    {
+                                        var id = Convert.ToInt32(route.Parameters["id"]);
+                                        var person = personRepository.GetPerson(id, true);
+                                        data["person"] = person;
+                                    }
+                                    break;
+                                case "artist-list":
+                                    {
+                                        var artists = artistRepository.GetArtists();
+                                        data["artists"] = artists;
+                                    }
+                                    break;
+                                case "artist-show":
+                                case "artist-edit":
+                                    {
+                                        var id = Convert.ToInt32(route.Parameters["id"]);
+                                        var artist = artistRepository.GetArtist(id, true);
+                                        data["artist"] = artist;
+                                    }
+                                    break;
+                                case "song-list":
+                                    {
+                                        var songs = songRepository.GetSongs();
+                                        data["songs"] = songs;
+                                    }
+                                    break;
+                                case "song-show":
+                                case "song-edit":
+                                    {
+                                        var id = Convert.ToInt32(route.Parameters["id"]);
+                                        var song = songRepository.GetSong(id, true);
+                                        data["song"] = song;
+                                    }
+                                    break;
 
-                            case "mediumtype-list":
-                                {
-                                    var mediumTypes = mediumTypeRepository.GetMediumTypes();
-                                    data["mediumTypes"] = mediumTypes;
-                                }
-                                break;
-                            case "mediumtype-show":
-                            case "mediumtype-edit":
-                                {
-                                    var id = Convert.ToInt32(route.Parameters["id"]);
-                                    var mediumType = mediumTypeRepository.GetMediumType(id, true);
-                                    data["mediumType"] = mediumType;
-                                }
-                                break;
+                                case "mediumtype-list":
+                                    {
+                                        var mediumTypes = mediumTypeRepository.GetMediumTypes();
+                                        data["mediumTypes"] = mediumTypes;
+                                    }
+                                    break;
+                                case "mediumtype-show":
+                                case "mediumtype-edit":
+                                    {
+                                        var id = Convert.ToInt32(route.Parameters["id"]);
+                                        var mediumType = mediumTypeRepository.GetMediumType(id, true);
+                                        data["mediumType"] = mediumType;
+                                    }
+                                    break;
+                            }
                         }
                     };
                 });

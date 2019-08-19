@@ -10,8 +10,8 @@ using MintPlayer.Web.Server.ViewModels.MediumType;
 
 namespace MintPlayer.Web.Server.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class MediumTypeController : Controller
     {
         private IMediumTypeRepository mediumTypeRepository;

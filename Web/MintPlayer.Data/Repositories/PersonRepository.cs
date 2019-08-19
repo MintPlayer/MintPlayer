@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MintPlayer.Data.Dtos;
 using MintPlayer.Data.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -71,6 +72,7 @@ namespace MintPlayer.Data.Repositories
             // Get current user
             var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
             entity_person.UserInsert = user;
+            entity_person.DateInsert = DateTime.Now;
 
             // Add to database
             mintplayer_context.People.Add(entity_person);
@@ -97,6 +99,7 @@ namespace MintPlayer.Data.Repositories
             // Get current user
             var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
             entity_person.UserUpdate = user;
+            entity_person.DateUpdate = DateTime.Now;
 
             // Update in database
             mintplayer_context.Entry(entity_person).State = EntityState.Modified;
@@ -116,6 +119,7 @@ namespace MintPlayer.Data.Repositories
             // Get current user
             var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
             person.UserDelete = user;
+            person.DateDelete = DateTime.Now;
 
             // Index
             var person_dto = ToDto(person);
@@ -141,8 +145,11 @@ namespace MintPlayer.Data.Repositories
                     Born = person.Born,
                     Died = person.Died,
 
+
                     Artists = person.Artists.Select(ap => ArtistRepository.ToDto(ap.Artist)).ToList(),
-                    Media = person.Media.Select(medium => MediumRepository.ToDto(medium, true)).ToList()
+                    Media = person.Media.Select(medium => MediumRepository.ToDto(medium, true)).ToList(),
+
+                    DateUpdate = person.DateUpdate ?? person.DateInsert
                 };
             }
             else
@@ -153,7 +160,9 @@ namespace MintPlayer.Data.Repositories
                     FirstName = person.FirstName,
                     LastName = person.LastName,
                     Born = person.Born,
-                    Died = person.Died
+                    Died = person.Died,
+
+                    DateUpdate = person.DateUpdate ?? person.DateInsert
                 };
             }
         }

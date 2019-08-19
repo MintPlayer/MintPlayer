@@ -79,6 +79,7 @@ namespace MintPlayer.Data.Repositories
             // Convert to entity
             var entity_song = ToEntity(song, user, mintplayer_context);
             entity_song.UserInsert = user;
+            entity_song.DateInsert = DateTime.Now;
 
             // Add to database
             mintplayer_context.Songs.Add(entity_song);
@@ -115,6 +116,7 @@ namespace MintPlayer.Data.Repositories
             // Set UserUpdate
             var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
             song_entity.UserUpdate = user;
+            song_entity.DateUpdate = DateTime.Now;
 
             // Add/update lyrics
             var lyrics = song_entity.Lyrics.FirstOrDefault(l => l.UserId == user.Id);
@@ -150,6 +152,7 @@ namespace MintPlayer.Data.Repositories
             // Get current user
             var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
             song.UserDelete = user;
+            song.DateDelete = DateTime.Now;
 
             // Index
             var song_dto = ToDto(song);
@@ -175,7 +178,9 @@ namespace MintPlayer.Data.Repositories
                     Lyrics = song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault()?.Text,
 
                     Artists = song.Artists.Select(@as => ArtistRepository.ToDto(@as.Artist)).ToList(),
-                    Media = song.Media.Select(medium => MediumRepository.ToDto(medium, true)).ToList()
+                    Media = song.Media.Select(medium => MediumRepository.ToDto(medium, true)).ToList(),
+
+                    DateUpdate = song.DateUpdate ?? song.DateInsert
                 };
             }
             else
@@ -185,7 +190,9 @@ namespace MintPlayer.Data.Repositories
                     Id = song.Id,
                     Title = song.Title,
                     Released = song.Released,
-                    Lyrics = song.Lyrics?.OrderBy(l => l.UpdatedAt).LastOrDefault()?.Text
+                    Lyrics = song.Lyrics?.OrderBy(l => l.UpdatedAt).LastOrDefault()?.Text,
+
+                    DateUpdate = song.DateUpdate ?? song.DateInsert
                 };
             }
         }

@@ -12,6 +12,7 @@ using MintPlayer.Web.Server.ViewModels.Account;
 
 namespace MintPlayer.Web.Server.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class AccountController : Controller
     {

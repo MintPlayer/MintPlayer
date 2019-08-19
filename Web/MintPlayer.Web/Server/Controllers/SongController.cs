@@ -10,6 +10,7 @@ using MintPlayer.Web.Server.ViewModels.Song;
 
 namespace MintPlayer.Web.Server.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class SongController : Controller
     {

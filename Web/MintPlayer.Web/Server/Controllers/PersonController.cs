@@ -10,8 +10,8 @@ using MintPlayer.Web.Server.ViewModels.Person;
 
 namespace MintPlayer.Web.Server.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class PersonController : Controller
     {
         private IPersonRepository personRepository;

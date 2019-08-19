@@ -70,6 +70,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Helpers\SitemapXml\SitemapXml.csproj" />
     <ProjectReference Include="..\..\Helpers\SpaRoutes\Spa.SpaRoutes\Spa.SpaRoutes.csproj" />
     <ProjectReference Include="..\MintPlayer.Data\MintPlayer.Data.csproj" />
   </ItemGroup>

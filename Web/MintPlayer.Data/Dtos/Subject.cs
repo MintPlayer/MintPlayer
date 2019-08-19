@@ -1,12 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using SitemapXml.Interfaces;
 
 namespace MintPlayer.Data.Dtos
 {
 
-    public class Subject
+    public class Subject : ITimestamps
     {
         public int Id { get; set; }
 
         public List<Medium> Media { get; set; }
+
+        [Nest.Ignore]
+        public DateTime DateUpdate { get; set; }
     }
 }

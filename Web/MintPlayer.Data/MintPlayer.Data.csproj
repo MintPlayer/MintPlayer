@@ -12,11 +12,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
-    <PackageReference Include="NEST" Version="7.0.0" />
+    <PackageReference Include="NEST" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Helpers\Identity.ExternalProviders\Identity.ExternalProviders.csproj" />
+    <ProjectReference Include="..\..\Helpers\SitemapXml\SitemapXml.csproj" />
   </ItemGroup>
 
 </Project>
