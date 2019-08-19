@@ -29,7 +29,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.iOS", "Mobile\Mi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer", "Mobile\MintPlayer\MintPlayer.csproj", "{1269CA08-0EA8-4649-9206-FB4C1769623B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitemapXml", "Helpers\SitemapXml\SitemapXml.csproj", "{813103B8-05D3-43FF-945B-D3F167457BB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SitemapXml", "Helpers\SitemapXml\SitemapXml.csproj", "{813103B8-05D3-43FF-945B-D3F167457BB1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crawler", "Crawler", "{96E8278D-3ABE-43BA-94F3-103FC08E5274}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

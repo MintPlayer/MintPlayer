@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MintPlayer.Web.Server.Controllers
 {
     [Controller]
-    [Route("[controller]", Name = "sitemap")]
+    [Route("[controller]")]
     public class SitemapController : Controller
     {
         private ISitemapXml sitemapXml;
@@ -26,7 +26,7 @@ namespace MintPlayer.Web.Server.Controllers
         }
 
         [Produces("application/xml")]
-        [HttpGet(Name = "index")]
+        [HttpGet(Name = "sitemap-index")]
         public UrlSet Index()
         {
             const int per_page = 100;
@@ -35,16 +35,17 @@ namespace MintPlayer.Web.Server.Controllers
             var artists = artistRepository.GetArtists().ToList();
             var songs = songRepository.GetSongs().ToList();
 
-            var person_urls = sitemapXml.GetSitemapIndex(people, per_page, (perPage, page) => Url.RouteUrl("subject", new { subject = "person", count = perPage, page }, Request.Scheme));
-            var artist_urls = sitemapXml.GetSitemapIndex(artists, per_page, (perPage, page) => Url.RouteUrl("subject", new { subject = "artist", count = perPage, page }, Request.Scheme));
-            var song_urls = sitemapXml.GetSitemapIndex(songs, per_page, (perPage, page) => Url.RouteUrl("subject", new { subject = "song", count = perPage, page }, Request.Scheme));
+            var person_urls = sitemapXml.GetSitemapIndex(people, per_page, (perPage, page) => Url.RouteUrl("sitemap-subject", new { subject = "person", count = perPage, page }, Request.Scheme));
+            var artist_urls = sitemapXml.GetSitemapIndex(artists, per_page, (perPage, page) => Url.RouteUrl("sitemap-subject", new { subject = "artist", count = perPage, page }, Request.Scheme));
+            var song_urls = sitemapXml.GetSitemapIndex(songs, per_page, (perPage, page) => Url.RouteUrl("sitemap-subject", new { subject = "song", count = perPage, page }, Request.Scheme));
 
             var all_urls = person_urls.Concat(artist_urls).Concat(song_urls);
             return new UrlSet(all_urls);
         }
 
+        
         [Produces("application/xml")]
-        [HttpGet("{subject}/{count}/{page}", Name = "subject")]
+        [HttpGet("{subject}/{count}/{page}", Name = "sitemap-subject")]
         public UrlSet Sitemap(string subject, int count, int page)
         {
             IEnumerable<Data.Dtos.Subject> subjects;
