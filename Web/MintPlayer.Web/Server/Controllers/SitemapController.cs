@@ -47,50 +47,45 @@ namespace MintPlayer.Web.Server.Controllers
         [HttpGet("{subject}/{count}/{page}", Name = "subject")]
         public UrlSet Sitemap(string subject, int count, int page)
         {
-            throw new NotImplementedException();
-            //List<Data.Dtos.Subject> subjects;
-            //switch (subject.ToLower())
-            //{
-            //    case "person":
-            //        subjects = personRepository.GetPeople().Cast<Data.Dtos.Subject>().ToList();
-            //        break;
-            //    case "artist":
-            //        subjects = artistRepository.GetArtists().Cast<Data.Dtos.Subject>().ToList();
-            //        break;
-            //    case "song":
-            //        subjects = songRepository.GetSongs().Cast<Data.Dtos.Subject>().ToList();
-            //        break;
-            //    default:
-            //        throw new Exception("Invalid subject type");
-            //}
+            IEnumerable<Data.Dtos.Subject> subjects;
+            switch (subject.ToLower())
+            {
+                case "person":
+                    subjects = personRepository.GetPeople(count, page).Cast<Data.Dtos.Subject>();
+                    break;
+                case "artist":
+                    subjects = artistRepository.GetArtists(count, page).Cast<Data.Dtos.Subject>();
+                    break;
+                case "song":
+                    subjects = songRepository.GetSongs(count, page).Cast<Data.Dtos.Subject>();
+                    break;
+                default:
+                    throw new Exception("Invalid subject type");
+            }
 
-            //var items = subjects.Skip((page - 1) * count).Take(count);
-
-            //var urlset = new UrlSet();
-            //var urls = items.Select(s => {
-            //    var url = new Url
-            //    {
-            //        //Loc = Url.Action("Get", subject.UcFirst(), new { id = s.Id }, Request.Scheme),
-            //        Loc = $"{Request.Scheme}://{Request.Host}/{subject}/{s.Id}",
-            //        ChangeFreq = ChangeFreq.Monthly,
-            //        LastMod = s.LastEdit,
-            //    };
-            //    url.Links.Add(new Link
-            //    {
-            //        Rel = "alternate",
-            //        HrefLang = "nl",
-            //        Href = $"{Request.Scheme}://{Request.Host}/nl/{subject}/{s.Id}"
-            //    });
-            //    url.Links.Add(new Link
-            //    {
-            //        Rel = "alternate",
-            //        HrefLang = "fr",
-            //        Href = $"{Request.Scheme}://{Request.Host}/fr/{subject}/{s.Id}"
-            //    });
-            //    return url;
-            //});
-            //urlset.Urls.AddRange(urls);
-            //return urlset;
+            return new UrlSet(subjects.Select(s =>
+            {
+                var url = new Url
+                {
+                    //Loc = Url.Action("Get", subject.UcFirst(), new { id = s.Id }, Request.Scheme),
+                    Loc = $"{Request.Scheme}://{Request.Host}/{subject}/{s.Id}",
+                    ChangeFreq = SitemapXml.Enums.ChangeFreq.Monthly,
+                    LastMod = s.DateUpdate,
+                };
+                url.Links.Add(new Link
+                {
+                    Rel = "alternate",
+                    HrefLang = "nl",
+                    Href = $"{Request.Scheme}://{Request.Host}/nl/{subject}/{s.Id}"
+                });
+                url.Links.Add(new Link
+                {
+                    Rel = "alternate",
+                    HrefLang = "fr",
+                    Href = $"{Request.Scheme}://{Request.Host}/fr/{subject}/{s.Id}"
+                });
+                return url;
+            }));
         }
     }
 }

@@ -49,6 +49,32 @@ namespace MintPlayer.Data.Repositories
             }
         }
 
+        public IEnumerable<Artist> GetArtists(int count, int page, bool include_relations = false)
+        {
+            if (include_relations)
+            {
+                var artists = mintplayer_context.Artists
+                    .Include(artist => artist.Members)
+                        .ThenInclude(ap => ap.Person)
+                    .Include(artist => artist.Songs)
+                        .ThenInclude(@as => @as.Song)
+                    .Include(artist => artist.Media)
+                        .ThenInclude(m => m.Type)
+                    .Skip((page - 1) * count)
+                    .Take(count)
+                    .Select(artist => ToDto(artist, true));
+                return artists;
+            }
+            else
+            {
+                var artists = mintplayer_context.Artists
+                    .Skip((page - 1) * count)
+                    .Take(count)
+                    .Select(artist => ToDto(artist, false));
+                return artists;
+            }
+        }
+
         public Dtos.Artist GetArtist(int id, bool include_relations = false)
         {
             if (include_relations)
