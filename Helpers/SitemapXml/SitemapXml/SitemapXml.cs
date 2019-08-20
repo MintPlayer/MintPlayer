@@ -19,7 +19,7 @@ namespace SitemapXml.SitemapXml
         /// <param name="perPage">Number of items in one sitemap</param>
         /// <param name="urlFunc">Function to compute the url</param>
         /// <returns></returns>
-        public IEnumerable<Url> GetSitemapIndex<T>(IEnumerable<T> items, int perPage, Func<int, int, string> urlFunc) where T : ITimestamps
+        public IEnumerable<Sitemap> GetSitemapIndex<T>(IEnumerable<T> items, int perPage, Func<int, int, string> urlFunc) where T : ITimestamps
         {
             if (items.Any())
             {
@@ -27,17 +27,16 @@ namespace SitemapXml.SitemapXml
                 return Enumerable.Range(1, pages).Select(page =>
                 {
                     string loc = urlFunc.Invoke(perPage, page);
-                    return new Url
+                    return new Sitemap
                     {
                         Loc = loc,
-                        ChangeFreq = Enums.ChangeFreq.Monthly,
                         LastMod = items.Skip((page - 1) * perPage).Take(perPage).Max(item => item.DateUpdate)
                     };
                 });
             }
             else
             {
-                return Enumerable.Empty<Url>();
+                return Enumerable.Empty<Sitemap>();
             }
         }
     }

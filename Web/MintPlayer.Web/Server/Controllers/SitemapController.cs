@@ -27,7 +27,7 @@ namespace MintPlayer.Web.Server.Controllers
 
         [Produces("application/xml")]
         [HttpGet(Name = "sitemap-index")]
-        public UrlSet Index()
+        public SitemapIndex Index()
         {
             const int per_page = 100;
 
@@ -40,7 +40,7 @@ namespace MintPlayer.Web.Server.Controllers
             var song_urls = sitemapXml.GetSitemapIndex(songs, per_page, (perPage, page) => Url.RouteUrl("sitemap-subject", new { subject = "song", count = perPage, page }, Request.Scheme));
 
             var all_urls = person_urls.Concat(artist_urls).Concat(song_urls);
-            return new UrlSet(all_urls);
+            return new SitemapIndex(all_urls);
         }
 
         

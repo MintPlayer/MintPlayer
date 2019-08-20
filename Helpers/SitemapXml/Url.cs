@@ -5,6 +5,7 @@ using SitemapXml.Enums;
 
 namespace SitemapXml
 {
+    [XmlRoot("url")]
     public class Url
     {
         [XmlElement("loc")]
