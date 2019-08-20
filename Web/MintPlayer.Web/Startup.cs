@@ -81,6 +81,9 @@ namespace MintPlayer.Web
                 options.RespectBrowserAcceptHeader = true; // false by default
             })
             .AddXmlSerializerFormatters()
+            .AddSitemapXmlFormatters(options => {
+                options.Stylesheet = "/assets/sitemap.xsl";
+            })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the Angular files will be served from this directory

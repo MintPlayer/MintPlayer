@@ -27,7 +27,6 @@ export class BaseLoginComponent {
   }
 
   showPopup() {
-    debugger;
     this.authWindow = window.open(`${this.baseUrl}/api/Account/${this.action}/${this.platform}`, null, 'width=600,height=400');
     this.isOpen = true;
     var timer = setInterval(() => {
@@ -53,7 +52,6 @@ export class BaseLoginComponent {
 
     console.log(message.data.type);
 
-    debugger;
     const result = <LoginResult>JSON.parse(message.data);
     if (result.platform == this.platform) {
       this.authWindow.close();

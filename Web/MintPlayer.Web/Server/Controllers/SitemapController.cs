@@ -73,18 +73,18 @@ namespace MintPlayer.Web.Server.Controllers
                     ChangeFreq = SitemapXml.Enums.ChangeFreq.Monthly,
                     LastMod = s.DateUpdate,
                 };
-                url.Links.Add(new Link
-                {
-                    Rel = "alternate",
-                    HrefLang = "nl",
-                    Href = $"{Request.Scheme}://{Request.Host}/nl/{subject}/{s.Id}"
-                });
-                url.Links.Add(new Link
-                {
-                    Rel = "alternate",
-                    HrefLang = "fr",
-                    Href = $"{Request.Scheme}://{Request.Host}/fr/{subject}/{s.Id}"
-                });
+                //url.Links.Add(new Link
+                //{
+                //    Rel = "alternate",
+                //    HrefLang = "nl",
+                //    Href = $"{Request.Scheme}://{Request.Host}/nl/{subject}/{s.Id}"
+                //});
+                //url.Links.Add(new Link
+                //{
+                //    Rel = "alternate",
+                //    HrefLang = "fr",
+                //    Href = $"{Request.Scheme}://{Request.Host}/fr/{subject}/{s.Id}"
+                //});
                 return url;
             }));
         }
