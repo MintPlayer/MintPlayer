@@ -19,7 +19,8 @@ namespace SitemapXml
 
             mvc.AddMvcOptions(mvc_options =>
             {
-                mvc_options.OutputFormatters.Insert(0, new Formatters.XmlSerializerOutputFormatter(opt.Stylesheet));
+                if (!string.IsNullOrEmpty(opt.Stylesheet))
+                    mvc_options.OutputFormatters.Insert(0, new Formatters.XmlSerializerOutputFormatter(opt.Stylesheet));
             });
             return mvc;
         }
