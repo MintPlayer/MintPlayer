@@ -67,20 +67,6 @@ namespace MintPlayer.Web.Server.Controllers
             };
         }
 
-        [HttpGet("opensearch.xml", Name = "subject-opensearch")]
-        [Produces("application/opensearchdescription+xml; charset=UTF-8")]
-        public async Task<OpenSearchDescription> OpenSearchDescription()
-        {
-            Response.Headers["Content-Disposition"] = "attachment; filename=opensearch.osdx";
-            await Task.Delay(1);
-            return new OpenSearchDescription
-            {
-                ShortName = "MintPlayer",
-                Description = "Search music on MintPlayer",
-                InputEncoding = "UTF-8"
-            };
-        }
-
         [HttpGet("{subject_id}/likes")]
         public async Task<SubjectLikeVM> Likes([FromRoute]int subject_id)
         {
