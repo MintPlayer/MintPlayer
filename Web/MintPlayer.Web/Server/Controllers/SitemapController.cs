@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Data.Repositories.Interfaces;
 using SitemapXml;
-using SitemapXml.SitemapXml.Interfaces;
+using SitemapXml.DependencyInjection.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

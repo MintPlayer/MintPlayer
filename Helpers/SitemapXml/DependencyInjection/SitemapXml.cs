@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using SitemapXml.Interfaces;
-using SitemapXml.SitemapXml.Interfaces;
+using SitemapXml.DependencyInjection.Interfaces;
 
-namespace SitemapXml.SitemapXml
+namespace SitemapXml.DependencyInjection
 {
     internal class SitemapXml : ISitemapXml
     {

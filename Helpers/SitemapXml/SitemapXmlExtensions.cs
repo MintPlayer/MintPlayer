@@ -8,7 +8,7 @@ namespace SitemapXml
     {
         public static IServiceCollection AddSitemapXml(this IServiceCollection services)
         {
-            services.AddScoped<SitemapXml.Interfaces.ISitemapXml, SitemapXml.SitemapXml>();
+            services.AddScoped<DependencyInjection.Interfaces.ISitemapXml, DependencyInjection.SitemapXml>();
             return services;
         }
 

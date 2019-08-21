@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SitemapXml.Interfaces;
 
-namespace SitemapXml.SitemapXml.Interfaces
+namespace SitemapXml.DependencyInjection.Interfaces
 {
     public interface ISitemapXml
     {
