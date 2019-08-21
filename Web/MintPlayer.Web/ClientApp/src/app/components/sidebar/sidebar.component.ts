@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down';
 import { User } from '../../interfaces/account/user';
 import { TranslateService } from '@ngx-translate/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private translateService: TranslateService) {
+  constructor(private translateService: TranslateService, private router: Router, private route: ActivatedRoute) {
   }
 
   @Input() activeUser: User;
@@ -40,7 +41,9 @@ export class SidebarComponent implements OnInit {
   }
 
   switchLanguage(language: string) {
-    this.translateService.setDefaultLang(language);
+    this.router.navigate([], { queryParams: { lang: language } });
+    //var route = this.route.url;
+    //debugger;
   }
 
   ngOnInit() {

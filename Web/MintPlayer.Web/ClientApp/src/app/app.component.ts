@@ -10,6 +10,8 @@ import { YoutubeHelper } from './helpers/youtubeHelper';
 import { Song } from './interfaces/song';
 import { YoutubePlayerComponent } from './components/youtube-player/youtube-player.component';
 import { OpenSearchHelper } from './helpers/openSearchHelper';
+import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +26,7 @@ export class AppComponent {
   sidebarState: eSidebarState = eSidebarState.auto;
   playlistToggleButtonState: eToggleButtonState = eToggleButtonState.closed;
 
-  constructor(private accountService: AccountService, private youtubeHelper: YoutubeHelper, private openSearchHelper: OpenSearchHelper) {
+  constructor(private accountService: AccountService, private youtubeHelper: YoutubeHelper, private openSearchHelper: OpenSearchHelper, private translateService: TranslateService, private route: ActivatedRoute) {
     this.accountService.currentUser().subscribe((user) => {
       this.activeUser = user;
     }, (error) => {
@@ -33,6 +35,9 @@ export class AppComponent {
     this.youtubeHelper.loadApi().then(() => {
       console.log('loaded youtube api');
       this.youtubeHelper.apiReady.next(true);
+    });
+    this.route.queryParams.subscribe((params) => {
+      this.translateService.setDefaultLang(params['lang']);
     });
     this.openSearchHelper.addOpenSearch('MintPlayer', '/opensearch.xml');
   }
