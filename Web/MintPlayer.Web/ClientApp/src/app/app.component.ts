@@ -9,6 +9,7 @@ import { AccountService } from './services/account/account.service';
 import { YoutubeHelper } from './helpers/youtubeHelper';
 import { Song } from './interfaces/song';
 import { YoutubePlayerComponent } from './components/youtube-player/youtube-player.component';
+import { OpenSearchHelper } from './helpers/openSearchHelper';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ export class AppComponent {
   sidebarState: eSidebarState = eSidebarState.auto;
   playlistToggleButtonState: eToggleButtonState = eToggleButtonState.closed;
 
-  constructor(private accountService: AccountService, private youtubeHelper: YoutubeHelper) {
+  constructor(private accountService: AccountService, private youtubeHelper: YoutubeHelper, private openSearchHelper: OpenSearchHelper) {
     this.accountService.currentUser().subscribe((user) => {
       this.activeUser = user;
     }, (error) => {
@@ -33,6 +34,7 @@ export class AppComponent {
       console.log('loaded youtube api');
       this.youtubeHelper.apiReady.next(true);
     });
+    this.openSearchHelper.addOpenSearch('MintPlayer', '/opensearch.xml');
   }
 
   updateSidebarState(state: eToggleButtonState) {

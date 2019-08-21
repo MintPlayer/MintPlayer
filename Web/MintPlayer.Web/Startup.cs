@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Identity.ExternalProviders.GitHub;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.Twitter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -17,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Data.Options;
 using MintPlayer.Data.Repositories.Interfaces;
+using OpenSearch.Extensions;
 using SitemapXml;
 using Spa.SpaRoutes;
 using Spa.SpaRoutes.CurrentSpaRoute.Interfaces;
@@ -179,6 +182,24 @@ namespace MintPlayer.Web
                 .UseForwardedHeaders()
                 .UseStaticFiles()
                 .UseSpaStaticFiles();
+
+            app.Use((context, next) =>
+            {
+                if(context.Request.Path == "/opensearch.xml")
+                {
+                    context.WriteModelAsync(new OpenSearch.OpenSearchDescription
+                    {
+                        ShortName = "MintPlayer",
+                        Description = "Search music on MintPlayer",
+                        InputEncoding = "UTF-8"
+                    });
+                    return Task.CompletedTask;
+                }
+                else
+                {
+                    return next();
+                }
+            });
 
             app.Use((context, next) =>
             {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Data.Dtos;
 using MintPlayer.Data.Repositories.Interfaces;
 using MintPlayer.Web.Server.ViewModels.Subject;
+using OpenSearch;
 
 namespace MintPlayer.Web.Server.Controllers
 {
@@ -63,6 +64,20 @@ namespace MintPlayer.Web.Server.Controllers
                 Artists = results.Where(s => s.GetType() == typeof(Artist)).Cast<Artist>().ToList(),
                 People = results.Where(s => s.GetType() == typeof(Person)).Cast<Person>().ToList(),
                 Songs = results.Where(s => s.GetType() == typeof(Song)).Cast<Song>().ToList()
+            };
+        }
+
+        [HttpGet("opensearch.xml", Name = "subject-opensearch")]
+        [Produces("application/opensearchdescription+xml; charset=UTF-8")]
+        public async Task<OpenSearchDescription> OpenSearchDescription()
+        {
+            Response.Headers["Content-Disposition"] = "attachment; filename=opensearch.osdx";
+            await Task.Delay(1);
+            return new OpenSearchDescription
+            {
+                ShortName = "MintPlayer",
+                Description = "Search music on MintPlayer",
+                InputEncoding = "UTF-8"
             };
         }
 

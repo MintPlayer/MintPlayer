@@ -1,5 +1,16 @@
 <div class="sidebar">
   <nav>
+    <span class="d-block text-center py-1">
+      <a [routerLink]="[]" [queryParams]="{lang: 'nl'}" lang="nl" hreflang="nl" title="Nederlands">
+        <img src="/assets/flags/nl.png" alt="Dutch flag" width="30" height="20" class="flag">
+      </a>
+      <a [routerLink]="[]" lang="en" hreflang="en" title="English">
+        <img src="/assets/flags/en.png" alt="British flag" width="30" height="20" class="flag">
+      </a>
+      <a [routerLink]="[]" [queryParams]="{lang: 'fr'}" lang="fr" hreflang="fr" title="Fran&ccedil;ais">
+        <img src="/assets/flags/fr.png" alt="French flag" width="30" height="20" class="flag">
+      </a>
+    </span>
     <ul>
       <li>
         <a [routerLink]='["/"]' title="Homepage" (click)="onItemSelected()">
