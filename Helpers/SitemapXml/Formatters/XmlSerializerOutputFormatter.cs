@@ -29,8 +29,6 @@ namespace SitemapXml.Formatters
             // We always close the TextWriter, so the XmlWriter shouldn't.
             xmlWriterSettings.CloseOutput = false;
             
-            //var contenttypes = GetSupportedContentTypes(xmlWriterSettings.)
-
             var xmlWriter = XmlWriter.Create(writer, xmlWriterSettings);
             xmlWriter.WriteProcessingInstruction("xml-stylesheet", $@"type=""text/xsl"" href=""{stylesheetUrl}""");
             return xmlWriter;

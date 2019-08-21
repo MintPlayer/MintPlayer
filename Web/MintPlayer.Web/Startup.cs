@@ -187,6 +187,7 @@ namespace MintPlayer.Web
             {
                 if(context.Request.Path == "/opensearch.xml")
                 {
+                    context.Response.ContentType = "text/xml";
                     context.WriteModelAsync(new OpenSearch.OpenSearchDescription
                     {
                         ShortName = "MintPlayer",
