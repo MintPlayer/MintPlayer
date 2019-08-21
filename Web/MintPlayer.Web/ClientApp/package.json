@@ -28,6 +28,8 @@
     "@angular/service-worker": "~8.1.1",
     "@nguniversal/express-engine": "^8.1.1",
     "@nguniversal/module-map-ngfactory-loader": "8.1.1",
+    "@ngx-translate/core": "^11.0.1",
+    "@ngx-translate/http-loader": "^4.0.0",
     "@types/youtube": "0.0.38",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.3.1",

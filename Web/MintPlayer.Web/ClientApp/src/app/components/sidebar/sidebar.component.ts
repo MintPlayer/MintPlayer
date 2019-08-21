@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down';
 import { User } from '../../interfaces/account/user';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,7 +13,7 @@ import { User } from '../../interfaces/account/user';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() {
+  constructor(private translateService: TranslateService) {
   }
 
   @Input() activeUser: User;
@@ -36,6 +37,10 @@ export class SidebarComponent implements OnInit {
   @Output() itemSelected: EventEmitter<any> = new EventEmitter();
   onItemSelected() {
     this.itemSelected.emit();
+  }
+
+  switchLanguage(language: string) {
+    this.translateService.setDefaultLang(language);
   }
 
   ngOnInit() {

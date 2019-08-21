@@ -1,13 +1,13 @@
 <div class="sidebar">
   <nav>
     <span class="d-block text-center py-1">
-      <a [routerLink]="[]" [queryParams]="{lang: 'nl'}" lang="nl" hreflang="nl" title="Nederlands">
+      <a (click)="switchLanguage('nl')" lang="nl" hreflang="nl" title="Nederlands">
         <img src="/assets/flags/nl.png" alt="Dutch flag" width="30" height="20" class="flag">
       </a>
-      <a [routerLink]="[]" lang="en" hreflang="en" title="English">
+      <a (click)="switchLanguage('en')" lang="en" hreflang="en" title="English">
         <img src="/assets/flags/en.png" alt="British flag" width="30" height="20" class="flag">
       </a>
-      <a [routerLink]="[]" [queryParams]="{lang: 'fr'}" lang="fr" hreflang="fr" title="Fran&ccedil;ais">
+      <a (click)="switchLanguage('fr')" lang="fr" hreflang="fr" title="Fran&ccedil;ais">
         <img src="/assets/flags/fr.png" alt="French flag" width="30" height="20" class="flag">
       </a>
     </span>
@@ -15,13 +15,13 @@
       <li>
         <a [routerLink]='["/"]' title="Homepage" (click)="onItemSelected()">
           <i class="fa fa-home"></i>
-          Home
+          {{ 'home' | translate }}
         </a>
       </li>
       <li>
         <a [routerLink]='["/search"]' title="Search" (click)="onItemSelected()">
           <i class="fa fa-search"></i>
-          Search
+          {{ 'search' | translate }}
         </a>
       </li>
       <li>
