@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="ClientApp\src\app\app.browser.module.ts" />
     <None Remove="ClientApp\src\app\components\social-logins\base-login-component.ts" />
     <None Remove="ClientApp\src\app\controls\autocomplete\IAutocompleteElement.ts" />
     <None Remove="ClientApp\src\app\controls\select2\ISelect2Element.ts" />

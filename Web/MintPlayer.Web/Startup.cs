@@ -241,6 +241,12 @@ namespace MintPlayer.Web
                     options.ExcludeUrls = new[] { "/sockjs-node" };
                     options.SupplyData = (context, data) =>
                     {
+                        var lang = context.Request.Query["lang"];
+                        if (lang.Any())
+                            data["lang"] = lang.First();
+                        else
+                            data["lang"] = "en";
+
                         var route = currentSpaRoute.GetCurrentRoute(context);
 
                         var personRepository = context.RequestServices.GetRequiredService<IPersonRepository>();

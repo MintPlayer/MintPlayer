@@ -45,7 +45,9 @@ export default createServerRenderer(params => {
   if ('mediumTypes' in params.data) {
     providers.push({ provide: 'MEDIUMTYPES', useValue: params.data.mediumTypes })
   }
-
+  if ('lang' in params.data) {
+    providers.push({ provide: 'LANG', useValue: params.data.lang });
+  }
 
   const options = {
     document: params.data.originalHtml,

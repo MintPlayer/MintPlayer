@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject } from '@angular/core';
 import { eToggleButtonState } from './enums/eToggleButtonState';
 import { eSidebarState } from './enums/eSidebarState';
 import { User } from './interfaces/account/user';
@@ -26,7 +26,7 @@ export class AppComponent {
   sidebarState: eSidebarState = eSidebarState.auto;
   playlistToggleButtonState: eToggleButtonState = eToggleButtonState.closed;
 
-  constructor(private accountService: AccountService, private youtubeHelper: YoutubeHelper, private openSearchHelper: OpenSearchHelper, private translateService: TranslateService, private route: ActivatedRoute) {
+  constructor(private accountService: AccountService, private youtubeHelper: YoutubeHelper, private openSearchHelper: OpenSearchHelper, private translateService: TranslateService, @Inject('LANG') private language: string, private route: ActivatedRoute) {
     this.accountService.currentUser().subscribe((user) => {
       this.activeUser = user;
     }, (error) => {
@@ -36,9 +36,14 @@ export class AppComponent {
       console.log('loaded youtube api');
       this.youtubeHelper.apiReady.next(true);
     });
-    this.route.queryParams.subscribe((params) => {
-      this.translateService.setDefaultLang(params['lang']);
-    });
+    console.info(`Language: ${language}`);
+    if (language === null) {
+      this.route.queryParams.subscribe((params) => {
+        this.translateService.setDefaultLang(params['lang'] || 'en');
+      });
+    } else {
+      this.translateService.setDefaultLang(language);
+    }
     this.openSearchHelper.addOpenSearch('MintPlayer', '/opensearch.xml');
   }
 

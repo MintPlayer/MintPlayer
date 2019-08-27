@@ -13,30 +13,25 @@ import { ControlsModule } from './controls/controls.module';
 import { ComponentsModule } from './components/components.module';
 import { PipesModule } from './pipes/pipes.module';
 import { environment } from '../environments/environment';
+import { CommonModule } from '@angular/common';
+import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    BrowserAnimationsModule,
-    HttpClientModule,
+    CommonModule,
     FormsModule,
+    HttpClientModule,
+    ModuleMapLoaderModule,
     AppRoutingModule,
     ControlsModule,
     ComponentsModule,
     PipesModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (http: HttpClient) => {
-          return new TranslateHttpLoader(http);
-        },
-        deps: [HttpClient]
-      }
-    })
+    TranslateModule.forChild()
   ],
   bootstrap: [AppComponent]
 })

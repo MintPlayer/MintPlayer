@@ -1,7 +1,7 @@
 import { enableProdMode, StaticProvider } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { AppModule } from './app/app.module';
+import { AppBrowserModule } from './app/app.browser.module';
 import { environment } from './environments/environment';
 
 export function getBaseUrl() {
@@ -18,6 +18,7 @@ const providers: StaticProvider[] = [
   { provide: 'SONG', useValue: null },
   { provide: 'MEDIUMTYPES', useValue: null },
   { provide: 'MEDIUMTYPE', useValue: null },
+  { provide: 'LANG', useValue: null }
 ];
 
 if (environment.production) {
@@ -25,6 +26,6 @@ if (environment.production) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  platformBrowserDynamic(providers).bootstrapModule(AppModule)
+  platformBrowserDynamic(providers).bootstrapModule(AppBrowserModule)
   .catch(err => console.error(err));
 });

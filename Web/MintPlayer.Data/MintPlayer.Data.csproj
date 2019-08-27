@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <Configurations>Debug;Release;Debug (HttpServer)</Configurations>
+    <UserSecretsId>6076fe14-2822-44da-8fa8-8549cfc7c79c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
