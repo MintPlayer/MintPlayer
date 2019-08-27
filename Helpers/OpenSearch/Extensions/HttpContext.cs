@@ -23,7 +23,7 @@ namespace OpenSearch.Extensions
             return executor.ExecuteAsync(actionContext, result);
         }
 
-        public static Task WriteModelAsync<TModel>(this HttpContext context, TModel model)
+        internal static Task WriteModelAsync<TModel>(this HttpContext context, TModel model)
         {
             return context.ExecuteResultAsync(new ObjectResult(model) { DeclaredType = typeof(TModel) });
         }

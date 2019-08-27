@@ -120,6 +120,8 @@ namespace MintPlayer.Web
 
             services.AddSitemapXml();
 
+            //services.AddOpenSearch();
+
             services
                 .Configure<ForwardedHeadersOptions>(options =>
                 {
@@ -183,23 +185,11 @@ namespace MintPlayer.Web
                 .UseStaticFiles()
                 .UseSpaStaticFiles();
 
-            app.Use((context, next) =>
+            app.UseOpenSearch(options =>
             {
-                if(context.Request.Path == "/opensearch.xml")
-                {
-                    context.Response.ContentType = "text/xml";
-                    context.WriteModelAsync(new OpenSearch.OpenSearchDescription
-                    {
-                        ShortName = "MintPlayer",
-                        Description = "Search music on MintPlayer",
-                        InputEncoding = "UTF-8"
-                    });
-                    return Task.CompletedTask;
-                }
-                else
-                {
-                    return next();
-                }
+                options.OsdxEndpoint =  "/opensearch.xml";
+                options.SearchUrl = "/search";
+                options.SuggestUrl = "/suggest";
             });
 
             app.Use((context, next) =>
