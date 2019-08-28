@@ -11,5 +11,7 @@
         /// <summary>URL to provide suggestions</summary>
         public string SuggestUrl { get; set; }
 
+        /// <summary>URL where the image is located</summary>
+        public string ImageUrl { get; set; }
     }
 }

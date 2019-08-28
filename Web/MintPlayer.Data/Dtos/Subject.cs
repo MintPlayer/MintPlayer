@@ -9,6 +9,7 @@ namespace MintPlayer.Data.Dtos
     {
         public int Id { get; set; }
 
+        public virtual string Text { get; }
         public List<Medium> Media { get; set; }
 
         [Nest.Ignore]

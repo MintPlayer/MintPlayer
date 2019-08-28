@@ -188,8 +188,9 @@ namespace MintPlayer.Web
             app.UseOpenSearch(options =>
             {
                 options.OsdxEndpoint =  "/opensearch.xml";
-                options.SearchUrl = "/search";
-                options.SuggestUrl = "/suggest";
+                options.SearchUrl = "/api/Subject/opensearch/redirect/{searchTerms}";
+                options.SuggestUrl = "/api/Subject/opensearch/suggest/{searchTerms}";
+                options.ImageUrl = "/assets/logo/music_note_16.png";
             });
 
             app.Use((context, next) =>

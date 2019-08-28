@@ -21,12 +21,9 @@ namespace MintPlayer.Web.Server.Controllers
             this.subjectRepository = subjectRepository;
         }
 
-        [HttpGet("search/suggest/{subjects_concat}/{search_term}")]
+        [HttpGet("search/suggest/{subjects_concat}/{search_term}", Name = "search-suggest")]
         public async Task<IEnumerable<Subject>> Suggest([FromRoute]string subjects_concat, [FromRoute]string search_term)
         {
-            // Still to do:
-            // https://devadventures.net/2018/05/03/implementing-autocomplete-and-more-like-this-using-asp-net-core-elasticsearch-and-nest-5-x-part-4-4/
-
             var subjects = subjects_concat.Split('-');
             var valid_subjects = new[] { "artist", "person", "song" };
 
@@ -43,7 +40,7 @@ namespace MintPlayer.Web.Server.Controllers
             return results.ToList();
         }
 
-        [HttpGet("search/{subjects_concat}/{search_term}")]
+        [HttpGet("search/{subjects_concat}/{search_term}", Name = "search-action")]
         public async Task<SearchResultsVM> Search([FromRoute]string subjects_concat, [FromRoute]string search_term)
         {
             var subjects = subjects_concat.Split('-');
@@ -58,13 +55,51 @@ namespace MintPlayer.Web.Server.Controllers
             else
                 subjects = subjects.Intersect(valid_subjects).ToArray();
 
-            var results = await subjectRepository.Search(subjects, search_term);
+            var results = await subjectRepository.Search(subjects, search_term, true);
             return new SearchResultsVM
             {
                 Artists = results.Where(s => s.GetType() == typeof(Artist)).Cast<Artist>().ToList(),
                 People = results.Where(s => s.GetType() == typeof(Person)).Cast<Person>().ToList(),
                 Songs = results.Where(s => s.GetType() == typeof(Song)).Cast<Song>().ToList()
             };
+        }
+
+        [HttpGet("opensearch/suggest/{search_term}" , Name = "opensearch-suggest")]
+        public async Task<IEnumerable<object>> OpenSearchSuggest([FromRoute]string search_term)
+        {
+            var results = await subjectRepository.Suggest(new[] { "all" }, search_term);
+            return new object[] { search_term, results.Select(r => r.Text) };
+        }
+
+        [HttpGet("opensearch/redirect/{search_term}", Name = "opensearch-redirect")]
+        public async Task<IActionResult> OpenSearchRedirect([FromRoute]string search_term)
+        {
+            var results = await subjectRepository.Search(new[] { "artist", "person", "song" }, search_term, false);
+            if(results.Count != 1)
+            {
+                return Redirect($"/search/all/{search_term}");
+            }
+            else
+            {
+                var subject = results.First();
+                var subject_type = subject.GetType();
+                if(subject_type == typeof(Person))
+                {
+                    return Redirect($"/person/{subject.Id}");
+                }
+                else if (subject_type == typeof(Artist))
+                {
+                    return Redirect($"/artist/{subject.Id}");
+                }
+                else if (subject.GetType() == typeof(Song))
+                {
+                    return Redirect($"/song/{subject.Id}");
+                }
+                else
+                {
+                    throw new Exception("Unexpected exception. Type should always be Person, Artist, Song");
+                }
+            }
         }
 
         [HttpGet("{subject_id}/likes")]

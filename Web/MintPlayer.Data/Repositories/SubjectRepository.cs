@@ -101,14 +101,17 @@ namespace MintPlayer.Data.Repositories
             return person_options.Union(artist_options).Union(song_options).ToList();
         }
 
-        public async Task<List<Subject>> Search(string[] subjects, string search_term)
+        public async Task<List<Subject>> Search(string[] subjects, string search_term, bool fuzzy)
         {
             IEnumerable<Subject> person_results = new Person[0], artist_results = new Artist[0], song_results = new Song[0];
             if (subjects.Contains("person"))
             {
                 var people = await elastic_client.SearchAsync<Person>(
                     a => a.Query(q1 => q1.MultiMatch(
-                        mm => mm.Query(search_term).Fields(m => m.Fields(f => f.FirstName, f => f.LastName)).Fuzziness(Fuzziness.Auto)
+                        mm => mm.Query(search_term)
+                            .Fields(m => m.Fields(f => f.FirstName, f => f.LastName))
+                            .Fuzziness(fuzzy ? Fuzziness.Auto : Fuzziness.EditDistance(0))
+                            .PrefixLength(1)
                     ))
                 );
                 person_results = people.Documents.Cast<Subject>();
@@ -117,7 +120,10 @@ namespace MintPlayer.Data.Repositories
             {
                 var artists = await elastic_client.SearchAsync<Artist>(
                     a => a.Query(q1 => q1.MultiMatch(
-                        mm => mm.Query(search_term).Fields(m => m.Fields(f => f.Name)).Fuzziness(Nest.Fuzziness.EditDistance(2)).PrefixLength(1)
+                        mm => mm.Query(search_term)
+                            .Fields(m => m.Fields(f => f.Name))
+                            .Fuzziness(fuzzy ? Fuzziness.Auto : Fuzziness.EditDistance(0))
+                            .PrefixLength(1)
                     ))
                 );
                 artist_results = artists.Documents.Cast<Subject>();
@@ -126,7 +132,10 @@ namespace MintPlayer.Data.Repositories
             {
                 var songs = await elastic_client.SearchAsync<Song>(
                     a => a.Query(q1 => q1.MultiMatch(
-                        mm => mm.Query(search_term).Fields(m => m.Fields(f => f.Title)).Fuzziness(Nest.Fuzziness.EditDistance(2)).PrefixLength(1)
+                        mm => mm.Query(search_term)
+                            .Fields(m => m.Fields(f => f.Title))
+                            .Fuzziness(fuzzy ? Fuzziness.Auto : Fuzziness.EditDistance(0))
+                            .PrefixLength(1)
                     ))
                 );
                 song_results = songs.Documents.Cast<Subject>();

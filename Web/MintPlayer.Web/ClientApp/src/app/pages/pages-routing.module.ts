@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'song', loadChildren: './song/song.module#SongModule' },
   { path: 'mediumtype', loadChildren: './medium-type/medium-type.module#MediumTypeModule' },
   { path: 'search', component: SearchComponent, pathMatch: 'full' },
+  { path: 'search/:subjects/:searchterm', component: SearchComponent },
 ];
 
 @NgModule({

@@ -18,28 +18,36 @@ namespace OpenSearch.Extensions
             if (!opt.OsdxEndpoint.StartsWith('/'))
                 throw new Exception(@"OpenSearch endpoint must start with ""/""");
 
-            return app.Use((context, next) =>
+            return app.Use(async (context, next) =>
             {
                 if (context.Request.Path == opt.OsdxEndpoint)
                 {
-                    context.Response.ContentType = "application/opensearchdescription+xml";
+                    context.Response.ContentType = "application/opensearchdescription+xml; charset=utf-8";
                     context.Response.Headers["Content-Disposition"] = "attachment; filename=opensearch.osdx";
-                    context.WriteModelAsync(new Data.OpenSearchDescription
+                    await context.WriteModelAsync(new Data.OpenSearchDescription
                     {
                         ShortName = "MintPlayer",
                         Description = "Search music on MintPlayer",
                         InputEncoding = "UTF-8",
+                        Image = new Data.Image
+                        {
+                            Width = 16,
+                            Height = 16,
+                            Url = $"{context.Request.Scheme}://{context.Request.Host.Value}{context.Request.PathBase}{opt.ImageUrl}",
+                            Type = "image/png"
+                        },
                         Urls = (new[] {
                             new Data.Url { Type = "text/html", Method = "GET", Template = $"{context.Request.Scheme}://{context.Request.Host.Value}{context.Request.PathBase}{opt.SearchUrl}" },
                             new Data.Url { Type = "application/x-suggestions+json", Method = "GET", Template = $"{context.Request.Scheme}://{context.Request.Host.Value}{context.Request.PathBase}{opt.SuggestUrl}" },
                             new Data.Url { Type = "application/opensearchdescription+xml", Relation = "self", Template = $"{context.Request.Scheme}://{context.Request.Host.Value}{context.Request.PathBase}{opt.OsdxEndpoint}" }
-                        }).ToList()
+                        }).ToList(),
+                        Contact = "pieterjandeclippel@msn.com"
+                        //SearchForm = $"{context.Request.Scheme}://{context.Request.Host.Value}{context.Request.PathBase}/"
                     });
-                    return Task.CompletedTask;
                 }
                 else
                 {
-                    return next();
+                    await next();
                 }
             });
         }
