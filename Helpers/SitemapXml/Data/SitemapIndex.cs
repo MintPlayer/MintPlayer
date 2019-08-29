@@ -15,6 +15,9 @@ namespace SitemapXml
             Sitemaps.AddRange(sitemaps);
         }
 
+        [XmlNamespaceDeclarations]
+        public XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
+
         [XmlElement("sitemap", Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9")]
         public List<Sitemap> Sitemaps { get; set; } = new List<Sitemap>();
     }

@@ -6,6 +6,13 @@
 
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="Assets\sitemap.xsl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\sitemap.xsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

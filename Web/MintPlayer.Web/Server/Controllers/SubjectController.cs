@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Data.Dtos;
 using MintPlayer.Data.Repositories.Interfaces;
 using MintPlayer.Web.Server.ViewModels.Subject;
-using OpenSearch;
 
 namespace MintPlayer.Web.Server.Controllers
 {

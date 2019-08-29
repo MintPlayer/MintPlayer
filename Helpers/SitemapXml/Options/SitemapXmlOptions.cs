@@ -2,6 +2,6 @@
 {
     public class SitemapXmlOptions
     {
-        public string Stylesheet { get; set; }
+        public string StylesheetUrl { get; set; }
     }
 }

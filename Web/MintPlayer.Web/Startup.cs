@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreOpenSearch.Extensions;
 using Identity.ExternalProviders.GitHub;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -19,7 +20,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Data.Options;
 using MintPlayer.Data.Repositories.Interfaces;
-using OpenSearch.Extensions;
 using SitemapXml;
 using Spa.SpaRoutes;
 using Spa.SpaRoutes.CurrentSpaRoute;
@@ -85,7 +85,7 @@ namespace MintPlayer.Web
             })
             .AddXmlSerializerFormatters()
             .AddSitemapXmlFormatters(options => {
-                options.Stylesheet = "/assets/sitemap.xsl";
+                options.StylesheetUrl = "/assets/sitemap.xsl";
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -120,8 +120,6 @@ namespace MintPlayer.Web
 
             services.AddSitemapXml();
 
-            //services.AddOpenSearch();
-
             services
                 .Configure<ForwardedHeadersOptions>(options =>
                 {
@@ -145,7 +143,6 @@ namespace MintPlayer.Web
                     // User settings
                     options.User.RequireUniqueEmail = true;
                     options.User.AllowedUserNameCharacters = string.Empty;
-
 
                 }).Configure<RazorViewEngineOptions>(options =>
                 {
@@ -194,6 +191,11 @@ namespace MintPlayer.Web
                 options.ShortName = "MintPlayer";
                 options.Description = "Search music on MintPlayer";
                 options.Contact = "pieterjandeclippel@msn.com";
+            });
+
+            app.UseDefaultSitemapXmlStylesheet(options =>
+            {
+                options.StylesheetUrl = "/assets/sitemap.xsl";
             });
 
             app.Use((context, next) =>

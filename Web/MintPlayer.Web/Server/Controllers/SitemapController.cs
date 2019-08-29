@@ -77,13 +77,13 @@ namespace MintPlayer.Web.Server.Controllers
                 {
                     Rel = "alternate",
                     HrefLang = "nl",
-                    Href = $"{Request.Scheme}://{Request.Host}/nl/{subject}/{s.Id}"
+                    Href = $"{Request.Scheme}://{Request.Host}/{subject}/{s.Id}?lang=nl"
                 });
                 url.Links.Add(new Link
                 {
                     Rel = "alternate",
                     HrefLang = "fr",
-                    Href = $"{Request.Scheme}://{Request.Host}/fr/{subject}/{s.Id}"
+                    Href =  $"{Request.Scheme}://{Request.Host}/{subject}/{s.Id}?lang=fr"
                 });
                 return url;
             }));
