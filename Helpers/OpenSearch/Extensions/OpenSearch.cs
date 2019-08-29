@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
 using OpenSearch.Options;
 
 namespace OpenSearch.Extensions
@@ -26,8 +23,8 @@ namespace OpenSearch.Extensions
                     context.Response.Headers["Content-Disposition"] = "attachment; filename=opensearch.osdx";
                     await context.WriteModelAsync(new Data.OpenSearchDescription
                     {
-                        ShortName = "MintPlayer",
-                        Description = "Search music on MintPlayer",
+                        ShortName = opt.ShortName,
+                        Description = opt.Description,
                         InputEncoding = "UTF-8",
                         Image = new Data.Image
                         {
@@ -41,8 +38,8 @@ namespace OpenSearch.Extensions
                             new Data.Url { Type = "application/x-suggestions+json", Method = "GET", Template = $"{context.Request.Scheme}://{context.Request.Host.Value}{context.Request.PathBase}{opt.SuggestUrl}" },
                             new Data.Url { Type = "application/opensearchdescription+xml", Relation = "self", Template = $"{context.Request.Scheme}://{context.Request.Host.Value}{context.Request.PathBase}{opt.OsdxEndpoint}" }
                         }).ToList(),
-                        Contact = "pieterjandeclippel@msn.com"
-                        //SearchForm = $"{context.Request.Scheme}://{context.Request.Host.Value}{context.Request.PathBase}/"
+                        Contact = opt.Contact,
+                        SearchForm = $"{context.Request.Scheme}://{context.Request.Host.Value}{context.Request.PathBase}/"
                     });
                 }
                 else

@@ -33,8 +33,8 @@ namespace OpenSearch.Data
         [XmlElement("Image", Namespace = "http://a9.com/-/spec/opensearch/1.1/")]
         public Image Image { get; set; }
 
-        //[XmlElement("SearchForm")]
-        //public string SearchForm { get; set; }
+        [XmlElement("SearchForm")]
+        public string SearchForm { get; set; }
 
         [XmlElement("Contact", Namespace = "http://a9.com/-/spec/opensearch/1.1/")]
         public string Contact { get; set; }

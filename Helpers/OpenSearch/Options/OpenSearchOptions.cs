@@ -13,5 +13,14 @@
 
         /// <summary>URL where the image is located</summary>
         public string ImageUrl { get; set; }
+
+        /// <summary>Short name of your search engine</summary>
+        public string ShortName { get; set; }
+
+        /// <summary>Description for your search engine</summary>
+        public string Description { get; set; }
+
+        /// <summary>Email to contact when there is an issue with the search engine</summary>
+        public string Contact { get; set; }
     }
 }

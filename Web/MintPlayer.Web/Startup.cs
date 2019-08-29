@@ -22,7 +22,7 @@ using MintPlayer.Data.Repositories.Interfaces;
 using OpenSearch.Extensions;
 using SitemapXml;
 using Spa.SpaRoutes;
-using Spa.SpaRoutes.CurrentSpaRoute.Interfaces;
+using Spa.SpaRoutes.CurrentSpaRoute;
 
 namespace MintPlayer.Web
 {
@@ -191,6 +191,9 @@ namespace MintPlayer.Web
                 options.SearchUrl = "/api/Subject/opensearch/redirect/{searchTerms}";
                 options.SuggestUrl = "/api/Subject/opensearch/suggest/{searchTerms}";
                 options.ImageUrl = "/assets/logo/music_note_16.png";
+                options.ShortName = "MintPlayer";
+                options.Description = "Search music on MintPlayer";
+                options.Contact = "pieterjandeclippel@msn.com";
             });
 
             app.Use((context, next) =>
