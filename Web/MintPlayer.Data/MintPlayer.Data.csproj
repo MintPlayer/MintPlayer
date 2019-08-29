@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Helpers\Identity.ExternalProviders\Identity.ExternalProviders.csproj" />
-    <ProjectReference Include="..\..\Helpers\SitemapXml\SitemapXml.csproj" />
   </ItemGroup>
 
 </Project>

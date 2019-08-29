@@ -22,6 +22,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="MintPlayer.AspNetCore.OpenSearch" Version="1.0.0" />
+    <PackageReference Include="MintPlayer.AspNetCore.SitemapXml" Version="1.0.0" />
     <PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="1.0.0" />
   </ItemGroup>
 
@@ -74,7 +75,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Helpers\SitemapXml\SitemapXml.csproj" />
     <ProjectReference Include="..\MintPlayer.Data\MintPlayer.Data.csproj" />
   </ItemGroup>
 
