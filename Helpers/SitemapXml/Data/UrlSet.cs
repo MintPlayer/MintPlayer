@@ -19,6 +19,7 @@ namespace SitemapXml
         [XmlNamespaceDeclarations]
         public XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
 
+        /// <summary>List of URLs</summary>
         [XmlElement("url", Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9")]
         public List<Url> Urls { get; set; } = new List<Url>();
     }

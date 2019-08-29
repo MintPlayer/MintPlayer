@@ -4,6 +4,7 @@ using System.Xml;
 
 namespace SitemapXml.Formatters
 {
+    /// <summary>This formatter adds an XML stylesheet reference to each application/xml response</summary>
     public class XmlSerializerOutputFormatter : Microsoft.AspNetCore.Mvc.Formatters.XmlSerializerOutputFormatter
     {
         private string stylesheetUrl;
