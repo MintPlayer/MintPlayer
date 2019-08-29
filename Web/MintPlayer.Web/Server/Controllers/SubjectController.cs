@@ -64,10 +64,11 @@ namespace MintPlayer.Web.Server.Controllers
             };
         }
 
+        [Produces("application/json")]
         [HttpGet("opensearch/suggest/{search_term}" , Name = "opensearch-suggest")]
         public async Task<IEnumerable<object>> OpenSearchSuggest([FromRoute]string search_term)
         {
-            var results = await subjectRepository.Suggest(new[] { "all" }, search_term);
+            var results = await subjectRepository.Suggest(new[] { "artist", "person", "song" }, search_term);
             return new object[] { search_term, results.Select(r => r.Text) };
         }
 
