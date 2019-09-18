@@ -25,62 +25,138 @@
         </a>
       </li>
       <li>
-        <span title="Artists" [ngClass]="{'open':level1menu === 'artists'}" (click)="level1toggle('artists')">
-          <i class="fa fa-user-circle"></i>
-          Artists
+        <span title="My library" [ngClass]="{'open':level1menu === 'my_library'}" (click)="level1toggle('my_library')">
+          <i class="fa fa-headphones"></i>
+          My library
         </span>
-        <ul [@slideUpDown]="level1menu == 'artists' ? 'in' : 'out'">
+        <ul [@slideUpDown]="level1menu == 'my_library' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/artist"]' title="All artists" (click)="onItemSelected()">
-              <i class="fa fa-list"></i>
-              All artists
-            </a>
+            <span title="Artists" [ngClass]="{'open':level2menu === 'my_artists'}" (click)="level2toggle('my_artists')">
+              <i class="fa fa-user-circle"></i>
+              Artists
+            </span>
+            <ul [@slideUpDown]="level2menu == 'my_artists' ? 'in' : 'out'">
+              <li>
+                <a [routerLink]='["/artist"]' title="All artists" (click)="onItemSelected()">
+                  <i class="fa fa-list"></i>
+                  My artists
+                </a>
+              </li>
+              <li>
+                <a [routerLink]='["/artist/create"]' title="Add artist" (click)="onItemSelected()">
+                  <i class="fa fa-plus"></i>
+                  Add artist
+                </a>
+              </li>
+            </ul>
           </li>
           <li>
-            <a [routerLink]='["/artist/create"]' title="Add artist" (click)="onItemSelected()">
-              <i class="fa fa-plus"></i>
-              Add artist
-            </a>
+            <span title="People" [ngClass]="{'open':level2menu === 'my_people'}" (click)="level2toggle('my_people')">
+              <i class="fa fa-user-o"></i>
+              People
+            </span>
+            <ul [@slideUpDown]="level2menu == 'my_people' ? 'in' : 'out'">
+              <li>
+                <a [routerLink]='["/person"]' title="My people" (click)="onItemSelected()">
+                  <i class="fa fa-list"></i>
+                  My people
+                </a>
+              </li>
+              <li>
+                <a [routerLink]='["/person/create"]' title="Add person" (click)="onItemSelected()">
+                  <i class="fa fa-plus"></i>
+                  Add person
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span title="Songs" [ngClass]="{'open':level2menu === 'my_songs'}" (click)="level2toggle('my_songs')">
+              <i class="fa fa-music"></i>
+              Songs
+            </span>
+            <ul [@slideUpDown]="level2menu == 'my_songs' ? 'in' : 'out'">
+              <li>
+                <a [routerLink]='["/song"]' title="My songs" (click)="onItemSelected()">
+                  <i class="fa fa-list"></i>
+                  My songs
+                </a>
+              </li>
+              <li>
+                <a [routerLink]='["/song/create"]' title="Add song" (click)="onItemSelected()">
+                  <i class="fa fa-plus"></i>
+                  Add song
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </li>
       <li>
-        <span title="People" [ngClass]="{'open':level1menu === 'people'}" (click)="level1toggle('people')">
-          <i class="fa fa-user-o"></i>
-          People
+        <span title="MintPlayer library" [ngClass]="{'open':level1menu === 'mintplayer_library'}" (click)="level1toggle('mintplayer_library')">
+          <i class="fa fa-headphones"></i>
+          MintPlayer library
         </span>
-        <ul [@slideUpDown]="level1menu == 'people' ? 'in' : 'out'">
+        <ul [@slideUpDown]="level1menu == 'mintplayer_library' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/person"]' title="All people" (click)="onItemSelected()">
-              <i class="fa fa-list"></i>
-              All people
-            </a>
+            <span title="Artists" [ngClass]="{'open':level2menu === 'artists'}" (click)="level2toggle('artists')">
+              <i class="fa fa-user-circle"></i>
+              Artists
+            </span>
+            <ul [@slideUpDown]="level2menu == 'artists' ? 'in' : 'out'">
+              <li>
+                <a [routerLink]='["/artist"]' title="All artists" (click)="onItemSelected()">
+                  <i class="fa fa-list"></i>
+                  All artists
+                </a>
+              </li>
+              <li>
+                <a [routerLink]='["/artist/create"]' title="Add artist" (click)="onItemSelected()">
+                  <i class="fa fa-plus"></i>
+                  Add artist
+                </a>
+              </li>
+            </ul>
           </li>
           <li>
-            <a [routerLink]='["/person/create"]' title="Add person" (click)="onItemSelected()">
-              <i class="fa fa-plus"></i>
-              Add person
-            </a>
+            <span title="People" [ngClass]="{'open':level2menu === 'people'}" (click)="level2toggle('people')">
+              <i class="fa fa-user-o"></i>
+              People
+            </span>
+            <ul [@slideUpDown]="level2menu == 'people' ? 'in' : 'out'">
+              <li>
+                <a [routerLink]='["/person"]' title="All people" (click)="onItemSelected()">
+                  <i class="fa fa-list"></i>
+                  All people
+                </a>
+              </li>
+              <li>
+                <a [routerLink]='["/person/create"]' title="Add person" (click)="onItemSelected()">
+                  <i class="fa fa-plus"></i>
+                  Add person
+                </a>
+              </li>
+            </ul>
           </li>
-        </ul>
-      </li>
-      <li>
-        <span title="Songs" [ngClass]="{'open':level1menu === 'songs'}" (click)="level1toggle('songs')">
-          <i class="fa fa-music"></i>
-          Songs
-        </span>
-        <ul [@slideUpDown]="level1menu == 'songs' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/song"]' title="All songs" (click)="onItemSelected()">
-              <i class="fa fa-list"></i>
-              All songs
-            </a>
-          </li>
-          <li>
-            <a [routerLink]='["/song/create"]' title="Add song" (click)="onItemSelected()">
-              <i class="fa fa-plus"></i>
-              Add song
-            </a>
+            <span title="Songs" [ngClass]="{'open':level2menu === 'songs'}" (click)="level2toggle('songs')">
+              <i class="fa fa-music"></i>
+              Songs
+            </span>
+            <ul [@slideUpDown]="level2menu == 'songs' ? 'in' : 'out'">
+              <li>
+                <a [routerLink]='["/song"]' title="All songs" (click)="onItemSelected()">
+                  <i class="fa fa-list"></i>
+                  All songs
+                </a>
+              </li>
+              <li>
+                <a [routerLink]='["/song/create"]' title="Add song" (click)="onItemSelected()">
+                  <i class="fa fa-plus"></i>
+                  Add song
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </li>
