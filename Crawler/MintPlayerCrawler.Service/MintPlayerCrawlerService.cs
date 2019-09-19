@@ -1,35 +1,39 @@
-﻿using System;
-using System.ServiceProcess;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MintPlayerCrawler.Service
 {
-    public class MintPlayerCrawlerService : ServiceBase
+    public class MintPlayerCrawlerService : IHostedService, IDisposable
     {
-        public MintPlayerCrawlerService()
+        private readonly ILogger _logger;
+        private readonly IOptions<MintPlayerCrawlerConfig> _config;
+        public MintPlayerCrawlerService(ILogger<MintPlayerCrawlerService> logger, IOptions<MintPlayerCrawlerConfig> config)
         {
-
+            _logger = logger;
+            _config = config;
         }
 
-        protected override void OnStart(string[] args)
+        public Task StartAsync(CancellationToken cancellationToken)
         {
-            base.OnStart(args);
-            Console.WriteLine("Started MintPlayer crawler service");
+            _logger.LogInformation("Starting daemon: " + _config.Value.DaemonName);
+            return Task.CompletedTask;
         }
 
-        protected override void OnPause()
+        public Task StopAsync(CancellationToken cancellationToken)
         {
-            base.OnPause();
+            _logger.LogInformation("Stopping daemon.");
+            return Task.CompletedTask;
         }
 
-        protected override void OnContinue()
+        public void Dispose()
         {
-            base.OnContinue();
-        }
-
-        protected override void OnStop()
-        {
-            base.OnStop();
-            Console.WriteLine("Stopped MintPlayer crawler service");
+            _logger.LogInformation("Disposing....");
         }
     }
 }

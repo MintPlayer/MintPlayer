@@ -1,42 +1,38 @@
-﻿using System;
-using System.Linq;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace MintPlayerCrawler.Service
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            try
-            {
-                if (args.Any())
+            var builder = new HostBuilder()
+                .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    switch (args[0])
+                    config.AddEnvironmentVariables();
+
+                    if (args != null)
                     {
-                        case "install":
-                            break;
-                        case "sayhello":
-                            Console.WriteLine("Hello World!");
-                            break;
-                        default:
-                            throw new Exception();
+                        config.AddCommandLine(args);
                     }
-                }
-                else
+                })
+                .ConfigureServices((hostContext, services) =>
                 {
-                    throw new Exception();
-                }
-            }
-            catch (Exception)
-            {
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine();
-                Console.WriteLine("  Usage:");
-                Console.WriteLine("  MintPlayerCrawler.Service.exe sayhello");
-                Console.WriteLine();
-                Console.ResetColor();
-            }
+                    services.AddOptions();
+                    services.Configure<MintPlayerCrawlerConfig>(hostContext.Configuration.GetSection("Daemon"));
+
+                    services.AddSingleton<IHostedService, MintPlayerCrawlerService>();
+                })
+                .ConfigureLogging((hostingContext, logging) => {
+                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    logging.AddConsole();
+                });
+
+            await builder.RunConsoleAsync();
         }
     }
 }

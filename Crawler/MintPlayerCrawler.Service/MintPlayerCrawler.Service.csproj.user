@@ -3,9 +3,4 @@
   <PropertyGroup>
     <_LastSelectedProfileId>D:\Pieterjan\DotNet\Repos\MintPlayer\Crawler\MintPlayerCrawler.Service\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Update="MintPlayerCrawlerService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-  </ItemGroup>
 </Project>
