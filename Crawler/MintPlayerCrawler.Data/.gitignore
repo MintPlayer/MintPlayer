@@ -1,2 +1,8 @@
-﻿bin/
+﻿# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+bin/
 obj/
