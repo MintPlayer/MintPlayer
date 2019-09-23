@@ -3,40 +3,34 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MintPlayerCrawler.Data.Migrations
 {
-    public partial class AddLink : Migration
+    public partial class AddJobs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Links",
+                name: "Jobs",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Status = table.Column<int>(nullable: false),
+                    JobType = table.Column<string>(nullable: false),
                     Url = table.Column<string>(nullable: true),
-                    ViaId = table.Column<int>(nullable: true)
+                    Html = table.Column<string>(nullable: true),
+                    IndexJob_Url = table.Column<string>(nullable: true),
+                    IndexJob_Html = table.Column<string>(nullable: true),
+                    RequestJob_Url = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Links", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Links_Links_ViaId",
-                        column: x => x.ViaId,
-                        principalTable: "Links",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_Jobs", x => x.Id);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Links_ViaId",
-                table: "Links",
-                column: "ViaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Links");
+                name: "Jobs");
         }
     }
 }

@@ -1,11 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MintPlayerCrawler.Data.Entities;
+using MintPlayerCrawler.Data.Entities.Jobs;
 
 namespace MintPlayerCrawler.Data
 {
     internal class MintPlayerCrawlerContext : DbContext
     {
         internal DbSet<Link> Links { get; set; }
+
+        internal DbSet<Job> Jobs { get; set; }
+        internal DbSet<RequestJob> RequestJobs { get; set; }
+        internal DbSet<FetchUrlsJob> FetchUrlsJobs { get; set; }
+        internal DbSet<IndexJob> IndexJobs { get; set; }
 
         public MintPlayerCrawlerContext() : base()
         {
@@ -25,6 +31,11 @@ namespace MintPlayerCrawler.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Job>().HasDiscriminator<string>("JobType")
+                .HasValue<RequestJob>("request")
+                .HasValue<FetchUrlsJob>("fetch_urls")
+                .HasValue<IndexJob>("index");
         }
     }
 }

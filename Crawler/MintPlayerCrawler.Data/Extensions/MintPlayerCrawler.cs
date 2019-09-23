@@ -33,7 +33,10 @@ namespace MintPlayerCrawler.Data.Extensions
                 .AddDefaultTokenProviders();
 
             services
-                .AddScoped<ILinkRepository, LinkRepository>();
+                .AddScoped<ILinkRepository, LinkRepository>()
+                .AddScoped<IRequestJobRepository, RequestJobRepository>()
+                .AddScoped<IIndexJobRepository, IndexJobRepository>()
+                .AddScoped<IFetchUrlsJobRepository, FetchUrlsJobRepository>();
 
             services
                 .AddAuthentication(auth_options =>

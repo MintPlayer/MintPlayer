@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MintPlayerCrawler.Data;
 
 namespace MintPlayerCrawler.Data.Migrations
 {
     [DbContext(typeof(MintPlayerCrawlerContext))]
-    partial class MintPlayerCrawlerContextModelSnapshot : ModelSnapshot
+    [Migration("20190923160643_AddJobs")]
+    partial class AddJobs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

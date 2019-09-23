@@ -10,8 +10,8 @@ using MintPlayerCrawler.Data;
 namespace MintPlayerCrawler.Data.Migrations
 {
     [DbContext(typeof(MintPlayerCrawlerContext))]
-    [Migration("20190923115441_AddLink")]
-    partial class AddLink
+    [Migration("20190923160609_AddLinks")]
+    partial class AddLinks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,27 +36,6 @@ namespace MintPlayerCrawler.Data.Migrations
                     b.HasIndex("ViaId");
 
                     b.ToTable("Links");
-                });
-
-            modelBuilder.Entity("MintPlayerCrawler.Data.Entities.Website", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("DateDelete");
-
-                    b.Property<DateTime>("DateInsert");
-
-                    b.Property<DateTime?>("DateUpdate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Url");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Websites");
                 });
 
             modelBuilder.Entity("MintPlayerCrawler.Data.Entities.Link", b =>
