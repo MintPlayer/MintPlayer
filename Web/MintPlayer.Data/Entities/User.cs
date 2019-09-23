@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Identity;
 
+[assembly: InternalsVisibleTo("MintPlayerCrawler.Data")]
 namespace MintPlayer.Data.Entities
 {
     internal class User : IdentityUser<int>
