@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="form-group row">
+    <div class="col-12">
+      <h1 class="d-inline-block">All songs</h1>
+      <span class="float-right">
+        <a [routerLink]='["/song/create"]' class="btn btn-primary">
+          <i class="fa fa-plus"></i>
+          Create song
+        </a>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <datatable [settings]="tableSettings" [data]="songData" [rowTemplate]="rowTemplate" (onReloadData)="loadSongs()">
+        <ng-template #rowTemplate let-song>
+          <tr>
+            <td class="text-nowrap"><a [routerLink]='["/song",song.id,song.title | slugify]'>{{ song.title }}</a></td>
+            <td class="text-nowrap">{{ song.released | date:'dd-MM-yyyy' }}</td>
+          </tr>
+        </ng-template>
+      </datatable>
+      <pagination class="pull-left" [numbers]="tableSettings.perPages.values" [(selectedNumber)]="tableSettings.perPages.selected" (selectedNumberChange)="loadSongs()" [showArrows]="false"></pagination>
+      <pagination class="pull-right" [numbers]="tableSettings.pages.values" [(selectedNumber)]="tableSettings.pages.selected" (selectedNumberChange)="loadSongs()" [showArrows]="true"></pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+﻿nav > ul ul {
+    height: auto !important;
+}
+
+nav > ul li span::after {
+    display: none !important;
+}

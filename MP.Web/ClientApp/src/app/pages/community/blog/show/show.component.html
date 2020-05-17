@@ -1,0 +1,24 @@
+<div class="container" *ngIf="blogPost != null">
+  <ngx-json-ld [json]="blogPostLd"></ngx-json-ld>
+  <div class="form-group row">
+    <div class="col-12">
+      <h1 class="d-inline-block">{{ blogPost.title }}</h1>
+      <span *ngIf="isBlogger" class="float-none d-block float-sm-right d-sm-inline-block">
+        <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/community", "blog", blogPost.id, blogPost.title | slugify, "edit"]'><!-- to handle -->
+          <i class="fa fa-edit"></i>
+          Edit
+        </a>
+        <button (click)="deleteBlogPost()" class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto">
+          <i class="fa fa-trash"></i>
+          Remove
+        </button>
+      </span>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-12">
+      <span class="d-inline-block mb-4 text-muted">{{ blogPost.published | date:'MMM dd, yyyy' }} - {{ blogPost.author.userName }}</span>
+      <pre class="white-space-pre-wrap font-family-inherit font-size-initial">{{ blogPost.body }}</pre>
+    </div>
+  </div>
+</div>

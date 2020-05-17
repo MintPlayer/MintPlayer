@@ -1,0 +1,237 @@
+<div class="sidebar">
+  <nav class="d-flex flex-column">
+    <div class="p-1 text-center">
+      <app-facebook-share [routerLink]='[]' class="m-1"></app-facebook-share>
+      <app-twitter-share [routerLink]='[]' [text]="'Open-source music player'" class="m-1"></app-twitter-share>
+      <app-linkedin-share [routerLink]='[]' [text]="'Open-source music player'" class="m-1"></app-linkedin-share>
+    </div>
+    <ul>
+      <li>
+        <a [routerLink]='["/"]' title="Homepage" (click)="onItemSelected()">
+          <i class="fa fa-home"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a [routerLink]='["/search"]' title="Search" (click)="onItemSelected()">
+          <i class="fa fa-search"></i>
+          Search
+        </a>
+      </li>
+      <li>
+        <span title="Artists" [ngClass]="{'open':level1menu === 'artists'}" (click)="level1toggle('artists')">
+          <i class="fa fa-user-circle"></i>
+          Artists
+        </span>
+        <ul [@slideUpDown]="level1menu == 'artists' ? 'in' : 'out'">
+          <li>
+            <a [routerLink]='["/artist"]' title="All artists" (click)="onItemSelected()">
+              <i class="fa fa-list"></i>
+              All artists
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/artist/create"]' title="Add artist" (click)="onItemSelected()">
+              <i class="fa fa-plus"></i>
+              Add artist
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/artist", "favorite"]' title="Favorite artists" (click)="onItemSelected()">
+              <i class="fa fa-star"></i>
+              Favorite artists
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span title="People" [ngClass]="{'open':level1menu === 'people'}" (click)="level1toggle('people')">
+          <i class="fa fa-user-o"></i>
+          People
+        </span>
+        <ul [@slideUpDown]="level1menu == 'people' ? 'in' : 'out'">
+          <li>
+            <a [routerLink]='["/person"]' title="All people" (click)="onItemSelected()">
+              <i class="fa fa-list"></i>
+              All people
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/person", "create"]' title="Add person" (click)="onItemSelected()">
+              <i class="fa fa-plus"></i>
+              Add person
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/person", "favorite"]' title="Favorite people" (click)="onItemSelected()">
+              <i class="fa fa-star"></i>
+              Favorite people
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span title="Songs" [ngClass]="{'open':level1menu === 'songs'}" (click)="level1toggle('songs')">
+          <i class="fa fa-music"></i>
+          Songs
+        </span>
+        <ul [@slideUpDown]="level1menu == 'songs' ? 'in' : 'out'">
+          <li>
+            <a [routerLink]='["/song"]' title="All songs" (click)="onItemSelected()">
+              <i class="fa fa-list"></i>
+              All songs
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/song", "create"]' title="Add song" (click)="onItemSelected()">
+              <i class="fa fa-plus"></i>
+              Add song
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/song", "favorite"]' title="Favorite songs" (click)="onItemSelected()">
+              <i class="fa fa-star"></i>
+              Favorite songs
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span title="Playlists" [ngClass]="{'open':level1menu === 'playlists'}" (click)="level1toggle('playlists')">
+          <i class="fa fa-play-circle"></i>
+          Playlists
+        </span>
+        <ul [@slideUpDown]="level1menu == 'playlists' ? 'in' : 'out'">
+          <li>
+            <a [routerLink]='["/playlist"]' title="All playlists" (click)="onItemSelected()">
+              <i class="fa fa-list"></i>
+              All playlists
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/playlist","create"]' title="Add playlist" (click)="onItemSelected()">
+              <i class="fa fa-plus"></i>
+              Add playlist
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span title="Community" [ngClass]="{'open':level1menu === 'community'}" (click)="level1toggle('community')">
+          <i class="fa fa-users"></i>
+          Community
+        </span>
+        <ul [@slideUpDown]="level1menu == 'community' ? 'in' : 'out'">
+          <li>
+            <a [routerLink]='["/community","blog"]' title="MintPlayer blog" (click)="onItemSelected()">
+              <i class="fa fa-rss"></i>
+              Blog
+            </a>
+          </li>
+          <!--<li>
+            <a [routerLink]='["/community","forum"]' title="MintPlayer forum" (click)="onItemSelected()">
+              <i class="fa fa-comments"></i>
+              Forum
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/community","developers"]' title="Tools for developers" (click)="onItemSelected()">
+              <i class="fa fa-code"></i>
+              Developers
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/MintPlayer/MintPlayer" title="Follow us on GitHub" target="_blank" (click)="onItemSelected()">
+              <i class="fa fa-github"></i>
+              GitHub
+            </a>
+          </li>-->
+        </ul>
+      </li>
+      <li>
+        <span title="Management" [ngClass]="{'open':level1menu === 'management'}" (click)="level1toggle('management')">
+          <i class="fa fa-cogs"></i>
+          Management
+        </span>
+        <ul [@slideUpDown]="level1menu == 'management' ? 'in' : 'out'">
+          <li>
+            <span title="Manage media" [ngClass]="{'open':level2menu === 'media'}" (click)="level2toggle('media')">
+              <i class="fa fa-medium"></i>
+              Manage media
+            </span>
+            <ul [@slideUpDown]="level2menu == 'media' ? 'in' : 'out'">
+              <li>
+                <a [routerLink]='["/mediumtype"]' title="Manage media" (click)="onItemSelected()">
+                  <i class="fa fa-list"></i>
+                  All media
+                </a>
+              </li>
+              <li>
+                <a [routerLink]='["/mediumtype/create"]' title="Add medium" (click)="onItemSelected()">
+                  <i class="fa fa-plus"></i>
+                  Add medium
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span title="Manage tags/categories" [ngClass]="{'open':level2menu === 'tags'}" (click)="level2toggle('tags')">
+              <i class="fa fa-tag"></i>
+              Manage tags
+            </span>
+            <ul [@slideUpDown]="level2menu == 'tags' ? 'in' : 'out'">
+              <li>
+                <a [routerLink]='["/tag","category"]' title="Manage categories" (click)="onItemSelected()">
+                  <i class="fa fa-list"></i>
+                  All categories
+                </a>
+              </li>
+              <li>
+                <a [routerLink]='["/tag","category","create"]' title="Add category" (click)="onItemSelected()">
+                  <i class="fa fa-plus"></i>
+                  Add category
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span title="Account" [ngClass]="{'open':level1menu === 'account'}" (click)="level1toggle('account')">
+          <i class="fa fa-user"></i>
+          Account
+        </span>
+        <ul [@slideUpDown]="level1menu == 'account' ? 'in' : 'out'">
+          <li *ngIf="activeUser === null">
+            <a [routerLink]='["/account","login"]' title="Login" (click)="onItemSelected()">
+              <i class="fa fa-sign-in"></i>
+              Login
+            </a>
+          </li>
+          <li *ngIf="activeUser === null">
+            <a [routerLink]='["/account","register"]' title="Create account" (click)="onItemSelected()">
+              <i class="fa fa-user-plus"></i>
+              Register
+            </a>
+          </li>
+          <li *ngIf="activeUser !== null">
+            <a [routerLink]='["/account","profile"]' title="Profile" (click)="onItemSelected()">
+              <i class="fa fa-user-o"></i>
+              Profile
+            </a>
+          </li>
+          <li *ngIf="activeUser !== null">
+            <a title="Log out" (click)="onLogout()">
+              <i class="fa fa-sign-out"></i>
+              Sign out
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div class="mt-auto text-center">
+      <a class="d-inline-block p-2 text-white" [routerLink]='["/gdpr","privacy-policy"]' (click)="onItemSelected()">Privacy policy</a>
+      <a class="d-inline-block p-2 text-white" [routerLink]='["/gdpr","terms-of-service"]' (click)="onItemSelected()">Terms of service</a>
+    </div>
+  </nav>
+</div>

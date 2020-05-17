@@ -1,0 +1,69 @@
+<div class="container" *ngIf="tag != null">
+  <div class="form-group row">
+    <div class="col-12">
+      <h1 class="d-inline-block">{{ tag.description }}</h1>
+      <span class="float-none d-block float-sm-right d-sm-inline-block">
+        <span class="float-none d-block float-sm-right d-sm-inline-block">
+          <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/tag","category",tag.category.id,"tags",tag.id,"edit"]'>
+            <i class="fa fa-edit"></i>
+            Edit
+          </a>
+          <button class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto" (click)="deleteTag()">
+            <i class="fa fa-trash"></i>
+            Remove
+          </button>
+        </span>
+      </span>
+    </div>
+  </div>
+  <card class="d-block mb-3">
+    <header>
+      <i class="fa fa-info"></i>
+      General information
+    </header>
+    <content>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Description</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <label>{{ tag.description }}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Category</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <a [routerLink]='["/tag","category",tag.category.id]'>{{ tag.category.description }}</a>
+          </div>
+        </div>
+        <div class="row" *ngIf="tag.parent !== null">
+          <div class="col-sm-4 col-xl-2">
+            <label class="font-weight-bold">Parent tag</label>
+          </div>
+          <div class="col-sm-8 col-xl-10">
+            <a [routerLink]='["/tag","category",tag.category.id,"tags",tag.parent.id]'>{{ tag.parent.description }}</a>
+          </div>
+        </div>
+      </div>
+    </content>
+  </card>
+  <card class="d-block mb-3" [noPadding]="true">
+    <header>
+      <i class="fa fa-tags"></i>
+      Tags
+      <span class="btn-group pull-right">
+        <a [routerLink]='["/tag","category",tag.category.id,"tags",tag.id,"tags","create"]' class="btn btn-secondary">+</a>
+      </span>
+    </header>
+    <content>
+      <div class="list-group">
+        <a [routerLink]='["/tag","category",tag.category.id,"tags",child.id]' class="list-group-item list-group-item-action h4 mb-0 py-2" *ngFor="let child of tag.children">
+          <span class="badge float-left" [style.background]="tag.category.color" [style.color]="tag.category.color | fontColor">{{ child.description }}</span>
+        </a>
+      </div>
+    </content>
+  </card>
+</div>

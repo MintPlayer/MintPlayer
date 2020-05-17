@@ -1,0 +1,13 @@
+<ng-container *ngFor="let item of items">
+  <ng-container *ngTemplateOutlet="getItemTemplate; context: { item: item, select2: this }"></ng-container>
+</ng-container>
+<input type="text" #searchbox id="searchbox" (focus)="isFocused = true" (blur)="isFocused = false" autocomplete="off" [(ngModel)]="searchText" (ngModelChange)="textChanged()" [style.width.px]="searchWidth" />
+<ul *ngIf="dropdownVisible" (clickOutside)="clickedOutside($event)">
+  <li *ngFor="let suggestion of suggestions" (click)="suggestionClicked(suggestion)" [class.selected]="items | inList:suggestion.id">{{ suggestion.text }}</li>
+</ul>
+<ng-template #defaultItemTemplate let-item="item" let-select2="select2">
+  <span class="select2-item">
+    <span (click)="select2.removeItem(item,$event)">×</span>
+    {{ item.text }}
+  </span>
+</ng-template>

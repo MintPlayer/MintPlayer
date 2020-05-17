@@ -1,0 +1,16 @@
+<div class="card" [ngClass]="{'mt--100':isDraggable}"
+     [style.left]="elementOffset.x + 'px'"
+     [style.top]="elementOffset.y + 'px'">
+  <div class="card-header" [ngClass]="{'cursor-grab':isDraggable,'cursor-grabbing':isMouseDown}"
+       (mousedown)="headerMouseDown($event)"
+       (mouseUp)="headerMouseUp($event)"
+       (touchstart)="headerTouchStart($event)"
+       (touchmove)="headerTouchMove($event)"
+       (touchend)="headerTouchEnd($event)">
+    <ng-content select="header"></ng-content>
+  </div>
+  <div class="card-body position-relative" [ngClass]="{'card-body-no-padding':noPadding, 'overflow-x-auto':overflowX}">
+    <ng-content select="content"></ng-content>
+    <div class="card-overlay" [ngClass]="{'d-none':!isMouseDown}"></div>
+  </div>
+</div>

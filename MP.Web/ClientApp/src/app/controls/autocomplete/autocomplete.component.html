@@ -1,0 +1,6 @@
+<div class="dropdown">
+  <input type="text" class="form-control" [ngModel]="searchterm" (ngModelChange)="provideSuggestions($event)" (keyup.enter)="onSubmit()" />
+  <ul class="dropdown-menu d-block w-100" *ngIf="dropdownVisible && suggestions.length != 0" (clickOutside)="clickedOutside($event)">
+    <li *ngFor="let suggestion of suggestions" (click)="suggestionClicked(suggestion)"><a class="dropdown-item">{{ suggestion.text }}</a></li>
+  </ul>
+</div>

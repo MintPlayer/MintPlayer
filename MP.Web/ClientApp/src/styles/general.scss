@@ -1,0 +1,53 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+.dropdown-item {
+  cursor: pointer;
+
+  &.active, &:active {
+    color: #fff !important;
+  }
+}
+
+h1, .h1 {
+  font-size: 1.5rem;
+}
+
+h2, .h2 {
+  font-size: 1rem;
+}
+
+.btn, .form-control {
+  border-radius: 0 !important;
+}
+
+.card-header .input-group {
+  margin: -7px -15px -8px -14px;
+}
+
+.youtube-card, .dailymotion-card {
+    height: 0;
+
+    > .card {
+        margin-top: -290px;
+    }
+}
+
+.card > .card-body > content {
+  /*overflow-x: auto;*/
+  display: block;
+}
+
+.card > .card-body > content > media-list {
+    margin-bottom: 10px !important;
+}
+
+.btn-caret-center {
+    position: relative;
+    top: 3px;
+}

@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="form-group row">
+    <div class="col-12">
+      <h1 class="d-inline-block">All artists</h1>
+      <span class="float-right">
+        <a [routerLink]='["/artist/create"]' class="btn btn-primary">
+          <i class="fa fa-plus"></i>
+          Create artist
+        </a>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <datatable [settings]="tableSettings" [data]="artistData" [rowTemplate]="rowTemplate" (onReloadData)="loadArtists()">
+        <ng-template #rowTemplate let-artist>
+          <tr>
+            <td class="text-nowrap"><a [routerLink]='["/artist",artist.id,artist.name | slugify]' title="Details for {{ artist.name }}">{{ artist.name }}</a></td>
+            <td class="text-nowrap">{{ artist.yearStarted }}</td>
+            <td class="text-nowrap">{{ artist.yearQuit }}</td>
+          </tr>
+        </ng-template>
+      </datatable>
+      <pagination class="pull-left" [numbers]="tableSettings.perPages.values" [(selectedNumber)]="tableSettings.perPages.selected" (selectedNumberChange)="loadArtists()" [showArrows]="false"></pagination>
+      <pagination class="pull-right" [numbers]="tableSettings.pages.values" [(selectedNumber)]="tableSettings.pages.selected" (selectedNumberChange)="loadArtists()" [showArrows]="true"></pagination>
+    </div>
+  </div>
+</div>

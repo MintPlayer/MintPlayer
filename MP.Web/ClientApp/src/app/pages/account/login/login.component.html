@@ -1,0 +1,52 @@
+<div class="container">
+  <form (submit)="login()">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-center">Login</h1>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label [appFor]="txt_email" class="col-form-label col-sm-4 col-xl-3">Email address</label>
+      <div class="col-sm-8 col-xl-9">
+        <input type="text" [(ngModel)]="email" name="email" class="form-control" #txt_email />
+      </div>
+    </div>
+    <div class="form-group row">
+      <label [appFor]="txt_password" class="col-form-label col-sm-4 col-xl-3">Password</label>
+      <div class="col-sm-8 col-xl-9">
+        <input type="password" [(ngModel)]="password" name="password" class="form-control" #txt_password />
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-sign-in"></i>
+          Login
+        </button>
+        <button (click)="forgotPassword()" class="btn btn-default background-none" title="Forgot password">
+          <i class="fa fa-question-circle-o"></i>
+          Forgot password
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Or use a social login instead</h2>
+        <app-facebook-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-facebook-login>
+        <app-microsoft-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-microsoft-login>
+        <app-google-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-google-login>
+        <app-twitter-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-twitter-login>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-center">
+        <div *ngIf="loginResult.status == false" class="alert alert-danger" role="alert">
+          <p>
+            <b>{{ loginResult.error }}</b>
+          </p>
+          <p>{{ loginResult.errorDescription }}</p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

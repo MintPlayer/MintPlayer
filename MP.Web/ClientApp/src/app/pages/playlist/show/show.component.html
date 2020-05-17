@@ -1,0 +1,41 @@
+<div class="container" *ngIf="playlist != null">
+  <div class="form-group row">
+    <div class="col-12">
+      <h1 class="d-inline-block">{{ playlist.description }}</h1>
+      <span class="float-none d-block float-sm-right d-sm-inline-block">
+        <span class="float-none d-block float-sm-right d-sm-inline-block">
+          <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/playlist", playlist.id, playlist.description | slugify, "edit"]'>
+            <i class="fa fa-edit"></i>
+            Edit
+          </a>
+          <button class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto" (click)="deletePlaylist()">
+            <i class="fa fa-trash"></i>
+            Remove
+          </button>
+        </span>
+      </span>
+    </div>
+  </div>
+  <card class="d-block mb-3">
+    <header>
+      <i class="fa fa-music"></i>
+      Tracks
+      <span class="btn-group pull-right">
+        <button class="btn btn-secondary" (click)="onPlaybuttonClicked(playlistPlaybuttons.shuffle)" title="Shuffle">
+          <i class="fa fa-random"></i>
+        </button>
+        <button class="btn btn-secondary" (click)="onPlaybuttonClicked(playlistPlaybuttons.playNow)" title="Play now">
+          <i class="fa fa-play"></i>
+        </button>
+        <button class="btn btn-secondary" (click)="onPlaybuttonClicked(playlistPlaybuttons.addToQueue)" title="Add to queue">
+          <i class="fa fa-plus"></i>
+        </button>
+      </span>
+    </header>
+    <content>
+      <div class="list-group">
+        <a *ngFor="let track of playlist.tracks" [routerLink]='["/song",track.id,track.title | slugify]' class="list-group-item list-group-item-action">{{ track.description }}</a>
+      </div>
+    </content>
+  </card>
+</div>

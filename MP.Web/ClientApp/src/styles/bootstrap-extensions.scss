@@ -1,0 +1,158 @@
+@import "variables";
+
+.w-auto {
+  width: auto !important;
+}
+
+@media (min-width: 576px) {
+  .w-sm-100 {
+    width: 100% !important;
+  }
+
+  .w-sm-auto {
+    width: auto !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .w-md-100 {
+    width: 100% !important;
+  }
+
+  .w-md-auto {
+    width: auto !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .w-lg-100 {
+    width: 100% !important;
+  }
+
+  .w-lg-auto {
+    width: auto !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .w-xl-100 {
+    width: 100% !important;
+  }
+
+  .w-xl-auto {
+    width: auto !important;
+  }
+}
+
+.white-space-normal {
+  white-space: normal !important;
+}
+.white-space-pre-wrap {
+    white-space: pre-wrap !important;
+}
+
+.btn-default:not(:disabled):not(.disabled).on {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.font-family-inherit {
+  font-family: inherit;
+}
+
+.font-size-initial {
+  font-size: initial;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.progress .progress-bar {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+
+.table thead th.sort {
+  position: relative;
+  cursor: pointer;
+
+  &:before, &:after {
+    position: absolute;
+    display: block;
+    opacity: 0.3;
+    bottom: 0.8em;
+  }
+
+  &:before {
+    content: "\2191";
+    right: 1em;
+  }
+
+  &:after {
+    content: "\2193";
+    right: 0.5em;
+  }
+
+  &.sort-asc:after {
+    opacity: 1;
+  }
+
+  &.sort-desc:before {
+      opacity: 1;
+  }
+}
+
+.card .card-header .btn-group {
+  margin: -7px -14px;
+}
+
+.form-control-normal {
+  border: 1px solid #ced4da;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-control-focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
+.overflow-x-auto {
+    overflow-x: auto;
+}
+
+.d-inline-table {
+    display: inline-table !important;
+}
+
+.animation-delay-1 {
+  animation-delay: 0.6s;
+}
+.animation-delay-2 {
+  animation-delay: 1.2s;
+}
+
+.caption-bottom {
+  caption-side: bottom;
+}
+
+.d-table-caption {
+  display: table-caption;
+}
+
+.font-size-xx-large {
+    font-size: xx-large;
+}

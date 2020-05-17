@@ -1,0 +1,40 @@
+<div class="container">
+  <form (submit)="updateTimeline()">
+    <div class="form-group row">
+      <div class="col-12">
+        <h1 class="d-inline-block">Sync lyrics: {{ song.description }}</h1>
+        <span class="float-right">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            Update timeline
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-12">
+        <card class="d-block mb-3" [overflowX]="true">
+          <header>
+            <i class="fa fa-clock-o"></i>
+            Timeline
+          </header>
+          <content>
+            <div class="container">
+              <div class="form-group row flex-nowrap" *ngFor="let line of song.lyrics.text | linify; let i = index">
+                <div class="col text-column">
+                  <!-- [formControlName]="'line-' + i" -->
+                  <input type="text" [(ngModel)]="song.lyrics.timeline[i]" [name]="'line-' + i" class="form-control" #txt_time />
+                </div>
+                <div class="col">
+                  <label class="col-form-label text-nowrap" [appFor]="txt_time">
+                    {{ line }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </content>
+        </card>
+      </div>
+    </div>
+  </form>
+</div>

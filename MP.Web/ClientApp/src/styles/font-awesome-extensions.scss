@@ -1,0 +1,12 @@
+i.fa-sm {
+    font-size: 50%;
+}
+
+i.fa-1::before {
+  content: "1";
+}
+
+.fa > .fa::before {
+  width: 10px;
+  height: 10px;
+}

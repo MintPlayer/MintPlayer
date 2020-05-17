@@ -1,0 +1,35 @@
+<div class="container">
+  <form (submit)="saveCategory()">
+    <div class="form-group row">
+      <div class="col-12">
+        <h1 class="d-inline-block">Create new category</h1>
+        <span class="float-right">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            Create category
+          </button>
+        </span>
+      </div>
+    </div>
+    <card class="d-block mb-3">
+      <header>
+        <i class="fa fa-info"></i>
+        General information
+      </header>
+      <content>
+        <div class="form-group row">
+          <label [appFor]="txt_description" class="col-form-label col-sm-4 col-xl-2">Description</label>
+          <div class="col-sm-8 col-xl-10">
+            <input type="text" [(ngModel)]="tagCategory.description" class="form-control" #txt_description name="description" autofocus />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label [appFor]="inp_color" class="col-form-label col-sm-4 col-xl-2">Color</label>
+          <div class="col-sm-8 col-xl-10">
+            <input type="color" [(ngModel)]="tagCategory.color" class="form-control p-1" #inp_color name="color" autofocus />
+          </div>
+        </div>
+      </content>
+    </card>
+  </form>
+</div>

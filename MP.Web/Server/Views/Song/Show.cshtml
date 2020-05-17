@@ -1,0 +1,92 @@
+﻿@using MintPlayer.Web.Extensions;
+
+@model MintPlayer.Dtos.Dtos.Song
+@{
+    Layout = "~/Server/Views/_Layout.cshtml";
+    ViewData["Title"] = Model.Description;
+    ViewData["Canonical"] = $"https://mintplayer.com/song/{Model.Id}/{Model.Text.Slugify()}";
+}
+@section AdditionalCss {
+    .song-artists, .song-released {
+    color: #FFF;
+    }
+
+    .description {
+    padding: .5rem;
+    display: block;
+    background: #AAA;
+    color: #333;
+    }
+
+    .lyrics {
+    padding: 1rem;
+    font-family: inherit;
+    font-size: initial;
+    padding: 1rem;
+    white-space: pre-wrap;
+    line-height: 1.7;
+    margin-top: 0;
+    }
+}
+@section AdditionalScripts {
+    <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+}
+<script type="application/ld+json">
+    {
+    "@@context": "http://schema.org",
+    "@@type": "MusicRecording",
+    "url": "https://mintplayer.com/song/@Model.Id/@Model.Text.Slugify()",
+    "name": "@Model.Title",
+    "image": "http://i.ytimg.com/vi/@Model.YoutubeId/hqdefault.jpg",
+    "datePublished": "@Model.Released.ToString("o")",
+    "byArtist": [
+    @foreach (var artist in Model.Artists)
+    {
+        var last = Model.Artists.Last();
+        <text>
+            {
+            "@@context": "http://schema.org",
+            "@@type": "MusicGroup",
+            "name": "@artist.Name",
+            "url": "https://mintplayer.com/artist/@artist.Id/@artist.Text.Slugify()"
+            }
+        </text>
+        if (!artist.Equals(last))
+        {
+            <text>,</text>
+        }
+    }
+    ]
+    }
+</script>
+<script type="application/ld+json">
+    {
+    "@@context": "http://schema.org",
+    "@@type": "VideoObject",
+    "name": "@Model.Title",
+    "description": "@Model.Description",
+    "thumbnailUrl": "http://i.ytimg.com/vi/@Model.YoutubeId/hqdefault.jpg",
+    "contentUrl": "https://www.youtube.com/watch?v=@Model.YoutubeId",
+    "embedUrl": "https://www.youtube.com/embed/@Model.YoutubeId",
+    "uploadDate": "@Model.DateUpdate.ToString("o")"
+    }
+</script>
+
+<div class="site-banner">
+    <a href="https://mintplayer.com">MintPlayer</a>
+</div>
+<div class="header">
+    <h1>@Model.Title</h1>
+    <div class="song-artists">@string.Join(", ", Model.Artists.Select(a => a.Name))</div>
+    <div class="song-released">@Model.Released.ToString("dd-MM-yyyy")</div>
+</div>
+@if (!string.IsNullOrEmpty(Model.YoutubeId))
+{
+<amp-youtube data-videoid="@Model.YoutubeId"
+             layout="responsive"
+             width="480"
+             height="270"></amp-youtube>
+}
+<div class="description">@Model.Title Lyrics</div>
+
+<pre class="lyrics">@Model.Lyrics.Text</pre>

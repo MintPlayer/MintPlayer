@@ -1,0 +1,43 @@
+<div class="sidebar-right d-flex flex-column h-100">
+  <div class="d-block border-bottom">
+    <div class="d-block text-center">
+      <button (click)="onToggleIsRandom()" title="Toggle random" class="btn btn-lg btn-default" data-toggle="button" [attr.aria-pressed]="isRandom" autocomplete="off">
+        <i class="fa fa-long-arrow-right" *ngIf="!isRandom"></i>
+        <i class="fa fa-random" *ngIf="isRandom"></i>
+      </button>
+      <button (click)="onToggleRepeat()" title="Repeat" class="btn btn-lg btn-default" data-toggle="button" [attr.aria-pressed]="isRandom" autocomplete="off">
+        <i class="fa fa-repeat">
+          <i class="fa fa-sm fa-times-circle" *ngIf="repeatMode === repeatModes.noRepeat"></i>
+          <i class="fa fa-sm fa-1" *ngIf="repeatMode === repeatModes.repeatOne"></i>
+        </i>
+      </button>
+    </div>
+    <div class="d-block text-center">
+      <button (click)="onPreviousClicked()" title="Previous song" class="btn btn-lg btn-default">
+        <i class="fa fa-backward"></i>
+      </button>
+      <button (click)="onPlayPauseClicked()" title="Toggle play/pause" class="btn btn-lg btn-default">
+        <i class="fa fa-play" *ngIf="(playerState != 1) && (playerState != 3)"></i>
+        <i class="fa fa-pause" *ngIf="(playerState == 1) || (playerState == 3)"></i>
+      </button>
+      <button (click)="onNextClicked()" title="Next song" class="btn btn-lg btn-default">
+        <i class="fa fa-forward"></i>
+      </button>
+    </div>
+    <div class="d-flex flex-row text-center mx-2 mt-2" *ngIf="current !== null">
+      <label class="m-0">{{ songProgress.currentTime * 1000 | date:'mm:ss' }}</label>
+      <progress-bar class="flex-grow-1 m-1" minimum="0" maximum="100" [value]="songProgress.currentTime / songProgress.total * 100"></progress-bar>
+      <label class="m-0">{{ songProgress.total * 1000 | date:'mm:ss' }}</label>
+    </div>
+    <marquee class="mx-2 mb-2" *ngIf="current !== null">{{ current.description }}</marquee>
+  </div>
+  <ul class="overflow-auto mb-0">
+    <li *ngFor="let song of songs">
+      <a [routerLink]='["/song",song.id,song.title | slugify]' (click)="onSongClicked(song)" [title]="song.description" class="text-dark">
+        <div class="equalizer align-middle" *ngIf="current == song"></div>
+        <label class="align-middle cursor-pointer">{{ song.description }}</label>
+      </a>
+      <button class="btn btn-playlist-remove" title="Remove song" (click)="removeSong($event,song)"><i class="fa fa-trash"></i></button>
+    </li>
+  </ul>
+</div>

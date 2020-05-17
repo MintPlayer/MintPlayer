@@ -1,0 +1,9 @@
+.google-login-btn {
+  background: #fff;
+  color: #333;
+  padding: 5px 10px;
+
+  &:not([disabled]):hover {
+    background: #eee;
+  }
+}

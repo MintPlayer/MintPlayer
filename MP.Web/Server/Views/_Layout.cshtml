@@ -1,0 +1,131 @@
+﻿@using System.Web;
+<!DOCTYPE html>
+
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    @await RenderSectionAsync("AdditionalScripts")
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta name="description" content="@ViewBag.Description">
+    <link rel="canonical" href="@ViewBag.Canonical">
+    <title>@ViewBag.Title</title>
+    <style amp-boilerplate>
+        body {
+            -webkit-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
+            -moz-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
+            -ms-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
+            animation: -amp-start 8s steps(1,end) 0s 1 normal both
+        }
+
+        @@-webkit-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @@-moz-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @@-ms-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @@-o-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @@keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+    </style>
+    <style amp-custom>
+        body {
+            padding: 0;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+            font-size: 1rem;
+            color: #212529;
+            font-weight: 400;
+            line-height: 1.5;
+            background: #fff;
+            min-height: 100%;
+        }
+
+        .site-banner {
+            display: block;
+            background: #333;
+            padding: .3rem;
+            font-weight: bolder;
+            font-size: 2.5rem;
+            line-height: 1.15;
+            text-align: center;
+        }
+
+        .site-banner > a {
+            color: #AAA;
+            text-decoration: none;
+        }
+
+        .header {
+            padding: 1rem;
+            display: block;
+            background: #333;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: .5rem;
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.2;
+            color: #EE0;
+        }
+
+        @await RenderSectionAsync("AdditionalCss", false)
+    </style>
+    <noscript>
+        <style amp-boilerplate>
+            body {
+                -webkit-animation: none;
+                -moz-animation: none;
+                -ms-animation: none;
+                animation: none
+            }
+        </style>
+    </noscript>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

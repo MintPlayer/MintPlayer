@@ -1,0 +1,48 @@
+<div class="container">
+  <form (submit)="savePlaylist()">
+    <div class="form-group row">
+      <div class="col-12">
+        <h1 class="d-inline-block">Edit playlist: {{ oldPlaylistDescription }}</h1>
+        <span class="float-right">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            Update playlist
+          </button>
+        </span>
+      </div>
+    </div>
+    <card class="d-block mb-3">
+      <header>
+        <i class="fa fa-info"></i>
+        General information
+      </header>
+      <content>
+        <div class="form-group row mb-0">
+          <label [appFor]="txt_description" class="col-form-label col-md-6 col-lg-4 col-xl-3">Description</label>
+          <div class="col-md-6 col-lg-8 col-xl-9">
+            <input type="text" [(ngModel)]="playlist.description" class="form-control" name="description" #txt_description autofocus />
+          </div>
+        </div>
+      </content>
+    </card>
+    <card class="d-block mb-3" [overflowX]="false">
+      <header>
+        <i class="fa fa-music"></i>
+        Tracks
+      </header>
+      <content>
+        <app-sortable-list [items]="playlist.tracks" [itemTemplate]="itemTemplate">
+          <ng-template #itemTemplate let-track>
+            {{ track.description }}
+            <button class="btn btn-default pull-right sortable-list-remove" (click)="removeTrack(track)">
+              <i class="fa fa-remove"></i>
+            </button>
+          </ng-template>
+        </app-sortable-list>
+        <dropdown-search-box (suggestionClicked)="onSuggestionClicked($event)" [url]="'/web/v2/Subject/search/suggest/song'" [method]="'get'" [headers]="songSuggestHttpHeaders" [textPropertyPath]="'description'" [searchPlaceholder]="'Enter a song title'" [searchingCaption]="'Searching songs'" [noResultsCaption]="'No songs found'"></dropdown-search-box>
+      </content>
+    </card>
+  </form>
+</div>
+
+

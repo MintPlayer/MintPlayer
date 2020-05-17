@@ -1,0 +1,89 @@
+@import "../../../styles/variables.scss";
+
+:host {
+  background: $sidebar-background;
+}
+
+.sidebar {
+  height: 100%;
+
+  > nav {
+    height: 100%;
+    overflow-y: auto;
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+
+      li {
+        a, span {
+          display: block;
+          padding: 10px;
+          color: #FFF;
+          cursor: pointer;
+          transition: background 0.3s;
+
+          &:hover {
+            background: #20A8D8;
+            text-decoration: none;
+          }
+        }
+
+        span {
+          &::after {
+            border-left: $arrow-size solid white;
+            border-top: $arrow-size solid transparent;
+            border-bottom: $arrow-size solid transparent;
+            display: inline-block;
+            float: right;
+            content: '';
+            margin-top: 4px;
+            margin-right: 7px;
+            transition: transform 0.3s;
+          }
+
+          &.open::after {
+            transform: rotate(90deg);
+          }
+        }
+      }
+
+      ul {
+        background: #555;
+        overflow: hidden;
+
+        ul {
+          background: #777;
+        }
+      }
+    }
+
+    &::-webkit-scrollbar {
+      position: absolute;
+      width: 10px;
+      margin-left: -10px;
+      -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 50px;
+      background-color: #11171A;
+      background-clip: content-box;
+      border-color: transparent;
+      border-style: solid;
+      border-width: 1px 2px;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: #444;
+      }
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #7e929a;
+      border-right: 1px solid #1C2429;
+      border-left: 1px solid #1C2429;
+    }
+  }
+}

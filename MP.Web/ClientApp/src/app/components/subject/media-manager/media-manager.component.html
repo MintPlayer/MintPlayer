@@ -1,0 +1,25 @@
+<div class="container px-0">
+  <div class="form-group row m-0" *ngFor="let medium of media">
+    <div class="col-md-4 ml-xl-0 px-0">
+      <select class="form-control" [(ngModel)]="medium.type" [compareWith]="compareMediumTypes">
+        <option *ngFor="let mediumtype of mediumTypes" [ngValue]="mediumtype">{{ mediumtype.description }}</option>
+      </select>
+    </div>
+    <div class="col-md-8 mr-0 px-0">
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="medium.value" />
+        <button class="btn btn-warning" title="Remove this medium" (click)="removeMedium(medium)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row m-0">
+    <div class="col-md-12 px-0">
+      <button type="button" class="btn btn-primary w-100" title="Add channel" (click)="addMedium()">
+        <i class="fa fa-plus"></i>
+        Add
+      </button>
+    </div>
+  </div>
+</div>

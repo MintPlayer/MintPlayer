@@ -1,0 +1,75 @@
+<div class="container">
+  <form (submit)="saveArtist()">
+    <div class="form-group row">
+      <div class="col-12">
+        <h1 class="d-inline-block">Create new artist</h1>
+        <span class="float-right">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            Create artist
+          </button>
+        </span>
+      </div>
+    </div>
+    <card class="d-block mb-3" [overflowX]="false">
+      <header>
+        <i class="fa fa-info"></i>
+        General information
+      </header>
+      <content>
+        <div class="form-group row">
+          <label [appFor]="txt_name" class="col-form-label col-md-6 col-lg-4 col-xl-3">Name</label>
+          <div class="col-md-6 col-lg-8 col-xl-9">
+            <input type="text" [(ngModel)]="artist.name" class="form-control" name="name" #txt_name autofocus />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label [appFor]="txt_year_started" class="col-form-label col-md-6 col-lg-4 col-xl-3">Year started</label>
+          <div class="col-md-6 col-lg-8 col-xl-9">
+            <input type="number" [(ngModel)]="artist.yearStarted" class="form-control" name="year_started" #txt_year_started autofocus />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label [appFor]="txt_year_quit" class="col-form-label col-md-6 col-lg-4 col-xl-3">Year quit</label>
+          <div class="col-md-6 col-lg-8 col-xl-9">
+            <input type="number" [(ngModel)]="artist.yearQuit" class="form-control" name="year_quit" #txt_year_quit autofocus />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label [appFor]="sel_current_members" class="col-form-label col-md-6 col-lg-4 col-xl-3">Current members</label>
+          <div class="col-md-6 col-lg-8 col-xl-9">
+            <select2 [url]="'/api/subject/search/suggest/person'" [method]="'get'" [headers]="httpHeaders" [items]="artist.currentMembers" #sel_current_members></select2>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label [appFor]="sel_past_members" class="col-form-label col-md-6 col-lg-4 col-xl-3">Past members</label>
+          <div class="col-md-6 col-lg-8 col-xl-9">
+            <select2 [url]="'/api/subject/search/suggest/person'" [method]="'get'" [headers]="httpHeaders" [items]="artist.pastMembers" #sel_past_members></select2>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label [appFor]="sel_tags" class="col-form-label col-md-6 col-lg-4 col-xl-3">Tags</label>
+          <div class="col-md-6 col-lg-8 col-xl-9">
+            <select2 [url]="'/web/v1/Tag/suggest'" [method]="'post'" [headers]="httpHeaders" [items]="artist.tags" [itemTemplate]="customTemplate" #sel_tags>
+              <ng-template #customTemplate let-item="item" let-select2="select2">
+                <span class="select2-item" [style.background]="item.category.color" [style.color]="item.category.color | fontColor">
+                  <span [style.color]="item.category.color | fontColor" (click)="select2.removeItem(item,$event)">×</span>
+                  {{ item.text }}
+                </span>
+              </ng-template>
+            </select2>
+          </div>
+        </div>
+      </content>
+    </card>
+    <card>
+      <header>
+        <i class="fa fa-medium"></i>
+        Media
+      </header>
+      <content>
+        <media-manager [media]="artist.media" [mediumTypes]="mediumTypes"></media-manager>
+      </content>
+    </card>
+  </form>
+</div>

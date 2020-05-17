@@ -1,0 +1,41 @@
+<div class="container">
+  <form (submit)="saveBlogPost()">
+    <div class="form-group row">
+      <div class="col-12">
+        <h1 class="d-inline-block">Create new blog post</h1>
+        <span class="float-right">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            Create blog post
+          </button>
+        </span>
+      </div>
+    </div>
+    <card class="d-block mb-3" [overflowX]="false">
+      <header>
+        <i class="fa fa-info"></i>
+        Blog post information
+      </header>
+      <content>
+        <div class="form-group row">
+          <label [appFor]="txt_title" class="col-form-label col-md-4 col-xl-2">Title</label>
+          <div class="col-md-8 col-xl-10">
+            <input type="text" [(ngModel)]="blogPost.title" class="form-control" #txt_title name="title" autofocus />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label [appFor]="txt_headline" class="col-form-label col-md-4 col-xl-2">Headline</label>
+          <div class="col-md-8 col-xl-10">
+            <textarea [(ngModel)]="blogPost.headline" class="form-control" rows="5" #txt_headline name="headline"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label [appFor]="txt_post" class="col-form-label col-md-4 col-xl-2">Post</label>
+          <div class="col-md-8 col-xl-10">
+            <textarea [(ngModel)]="blogPost.body" class="form-control" rows="20" #txt_post name="post"></textarea>
+          </div>
+        </div>
+      </content>
+    </card>
+  </form>
+</div>
