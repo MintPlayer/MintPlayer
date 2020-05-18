@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Tag } from '../../../../entities/tag';
 import { TagService } from '../../../../services/tag/tag.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +13,17 @@ import { Subscription } from 'rxjs';
 })
 export class ShowComponent implements OnInit, OnDestroy {
 
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('TAG') tagInj: Tag, @Inject('BASE_URL') private baseUrl: string, private tagService: TagService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper) {
+  constructor(
+    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject('TAG') tagInj: Tag,
+    @Inject('BASE_URL') private baseUrl: string,
+    private tagService: TagService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta,
+    private htmlLink: HtmlLinkHelper
+  ) {
     if (serverSide === true) {
       this.setTag(tagInj);
     } else {
@@ -21,6 +31,60 @@ export class ShowComponent implements OnInit, OnDestroy {
       this.loadTag(id);
     }
   }
+
+  private routeParamsSubscription: Subscription;
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+    this.routeParamsSubscription = this.route.params.subscribe((routeParams) => {
+      this.loadTag(routeParams.id);
+    });
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
+    if (this.routeParamsSubscription !== null) {
+      this.routeParamsSubscription.unsubscribe();
+    }
+  }
+
+  //#region Add meta-tags
+  private basicMetaTags: HTMLMetaElement[] = [];
+  private ogMetaTags: HTMLMetaElement[] = [];
+  private twitterMetaTags: HTMLMetaElement[] = [];
+  private addMetaTags() {
+    this.addBasicMetaTags();
+    this.addOpenGraphTags();
+    this.addTwitterCard();
+  }
+  private addBasicMetaTags() {
+    this.basicMetaTags = this.metaService.addTags([{
+      name: 'description',
+      content: `The tag ${this.tag.description}.`
+    }]);
+  }
+  private addOpenGraphTags() {
+  }
+  private addTwitterCard() {
+  }
+  private removeMetaTags() {
+    if (this.ogMetaTags !== null) {
+      this.ogMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.basicMetaTags !== null) {
+      this.basicMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.twitterMetaTags !== null) {
+      this.twitterMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+  }
+  //#endregion
 
   private loadTag(id: number) {
     this.tagService.getTag(id, true).then((tag) => {
@@ -32,8 +96,11 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   private setTag(tag: Tag) {
     this.tag = tag;
+    this.removeMetaTags();
+
     if (this.tag != null) {
       this.titleService.setTitle(this.tag.description);
+      this.addMetaTags();
     }
   }
 
@@ -58,19 +125,4 @@ export class ShowComponent implements OnInit, OnDestroy {
     parent: null,
     children: []
   };
-
-  private routeParamsSubscription: Subscription;
-  ngOnInit() {
-    this.htmlLink.setCanonicalWithoutQuery();
-    this.routeParamsSubscription = this.route.params.subscribe((routeParams) => {
-      this.loadTag(routeParams.id);
-    });
-  }
-
-  ngOnDestroy() {
-    this.htmlLink.unset('canonical');
-    if (this.routeParamsSubscription !== null) {
-      this.routeParamsSubscription.unsubscribe();
-    }
-  }
 }

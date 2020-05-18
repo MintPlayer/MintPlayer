@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { SongService } from '../../../services/song/song.service';
 import { Song } from '../../../entities/song';
 import { PaginationResponse } from '../../../helpers/pagination-response';
@@ -14,14 +14,76 @@ import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy {
-  constructor(@Inject('SONGS') private songsInj: PaginationResponse<Song>, private songService: SongService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper) {
+  constructor(
+    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject('SONGS') private songsInj: PaginationResponse<Song>,
+    private songService: SongService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private htmlLink: HtmlLinkHelper,
+    private metaService: Meta
+  ) {
     this.titleService.setTitle('All songs');
-    if (songsInj === null) {
-      this.loadSongs();
-    } else {
+    if (serverSide) {
       this.setSongData(songsInj);
+    } else {
+      this.loadSongs();
     }
   }
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+    this.addMetaTags();
+    //this.route.params.subscribe((routeParams) => {
+    //	this.loadSongs();
+    //});
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
+    this.removeMetaTags();
+  }
+
+  //#region Add meta-tags
+  private basicMetaTags: HTMLMetaElement[] = [];
+  private ogMetaTags: HTMLMetaElement[] = [];
+  private twitterMetaTags: HTMLMetaElement[] = [];
+  private addMetaTags() {
+    this.addBasicMetaTags();
+    this.addOpenGraphTags();
+    this.addTwitterCard();
+  }
+  private addBasicMetaTags() {
+    this.basicMetaTags = this.metaService.addTags([{
+      name: 'description',
+      content: 'Here you can find a list of all the songs in our database.'
+    }]);
+  }
+  private addOpenGraphTags() {
+
+  }
+  private addTwitterCard() {
+
+  }
+  private removeMetaTags() {
+    if (this.ogMetaTags !== null) {
+      this.ogMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.basicMetaTags !== null) {
+      this.basicMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.twitterMetaTags !== null) {
+      this.twitterMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+  }
+  //#endregion
 
   loadSongs() {
     this.songService.pageSongs({ perPage: this.tableSettings.perPages.selected, page: this.tableSettings.pages.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
@@ -61,15 +123,4 @@ export class ListComponent implements OnInit, OnDestroy {
     sortProperty: 'Title',
     sortDirection: 'ascending'
   });
-
-  ngOnInit() {
-    this.htmlLink.setCanonicalWithoutQuery();
-    //this.route.params.subscribe((routeParams) => {
-    //	this.loadSongs();
-    //});
-  }
-
-  ngOnDestroy() {
-    this.htmlLink.unset('canonical');
-  }
 }

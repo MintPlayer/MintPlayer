@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Router, UrlSerializer } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { ArtistService } from '../../../services/artist/artist.service';
 import { Artist } from '../../../entities/artist';
 import { PaginationResponse } from '../../../helpers/pagination-response';
@@ -14,7 +14,15 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 })
 export class ListComponent implements OnInit, OnDestroy {
 
-  constructor(@Inject('ARTISTS') private artistsInj: PaginationResponse<Artist>, private artistService: ArtistService, private router: Router, private urlSerializer: UrlSerializer, private titleService: Title, private htmlLink: HtmlLinkHelper) {
+  constructor(
+    @Inject('ARTISTS') private artistsInj: PaginationResponse<Artist>,
+    private artistService: ArtistService,
+    private router: Router,
+    private urlSerializer: UrlSerializer,
+    private titleService: Title,
+    private htmlLink: HtmlLinkHelper,
+    private metaService: Meta
+  ) {
     this.titleService.setTitle('Artists');
     if (artistsInj === null) {
       this.loadArtists();
@@ -22,6 +30,56 @@ export class ListComponent implements OnInit, OnDestroy {
       this.setArtistData(artistsInj);
     }
   }
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+    this.addMetaTags();
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
+    this.removeMetaTags();
+  }
+
+  //#region Add meta-tags
+  private basicMetaTags: HTMLMetaElement[] = [];
+  private ogMetaTags: HTMLMetaElement[] = [];
+  private twitterMetaTags: HTMLMetaElement[] = [];
+  private addMetaTags() {
+    this.addBasicMetaTags();
+    this.addOpenGraphTags();
+    this.addTwitterCard();
+  }
+  private addBasicMetaTags() {
+    this.basicMetaTags = this.metaService.addTags([{
+      name: 'description',
+      content: 'Here you can find a list of all the artists in our database.'
+    }]);
+  }
+  private addOpenGraphTags() {
+
+  }
+  private addTwitterCard() {
+
+  }
+  private removeMetaTags() {
+    if (this.ogMetaTags !== null) {
+      this.ogMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.basicMetaTags !== null) {
+      this.basicMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.twitterMetaTags !== null) {
+      this.twitterMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+  }
+  //#endregion
 
   loadArtists() {
     this.artistService.pageArtists(this.tableSettings.toPaginationRequest()).then((response) => {
@@ -67,12 +125,5 @@ export class ListComponent implements OnInit, OnDestroy {
     sortDirection: 'ascending'
   });
 
-  ngOnInit() {
-    this.htmlLink.setCanonicalWithoutQuery();
-  }
-
-  ngOnDestroy() {
-    this.htmlLink.unset('canonical');
-  }
 }
 

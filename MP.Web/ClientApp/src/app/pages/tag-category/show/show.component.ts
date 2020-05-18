@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { TagCategory } from '../../../entities/tag-category';
 import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
@@ -12,7 +12,17 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 })
 export class ShowComponent implements OnInit, OnDestroy {
 
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('TAGCATEGORY') tagCategoryInj: TagCategory, @Inject('BASE_URL') private baseUrl: string, private tagCategoryService: TagCategoryService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper) {
+  constructor(
+    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject('TAGCATEGORY') tagCategoryInj: TagCategory,
+    @Inject('BASE_URL') private baseUrl: string,
+    private tagCategoryService: TagCategoryService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta,
+    private htmlLink: HtmlLinkHelper
+  ) {
     if (serverSide === true) {
       this.setTagCategory(tagCategoryInj);
     } else {
@@ -20,6 +30,53 @@ export class ShowComponent implements OnInit, OnDestroy {
       this.loadTagCategory(id);
     }
   }
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
+    this.removeMetaTags();
+  }
+
+  //#region Add meta-tags
+  private basicMetaTags: HTMLMetaElement[] = [];
+  private ogMetaTags: HTMLMetaElement[] = [];
+  private twitterMetaTags: HTMLMetaElement[] = [];
+  private addMetaTags() {
+    this.addBasicMetaTags();
+    this.addOpenGraphTags();
+    this.addTwitterCard();
+  }
+  private addBasicMetaTags() {
+    this.basicMetaTags = this.metaService.addTags([{
+      name: 'description',
+      content: `The tag category ${this.tagCategory.description}.`
+    }]);
+  }
+  private addOpenGraphTags() {
+  }
+  private addTwitterCard() {
+  }
+  private removeMetaTags() {
+    if (this.ogMetaTags !== null) {
+      this.ogMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.basicMetaTags !== null) {
+      this.basicMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.twitterMetaTags !== null) {
+      this.twitterMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+  }
+  //#endregion
 
   private loadTagCategory(id: number) {
     this.tagCategoryService.getTagCategory(id, true).then((tagCategory) => {
@@ -31,8 +88,11 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   private setTagCategory(tagCategory: TagCategory) {
     this.tagCategory = tagCategory;
+    this.removeMetaTags();
+
     if (this.tagCategory != null) {
       this.titleService.setTitle(this.tagCategory.description);
+      this.addMetaTags();
     }
   }
 
@@ -50,12 +110,4 @@ export class ShowComponent implements OnInit, OnDestroy {
     color: '#888',
     tags: []
   };
-
-  ngOnInit() {
-    this.htmlLink.setCanonicalWithoutQuery();
-  }
-
-  ngOnDestroy() {
-    this.htmlLink.unset('canonical');
-  }
 }

@@ -15,19 +15,110 @@ import { AccountService } from '../../../../services/account/account.service';
 })
 export class ShowComponent implements OnInit, OnDestroy {
 
-  //constructor(@Inject('SERVERSIDE') serverSide: boolean, private blogPostService: BlogPostService, private accountService: AccountService, private router: Router, private route: ActivatedRoute, @Inject('BLOGPOST') private blogPostInj: BlogPost, private metaService: Meta, @Inject('BASE_URL') private baseUrl: string, private titleService: Title, private htmlLink: HtmlLinkHelper, private urlGenerator: UrlGenerator, private wordCountPipe: WordCountPipe) {
-  constructor(@Inject('SERVERSIDE') serverSide: boolean,  @Inject('BLOGPOST') private blogPostInj: BlogPost, private titleService: Title, private urlGenerator: UrlGenerator, private wordCountPipe: WordCountPipe) {
+  constructor(
+    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject('BLOGPOST') private blogPostInj: BlogPost,
+    @Inject('BASE_URL') private baseUrl: string,
+    private blogPostService: BlogPostService,
+    private accountService: AccountService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta,
+    private htmlLink: HtmlLinkHelper,
+    private urlGenerator: UrlGenerator,
+    private wordCountPipe: WordCountPipe
+  ) {
     if (serverSide === true) {
       console.log('Got blogpost from server');
       this.setBlogPost(blogPostInj);
     } else {
-      //var id = parseInt(this.route.snapshot.paramMap.get('id'));
-      //this.loadBlogPost(id);
-      //this.accountService.currentRoles().then((roles) => {
-      //  this.isBlogger = roles.indexOf('Blogger') > -1;
-      //});
+      var id = parseInt(this.route.snapshot.paramMap.get('id'));
+      this.loadBlogPost(id);
+      this.accountService.currentRoles().then((roles) => {
+        this.isBlogger = roles.indexOf('Blogger') > -1;
+      });
     }
   }
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
+    this.removeMetaTags();
+  }
+
+  //#region Add meta-tags
+  private basicMetaTags: HTMLMetaElement[] = [];
+  private ogMetaTags: HTMLMetaElement[] = [];
+  private twitterMetaTags: HTMLMetaElement[] = [];
+  private addMetaTags() {
+    this.addBasicMetaTags();
+    this.addOpenGraphTags();
+    this.addTwitterCard();
+  }
+  private addBasicMetaTags() {
+    this.basicMetaTags = this.metaService.addTags([{
+      name: 'description',
+      content: this.blogPost.headline
+    }]);
+  }
+  private addOpenGraphTags() {
+    this.ogMetaTags = this.metaService.addTags([{
+      property: 'og:type',
+      content: 'article'
+    }, {
+      property: 'og:url',
+      content: this.urlGenerator.generateFullUrl(this.blogPost)
+    }, {
+      property: 'og:title',
+      content: this.blogPost.title
+    }, {
+      property: 'og:description',
+      content: this.blogPost.headline
+    }, {
+      property: 'og:updated_time',
+      content: new Date(this.blogPost.published).toISOString()
+    }]);
+  }
+  private addTwitterCard() {
+    this.twitterMetaTags = this.metaService.addTags([{
+      property: 'twitter:card',
+      content: 'summary'
+    }, {
+      property: 'twitter:url',
+      content: this.urlGenerator.generateFullUrl(this.blogPost)
+    }, {
+      property: 'twitter:image',
+      content: `${this.baseUrl}/assets/logo/music_note_72.png`
+    }, {
+      property: 'twitter:title',
+      content: this.blogPost.title
+    }, {
+      property: 'twitter:description',
+      content: this.blogPost.headline
+    }]);
+  }
+  private removeMetaTags() {
+    if (this.ogMetaTags !== null) {
+      this.ogMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.basicMetaTags !== null) {
+      this.basicMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.twitterMetaTags !== null) {
+      this.twitterMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+  }
+  //#endregion
 
   blogPost: BlogPost = {
     id: null,
@@ -60,76 +151,38 @@ export class ShowComponent implements OnInit, OnDestroy {
       'name': string
     }
   } = {
-    '@context': 'http://schema.org',
-    '@type': 'BlogPosting',
-    'url': '',
-    'headline': '',
-    'wordcount': '',
-    'publisher': '',
-    'datePublished': '',
-    'description': '',
-    'articleBody': '',
-    'author': {
       '@context': 'http://schema.org',
-      '@type': 'Person',
-      'name': ''
-    }
-  };
+      '@type': 'BlogPosting',
+      'url': '',
+      'headline': '',
+      'wordcount': '',
+      'publisher': '',
+      'datePublished': '',
+      'description': '',
+      'articleBody': '',
+      'author': {
+        '@context': 'http://schema.org',
+        '@type': 'Person',
+        'name': ''
+      }
+    };
 
-  //private loadBlogPost(id: number) {
-  //  this.blogPostService.getBlogPost(id).then((blogPost) => {
-  //    this.setBlogPost(blogPost);
-  //  }).catch((error) => {
-  //    console.error('Could not get blogpost', error);
-  //  });
-  //}
+  private loadBlogPost(id: number) {
+    this.blogPostService.getBlogPost(id).then((blogPost) => {
+      this.setBlogPost(blogPost);
+    }).catch((error) => {
+      console.error('Could not get blogpost', error);
+    });
+  }
 
-  //private metaTags: HTMLMetaElement[] = [];
-  //private ogMetaTags: HTMLMetaElement[] = [];
-  //private twitterMetaTags: HTMLMetaElement[] = [];
   private setBlogPost(blogPost: BlogPost) {
     this.blogPost = blogPost;
-
-    ////#region Remove the existing meta-tags on the page
-    //this.metaTags.forEach((tag) => {
-    //  this.metaService.removeTagElement(tag);
-    //});
-    //this.ogMetaTags.forEach((tag) => {
-    //  this.metaService.removeTagElement(tag);
-    //});
-    //this.twitterMetaTags.forEach((tag) => {
-    //  this.metaService.removeTagElement(tag);
-    //});
-    ////#endregion
+    this.removeMetaTags();
 
     if (blogPost != null) {
       //#region Title
       this.titleService.setTitle(blogPost.title);
       //#endregion
-      ////#region <meta name="description">
-      //this.metaTags = this.metaService.addTags([{
-      //  name: 'description',
-      //  content: blogPost.headline
-      //}]);
-      ////#endregion
-      ////#region OpenGraph tags
-      //this.ogMetaTags = this.metaService.addTags([{
-      //  property: 'og:type',
-      //  content: 'article'
-      //}, {
-      //  property: 'og:url',
-      //  content: this.urlGenerator.generateFullUrl(blogPost)
-      //}, {
-      //  property: 'og:title',
-      //  content: blogPost.title
-      //}, {
-      //  property: 'og:description',
-      //    content: blogPost.headline
-      //}, {
-      //  property: 'og:updated_time',
-      //    content: new Date(blogPost.published).toISOString()
-      //}]);
-      ////#endregion
       //#region LD+json
       this.blogPostLd = {
         '@context': 'http://schema.org',
@@ -148,49 +201,15 @@ export class ShowComponent implements OnInit, OnDestroy {
         'wordcount': String(this.wordCountPipe.transform(blogPost.body))
       };
       //#endregion
-      ////#region TwitterCard
-      //this.twitterMetaTags = this.metaService.addTags([{
-      //  property: 'twitter:card',
-      //  content: 'summary'
-      //}, {
-      //  property: 'twitter:url',
-      //  content: this.urlGenerator.generateFullUrl(blogPost)
-      //}, {
-      //  property: 'twitter:image',
-      //  content: `${this.baseUrl}/assets/logo/music_note_72.png`
-      //}, {
-      //  property: 'twitter:title',
-      //  content: blogPost.title
-      //}, {
-      //  property: 'twitter:description',
-      //  content: blogPost.headline
-      //}]);
-      ////#endregion
+      this.addMetaTags();
     }
   }
 
   public deleteBlogPost() {
-    //this.blogPostService.deleteBlogPost(this.blogPost).then(() => {
-    //  this.router.navigate(['/community', 'blog']);
-    //}).catch((error) => {
-    //  console.error('Could not delete blog post', error);
-    //});
-  }
-
-  ngOnInit() {
-    //this.htmlLink.setCanonicalWithoutQuery();
-  }
-
-  ngOnDestroy() {
-    //this.htmlLink.unset('canonical');
-    //this.metaTags.forEach((tag) => {
-    //  this.metaService.removeTagElement(tag);
-    //});
-    //this.ogMetaTags.forEach((tag) => {
-    //  this.metaService.removeTagElement(tag);
-    //});
-    //this.twitterMetaTags.forEach((tag) => {
-    //  this.metaService.removeTagElement(tag);
-    //});
+    this.blogPostService.deleteBlogPost(this.blogPost).then(() => {
+      this.router.navigate(['/community', 'blog']);
+    }).catch((error) => {
+      console.error('Could not delete blog post', error);
+    });
   }
 }

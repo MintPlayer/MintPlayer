@@ -13,7 +13,18 @@ import { UrlGenerator } from '../../../helpers/url-generator.helper';
 })
 export class ShowComponent implements OnInit, OnDestroy {
 
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('ARTIST') private artistInj: Artist, @Inject('BASE_URL') private baseUrl: string, private artistService: ArtistService, private router: Router, private route: ActivatedRoute, private titleService: Title, private metaService: Meta, private htmlLink: HtmlLinkHelper, private urlGenerator: UrlGenerator) {
+  constructor(
+    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject('ARTIST') private artistInj: Artist,
+    @Inject('BASE_URL') private baseUrl: string,
+    private artistService: ArtistService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta,
+    private htmlLink: HtmlLinkHelper,
+    private urlGenerator: UrlGenerator
+  ) {
     if (serverSide === true) {
       this.setArtist(artistInj);
     } else {
@@ -21,6 +32,85 @@ export class ShowComponent implements OnInit, OnDestroy {
       this.loadArtist(id);
     }
   }
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
+    this.removeMetaTags();
+  }
+
+  //#region Add meta-tags
+  private basicMetaTags: HTMLMetaElement[] = [];
+  private ogMetaTags: HTMLMetaElement[] = [];
+  private twitterMetaTags: HTMLMetaElement[] = [];
+  private addMetaTags() {
+    this.addBasicMetaTags();
+    this.addOpenGraphTags();
+    this.addTwitterCard();
+  }
+  private addBasicMetaTags() {
+    this.basicMetaTags = this.metaService.addTags([{
+      name: 'description',
+      content: `Songs, music videos and lyrics for ${this.artist.name}`
+    }]);
+  }
+  private addOpenGraphTags() {
+    this.ogMetaTags = this.metaService.addTags([{
+      property: 'og:type',
+      content: 'profile'
+    }, {
+      property: 'og:url',
+      content: this.urlGenerator.generateFullUrl(this.artist)
+    }, {
+      property: 'og:title',
+      content: this.artist.name
+    }, {
+      property: 'og:description',
+      content: `Songs, music videos and lyrics for ${this.artist.name}`
+    }, {
+      property: 'og:updated_time',
+      content: new Date(this.artist.dateUpdate).toISOString()
+    }]);
+  }
+  private addTwitterCard() {
+    this.twitterMetaTags = this.metaService.addTags([{
+      property: 'twitter:card',
+      content: 'summary'
+    }, {
+      property: 'twitter:url',
+      content: this.urlGenerator.generateFullUrl(this.artist)
+    }, {
+      property: 'twitter:image',
+      content: `${this.baseUrl}/assets/logo/music_note_72.png`
+    }, {
+      property: 'twitter:title',
+      content: this.artist.name
+    }, {
+      property: 'twitter:description',
+      content: `Songs, music videos and lyrics for ${this.artist.name}`
+    }]);
+  }
+  private removeMetaTags() {
+    if (this.ogMetaTags !== null) {
+      this.ogMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.basicMetaTags !== null) {
+      this.basicMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.twitterMetaTags !== null) {
+      this.twitterMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+  }
+  //#endregion
 
   artistLd: {
     '@context': 'http://schema.org',
@@ -53,51 +143,13 @@ export class ShowComponent implements OnInit, OnDestroy {
     });
   }
 
-  private metaTags: HTMLMetaElement[] = [];
-  private ogMetaTags: HTMLMetaElement[] = [];
-  private twitterMetaTags: HTMLMetaElement[] = [];
   private setArtist(artist: Artist) {
     this.artist = artist;
-
-    //#region Remove the existing meta-tags on the page
-    this.metaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.ogMetaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.twitterMetaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    //#endregion
+    this.removeMetaTags();
 
     if (artist != null) {
       //#region Title
       this.titleService.setTitle(artist.name);
-      //#endregion
-      //#region <meta name="description">
-      this.metaTags = this.metaService.addTags([{
-        name: 'description',
-        content: `Songs, music videos and lyrics for ${artist.name}`
-      }]);
-      //#endregion
-      //#region OpenGraph tags
-      this.ogMetaTags = this.metaService.addTags([{
-        property: 'og:type',
-        content: 'profile'
-      }, {
-        property: 'og:url',
-          content: this.urlGenerator.generateFullUrl(artist)
-      }, {
-        property: 'og:title',
-        content: artist.name
-      }, {
-        property: 'og:description',
-        content: `Songs, music videos and lyrics for ${artist.name}`
-      }, {
-        property: 'og:updated_time',
-        content: new Date(artist.dateUpdate).toISOString()
-      }]);
       //#endregion
       //#region LD+json
       this.artistLd = {
@@ -118,24 +170,7 @@ export class ShowComponent implements OnInit, OnDestroy {
         })
       };
       //#endregion
-      //#region TwitterCard
-      this.twitterMetaTags = this.metaService.addTags([{
-        property: 'twitter:card',
-        content: 'summary'
-      }, {
-        property: 'twitter:url',
-        content: this.urlGenerator.generateFullUrl(artist)
-      }, {
-        property: 'twitter:image',
-        content: `${this.baseUrl}/assets/logo/music_note_72.png`
-      }, {
-        property: 'twitter:title',
-        content: artist.name
-      }, {
-        property: 'twitter:description',
-        content: `Songs, music videos and lyrics for ${artist.name}`
-      }]);
-      //#endregion
+      this.addMetaTags();
     }
   }
 
@@ -160,21 +195,4 @@ export class ShowComponent implements OnInit, OnDestroy {
     text: '',
     dateUpdate: null
   };
-
-  ngOnInit() {
-    this.htmlLink.setCanonicalWithoutQuery();
-  }
-
-  ngOnDestroy() {
-    this.htmlLink.unset('canonical');
-    this.metaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.ogMetaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.twitterMetaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-  }
 }

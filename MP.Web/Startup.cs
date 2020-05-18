@@ -47,7 +47,9 @@ namespace MintPlayer.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddResponseCompression();
+            services
+                .AddResponseCompression()
+                .AddResponseCaching();
             services
                 .AddMintPlayer(options =>
                 {
@@ -392,6 +394,7 @@ namespace MintPlayer.Web
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
+            app.UseResponseCaching();
             app.Use(async (context, next) =>
             {
                 context.Response.OnStarting(() =>

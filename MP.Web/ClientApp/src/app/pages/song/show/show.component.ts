@@ -18,7 +18,18 @@ import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
   ]
 })
 export class ShowComponent implements OnInit, OnDestroy {
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('SONG') private songInj: Song, @Inject('BASE_URL') private baseUrl: string, private songService: SongService, private router: Router, private route: ActivatedRoute, private titleService: Title, private metaService: Meta, private htmlLink: HtmlLinkHelper, private urlGenerator: UrlGenerator) {
+  constructor(
+    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject('SONG') private songInj: Song,
+    @Inject('BASE_URL') private baseUrl: string,
+    private songService: SongService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta,
+    private htmlLink: HtmlLinkHelper,
+    private urlGenerator: UrlGenerator
+  ) {
     if (serverSide === true) {
       this.setSong(songInj);
     } else {
@@ -26,6 +37,157 @@ export class ShowComponent implements OnInit, OnDestroy {
       this.loadSong(id);
     }
   }
+
+  private routeParamsSubscription: Subscription;
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+    this.routeParamsSubscription = this.route.params.subscribe((routeParams) => {
+      this.loadSong(routeParams.id);
+    });
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
+    this.htmlLink.unset('amphtml');
+    this.removeMetaTags();
+    if (this.routeParamsSubscription !== null) {
+      this.routeParamsSubscription.unsubscribe();
+    }
+  }
+
+  //#region Add meta-tags
+  private basicMetaTags: HTMLMetaElement[] = [];
+  private ogMetaTags: HTMLMetaElement[] = [];
+  private twitterMetaTags: HTMLMetaElement[] = [];
+  private addMetaTags() {
+    this.addBasicMetaTags();
+    this.addOpenGraphTags();
+    this.addTwitterCard();
+  }
+  private addBasicMetaTags() {
+    if (this.song.artists.length === 0) {
+      this.basicMetaTags = this.metaService.addTags([{
+        name: 'description',
+        content: `Video and lyrics for ${this.song.title}`
+      }]);
+    } else {
+      this.basicMetaTags = this.metaService.addTags([{
+        name: 'description',
+        content: `Video and lyrics for ${this.song.title} by ${this.song.artists[0].name}`
+      }]);
+    }
+  }
+  private addOpenGraphTags() {
+    this.ogMetaTags = this.metaService.addTags([{
+      property: 'og:type',
+      content: 'music.song'
+    }, {
+      property: 'og:url',
+      content: this.urlGenerator.generateFullUrl(this.song)
+    }, {
+      property: 'og:title',
+      content: this.song.title
+    }, {
+      property: 'og:image',
+      content: `https://i.ytimg.com/vi/${this.song.youtubeId}/hqdefault.jpg`
+    }, {
+      property: 'og:updated_time',
+      content: new Date(this.song.dateUpdate).toISOString()
+    }]);
+
+    if (this.song.artists.length === 0) {
+      this.ogMetaTags = this.ogMetaTags.concat(this.metaService.addTags([{
+        property: 'og:description',
+        content: `Video and lyrics for ${this.song.title}`
+      }]));
+    } else {
+      this.ogMetaTags = this.ogMetaTags.concat(this.metaService.addTags([{
+        property: 'og:description',
+        content: `Video and lyrics for ${this.song.title} by ${this.song.artists[0].name}`
+      }]));
+    }
+
+    if (this.song.youtubeId !== null) {
+      this.ogMetaTags = this.ogMetaTags.concat(this.metaService.addTags([{
+        property: 'og:video',
+        content: `https://www.youtube.com/embed/${this.song.youtubeId}`
+      }]));
+    }
+
+    this.song.artists.forEach((artist) => {
+      this.ogMetaTags.push(this.metaService.addTag({
+        property: 'og:musician',
+        content: this.urlGenerator.generateFullUrl(artist)
+      }));
+    });
+  }
+  private addTwitterCard() {
+    let getSongDescription = (song: Song) => {
+      if (song.artists.length === 0) {
+        return `Video and lyrics for ${song.title}`;
+      } else {
+        return `Video and lyrics for ${song.title} by ${song.artists[0].name}`;
+      }
+    };
+
+    if (this.song.youtubeId) {
+      this.twitterMetaTags = this.metaService.addTags([{
+        property: 'twitter:card',
+        content: 'player'
+      }, {
+        property: 'twitter:image',
+        content: `http://i.ytimg.com/vi/${this.song.youtubeId}/hqdefault.jpg`
+      }, {
+        property: 'twitter:player',
+        content: `https://www.youtube.com/embed/${this.song.youtubeId}`
+      }, {
+        property: 'twitter:player:width',
+        content: '480'
+      }, {
+        property: 'twitter:player:height',
+          content: '270'
+      }, {
+        property: 'twitter:title',
+        content: this.song.title
+      }, {
+        property: 'twitter:description',
+        content: getSongDescription(this.song)
+      }]);
+    } else {
+      this.twitterMetaTags = this.metaService.addTags([{
+        property: 'twitter:card',
+        content: 'summary_large_image'
+      }, {
+        property: 'twitter:image',
+        content: `${this.baseUrl}/assets/logo/music_note_72.png`
+      }, {
+        property: 'twitter:title',
+        content: this.song.title
+      }, {
+        property: 'twitter:description',
+        content: getSongDescription(this.song)
+      }]);
+    }
+  }
+  private removeMetaTags() {
+    if (this.ogMetaTags !== null) {
+      this.ogMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.basicMetaTags !== null) {
+      this.basicMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.twitterMetaTags !== null) {
+      this.twitterMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+  }
+  //#endregion
 
   songLd = {
     '@context': 'http://schema.org',
@@ -54,89 +216,15 @@ export class ShowComponent implements OnInit, OnDestroy {
       console.error('Could not fetch song', error);
     });
   }
-  
-  private metaTags: HTMLMetaElement[] = [];
-  private ogMetaTags: HTMLMetaElement[] = [];
-  private twitterMetaTags: HTMLMetaElement[] = [];
+
   private setSong(song: Song) {
     this.song = song;
-
-    //#region Remove the existing meta-tags on the page
-    this.metaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.ogMetaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.twitterMetaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    //#endregion
+    this.removeMetaTags();
 
     if (song != null) {
-      //#region Title
       this.titleService.setTitle(`${song.title}: Video and lyrics`);
-      //#endregion
-      //#region <meta name="description">
-      if (song.artists.length === 0) {
-        this.metaTags = this.metaService.addTags([{
-          name: 'description',
-          content: `Video and lyrics for ${song.title}`
-        }]);
-      } else {
-        this.metaTags = this.metaService.addTags([{
-          name: 'description',
-          content: `Video and lyrics for ${song.title} by ${song.artists[0].name}`
-        }]);
-      }
-      //#endregion
-      //#region AmpHtml
+      this.addMetaTags();
       this.htmlLink.set('amphtml', `${this.baseUrl}/amp/song/${this.song.id}`);
-      //#endregion
-      //#region OpenGraph tags
-      this.ogMetaTags = this.metaService.addTags([{
-        property: 'og:type',
-        content: 'music.song'
-      }, {
-          property: 'og:url',
-          content: this.urlGenerator.generateFullUrl(song)
-      }, {
-        property: 'og:title',
-        content: song.title
-      }, {
-        property: 'og:image',
-        content: `https://i.ytimg.com/vi/${song.youtubeId}/hqdefault.jpg`
-      }, {
-        property: 'og:updated_time',
-        content: new Date(song.dateUpdate).toISOString()
-      }]);
-
-      if (song.artists.length === 0) {
-        this.ogMetaTags = this.ogMetaTags.concat(this.metaService.addTags([{
-          property: 'og:description',
-          content: `Video and lyrics for ${song.title}`
-        }]));
-      } else {
-        this.ogMetaTags = this.ogMetaTags.concat(this.metaService.addTags([{
-          property: 'og:description',
-          content: `Video and lyrics for ${song.title} by ${song.artists[0].name}`
-        }]));
-      }
-
-      if (song.youtubeId !== null) {
-        this.ogMetaTags = this.ogMetaTags.concat(this.metaService.addTags([{
-          property: 'og:video',
-          content: `https://www.youtube.com/embed/${song.youtubeId}`
-        }]));
-      }
-
-      song.artists.forEach((artist) => {
-        this.ogMetaTags.push(this.metaService.addTag({
-          property: 'og:musician',
-          content: this.urlGenerator.generateFullUrl(artist)
-        }));
-      });
-      //#endregion
       //#region LD+json
       this.songLd = {
         '@context': 'http://schema.org',
@@ -169,59 +257,6 @@ export class ShowComponent implements OnInit, OnDestroy {
         this.videoLd = null;
       }
       //#endregion
-      //#region TwitterCard
-      if (song.youtubeId) {
-        this.twitterMetaTags = this.metaService.addTags([{
-          property: 'twitter:card',
-          content: 'player'
-        }, {
-          property: 'twitter:image',
-          content: `http://i.ytimg.com/vi/${song.youtubeId}/hqdefault.jpg`
-        }, {
-          property: 'twitter:player',
-          content: `https://www.youtube.com/embed/${song.youtubeId}`
-        }, {
-          property: 'twitter:player:width',
-          content: '480'
-        }, {
-          property: 'twitter:player:height',
-          content: '270'
-        }]);
-      } else {
-        this.twitterMetaTags = this.metaService.addTags([{
-          property: 'twitter:card',
-          content: 'summary_large_image'
-        }, {
-          property: 'twitter:image',
-          content: `${this.baseUrl}/assets/logo/music_note_72.png`
-        }]);
-      }
-      //#endregion
-    }
-  }
-
-  private routeParamsSubscription: Subscription;
-  ngOnInit() {
-    this.htmlLink.setCanonicalWithoutQuery();
-    this.routeParamsSubscription = this.route.params.subscribe((routeParams) => {
-    	this.loadSong(routeParams.id);
-    });
-  }
-
-  ngOnDestroy() {
-    this.htmlLink.unset('canonical');
-    this.htmlLink.unset('amphtml');
-    this.metaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.ogMetaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.twitterMetaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    if (this.routeParamsSubscription !== null) {
-      this.routeParamsSubscription.unsubscribe();
     }
   }
 
@@ -238,7 +273,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.addToPlaylist.emit(this.song);
   }
 
-  public song: Song = {
+  song: Song = {
     id: 0,
     title: '',
     released: null,

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { TagCategory } from '../../../entities/tag-category';
 import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
 import { PaginationResponse } from '../../../helpers/pagination-response';
@@ -14,14 +14,70 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 })
 export class ListComponent implements OnInit, OnDestroy {
 
-  constructor(@Inject('TAGCATEGORIES') private tagCategoriesInj: PaginationResponse<TagCategory>, private categoryService: TagCategoryService, private router: Router, private titleService: Title, private htmlLink: HtmlLinkHelper) {
+  constructor(
+    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject('TAGCATEGORIES') private tagCategoriesInj: PaginationResponse<TagCategory>,
+    private categoryService: TagCategoryService,
+    private router: Router,
+    private titleService: Title,
+    private metaService: Meta,
+    private htmlLink: HtmlLinkHelper
+  ) {
     this.titleService.setTitle('Tag categories');
-    if (tagCategoriesInj === null) {
-      this.loadTagCategories();
-    } else {
+    if (serverSide) {
       this.setTagCategoryData(tagCategoriesInj);
+    } else {
+      this.loadTagCategories();
     }
   }
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+    this.addMetaTags();
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
+    this.removeMetaTags();
+  }
+
+  //#region Add meta-tags
+  private basicMetaTags: HTMLMetaElement[] = [];
+  private ogMetaTags: HTMLMetaElement[] = [];
+  private twitterMetaTags: HTMLMetaElement[] = [];
+  private addMetaTags() {
+    this.addBasicMetaTags();
+    this.addOpenGraphTags();
+    this.addTwitterCard();
+  }
+  private addBasicMetaTags() {
+    this.basicMetaTags = this.metaService.addTags([{
+      name: 'description',
+      content: 'Here you can find a list of all the tag categories in our database.'
+    }]);
+  }
+  private addOpenGraphTags() {
+  }
+  private addTwitterCard() {
+  }
+  private removeMetaTags() {
+    if (this.ogMetaTags !== null) {
+      this.ogMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.basicMetaTags !== null) {
+      this.basicMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.twitterMetaTags !== null) {
+      this.twitterMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+  }
+  //#endregion
 
   loadTagCategories() {
     this.categoryService.pageTagCategories({ perPage: this.tableSettings.perPages.selected, page: this.tableSettings.pages.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
@@ -61,13 +117,5 @@ export class ListComponent implements OnInit, OnDestroy {
     sortProperty: 'Description',
     sortDirection: 'ascending'
   });
-
-  ngOnInit() {
-    this.htmlLink.setCanonicalWithoutQuery();
-  }
-
-  ngOnDestroy() {
-    this.htmlLink.unset('canonical');
-  }
 
 }

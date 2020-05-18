@@ -9,7 +9,21 @@ import { HtmlLinkHelper } from '../../helpers/html-link.helper';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  constructor(private metaService: Meta, @Inject('BASE_URL') private baseUrl: string, private htmlLink: HtmlLinkHelper) {
+  constructor(
+    private metaService: Meta,
+    @Inject('BASE_URL') private baseUrl: string,
+    private htmlLink: HtmlLinkHelper
+  ) {
+  }
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+    this.addMetaTags();
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
+    this.removeMetaTags();
   }
 
   //#region Website+Organization LD+json
@@ -55,33 +69,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   //#endregion
 
   //#region Add meta-tags
-  private metaTags: HTMLMetaElement[] = [];
+  private basicMetaTags: HTMLMetaElement[] = [];
   private ogMetaTags: HTMLMetaElement[] = [];
   private twitterMetaTags: HTMLMetaElement[] = [];
-  ngOnInit() {
-    this.ogMetaTags = this.metaService.addTags([{
-      property: 'og:type',
-      content: 'website'
-    }, {
-      property: 'og:url',
-      content: this.baseUrl
-    }, {
-      property: 'og:title',
-      content: 'MintPlayer - Open-source music player'
-    }, {
-      property: 'og:description',
-      content: 'Welcome to MintPlayer. Start building your playlist now.'
-    }, {
-      property: 'og:image',
-      content: `${this.baseUrl}/assets/logo/music_note_512.png`
-    }]);
-    this.metaTags = this.metaService.addTags([{
+  private addMetaTags() {
+    this.addBasicMetaTags();
+    this.addOpenGraphTags();
+    this.addTwitterCard();
+  }
+  private addBasicMetaTags() {
+    this.basicMetaTags = this.metaService.addTags([{
       itemprop: 'name',
       content: 'MintPlayer'
     }, {
       name: 'description',
       itemprop: 'description',
-      content: 'Welcome to MintPlayer. Start building your playlist now.'
+      content: 'MintPlayer is an open-source project that lets you keep track of the music you like. Start building your playlist now.'
     }, {
       itemprop: 'image',
       content: `${this.baseUrl}/assets/logo/music_note_72.png`
@@ -99,6 +102,26 @@ export class HomeComponent implements OnInit, OnDestroy {
       itemprop: 'isFamilyFriendly',
       content: 'true'
     }]);
+  }
+  private addOpenGraphTags() {
+    this.ogMetaTags = this.metaService.addTags([{
+      property: 'og:type',
+      content: 'website'
+    }, {
+      property: 'og:url',
+      content: this.baseUrl
+    }, {
+      property: 'og:title',
+      content: 'MintPlayer - Open-source music player'
+    }, {
+      property: 'og:description',
+      content: 'MintPlayer is an open-source project that lets you keep track of the music you like. Start building your playlist now.'
+    }, {
+      property: 'og:image',
+      content: `${this.baseUrl}/assets/logo/music_note_512.png`
+    }]);
+  }
+  private addTwitterCard() {
     this.twitterMetaTags = this.metaService.addTags([{
       property: 'twitter:card',
       content: 'summary'
@@ -115,19 +138,23 @@ export class HomeComponent implements OnInit, OnDestroy {
       property: 'twitter:description',
       content: 'Welcome to MintPlayer. Start building your playlist now.'
     }]);
-    this.htmlLink.setCanonicalWithoutQuery();
   }
-  ngOnDestroy() {
-    this.ogMetaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.metaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.twitterMetaTags.forEach((tag) => {
-      this.metaService.removeTagElement(tag);
-    });
-    this.htmlLink.unset('canonical');
+  private removeMetaTags() {
+    if (this.ogMetaTags !== null) {
+      this.ogMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.basicMetaTags !== null) {
+      this.basicMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.twitterMetaTags !== null) {
+      this.twitterMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
   }
   //#endregion
 }

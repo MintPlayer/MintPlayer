@@ -5,6 +5,7 @@ import { AccountService } from '../../../services/account/account.service';
 import { LoginResult } from '../../../entities/login-result';
 import { User } from '../../../entities/user';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  constructor(private accountService: AccountService, private router: Router, private route: ActivatedRoute, private htmlLink: HtmlLinkHelper) {
+  constructor(private accountService: AccountService, private router: Router, private route: ActivatedRoute, private htmlLink: HtmlLinkHelper, private metaService: Meta) {
   }
 
   ngOnInit() {
@@ -20,11 +21,53 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.returnUrl = params['return'] || '/';
     });
     this.htmlLink.setCanonicalWithoutQuery();
+    this.addMetaTags();
   }
 
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
+    this.removeMetaTags();
   }
+
+  //#region Add meta-tags
+  private basicMetaTags: HTMLMetaElement[] = [];
+  private ogMetaTags: HTMLMetaElement[] = [];
+  private twitterMetaTags: HTMLMetaElement[] = [];
+  private addMetaTags() {
+    this.addBasicMetaTags();
+    this.addOpenGraphTags();
+    this.addTwitterCard();
+  }
+  private addBasicMetaTags() {
+    this.basicMetaTags = this.metaService.addTags([{
+      name: 'description',
+      content: 'Welcome on the login page of MintPlayer.'
+    }]);
+  }
+  private addOpenGraphTags() {
+
+  }
+  private addTwitterCard() {
+
+  }
+  private removeMetaTags() {
+    if (this.ogMetaTags !== null) {
+      this.ogMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.basicMetaTags !== null) {
+      this.basicMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.twitterMetaTags !== null) {
+      this.twitterMetaTags.forEach((tag) => {
+        this.metaService.removeTagElement(tag);
+      });
+    }
+  }
+  //#endregion
 
   email: string;
   password: string;
