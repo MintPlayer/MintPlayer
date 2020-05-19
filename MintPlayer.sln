@@ -27,10 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.LyricsCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.SongtekstenNet", "MintPlayer.Fetcher.SongtekstenNet\MintPlayer.Fetcher.SongtekstenNet.csproj", "{00C436B2-EDC8-41CC-B5CB-307675656DB7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Pagination", "MintPlayer.Pagination\MintPlayer.Pagination.csproj", "{13D4DB48-C389-4F3E-934F-460694B198B2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Pagination.Test", "MintPlayer.Pagination.Test\MintPlayer.Pagination.Test.csproj", "{F8B22096-73E5-4EDB-843A-BEE041FD0CCB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Crawler", "MintPlayer.Crawler\MintPlayer.Crawler.csproj", "{C7F416D9-21FB-4E90-88F1-DA99ABF0EB68}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Crawler.Test", "MintPlayer.Crawler.Test\MintPlayer.Crawler.Test.csproj", "{DB880D69-CA95-4CF6-B97E-C79B70747879}"
@@ -53,9 +49,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Client", "MintPl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Dtos", "MintPlayer.Dtos\MintPlayer.Dtos.csproj", "{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.RestClient", "MintPlayer.RestClient\MintPlayer.RestClient.csproj", "{93DEF304-DE20-45FB-9B1B-A39BE532CF4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.RestClient", "MintPlayer.RestClient\MintPlayer.RestClient.csproj", "{93DEF304-DE20-45FB-9B1B-A39BE532CF4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.RestClient.Test", "MintPlayer.RestClient.Test\MintPlayer.RestClient.Test.csproj", "{30AA5193-7656-4522-B32B-7053232C83A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.RestClient.Test", "MintPlayer.RestClient.Test\MintPlayer.RestClient.Test.csproj", "{30AA5193-7656-4522-B32B-7053232C83A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,14 +91,6 @@ Global
 		{00C436B2-EDC8-41CC-B5CB-307675656DB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00C436B2-EDC8-41CC-B5CB-307675656DB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00C436B2-EDC8-41CC-B5CB-307675656DB7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13D4DB48-C389-4F3E-934F-460694B198B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13D4DB48-C389-4F3E-934F-460694B198B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13D4DB48-C389-4F3E-934F-460694B198B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13D4DB48-C389-4F3E-934F-460694B198B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8B22096-73E5-4EDB-843A-BEE041FD0CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8B22096-73E5-4EDB-843A-BEE041FD0CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8B22096-73E5-4EDB-843A-BEE041FD0CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8B22096-73E5-4EDB-843A-BEE041FD0CCB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C7F416D9-21FB-4E90-88F1-DA99ABF0EB68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C7F416D9-21FB-4E90-88F1-DA99ABF0EB68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7F416D9-21FB-4E90-88F1-DA99ABF0EB68}.Release|Any CPU.ActiveCfg = Release|Any CPU

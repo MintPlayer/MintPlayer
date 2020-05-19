@@ -8,12 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.Data.Helpers;
 using MintPlayer.Data.Extensions;
+using MintPlayer.Pagination;
 
 namespace MintPlayer.Data.Repositories
 {
     internal interface IArtistRepository
     {
-        Task<Pagination.PaginationResponse<Artist>> PageArtists(Pagination.PaginationRequest<Artist> request);
+        Task<PaginationResponse<Artist>> PageArtists(Pagination.PaginationRequest<Artist> request);
         Task<IEnumerable<Artist>> GetArtists(bool include_relations, bool include_invisible_media);
         Task<Artist> GetArtist(int id, bool include_relations, bool include_invisible_media);
         Task<Pagination.PaginationResponse<Artist>> PageLikedArtists(Pagination.PaginationRequest<Artist> request);
