@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
@@ -52,6 +52,16 @@ export class EditComponent implements OnInit, OnDestroy {
     }).catch((error) => {
       console.error('Could not update medium type', error);
     });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnload($event: BeforeUnloadEvent) {
+    $event.returnValue = '';
+    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
+
+    if (!result) {
+      $event.preventDefault();
+    }
   }
 
   ngOnInit() {

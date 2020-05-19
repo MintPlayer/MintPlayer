@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TagCategory } from '../../../entities/tag-category';
@@ -29,6 +29,16 @@ export class CreateComponent implements OnInit, OnDestroy {
     }).catch((error) => {
       console.log('Could not create tag category', error);
     });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnload($event: BeforeUnloadEvent) {
+    $event.returnValue = '';
+    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
+
+    if (!result) {
+      $event.preventDefault();
+    }
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Playlist } from '../../../entities/playlist';
 import { Song } from '../../../entities/song';
 import { HttpHeaders } from '@angular/common/http';
@@ -45,5 +45,15 @@ export class PlaylistCreateComponent implements OnInit {
     }).catch((error) => {
       debugger;
     });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnload($event: BeforeUnloadEvent) {
+    $event.returnValue = '';
+    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
+
+    if (!result) {
+      $event.preventDefault();
+    }
   }
 }

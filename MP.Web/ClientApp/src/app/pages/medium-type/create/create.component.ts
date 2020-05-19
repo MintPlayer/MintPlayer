@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -45,5 +45,15 @@ export class CreateComponent implements OnInit, OnDestroy {
     }).catch((error) => {
       console.error('Could not create medium type', error);
     });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnload($event: BeforeUnloadEvent) {
+    $event.returnValue = '';
+    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
+
+    if (!result) {
+      $event.preventDefault();
+    }
   }
 }

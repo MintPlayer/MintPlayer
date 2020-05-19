@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { BlogPost } from '../../../../entities/blog-post';
 import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
@@ -34,6 +34,16 @@ export class CreateComponent implements OnInit {
     }).catch((error) => {
       console.log(error);
     });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnload($event: BeforeUnloadEvent) {
+    $event.returnValue = '';
+    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
+
+    if (!result) {
+      $event.preventDefault();
+    }
   }
 
 }

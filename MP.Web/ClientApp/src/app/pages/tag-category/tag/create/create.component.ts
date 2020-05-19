@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
 import { TagService } from '../../../../services/tag/tag.service';
 import { TagCategoryService } from '../../../../services/tag-category/tag-category.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -68,6 +68,16 @@ export class CreateComponent implements OnInit, OnDestroy {
     }).catch((error) => {
       console.log(error);
     });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnload($event: BeforeUnloadEvent) {
+    $event.returnValue = '';
+    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
+
+    if (!result) {
+      $event.preventDefault();
+    }
   }
 
   ngOnInit() {
