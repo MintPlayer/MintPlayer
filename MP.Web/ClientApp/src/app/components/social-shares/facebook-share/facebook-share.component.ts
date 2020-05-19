@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, IterableDiffers, IterableDiffer, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, IterableDiffers, IterableDiffer, AfterViewChecked, ViewChild, ElementRef, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
 
@@ -11,28 +11,24 @@ import { LocationStrategy } from '@angular/common';
     '[class.align-middle]': 'true'
   }
 })
-export class FacebookShareComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class FacebookShareComponent implements OnInit, AfterViewChecked {
 
-  constructor(private router: Router, private locationStrategy: LocationStrategy, differs: IterableDiffers) {
+  constructor(private router: Router, private locationStrategy: LocationStrategy, differs: IterableDiffers, @Inject('BASE_URL') private baseUrl: string) {
     this.differ = differs.find(this.commands).create(null);
   }
 
+  @ViewChild('wrapper') wrapper: ElementRef<HTMLDivElement>;
   differ: IterableDiffer<any>;
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit() {
-    //console.log('ngAfterViewInit');
-    this.updateTargetUrlAndHref();
   }
 
   ngAfterViewChecked() {
     //console.log('ngAfterViewChecked');
     const change = this.differ.diff(this.commands);
     if (change !== null) {
-      console.log(change);
-      //this.updateTargetUrlAndHref();
+      this.updateHref();
+      this.reloadFacebookWidgets();
     }
   }
 
@@ -47,22 +43,27 @@ export class FacebookShareComponent implements OnInit, AfterViewInit, AfterViewC
     } else {
       this.commands = [value];
     }
-    this.updateTargetUrlAndHref();
+    this.updateHref();
+    this.reloadFacebookWidgets();
   }
   //#endregion
 
-  private updateTargetUrlAndHref() {
+  private updateHref() {
     let urlTree = this.router.createUrlTree(this.commands);
     let urlSerialized = this.router.serializeUrl(urlTree);
-    this.href = this.locationStrategy.prepareExternalUrl(urlSerialized);
+    this.href = this.baseUrl + this.locationStrategy.prepareExternalUrl(urlSerialized);
+  }
+
+  private reloadFacebookWidgets() {
     if (typeof window !== 'undefined') {
       setTimeout(() => {
+        this.wrapper.nativeElement.innerHTML = `<div class="fb-share-button" data-href="${this.href}" data-size="${this.size}" data-layout="${this.layout}"></div>`;
         window['FB'] && window['FB'].XFBML.parse();
       }, 20);
     }
   }
 
   @Input() size: 'large' | 'small' = 'large';
-  @Input() layout: 'box_count' | 'button_count' | 'button' = 'button_count';
+  @Input() layout: 'icon_link' | 'box_count' | 'button_count' | 'button' = 'button_count';
 
 }
