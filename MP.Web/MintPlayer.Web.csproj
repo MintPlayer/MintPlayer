@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="ClientApp\src\app\NewFolder\**" />
     <Compile Remove="ClientApp\src\app\pages\tag-category\create\**" />
     <Compile Remove="ClientApp\src\app\pages\tag-category\edit\**" />
     <Compile Remove="ClientApp\src\app\pages\tag-category\list\**" />
@@ -40,7 +39,6 @@
     <Compile Remove="Dtos\**" />
     <Compile Remove="Server\ViewModels\Subject\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="ClientApp\src\app\NewFolder\**" />
     <Content Remove="ClientApp\src\app\pages\tag-category\create\**" />
     <Content Remove="ClientApp\src\app\pages\tag-category\edit\**" />
     <Content Remove="ClientApp\src\app\pages\tag-category\list\**" />
@@ -50,7 +48,6 @@
     <Content Remove="ClientApp\src\app\pages\tagging\**" />
     <Content Remove="Dtos\**" />
     <Content Remove="Server\ViewModels\Subject\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\NewFolder\**" />
     <EmbeddedResource Remove="ClientApp\src\app\pages\tag-category\create\**" />
     <EmbeddedResource Remove="ClientApp\src\app\pages\tag-category\edit\**" />
     <EmbeddedResource Remove="ClientApp\src\app\pages\tag-category\list\**" />
@@ -61,7 +58,6 @@
     <EmbeddedResource Remove="Dtos\**" />
     <EmbeddedResource Remove="Server\ViewModels\Subject\**" />
     <None Remove="$(SpaRoot)**" />
-    <None Remove="ClientApp\src\app\NewFolder\**" />
     <None Remove="ClientApp\src\app\pages\tag-category\create\**" />
     <None Remove="ClientApp\src\app\pages\tag-category\edit\**" />
     <None Remove="ClientApp\src\app\pages\tag-category\list\**" />
@@ -115,6 +111,7 @@
     <None Remove="ClientApp\src\app\enums\eSidebarState.ts" />
     <None Remove="ClientApp\src\app\enums\eSubjectType.ts" />
     <None Remove="ClientApp\src\app\enums\eToggleButtonState.ts" />
+    <None Remove="ClientApp\src\app\events\my-before-unload.event.ts" />
     <None Remove="ClientApp\src\app\events\play-button-clicked.event.ts" />
     <None Remove="ClientApp\src\app\helpers\dailymotion-api.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\facebook-sdk.helper.ts" />
@@ -129,6 +126,7 @@
     <None Remove="ClientApp\src\app\helpers\twitter-sdk.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\url-generator.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\youtube-api.helper.ts" />
+    <None Remove="ClientApp\src\app\interfaces\has-changes.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\category-routing.module.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\category.module.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\create\create.component.html" />
@@ -219,6 +217,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\enums\eSidebarState.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eSubjectType.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eToggleButtonState.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\events\my-before-unload.event.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\events\play-button-clicked.event.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\dailymotion-api.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\facebook-sdk.helper.ts" />
@@ -233,6 +232,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\helpers\twitter-sdk.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\url-generator.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\youtube-api.helper.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\interfaces\has-changes.ts" />
     <TypeScriptCompile Include="ClientApp\src\styles\animations\slide-up-down - Copy.animation.ts" />
     <TypeScriptCompile Include="ClientApp\src\styles\animations\slide-up-down.animation.ts" />
     <TypeScriptCompile Include="ClientApp\types\dailymotion\index.d.ts" />

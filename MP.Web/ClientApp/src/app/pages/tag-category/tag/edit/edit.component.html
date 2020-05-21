@@ -4,7 +4,7 @@
       <div class="col-12">
         <h1 class="d-inline-block">Edit tag: {{ oldDescription }}</h1>
         <span class="float-right">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" *ngIf="hasChanges">
             <i class="fa fa-save"></i>
             Update tag
           </button>
