@@ -1,22 +1,21 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { BlogPost } from '../../../../entities/blog-post';
 import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
 import { Router } from '@angular/router';
 import { SlugifyPipe } from '../../../../pipes/slugify/slugify.pipe';
+import { HasChanges } from '../../../../interfaces/has-changes';
+import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss']
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(private titleService: Title, private blogPostService: BlogPostService, private router: Router, private slugifyPipe: SlugifyPipe) {
+  constructor(private titleService: Title, private blogPostService: BlogPostService, private router: Router, private slugifyPipe: SlugifyPipe, private differs: KeyValueDiffers) {
     this.titleService.setTitle('Write new blog post');
-  }
-
-  ngOnInit() {
   }
 
   blogPost: BlogPost = {
@@ -36,14 +35,36 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  //#region Prevent loss of changes
+  hasChanges: boolean = false;
+  private blogPostDiffer: KeyValueDiffer<string, any> = null;
   @HostListener('window:beforeunload', ['$event'])
-  beforeUnload($event: BeforeUnloadEvent) {
-    $event.returnValue = '';
-    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
-
-    if (!result) {
-      $event.preventDefault();
+  beforeUnload($event: IBeforeUnloadEvent) {
+    if (this.hasChanges) {
+      $event.returnValue = '';
+      if (!confirm("There are unsaved changes. Are you sure you want to quit?")) {
+        $event.preventDefault();
+      }
     }
+  }
+
+  ngDoCheck() {
+    if (this.blogPostDiffer !== null) {
+      const changes = this.blogPostDiffer.diff(this.blogPost);
+      if (changes) {
+        this.hasChanges = true;
+      }
+    }
+  }
+  //#endregion
+
+  ngOnInit() {
+    this.blogPostDiffer = this.differs.find(this.blogPost).create();
+    setTimeout(() => this.hasChanges = false);
+  }
+
+  ngOnDestroy() {
+
   }
 
 }

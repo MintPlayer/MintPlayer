@@ -32,11 +32,11 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   private setTag(tag: Tag) {
-    console.log('set tag');
     this.tag = tag;
-    this.titleService.setTitle(`Edit tag: ${tag.description}`);
-    this.oldDescription = tag.description;
-
+    if (tag !== null) {
+      this.titleService.setTitle(`Edit tag: ${tag.description}`);
+      this.oldDescription = tag.description;
+    }
     this.tagDiffer = this.differs.find(this.tag).create();
     setTimeout(() => this.hasChanges = false);
   }
@@ -76,15 +76,6 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
       }
     }
   }
-  //#endregion
-
-  ngOnInit() {
-    this.htmlLink.setCanonicalWithoutQuery();
-  }
-
-  ngOnDestroy() {
-    this.htmlLink.unset('canonical');
-  }
 
   ngDoCheck() {
     if (this.tagDiffer !== null) {
@@ -93,5 +84,14 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
         this.hasChanges = true;
       }
     }
+  }
+  //#endregion
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
   }
 }

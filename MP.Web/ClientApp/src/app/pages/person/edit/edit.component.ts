@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { PersonService } from '../../../services/person/person.service';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,40 +9,50 @@ import { Tag } from '../../../entities/tag';
 import { HttpHeaders } from '@angular/common/http';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
+import { HasChanges } from '../../../interfaces/has-changes';
+import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit, OnDestroy {
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private personService: PersonService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper) {
+export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
+  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private personService: PersonService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
     if (serverSide === false) {
       // Get person
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
-      this.personService.getPerson(id, true).then((person) => {
-        this.person = person;
-        this.titleService.setTitle(`Edit person: ${person.firstName} ${person.lastName}`);
-        this.oldPersonName = `${person.firstName} ${person.lastName}`;
-      }).catch((error) => {
-        console.error('Could not fetch person', error);
-      });
+      this.loadPerson(id);
 
       // Get mediumtypes
-      this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
-        this.mediumTypes = mediumTypes;
-      }).catch((error) => {
-        console.error('Could not fetch medium types', error);
-      });
+      this.loadMediumTypes();
     }
   }
 
-  ngOnInit() {
-    this.htmlLink.setCanonicalWithoutQuery();
+  private loadPerson(id: number) {
+    this.personService.getPerson(id, true).then((person) => {
+      this.setPerson(person);
+    }).catch((error) => {
+      console.error('Could not fetch person', error);
+    });
   }
 
-  ngOnDestroy() {
-    this.htmlLink.unset('canonical');
+  private setPerson(person: Person) {
+    this.person = person;
+    if (person !== null) {
+      this.titleService.setTitle(`Edit person: ${person.firstName} ${person.lastName}`);
+      this.oldPersonName = `${person.firstName} ${person.lastName}`;
+    }
+    this.personDiffer = this.differs.find(this.person).create();
+    setTimeout(() => this.hasChanges = false);
+  }
+
+  private loadMediumTypes() {
+    this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
+      this.mediumTypes = mediumTypes;
+    }).catch((error) => {
+      console.error('Could not get medium types', error);
+    });
   }
 
   oldPersonName: string = '';
@@ -72,13 +82,34 @@ export class EditComponent implements OnInit, OnDestroy {
     });
   }
 
+  //#region Prevent loss of changes
+  hasChanges: boolean = false;
+  private personDiffer: KeyValueDiffer<string, any> = null;
   @HostListener('window:beforeunload', ['$event'])
-  beforeUnload($event: BeforeUnloadEvent) {
-    $event.returnValue = '';
-    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
-
-    if (!result) {
-      $event.preventDefault();
+  beforeUnload($event: IBeforeUnloadEvent) {
+    if (this.hasChanges) {
+      $event.returnValue = '';
+      if (!confirm("There are unsaved changes. Are you sure you want to quit?")) {
+        $event.preventDefault();
+      }
     }
+  }
+
+  ngDoCheck() {
+    if (this.personDiffer !== null) {
+      const changes = this.personDiffer.diff(this.person);
+      if (changes) {
+        this.hasChanges = true;
+      }
+    }
+  }
+  //#endregion
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
   }
 }

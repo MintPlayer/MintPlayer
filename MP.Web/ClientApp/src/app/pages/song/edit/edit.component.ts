@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
@@ -10,40 +10,24 @@ import { MediumTypeService } from '../../../services/medium-type/medium-type.ser
 import { Tag } from '../../../entities/tag';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
+import { HasChanges } from '../../../interfaces/has-changes';
+import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit, OnDestroy {
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private songService: SongService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper) {
+export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
+  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private songService: SongService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
     if (serverSide === false) {
       // Get song
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
-      this.songService.getSong(id, true).then(song => {
-        this.song = song;
-        this.titleService.setTitle(`Edit song: ${song.title}`);
-        this.oldSongTitle = song.title;
-      }).catch((error) => {
-        console.error('Could not fetch song', error);
-      });
+      this.loadSong(id);
 
       // Get mediumtypes
-      this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
-        this.mediumTypes = mediumTypes;
-      }).catch((error) => {
-        console.error('Could not fetch medium types', error);
-      });
+      this.loadMediumTypes();
     }
-  }
-
-  ngOnInit() {
-    this.htmlLink.setCanonicalWithoutQuery();
-  }
-
-  ngOnDestroy() {
-    this.htmlLink.unset('canonical');
   }
 
   mediumTypes: MediumType[] = [];
@@ -71,6 +55,32 @@ export class EditComponent implements OnInit, OnDestroy {
     'include_relations': String(true)
   });
 
+  private loadSong(id: number) {
+    this.songService.getSong(id, true).then((song) => {
+      this.setSong(song);
+    }).catch((error) => {
+      console.error('Could not fetch song', error);
+    });
+  }
+
+  private setSong(song: Song) {
+    this.song = song;
+    if (song !== null) {
+      this.titleService.setTitle(`Edit song: ${song.title}`);
+      this.oldSongTitle = song.title;
+    }
+    this.songDiffer = this.differs.find(this.song).create();
+    setTimeout(() => this.hasChanges = false);
+  }
+
+  private loadMediumTypes() {
+    this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
+      this.mediumTypes = mediumTypes;
+    }).catch((error) => {
+      console.error('Could not get medium types', error);
+    });
+  }
+
   removeBrackets() {
     var rgx = /\[(.*?)\]\n/gm;
     this.song.lyrics.text = this.song.lyrics.text.replace(rgx, '');
@@ -84,13 +94,34 @@ export class EditComponent implements OnInit, OnDestroy {
     });
   }
 
+  //#region Prevent loss of changes
+  hasChanges: boolean = false;
+  private songDiffer: KeyValueDiffer<string, any> = null;
   @HostListener('window:beforeunload', ['$event'])
-  beforeUnload($event: BeforeUnloadEvent) {
-    $event.returnValue = '';
-    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
-
-    if (!result) {
-      $event.preventDefault();
+  beforeUnload($event: IBeforeUnloadEvent) {
+    if (this.hasChanges) {
+      $event.returnValue = '';
+      if (!confirm("There are unsaved changes. Are you sure you want to quit?")) {
+        $event.preventDefault();
+      }
     }
+  }
+
+  ngDoCheck() {
+    if (this.songDiffer !== null) {
+      const changes = this.songDiffer.diff(this.song);
+      if (changes) {
+        this.hasChanges = true;
+      }
+    }
+  }
+  //#endregion
+
+  ngOnInit() {
+    this.htmlLink.setCanonicalWithoutQuery();
+  }
+
+  ngOnDestroy() {
+    this.htmlLink.unset('canonical');
   }
 }

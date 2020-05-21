@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { TagService } from '../../../../services/tag/tag.service';
 import { TagCategoryService } from '../../../../services/tag-category/tag-category.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -6,15 +6,17 @@ import { Title } from '@angular/platform-browser';
 import { Tag } from '../../../../entities/tag';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { TagCategory } from '../../../../entities/tag-category';
+import { HasChanges } from '../../../../interfaces/has-changes';
+import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss']
 })
-export class CreateComponent implements OnInit, OnDestroy {
+export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('TAGCATEGORY') tagCategoryInj: TagCategory, @Inject('BASE_URL') private baseUrl: string, private tagCategoryService: TagCategoryService, private tagService: TagService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper) {
+  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('TAGCATEGORY') tagCategoryInj: TagCategory, @Inject('BASE_URL') private baseUrl: string, private tagCategoryService: TagCategoryService, private tagService: TagService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private differs: KeyValueDiffers) {
     if (serverSide === true) {
       this.tag.category = tagCategoryInj;
     } else {
@@ -70,18 +72,33 @@ export class CreateComponent implements OnInit, OnDestroy {
     });
   }
 
+  //#region Prevent loss of changes
+  hasChanges: boolean = false;
+  private tagDiffer: KeyValueDiffer<string, any> = null;
   @HostListener('window:beforeunload', ['$event'])
-  beforeUnload($event: BeforeUnloadEvent) {
-    $event.returnValue = '';
-    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
-
-    if (!result) {
-      $event.preventDefault();
+  beforeUnload($event: IBeforeUnloadEvent) {
+    if (this.hasChanges) {
+      $event.returnValue = '';
+      if (!confirm("There are unsaved changes. Are you sure you want to quit?")) {
+        $event.preventDefault();
+      }
     }
   }
 
+  ngDoCheck() {
+    if (this.tagDiffer !== null) {
+      const changes = this.tagDiffer.diff(this.tag);
+      if (changes) {
+        this.hasChanges = true;
+      }
+    }
+  }
+  //#endregion
+
   ngOnInit() {
     this.htmlLink.setCanonicalWithoutQuery();
+    this.tagDiffer = this.differs.find(this.tag).create();
+    setTimeout(() => this.hasChanges = false);
   }
   ngOnDestroy() {
     this.htmlLink.unset('canonical');

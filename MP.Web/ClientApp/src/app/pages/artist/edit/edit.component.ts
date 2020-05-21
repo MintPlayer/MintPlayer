@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -10,15 +10,17 @@ import { MediumType } from '../../../entities/medium-type';
 import { Tag } from '../../../entities/tag';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
+import { HasChanges } from '../../../interfaces/has-changes';
+import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit, OnDestroy {
+export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private artistService: ArtistService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper) {
+  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private artistService: ArtistService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
     if (serverSide === false) {
       // Get artist
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -61,8 +63,10 @@ export class EditComponent implements OnInit, OnDestroy {
     this.artist = artist;
     if (artist !== null) {
       this.titleService.setTitle(`Edit artist: ${artist.name}`);
+      this.oldName = artist.name;
     }
-    this.oldName = artist.name;
+    this.artistDiffer = this.differs.find(this.artist).create();
+    setTimeout(() => this.hasChanges = false);
   }
 
   private loadMediumTypes() {
@@ -81,15 +85,28 @@ export class EditComponent implements OnInit, OnDestroy {
     });
   }
 
+  //#region Prevent loss of changes
+  hasChanges: boolean = false;
+  private artistDiffer: KeyValueDiffer<string, any> = null;
   @HostListener('window:beforeunload', ['$event'])
-  beforeUnload($event: BeforeUnloadEvent) {
-    $event.returnValue = '';
-    let result = confirm("There are unsaved changes. Are you sure you want to quit?");
-
-    if (!result) {
-      $event.preventDefault();
+  beforeUnload($event: IBeforeUnloadEvent) {
+    if (this.hasChanges) {
+      $event.returnValue = '';
+      if (!confirm("There are unsaved changes. Are you sure you want to quit?")) {
+        $event.preventDefault();
+      }
     }
   }
+
+  ngDoCheck() {
+    if (this.artistDiffer !== null) {
+      const changes = this.artistDiffer.diff(this.artist);
+      if (changes) {
+        this.hasChanges = true;
+      }
+    }
+  }
+  //#endregion
 
   ngOnInit() {
     this.htmlLink.setCanonicalWithoutQuery();

@@ -7,13 +7,14 @@ import { ShowComponent } from './show/show.component';
 import { SyncComponent } from './sync/sync.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { IsLoggedInGuard } from '../../guards/is-logged-in/is-logged-in.guard';
+import { HasChangesGuard } from '../../guards/has-changes/has-changes.guard';
 
 const routes: Routes = [
   { path: '', component: ListComponent },
-  { path: 'create', component: CreateComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'create', component: CreateComponent, canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
   { path: ':id/:title', component: ShowComponent },
-  { path: ':id/:title/edit', component: EditComponent, canActivate: [IsLoggedInGuard] },
-  { path: ':id/:title/sync', component: SyncComponent, canActivate: [IsLoggedInGuard] },
+  { path: ':id/:title/edit', component: EditComponent, canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
+  { path: ':id/:title/sync', component: SyncComponent, canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
   { path: 'favorite', component: FavoriteComponent, canActivate: [IsLoggedInGuard] },
 ];
 

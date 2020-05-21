@@ -5,11 +5,12 @@ import { PlaylistCreateComponent } from './create/create.component';
 import { PlaylistEditComponent } from './edit/edit.component';
 import { PlaylistShowComponent } from './show/show.component';
 import { IsLoggedInGuard } from '../../guards/is-logged-in/is-logged-in.guard';
+import { HasChangesGuard } from '../../guards/has-changes/has-changes.guard';
 
 const routes: Routes = [
   { path: '', component: PlaylistListComponent, canActivate: [IsLoggedInGuard] },
-  { path: 'create', component: PlaylistCreateComponent, canActivate: [IsLoggedInGuard] },
-  { path: ':id/:name/edit', component: PlaylistEditComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'create', component: PlaylistCreateComponent, canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
+  { path: ':id/:name/edit', component: PlaylistEditComponent, canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard]},
   { path: ':id/:name', component: PlaylistShowComponent, canActivate: [IsLoggedInGuard] }
 ];
 

@@ -7,10 +7,10 @@ import { IsLoggedInGuard } from '../../../guards/is-logged-in/is-logged-in.guard
 import { HasChangesGuard } from '../../../guards/has-changes/has-changes.guard';
 
 const routes: Routes = [
-  { path: 'create', component: CreateComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'create', component: CreateComponent, canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
   { path: ':id/edit', component: EditComponent, canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
   { path: ':id', component: ShowComponent },
-  { path: ':id/tags/create', component: CreateComponent, canActivate: [IsLoggedInGuard] }
+  { path: ':id/tags/create', component: CreateComponent, canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] }
 ];
 
 @NgModule({

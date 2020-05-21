@@ -9,8 +9,8 @@ import { HasChangesGuard } from '../../guards/has-changes/has-changes.guard';
 
 const routes: Routes = [
   { path: '', component: ListComponent },
-  { path: 'create', component: CreateComponent, canActivate: [IsLoggedInGuard] },
-  { path: ':id/edit', component: EditComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'create', component: CreateComponent, canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
+  { path: ':id/edit', component: EditComponent, canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
   { path: ':id', component: ShowComponent },
   { path: ':category_id/tags', loadChildren: () => import('./tag/tag.module').then(m => m.TagModule) },
 ];
