@@ -27,6 +27,8 @@ import { DailymotionPlayerComponent } from './components/dailymotion-player/dail
 import { FacebookSdkHelper } from './helpers/facebook-sdk.helper';
 import { TwitterSdkHelper } from './helpers/twitter-sdk.helper';
 import { LinkedinSdkHelper } from './helpers/linkedin-sdk.helper';
+import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -58,7 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
   //#endregion
 
   @ViewChild('dmplayer') dmplayer: DailymotionPlayerComponent;
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('USER') userInj: User, private accountService: AccountService, private youtubeHelper: YoutubeHelper, private dailyMotionHelper: DailyMotionHelper, private facebookSdkHelper: FacebookSdkHelper, private twitterSdkHelper: TwitterSdkHelper, private linkedinSdkHelper: LinkedinSdkHelper, private ref: ChangeDetectorRef, private swUpdate: SwUpdate, private metaService: Meta, private linifyPipe: LinifyPipe) {
+  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('USER') userInj: User, private accountService: AccountService, private youtubeHelper: YoutubeHelper, private dailyMotionHelper: DailyMotionHelper, private facebookSdkHelper: FacebookSdkHelper, private twitterSdkHelper: TwitterSdkHelper, private linkedinSdkHelper: LinkedinSdkHelper, private ref: ChangeDetectorRef, private swUpdate: SwUpdate, private metaService: Meta, private linifyPipe: LinifyPipe, private route: ActivatedRoute, private translateService: TranslateService) {
     //#region Get user
     if (serverSide === true) {
       this.activeUser = userInj;
@@ -114,6 +116,16 @@ export class AppComponent implements OnInit, OnDestroy {
       },
       onStopVideo: () => {
         this.player.stop();
+      }
+    });
+    //#endregion
+    //#region Translate
+    this.translateService.setDefaultLang('en');
+    this.route.queryParamMap.subscribe((params) => {
+      let lang = params.get('lang');
+      console.log('language', lang);
+      if (lang !== null) {
+        this.translateService.use(lang);
       }
     });
     //#endregion

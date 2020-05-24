@@ -31,6 +31,8 @@
     "@angular/service-worker": "~9.1.4",
     "@nguniversal/express-engine": "^9.1.0",
     "@ngx-lite/json-ld": "^0.6.2",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^4.0.0",
     "@types/youtube": "0.0.38",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.4.1",

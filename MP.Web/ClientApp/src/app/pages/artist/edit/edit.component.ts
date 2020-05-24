@@ -12,6 +12,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-edit',
@@ -20,7 +21,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private artistService: ArtistService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private artistService: ArtistService, private mediumTypeService: MediumTypeService, private router: ExtendedRouter, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
     if (serverSide === false) {
       // Get artist
       var id = parseInt(this.route.snapshot.paramMap.get('id'));

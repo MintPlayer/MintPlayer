@@ -1,11 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Meta } from '@angular/platform-browser';
 import { AccountService } from '../../../services/account/account.service';
 import { LoginResult } from '../../../entities/login-result';
 import { User } from '../../../entities/user';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { Meta } from '@angular/platform-browser';
+import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import { Meta } from '@angular/platform-browser';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  constructor(private accountService: AccountService, private router: Router, private route: ActivatedRoute, private htmlLink: HtmlLinkHelper, private metaService: Meta) {
+  constructor(private accountService: AccountService, private router: ExtendedRouter, private route: ActivatedRoute, private htmlLink: HtmlLinkHelper, private metaService: Meta) {
   }
 
   ngOnInit() {

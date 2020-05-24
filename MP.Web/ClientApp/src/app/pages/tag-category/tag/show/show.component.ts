@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { Subscription } from 'rxjs';
+import { ExtendedRouter } from '../../../../helpers/extended-router';
 
 @Component({
   selector: 'app-show',
@@ -18,7 +19,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('TAG') tagInj: Tag,
     @Inject('BASE_URL') private baseUrl: string,
     private tagService: TagService,
-    private router: Router,
+    private router: ExtendedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,

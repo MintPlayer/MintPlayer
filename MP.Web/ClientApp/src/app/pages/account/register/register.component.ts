@@ -1,12 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Meta } from '@angular/platform-browser';
 import { AccountService } from '../../../services/account/account.service';
 import { UserData } from '../../../entities/user-data';
 import { User } from '../../../entities/user';
 import { Guid } from 'guid-typescript';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { Meta } from '@angular/platform-browser';
+import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ import { Meta } from '@angular/platform-browser';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
-    private router: Router,
+    private router: ExtendedRouter,
     private accountService: AccountService,
     private htmlLink: HtmlLinkHelper,
     private metaService: Meta

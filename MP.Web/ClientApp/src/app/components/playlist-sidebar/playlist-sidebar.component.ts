@@ -5,6 +5,7 @@ import { SongRemovedEvent } from '../../events/song-removed.event';
 import { SongProgress } from '../../entities/song-progress';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { eRepeatMode } from '../../enums/eRepeatMode';
+import { ExtendedRouter } from '../../helpers/extended-router';
 
 @Component({
   selector: 'playlist-sidebar',
@@ -15,7 +16,7 @@ import { eRepeatMode } from '../../enums/eRepeatMode';
   ]
 })
 export class PlaylistSidebarComponent implements OnInit {
-  constructor(private router: Router) {
+  constructor(private router: ExtendedRouter) {
   }
 
   @Input()

@@ -6,6 +6,7 @@ import { Tag } from '../../../../entities/tag';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
+import { ExtendedRouter } from '../../../../helpers/extended-router';
 
 @Component({
   selector: 'app-edit',
@@ -14,7 +15,7 @@ import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, @Inject('TAG') private tagInj: Tag, private tagService: TagService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private differs: KeyValueDiffers) {
+  constructor(@Inject('SERVERSIDE') private serverSide: boolean, @Inject('TAG') private tagInj: Tag, private tagService: TagService, private router: ExtendedRouter, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private differs: KeyValueDiffers) {
     if (serverSide === true) {
       this.setTag(tagInj);
     } else {

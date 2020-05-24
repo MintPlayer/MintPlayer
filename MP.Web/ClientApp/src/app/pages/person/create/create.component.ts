@@ -11,6 +11,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-create',
@@ -19,7 +20,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 })
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(@Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[], private personService: PersonService, private mediumTypeService: MediumTypeService, private router: Router, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(@Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[], private personService: PersonService, private mediumTypeService: MediumTypeService, private router: ExtendedRouter, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
     this.titleService.setTitle('Create person');
     if (mediumTypesInj === null) {
       this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {

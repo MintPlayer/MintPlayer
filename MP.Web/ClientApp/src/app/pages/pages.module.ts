@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxJsonLdModule } from '@ngx-lite/json-ld';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
@@ -23,6 +24,7 @@ import { GdprModule } from './gdpr/gdpr.module';
     ControlsModule,
     PipesModule,
     NgxJsonLdModule,
+    TranslateModule,
     PagesRoutingModule,
     CommunityModule,
     GdprModule

@@ -11,6 +11,8 @@ import { ControlsModule } from '../controls/controls.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { DailymotionPlayerComponent } from './dailymotion-player/dailymotion-player.component';
 import { SocialSharesModule } from './social-shares/social-shares.module';
+import { FlagComponent } from './flag/flag.component';
+import { DirectivesModule } from '../directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -18,12 +20,14 @@ import { SocialSharesModule } from './social-shares/social-shares.module';
     YoutubePlayerComponent,
     YoutubePlayButtonComponent,
     PlaylistSidebarComponent,
-    DailymotionPlayerComponent
+    DailymotionPlayerComponent,
+    FlagComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     PipesModule,
+    DirectivesModule,
     ControlsModule,
     SubjectModule,
     SocialLoginsModule,
@@ -35,7 +39,8 @@ import { SocialSharesModule } from './social-shares/social-shares.module';
     YoutubePlayerComponent,
     YoutubePlayButtonComponent,
     PlaylistSidebarComponent,
-    DailymotionPlayerComponent
+    DailymotionPlayerComponent,
+    FlagComponent
   ]
 })
 export class ComponentsModule { }

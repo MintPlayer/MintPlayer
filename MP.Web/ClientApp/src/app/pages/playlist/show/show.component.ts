@@ -5,6 +5,7 @@ import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { Playlist } from '../../../entities/playlist';
 import { PlayButtonClickedEvent } from '../../../events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
+import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-show',
@@ -13,7 +14,7 @@ import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
 })
 export class PlaylistShowComponent implements OnInit {
 
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('PLAYLIST') playlistInj: Playlist, private playlistService: PlaylistService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('PLAYLIST') playlistInj: Playlist, private playlistService: PlaylistService, private router: ExtendedRouter, private route: ActivatedRoute, private titleService: Title) {
     if (serverSide === true) {
       this.setPlaylist(playlistInj);
     } else {

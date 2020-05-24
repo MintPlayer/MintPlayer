@@ -4,6 +4,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { TagCategory } from '../../../entities/tag-category';
 import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
+import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-show',
@@ -17,7 +18,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('TAGCATEGORY') tagCategoryInj: TagCategory,
     @Inject('BASE_URL') private baseUrl: string,
     private tagCategoryService: TagCategoryService,
-    private router: Router,
+    private router: ExtendedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,

@@ -7,6 +7,7 @@ import { PaginationResponse } from '../../../helpers/pagination-response';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
+import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-list',
@@ -18,7 +19,7 @@ export class ListComponent implements OnInit, OnDestroy {
     @Inject('SERVERSIDE') private serverSide: boolean,
     @Inject('SONGS') private songsInj: PaginationResponse<Song>,
     private songService: SongService,
-    private router: Router,
+    private router: ExtendedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,

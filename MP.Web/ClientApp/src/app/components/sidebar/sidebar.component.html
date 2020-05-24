@@ -5,9 +5,20 @@
       <app-twitter-share [routerLink]='[]' [text]="'Open-source music player'" class="m-1"></app-twitter-share>
       <app-linkedin-share [routerLink]='[]' [text]="'Open-source music player'" class="m-1"></app-linkedin-share>
     </div>
+    <div class="p-1 text-center">
+      <a [routerLink]='[]' [queryParams]="{}">
+        <app-flag [country]="'en'" [appHoverClass]="'brightness-250'"></app-flag>
+      </a>
+      <a [routerLink]='[]' [queryParams]="{'lang':'nl'}">
+        <app-flag [country]="'nl'" [appHoverClass]="'brightness-250'"></app-flag>
+      </a>
+      <a [routerLink]='[]' [queryParams]="{'lang':'fr'}">
+        <app-flag [country]="'fr'" [appHoverClass]="'brightness-250'"></app-flag>
+      </a>
+    </div>
     <ul>
       <li>
-        <a [routerLink]='["/"]' title="Homepage" (click)="onItemSelected()">
+        <a [routerLink]='["/"]' [queryParamsHandling]="'preserve'" title="Homepage" (click)="onItemSelected()">
           <i class="fa fa-home"></i>
           Home
         </a>
@@ -135,17 +146,17 @@
             </a>
           </li>
           <!--<li>
-            <a [routerLink]='["/community","forum"]' title="MintPlayer forum" (click)="onItemSelected()">
-              <i class="fa fa-comments"></i>
-              Forum
-            </a>
-          </li>
-          <li>
-            <a [routerLink]='["/community","developers"]' title="Tools for developers" (click)="onItemSelected()">
-              <i class="fa fa-code"></i>
-              Developers
-            </a>
-          </li>-->
+          <a [routerLink]='["/community","forum"]' title="MintPlayer forum" (click)="onItemSelected()">
+            <i class="fa fa-comments"></i>
+            Forum
+          </a>
+        </li>
+        <li>
+          <a [routerLink]='["/community","developers"]' title="Tools for developers" (click)="onItemSelected()">
+            <i class="fa fa-code"></i>
+            Developers
+          </a>
+        </li>-->
         </ul>
       </li>
       <li>

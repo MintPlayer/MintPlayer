@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit, IterableDiffers, IterableDiffer, AfterViewChecked, ViewChild, ElementRef, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
+import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-facebook-share',
@@ -13,7 +14,7 @@ import { LocationStrategy } from '@angular/common';
 })
 export class FacebookShareComponent implements OnInit, AfterViewChecked {
 
-  constructor(private router: Router, private locationStrategy: LocationStrategy, differs: IterableDiffers, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: ExtendedRouter, private locationStrategy: LocationStrategy, differs: IterableDiffers, @Inject('BASE_URL') private baseUrl: string) {
     this.differ = differs.find(this.commands).create(null);
   }
 

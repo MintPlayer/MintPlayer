@@ -1,0 +1,17 @@
+.flag {
+  width: 30px;
+  height: 20px;
+  display: block;
+  background: url('/assets/flags/small.png');
+
+  &.en {
+  }
+
+  &.nl {
+    background-position-y: 20px;
+  }
+
+  &.fr {
+    background-position-y: 40px;
+  }
+}
