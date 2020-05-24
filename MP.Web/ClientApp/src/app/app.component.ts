@@ -120,11 +120,14 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     //#endregion
     //#region Translate
-    this.translateService.setDefaultLang('en');
+    const defaultLang = 'en';
+    this.translateService.setDefaultLang(defaultLang);
     this.route.queryParamMap.subscribe((params) => {
       let lang = params.get('lang');
       console.log('language', lang);
-      if (lang !== null) {
+      if (lang === null) {
+        this.translateService.use(defaultLang);
+      } else {
         this.translateService.use(lang);
       }
     });

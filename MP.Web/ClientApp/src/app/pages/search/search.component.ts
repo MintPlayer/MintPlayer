@@ -10,7 +10,6 @@ import { HtmlLinkHelper } from '../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { UrlGenerator } from '../../helpers/url-generator.helper';
 import { Meta } from '@angular/platform-browser';
-import { ExtendedRouter } from '../../helpers/extended-router';
 
 @Component({
   selector: 'app-search',
@@ -23,7 +22,7 @@ import { ExtendedRouter } from '../../helpers/extended-router';
 export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
-    private router: ExtendedRouter,
+    private router: Router,
     private route: ActivatedRoute,
     private subjectService: SubjectService,
     private htmlLink: HtmlLinkHelper,

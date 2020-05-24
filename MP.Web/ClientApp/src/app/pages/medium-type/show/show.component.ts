@@ -7,7 +7,6 @@ import { ePlayerType } from '../../../enums/ePlayerType';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-show',
@@ -19,7 +18,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
     private mediumTypeService: MediumTypeService,
-    private router: ExtendedRouter,
+    private router: Router,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,

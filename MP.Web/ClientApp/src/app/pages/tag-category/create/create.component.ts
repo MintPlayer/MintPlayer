@@ -6,7 +6,6 @@ import { TagCategoryService } from '../../../services/tag-category/tag-category.
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-create',
@@ -15,7 +14,7 @@ import { ExtendedRouter } from '../../../helpers/extended-router';
 })
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(private tagCategoryService: TagCategoryService, private router: ExtendedRouter, private titleService: Title, private htmlLink: HtmlLinkHelper, private differs: KeyValueDiffers) {
+  constructor(private tagCategoryService: TagCategoryService, private router: Router, private titleService: Title, private htmlLink: HtmlLinkHelper, private differs: KeyValueDiffers) {
     this.titleService.setTitle('Create tag category');
   }
 

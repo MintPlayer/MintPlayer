@@ -6,7 +6,6 @@ import { SlugifyPipe } from '../../../../pipes/slugify/slugify.pipe';
 import { BlogPost } from '../../../../entities/blog-post';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
-import { ExtendedRouter } from '../../../../helpers/extended-router';
 
 @Component({
   selector: 'app-edit',
@@ -15,7 +14,7 @@ import { ExtendedRouter } from '../../../../helpers/extended-router';
 })
 export class EditComponent implements OnInit, DoCheck, HasChanges {
 
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private blogPostService: BlogPostService, private router: ExtendedRouter, private route: ActivatedRoute, private titleService: Title, private slugifyPipe: SlugifyPipe, private differs: KeyValueDiffers) {
+  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private blogPostService: BlogPostService, private router: Router, private route: ActivatedRoute, private titleService: Title, private slugifyPipe: SlugifyPipe, private differs: KeyValueDiffers) {
     if (serverSide === false) {
       // Get blogpost
       let id = parseInt(this.route.snapshot.paramMap.get('id'));

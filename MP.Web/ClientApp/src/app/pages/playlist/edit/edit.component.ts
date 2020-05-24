@@ -8,7 +8,6 @@ import { Title } from '@angular/platform-browser';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-edit',
@@ -17,7 +16,7 @@ import { ExtendedRouter } from '../../../helpers/extended-router';
 })
 export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
 
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('PLAYLIST') playlistInj: Playlist, private playlistService: PlaylistService, private router: ExtendedRouter, private route: ActivatedRoute, private titleService: Title, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('PLAYLIST') playlistInj: Playlist, private playlistService: PlaylistService, private router: Router, private route: ActivatedRoute, private titleService: Title, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
     if (serverSide === false) {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
       this.loadPlaylist(id);

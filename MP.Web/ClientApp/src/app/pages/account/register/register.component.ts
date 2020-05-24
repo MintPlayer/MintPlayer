@@ -7,7 +7,6 @@ import { UserData } from '../../../entities/user-data';
 import { User } from '../../../entities/user';
 import { Guid } from 'guid-typescript';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +15,7 @@ import { ExtendedRouter } from '../../../helpers/extended-router';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
-    private router: ExtendedRouter,
+    private router: Router,
     private accountService: AccountService,
     private htmlLink: HtmlLinkHelper,
     private metaService: Meta

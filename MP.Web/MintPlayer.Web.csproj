@@ -114,7 +114,6 @@
     <None Remove="ClientApp\src\app\events\my-before-unload.event.ts" />
     <None Remove="ClientApp\src\app\events\play-button-clicked.event.ts" />
     <None Remove="ClientApp\src\app\helpers\dailymotion-api.helper.ts" />
-    <None Remove="ClientApp\src\app\helpers\extended-router.ts" />
     <None Remove="ClientApp\src\app\helpers\facebook-sdk.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\html-link.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\linkedin-sdk.helper.ts" />
@@ -222,7 +221,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\events\my-before-unload.event.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\events\play-button-clicked.event.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\dailymotion-api.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\extended-router.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\facebook-sdk.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\html-link.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\linkedin-sdk.helper.ts" />

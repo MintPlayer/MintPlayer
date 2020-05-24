@@ -8,7 +8,6 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { Subscription } from 'rxjs';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-show',
@@ -24,7 +23,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('SONG') private songInj: Song,
     @Inject('BASE_URL') private baseUrl: string,
     private songService: SongService,
-    private router: ExtendedRouter,
+    private router: Router,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,

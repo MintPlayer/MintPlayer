@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-create',
@@ -16,7 +15,7 @@ import { ExtendedRouter } from '../../../helpers/extended-router';
 })
 export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(private playlistService: PlaylistService, private router: ExtendedRouter, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(private playlistService: PlaylistService, private router: Router, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
   }
 
   songSuggestHttpHeaders: HttpHeaders = new HttpHeaders({

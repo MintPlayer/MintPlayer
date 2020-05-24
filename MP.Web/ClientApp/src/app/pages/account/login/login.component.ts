@@ -6,7 +6,6 @@ import { AccountService } from '../../../services/account/account.service';
 import { LoginResult } from '../../../entities/login-result';
 import { User } from '../../../entities/user';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +13,7 @@ import { ExtendedRouter } from '../../../helpers/extended-router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  constructor(private accountService: AccountService, private router: ExtendedRouter, private route: ActivatedRoute, private htmlLink: HtmlLinkHelper, private metaService: Meta) {
+  constructor(private accountService: AccountService, private router: Router, private route: ActivatedRoute, private htmlLink: HtmlLinkHelper, private metaService: Meta) {
   }
 
   ngOnInit() {
@@ -85,7 +84,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   login() {
     this.accountService.login(this.email, this.password).then((result) => {
       if (result.status === true) {
-        this.router.navigateByUrl(this.returnUrl);
+        this.router.navigateByUrl(this.returnUrl, {
+          queryParamsHandling: '',
+          queryParams: {
+            'lang': this.route.snapshot.queryParamMap.get('lang')
+          }
+        });
         this.loginComplete.emit(result.user);
       } else {
         this.loginResult = result;
@@ -106,7 +110,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (result.status) {
       this.accountService.currentUser().then((user) => {
         this.loginComplete.emit(user);
-        this.router.navigateByUrl(this.returnUrl);
+        this.router.navigateByUrl(this.returnUrl, {
+          queryParamsHandling: '',
+          queryParams: {
+            'lang': this.route.snapshot.queryParamMap.get('lang')
+          }
+        });
       });
     } else {
       this.loginResult = result;

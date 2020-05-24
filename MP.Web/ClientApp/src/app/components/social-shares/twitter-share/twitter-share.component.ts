@@ -1,7 +1,6 @@
 import { Component, Input, Inject, IterableDiffers, IterableDiffer, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-twitter-share',
@@ -14,7 +13,7 @@ import { ExtendedRouter } from '../../../helpers/extended-router';
 })
 export class TwitterShareComponent implements AfterViewChecked {
 
-  constructor(private router: ExtendedRouter, private locationStrategy: LocationStrategy, differs: IterableDiffers, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: Router, private locationStrategy: LocationStrategy, differs: IterableDiffers, @Inject('BASE_URL') private baseUrl: string) {
     this.differ = differs.find(this.commands).create(null);
   }
 

@@ -6,7 +6,6 @@ import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { Playlist } from '../../../entities/playlist';
 import { PaginationResponse } from '../../../helpers/pagination-response';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-list',
@@ -15,7 +14,7 @@ import { ExtendedRouter } from '../../../helpers/extended-router';
 })
 export class PlaylistListComponent implements OnInit {
 
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('PLAYLISTS') playlistsInj: PaginationResponse<Playlist>, private playlistService: PlaylistService, private router: ExtendedRouter, private route: ActivatedRoute, private titleService: Title, private slugifyPipe: SlugifyPipe) {
+  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('PLAYLISTS') playlistsInj: PaginationResponse<Playlist>, private playlistService: PlaylistService, private router: Router, private route: ActivatedRoute, private titleService: Title, private slugifyPipe: SlugifyPipe) {
     this.titleService.setTitle('My playlists');
     if (serverSide === true) {
       if (playlistsInj !== null) {

@@ -13,7 +13,6 @@ import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { HasChanges } from '../../../interfaces/has-changes';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-create',
@@ -21,7 +20,7 @@ import { ExtendedRouter } from '../../../helpers/extended-router';
   styleUrls: ['./create.component.scss']
 })
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[], private artistService: ArtistService, private mediumTypeService: MediumTypeService, private router: ExtendedRouter, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(@Inject('SERVERSIDE') private serverSide: boolean, @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[], private artistService: ArtistService, private mediumTypeService: MediumTypeService, private router: Router, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
     this.titleService.setTitle('Create artist');
     if (serverSide === true) {
       this.mediumTypes = mediumTypesInj;

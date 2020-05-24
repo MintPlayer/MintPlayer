@@ -7,7 +7,6 @@ import { PaginationResponse } from '../../../helpers/pagination-response';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-list',
@@ -18,7 +17,7 @@ export class ListComponent implements OnInit, OnDestroy {
   constructor(
     @Inject('PEOPLE') private peopleInj: PaginationResponse<Person>,
     private personService: PersonService,
-    private router: ExtendedRouter,
+    private router: Router,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,

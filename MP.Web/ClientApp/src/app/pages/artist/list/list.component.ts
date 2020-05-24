@@ -6,7 +6,6 @@ import { Artist } from '../../../entities/artist';
 import { PaginationResponse } from '../../../helpers/pagination-response';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-list',
@@ -18,7 +17,7 @@ export class ListComponent implements OnInit, OnDestroy {
   constructor(
     @Inject('ARTISTS') private artistsInj: PaginationResponse<Artist>,
     private artistService: ArtistService,
-    private router: ExtendedRouter,
+    private router: Router,
     private urlSerializer: UrlSerializer,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,

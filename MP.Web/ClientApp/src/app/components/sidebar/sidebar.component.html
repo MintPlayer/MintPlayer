@@ -6,13 +6,13 @@
       <app-linkedin-share [routerLink]='[]' [text]="'Open-source music player'" class="m-1"></app-linkedin-share>
     </div>
     <div class="p-1 text-center">
-      <a [routerLink]='[]' [queryParams]="{}">
+      <a [routerLink]='[]' [queryParams]="{'lang':null}" class="mx-2">
         <app-flag [country]="'en'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
-      <a [routerLink]='[]' [queryParams]="{'lang':'nl'}">
+      <a [routerLink]='[]' [queryParams]="{'lang':'nl'}" class="mx-2">
         <app-flag [country]="'nl'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
-      <a [routerLink]='[]' [queryParams]="{'lang':'fr'}">
+      <a [routerLink]='[]' [queryParams]="{'lang':'fr'}" class="mx-2">
         <app-flag [country]="'fr'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
     </div>

@@ -5,7 +5,6 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Person } from '../../../entities/person';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
-import { ExtendedRouter } from '../../../helpers/extended-router';
 
 @Component({
   selector: 'app-show',
@@ -19,7 +18,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('PERSON') personInj: Person,
     @Inject('BASE_URL') private baseUrl: string,
     private personService: PersonService,
-    private router: ExtendedRouter,
+    private router: Router,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,

@@ -7,7 +7,6 @@ import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../../helpers/url-generator.helper';
 import { WordCountPipe } from '../../../../pipes/word-count/word-count.pipe';
 import { AccountService } from '../../../../services/account/account.service';
-import { ExtendedRouter } from '../../../../helpers/extended-router';
 
 @Component({
   selector: 'app-show',
@@ -22,7 +21,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('BASE_URL') private baseUrl: string,
     private blogPostService: BlogPostService,
     private accountService: AccountService,
-    private router: ExtendedRouter,
+    private router: Router,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
