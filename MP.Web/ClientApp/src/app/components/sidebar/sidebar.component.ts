@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down.animation';
+import { TranslatePipe } from '@ngx-translate/core';
 import { User } from '../../entities/user';
+import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down.animation';
 
 @Component({
   selector: 'app-sidebar',

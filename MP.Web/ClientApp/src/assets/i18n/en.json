@@ -1,5 +1,76 @@
 {
   "home": {
+    "home": "Home",
+    "homepage": "Homepage",
     "welcome": "Welcome to our website. Here you can build your playlists and keep track of the music you like. The website is still in its early stage but more features will be coming soon."
+  },
+  "search": "Search",
+  "artists": {
+    "artists": "Artists",
+    "all_artists": "All artists",
+    "add_artist": "Add artist",
+    "favorite_artists": "Favorite artists"
+  },
+  "people": {
+    "people": "People",
+    "all_people": "All people",
+    "add_person": "Add person",
+    "favorite_people": "Favorite people"
+  },
+  "songs": {
+    "songs": "Songs",
+    "all_songs": "All songs",
+    "add_song": "Add song",
+    "favorite_songs": "Favorite songs"
+  },
+  "playlists": {
+    "playlists": "Playlists",
+    "all_playlists": "All playlists",
+    "add_playlist": "Add playlist"
+  },
+  "community": {
+    "community": "Community",
+    "blog": {
+      "blog": "Blog",
+      "our_blog": "MintPlayer blog"
+    },
+    "github": {
+      "github": "GitHub",
+      "follow": "Follow us on GitHub"
+    }
+  },
+  "management": {
+    "management": "Management",
+    "media": {
+      "manage_media": "Manage media",
+      "all_media": "All media",
+      "add_medium": "Add medium"
+    },
+    "tags": {
+      "manage": "Manage tags/categories",
+      "manage_tags": "Manage tags",
+      "manage_categories": "Manage categories",
+      "all_categories": "All categories",
+      "add_category": "Add category"
+    }
+  },
+  "account": {
+    "account": "Account",
+    "login": "Login",
+    "register": "Register",
+    "create_account": "Create account",
+    "profile": "Profile",
+    "sign_out": "Sign out",
+    "log_out": "Log out"
+  },
+  "gdpr": {
+    "privacy_policy": {
+      "privacy_policy": "Privacy policy",
+      "read": "Read how we handle your information"
+    },
+    "terms_of_service": {
+      "terms_of_service": "Terms of service",
+      "read": "Read our terms of service"
+    }
   }
 }

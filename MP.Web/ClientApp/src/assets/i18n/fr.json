@@ -1,0 +1,76 @@
+{
+  "home": {
+    "home": "Accueil",
+    "homepage": "Page d'accueil",
+    "welcome": "Bienvenue sur notre site web. Ici vous pouvez composer votre playlists et entretenir la musique que vous aimez. Le site web est encore en cours de construction, donc il y a encore plein de fonctionnalités qui arriverons töt."
+  },
+  "search": "Chercher",
+  "artists": {
+    "artists": "Artistes",
+    "all_artists": "Tous artistes",
+    "add_artist": "Créer artiste",
+    "favorite_artists": "Artistes préférés"
+  },
+  "people": {
+    "people": "Personnes",
+    "all_people": "Tous personnes",
+    "add_person": "Créer personne",
+    "favorite_people": "Personnes préférées"
+  },
+  "songs": {
+    "songs": "Chansons",
+    "all_songs": "Tous chansons",
+    "add_song": "Créer chanson",
+    "favorite_songs": "Chansons préférées"
+  },
+  "playlists": {
+    "playlists": "Playlists",
+    "all_playlists": "Tous playlists",
+    "add_playlist": "Créer playlist"
+  },
+  "community": {
+    "community": "Communauté",
+    "blog": {
+      "blog": "Blog",
+      "our_blog": "MintPlayer blog"
+    },
+    "github": {
+      "github": "GitHub",
+      "follow": "Suivez-nous sur GitHub"
+    }
+  },
+  "management": {
+    "management": "Gestion",
+    "media": {
+      "manage_media": "Gérer media",
+      "all_media": "Tous media",
+      "add_medium": "Créer medium"
+    },
+    "tags": {
+      "manage": "Gérer tags/catégories",
+      "manage_tags": "Gérer tags",
+      "manage_categories": "Gérer catégories",
+      "all_categories": "Tous catégories",
+      "add_category": "Créer catégorie"
+    }
+  },
+  "account": {
+    "account": "Mon compte",
+    "login": "Connecter",
+    "register": "Inscrire",
+    "create_account": "Créer compte",
+    "profile": "Mon profil",
+    "sign_out": "Déconnecter",
+    "log_out": "Déconnecter"
+  },
+  "gdpr": {
+    "privacy_policy": {
+      "privacy_policy": "Politique de confidentialité",
+      "read": "Lisez ce qu'on fait avec tes dattes"
+    },
+    "terms_of_service": {
+      "terms_of_service": "Conditions d'utilisation",
+      "read": "Lisez notre conditions d'utilisation"
+    }
+  }
+}
