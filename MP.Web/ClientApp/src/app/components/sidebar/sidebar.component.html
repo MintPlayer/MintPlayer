@@ -18,131 +18,131 @@
     </div>
     <ul>
       <li>
-        <a [routerLink]='["/"]' [title]="'home.homepage' | tranlsate" (click)="onItemSelected()">
+        <a [routerLink]='["/"]' [title]="'home.homepage' | translate" (click)="onItemSelected()">
           <i class="fa fa-home"></i>
-          {{ 'home.home' | tranlsate }}
+          {{ 'home.home' | translate }}
         </a>
       </li>
       <li>
-        <a [routerLink]='["/search"]' [title]="'search' | tranlsate" (click)="onItemSelected()">
+        <a [routerLink]='["/search"]' [title]="'search' | translate" (click)="onItemSelected()">
           <i class="fa fa-search"></i>
-          {{ 'search' | tranlsate }}
+          {{ 'search' | translate }}
         </a>
       </li>
       <li>
-        <span [title]="'artists.artists' | tranlsate" [ngClass]="{'open':level1menu === 'artists'}" (click)="level1toggle('artists')">
+        <span [title]="'artists.artists' | translate" [ngClass]="{'open':level1menu === 'artists'}" (click)="level1toggle('artists')">
           <i class="fa fa-user-circle"></i>
-          {{ 'artists.artists' | tranlsate }}
+          {{ 'artists.artists' | translate }}
         </span>
         <ul [@slideUpDown]="level1menu == 'artists' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/artist"]' [title]="'artists.all_artists' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/artist"]' [title]="'artists.all_artists' | translate" (click)="onItemSelected()">
               <i class="fa fa-list"></i>
-              {{ 'artists.all_artists' | tranlsate }}
+              {{ 'artists.all_artists' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/artist/create"]' [title]="'artists.add_artist' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/artist/create"]' [title]="'artists.add_artist' | translate" (click)="onItemSelected()">
               <i class="fa fa-plus"></i>
-              {{ 'artists.add_artist' | tranlsate }}
+              {{ 'artists.add_artist' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/artist", "favorite"]' [title]="'artists.favorite_artists' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/artist", "favorite"]' [title]="'artists.favorite_artists' | translate" (click)="onItemSelected()">
               <i class="fa fa-star"></i>
-              {{ 'artists.favorite_artists' | tranlsate }}
+              {{ 'artists.favorite_artists' | translate }}
             </a>
           </li>
         </ul>
       </li>
       <li>
-        <span [title]="'people.people' | tranlsate" [ngClass]="{'open':level1menu === 'people'}" (click)="level1toggle('people')">
+        <span [title]="'people.people' | translate" [ngClass]="{'open':level1menu === 'people'}" (click)="level1toggle('people')">
           <i class="fa fa-user-o"></i>
-          {{ 'people.people' | tranlsate }}
+          {{ 'people.people' | translate }}
         </span>
         <ul [@slideUpDown]="level1menu == 'people' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/person"]' [title]="'people.all_people' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/person"]' [title]="'people.all_people' | translate" (click)="onItemSelected()">
               <i class="fa fa-list"></i>
-              {{ 'people.all_people' | tranlsate }}
+              {{ 'people.all_people' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/person", "create"]' [title]="'people.add_person' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/person", "create"]' [title]="'people.add_person' | translate" (click)="onItemSelected()">
               <i class="fa fa-plus"></i>
-              {{ 'people.add_person' | tranlsate }}
+              {{ 'people.add_person' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/person", "favorite"]' [title]="'people.favorite_people' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/person", "favorite"]' [title]="'people.favorite_people' | translate" (click)="onItemSelected()">
               <i class="fa fa-star"></i>
-              {{ 'people.favorite_people' | tranlsate }}
+              {{ 'people.favorite_people' | translate }}
             </a>
           </li>
         </ul>
       </li>
       <li>
-        <span [title]="'songs.songs' | tranlsate" [ngClass]="{'open':level1menu === 'songs'}" (click)="level1toggle('songs')">
+        <span [title]="'songs.songs' | translate" [ngClass]="{'open':level1menu === 'songs'}" (click)="level1toggle('songs')">
           <i class="fa fa-music"></i>
-          {{ 'songs.songs' | tranlsate }}
+          {{ 'songs.songs' | translate }}
         </span>
         <ul [@slideUpDown]="level1menu == 'songs' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/song"]' [title]="'songs.all_songs' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/song"]' [title]="'songs.all_songs' | translate" (click)="onItemSelected()">
               <i class="fa fa-list"></i>
-              {{ 'songs.all_songs' | tranlsate }}
+              {{ 'songs.all_songs' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/song", "create"]' [title]="'songs.add_song' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/song", "create"]' [title]="'songs.add_song' | translate" (click)="onItemSelected()">
               <i class="fa fa-plus"></i>
-              {{ 'songs.add_song' | tranlsate }}
+              {{ 'songs.add_song' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/song", "favorite"]' [title]="'songs.favorite_songs' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/song", "favorite"]' [title]="'songs.favorite_songs' | translate" (click)="onItemSelected()">
               <i class="fa fa-star"></i>
-              {{ 'songs.favorite_songs' | tranlsate }}
+              {{ 'songs.favorite_songs' | translate }}
             </a>
           </li>
         </ul>
       </li>
       <li>
-        <span [title]="'playlists.playlists' | tranlsate" [ngClass]="{'open':level1menu === 'playlists'}" (click)="level1toggle('playlists')">
+        <span [title]="'playlists.playlists' | translate" [ngClass]="{'open':level1menu === 'playlists'}" (click)="level1toggle('playlists')">
           <i class="fa fa-play-circle"></i>
-          {{ 'playlists.playlists' | tranlsate }}
+          {{ 'playlists.playlists' | translate }}
         </span>
         <ul [@slideUpDown]="level1menu == 'playlists' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/playlist"]' [title]="'playlists.all_playlists' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/playlist"]' [title]="'playlists.all_playlists' | translate" (click)="onItemSelected()">
               <i class="fa fa-list"></i>
-              {{ 'playlists.all_playlists' | tranlsate }}
+              {{ 'playlists.all_playlists' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/playlist","create"]' [title]="'playlists.add_playlist' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/playlist","create"]' [title]="'playlists.add_playlist' | translate" (click)="onItemSelected()">
               <i class="fa fa-plus"></i>
-              {{ 'playlists.add_playlist' | tranlsate }}
+              {{ 'playlists.add_playlist' | translate }}
             </a>
           </li>
         </ul>
       </li>
       <li>
-        <span [title]="'community.community' | tranlsate" [ngClass]="{'open':level1menu === 'community'}" (click)="level1toggle('community')">
+        <span [title]="'community.community' | translate" [ngClass]="{'open':level1menu === 'community'}" (click)="level1toggle('community')">
           <i class="fa fa-users"></i>
-          {{ 'community.community' | tranlsate }}
+          {{ 'community.community' | translate }}
         </span>
         <ul [@slideUpDown]="level1menu == 'community' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/community","blog"]' [title]="'community.blog.our_blog' | tranlsate" (click)="onItemSelected()">
+            <a [routerLink]='["/community","blog"]' [title]="'community.blog.our_blog' | translate" (click)="onItemSelected()">
               <i class="fa fa-rss"></i>
-              {{ 'community.blog.blog' | tranlsate }}
+              {{ 'community.blog.blog' | translate }}
             </a>
           </li>
           <li>
-            <a href="https://github.com/MintPlayer/MintPlayer" [title]="'community.github.follow' | tranlsate" target="_blank" (click)="onItemSelected()">
+            <a href="https://github.com/MintPlayer/MintPlayer" [title]="'community.github.follow' | translate" target="_blank" (click)="onItemSelected()">
               <i class="fa fa-github"></i>
-              {{ 'community.github.github' | tranlsate }}
+              {{ 'community.github.github' | translate }}
             </a>
           </li>
           <!--<li>
@@ -162,45 +162,45 @@
       <li>
         <span title="Management" [ngClass]="{'open':level1menu === 'management'}" (click)="level1toggle('management')">
           <i class="fa fa-cogs"></i>
-          {{ 'management.management' | tranlsate }}
+          {{ 'management.management' | translate }}
         </span>
         <ul [@slideUpDown]="level1menu == 'management' ? 'in' : 'out'">
           <li>
-            <span title="'management.media.manage_media' | tranlsate" [ngClass]="{'open':level2menu === 'media'}" (click)="level2toggle('media')">
+            <span title="'management.media.manage_media' | translate" [ngClass]="{'open':level2menu === 'media'}" (click)="level2toggle('media')">
               <i class="fa fa-medium"></i>
-              {{ 'management.media.manage_media' | tranlsate }}
+              {{ 'management.media.manage_media' | translate }}
             </span>
             <ul [@slideUpDown]="level2menu == 'media' ? 'in' : 'out'">
               <li>
-                <a [routerLink]='["/mediumtype"]' [title]="'management.media.all_media' | tranlsate" (click)="onItemSelected()">
+                <a [routerLink]='["/mediumtype"]' [title]="'management.media.all_media' | translate" (click)="onItemSelected()">
                   <i class="fa fa-list"></i>
-                  {{ 'management.media.all_media' | tranlsate }}
+                  {{ 'management.media.all_media' | translate }}
                 </a>
               </li>
               <li>
-                <a [routerLink]='["/mediumtype/create"]' [title]="'management.media.add_medium' | tranlsate" (click)="onItemSelected()">
+                <a [routerLink]='["/mediumtype/create"]' [title]="'management.media.add_medium' | translate" (click)="onItemSelected()">
                   <i class="fa fa-plus"></i>
-                  {{ 'management.media.add_medium' | tranlsate }}
+                  {{ 'management.media.add_medium' | translate }}
                 </a>
               </li>
             </ul>
           </li>
           <li>
-            <span [title]="'management.tags.manage' | tranlsate" [ngClass]="{'open':level2menu === 'tags'}" (click)="level2toggle('tags')">
+            <span [title]="'management.tags.manage' | translate" [ngClass]="{'open':level2menu === 'tags'}" (click)="level2toggle('tags')">
               <i class="fa fa-tag"></i>
-              {{ 'management.tags.manage_tags' | tranlsate }}
+              {{ 'management.tags.manage_tags' | translate }}
             </span>
             <ul [@slideUpDown]="level2menu == 'tags' ? 'in' : 'out'">
               <li>
-                <a [routerLink]='["/tag","category"]' [title]="'management.tags.manage_categories' | tranlsate" (click)="onItemSelected()">
+                <a [routerLink]='["/tag","category"]' [title]="'management.tags.manage_categories' | translate" (click)="onItemSelected()">
                   <i class="fa fa-list"></i>
-                  {{ 'management.tags.all_categories' | tranlsate }}
+                  {{ 'management.tags.all_categories' | translate }}
                 </a>
               </li>
               <li>
-                <a [routerLink]='["/tag","category","create"]' [title]="'management.tags.add_category' | tranlsate" (click)="onItemSelected()">
+                <a [routerLink]='["/tag","category","create"]' [title]="'management.tags.add_category' | translate" (click)="onItemSelected()">
                   <i class="fa fa-plus"></i>
-                  {{ 'management.tags.add_category' | tranlsate }}
+                  {{ 'management.tags.add_category' | translate }}
                 </a>
               </li>
             </ul>
@@ -208,41 +208,41 @@
         </ul>
       </li>
       <li>
-        <span [title]="'account.account' | tranlsate" [ngClass]="{'open':level1menu === 'account'}" (click)="level1toggle('account')">
+        <span [title]="'account.account' | translate" [ngClass]="{'open':level1menu === 'account'}" (click)="level1toggle('account')">
           <i class="fa fa-user"></i>
-          {{ 'account.account' | tranlsate }}
+          {{ 'account.account' | translate }}
         </span>
         <ul [@slideUpDown]="level1menu == 'account' ? 'in' : 'out'">
           <li *ngIf="activeUser === null">
             <a [routerLink]='["/account","login"]' title="'account.login' | translate" (click)="onItemSelected()">
               <i class="fa fa-sign-in"></i>
-              {{ 'account.login' | tranlsate }}
+              {{ 'account.login' | translate }}
             </a>
           </li>
           <li *ngIf="activeUser === null">
             <a [routerLink]='["/account","register"]' title="'account.create_account' | translate" (click)="onItemSelected()">
               <i class="fa fa-user-plus"></i>
-              {{ 'account.register' | tranlsate }}
+              {{ 'account.register' | translate }}
             </a>
           </li>
           <li *ngIf="activeUser !== null">
             <a [routerLink]='["/account","profile"]' title="'account.profile' | translate" (click)="onItemSelected()">
               <i class="fa fa-user-o"></i>
-              {{ 'account.profile' | tranlsate }}
+              {{ 'account.profile' | translate }}
             </a>
           </li>
           <li *ngIf="activeUser !== null">
             <a [title]="'account.log_out' | translate" (click)="onLogout()">
               <i class="fa fa-sign-out"></i>
-              {{ 'account.sign_out' | tranlsate }}
+              {{ 'account.sign_out' | translate }}
             </a>
           </li>
         </ul>
       </li>
     </ul>
     <div class="mt-auto text-center">
-      <a class="d-inline-block p-2 text-white" [routerLink]='["/gdpr","privacy-policy"]' (click)="onItemSelected()" [title]="'gdpr.privacy_policy.read' | translate">{{ 'gdpr.privacy_policy.privacy_policy' | tranlsate }}</a>
-      <a class="d-inline-block p-2 text-white" [routerLink]='["/gdpr","terms-of-service"]' (click)="onItemSelected()" [title]="'gdpr.terms_of_service.read' | translate">{{ 'gdpr.terms_of_service.terms_of_service' | tranlsate }}</a>
+      <a class="d-inline-block p-2 text-white" [routerLink]='["/gdpr","privacy-policy"]' (click)="onItemSelected()" [title]="'gdpr.privacy_policy.read' | translate">{{ 'gdpr.privacy_policy.privacy_policy' | translate }}</a>
+      <a class="d-inline-block p-2 text-white" [routerLink]='["/gdpr","terms-of-service"]' (click)="onItemSelected()" [title]="'gdpr.terms_of_service.read' | translate">{{ 'gdpr.terms_of_service.terms_of_service' | translate }}</a>
     </div>
   </nav>
 </div>

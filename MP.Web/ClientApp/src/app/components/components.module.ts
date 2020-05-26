@@ -31,7 +31,7 @@ import { DirectivesModule } from '../directives/directives.module';
     DirectivesModule,
     ControlsModule,
     SubjectModule,
-    TranslateModule.forChild(),
+    TranslateModule,
     SocialLoginsModule,
     SocialSharesModule
   ],
