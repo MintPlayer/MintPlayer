@@ -1,10 +1,14 @@
 {
   "home": {
     "home": "Accueil",
+    "title": "Lecteur de musique open-source",
     "homepage": "Page d'accueil",
     "welcome": "Bienvenue sur notre site web. Ici vous pouvez composer votre playlists et entretenir la musique que vous aimez. Le site web est encore en cours de construction, donc il y a encore plein de fonctionnalités qui arriverons töt."
   },
-  "search": "Chercher",
+  "search": {
+    "search": "Chercher",
+    "search_anything": "Cherche quelque chose"
+  },
   "artists": {
     "artists": "Artistes",
     "all_artists": "Tous artistes",
@@ -61,7 +65,35 @@
     "create_account": "Créer compte",
     "profile": "Mon profil",
     "sign_out": "Déconnecter",
-    "log_out": "Déconnecter"
+    "log_out": "Déconnecter",
+    "email_address": "Addresse email",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "repeat_password": "Répète mot de passe",
+    "forgot_password": "Mot de passe oubliée",
+    "use_social_login": "Utilise connexion sociale",
+    "update_profile": "Mettre à jour",
+    "social_logins": "Connexions sociales",
+    "microsoft": {
+      "add_login": "Enregistre compte Microsoft",
+      "remove_login": "Déregistre compte Microsoft",
+      "login_registered": "Compte Microsoft enregistrée"
+    },
+    "facebook": {
+      "add_login": "Enregistre compte Facebook",
+      "remove_login": "Déregistre compte Facebook",
+      "login_registered": "Compte Facebook enregistrée"
+    },
+    "twitter": {
+      "add_login": "Enregistre compte Twitter",
+      "remove_login": "Déregistre compte Twitter",
+      "login_registered": "Compte Twitter enregistrée"
+    },
+    "google": {
+      "add_login": "Enregistre compte Google",
+      "remove_login": "Déregistre compte Google",
+      "login_registered": "Compte Google enregistrée"
+    }
   },
   "gdpr": {
     "privacy_policy": {

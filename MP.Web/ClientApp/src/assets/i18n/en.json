@@ -1,10 +1,14 @@
 {
   "home": {
     "home": "Home",
+    "title": "Open-source music player",
     "homepage": "Homepage",
     "welcome": "Welcome to our website. Here you can build your playlists and keep track of the music you like. The website is still in its early stage but more features will be coming soon."
   },
-  "search": "Search",
+  "search": {
+    "search": "Search",
+    "search_anything": "Search for anything"
+  },
   "artists": {
     "artists": "Artists",
     "all_artists": "All artists",
@@ -61,7 +65,35 @@
     "create_account": "Create account",
     "profile": "Profile",
     "sign_out": "Sign out",
-    "log_out": "Log out"
+    "log_out": "Log out",
+    "email_address": "Email address",
+    "username": "Username",
+    "password": "Password",
+    "repeat_password": "Repeat password",
+    "forgot_password": "Forgot password",
+    "use_social_login": "Or use a social login instead",
+    "update_profile": "Update profile",
+    "social_logins": "Social logins",
+    "microsoft": {
+      "add_login": "Add Microsoft login",
+      "remove_login": "Remove Microsoft login",
+      "login_registered": "Microsoft account registered"
+    },
+    "facebook": {
+      "add_login": "Add Facebook login",
+      "remove_login": "Remove Facebook login",
+      "login_registered": "Facebook account registered"
+    },
+    "twitter": {
+      "add_login": "Add Twitter login",
+      "remove_login": "Remove Twitter login",
+      "login_registered": "Twitter account registered"
+    },
+    "google": {
+      "add_login": "Add Google login",
+      "remove_login": "Remove Google login",
+      "login_registered": "Google account registered"
+    }
   },
   "gdpr": {
     "privacy_policy": {

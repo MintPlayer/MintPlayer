@@ -1,10 +1,14 @@
 {
   "home": {
     "home": "Startpagina",
+    "title": "Open-source muziekspeler",
     "homepage": "Startpagina",
     "welcome": "Welkom op onze website. Hier kan je je eigen playlists bouwen en je favoriete muziek bijhouden. De website zit momenteel nog in een voreg stadium, maar binnenkort komt er nog een heleboel functionaliteit bij."
   },
-  "search": "Zoeken",
+  "search": {
+    "search": "Zoeken",
+    "search_anything": "Geef een zoekterm in"
+  },
   "artists": {
     "artists": "Artiesten",
     "all_artists": "Alle artiesten",
@@ -61,7 +65,35 @@
     "create_account": "Account aanmaken",
     "profile": "Profiel",
     "sign_out": "Uitloggen",
-    "log_out": "Uitloggen"
+    "log_out": "Uitloggen",
+    "email_address": "E-mailadres",
+    "username": "Gebruikersnaam",
+    "password": "Wachtwoord",
+    "repeat_password": "Herhaal wachtwoord",
+    "forgot_password": "Wachtwoord vergeten",
+    "use_social_login": "Gebruik een social login",
+    "update_profile": "Profiel bijwerken",
+    "social_logins": "Sociale logins",
+    "microsoft": {
+      "add_login": "Microsoft login toevoegen",
+      "remove_login": "Microsoft login verwijderen",
+      "login_registered": "Microsoft account geregistreerd"
+    },
+    "facebook": {
+      "add_login": "Facebook login toevoegen",
+      "remove_login": "Facebook login verwijderen",
+      "login_registered": "Facebook account geregistreerd"
+    },
+    "twitter": {
+      "add_login": "Twitter login toevoegen",
+      "remove_login": "Twitter login verwijderen",
+      "login_registered": "Twitter account geregistreerd"
+    },
+    "google": {
+      "add_login": "Google login toevoegen",
+      "remove_login": "Google login verwijderen",
+      "login_registered": "Google account geregistreerd"
+    }
   },
   "gdpr": {
     "privacy_policy": {

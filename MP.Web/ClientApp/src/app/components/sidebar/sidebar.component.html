@@ -6,13 +6,13 @@
       <app-linkedin-share [routerLink]='[]' [text]="'Open-source music player'" class="m-1"></app-linkedin-share>
     </div>
     <div class="p-1 text-center">
-      <a [routerLink]='[]' [queryParams]="{'lang':null}" class="mx-2">
+      <a [routerLink]='[]' [queryParams]="{'lang':null}" class="mx-2" title="English">
         <app-flag [country]="'en'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
-      <a [routerLink]='[]' [queryParams]="{'lang':'nl'}" class="mx-2">
+      <a [routerLink]='[]' [queryParams]="{'lang':'nl'}" class="mx-2" title="Nederlands">
         <app-flag [country]="'nl'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
-      <a [routerLink]='[]' [queryParams]="{'lang':'fr'}" class="mx-2">
+      <a [routerLink]='[]' [queryParams]="{'lang':'fr'}" class="mx-2" title="Frans">
         <app-flag [country]="'fr'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
     </div>
@@ -24,9 +24,9 @@
         </a>
       </li>
       <li>
-        <a [routerLink]='["/search"]' [title]="'search' | translate" (click)="onItemSelected()">
+        <a [routerLink]='["/search"]' [title]="'search.search' | translate" (click)="onItemSelected()">
           <i class="fa fa-search"></i>
-          {{ 'search' | translate }}
+          {{ 'search.search' | translate }}
         </a>
       </li>
       <li>
