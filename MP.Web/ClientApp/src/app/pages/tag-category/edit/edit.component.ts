@@ -51,6 +51,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   updateCategory() {
     this.tagCategoryService.updateTagCategory(this.tagCategory).then((category) => {
+      this.hasChanges = false;
       this.router.navigate(['tag', 'category', category.id]);
     }).catch((error) => {
       console.log('Could not create tag category', error);

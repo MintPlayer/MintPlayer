@@ -45,6 +45,7 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
 
   updateTimeline() {
     this.songService.updateTimeline(this.song).then(() => {
+      this.hasChanges = false;
       this.router.navigate(['/song', this.song.id, this.slugifyHelper.slugify(this.song.text)]);
     }).catch((error) => {
       console.error(error);

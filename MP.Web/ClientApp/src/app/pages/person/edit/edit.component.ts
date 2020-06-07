@@ -76,6 +76,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   updatePerson() {
     this.personService.updatePerson(this.person).then((person) => {
+      this.hasChanges = false;
       this.router.navigate(['person', this.person.id, this.slugifyHelper.slugify(person.text)]);
     }).catch((error) => {
       console.error('Could not update person', error);

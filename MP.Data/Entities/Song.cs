@@ -59,7 +59,7 @@ namespace MintPlayer.Data.Entities
 						return new MintPlayer.Dtos.Dtos.PlayerInfo
 						{
 							Id = YoutubeId,
-							Type = MintPlayer.Dtos.Enums.ePlayerType.DailyMotion
+							Type = MintPlayer.Dtos.Enums.ePlayerType.Youtube
 						};
 					case MintPlayer.Dtos.Enums.ePlayerType.DailyMotion:
 						return new MintPlayer.Dtos.Dtos.PlayerInfo

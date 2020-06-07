@@ -74,10 +74,10 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     //#endregion
     //#region Load youtube API
-    this.dailyMotionHelper.loadApi().then(() => {
-      console.log('play video x2yhuhb');
-      this.dmplayer.playSong('x2yhuhb');
-    });
+    //this.dailyMotionHelper.loadApi().then(() => {
+    //  console.log('play video x2yhuhb');
+    //  this.dmplayer.playSong('x2yhuhb');
+    //});
     //#endregion
     this.facebookSdkHelper.loadSdk();
     this.twitterSdkHelper.loadSdk();
@@ -112,6 +112,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.playlistControl = new PlaylistControl<Song>({
       onGetCurrentPosition: () => this.player.position,
       onPlayVideo: (song) => {
+        console.log('player info', song.playerInfo);
         switch (song.playerInfo.type) {
           case ePlayerType.Youtube: {
             this.youtubeHelper.loadApi().then((isLoaded) => {

@@ -58,6 +58,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   public updateTag() {
     this.tagService.updateTag(this.tag).then((tag) => {
+      this.hasChanges = false;
       this.router.navigate(['tag','category',tag.category.id,'tags',tag.id]);
     }).catch((error) => {
       console.log('Could not update tag', error);

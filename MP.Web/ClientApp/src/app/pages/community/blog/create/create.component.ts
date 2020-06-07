@@ -29,6 +29,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   saveBlogPost() {
     this.blogPostService.createBlogPost(this.blogPost).then((blogPost) => {
+      this.hasChanges = false;
       this.router.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
     }).catch((error) => {
       console.log(error);

@@ -118,7 +118,10 @@ namespace MintPlayer.Web
             });
             services.AddSpaRoutes(routes => routes
                 .Route("", "home")
-                .Route("search", "search")
+                .Group("search", "search", search_routes => search_routes
+                    .Route("", "search")
+                    .Route("{searchterm}", "results")
+                )
                 .Group("account", "account", account_routes => account_routes
                     .Route("login", "login")
                     .Route("register", "register")
@@ -151,6 +154,14 @@ namespace MintPlayer.Web
                     .Route("{id}/edit", "edit")
                     .Route("{id}/{title}/edit", "edit-title")
                 )
+                .Group("playlist", "playlist", playlist_routes => playlist_routes
+                    .Route("", "list")
+                    .Route("create", "create")
+                    .Route("{id}", "show")
+                    .Route("{id}/{description}", "show-description")
+                    .Route("{id}/edit", "edit")
+                    .Route("{id}/{description}/edit", "edit-description")
+                )
                 .Group("mediumtype", "mediumtype", mediumtype_routes => mediumtype_routes
                     .Route("", "list")
                     .Route("create", "create")
@@ -173,14 +184,6 @@ namespace MintPlayer.Web
                         )
                     )
                 )
-                .Group("playlist", "playlist", playlist_routes => playlist_routes
-                    .Route("", "list")
-                    .Route("create", "create")
-                    .Route("{id}", "show")
-                    .Route("{id}/{description}", "show-description")
-                    .Route("{id}/edit", "edit")
-                    .Route("{id}/{description}/edit", "edit-description")
-                )
                 .Group("community", "community", community_routes => community_routes
                     .Group("blog", "blog", blog_routes => blog_routes
                         .Route("", "list")
@@ -188,6 +191,10 @@ namespace MintPlayer.Web
                         .Route("{blogpostid}/{blogpost_title}", "show")
                         .Route("{blogpostid}/{blogpost_title}/edit", "edit")
                     )
+                )
+                .Group("gdpr", "gdpr", gdpr_routes => gdpr_routes
+                    .Route("privacy-policy", "privacypolicy")
+                    .Route("terms-of-service", "termsofservice")
                 )
             );
 

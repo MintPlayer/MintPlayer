@@ -35,6 +35,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   public saveMediumType() {
     this.mediumTypeService.createMediumType(this.mediumType).then((mediumType) => {
+      this.hasChanges = false;
       this.router.navigate(['mediumtype', mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
     }).catch((error) => {
       console.error('Could not create medium type', error);

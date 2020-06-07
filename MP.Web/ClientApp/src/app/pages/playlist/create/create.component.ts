@@ -40,6 +40,7 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
 
   savePlaylist() {
     this.playlistService.createPlaylist(this.playlist).then((playlist) => {
+      this.hasChanges = false;
       this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
     }).catch((error) => {
       debugger;

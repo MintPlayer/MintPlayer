@@ -65,6 +65,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   saveTag() {
     this.tagService.createTag(this.tag).then((tag) => {
+      this.hasChanges = false;
       var categoryId = parseInt(this.route.snapshot.paramMap.get('category_id'));
       this.router.navigate(['/tag', 'category', categoryId, 'tags', tag.id]);
     }).catch((error) => {

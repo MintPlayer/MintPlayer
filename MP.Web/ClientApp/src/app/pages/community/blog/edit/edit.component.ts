@@ -55,6 +55,7 @@ export class EditComponent implements OnInit, DoCheck, HasChanges {
 
   updateBlogPost() {
     this.blogPostService.updateBlogPost(this.blogPost).then((blogPost) => {
+      this.hasChanges = false;
       this.router.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
     }).catch((error) => {
       console.log(error);

@@ -52,6 +52,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   savePerson() {
     this.personService.createPerson(this.person).then((person) => {
+      this.hasChanges = false;
       this.router.navigate(['person', person.id, this.slugifyHelper.slugify(person.text)]);
     }).catch((error) => {
       console.error('Could not create person', error);

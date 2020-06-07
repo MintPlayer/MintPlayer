@@ -60,6 +60,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   public updateMediumType() {
     this.mediumTypeService.updateMediumType(this.mediumType).then((mediumType) => {
+      this.hasChanges = false;
       this.router.navigate(['mediumtype', this.mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
     }).catch((error) => {
       console.error('Could not update medium type', error);

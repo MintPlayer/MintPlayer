@@ -54,6 +54,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   saveArtist() {
     this.artistService.createArtist(this.artist).then((artist) => {
+      this.hasChanges = false;
       this.router.navigate(['/artist', artist.id, this.slugifyHelper.slugify(artist.name)]);
     }).catch((error) => {
       console.error('Could not create artist', error);
