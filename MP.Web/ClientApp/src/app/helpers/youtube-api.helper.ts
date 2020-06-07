@@ -16,15 +16,17 @@ export class YoutubeHelper {
             this.apiReady.next(true);
             resolve(true);
           };
-          //console.log('Assigned window.onYouTubeIframeAPIReady');
 
           YoutubeHelper.scriptTag = window.document.createElement('script');
           YoutubeHelper.scriptTag.src = 'https://www.youtube.com/iframe_api';
 
           const firstScriptTag = window.document.getElementsByTagName('script')[0];
           firstScriptTag.parentNode.insertBefore(YoutubeHelper.scriptTag, firstScriptTag);
-          //console.log('Inserted YouTube iframe api');
+        } else {
+          resolve(true);
         }
+      } else {
+        resolve(false);
       }
     });
   }

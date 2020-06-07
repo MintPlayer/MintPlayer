@@ -27,6 +27,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
     this.removeMetaTags();
+    this.router.navigate([], {
+      queryParams: {
+        return: null
+      }
+    });
   }
 
   //#region Add meta-tags

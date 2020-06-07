@@ -29,6 +29,7 @@ import { TwitterSdkHelper } from './helpers/twitter-sdk.helper';
 import { LinkedinSdkHelper } from './helpers/linkedin-sdk.helper';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
+import { ePlayerType } from './enums/ePlayerType';
 
 @Component({
   selector: 'app-root',
@@ -73,7 +74,6 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     //#endregion
     //#region Load youtube API
-    this.youtubeHelper.loadApi();
     this.dailyMotionHelper.loadApi().then(() => {
       console.log('play video x2yhuhb');
       this.dmplayer.playSong('x2yhuhb');
@@ -112,7 +112,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.playlistControl = new PlaylistControl<Song>({
       onGetCurrentPosition: () => this.player.position,
       onPlayVideo: (song) => {
-        this.player.playSong(song.playerInfo.id);
+        switch (song.playerInfo.type) {
+          case ePlayerType.Youtube: {
+            this.youtubeHelper.loadApi().then((isLoaded) => {
+              this.player.playSong(song.playerInfo.id);
+            });
+          } break;
+          case ePlayerType.DailyMotion: {
+
+          } break;
+        }
       },
       onStopVideo: () => {
         this.player.stop();

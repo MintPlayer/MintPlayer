@@ -1,6 +1,6 @@
-import { PlayerType } from './player-type';
+import { ePlayerType } from '../enums/ePlayerType';
 
 export interface PlayerInfo {
-  type: PlayerType;
+  type: ePlayerType;
   id: string;
 }
