@@ -1,6 +1,23 @@
+$fa-font-path: '../../node_modules/font-awesome/fonts' !default;
+$fa-version: "4.7.0" !default;
+
+@font-face {
+  font-family: 'FontAwesomeCustom';
+  src: url('#{$fa-font-path}/fontawesome-webfont.eot?v=#{$fa-version}');
+  src: url('#{$fa-font-path}/fontawesome-webfont.eot?#iefix&v=#{$fa-version}') format('embedded-opentype'), url('#{$fa-font-path}/fontawesome-webfont.woff2?v=#{$fa-version}') format('woff2'), url('#{$fa-font-path}/fontawesome-webfont.woff?v=#{$fa-version}') format('woff'), url('#{$fa-font-path}/fontawesome-webfont.ttf?v=#{$fa-version}') format('truetype'), url('#{$fa-font-path}/fontawesome-webfont.svg?v=#{$fa-version}#fontawesomeregular') format('svg');
+  //  src: url('#{$fa-font-path}/FontAwesome.otf') format('opentype'); // used when developing fonts
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+
+.fa {
+  font-family: FontAwesomeCustom !important;
+}
+
 html {
   height: 100%;
-  font-display: swap;
 }
 
 body {
@@ -32,11 +49,11 @@ h2, .h2 {
 }
 
 .youtube-card, .dailymotion-card {
-    height: 0;
+  height: 0;
 
-    > .card {
-        margin-top: -290px;
-    }
+  > .card {
+    margin-top: -290px;
+  }
 }
 
 .card > .card-body > content {
@@ -45,10 +62,10 @@ h2, .h2 {
 }
 
 .card > .card-body > content > media-list {
-    margin-bottom: 10px !important;
+  margin-bottom: 10px !important;
 }
 
 .btn-caret-center {
-    position: relative;
-    top: 3px;
+  position: relative;
+  top: 3px;
 }

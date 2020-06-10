@@ -80,6 +80,9 @@ export class YoutubePlayerComponent implements OnInit, OnDestroy {
 
   @Output() stateChange: EventEmitter<YT.PlayerState> = new EventEmitter();
 
+  @Output() previousPressed: EventEmitter<any> = new EventEmitter();
+  @Output() nextPressed: EventEmitter<any> = new EventEmitter();
+
   private progressTimer: NodeJS.Timer;
   private volumeTimer: NodeJS.Timer;
   private player: YT.Player;
@@ -117,10 +120,16 @@ export class YoutubePlayerComponent implements OnInit, OnDestroy {
                   clearInterval(this.progressTimer);
                   break;
               }
-            },
-            
+            }
           }
         });
+        this.player.previousVideo = () => {
+          this.previousPressed.emit();
+        };
+        this.player.nextVideo = () => {
+          this.nextPressed.emit();
+        };
+        console.log('player', this.player);
         this.volumeTimer = setInterval(() => {
           try {
             let currentVolume = this.player.getVolume();
@@ -139,6 +148,7 @@ export class YoutubePlayerComponent implements OnInit, OnDestroy {
     clearInterval(this.volumeTimer);
   }
 
+  static mediaInit = false;
   public playSong(youtubeId: string) {
     if (this.isPlayerReady.value) {
       this.player.loadVideoById(youtubeId);
@@ -148,6 +158,17 @@ export class YoutubePlayerComponent implements OnInit, OnDestroy {
         if (value === true) {
           this.player.loadVideoById(youtubeId);
         }
+      });
+    }
+    if (!YoutubePlayerComponent.mediaInit) {
+      YoutubePlayerComponent.mediaInit = true;
+      let frame = <HTMLIFrameElement>document.getElementById(this.domId);
+
+      frame.contentWindow.navigator.mediaSession.setActionHandler('previoustrack', () => {
+        this.previousPressed.emit();
+      });
+      frame.contentWindow.navigator.mediaSession.setActionHandler('nexttrack', () => {
+        this.nextPressed.emit();
       });
     }
   }

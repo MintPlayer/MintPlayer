@@ -173,6 +173,7 @@
     <None Remove="ClientApp\tsconfig.server.json" />
     <None Remove="ClientApp\tsconfig.spec.json" />
     <None Remove="ClientApp\types\dailymotion\index.d.ts" />
+    <None Remove="ClientApp\types\mediasession\index.d.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -238,6 +239,7 @@
     <TypeScriptCompile Include="ClientApp\src\styles\animations\slide-up-down - Copy.animation.ts" />
     <TypeScriptCompile Include="ClientApp\src\styles\animations\slide-up-down.animation.ts" />
     <TypeScriptCompile Include="ClientApp\types\dailymotion\index.d.ts" />
+    <TypeScriptCompile Include="ClientApp\types\mediasession\index.d.ts" />
   </ItemGroup>
 
   <ItemGroup>

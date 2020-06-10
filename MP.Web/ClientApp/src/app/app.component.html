@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="main-footer px-3">
-        &copy; MintPlayer
+        &copy; MintPlayer ({{ status }})
       </div>
     </div>
     <playlist-sidebar [playerState]="playerState" [songs]="playlistControl.playlist" [current]="playlistControl.currentVideo" [songProgress]="songProgress" (songRemoved)="playlistControl.removeFromPlaylist($event.song)" (previousClicked)="playlistControl.previous()" (nextClicked)="playlistControl.next(true)" (songClicked)="collapsePlaylistSidebar()" (playPauseClicked)="playPausePlayer()" [(isRandom)]="playlistControl.shuffle" [(repeatMode)]="playlistControl.repeat" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
@@ -29,7 +29,7 @@
     </header>
     <content>
       <div class="d-table caption-bottom">
-        <youtube-player #player [domId]="'player'" (stateChange)="playerStateChanged($event)" (progressChange)="updatePlayerProgress($event)" [width]="playerSize.width" [height]="playerSize.height"></youtube-player>
+        <youtube-player #player [domId]="'player'" (stateChange)="playerStateChanged($event)" (progressChange)="updatePlayerProgress($event)" [width]="playerSize.width" [height]="playerSize.height" (previousPressed)="onPreviousPressed()" (nextPressed)="onNextPressed()"></youtube-player>
         <span class="d-table-caption">
           <span class="d-block text-center p-2" *ngIf="currentLyricsLine !== null">{{ currentLyricsLine }}</span>
           <span class="d-block text-center p-2" *ngIf="isSyncComponent">{{ songProgress.currentTime | number: '1.1' }}</span>

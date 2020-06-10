@@ -1,3 +1,5 @@
+/// <reference path="../../types/mediasession/index.d.ts" />
+
 import { Component, ElementRef, ViewChild, ChangeDetectorRef, Inject, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { eToggleButtonState } from './enums/eToggleButtonState';
 import { eSidebarState } from './enums/eSidebarState';
@@ -144,6 +146,42 @@ export class AppComponent implements OnInit, OnDestroy {
     //#endregion
   }
 
+  onPreviousPressed() {
+    this.playlistControl.previous();
+    this.status = 'Previous pressed';
+  }
+
+  onNextPressed() {
+    this.playlistControl.next();
+    this.status = 'Next pressed';
+  }
+
+  status: string = '';
+  private setMediaSession() {
+    if ('mediaSession' in navigator) {
+      this.status = 'Set media session';
+
+      navigator.mediaSession.setActionHandler('play', () => {
+        this.status = ('Play');
+      });
+      navigator.mediaSession.setActionHandler('pause', () => {
+        this.status = ('Pause');
+      });
+      navigator.mediaSession.setActionHandler('seekbackward', () => {
+        this.status = ('Seek back');
+      });
+      navigator.mediaSession.setActionHandler('seekforward', () => {
+        this.status = ('Seek forward');
+      });
+      navigator.mediaSession.setActionHandler('previoustrack', () => {
+        this.status = ('Previous');
+      });
+      navigator.mediaSession.setActionHandler('nexttrack', () => {
+        this.status = ('Next');
+      });
+    }
+  }
+
   //#region Add meta-tags
   private ogMetaTags: HTMLMetaElement[] = [];
   ngOnInit() {
@@ -235,6 +273,10 @@ export class AppComponent implements OnInit, OnDestroy {
   /** Add this song to the User playlist, and start playing if necessary */
   addToPlaylist = (song: Song) => {
     this.playlistControl.addToPlaylist(song);
+    console.log(this.player);
+    setTimeout(() => {
+      this.setMediaSession();
+    }, 3000);
   }
 
   @ViewChild('player') player: YoutubePlayerComponent;
