@@ -25,15 +25,18 @@ namespace MintPlayer.Data.Repositories
 
 			// Get entity from database
 			var entity_subject = await mintplayer_context.Subjects.FindAsync(subject.Id);
-			foreach (var medium in media)
+			if (media != null)
 			{
-				var entity_medium = new Entities.Medium
+				foreach (var medium in media)
 				{
-					Subject = entity_subject,
-					Type = await mintplayer_context.MediumTypes.FindAsync(medium.Type.Id),
-					Value = medium.Value
-				};
-				await mintplayer_context.AddAsync(entity_medium);
+					var entity_medium = new Entities.Medium
+					{
+						Subject = entity_subject,
+						Type = await mintplayer_context.MediumTypes.FindAsync(medium.Type.Id),
+						Value = medium.Value
+					};
+					await mintplayer_context.AddAsync(entity_medium);
+				}
 			}
 		}
 

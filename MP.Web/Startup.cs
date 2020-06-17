@@ -98,9 +98,8 @@ namespace MintPlayer.Web
                 .AddControllersWithViews(options =>
                 {
                     options.RespectBrowserAcceptHeader = true;
-                    options.OutputFormatters.Insert(0, new Microsoft.AspNetCore.Mvc.Formatters.XmlDataContractSerializerOutputFormatter());
                 })
-                .AddXmlSerializerFormatters()
+                .AddXmlDataContractSerializerFormatters()
                 .AddSitemapXmlFormatters(options =>
                 {
                     options.StylesheetUrl = "/assets/stitemap.xsl";

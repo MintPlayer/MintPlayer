@@ -250,11 +250,14 @@ namespace MintPlayer.Data.Repositories
             };
 
             #region Tracks
-            entity_playlist.Tracks = playlist.Tracks.Select((song, index) =>
+            if (playlist.Tracks != null)
             {
-                var entity_song = mintplayer_context.Songs.Find(song.Id);
-                return new Entities.PlaylistSong(entity_playlist, entity_song) { Index = index };
-            }).ToList();
+                entity_playlist.Tracks = playlist.Tracks.Select((song, index) =>
+                {
+                    var entity_song = mintplayer_context.Songs.Find(song.Id);
+                    return new Entities.PlaylistSong(entity_playlist, entity_song) { Index = index };
+                }).ToList();
+            }
             #endregion
 
             return entity_playlist;

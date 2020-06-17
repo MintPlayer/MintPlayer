@@ -307,21 +307,33 @@ namespace MintPlayer.Data.Repositories
             };
 
             #region Members
-            var artist_person = artist.CurrentMembers.Select(person => {
-                var entity_person = mintplayer_context.People.Find(person.Id);
-                return new Entities.ArtistPerson(entity_artist, entity_person) { Active = true };
-            }).Union(artist.PastMembers.Select(person => {
-                var entity_person = mintplayer_context.People.Find(person.Id);
-                return new Entities.ArtistPerson(entity_artist, entity_person) { Active = false };
-            }));
-            entity_artist.Members = artist_person.ToList();
+            var current = artist.CurrentMembers == null
+                ? new Entities.ArtistPerson[0]
+                : artist.CurrentMembers.Select(person =>
+                {
+                    var entity_person = mintplayer_context.People.Find(person.Id);
+                    return new Entities.ArtistPerson(entity_artist, entity_person) { Active = true };
+                });
+            var past = artist.PastMembers == null
+                ? new Entities.ArtistPerson[0]
+                : artist.PastMembers.Select(person =>
+                {
+                    var entity_person = mintplayer_context.People.Find(person.Id);
+                    return new Entities.ArtistPerson(entity_artist, entity_person) { Active = false };
+                });
+
+            entity_artist.Members = current.Union(past).ToList();
             #endregion
             #region Media
-            entity_artist.Media = artist.Media.Select(m => {
-                var medium = MediumRepository.ToEntity(m, mintplayer_context);
-                medium.Subject = entity_artist;
-                return medium;
-            }).ToList();
+            if (artist.Media != null)
+            {
+                entity_artist.Media = artist.Media.Select(m =>
+                {
+                    var medium = MediumRepository.ToEntity(m, mintplayer_context);
+                    medium.Subject = entity_artist;
+                    return medium;
+                }).ToList();
+            }
             #endregion
             #region Tags
             if (artist.Tags != null)

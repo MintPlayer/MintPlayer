@@ -289,11 +289,15 @@ namespace MintPlayer.Data.Repositories
 				Died = person.Died
 			};
 			#region Media
-			entity_person.Media = person.Media.Select(m => {
-				var medium = MediumRepository.ToEntity(m, mintplayer_context);
-				medium.Subject = entity_person;
-				return medium;
-			}).ToList();
+			if (person.Media != null)
+			{
+				entity_person.Media = person.Media.Select(m =>
+				{
+					var medium = MediumRepository.ToEntity(m, mintplayer_context);
+					medium.Subject = entity_person;
+					return medium;
+				}).ToList();
+			}
 			#endregion
 			#region Tags
 			if (person.Tags != null)

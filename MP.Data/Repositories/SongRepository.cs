@@ -379,11 +379,14 @@ namespace MintPlayer.Data.Repositories
 				Title = song.Title,
 				Released = song.Released
 			};
-			entity_song.Artists = song.Artists.Select(artist =>
+			if (song.Artists != null)
 			{
-				var entity_artist = mintplayer_context.Artists.Find(artist.Id);
-				return new Entities.ArtistSong(entity_artist, entity_song);
-			}).ToList();
+				entity_song.Artists = song.Artists.Select(artist =>
+				{
+					var entity_artist = mintplayer_context.Artists.Find(artist.Id);
+					return new Entities.ArtistSong(entity_artist, entity_song);
+				}).ToList();
+			}
 			entity_song.Lyrics = new List<Entities.Lyrics>(new[] {
 				new Entities.Lyrics
 				{
@@ -393,11 +396,15 @@ namespace MintPlayer.Data.Repositories
 					Timeline = song.Lyrics.Timeline
 				},
 			});
-			entity_song.Media = song.Media.Select(m => {
-				var medium = MediumRepository.ToEntity(m, mintplayer_context);
-				medium.Subject = entity_song;
-				return medium;
-			}).ToList();
+			if (song.Media != null)
+			{
+				entity_song.Media = song.Media.Select(m =>
+				{
+					var medium = MediumRepository.ToEntity(m, mintplayer_context);
+					medium.Subject = entity_song;
+					return medium;
+				}).ToList();
+			}
 			#region Tags
 			if (song.Tags != null)
 			{
