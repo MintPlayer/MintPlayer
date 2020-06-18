@@ -695,7 +695,7 @@ namespace MintPlayer.Web
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
-                                case "person-show":
+                                case "person-show-name":
                                 case "person-edit":
                                     {
                                         var id = System.Convert.ToInt32(route.Parameters["id"]);
@@ -734,7 +734,7 @@ namespace MintPlayer.Web
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
-                                case "artist-show":
+                                case "artist-show-name":
                                 case "artist-edit":
                                     {
                                         var id = System.Convert.ToInt32(route.Parameters["id"]);
@@ -773,7 +773,7 @@ namespace MintPlayer.Web
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
-                                case "song-show":
+                                case "song-show-title":
                                 case "song-edit":
                                     {
                                         var id = System.Convert.ToInt32(route.Parameters["id"]);
