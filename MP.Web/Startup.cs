@@ -646,14 +646,12 @@ namespace MintPlayer.Web
 #pragma warning disable CS0618 // Type or member is obsolete
                     spa.UseSpaPrerendering(options =>
                     {
-                        options.BootModulePath = $"{spa.Options.SourcePath}/dist/server/main.js";
 #if RebuildSPA
-                        options.BootModuleBuilder = env.IsDevelopment()
-                            ? new AngularCliBuilder(npmScript: "build:ssr")
-                            : null;
+                        options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
 #else
                         options.BootModuleBuilder = null;
 #endif
+                        options.BootModulePath = $"{spa.Options.SourcePath}/dist/server/main.js";
                         options.ExcludeUrls = new[] { "/sockjs-node" };
                         options.SupplyData = async (context, data) =>
                         {
@@ -667,7 +665,7 @@ namespace MintPlayer.Web
                             var tagService = context.RequestServices.GetRequiredService<Data.Services.ITagService>();
                             var playlistService = context.RequestServices.GetRequiredService<Data.Services.IPlaylistService>();
                             var blogPostService = context.RequestServices.GetRequiredService<Data.Services.IBlogPostService>();
-
+                            
                             var user = await accountService.GetCurrentUser(context.User);
                             data["user"] = user;
 
