@@ -6,7 +6,6 @@ import { Song } from '../../../entities/song';
 import { PaginationResponse } from '../../../helpers/pagination-response';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 
 @Component({
   selector: 'app-list',

@@ -14,7 +14,14 @@ import { DatatableSettings } from '../../../controls/datatable/datatable-setting
 })
 export class PlaylistListComponent implements OnInit {
 
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('PLAYLISTS') playlistsInj: PaginationResponse<Playlist>, private playlistService: PlaylistService, private router: Router, private route: ActivatedRoute, private titleService: Title, private slugifyPipe: SlugifyPipe) {
+  constructor(
+    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject('PLAYLISTS') playlistsInj: PaginationResponse<Playlist>,
+    private playlistService: PlaylistService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title
+  ) {
     this.titleService.setTitle('My playlists');
     if (serverSide === true) {
       if (playlistsInj !== null) {

@@ -127,13 +127,13 @@ export class ShowComponent implements OnInit, OnDestroy {
       'datePublished': Date
     }[]
   } = {
-    '@context': 'http://schema.org',
-    '@type': 'MusicGroup',
-    'url': '',
-    'name': '',
-    'description': '',
-    'track': []
-  };
+      '@context': 'http://schema.org',
+      '@type': 'MusicGroup',
+      'url': '',
+      'name': '',
+      'description': '',
+      'track': []
+    };
 
   private loadArtist(id: number) {
     this.artistService.getArtist(id, true).then((artist) => {

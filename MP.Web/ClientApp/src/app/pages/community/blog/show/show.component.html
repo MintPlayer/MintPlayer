@@ -4,7 +4,8 @@
     <div class="col-12">
       <h1 class="d-inline-block">{{ blogPost.title }}</h1>
       <span *ngIf="isBlogger" class="float-none d-block float-sm-right d-sm-inline-block">
-        <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/community", "blog", blogPost.id, blogPost.title | slugify, "edit"]'><!-- to handle -->
+        <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/community", "blog", blogPost.id, blogPost.title | slugify, "edit"]'>
+          <!-- to handle -->
           <i class="fa fa-edit"></i>
           Edit
         </a>

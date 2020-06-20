@@ -29,41 +29,17 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
-    <Compile Remove="ClientApp\src\app\pages\tag-category\create\**" />
-    <Compile Remove="ClientApp\src\app\pages\tag-category\edit\**" />
-    <Compile Remove="ClientApp\src\app\pages\tag-category\list\**" />
-    <Compile Remove="ClientApp\src\app\pages\tag-category\show\**" />
-    <Compile Remove="ClientApp\src\app\pages\tag-category\tag\create\**" />
-    <Compile Remove="ClientApp\src\app\pages\tag-category\tag\edit\**" />
     <Compile Remove="ClientApp\src\app\pages\tagging\**" />
     <Compile Remove="Dtos\**" />
     <Compile Remove="Server\ViewModels\Subject\**" />
     <Content Remove="$(SpaRoot)**" />
-    <Content Remove="ClientApp\src\app\pages\tag-category\create\**" />
-    <Content Remove="ClientApp\src\app\pages\tag-category\edit\**" />
-    <Content Remove="ClientApp\src\app\pages\tag-category\list\**" />
-    <Content Remove="ClientApp\src\app\pages\tag-category\show\**" />
-    <Content Remove="ClientApp\src\app\pages\tag-category\tag\create\**" />
-    <Content Remove="ClientApp\src\app\pages\tag-category\tag\edit\**" />
     <Content Remove="ClientApp\src\app\pages\tagging\**" />
     <Content Remove="Dtos\**" />
     <Content Remove="Server\ViewModels\Subject\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\pages\tag-category\create\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\pages\tag-category\edit\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\pages\tag-category\list\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\pages\tag-category\show\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\pages\tag-category\tag\create\**" />
-    <EmbeddedResource Remove="ClientApp\src\app\pages\tag-category\tag\edit\**" />
     <EmbeddedResource Remove="ClientApp\src\app\pages\tagging\**" />
     <EmbeddedResource Remove="Dtos\**" />
     <EmbeddedResource Remove="Server\ViewModels\Subject\**" />
     <None Remove="$(SpaRoot)**" />
-    <None Remove="ClientApp\src\app\pages\tag-category\create\**" />
-    <None Remove="ClientApp\src\app\pages\tag-category\edit\**" />
-    <None Remove="ClientApp\src\app\pages\tag-category\list\**" />
-    <None Remove="ClientApp\src\app\pages\tag-category\show\**" />
-    <None Remove="ClientApp\src\app\pages\tag-category\tag\create\**" />
-    <None Remove="ClientApp\src\app\pages\tag-category\tag\edit\**" />
     <None Remove="ClientApp\src\app\pages\tagging\**" />
     <None Remove="Dtos\**" />
     <None Remove="Server\ViewModels\Subject\**" />

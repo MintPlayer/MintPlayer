@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 
 const routes: Routes = [
-  { path: 'privacy-policy', component: PrivacyPolicyComponent },
-  { path: 'terms-of-service', component: TermsOfServiceComponent }
+  { path: 'privacy-policy', loadChildren: () => import('./privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule) },
+  { path: 'terms-of-service', loadChildren: () => import('./terms-of-service/terms-of-service.module').then(m => m.TermsOfServiceModule) },
 ];
 
 @NgModule({

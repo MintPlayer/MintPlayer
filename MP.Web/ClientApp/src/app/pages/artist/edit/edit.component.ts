@@ -4,10 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { ArtistService } from '../../../services/artist/artist.service';
 import { Artist } from '../../../entities/artist';
-import { Person } from '../../../entities/person';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { MediumType } from '../../../entities/medium-type';
-import { Tag } from '../../../entities/tag';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -29,7 +27,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
       // Get mediumtypes
       this.loadMediumTypes();
     }
- }
+  }
 
   mediumTypes: MediumType[] = [];
   oldName: string = '';

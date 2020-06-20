@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
 import { AccountService } from '../../../services/account/account.service';
 import { UserData } from '../../../entities/user-data';

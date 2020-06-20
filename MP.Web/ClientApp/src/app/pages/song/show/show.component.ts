@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { SongService } from '../../../services/song/song.service';
 import { Song } from '../../../entities/song';
-import { PropertyBindingType } from '@angular/compiler';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { Subscription } from 'rxjs';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
@@ -146,7 +145,7 @@ export class ShowComponent implements OnInit, OnDestroy {
         content: '480'
       }, {
         property: 'twitter:player:height',
-          content: '270'
+        content: '270'
       }, {
         property: 'twitter:title',
         content: this.song.title

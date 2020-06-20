@@ -2,14 +2,11 @@ import { Component, OnInit, Inject, OnDestroy, HostListener, KeyValueDiffers, Ke
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { Artist } from '../../../entities/artist';
-import { Person } from '../../../entities/person';
 import { ArtistService } from '../../../services/artist/artist.service';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { MediumType } from '../../../entities/medium-type';
 import { Title } from '@angular/platform-browser';
-import { Tag } from '../../../entities/tag';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { HasChanges } from '../../../interfaces/has-changes';

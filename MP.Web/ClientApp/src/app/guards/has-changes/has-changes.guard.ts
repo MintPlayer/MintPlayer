@@ -11,7 +11,10 @@ export class HasChangesGuard implements CanDeactivate<HasChanges> {
 
   canDeactivate(component: HasChanges, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot) {
     let ev = new MyBeforeUnloadEvent();
-    component.beforeUnload(ev);
+    if (component !== null) {
+      component.beforeUnload(ev);
+    }
+
     if (ev.defaultPrevented) {
       return false;
     } else {

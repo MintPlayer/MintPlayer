@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { SearchComponent } from './search/search.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { IsLoggedInGuard } from '../guards/is-logged-in/is-logged-in.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'search', component: SearchComponent },
-  { path: 'search/:searchTerm', component: SearchComponent },
+  { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
+  { path: 'search', loadChildren: () => import('./search/search.module').then(m => m.SearchModule) },
+  { path: 'search/:searchTerm', loadChildren: () => import('./search/search.module').then(m => m.SearchModule) },
   { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   { path: 'person', loadChildren: () => import('./person/person.module').then(m => m.PersonModule) },
   { path: 'artist', loadChildren: () => import('./artist/artist.module').then(m => m.ArtistModule) },
@@ -18,7 +15,7 @@ const routes: Routes = [
   { path: 'tag/category', loadChildren: () => import('./tag-category/tag-category.module').then(m => m.TagCategoryModule) },
   { path: 'community', loadChildren: () => import('./community/community.module').then(m => m.CommunityModule) },
   { path: 'gdpr', loadChildren: () => import('./gdpr/gdpr.module').then(m => m.GdprModule) },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule) },
 ];
 
 @NgModule({
