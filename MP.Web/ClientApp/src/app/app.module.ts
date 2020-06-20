@@ -22,14 +22,11 @@ import { DirectivesModule } from './directives/directives.module';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule,
-    AppRoutingModule,
     ControlsModule,
     ComponentsModule,
-    DirectivesModule,
-    PipesModule,
+    TranslateModule.forChild(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    TranslateModule.forChild()
+    AppRoutingModule,
   ],
   providers: [
     LinifyPipe
