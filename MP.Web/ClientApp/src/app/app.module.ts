@@ -13,6 +13,7 @@ import { PipesModule } from './pipes/pipes.module';
 import { environment } from '../environments/environment';
 import { LinifyPipe } from './pipes/linify/linify.pipe';
 import { DirectivesModule } from './directives/directives.module';
+import { QueryParamsHandlingModule } from './directives/query-params-handling/query-params-handling.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DirectivesModule } from './directives/directives.module';
     HttpClientModule,
     ControlsModule,
     ComponentsModule,
+    QueryParamsHandlingModule, // For language queryparam
     TranslateModule.forChild(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,

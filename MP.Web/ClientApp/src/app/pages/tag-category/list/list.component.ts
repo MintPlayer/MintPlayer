@@ -6,6 +6,7 @@ import { TagCategoryService } from '../../../services/tag-category/tag-category.
 import { PaginationResponse } from '../../../helpers/pagination-response';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-list',
@@ -18,7 +19,7 @@ export class ListComponent implements OnInit, OnDestroy {
     @Inject('SERVERSIDE') private serverSide: boolean,
     @Inject('TAGCATEGORIES') private tagCategoriesInj: PaginationResponse<TagCategory>,
     private categoryService: TagCategoryService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private titleService: Title,
     private metaService: Meta,
     private htmlLink: HtmlLinkHelper

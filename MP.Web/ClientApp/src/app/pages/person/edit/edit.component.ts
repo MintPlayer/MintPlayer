@@ -11,6 +11,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -22,7 +23,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('SERVERSIDE') private serverSide: boolean,
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -87,7 +88,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   updatePerson() {
     this.personService.updatePerson(this.person).then((person) => {
       this.hasChanges = false;
-      this.router.navigate(['person', this.person.id, this.slugifyHelper.slugify(person.text)]);
+      this.navigation.navigate(['person', this.person.id, this.slugifyHelper.slugify(person.text)]);
     }).catch((error) => {
       console.error('Could not update person', error);
     });

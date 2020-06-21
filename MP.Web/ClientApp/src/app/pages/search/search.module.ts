@@ -7,6 +7,8 @@ import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
 import { ControlsModule } from '../../controls/controls.module';
 import { PipesModule } from '../../pipes/pipes.module';
+import { DirectivesModule } from '../../directives/directives.module';
+import { QueryParamsHandlingModule } from '../../directives/query-params-handling/query-params-handling.module';
 
 
 @NgModule({
@@ -16,6 +18,7 @@ import { PipesModule } from '../../pipes/pipes.module';
     FormsModule,
     ControlsModule,
     PipesModule,
+    QueryParamsHandlingModule,
     TranslateModule,
     SearchRoutingModule
   ]

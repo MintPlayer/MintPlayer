@@ -5,6 +5,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { DirectivesModule } from '../../directives/directives.module';
+import { QueryParamsHandlingModule } from '../../directives/query-params-handling/query-params-handling.module';
 
 
 @NgModule({
@@ -13,6 +15,7 @@ import { HomeComponent } from './home.component';
     CommonModule,
     NgxJsonLdModule,
     TranslateModule,
+    QueryParamsHandlingModule,
     HomeRoutingModule
   ]
 })

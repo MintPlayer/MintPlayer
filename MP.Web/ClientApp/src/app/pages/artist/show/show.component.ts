@@ -5,6 +5,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Artist } from '../../../entities/artist';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -18,7 +19,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('ARTIST') private artistInj: Artist,
     @Inject('BASE_URL') private baseUrl: string,
     private artistService: ArtistService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
@@ -176,7 +177,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteArtist() {
     this.artistService.deleteArtist(this.artist).then(() => {
-      this.router.navigate(['artist']);
+      this.navigation.navigate(['artist']);
     }).catch((error) => {
       console.error('Could not delete artist', error);
     });

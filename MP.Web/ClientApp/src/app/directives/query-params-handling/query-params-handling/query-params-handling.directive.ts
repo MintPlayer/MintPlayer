@@ -4,6 +4,8 @@ import { RouterLinkWithHref, QueryParamsHandling } from '@angular/router';
 @Directive({
   selector: 'a[routerLink]'
 })
-export class QueryParamsHandlingDirective extends RouterLinkWithHref {
-  queryParamsHandling: QueryParamsHandling = 'merge';
+export class QueryParamsHandlingDirective {
+  constructor(routerLink: RouterLinkWithHref) {
+    routerLink.queryParamsHandling = 'merge';
+  }
 }

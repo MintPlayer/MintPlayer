@@ -6,6 +6,7 @@ import { Song } from '../../../entities/song';
 import { PaginationResponse } from '../../../helpers/pagination-response';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-list',
@@ -17,7 +18,7 @@ export class ListComponent implements OnInit, OnDestroy {
     @Inject('SERVERSIDE') private serverSide: boolean,
     @Inject('SONGS') private songsInj: PaginationResponse<Song>,
     private songService: SongService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,

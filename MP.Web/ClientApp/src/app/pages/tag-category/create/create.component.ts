@@ -6,6 +6,7 @@ import { TagCategoryService } from '../../../services/tag-category/tag-category.
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -16,7 +17,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
     private tagCategoryService: TagCategoryService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private differs: KeyValueDiffers
@@ -34,7 +35,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public saveCategory() {
     this.tagCategoryService.createTagCategory(this.tagCategory).then((category) => {
       this.hasChanges = false;
-      this.router.navigate(['tag', 'category', category.id]);
+      this.navigation.navigate(['tag', 'category', category.id]);
     }).catch((error) => {
       console.log('Could not create tag category', error);
     });

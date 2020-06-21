@@ -6,6 +6,7 @@ import { AccountService } from '../../../services/account/account.service';
 import { LoginResult } from '../../../entities/login-result';
 import { User } from '../../../entities/user';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private accountService: AccountService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private htmlLink: HtmlLinkHelper,
     private metaService: Meta
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
     this.removeMetaTags();
-    this.router.navigate([], {
+    this.navigation.navigate([], {
       queryParams: {
         return: null
       }
@@ -95,7 +96,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   login() {
     this.accountService.login(this.email, this.password).then((result) => {
       if (result.status === true) {
-        this.router.navigateByUrl(this.returnUrl, {
+        this.navigation.navigateByUrl(this.returnUrl, {
           queryParamsHandling: '',
           queryParams: {
             'lang': this.route.snapshot.queryParamMap.get('lang')
@@ -121,7 +122,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (result.status) {
       this.accountService.currentUser().then((user) => {
         this.loginComplete.emit(user);
-        this.router.navigateByUrl(this.returnUrl, {
+        this.navigation.navigateByUrl(this.returnUrl, {
           queryParamsHandling: '',
           queryParams: {
             'lang': this.route.snapshot.queryParamMap.get('lang')

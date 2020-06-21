@@ -12,6 +12,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -25,7 +26,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private songService: SongService,
     private mediumTypeService: MediumTypeService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -87,7 +88,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   saveSong() {
     this.songService.createSong(this.song).then((song) => {
       this.hasChanges = false;
-      this.router.navigate(['song', song.id, this.slugifyHelper.slugify(song.title)]);
+      this.navigation.navigate(['song', song.id, this.slugifyHelper.slugify(song.title)]);
     }).catch((error) => {
       console.error('Could not create song', error);
     });

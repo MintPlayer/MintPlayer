@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -20,7 +21,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private slugifyHelper: SlugifyHelper,
@@ -77,7 +78,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
   savePlaylist() {
     this.playlistService.updatePlaylist(this.playlist).then((playlist) => {
       this.hasChanges = false;
-      this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
+      this.navigation.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
     }).catch((error) => {
       debugger;
     });

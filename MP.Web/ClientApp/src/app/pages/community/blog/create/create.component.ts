@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SlugifyPipe } from '../../../../pipes/slugify/slugify.pipe';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -17,7 +18,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
     private titleService: Title,
     private blogPostService: BlogPostService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private slugifyPipe: SlugifyPipe,
     private differs: KeyValueDiffers
   ) {
@@ -36,7 +37,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   saveBlogPost() {
     this.blogPostService.createBlogPost(this.blogPost).then((blogPost) => {
       this.hasChanges = false;
-      this.router.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
+      this.navigation.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
     }).catch((error) => {
       console.log(error);
     });

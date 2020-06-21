@@ -5,6 +5,7 @@ import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { Playlist } from '../../../entities/playlist';
 import { PlayButtonClickedEvent } from '../../../events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -17,7 +18,7 @@ export class PlaylistShowComponent implements OnInit {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title
   ) {
@@ -46,7 +47,7 @@ export class PlaylistShowComponent implements OnInit {
 
   deletePlaylist() {
     this.playlistService.deletePlaylist(this.playlist).then(() => {
-      this.router.navigate(['playlist']);
+      this.navigation.navigate(['playlist']);
     }).catch((error) => {
       console.error('Could not delete playlist', error);
     });

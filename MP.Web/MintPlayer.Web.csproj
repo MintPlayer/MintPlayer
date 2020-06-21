@@ -59,6 +59,7 @@
     <None Remove="ClientApp\src\app\app.browser.module.ts" />
     <None Remove="ClientApp\src\app\components\social-logins\base-login.component.ts" />
     <None Remove="ClientApp\src\app\controls\autocomplete\IAutocompleteElement.ts" />
+    <None Remove="ClientApp\src\app\directives\query-params-handling\query-params-handling.module.ts" />
     <None Remove="ClientApp\src\app\entities\artist.ts" />
     <None Remove="ClientApp\src\app\entities\blog-post.ts" />
     <None Remove="ClientApp\src\app\entities\login-result.ts" />
@@ -93,6 +94,7 @@
     <None Remove="ClientApp\src\app\helpers\facebook-sdk.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\html-link.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\linkedin-sdk.helper.ts" />
+    <None Remove="ClientApp\src\app\helpers\navigation.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\pagination-request.ts" />
     <None Remove="ClientApp\src\app\helpers\pagination-response.ts" />
     <None Remove="ClientApp\src\app\helpers\player-type.helper.ts" />
@@ -166,6 +168,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\app.browser.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\components\social-logins\base-login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\controls\autocomplete-element.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\directives\query-params-handling\query-params-handling.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\artist.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\blog-post.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\login-result.ts" />
@@ -200,6 +203,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\helpers\facebook-sdk.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\html-link.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\linkedin-sdk.helper.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\helpers\navigation.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\pagination-request.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\pagination-response.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\player-type.helper.ts" />

@@ -11,6 +11,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -24,7 +25,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
@@ -63,7 +64,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   savePerson() {
     this.personService.createPerson(this.person).then((person) => {
       this.hasChanges = false;
-      this.router.navigate(['person', person.id, this.slugifyHelper.slugify(person.text)]);
+      this.navigation.navigate(['person', person.id, this.slugifyHelper.slugify(person.text)]);
     }).catch((error) => {
       console.error('Could not create person', error);
     });

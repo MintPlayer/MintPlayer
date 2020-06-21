@@ -12,6 +12,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -23,7 +24,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('SERVERSIDE') private serverSide: boolean,
     private songService: SongService,
     private mediumTypeService: MediumTypeService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -99,7 +100,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public updateSong() {
     this.songService.updateSong(this.song).then((song) => {
       this.hasChanges = false;
-      this.router.navigate(['song', this.song.id, this.slugifyHelper.slugify(song.title)]);
+      this.navigation.navigate(['song', this.song.id, this.slugifyHelper.slugify(song.title)]);
     }).catch((error) => {
       console.error('Could not update song', error);
     });

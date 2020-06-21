@@ -1,6 +1,7 @@
 import { Component, Input, Inject, IterableDiffers, IterableDiffer, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-twitter-share',
@@ -13,7 +14,12 @@ import { LocationStrategy } from '@angular/common';
 })
 export class TwitterShareComponent implements AfterViewChecked {
 
-  constructor(private router: Router, private locationStrategy: LocationStrategy, differs: IterableDiffers, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(
+    private navigation: NavigationHelper,
+    private locationStrategy: LocationStrategy,
+    differs: IterableDiffers,
+    @Inject('BASE_URL') private baseUrl: string
+  ) {
     this.differ = differs.find(this.commands).create(null);
   }
 
@@ -46,8 +52,8 @@ export class TwitterShareComponent implements AfterViewChecked {
 
 
   private updateHref() {
-    let urlTree = this.router.createUrlTree(this.commands);
-    let urlSerialized = this.router.serializeUrl(urlTree);
+    let urlTree = this.navigation.createUrlTree(this.commands);
+    let urlSerialized = this.navigation.serializeUrl(urlTree);
     this.href = this.baseUrl + this.locationStrategy.prepareExternalUrl(urlSerialized);
   }
 

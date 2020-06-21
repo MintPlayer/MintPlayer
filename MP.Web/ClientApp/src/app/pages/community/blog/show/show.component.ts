@@ -7,6 +7,7 @@ import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../../helpers/url-generator.helper';
 import { WordCountPipe } from '../../../../pipes/word-count/word-count.pipe';
 import { AccountService } from '../../../../services/account/account.service';
+import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -21,7 +22,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('BASE_URL') private baseUrl: string,
     private blogPostService: BlogPostService,
     private accountService: AccountService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
@@ -207,7 +208,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteBlogPost() {
     this.blogPostService.deleteBlogPost(this.blogPost).then(() => {
-      this.router.navigate(['/community', 'blog']);
+      this.navigation.navigate(['/community', 'blog']);
     }).catch((error) => {
       console.error('Could not delete blog post', error);
     });

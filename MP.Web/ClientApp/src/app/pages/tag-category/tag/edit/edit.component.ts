@@ -6,6 +6,7 @@ import { Tag } from '../../../../entities/tag';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -18,7 +19,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('SERVERSIDE') private serverSide: boolean,
     @Inject('TAG') private tagInj: Tag,
     private tagService: TagService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -68,7 +69,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public updateTag() {
     this.tagService.updateTag(this.tag).then((tag) => {
       this.hasChanges = false;
-      this.router.navigate(['tag', 'category', tag.category.id, 'tags', tag.id]);
+      this.navigation.navigate(['tag', 'category', tag.category.id, 'tags', tag.id]);
     }).catch((error) => {
       console.log('Could not update tag', error);
     });

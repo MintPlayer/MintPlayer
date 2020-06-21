@@ -6,6 +6,7 @@ import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { Playlist } from '../../../entities/playlist';
 import { PaginationResponse } from '../../../helpers/pagination-response';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-list',
@@ -18,7 +19,7 @@ export class PlaylistListComponent implements OnInit {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('PLAYLISTS') playlistsInj: PaginationResponse<Playlist>,
     private playlistService: PlaylistService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title
   ) {

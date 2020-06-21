@@ -6,6 +6,7 @@ import { SongService } from '../../../services/song/song.service';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-sync',
@@ -18,7 +19,7 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('SONG') private songInj: Song,
     private songService: SongService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private slugifyHelper: SlugifyHelper,
@@ -55,7 +56,7 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
   updateTimeline() {
     this.songService.updateTimeline(this.song).then(() => {
       this.hasChanges = false;
-      this.router.navigate(['/song', this.song.id, this.slugifyHelper.slugify(this.song.text)]);
+      this.navigation.navigate(['/song', this.song.id, this.slugifyHelper.slugify(this.song.text)]);
     }).catch((error) => {
       console.error(error);
     });

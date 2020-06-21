@@ -10,6 +10,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -17,7 +18,15 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
   styleUrls: ['./create.component.scss']
 })
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
-  constructor(private mediumTypeService: MediumTypeService, private playerTypeHelper: PlayerTypeHelper, private router: Router, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(
+    private mediumTypeService: MediumTypeService,
+    private playerTypeHelper: PlayerTypeHelper,
+    private navigation: NavigationHelper,
+    private titleService: Title,
+    private htmlLink: HtmlLinkHelper,
+    private slugifyHelper: SlugifyHelper,
+    private differs: KeyValueDiffers
+  ) {
     this.titleService.setTitle('Create medium type');
     this.playerTypes = this.playerTypeHelper.getPlayerTypes();
   }
@@ -36,7 +45,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public saveMediumType() {
     this.mediumTypeService.createMediumType(this.mediumType).then((mediumType) => {
       this.hasChanges = false;
-      this.router.navigate(['mediumtype', mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
+      this.navigation.navigate(['mediumtype', mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
     }).catch((error) => {
       console.error('Could not create medium type', error);
     });

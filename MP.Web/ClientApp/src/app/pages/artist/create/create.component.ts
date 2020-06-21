@@ -10,6 +10,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { HasChanges } from '../../../interfaces/has-changes';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -22,7 +23,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private artistService: ArtistService,
     private mediumTypeService: MediumTypeService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
@@ -62,7 +63,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   saveArtist() {
     this.artistService.createArtist(this.artist).then((artist) => {
       this.hasChanges = false;
-      this.router.navigate(['/artist', artist.id, this.slugifyHelper.slugify(artist.name)]);
+      this.navigation.navigate(['/artist', artist.id, this.slugifyHelper.slugify(artist.name)]);
     }).catch((error) => {
       console.error('Could not create artist', error);
     });

@@ -6,6 +6,7 @@ import { CreateRoutingModule } from './create-routing.module';
 import { PlaylistCreateComponent } from './create.component';
 import { ControlsModule } from '../../../controls/controls.module';
 import { DirectivesModule } from '../../../directives/directives.module';
+import { QueryParamsHandlingModule } from '../../../directives/query-params-handling/query-params-handling.module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { DirectivesModule } from '../../../directives/directives.module';
     FormsModule,
     ControlsModule,
     DirectivesModule,
+    QueryParamsHandlingModule,
     CreateRoutingModule
   ]
 })

@@ -7,6 +7,7 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { DirectivesModule } from '../../../directives/directives.module';
 import { SocialLoginsModule } from '../../../components/social-logins/social-logins.module';
+import { QueryParamsHandlingModule } from '../../../directives/query-params-handling/query-params-handling.module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { SocialLoginsModule } from '../../../components/social-logins/social-log
     CommonModule,
     FormsModule,
     DirectivesModule,
+    QueryParamsHandlingModule,
     SocialLoginsModule,
     TranslateModule,
     LoginRoutingModule

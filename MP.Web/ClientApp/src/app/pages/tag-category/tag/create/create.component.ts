@@ -8,6 +8,7 @@ import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { TagCategory } from '../../../../entities/tag-category';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -21,7 +22,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('TAGCATEGORY') tagCategoryInj: TagCategory,
     private tagCategoryService: TagCategoryService,
     private tagService: TagService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -77,7 +78,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     this.tagService.createTag(this.tag).then((tag) => {
       this.hasChanges = false;
       var categoryId = parseInt(this.route.snapshot.paramMap.get('category_id'));
-      this.router.navigate(['/tag', 'category', categoryId, 'tags', tag.id]);
+      this.navigation.navigate(['/tag', 'category', categoryId, 'tags', tag.id]);
     }).catch((error) => {
       console.log(error);
     });

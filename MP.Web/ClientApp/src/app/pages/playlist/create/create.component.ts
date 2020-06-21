@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -17,7 +18,7 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
 
   constructor(
     private playlistService: PlaylistService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers
   ) {
@@ -46,7 +47,7 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
   savePlaylist() {
     this.playlistService.createPlaylist(this.playlist).then((playlist) => {
       this.hasChanges = false;
-      this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
+      this.navigation.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
     }).catch((error) => {
       debugger;
     });

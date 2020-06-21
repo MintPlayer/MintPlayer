@@ -7,6 +7,7 @@ import { ePlayerType } from '../../../enums/ePlayerType';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -18,7 +19,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
     private mediumTypeService: MediumTypeService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
@@ -101,7 +102,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteMediumType() {
     this.mediumTypeService.deleteMediumType(this.mediumType).then(() => {
-      this.router.navigate(['mediumtype']);
+      this.navigation.navigate(['mediumtype']);
     }).catch((error) => {
       console.error('Could not delete medium type', error);
     });

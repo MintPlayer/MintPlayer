@@ -7,6 +7,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { Subscription } from 'rxjs';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -22,7 +23,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('SONG') private songInj: Song,
     @Inject('BASE_URL') private baseUrl: string,
     private songService: SongService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
@@ -261,7 +262,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteSong() {
     this.songService.deleteSong(this.song).then(() => {
-      this.router.navigate(['song']);
+      this.navigation.navigate(['song']);
     }).catch((error) => {
       console.error('Could not delete song', error);
     });

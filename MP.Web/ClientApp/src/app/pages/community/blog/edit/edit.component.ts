@@ -6,6 +6,7 @@ import { SlugifyPipe } from '../../../../pipes/slugify/slugify.pipe';
 import { BlogPost } from '../../../../entities/blog-post';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -17,7 +18,7 @@ export class EditComponent implements OnInit, DoCheck, HasChanges {
   constructor(
     @Inject('SERVERSIDE') private serverSide: boolean,
     private blogPostService: BlogPostService,
-    private router: Router,
+    private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
     private slugifyPipe: SlugifyPipe,
@@ -64,7 +65,7 @@ export class EditComponent implements OnInit, DoCheck, HasChanges {
   updateBlogPost() {
     this.blogPostService.updateBlogPost(this.blogPost).then((blogPost) => {
       this.hasChanges = false;
-      this.router.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
+      this.navigation.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
     }).catch((error) => {
       console.log(error);
     });

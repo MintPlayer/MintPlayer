@@ -10,6 +10,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -17,7 +18,18 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType, private mediumTypeService: MediumTypeService, private playerTypeHelper: PlayerTypeHelper, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(
+    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
+    private mediumTypeService: MediumTypeService,
+    private playerTypeHelper: PlayerTypeHelper,
+    private navigation: NavigationHelper,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private htmlLink: HtmlLinkHelper,
+    private slugifyHelper: SlugifyHelper,
+    private differs: KeyValueDiffers
+  ) {
     this.playerTypes = this.playerTypeHelper.getPlayerTypes();
 
     if (serverSide) {
@@ -61,7 +73,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public updateMediumType() {
     this.mediumTypeService.updateMediumType(this.mediumType).then((mediumType) => {
       this.hasChanges = false;
-      this.router.navigate(['mediumtype', this.mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
+      this.navigation.navigate(['mediumtype', this.mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
     }).catch((error) => {
       console.error('Could not update medium type', error);
     });
