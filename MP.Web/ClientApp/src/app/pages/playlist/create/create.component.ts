@@ -15,7 +15,12 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 })
 export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(private playlistService: PlaylistService, private router: Router, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(
+    private playlistService: PlaylistService,
+    private router: Router,
+    private slugifyHelper: SlugifyHelper,
+    private differs: KeyValueDiffers
+  ) {
   }
 
   songSuggestHttpHeaders: HttpHeaders = new HttpHeaders({

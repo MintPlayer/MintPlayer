@@ -21,7 +21,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private metaService: Meta
   ) {
     this.titleService.setTitle('Medium types');
-    if (this.serverSide) {
+    if (serverSide === true) {
       this.setMediumTypes(mediumtypesInj);
     } else {
       this.loadMediumTypes();

@@ -15,6 +15,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 export class ListComponent implements OnInit, OnDestroy {
 
   constructor(
+    @Inject('SERVERSIDE') private serverSide: boolean,
     @Inject('ARTISTS') private artistsInj: PaginationResponse<Artist>,
     private artistService: ArtistService,
     private router: Router,
@@ -24,10 +25,10 @@ export class ListComponent implements OnInit, OnDestroy {
     private metaService: Meta
   ) {
     this.titleService.setTitle('Artists');
-    if (artistsInj === null) {
-      this.loadArtists();
-    } else {
+    if (serverSide === true) {
       this.setArtistData(artistsInj);
+    } else {
+      this.loadArtists();
     }
   }
 
@@ -90,6 +91,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   private setArtistData(data: PaginationResponse<Artist>) {
+    console.log('artist data', data);
     this.artistData = data;
     this.tableSettings.pages.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }

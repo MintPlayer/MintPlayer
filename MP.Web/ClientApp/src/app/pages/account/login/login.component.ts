@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
@@ -13,7 +13,13 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  constructor(private accountService: AccountService, private router: Router, private route: ActivatedRoute, private htmlLink: HtmlLinkHelper, private metaService: Meta) {
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private htmlLink: HtmlLinkHelper,
+    private metaService: Meta
+  ) {
   }
 
   ngOnInit() {

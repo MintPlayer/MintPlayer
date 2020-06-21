@@ -14,7 +14,13 @@ import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
 })
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(private titleService: Title, private blogPostService: BlogPostService, private router: Router, private slugifyPipe: SlugifyPipe, private differs: KeyValueDiffers) {
+  constructor(
+    private titleService: Title,
+    private blogPostService: BlogPostService,
+    private router: Router,
+    private slugifyPipe: SlugifyPipe,
+    private differs: KeyValueDiffers
+  ) {
     this.titleService.setTitle('Write new blog post');
   }
 

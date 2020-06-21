@@ -53,7 +53,7 @@ namespace MintPlayer.Data.Repositories
                 .Take(request.PerPage);
 
             // 3) Convert to DTO
-            var dto_tags = paged_tags.Select(tag => ToDto(tag, false));
+            var dto_tags = await paged_tags.Select(tag => ToDto(tag, false)).ToListAsync();
 
             var count_tags = await mintplayer_context.Tags.CountAsync();
             return new PaginationResponse<Tag>(request, count_tags, dto_tags);

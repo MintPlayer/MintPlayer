@@ -54,7 +54,7 @@ namespace MintPlayer.Data.Repositories
 				.Take(request.PerPage);
 
 			// 3) Convert to DTO
-			var dto_people = paged_people.Select(person => ToDto(person, false, false));
+			var dto_people = await paged_people.Select(person => ToDto(person, false, false)).ToListAsync();
 
 			var count_people = await people.CountAsync();
 			return new Pagination.PaginationResponse<Person>(request, count_people, dto_people);

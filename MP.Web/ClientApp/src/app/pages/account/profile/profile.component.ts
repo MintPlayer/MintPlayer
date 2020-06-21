@@ -9,21 +9,23 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  constructor(@Inject('LOGINS') private loginsInj: string[], @Inject('PROVIDERS') private providersInj: string[], private accountService: AccountService, private htmlLink: HtmlLinkHelper) {
-    if (loginsInj === null) {
+  constructor(
+    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject('LOGINS') private loginsInj: string[],
+    @Inject('PROVIDERS') private providersInj: string[],
+    private accountService: AccountService,
+    private htmlLink: HtmlLinkHelper
+  ) {
+    if (serverSide === true) {
+      this.userLogins = loginsInj;
+      this.loginProviders = providersInj;
+    } else {
       this.accountService.getLogins().then((logins) => {
         this.userLogins = logins;
       });
-    } else {
-      this.userLogins = loginsInj;
-    }
-
-    if (providersInj === null) {
       this.accountService.getProviders().then((providers) => {
         this.loginProviders = providers;
       });
-    } else {
-      this.loginProviders = providersInj;
     }
   }
 

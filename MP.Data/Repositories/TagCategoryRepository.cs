@@ -49,7 +49,7 @@ namespace MintPlayer.Data.Repositories
                 .Take(request.PerPage);
 
             // 3) Convert to DTO
-            var dto_tag_categories = paged_tag_categories.Select(tag_category => ToDto(tag_category, false));
+            var dto_tag_categories = await paged_tag_categories.Select(tag_category => ToDto(tag_category, false)).ToListAsync();
 
             var count_tag_catgegories = await mintplayer_context.TagCategories.CountAsync();
             return new Pagination.PaginationResponse<TagCategory>(request, count_tag_catgegories, dto_tag_categories);

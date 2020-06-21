@@ -15,6 +15,7 @@ import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 })
 export class ListComponent implements OnInit, OnDestroy {
   constructor(
+    @Inject('SERVERSIDE') private serverSide: boolean,
     @Inject('PEOPLE') private peopleInj: PaginationResponse<Person>,
     private personService: PersonService,
     private router: Router,
@@ -24,7 +25,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private metaService: Meta
   ) {
     this.titleService.setTitle('People');
-    if (peopleInj === null) {
+    if (serverSide === false) {
       this.loadPeople();
     } else {
       this.setPersonData(peopleInj);

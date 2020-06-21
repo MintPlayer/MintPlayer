@@ -44,26 +44,36 @@ namespace MintPlayer.Data.Repositories
 			this.elasticSearchJobRepository = elasticSearchJobRepository;
 		}
 
-		public async Task<Pagination.PaginationResponse<Song>> PageSongs(Pagination.PaginationRequest<Song> request)
-		{
-			var songs = mintplayer_context.Songs;
+        public async Task<Pagination.PaginationResponse<Song>> PageSongs(Pagination.PaginationRequest<Song> request)
+        {
+            var songs = mintplayer_context.Songs;
 
-			// 1) Sort
-			var ordered_songs = request.SortDirection == System.ComponentModel.ListSortDirection.Descending
-				? songs.OrderByDescending(request.SortProperty)
-				: songs.OrderBy(request.SortProperty);
+            // 1) Sort
+            var ordered_songs = request.SortDirection == System.ComponentModel.ListSortDirection.Descending
+                ? songs.OrderByDescending(request.SortProperty)
+                : songs.OrderBy(request.SortProperty);
 
-			// 2) Page
-			var paged_songs = ordered_songs
-				.Skip((request.Page - 1) * request.PerPage)
-				.Take(request.PerPage);
+            // 2) Page
+            var paged_songs = ordered_songs
+			   .Skip((request.Page - 1) * request.PerPage)
+			   .Take(request.PerPage);
 
-			// 3) Convert to DTO
-			var dto_songs = paged_songs.Select(song => ToDto(song, false, false));
+            // 3) Convert to DTO
+            var dto_songs = await paged_songs.Select(song => ToDto(song, false, false)).ToListAsync();
 
-			var count_songs = await mintplayer_context.Songs.CountAsync();
-			return new Pagination.PaginationResponse<Song>(request, count_songs, dto_songs);
-		}
+            var count_songs = await mintplayer_context.Songs.CountAsync();
+            return new Pagination.PaginationResponse<Song>(request, count_songs, dto_songs);
+
+            //var songs = mintplayer_context.Songs
+            //	.Select(song => ToDto(song, false, false))
+            //	.ToList();
+
+            //return new Pagination.PaginationResponse<Song>(
+            //	request,
+            //	songs.Count,
+            //	songs
+            //);
+        }
 
 		public Task<IEnumerable<Song>> GetSongs(bool include_relations, bool include_invisible_media)
 		{

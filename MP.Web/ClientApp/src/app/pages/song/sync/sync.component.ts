@@ -14,7 +14,16 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 })
 export class SyncComponent implements OnInit, DoCheck, HasChanges {
 
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('SONG') private songInj: Song, private songService: SongService, private router: Router, private route: ActivatedRoute, private titleService: Title, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(
+    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject('SONG') private songInj: Song,
+    private songService: SongService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private slugifyHelper: SlugifyHelper,
+    private differs: KeyValueDiffers
+  ) {
     if (serverSide === true) {
       this.setSong(songInj);
     } else {

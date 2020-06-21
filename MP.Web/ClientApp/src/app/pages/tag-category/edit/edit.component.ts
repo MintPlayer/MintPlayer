@@ -14,7 +14,15 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private tagCategoryService: TagCategoryService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private differs: KeyValueDiffers) {
+  constructor(
+    @Inject('SERVERSIDE') private serverSide: boolean,
+    private tagCategoryService: TagCategoryService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private htmlLink: HtmlLinkHelper,
+    private differs: KeyValueDiffers
+  ) {
     if (serverSide === false) {
       // Get category
       var id = parseInt(this.route.snapshot.paramMap.get('id'));

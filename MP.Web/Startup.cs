@@ -16,13 +16,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SpaServices.Routing;
+using MintPlayer.Data;
 using MintPlayer.Data.Extensions;
+using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
 using MintPlayer.Web.Services;
 using Spa.SpaRoutes;
@@ -653,20 +656,22 @@ namespace MintPlayer.Web
 #endif
                         options.BootModulePath = $"{spa.Options.SourcePath}/dist/server/main.js";
                         options.ExcludeUrls = new[] { "/sockjs-node" };
-                        options.SupplyData = async (context, data) =>
+
+                        // Due to a bug in .NET Core, the SupplyData delegate cannot be async.
+                        options.SupplyData = (context, data) =>
                         {
                             var route = spaRouteService.GetCurrentRoute(context);
-                            var personService = context.RequestServices.GetRequiredService<Data.Services.IPersonService>();
-                            var artistService = context.RequestServices.GetRequiredService<Data.Services.IArtistService>();
-                            var songService = context.RequestServices.GetRequiredService<Data.Services.ISongService>();
-                            var mediumTypeService = context.RequestServices.GetRequiredService<Data.Services.IMediumTypeService>();
-                            var accountService = context.RequestServices.GetRequiredService<Data.Services.IAccountService>();
-                            var tagCategoryService = context.RequestServices.GetRequiredService<Data.Services.ITagCategoryService>();
-                            var tagService = context.RequestServices.GetRequiredService<Data.Services.ITagService>();
-                            var playlistService = context.RequestServices.GetRequiredService<Data.Services.IPlaylistService>();
-                            var blogPostService = context.RequestServices.GetRequiredService<Data.Services.IBlogPostService>();
+                            var personService = context.RequestServices.GetService<Data.Services.IPersonService>();
+                            var artistService = context.RequestServices.GetService<Data.Services.IArtistService>();
+                            var songService = context.RequestServices.GetService<Data.Services.ISongService>();
+                            var mediumTypeService = context.RequestServices.GetService<Data.Services.IMediumTypeService>();
+                            var accountService = context.RequestServices.GetService<Data.Services.IAccountService>();
+                            var tagCategoryService = context.RequestServices.GetService<Data.Services.ITagCategoryService>();
+                            var tagService = context.RequestServices.GetService<Data.Services.ITagService>();
+                            var playlistService = context.RequestServices.GetService<Data.Services.IPlaylistService>();
+                            var blogPostService = context.RequestServices.GetService<Data.Services.IBlogPostService>();
                             
-                            var user = await accountService.GetCurrentUser(context.User);
+                            var user = accountService.GetCurrentUser(context.User).Result;
                             data["user"] = user;
 
                             switch (route?.Name)
@@ -683,21 +688,21 @@ namespace MintPlayer.Web
                                 case "person-list":
                                     {
                                         var req = new Pagination.PaginationRequest<Dtos.Dtos.Person> { PerPage = 20, Page = 1, SortProperty = "FirstName", SortDirection = System.ComponentModel.ListSortDirection.Ascending };
-                                        var people = await personService.PagePeople(req);
+                                        var people = personService.PagePeople(req).Result;
                                         data["people"] = people;
                                     }
                                     break;
                                 case "person-create":
                                     {
-                                        var mediumtypes = await mediumTypeService.GetMediumTypes(false, false);
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
                                 case "person-show-name":
                                 case "person-edit":
                                     {
-                                        var id = System.Convert.ToInt32(route.Parameters["id"]);
-                                        var person = await personService.GetPerson(id, true, false);
+                                        var id = Convert.ToInt32(route.Parameters["id"]);
+                                        var person = personService.GetPerson(id, true, false).Result;
                                         if (person == null)
                                         {
                                             context.Response.OnStarting(() =>
@@ -715,28 +720,28 @@ namespace MintPlayer.Web
                                                 return Task.CompletedTask;
                                             });
                                         }
-                                        var mediumtypes = await mediumTypeService.GetMediumTypes(false, false);
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
                                 case "artist-list":
                                     {
                                         var req = new Pagination.PaginationRequest<Dtos.Dtos.Artist> { PerPage = 20, Page = 1, SortProperty = "Name", SortDirection = System.ComponentModel.ListSortDirection.Ascending };
-                                        var artists = await artistService.PageArtists(req);
+                                        var artists = artistService.PageArtists(req).Result;
                                         data["artists"] = artists;
                                     }
                                     break;
                                 case "artist-create":
                                     {
-                                        var mediumtypes = await mediumTypeService.GetMediumTypes(false, false);
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
                                 case "artist-show-name":
                                 case "artist-edit":
                                     {
-                                        var id = System.Convert.ToInt32(route.Parameters["id"]);
-                                        var artist = await artistService.GetArtist(id, true, false);
+                                        var id = Convert.ToInt32(route.Parameters["id"]);
+                                        var artist = artistService.GetArtist(id, true, false).Result;
                                         if (artist == null)
                                         {
                                             context.Response.OnStarting(() =>
@@ -754,28 +759,28 @@ namespace MintPlayer.Web
                                                 return Task.CompletedTask;
                                             });
                                         }
-                                        var mediumtypes = await mediumTypeService.GetMediumTypes(false, false);
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
                                 case "song-list":
                                     {
-                                        var req = new Pagination.PaginationRequest<Dtos.Dtos.Song> { PerPage = 20, Page = 1, SortProperty = "Title", SortDirection = System.ComponentModel.ListSortDirection.Ascending };
-                                        var songs = await songService.PageSongs(req);
+                                        var req = new PaginationRequest<Dtos.Dtos.Song> { PerPage = 20, Page = 1, SortProperty = "Title", SortDirection = System.ComponentModel.ListSortDirection.Ascending };
+                                        var songs = songService.PageSongs(req).Result;
                                         data["songs"] = songs;
                                     }
                                     break;
                                 case "song-create":
                                     {
-                                        var mediumtypes = await mediumTypeService.GetMediumTypes(false, false);
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
                                 case "song-show-title":
                                 case "song-edit":
                                     {
-                                        var id = System.Convert.ToInt32(route.Parameters["id"]);
-                                        var song = await songService.GetSong(id, true, false);
+                                        var id = Convert.ToInt32(route.Parameters["id"]);
+                                        var song = songService.GetSong(id, true, false).Result;
                                         if (song == null)
                                         {
                                             context.Response.OnStarting(() =>
@@ -793,13 +798,13 @@ namespace MintPlayer.Web
                                                 return Task.CompletedTask;
                                             });
                                         }
-                                        var mediumtypes = await mediumTypeService.GetMediumTypes(false, false);
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
                                 case "mediumtype-list":
                                     {
-                                        var mediumtypes = await mediumTypeService.GetMediumTypes(false, false);
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -808,8 +813,8 @@ namespace MintPlayer.Web
                                 case "mediumtype-show":
                                 case "mediumtype-edit":
                                     {
-                                        var id = System.Convert.ToInt32(route.Parameters["id"]);
-                                        var mediumtype = await mediumTypeService.GetMediumType(id, false, false);
+                                        var id = Convert.ToInt32(route.Parameters["id"]);
+                                        var mediumtype = mediumTypeService.GetMediumType(id, false, false).Result;
                                         if (mediumtype == null)
                                             context.Response.OnStarting(() =>
                                             {
@@ -822,22 +827,22 @@ namespace MintPlayer.Web
                                     break;
                                 case "account-profile":
                                     {
-                                        var logins = await accountService.GetExternalLogins(context.User);
-                                        var providers = await accountService.GetProviders();
+                                        var logins = accountService.GetExternalLogins(context.User).Result;
+                                        var providers = accountService.GetProviders().Result;
                                         data["logins"] = logins;
                                         data["providers"] = providers;
                                     }
                                     break;
                                 case "tag-category-list":
                                     {
-                                        var categories = await tagCategoryService.GetTagCategories();
+                                        var categories = tagCategoryService.GetTagCategories().Result;
                                         data["tagcategories"] = categories.ToArray();
                                     }
                                     break;
                                 case "tag-category-show":
                                     {
                                         var id = Convert.ToInt32(route.Parameters["categoryid"]);
-                                        var category = await tagCategoryService.GetTagCategory(id, true);
+                                        var category = tagCategoryService.GetTagCategory(id, true).Result;
                                         if (category == null)
                                             context.Response.OnStarting(() =>
                                             {
@@ -852,7 +857,7 @@ namespace MintPlayer.Web
                                 case "tag-category-tags-create":
                                     {
                                         var id = Convert.ToInt32(route.Parameters["categoryid"]);
-                                        var category = await tagCategoryService.GetTagCategory(id);
+                                        var category = tagCategoryService.GetTagCategory(id).Result;
                                         if (category == null)
                                             context.Response.OnStarting(() =>
                                             {
@@ -866,7 +871,7 @@ namespace MintPlayer.Web
                                 case "tag-category-tags-show":
                                     {
                                         var tagId = Convert.ToInt32(route.Parameters["tagid"]);
-                                        var tag = await tagService.GetTag(tagId, true);
+                                        var tag = tagService.GetTag(tagId, true).Result;
                                         if (tag == null)
                                             context.Response.OnStarting(() =>
                                             {
@@ -880,7 +885,7 @@ namespace MintPlayer.Web
                                 case "tag-category-tags-edit":
                                     {
                                         var tagId = Convert.ToInt32(route.Parameters["tagid"]);
-                                        var tag = await tagService.GetTag(tagId, false);
+                                        var tag = tagService.GetTag(tagId, false).Result;
                                         if (tag == null)
                                             context.Response.OnStarting(() =>
                                             {
@@ -893,7 +898,7 @@ namespace MintPlayer.Web
                                     break;
                                 case "community-blog-list":
                                     {
-                                        var blogposts = await blogPostService.GetBlogPosts();
+                                        var blogposts = blogPostService.GetBlogPosts().Result;
                                         data["blogposts"] = blogposts.ToArray();
                                     }
                                     break;
@@ -901,7 +906,7 @@ namespace MintPlayer.Web
                                 case "community-blog-edit":
                                     {
                                         var blogPostId = Convert.ToInt32(route.Parameters["blogpostid"]);
-                                        var blogPost = await blogPostService.GetBlogPost(blogPostId);
+                                        var blogPost = blogPostService.GetBlogPost(blogPostId).Result;
                                         if (blogPost == null)
                                             context.Response.OnStarting(() =>
                                             {

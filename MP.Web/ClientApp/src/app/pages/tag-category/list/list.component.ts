@@ -24,7 +24,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private htmlLink: HtmlLinkHelper
   ) {
     this.titleService.setTitle('Tag categories');
-    if (serverSide) {
+    if (serverSide === true) {
       this.setTagCategoryData(tagCategoriesInj);
     } else {
       this.loadTagCategories();

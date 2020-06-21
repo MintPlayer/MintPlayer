@@ -24,7 +24,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private metaService: Meta
   ) {
     this.titleService.setTitle('All songs');
-    if (serverSide) {
+    if (serverSide === true) {
       this.setSongData(songsInj);
     } else {
       this.loadSongs();
@@ -93,6 +93,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   private setSongData(data: PaginationResponse<Song>) {
+    console.log('song data', data);
     this.songData = data;
     this.tableSettings.pages.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }

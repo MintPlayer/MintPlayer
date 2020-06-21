@@ -12,8 +12,12 @@ import { DatatableSettings } from '../../../controls/datatable/datatable-setting
 })
 export class FavoriteComponent implements OnInit, OnDestroy {
 
-  constructor(@Inject('SERVERSIDE') private serverside: boolean, private songService: SongService, private htmlLink: HtmlLinkHelper) {
-    if (!serverside) {
+  constructor(
+    @Inject('SERVERSIDE') private serverside: boolean,
+    private songService: SongService,
+    private htmlLink: HtmlLinkHelper
+  ) {
+    if (serverside === false) {
       this.loadFavoriteSongs();
     }
   }

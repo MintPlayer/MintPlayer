@@ -14,7 +14,16 @@ import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, @Inject('TAG') private tagInj: Tag, private tagService: TagService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private differs: KeyValueDiffers) {
+  constructor(
+    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject('TAG') private tagInj: Tag,
+    private tagService: TagService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private htmlLink: HtmlLinkHelper,
+    private differs: KeyValueDiffers
+  ) {
     if (serverSide === true) {
       this.setTag(tagInj);
     } else {

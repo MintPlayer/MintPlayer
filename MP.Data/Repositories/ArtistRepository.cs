@@ -57,7 +57,7 @@ namespace MintPlayer.Data.Repositories
                 .Take(request.PerPage);
 
             // 3) Convert to DTO
-            var dto_artists = paged_artists.Select(artist => ToDto(artist, false, false));
+            var dto_artists = await paged_artists.Select(artist => ToDto(artist, false, false)).ToListAsync();
 
             var count_artists = await mintplayer_context.Artists.CountAsync();
             return new Pagination.PaginationResponse<Artist>(request, count_artists, dto_artists);

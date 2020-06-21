@@ -22,7 +22,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private metaService: Meta
   ) {
     this.titleService.setTitle('MintPlayer blog');
-    if (this.serverSide) {
+    if (serverSide === true) {
       this.setBlogPosts(blogPostsInj);
     } else {
       this.loadBlogPosts();

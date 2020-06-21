@@ -12,8 +12,12 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 })
 export class FavoriteComponent implements OnInit, OnDestroy {
 
-  constructor(@Inject('SERVERSIDE') private serverside: boolean, private artistService: ArtistService, private htmlLink: HtmlLinkHelper) {
-    if (!serverside) {
+  constructor(
+    @Inject('SERVERSIDE') private serverside: boolean,
+    private artistService: ArtistService,
+    private htmlLink: HtmlLinkHelper
+  ) {
+    if (serverside === false) {
       this.loadFavoriteArtists();
     }
   }

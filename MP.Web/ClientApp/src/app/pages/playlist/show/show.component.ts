@@ -13,7 +13,14 @@ import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
 })
 export class PlaylistShowComponent implements OnInit {
 
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('PLAYLIST') playlistInj: Playlist, private playlistService: PlaylistService, private router: Router, private route: ActivatedRoute, private titleService: Title) {
+  constructor(
+    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject('PLAYLIST') playlistInj: Playlist,
+    private playlistService: PlaylistService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title
+  ) {
     if (serverSide === true) {
       this.setPlaylist(playlistInj);
     } else {

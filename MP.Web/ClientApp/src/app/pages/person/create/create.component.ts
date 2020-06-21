@@ -19,9 +19,19 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 })
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
-  constructor(@Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[], private personService: PersonService, private mediumTypeService: MediumTypeService, private router: Router, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(
+    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
+    private personService: PersonService,
+    private mediumTypeService: MediumTypeService,
+    private router: Router,
+    private titleService: Title,
+    private htmlLink: HtmlLinkHelper,
+    private slugifyHelper: SlugifyHelper,
+    private differs: KeyValueDiffers
+  ) {
     this.titleService.setTitle('Create person');
-    if (mediumTypesInj === null) {
+    if (serverSide === false) {
       this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
         this.mediumTypes = mediumTypes;
       }).catch((error) => {

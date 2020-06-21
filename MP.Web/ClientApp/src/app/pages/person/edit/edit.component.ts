@@ -18,7 +18,17 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
-  constructor(@Inject('SERVERSIDE') private serverSide: boolean, private personService: PersonService, private mediumTypeService: MediumTypeService, private router: Router, private route: ActivatedRoute, private titleService: Title, private htmlLink: HtmlLinkHelper, private slugifyHelper: SlugifyHelper, private differs: KeyValueDiffers) {
+  constructor(
+    @Inject('SERVERSIDE') private serverSide: boolean,
+    private personService: PersonService,
+    private mediumTypeService: MediumTypeService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private htmlLink: HtmlLinkHelper,
+    private slugifyHelper: SlugifyHelper,
+    private differs: KeyValueDiffers
+  ) {
     if (serverSide === false) {
       // Get person
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
