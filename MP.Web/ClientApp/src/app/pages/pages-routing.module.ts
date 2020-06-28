@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'tag/category', loadChildren: () => import('./tag-category/tag-category.module').then(m => m.TagCategoryModule) },
   { path: 'community', loadChildren: () => import('./community/community.module').then(m => m.CommunityModule) },
   { path: 'gdpr', loadChildren: () => import('./gdpr/gdpr.module').then(m => m.GdprModule) },
+  { path: 'fetch', loadChildren: () => import('./fetch/fetch.module').then(m => m.FetchModule) },
   { path: '**', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule) },
 ];
 

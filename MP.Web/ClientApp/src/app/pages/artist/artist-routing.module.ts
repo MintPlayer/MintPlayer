@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: ':id/:name/edit', loadChildren: () => import('./edit/edit.module').then(m => m.EditModule), canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
   { path: ':id/:name', loadChildren: () => import('./show/show.module').then(m => m.ShowModule) },
   { path: 'favorite', loadChildren: () => import('./favorite/favorite.module').then(m => m.FavoriteModule), canActivate: [IsLoggedInGuard] },
+  { path: 'fetch', loadChildren: () => import('./fetch/fetch.module').then(m => m.FetchModule) },
 ];
 
 @NgModule({

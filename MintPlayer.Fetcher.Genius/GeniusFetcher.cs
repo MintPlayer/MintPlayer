@@ -30,14 +30,14 @@ namespace MintPlayer.Fetcher.Genius
             var html = await SendRequest(httpClient, url);
             var page_data = await ReadPageData(html);
 
-            var structure = new { page_type = string.Empty };
+            var structure = new { currentPage = string.Empty };
             var subject = JsonConvert.DeserializeAnonymousType(page_data, structure);
 
-            switch (subject.page_type)
+            switch (subject.currentPage)
             {
                 case "profile":
                     return await ParseArtist(page_data);
-                case "song":
+                case "songPage":
                     return await ParseSong(page_data, trimTrash);
                 case "album":
                     return await ParseAlbum(page_data);
@@ -49,10 +49,13 @@ namespace MintPlayer.Fetcher.Genius
         #region Private methods
         private Task<string> ReadPageData(string html)
         {
-            var pageDataRegex = new Regex(@"(?<=\<meta content\=\"")(.*?)(?=\""\sitemprop\=\""page_data\""\>\<\/meta\>)");
+            //var pageDataRegex = new Regex(@"(?<=\<meta content\=\"")(.*?)(?=\""\sitemprop\=\""page_data\""\>\<\/meta\>)");
+            var pageDataRegex = new Regex(@"window\.__PRELOADED_STATE__\s\=\sJSON\.parse\(\'(?<data>.*?)\'\)\;");
 
-            var pageData = pageDataRegex.Match(html).Value;
+            var pageData = pageDataRegex.Match(html).Groups["data"].Value;
             var fixedPageData = pageData
+                .Replace("\\\"", "\"")
+                .Replace("\\\\", "\\")
                 .Replace("&quot;", "\"")
                 .Replace("&amp;", "&")
                 .Replace("&lt;", "<")

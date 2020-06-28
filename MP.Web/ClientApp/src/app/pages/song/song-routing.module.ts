@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: ':id/:title/edit', loadChildren: () => import('./edit/edit.module').then(m => m.EditModule), canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
   { path: ':id/:title/sync', loadChildren: () => import('./sync/sync.module').then(m => m.SyncModule), canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
   { path: 'favorite', loadChildren: () => import('./favorite/favorite.module').then(m => m.FavoriteModule), canActivate: [IsLoggedInGuard] },
+  { path: 'fetch', loadChildren: () => import('./fetch/fetch.module').then(m => m.FetchModule) },
 ];
 
 @NgModule({

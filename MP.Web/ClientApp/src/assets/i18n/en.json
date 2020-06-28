@@ -9,6 +9,9 @@
     "search": "Search",
     "search_anything": "Search for anything"
   },
+  "fetch": {
+    "fetch_url": "Enter an url to fetch"
+  },
   "artists": {
     "artists": "Artists",
     "all_artists": "All artists",

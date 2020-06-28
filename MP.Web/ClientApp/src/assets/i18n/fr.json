@@ -9,6 +9,9 @@
     "search": "Chercher",
     "search_anything": "Cherche quelque chose"
   },
+  "fetch": {
+    "fetch_url": "Remplir une URL pour retrouver"
+  },
   "artists": {
     "artists": "Artistes",
     "all_artists": "Tous artistes",

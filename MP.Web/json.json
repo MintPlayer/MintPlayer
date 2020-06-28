@@ -1,0 +1,2900 @@
+﻿{
+  "currentPage": "songPage",
+  "deviceType": "desktop",
+  "session": {
+    "cmpEnabled": true,
+    "ccpaEnabled": true,
+    "showAds": true,
+    "logClientMetrics": false,
+    "fringeEnabled": true,
+    "taboolaEnabled": false
+  },
+  "songPage": {
+    "song": 71255,
+    "paginatedComments": {
+      "comments": [
+        1302016,
+        5430468,
+        6210562,
+        7810918,
+        7826788,
+        7691190,
+        6600902
+      ],
+      "perPage": 10,
+      "nextPage": null
+    },
+    "lyricsData": {
+      "body": {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  "[Produced by Daft Punk]"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "2584200"
+                },
+                "attributes": {
+                  "class": "has_comments",
+                  "href": "/2584200/Daft-punk-one-more-time/Produced-by-daft-punk"
+                },
+                "tag": "a"
+              },
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "tag": "br"
+              },
+              "[Intro: ",
+              {
+                "children": [
+                  "Romanthony"
+                ],
+                "data": {
+                  "classification": "unreviewed",
+                  "editorialState": "pending",
+                  "id": "15599483"
+                },
+                "attributes": {
+                  "class": "has_pending_edits",
+                  "href": "/15599483/Daft-punk-one-more-time/Romanthony"
+                },
+                "tag": "a"
+              },
+              "]",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "tag": "br"
+              },
+              "[Hook 1: Romanthony]",
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "children": [
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Oh yeah, all right",
+                  {
+                    "tag": "br"
+                  },
+                  "Don\\'t stop the dancing",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Oh yeah, all right",
+                  {
+                    "tag": "br"
+                  },
+                  "Don\\'t stop the dancing",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Oh yeah, all right",
+                  {
+                    "tag": "br"
+                  },
+                  "Don\\'t stop the dancing",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Oh yeah",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "1456102"
+                },
+                "attributes": {
+                  "class": "has_comments",
+                  "href": "/1456102/Daft-punk-one-more-time/One-more-time-were-gonna-celebrate-oh-yeah-all-right-dont-stop-the-dancing-one-more-time-were-gonna-celebrate-oh-yeah-all-right-dont-stop-the-dancing-one-more-time-were-gonna-celebrate-oh-yeah-all-right-dont-stop-the-dancing-one-more-time-were-gonna-celebrate-oh-yeah-one-more-time"
+                },
+                "tag": "a"
+              },
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "tag": "br"
+              },
+              "[Interlude]",
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "data": {
+                  "name": "desktop_song_lyrics_inread"
+                },
+                "tag": "inread-ad"
+              },
+              "[Hook 1: Romanthony]",
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "children": [
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Oh yeah, all right",
+                  {
+                    "tag": "br"
+                  },
+                  "Don\\'t stop the dancing",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Oh yeah",
+                  {
+                    "tag": "br"
+                  },
+                  "Don\\'t stop the dancing",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "1456102"
+                },
+                "attributes": {
+                  "class": "has_comments",
+                  "href": "/1456102/Daft-punk-one-more-time/One-more-time-were-gonna-celebrate-oh-yeah-all-right-dont-stop-the-dancing-one-more-time-were-gonna-celebrate-oh-yeah-all-right-dont-stop-the-dancing-one-more-time-were-gonna-celebrate-oh-yeah-all-right-dont-stop-the-dancing-one-more-time-were-gonna-celebrate-oh-yeah-one-more-time"
+                },
+                "tag": "a"
+              },
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "tag": "br"
+              },
+              "[Bridge: Romanthony]",
+              {
+                "tag": "br"
+              },
+              "Mmm, you know I\\'m just feeling",
+              {
+                "tag": "br"
+              },
+              "Celebration tonight",
+              {
+                "tag": "br"
+              },
+              "Celebrate",
+              {
+                "tag": "br"
+              },
+              "Don\\'t wait too late",
+              {
+                "tag": "br"
+              },
+              "Mmm, no",
+              {
+                "tag": "br"
+              },
+              "We don\\'t stop",
+              {
+                "tag": "br"
+              },
+              "You can\\'t stop",
+              {
+                "tag": "br"
+              },
+              "We\\'re gonna celebrate",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "Celebration",
+              {
+                "tag": "br"
+              },
+              "You know we\\'re gonna do it right, tonight",
+              {
+                "tag": "br"
+              },
+              "Hey! Just feeling",
+              {
+                "tag": "br"
+              },
+              "Music\\'s got me feeling the need",
+              {
+                "tag": "br"
+              },
+              "Need, yeah",
+              {
+                "tag": "br"
+              },
+              "Come on, all right",
+              {
+                "tag": "br"
+              },
+              "We\\'re gonna celebrate",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "Celebrate and dance so free",
+              {
+                "tag": "br"
+              },
+              "Music\\'s got me feeling so free",
+              {
+                "tag": "br"
+              },
+              "Celebrate and dance so free",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "Music\\'s got me feeling so free",
+              {
+                "tag": "br"
+              },
+              "We\\'re gonna celebrate",
+              {
+                "tag": "br"
+              },
+              "Celebrate and dance so free",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "Music\\'s got me feeling so free",
+              {
+                "tag": "br"
+              },
+              "We\\'re gonna celebrate",
+              {
+                "tag": "br"
+              },
+              "Celebrate and dance so free",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "Music\\'s got me feeling so free",
+              {
+                "tag": "br"
+              },
+              "We\\'re gonna celebrate",
+              {
+                "tag": "br"
+              },
+              "Celebrate and dance so free",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "Music\\'s got me feeling so free",
+              {
+                "tag": "br"
+              },
+              "We\\'re gonna celebrate",
+              {
+                "tag": "br"
+              },
+              "Celebrate and dance so free",
+              {
+                "tag": "br"
+              },
+              "One more time",
+              {
+                "tag": "br"
+              },
+              "Music\\'s got me feeling so free",
+              {
+                "tag": "br"
+              },
+              "We\\'re gonna celebrate",
+              {
+                "tag": "br"
+              },
+              "Celebrate and dance so free",
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "data": {
+                  "name": "desktop_song_lyrics_inread2"
+                },
+                "tag": "inread-ad"
+              },
+              "[Hook 2: Romanthony]",
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "children": [
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Celebrate and dance so free",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Celebrate and dance so free",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Celebrate and dance so free",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Celebrate and dance so free",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Celebrate and dance so free",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Celebrate and dance so free"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "1456129"
+                },
+                "attributes": {
+                  "href": "/1456129/Daft-punk-one-more-time/One-more-time-musics-got-me-feeling-so-free-were-gonna-celebrate-celebrate-and-dance-so-free-one-more-time-musics-got-me-feeling-so-free-were-gonna-celebrate-celebrate-and-dance-so-free-one-more-time-musics-got-me-feeling-so-free-were-gonna-celebrate-celebrate-and-dance-so-free-one-more-time-musics-got-me-feeling-so-free-were-gonna-celebrate-celebrate-and-dance-so-free-one-more-time-musics-got-me-feeling-so-free-were-gonna-celebrate-one-more-time-musics-got-me-feeling-so-free-were-gonna-celebrat"
+                },
+                "tag": "a"
+              },
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "data": {
+                  "name": "desktop_song_lyrics_inread3"
+                },
+                "tag": "inread-ad"
+              },
+              "[Pause]",
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "tag": "br"
+              },
+              "[Hook 2: Romanthony]",
+              {
+                "tag": "br"
+              },
+              "",
+              {
+                "children": [
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Celebrate and dance so free",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Celebrate and dance so free",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Celebrate and dance so free",
+                  {
+                    "tag": "br"
+                  },
+                  "One more time",
+                  {
+                    "tag": "br"
+                  },
+                  "Music\\'s got me feeling so free",
+                  {
+                    "tag": "br"
+                  },
+                  "We\\'re gonna celebrate",
+                  {
+                    "tag": "br"
+                  },
+                  "Celebrate and dance so free"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "1456129"
+                },
+                "attributes": {
+                  "href": "/1456129/Daft-punk-one-more-time/One-more-time-musics-got-me-feeling-so-free-were-gonna-celebrate-celebrate-and-dance-so-free-one-more-time-musics-got-me-feeling-so-free-were-gonna-celebrate-celebrate-and-dance-so-free-one-more-time-musics-got-me-feeling-so-free-were-gonna-celebrate-celebrate-and-dance-so-free-one-more-time-musics-got-me-feeling-so-free-were-gonna-celebrate-celebrate-and-dance-so-free-one-more-time-musics-got-me-feeling-so-free-were-gonna-celebrate-one-more-time-musics-got-me-feeling-so-free-were-gonna-celebrat"
+                },
+                "tag": "a"
+              }
+            ],
+            "tag": "p"
+          },
+          ""
+        ],
+        "tag": "root"
+      }
+    },
+    "dfpKv": [
+      {
+        "values": [
+          "71255"
+        ],
+        "name": "song_id"
+      },
+      {
+        "values": [
+          "One More Time"
+        ],
+        "name": "song_title"
+      },
+      {
+        "values": [
+          "13585"
+        ],
+        "name": "artist_id"
+      },
+      {
+        "values": [
+          "Daft Punk"
+        ],
+        "name": "artist_name"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "is_explicit"
+      },
+      {
+        "values": [
+          "64780"
+        ],
+        "name": "pageviews"
+      },
+      {
+        "values": [
+          "16"
+        ],
+        "name": "primary_tag_id"
+      },
+      {
+        "values": [
+          "pop"
+        ],
+        "name": "primary_tag"
+      },
+      {
+        "values": [
+          "261",
+          "72",
+          "2368",
+          "914",
+          "1532",
+          "16",
+          "606",
+          "1453"
+        ],
+        "name": "tag_id"
+      },
+      {
+        "values": [
+          "D"
+        ],
+        "name": "song_tier"
+      },
+      {
+        "values": [
+
+        ],
+        "name": "topic"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "has_song_story"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "in_top_10"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "artist_in_top_10"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "album_in_top_10"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "new_release"
+      },
+      {
+        "values": [
+          "200011"
+        ],
+        "name": "release_month"
+      },
+      {
+        "values": [
+          "2000"
+        ],
+        "name": "release_year"
+      },
+      {
+        "values": [
+          "2000"
+        ],
+        "name": "release_decade"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "in_top_10_rap"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "in_top_10_rock"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "in_top_10_country"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "in_top_10_r_and_b"
+      },
+      {
+        "values": [
+          "false"
+        ],
+        "name": "in_top_10_pop"
+      },
+      {
+        "values": [
+          "production"
+        ],
+        "name": "environment"
+      },
+      {
+        "values": [
+          "web"
+        ],
+        "name": "platform"
+      },
+      {
+        "values": [
+          "song"
+        ],
+        "name": "ad_page_type"
+      }
+    ],
+    "trackingData": [
+      {
+        "value": 71255,
+        "key": "Song ID"
+      },
+      {
+        "value": "One More Time",
+        "key": "Title"
+      },
+      {
+        "value": "Daft Punk",
+        "key": "Primary Artist"
+      },
+      {
+        "value": 13585,
+        "key": "Primary Artist ID"
+      },
+      {
+        "value": "Discovery",
+        "key": "Primary Album"
+      },
+      {
+        "value": 27501,
+        "key": "Primary Album ID"
+      },
+      {
+        "value": "pop",
+        "key": "Tag"
+      },
+      {
+        "value": "pop",
+        "key": "Primary Tag"
+      },
+      {
+        "value": 16,
+        "key": "Primary Tag ID"
+      },
+      {
+        "value": true,
+        "key": "Music?"
+      },
+      {
+        "value": "Song",
+        "key": "Annotatable Type"
+      },
+      {
+        "value": 71255,
+        "key": "Annotatable ID"
+      },
+      {
+        "value": false,
+        "key": "featured_video"
+      },
+      {
+        "value": [
+
+        ],
+        "key": "cohort_ids"
+      },
+      {
+        "value": false,
+        "key": "has_verified_callout"
+      },
+      {
+        "value": true,
+        "key": "has_featured_annotation"
+      },
+      {
+        "value": "2012-04-14T17:02:14Z",
+        "key": "created_at"
+      },
+      {
+        "value": "2012-04-01",
+        "key": "created_month"
+      },
+      {
+        "value": 2012,
+        "key": "created_year"
+      },
+      {
+        "value": "D",
+        "key": "song_tier"
+      },
+      {
+        "value": false,
+        "key": "Has Recirculated Articles"
+      },
+      {
+        "value": "en",
+        "key": "Lyrics Language"
+      },
+      {
+        "value": false,
+        "key": "Has Song Story"
+      },
+      {
+        "value": null,
+        "key": "Song Story ID"
+      },
+      {
+        "value": true,
+        "key": "Has Apple Match"
+      },
+      {
+        "value": "2000-11-13",
+        "key": "Release Date"
+      },
+      {
+        "value": null,
+        "key": "NRM Tier"
+      },
+      {
+        "value": null,
+        "key": "NRM Target Date"
+      },
+      {
+        "value": true,
+        "key": "Has Description"
+      },
+      {
+        "value": true,
+        "key": "Has Youtube URL"
+      },
+      {
+        "value": false,
+        "key": "Has Translation Q&A"
+      },
+      {
+        "value": 7,
+        "key": "Comment Count"
+      }
+    ],
+    "title": "Daft Punk – One More Time Lyrics | Genius Lyrics",
+    "path": "/Daft-punk-one-more-time-lyrics",
+    "pageType": "song",
+    "initialAdUnits": [
+      "desktop_song_inread",
+      "desktop_song_inread2",
+      "desktop_song_inread3",
+      "desktop_song_leaderboard",
+      "desktop_song_lyrics_footer",
+      "desktop_song_marquee",
+      "desktop_song_medium1",
+      "desktop_song_sidebar_top"
+    ],
+    "headerBidPlacements": [
+
+    ],
+    "dmpDataLayer": {
+      "page": {
+        "type": "song"
+      }
+    },
+    "discussionUrl": "https://genius.com/discussions/377926-The-2020-genius-song-page-redesign",
+    "controllerAndAction": "songs#show",
+    "chartbeat": {
+      "title": "Daft Punk – One More Time Lyrics | Genius Lyrics",
+      "sections": "songs,tag:pop",
+      "authors": "Daft Punk"
+    }
+  },
+  "entities": {
+    "artists": {
+      "13585": {
+        "url": "https://genius.com/artists/Daft-punk",
+        "slug": "Daft-punk",
+        "name": "Daft Punk",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "indexCharacter": "d",
+        "imageUrl": "https://images.genius.com/a508888fd6a96cadcf835ecf95b1c1ae.1000x1000x1.jpg",
+        "id": 13585,
+        "headerImageUrl": "https://images.genius.com/89e64734b7876f342d0d45b41e29b48a.1000x525x1.jpg",
+        "apiPath": "/artists/13585",
+        "type": "artist"
+      }
+    },
+    "songs": {
+      "71255": {
+        "url": "https://genius.com/Daft-punk-one-more-time-lyrics",
+        "title": "One More Time",
+        "path": "/Daft-punk-one-more-time-lyrics",
+        "lyricsState": "complete",
+        "id": 71255,
+        "apiPath": "/songs/71255",
+        "type": "song",
+        "writerArtists": [
+          {
+            "url": "https://genius.com/artists/Guy-manuel-de-homem-christo",
+            "slug": "Guy-manuel-de-homem-christo",
+            "name": "Guy-Manuel de Homem-Christo",
+            "isVerified": false,
+            "isMemeVerified": false,
+            "indexCharacter": "g",
+            "imageUrl": "https://images.genius.com/ebe2e5dbb54f1414d3d0cbfd6c5c5d52.593x593x1.jpg",
+            "id": 31634,
+            "headerImageUrl": "https://images.genius.com/f6c3f1f70f7ba9c68934c02a90b5e4e9.400x155x1.png",
+            "apiPath": "/artists/31634",
+            "type": "artist"
+          },
+          {
+            "url": "https://genius.com/artists/Thomas-bangalter",
+            "slug": "Thomas-bangalter",
+            "name": "Thomas Bangalter",
+            "isVerified": false,
+            "isMemeVerified": false,
+            "indexCharacter": "t",
+            "imageUrl": "https://images.genius.com/f96ae0accbefb5cea27439d1060fc259.813x813x1.jpg",
+            "id": 42463,
+            "headerImageUrl": "https://images.genius.com/f6c3f1f70f7ba9c68934c02a90b5e4e9.400x155x1.png",
+            "apiPath": "/artists/42463",
+            "type": "artist"
+          },
+          {
+            "url": "https://genius.com/artists/Romanthony",
+            "slug": "Romanthony",
+            "name": "Romanthony",
+            "isVerified": false,
+            "isMemeVerified": false,
+            "indexCharacter": "r",
+            "imageUrl": "https://images.genius.com/3289b8580d0ebd6ab62caaa3b4d78de0.200x200x1.jpg",
+            "id": 51515,
+            "headerImageUrl": "https://images.genius.com/a3dfeff81cc7990f7bc652ddf7618f2c.201x250x1.jpg",
+            "apiPath": "/artists/51515",
+            "type": "artist"
+          }
+        ],
+        "verifiedLyricsBy": [
+
+        ],
+        "verifiedContributors": [
+
+        ],
+        "verifiedAnnotationsBy": [
+
+        ],
+        "topScholar": {
+          "user": {
+            "currentUserMetadata": {
+              "interactions": {
+                "following": false
+              },
+              "excludedPermissions": [
+                "follow"
+              ],
+              "permissions": [
+
+              ]
+            },
+            "url": "https://genius.com/palacelight",
+            "roleForDisplay": "editor",
+            "name": "Reuben Tasker",
+            "login": "palacelight",
+            "isVerified": false,
+            "isMemeVerified": false,
+            "iq": 295053,
+            "id": 116340,
+            "humanReadableRoleForDisplay": "Editor",
+            "headerImageUrl": "https://images.rapgenius.com/avatars/medium/4955c7795dbe34cdb329280940bf8639",
+            "avatar": {
+              "medium": {
+                "boundingBox": {
+                  "height": 400,
+                  "width": 300
+                },
+                "url": "https://images.rapgenius.com/avatars/medium/4955c7795dbe34cdb329280940bf8639"
+              },
+              "small": {
+                "boundingBox": {
+                  "height": 100,
+                  "width": 100
+                },
+                "url": "https://images.rapgenius.com/avatars/small/4955c7795dbe34cdb329280940bf8639"
+              },
+              "thumb": {
+                "boundingBox": {
+                  "height": 32,
+                  "width": 32
+                },
+                "url": "https://images.rapgenius.com/avatars/thumb/4955c7795dbe34cdb329280940bf8639"
+              },
+              "tiny": {
+                "boundingBox": {
+                  "height": 16,
+                  "width": 16
+                },
+                "url": "https://images.rapgenius.com/avatars/tiny/4955c7795dbe34cdb329280940bf8639"
+              }
+            },
+            "apiPath": "/users/116340",
+            "aboutMeSummary": "…",
+            "type": "user"
+          },
+          "pinnedRole": null,
+          "attributionValue": 325.3,
+          "type": "user_attribution"
+        },
+        "tags": [
+          {
+            "url": "https://genius.com/tags/producer",
+            "primary": false,
+            "name": "Producer",
+            "id": 261,
+            "type": "tag"
+          },
+          {
+            "url": "https://genius.com/tags/electro-pop",
+            "primary": false,
+            "name": "Electro-Pop",
+            "id": 72,
+            "type": "tag"
+          },
+          {
+            "url": "https://genius.com/tags/electro-house",
+            "primary": false,
+            "name": "Electro House",
+            "id": 2368,
+            "type": "tag"
+          },
+          {
+            "url": "https://genius.com/tags/france",
+            "primary": false,
+            "name": "France",
+            "id": 914,
+            "type": "tag"
+          },
+          {
+            "url": "https://genius.com/tags/dance",
+            "primary": false,
+            "name": "Dance",
+            "id": 1532,
+            "type": "tag"
+          },
+          {
+            "url": "https://genius.com/tags/pop",
+            "primary": true,
+            "name": "Pop",
+            "id": 16,
+            "type": "tag"
+          },
+          {
+            "url": "https://genius.com/tags/electronic",
+            "primary": false,
+            "name": "Electronic",
+            "id": 606,
+            "type": "tag"
+          },
+          {
+            "url": "https://genius.com/tags/house",
+            "primary": false,
+            "name": "House",
+            "id": 1453,
+            "type": "tag"
+          }
+        ],
+        "producerArtists": [
+          {
+            "url": "https://genius.com/artists/Daft-punk",
+            "slug": "Daft-punk",
+            "name": "Daft Punk",
+            "isVerified": false,
+            "isMemeVerified": false,
+            "indexCharacter": "d",
+            "imageUrl": "https://images.genius.com/a508888fd6a96cadcf835ecf95b1c1ae.1000x1000x1.jpg",
+            "id": 13585,
+            "headerImageUrl": "https://images.genius.com/89e64734b7876f342d0d45b41e29b48a.1000x525x1.jpg",
+            "apiPath": "/artists/13585",
+            "type": "artist"
+          }
+        ],
+        "primaryTag": {
+          "url": "https://genius.com/tags/pop",
+          "primary": true,
+          "name": "Pop",
+          "id": 16,
+          "type": "tag"
+        },
+        "primaryArtist": 13585,
+        "media": [
+          {
+            "url": "https://open.spotify.com/track/0DiWol3AO6WpXZgp0goxAV",
+            "type": "audio",
+            "provider": "spotify",
+            "nativeUri": "spotify:track:0DiWol3AO6WpXZgp0goxAV"
+          },
+          {
+            "url": "http://www.youtube.com/watch?v=FGBhQbmPwH8",
+            "type": "video",
+            "start": 0,
+            "provider": "youtube"
+          }
+        ],
+        "lyricsMarkedCompleteBy": null,
+        "featuredArtists": [
+
+        ],
+        "descriptionAnnotation": 3561992,
+        "customPerformances": [
+          {
+            "artists": [
+              {
+                "url": "https://genius.com/artists/Romanthony",
+                "slug": "Romanthony",
+                "name": "Romanthony",
+                "isVerified": false,
+                "isMemeVerified": false,
+                "indexCharacter": "r",
+                "imageUrl": "https://images.genius.com/3289b8580d0ebd6ab62caaa3b4d78de0.200x200x1.jpg",
+                "id": 51515,
+                "headerImageUrl": "https://images.genius.com/a3dfeff81cc7990f7bc652ddf7618f2c.201x250x1.jpg",
+                "apiPath": "/artists/51515",
+                "type": "artist"
+              }
+            ],
+            "label": "Vocals"
+          }
+        ],
+        "album": 27501,
+        "currentUserMetadata": {
+          "iqByAction": {
+
+          },
+          "relationships": {
+
+          },
+          "interactions": {
+            "following": false,
+            "pyong": false
+          },
+          "excludedPermissions": [
+            "follow",
+            "award_transcription_iq",
+            "remove_transcription_iq",
+            "pyong",
+            "edit_lyrics",
+            "view_annotation_engagement_data",
+            "publish",
+            "unpublish",
+            "edit_spotify_details",
+            "hide",
+            "unhide",
+            "toggle_featured_video",
+            "add_pinned_annotation_to",
+            "add_community_annotation_to",
+            "destroy",
+            "mark_as_not_spam",
+            "edit_spotify_annotations_for",
+            "verify_lyrics",
+            "unverify_lyrics",
+            "edit_anything",
+            "edit_any_media",
+            "edit",
+            "rename",
+            "edit_tags",
+            "watch_fact_track",
+            "reindex",
+            "view_lyrics_synchronization",
+            "enable_media",
+            "disable_media",
+            "edit_lyrics_or_annotation_brackets",
+            "see_editorial_indicators",
+            "view_attribution_visualization",
+            "edit_annotation_brackets",
+            "preview_lyrics_for_export",
+            "hide_apple_player",
+            "unhide_apple_player",
+            "trigger_apple_match",
+            "mark_lyrics_evaluation_as_approved",
+            "mark_lyrics_evaluation_as_staff_approved",
+            "mark_lyrics_evaluation_as_unapproved",
+            "mark_lyrics_evaluation_as_un_staff_approved",
+            "view_transcriber_media_player",
+            "override_apple_match",
+            "edit_youtube_url",
+            "edit_soundcloud_url",
+            "edit_spotify_uuid",
+            "edit_vevo_url",
+            "moderate_annotations",
+            "create_annotation",
+            "see_short_id",
+            "manage_chart_item",
+            "create_tag",
+            "propose_lyrics_edit",
+            "moderate_lyrics_edit_proposals",
+            "preview_react_song_page"
+          ],
+          "permissions": [
+            "see_pageviews",
+            "view_apple_music_player",
+            "create_comment",
+            "view_song_story_gallery"
+          ]
+        },
+        "youtubeUrl": "http://www.youtube.com/watch?v=FGBhQbmPwH8",
+        "youtubeStart": "0",
+        "vttpId": null,
+        "viewableByRoles": [
+
+        ],
+        "updatedByHumanAt": 1572239095,
+        "twitterShareMessageWithoutUrl": "Daft Punk – One More Time @daftpunk",
+        "twitterShareMessage": "Daft Punk – One More Time @daftpunk https://genius.com/Daft-punk-one-more-time-lyrics",
+        "trackingPaths": {
+          "concurrent": "/Daft-punk-one-more-time-lyrics",
+          "aggregate": "/Daft-punk-one-more-time-lyrics"
+        },
+        "trackingData": [
+          {
+            "value": 71255,
+            "key": "Song ID"
+          },
+          {
+            "value": "One More Time",
+            "key": "Title"
+          },
+          {
+            "value": "Daft Punk",
+            "key": "Primary Artist"
+          },
+          {
+            "value": 13585,
+            "key": "Primary Artist ID"
+          },
+          {
+            "value": "Discovery",
+            "key": "Primary Album"
+          },
+          {
+            "value": 27501,
+            "key": "Primary Album ID"
+          },
+          {
+            "value": "pop",
+            "key": "Tag"
+          },
+          {
+            "value": "pop",
+            "key": "Primary Tag"
+          },
+          {
+            "value": 16,
+            "key": "Primary Tag ID"
+          },
+          {
+            "value": true,
+            "key": "Music?"
+          },
+          {
+            "value": "Song",
+            "key": "Annotatable Type"
+          },
+          {
+            "value": 71255,
+            "key": "Annotatable ID"
+          },
+          {
+            "value": false,
+            "key": "featured_video"
+          },
+          {
+            "value": [
+
+            ],
+            "key": "cohort_ids"
+          },
+          {
+            "value": false,
+            "key": "has_verified_callout"
+          },
+          {
+            "value": true,
+            "key": "has_featured_annotation"
+          },
+          {
+            "value": "2012-04-14T17:02:14Z",
+            "key": "created_at"
+          },
+          {
+            "value": "2012-04-01",
+            "key": "created_month"
+          },
+          {
+            "value": 2012,
+            "key": "created_year"
+          },
+          {
+            "value": "D",
+            "key": "song_tier"
+          },
+          {
+            "value": false,
+            "key": "Has Recirculated Articles"
+          },
+          {
+            "value": "en",
+            "key": "Lyrics Language"
+          },
+          {
+            "value": false,
+            "key": "Has Song Story"
+          },
+          {
+            "value": null,
+            "key": "Song Story ID"
+          },
+          {
+            "value": true,
+            "key": "Has Apple Match"
+          },
+          {
+            "value": "2000-11-13",
+            "key": "Release Date"
+          },
+          {
+            "value": null,
+            "key": "NRM Tier"
+          },
+          {
+            "value": null,
+            "key": "NRM Target Date"
+          },
+          {
+            "value": true,
+            "key": "Has Description"
+          },
+          {
+            "value": true,
+            "key": "Has Youtube URL"
+          },
+          {
+            "value": false,
+            "key": "Has Translation Q&A"
+          },
+          {
+            "value": 7,
+            "key": "Comment Count"
+          }
+        ],
+        "titleWithFeatured": "One More Time",
+        "stats": {
+          "pageviews": 64780,
+          "hot": false,
+          "verifiedAnnotations": 0,
+          "unreviewedAnnotations": 1,
+          "transcribers": 3,
+          "iqEarners": 31,
+          "contributors": 31,
+          "acceptedAnnotations": 3
+        },
+        "spotifyUuid": "0DiWol3AO6WpXZgp0goxAV",
+        "soundcloudUrl": null,
+        "songArtImageUrl": "https://images.genius.com/1f68dda22b514be9e8b0555a49ac372b.1000x1000x1.png",
+        "songArtImageThumbnailUrl": "https://images.genius.com/1f68dda22b514be9e8b0555a49ac372b.300x300x1.png",
+        "shareUrl": "https://genius.com/Daft-punk-one-more-time-lyrics",
+        "releaseDateForDisplay": "November 13, 2000",
+        "releaseDateComponents": {
+          "day": 13,
+          "month": 11,
+          "year": 2000
+        },
+        "releaseDate": "2000-11-13",
+        "recordingLocation": null,
+        "pyongsCount": 30,
+        "pusherChannel": "song-71255",
+        "published": false,
+        "pendingLyricsEditsCount": 1,
+        "lyricsUpdatedAt": 1567526590,
+        "lyricsPlaceholderReason": null,
+        "lyricsOwnerId": 22190,
+        "isMusic": true,
+        "instrumental": false,
+        "hidden": false,
+        "headerImageUrl": "https://images.genius.com/e94facf9879115d5b11c2f26fdc8b04b.1000x1000x1.jpg",
+        "headerImageThumbnailUrl": "https://images.genius.com/e94facf9879115d5b11c2f26fdc8b04b.300x300x1.jpg",
+        "fullTitle": "One More Time by Daft Punk",
+        "featuredVideo": false,
+        "embedContent": "<div id=\\'rg_embed_link_71255\\' class=\\'rg_embed_link\\' data-song-id=\\'71255\\'>Read <a href=\\'https://genius.com/Daft-punk-one-more-time-lyrics\\'>“One More Time” by Daft Punk<\\/a> on Genius<\\/div> <script crossorigin src=\\'//genius.com/songs/71255/embed.js\\'><\\/script>",
+        "descriptionPreview": "Daft Punk’s single, “One More Time,” is that kind of  a piece of superreligion with an invincible beat and a nailed-to-the-wall vocal by house singer Romanthony. It is stamina itself, an anthem to keep on dancing that’s already a huge hit in clubs and on the radio. All those knowing listeners who bought Homework and signed on for the pair’s rascally, nudge-wink grooves now have to figure out what part of “One More Time” is for them. Is there a subversive part of “One More Time?” If so, where does it begin?\n\n\n\nThe music video serves as the intro to the animated version of the album Discovery, Interstella 5555: The 5tory of the 5ecret 5tar 5ystem",
+        "description": {
+          "markdown": "Daft Punk\\'s single, \\\"One More Time,\\\" is that kind of song: a piece of superreligion with an invincible beat and a nailed-to-the-wall vocal by house singer Romanthony. It is stamina itself, an anthem to *keep on dancing* that\\'s already a huge hit in clubs and on the radio. All those knowing listeners who bought Homework and signed on for the pair\\'s rascally, nudge-wink grooves now have to figure out what part of \\\"One More Time\\\" is for them. Is there a subversive part of \\\"One More Time?\\\" If so, where does it begin?\\n\\nhttp://images.rapgenius.com/5e9b9cad9538537291de8901eaa5f15f.450x450x1.png\\n\\nThe music video serves as the intro to the animated version of the album [Discovery](http://genius.com/albums/Daft-punk/Discovery), [*Interstella 5555: The 5tory of the 5ecret 5tar 5ystem*](http://rock.genius.com/Daft-punk-interstella-5555-the-5tory-of-the-5ecret-5tar-5ystem-lyrics/)",
+          "html": "<p>Daft Punk’s single, “One More Time,” is that kind of song: a piece of superreligion with an invincible beat and a nailed-to-the-wall vocal by house singer Romanthony. It is stamina itself, an anthem to <em>keep on dancing<\/em> that’s already a huge hit in clubs and on the radio. All those knowing listeners who bought Homework and signed on for the pair’s rascally, nudge-wink grooves now have to figure out what part of “One More Time” is for them. Is there a subversive part of “One More Time?” If so, where does it begin?<\/p>\n\n<p><img src=\"https://images.rapgenius.com/5e9b9cad9538537291de8901eaa5f15f.450x450x1.png\" alt=\"\" width=\"450\" height=\"450\" data-animated=\"false\"><\/p>\n\n<p>The music video serves as the intro to the animated version of the album <a href=\"https://genius.com/albums/Daft-punk/Discovery\" rel=\"noopener\" data-api_path=\"/albums/27501\">Discovery<\/a>, <a href=\"http://rock.genius.com/Daft-punk-interstella-5555-the-5tory-of-the-5ecret-5tar-5ystem-lyrics/\" rel=\"noopener\" data-api_path=\"/songs/576883\"><em>Interstella 5555: The 5tory of the 5ecret 5tar 5ystem<\/em><\/a><\/p>"
+        },
+        "customSongArtImageUrl": "http://images.genius.com/1f68dda22b514be9e8b0555a49ac372b.1000x1000x1.png",
+        "customHeaderImageUrl": "https://images.genius.com/e94facf9879115d5b11c2f26fdc8b04b.1000x1000x1.jpg",
+        "commentCount": 7,
+        "appleMusicPlayerUrl": "https://genius.com/songs/71255/apple_music_player",
+        "appleMusicId": "697195462",
+        "annotationCount": 5
+      },
+      "72011": {
+        "url": "https://genius.com/Daft-punk-digital-love-lyrics",
+        "title": "Digital Love",
+        "path": "/Daft-punk-digital-love-lyrics",
+        "lyricsState": "complete",
+        "id": 72011,
+        "apiPath": "/songs/72011",
+        "type": "song"
+      },
+      "113105": {
+        "url": "https://genius.com/Daft-punk-harder-better-faster-stronger-lyrics",
+        "title": "Harder, Better, Faster, Stronger",
+        "path": "/Daft-punk-harder-better-faster-stronger-lyrics",
+        "lyricsState": "complete",
+        "id": 113105,
+        "apiPath": "/songs/113105",
+        "type": "song"
+      },
+      "122571": {
+        "url": "https://genius.com/Daft-punk-something-about-us-lyrics",
+        "title": "Something About Us",
+        "path": "/Daft-punk-something-about-us-lyrics",
+        "lyricsState": "complete",
+        "id": 122571,
+        "apiPath": "/songs/122571",
+        "type": "song"
+      },
+      "122577": {
+        "url": "https://genius.com/Daft-punk-too-long-lyrics",
+        "title": "Too Long",
+        "path": "/Daft-punk-too-long-lyrics",
+        "lyricsState": "complete",
+        "id": 122577,
+        "apiPath": "/songs/122577",
+        "type": "song"
+      },
+      "122579": {
+        "url": "https://genius.com/Daft-punk-face-to-face-lyrics",
+        "title": "Face to Face",
+        "path": "/Daft-punk-face-to-face-lyrics",
+        "lyricsState": "complete",
+        "id": 122579,
+        "apiPath": "/songs/122579",
+        "type": "song"
+      },
+      "122625": {
+        "url": "https://genius.com/Daft-punk-superheroes-lyrics",
+        "title": "Superheroes",
+        "path": "/Daft-punk-superheroes-lyrics",
+        "lyricsState": "complete",
+        "id": 122625,
+        "apiPath": "/songs/122625",
+        "type": "song"
+      },
+      "158635": {
+        "url": "https://genius.com/Daft-punk-veridis-quo-lyrics",
+        "title": "Veridis Quo",
+        "path": "/Daft-punk-veridis-quo-lyrics",
+        "lyricsState": "complete",
+        "id": 158635,
+        "apiPath": "/songs/158635",
+        "type": "song"
+      },
+      "162412": {
+        "url": "https://genius.com/Daft-punk-high-life-lyrics",
+        "title": "High Life",
+        "path": "/Daft-punk-high-life-lyrics",
+        "lyricsState": "complete",
+        "id": 162412,
+        "apiPath": "/songs/162412",
+        "type": "song"
+      },
+      "220904": {
+        "url": "https://genius.com/Daft-punk-aerodynamic-lyrics",
+        "title": "Aerodynamic",
+        "path": "/Daft-punk-aerodynamic-lyrics",
+        "lyricsState": "complete",
+        "id": 220904,
+        "apiPath": "/songs/220904",
+        "type": "song"
+      },
+      "313268": {
+        "url": "https://genius.com/Daft-punk-crescendolls-lyrics",
+        "title": "Crescendolls",
+        "path": "/Daft-punk-crescendolls-lyrics",
+        "lyricsState": "complete",
+        "id": 313268,
+        "apiPath": "/songs/313268",
+        "type": "song"
+      },
+      "313281": {
+        "url": "https://genius.com/Daft-punk-nightvision-lyrics",
+        "title": "Nightvision",
+        "path": "/Daft-punk-nightvision-lyrics",
+        "lyricsState": "complete",
+        "id": 313281,
+        "apiPath": "/songs/313281",
+        "type": "song"
+      },
+      "313343": {
+        "url": "https://genius.com/Daft-punk-voyager-lyrics",
+        "title": "Voyager",
+        "path": "/Daft-punk-voyager-lyrics",
+        "lyricsState": "complete",
+        "id": 313343,
+        "apiPath": "/songs/313343",
+        "type": "song"
+      },
+      "313374": {
+        "url": "https://genius.com/Daft-punk-short-circuit-lyrics",
+        "title": "Short Circuit",
+        "path": "/Daft-punk-short-circuit-lyrics",
+        "lyricsState": "complete",
+        "id": 313374,
+        "apiPath": "/songs/313374",
+        "type": "song"
+      },
+      "576883": {
+        "url": "https://genius.com/Daft-punk-interstella-5555-the-5tory-of-the-5ecret-5tar-5ystem-annotated",
+        "title": "Interstella 5555: The 5tory of the 5ecret 5tar 5ystem",
+        "path": "/Daft-punk-interstella-5555-the-5tory-of-the-5ecret-5tar-5ystem-annotated",
+        "lyricsState": "complete",
+        "id": 576883,
+        "apiPath": "/songs/576883",
+        "type": "song"
+      },
+      "1779067": {
+        "url": "https://genius.com/Daft-punk-discovery-credits-lyrics",
+        "title": "Discovery [Credits]",
+        "path": "/Daft-punk-discovery-credits-lyrics",
+        "lyricsState": "complete",
+        "id": 1779067,
+        "apiPath": "/songs/1779067",
+        "type": "song"
+      }
+    },
+    "albumAppearances": {
+      "71255": {
+        "song": 71255,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 1,
+        "type": "album_appearance"
+      },
+      "72011": {
+        "song": 72011,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 3,
+        "type": "album_appearance"
+      },
+      "113105": {
+        "song": 113105,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 4,
+        "type": "album_appearance"
+      },
+      "122571": {
+        "song": 122571,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 9,
+        "type": "album_appearance"
+      },
+      "122577": {
+        "song": 122577,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 14,
+        "type": "album_appearance"
+      },
+      "122579": {
+        "song": 122579,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 13,
+        "type": "album_appearance"
+      },
+      "122625": {
+        "song": 122625,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 7,
+        "type": "album_appearance"
+      },
+      "158635": {
+        "song": 158635,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 11,
+        "type": "album_appearance"
+      },
+      "162412": {
+        "song": 162412,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 8,
+        "type": "album_appearance"
+      },
+      "220904": {
+        "song": 220904,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 2,
+        "type": "album_appearance"
+      },
+      "313268": {
+        "song": 313268,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 5,
+        "type": "album_appearance"
+      },
+      "313281": {
+        "song": 313281,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 6,
+        "type": "album_appearance"
+      },
+      "313343": {
+        "song": 313343,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 10,
+        "type": "album_appearance"
+      },
+      "313374": {
+        "song": 313374,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": 12,
+        "type": "album_appearance"
+      },
+      "576883": {
+        "song": 576883,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": null,
+        "type": "album_appearance"
+      },
+      "1779067": {
+        "song": 1779067,
+        "currentUserMetadata": {
+          "excludedPermissions": [
+
+          ],
+          "permissions": [
+            "view_song"
+          ]
+        },
+        "number": null,
+        "type": "album_appearance"
+      }
+    },
+    "albums": {
+      "27501": {
+        "tracklist": [
+          71255,
+          220904,
+          72011,
+          113105,
+          313268,
+          313281,
+          122625,
+          162412,
+          122571,
+          313343,
+          158635,
+          313374,
+          122579,
+          122577,
+          1779067,
+          576883
+        ],
+        "artist": 13585,
+        "url": "https://genius.com/albums/Daft-punk/Discovery",
+        "releaseDateComponents": {
+          "day": 26,
+          "month": 2,
+          "year": 2001
+        },
+        "nameWithArtist": "Discovery (artist: Daft Punk)",
+        "name": "Discovery",
+        "id": 27501,
+        "fullTitle": "Discovery by Daft Punk",
+        "coverArtUrl": "https://images.genius.com/6ca3c17882be80cfcd7abec9e505a0db.1000x1000x1.jpg",
+        "coverArtThumbnailUrl": "https://images.genius.com/6ca3c17882be80cfcd7abec9e505a0db.300x300x1.jpg",
+        "apiPath": "/albums/27501",
+        "type": "album"
+      }
+    },
+    "users": {
+      "22190": {
+        "currentUserMetadata": {
+          "interactions": {
+            "following": false
+          },
+          "excludedPermissions": [
+            "follow"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "url": "https://genius.com/Empathy",
+        "roleForDisplay": "contributor",
+        "name": "Empathy",
+        "login": "Empathy",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 1670,
+        "id": 22190,
+        "humanReadableRoleForDisplay": "Contributor",
+        "headerImageUrl": "https://assets.genius.com/images/default_avatar_300.png?1593025307",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://assets.genius.com/images/default_avatar_300.png?1593025307"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://assets.genius.com/images/default_avatar_100.png?1593025307"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://assets.genius.com/images/default_avatar_32.png?1593025307"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://assets.genius.com/images/default_avatar_16.png?1593025307"
+          }
+        },
+        "apiPath": "/users/22190",
+        "aboutMeSummary": "",
+        "type": "user"
+      },
+      "116340": {
+        "currentUserMetadata": {
+          "interactions": {
+            "following": false
+          },
+          "excludedPermissions": [
+            "follow"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "url": "https://genius.com/palacelight",
+        "roleForDisplay": "editor",
+        "name": "Reuben Tasker",
+        "login": "palacelight",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 295053,
+        "id": 116340,
+        "humanReadableRoleForDisplay": "Editor",
+        "headerImageUrl": "https://images.rapgenius.com/avatars/medium/4955c7795dbe34cdb329280940bf8639",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.rapgenius.com/avatars/medium/4955c7795dbe34cdb329280940bf8639"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.rapgenius.com/avatars/small/4955c7795dbe34cdb329280940bf8639"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.rapgenius.com/avatars/thumb/4955c7795dbe34cdb329280940bf8639"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.rapgenius.com/avatars/tiny/4955c7795dbe34cdb329280940bf8639"
+          }
+        },
+        "apiPath": "/users/116340",
+        "aboutMeSummary": "…",
+        "type": "user"
+      },
+      "1112222": {
+        "currentUserMetadata": {
+          "interactions": {
+            "following": false
+          },
+          "excludedPermissions": [
+            "follow"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "url": "https://genius.com/5bankaccounts3ounces2vehicles",
+        "roleForDisplay": "contributor",
+        "name": "5bankaccounts3ounces2vehicles",
+        "login": "5bankaccounts3ounces2vehicles",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 49465,
+        "id": 1112222,
+        "humanReadableRoleForDisplay": "Contributor",
+        "headerImageUrl": "https://images.rapgenius.com/avatars/medium/3db8b52fc2b13a4aa21cca83538d708d",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.rapgenius.com/avatars/medium/3db8b52fc2b13a4aa21cca83538d708d"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.rapgenius.com/avatars/small/3db8b52fc2b13a4aa21cca83538d708d"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.rapgenius.com/avatars/thumb/3db8b52fc2b13a4aa21cca83538d708d"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.rapgenius.com/avatars/tiny/3db8b52fc2b13a4aa21cca83538d708d"
+          }
+        },
+        "apiPath": "/users/1112222",
+        "aboutMeSummary": "Musical loves:\nMike Patton, Dr Dre, Trent Reznor, Antonin Dvorak, Sven Vath, Mikael Akerfeldt, Chet Baker and everything in between.",
+        "type": "user"
+      },
+      "1563911": {
+        "currentUserMetadata": {
+          "interactions": {
+            "following": false
+          },
+          "excludedPermissions": [
+            "follow"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "url": "https://genius.com/YiorgosTsivranidis",
+        "roleForDisplay": "contributor",
+        "name": "YiorgosTsivranidis",
+        "login": "YiorgosTsivranidis",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 584,
+        "id": 1563911,
+        "humanReadableRoleForDisplay": "Contributor",
+        "headerImageUrl": "https://images.rapgenius.com/avatars/medium/317208de88f4020ad1e7e7b2125d2502",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.rapgenius.com/avatars/medium/317208de88f4020ad1e7e7b2125d2502"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.rapgenius.com/avatars/small/317208de88f4020ad1e7e7b2125d2502"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.rapgenius.com/avatars/thumb/317208de88f4020ad1e7e7b2125d2502"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.rapgenius.com/avatars/tiny/317208de88f4020ad1e7e7b2125d2502"
+          }
+        },
+        "apiPath": "/users/1563911",
+        "aboutMeSummary": "",
+        "type": "user"
+      },
+      "3677897": {
+        "currentUserMetadata": {
+          "interactions": {
+            "following": false
+          },
+          "excludedPermissions": [
+            "follow"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "url": "https://genius.com/brektfast",
+        "roleForDisplay": "contributor",
+        "name": "brektfast",
+        "login": "brektfast",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 1339,
+        "id": 3677897,
+        "humanReadableRoleForDisplay": "Contributor",
+        "headerImageUrl": "https://s3.amazonaws.com/filepicker-images-rapgenius/27eoehc2pc1",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.genius.com/avatars/medium/3dacd5f947869aa243db1a23f91ddfb1"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.genius.com/avatars/small/3dacd5f947869aa243db1a23f91ddfb1"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.genius.com/avatars/thumb/3dacd5f947869aa243db1a23f91ddfb1"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.genius.com/avatars/tiny/3dacd5f947869aa243db1a23f91ddfb1"
+          }
+        },
+        "apiPath": "/users/3677897",
+        "aboutMeSummary": "“They who can give up essential liberty to obtain a little temporary safety deserve neither liberty nor safety.” B.F.\n\n𝘐𝘧 𝘺𝘰𝘶 𝘢𝘳𝘦 𝘨𝘰𝘰𝘥 𝘢𝘵 𝘴𝘰𝘮𝘦𝘵𝘩𝘪𝘯𝘨, 𝘯𝘦𝘷𝘦𝘳 𝘥𝘰 𝘪𝘵 𝘧𝘰𝘳 𝘧𝘳𝘦𝘦.\n\n\n\nPortugal",
+        "type": "user"
+      },
+      "4423292": {
+        "currentUserMetadata": {
+          "interactions": {
+            "following": false
+          },
+          "excludedPermissions": [
+            "follow"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "url": "https://genius.com/ale_gxxx",
+        "roleForDisplay": null,
+        "name": "ale_gxxx",
+        "login": "ale_gxxx",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 233,
+        "id": 4423292,
+        "humanReadableRoleForDisplay": null,
+        "headerImageUrl": "https://images.genius.com/avatars/medium/a5f9ac72d53b2a6f7df29d219adcb81a",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.genius.com/avatars/medium/a5f9ac72d53b2a6f7df29d219adcb81a"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.genius.com/avatars/small/a5f9ac72d53b2a6f7df29d219adcb81a"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.genius.com/avatars/thumb/a5f9ac72d53b2a6f7df29d219adcb81a"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.genius.com/avatars/tiny/a5f9ac72d53b2a6f7df29d219adcb81a"
+          }
+        },
+        "apiPath": "/users/4423292",
+        "aboutMeSummary": "acid & music",
+        "type": "user"
+      },
+      "4798298": {
+        "currentUserMetadata": {
+          "interactions": {
+            "following": false
+          },
+          "excludedPermissions": [
+            "follow"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "url": "https://genius.com/Blueshirt",
+        "roleForDisplay": "contributor",
+        "name": "Blueshirt",
+        "login": "Blueshirt",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 3003,
+        "id": 4798298,
+        "humanReadableRoleForDisplay": "Contributor",
+        "headerImageUrl": "https://images.genius.com/avatars/medium/c07107342007a7c1053ecfb2572e5e9d",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.genius.com/avatars/medium/c07107342007a7c1053ecfb2572e5e9d"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.genius.com/avatars/small/c07107342007a7c1053ecfb2572e5e9d"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.genius.com/avatars/thumb/c07107342007a7c1053ecfb2572e5e9d"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.genius.com/avatars/tiny/c07107342007a7c1053ecfb2572e5e9d"
+          }
+        },
+        "apiPath": "/users/4798298",
+        "aboutMeSummary": "UW grad. Milwaukee resident. I like music, I write about it. Words for @bestfitmusic, @shepherdexpress, @SpectrumCulture, elsewhere. Previously: @BadgerHerald.",
+        "type": "user"
+      },
+      "7757383": {
+        "currentUserMetadata": {
+          "interactions": {
+            "following": false
+          },
+          "excludedPermissions": [
+            "follow"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "url": "https://genius.com/Sopherscoandbuds",
+        "roleForDisplay": null,
+        "name": "Sopherscoandbuds",
+        "login": "Sopherscoandbuds",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 101,
+        "id": 7757383,
+        "humanReadableRoleForDisplay": null,
+        "headerImageUrl": "https://s3.amazonaws.com/filepicker-images-rapgenius/akkjtg9t0nf",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://s3.amazonaws.com/filepicker-images-rapgenius/lsoxzvpied"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://s3.amazonaws.com/filepicker-images-rapgenius/lsoxzvpied"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://s3.amazonaws.com/filepicker-images-rapgenius/lsoxzvpied"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://s3.amazonaws.com/filepicker-images-rapgenius/lsoxzvpied"
+          }
+        },
+        "apiPath": "/users/7757383",
+        "aboutMeSummary": "",
+        "type": "user"
+      }
+    },
+    "annotations": {
+      "3561992": {
+        "verifiedBy": null,
+        "topComment": null,
+        "rejectionComment": null,
+        "createdBy": {
+          "currentUserMetadata": {
+            "interactions": {
+              "following": false
+            },
+            "excludedPermissions": [
+              "follow"
+            ],
+            "permissions": [
+
+            ]
+          },
+          "url": "https://genius.com/Empathy",
+          "roleForDisplay": "contributor",
+          "name": "Empathy",
+          "login": "Empathy",
+          "isVerified": false,
+          "isMemeVerified": false,
+          "iq": 1670,
+          "id": 22190,
+          "humanReadableRoleForDisplay": "Contributor",
+          "headerImageUrl": "https://assets.genius.com/images/default_avatar_300.png?1593025307",
+          "avatar": {
+            "medium": {
+              "boundingBox": {
+                "height": 400,
+                "width": 300
+              },
+              "url": "https://assets.genius.com/images/default_avatar_300.png?1593025307"
+            },
+            "small": {
+              "boundingBox": {
+                "height": 100,
+                "width": 100
+              },
+              "url": "https://assets.genius.com/images/default_avatar_100.png?1593025307"
+            },
+            "thumb": {
+              "boundingBox": {
+                "height": 32,
+                "width": 32
+              },
+              "url": "https://assets.genius.com/images/default_avatar_32.png?1593025307"
+            },
+            "tiny": {
+              "boundingBox": {
+                "height": 16,
+                "width": 16
+              },
+              "url": "https://assets.genius.com/images/default_avatar_16.png?1593025307"
+            }
+          },
+          "apiPath": "/users/22190",
+          "aboutMeSummary": "",
+          "type": "user"
+        },
+        "cosignedBy": [
+
+        ],
+        "authors": [
+          {
+            "user": 22190,
+            "pinnedRole": null,
+            "attribution": 0.43537414965986393,
+            "type": "user_attribution"
+          },
+          {
+            "user": 116340,
+            "pinnedRole": null,
+            "attribution": 0.43537414965986393,
+            "type": "user_attribution"
+          },
+          {
+            "user": 1112222,
+            "pinnedRole": null,
+            "attribution": 0.1292517006802721,
+            "type": "user_attribution"
+          }
+        ],
+        "acceptedBy": {
+          "currentUserMetadata": {
+            "interactions": {
+              "following": false
+            },
+            "excludedPermissions": [
+              "follow"
+            ],
+            "permissions": [
+
+            ]
+          },
+          "url": "https://genius.com/Empathy",
+          "roleForDisplay": "contributor",
+          "name": "Empathy",
+          "login": "Empathy",
+          "isVerified": false,
+          "isMemeVerified": false,
+          "iq": 1670,
+          "id": 22190,
+          "humanReadableRoleForDisplay": "Contributor",
+          "headerImageUrl": "https://assets.genius.com/images/default_avatar_300.png?1593025307",
+          "avatar": {
+            "medium": {
+              "boundingBox": {
+                "height": 400,
+                "width": 300
+              },
+              "url": "https://assets.genius.com/images/default_avatar_300.png?1593025307"
+            },
+            "small": {
+              "boundingBox": {
+                "height": 100,
+                "width": 100
+              },
+              "url": "https://assets.genius.com/images/default_avatar_100.png?1593025307"
+            },
+            "thumb": {
+              "boundingBox": {
+                "height": 32,
+                "width": 32
+              },
+              "url": "https://assets.genius.com/images/default_avatar_32.png?1593025307"
+            },
+            "tiny": {
+              "boundingBox": {
+                "height": 16,
+                "width": 16
+              },
+              "url": "https://assets.genius.com/images/default_avatar_16.png?1593025307"
+            }
+          },
+          "apiPath": "/users/22190",
+          "aboutMeSummary": "",
+          "type": "user"
+        },
+        "currentUserMetadata": {
+          "iqByAction": {
+
+          },
+          "interactions": {
+            "vote": null,
+            "pyong": false,
+            "cosign": false
+          },
+          "excludedPermissions": [
+            "vote",
+            "edit",
+            "cosign",
+            "uncosign",
+            "destroy",
+            "accept",
+            "reject",
+            "see_unreviewed",
+            "clear_votes",
+            "propose_edit_to",
+            "pin_to_profile",
+            "unpin_from_profile",
+            "update_source",
+            "edit_custom_preview"
+          ],
+          "permissions": [
+            "create_comment"
+          ]
+        },
+        "votesTotal": 38,
+        "verified": false,
+        "url": "https://genius.com/3561992/Daft-punk-one-more-time/One-more-time",
+        "twitterShareMessage": "“Daft Punk’s single, “One More Time,” is that kind of song: a piece of superreligion with an invincible b…” —@Genius",
+        "state": "accepted",
+        "source": null,
+        "shareUrl": "https://genius.com/3561992",
+        "referentId": 3561992,
+        "pyongsCount": null,
+        "proposedEditCount": 0,
+        "pinned": false,
+        "needsExegesis": false,
+        "id": 3561992,
+        "hasVoters": true,
+        "embedContent": "<blockquote class=\\'rg_standalone_container\\' data-src=\\'//genius.com/annotations/3561992/standalone_embed\\'><a href=\\'https://genius.com/3561992/Daft-punk-one-more-time/One-more-time\\'>One More Time<\\/a><br><a href=\\'https://genius.com/Daft-punk-one-more-time-lyrics\\'>&#8213; Daft Punk – One More Time<\\/a><\\/blockquote><script async crossorigin src=\\'//genius.com/annotations/load_standalone_embeds.js\\'><\\/script>",
+        "deleted": false,
+        "customPreview": null,
+        "createdAt": 1334423693,
+        "community": true,
+        "commentCount": 0,
+        "body": {
+          "markdown": "Daft Punk\\'s single, \\\"One More Time,\\\" is that kind of song: a piece of superreligion with an invincible beat and a nailed-to-the-wall vocal by house singer Romanthony. It is stamina itself, an anthem to *keep on dancing* that\\'s already a huge hit in clubs and on the radio. All those knowing listeners who bought Homework and signed on for the pair\\'s rascally, nudge-wink grooves now have to figure out what part of \\\"One More Time\\\" is for them. Is there a subversive part of \\\"One More Time?\\\" If so, where does it begin?\\n\\nhttp://images.rapgenius.com/5e9b9cad9538537291de8901eaa5f15f.450x450x1.png\\n\\nThe music video serves as the intro to the animated version of the album [Discovery](http://genius.com/albums/Daft-punk/Discovery), [*Interstella 5555: The 5tory of the 5ecret 5tar 5ystem*](http://rock.genius.com/Daft-punk-interstella-5555-the-5tory-of-the-5ecret-5tar-5ystem-lyrics/)",
+          "html": "<p>Daft Punk’s single, “One More Time,” is that kind of song: a piece of superreligion with an invincible beat and a nailed-to-the-wall vocal by house singer Romanthony. It is stamina itself, an anthem to <em>keep on dancing<\/em> that’s already a huge hit in clubs and on the radio. All those knowing listeners who bought Homework and signed on for the pair’s rascally, nudge-wink grooves now have to figure out what part of “One More Time” is for them. Is there a subversive part of “One More Time?” If so, where does it begin?<\/p>\n\n<p><img src=\"https://images.rapgenius.com/5e9b9cad9538537291de8901eaa5f15f.450x450x1.png\" alt=\"\" width=\"450\" height=\"450\" data-animated=\"false\"><\/p>\n\n<p>The music video serves as the intro to the animated version of the album <a href=\"https://genius.com/albums/Daft-punk/Discovery\" rel=\"noopener\" data-api_path=\"/albums/27501\">Discovery<\/a>, <a href=\"http://rock.genius.com/Daft-punk-interstella-5555-the-5tory-of-the-5ecret-5tar-5ystem-lyrics/\" rel=\"noopener\" data-api_path=\"/songs/576883\"><em>Interstella 5555: The 5tory of the 5ecret 5tar 5ystem<\/em><\/a><\/p>"
+        },
+        "beingCreated": false,
+        "apiPath": "/annotations/3561992",
+        "type": "annotation"
+      }
+    },
+    "referents": {
+      "3561992": {
+        "annotations": [
+          3561992
+        ],
+        "annotatable": {
+          "url": "https://genius.com/Daft-punk-one-more-time-lyrics",
+          "type": "song",
+          "title": "One More Time",
+          "linkTitle": "One More Time by Daft Punk",
+          "imageUrl": "https://images.genius.com/1f68dda22b514be9e8b0555a49ac372b.1000x1000x1.png",
+          "id": 71255,
+          "context": "Daft Punk",
+          "clientTimestamps": {
+            "lyricsUpdatedAt": 1567526590,
+            "updatedByHumanAt": 1572239095
+          },
+          "apiPath": "/songs/71255"
+        },
+        "twitterShareMessage": "“Daft Punk’s single, “One More Time,” is that kind of song: a piece of superreligion with an invi…” —@Genius",
+        "trackingPaths": {
+          "concurrent": "/Daft-punk-one-more-time-lyrics",
+          "aggregate": "/3561992/Daft-punk-one-more-time/One-more-time"
+        },
+        "currentUserMetadata": {
+          "relationships": {
+
+          },
+          "excludedPermissions": [
+            "add_pinned_annotation_to",
+            "add_community_annotation_to"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "verifiedAnnotatorIds": [
+
+        ],
+        "url": "https://genius.com/3561992/Daft-punk-one-more-time/One-more-time",
+        "songId": 71255,
+        "range": {
+          "content": "One More Time"
+        },
+        "path": "/3561992/Daft-punk-one-more-time/One-more-time",
+        "isImage": false,
+        "isDescription": true,
+        "iosAppUrl": "genius://referents/3561992",
+        "id": 3561992,
+        "fragment": "One More Time",
+        "classification": "accepted",
+        "apiPath": "/referents/3561992",
+        "annotatorLogin": "Empathy",
+        "annotatorId": 22190,
+        "type": "referent"
+      }
+    },
+    "comments": {
+      "1302016": {
+        "reason": null,
+        "author": null,
+        "anonymousAuthor": {
+          "name": "Cruzjr",
+          "login": "cruzjr",
+          "avatar": {
+            "medium": {
+              "boundingBox": {
+                "height": 400,
+                "width": 300
+              },
+              "url": "https://assets.genius.com/images/default_avatar_300.png?1593025307"
+            },
+            "small": {
+              "boundingBox": {
+                "height": 100,
+                "width": 100
+              },
+              "url": "https://assets.genius.com/images/default_avatar_100.png?1593025307"
+            },
+            "thumb": {
+              "boundingBox": {
+                "height": 32,
+                "width": 32
+              },
+              "url": "https://assets.genius.com/images/default_avatar_32.png?1593025307"
+            },
+            "tiny": {
+              "boundingBox": {
+                "height": 16,
+                "width": 16
+              },
+              "url": "https://assets.genius.com/images/default_avatar_16.png?1593025307"
+            }
+          },
+          "type": "anonymous_user"
+        },
+        "currentUserMetadata": {
+          "interactions": {
+            "vote": null
+          },
+          "excludedPermissions": [
+            "vote",
+            "accept",
+            "reject",
+            "mark_spam",
+            "integrate",
+            "archive",
+            "destroy"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "votesTotal": 47,
+        "pinnedRole": null,
+        "id": 1302016,
+        "hasVoters": true,
+        "createdAt": 1374649321,
+        "body": {
+          "markdown": "this song makes me feel good inside",
+          "html": "<p>this song makes me feel good inside<\/p>"
+        },
+        "apiPath": "/comments/1302016",
+        "type": "comment"
+      },
+      "5430468": {
+        "reason": null,
+        "author": 4798298,
+        "anonymousAuthor": null,
+        "currentUserMetadata": {
+          "interactions": {
+            "vote": null
+          },
+          "excludedPermissions": [
+            "vote",
+            "accept",
+            "reject",
+            "mark_spam",
+            "integrate",
+            "archive",
+            "destroy"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "votesTotal": 8,
+        "pinnedRole": null,
+        "id": 5430468,
+        "hasVoters": true,
+        "createdAt": 1511815979,
+        "body": {
+          "markdown": "I like how the \\\"contributors\\\" for the About section just straight up stole from Rolling Stone for the entry. Here\\'s where it comes from: http://www.rollingstone.com/music/albumreviews/discovery-20050306.",
+          "html": "<p>I like how the “contributors” for the About section just straight up stole from Rolling Stone for the entry. Here’s where it comes from: <\/p><div class=\"embedly_preview\">\n<a href=\"http://www.rollingstone.com/music/albumreviews/discovery-20050306.\">​http://www.rollingstone.com/music/albumreviews/discovery-20050306.<\/a>\n<\/div>"
+        },
+        "apiPath": "/comments/5430468",
+        "type": "comment"
+      },
+      "6210562": {
+        "reason": null,
+        "author": 4423292,
+        "anonymousAuthor": null,
+        "currentUserMetadata": {
+          "interactions": {
+            "vote": null
+          },
+          "excludedPermissions": [
+            "vote",
+            "accept",
+            "reject",
+            "mark_spam",
+            "integrate",
+            "archive",
+            "destroy"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "votesTotal": 2,
+        "pinnedRole": null,
+        "id": 6210562,
+        "hasVoters": true,
+        "createdAt": 1534584127,
+        "body": {
+          "markdown": "i need you to listen to this perfect song while youre on acid trip, really, its perfection,you feel so fucking good i cant even explain it, do it pls love yall <3",
+          "html": "<p>i need you to listen to this perfect song while youre on acid trip, really, its perfection,you feel so fucking good i cant even explain it, do it pls love yall <3<\/p>"
+        },
+        "apiPath": "/comments/6210562",
+        "type": "comment"
+      },
+      "6600902": {
+        "reason": null,
+        "author": 7757383,
+        "anonymousAuthor": null,
+        "currentUserMetadata": {
+          "interactions": {
+            "vote": null
+          },
+          "excludedPermissions": [
+            "vote",
+            "accept",
+            "reject",
+            "mark_spam",
+            "integrate",
+            "archive",
+            "destroy"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "votesTotal": 0,
+        "pinnedRole": null,
+        "id": 6600902,
+        "hasVoters": true,
+        "createdAt": 1547578268,
+        "body": {
+          "markdown": "OMG, I love this song, #newfav!",
+          "html": "<p>OMG, I love this song, #newfav!<\/p>"
+        },
+        "apiPath": "/comments/6600902",
+        "type": "comment"
+      },
+      "7691190": {
+        "reason": null,
+        "author": null,
+        "anonymousAuthor": {
+          "name": "codey",
+          "login": "codey",
+          "avatar": {
+            "medium": {
+              "boundingBox": {
+                "height": 400,
+                "width": 300
+              },
+              "url": "https://assets.genius.com/images/default_avatar_300.png?1593025307"
+            },
+            "small": {
+              "boundingBox": {
+                "height": 100,
+                "width": 100
+              },
+              "url": "https://assets.genius.com/images/default_avatar_100.png?1593025307"
+            },
+            "thumb": {
+              "boundingBox": {
+                "height": 32,
+                "width": 32
+              },
+              "url": "https://assets.genius.com/images/default_avatar_32.png?1593025307"
+            },
+            "tiny": {
+              "boundingBox": {
+                "height": 16,
+                "width": 16
+              },
+              "url": "https://assets.genius.com/images/default_avatar_16.png?1593025307"
+            }
+          },
+          "type": "anonymous_user"
+        },
+        "currentUserMetadata": {
+          "interactions": {
+            "vote": null
+          },
+          "excludedPermissions": [
+            "vote",
+            "accept",
+            "reject",
+            "mark_spam",
+            "integrate",
+            "archive",
+            "destroy"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "votesTotal": 1,
+        "pinnedRole": null,
+        "id": 7691190,
+        "hasVoters": true,
+        "createdAt": 1586191525,
+        "body": {
+          "markdown": "yay",
+          "html": "<p>yay<\/p>"
+        },
+        "apiPath": "/comments/7691190",
+        "type": "comment"
+      },
+      "7810918": {
+        "reason": null,
+        "author": 1563911,
+        "anonymousAuthor": null,
+        "currentUserMetadata": {
+          "interactions": {
+            "vote": null
+          },
+          "excludedPermissions": [
+            "vote",
+            "accept",
+            "reject",
+            "mark_spam",
+            "integrate",
+            "archive",
+            "destroy"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "votesTotal": 2,
+        "pinnedRole": null,
+        "id": 7810918,
+        "hasVoters": true,
+        "createdAt": 1590439615,
+        "body": {
+          "markdown": "It\\'s scientifically impossible to listen to this song and not shake your ass",
+          "html": "<p>It’s scientifically impossible to listen to this song and not shake your ass<\/p>"
+        },
+        "apiPath": "/comments/7810918",
+        "type": "comment"
+      },
+      "7826788": {
+        "reason": null,
+        "author": 3677897,
+        "anonymousAuthor": null,
+        "currentUserMetadata": {
+          "interactions": {
+            "vote": null
+          },
+          "excludedPermissions": [
+            "vote",
+            "accept",
+            "reject",
+            "mark_spam",
+            "integrate",
+            "archive",
+            "destroy"
+          ],
+          "permissions": [
+
+          ]
+        },
+        "votesTotal": 2,
+        "pinnedRole": null,
+        "id": 7826788,
+        "hasVoters": true,
+        "createdAt": 1591131426,
+        "body": {
+          "markdown": "https://images.genius.com/eefb8951e8fd97bd06aca58ea958df03.400x300x75.gif",
+          "html": "<p><img src=\"https://images.genius.com/eefb8951e8fd97bd06aca58ea958df03.400x300x75.gif\" alt=\"\" width=\"400\" height=\"300\" data-animated=\"true\"><\/p>"
+        },
+        "apiPath": "/comments/7826788",
+        "type": "comment"
+      }
+    }
+  }
+}

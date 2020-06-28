@@ -37,4 +37,8 @@ export class SubjectService {
     var subjects_concat = subjects.join('-');
     return this.httpClient.get<SearchResults>(`${this.baseUrl}/web/v2/subject/search/${subjects_concat}/${search}`).toPromise();
   }
+
+  public fetch(url: string) {
+    return this.httpClient.post<any>(`${this.baseUrl}/web/v2/subject/fetch`, { url: url }).toPromise();
+  }
 }

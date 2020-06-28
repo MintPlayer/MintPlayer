@@ -9,6 +9,9 @@
     "search": "Zoeken",
     "search_anything": "Geef een zoekterm in"
   },
+  "fetch": {
+    "fetch_url": "Vul hier een url in om op te halen"
+  },
   "artists": {
     "artists": "Artiesten",
     "all_artists": "Alle artiesten",

@@ -9,7 +9,7 @@ namespace MintPlayer.Fetcher.Genius.Data
 {
     internal class Song
     {
-        [JsonProperty("id")]
+        [JsonProperty("song")]
         public int Id { get; set; }
 
         [JsonProperty("apple_music_id")]

@@ -25,6 +25,7 @@ using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SpaServices.Routing;
 using MintPlayer.Data;
 using MintPlayer.Data.Extensions;
+using MintPlayer.Fetcher.DependencyInjection;
 using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
 using MintPlayer.Web.Services;
@@ -199,6 +200,18 @@ namespace MintPlayer.Web
                     .Route("terms-of-service", "termsofservice")
                 )
             );
+
+            services
+                .AddSingleton<System.Net.Http.HttpClient>()
+                .AddFetcherContainer()
+                .AddGeniusFetcher()
+                .AddMusixmatchFetcher()
+                .AddLyricsComFetcher()
+                .AddSongtekstenNetFetcher()
+                .AddSongMeaningsFetcher()
+                .AddAZLyricsFetcher()
+                .AddSongLyricsFetcher()
+                .AddLoloLyricsFetcher();
 
             services
                 .Configure<ForwardedHeadersOptions>(options =>
