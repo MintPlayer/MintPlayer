@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MintPlayer.Fetcher.Muzikum
 {
-    public class MuzikumFetcher : Fetcher
+    internal class MuzikumFetcher : Fetcher
     {
-        private readonly HttpClient httpClient;
-        public MuzikumFetcher(HttpClient httpClient)
+        private readonly IRequestSender requestSender;
+        public MuzikumFetcher(IRequestSender requestSender)
         {
-            this.httpClient = httpClient;
+            this.requestSender = requestSender;
         }
 
         public override IEnumerable<Regex> UrlRegex
@@ -28,7 +28,7 @@ namespace MintPlayer.Fetcher.Muzikum
 
         public override async Task<Subject> Fetch(string url, bool trimTrash)
         {
-            var html = await SendRequest(httpClient, url);
+            var html = await requestSender.SendRequest(url);
             throw new NotImplementedException();
         }
 

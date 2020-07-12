@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.LoloLyrics;
+using MintPlayer.Fetcher.LoloLyrics.Parsers;
 
 namespace MintPlayer.Fetcher.DependencyInjection
 {
@@ -9,6 +10,8 @@ namespace MintPlayer.Fetcher.DependencyInjection
         {
             return services
                 .AddSingleton<LoloLyricsFetcher>()
+                .AddSingleton<ISongParser, SongParser>()
+                .AddSingleton<IArtistParser, ArtistParser>()
                 .AddSingleton<IFetcher, LoloLyricsFetcher>();
         }
     }

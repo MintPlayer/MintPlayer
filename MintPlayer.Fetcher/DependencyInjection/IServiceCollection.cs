@@ -6,7 +6,10 @@ namespace MintPlayer.Fetcher.DependencyInjection
     {
         public static IServiceCollection AddFetcherContainer(this IServiceCollection services)
         {
-            return services.AddSingleton<IFetcherContainer, FetcherContainer>();
+            return services
+                .AddSingleton<IFetcherContainer, FetcherContainer>()
+                .AddSingleton<IRequestSender, RequestSender>()
+                .AddSingleton<ILdJsonReader, LdJsonReader>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.SongMeanings;
+using MintPlayer.Fetcher.SongMeanings.Parsers;
 
 namespace MintPlayer.Fetcher.DependencyInjection
 {
@@ -9,6 +10,9 @@ namespace MintPlayer.Fetcher.DependencyInjection
         {
             return services
                 .AddSingleton<SongMeaningsFetcher>()
+                .AddSingleton<IArtistParser, ArtistParser>()
+                .AddSingleton<IAlbumParser, AlbumParser>()
+                .AddSingleton<ISongParser, SongParser>()
                 .AddSingleton<IFetcher, SongMeaningsFetcher>();
         }
     }

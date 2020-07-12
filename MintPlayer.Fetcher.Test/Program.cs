@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿#define AZLyrics
+
+using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.DependencyInjection;
 using System;
 using System.Net.Http;
@@ -26,7 +28,7 @@ namespace MintPlayer.Fetcher.Test
 
             var fetcherContainer = provider.GetService<IFetcherContainer>();
 
-            #region SongMeanings
+#if SongMeanings
 
             #region Song
             var url_songmeanings_song = "https://songmeanings.com/songs/view/3530822107858693072/";
@@ -44,9 +46,10 @@ namespace MintPlayer.Fetcher.Test
             var songmeanings_artist1 = fetcherContainer.Fetch(url_songmeanings_artist1, true).Result;
             #endregion
 
-            #endregion
+#endif
 
-            #region Genius - OK
+#if Genius
+            // OK
 
             #region Song - OK
             //var url_genius_song = "https://genius.com/Dario-g-sunchyme-lyrics";
@@ -64,9 +67,10 @@ namespace MintPlayer.Fetcher.Test
             var genius_album = fetcherContainer.Fetch(url_genius_album, true).Result;
             #endregion
 
-            #endregion
+#endif
 
-            #region Musixmatch - OK
+#if Musixmatch
+            // OK
 
             #region Song - OK
             //var url_musixmatch_song = "https://www.musixmatch.com/lyrics/Roddy-Ricch/The-Box";
@@ -85,9 +89,10 @@ namespace MintPlayer.Fetcher.Test
             var musixmatch_album = fetcherContainer.Fetch(url_musixmatch_album, true).Result;
             #endregion
 
-            #endregion
+#endif
 
-            #region LyricsCom - OK
+#if LyricsCom
+            // OK
 
             #region Song - OK
             var url_lyricscom_song = "https://www.lyrics.com/lyric/29531449";
@@ -109,9 +114,9 @@ namespace MintPlayer.Fetcher.Test
             var lyricscom_album_2 = fetcherContainer.Fetch(url_lyricscom_album_2, true).Result;
             #endregion
 
-            #endregion
+#endif
 
-            #region SongtekstenNet
+#if SongtekstenNet
 
             #region Song - OK
             //var url_songtekstennet_song = "https://songteksten.net/lyric/1818/11910/france-gall/ella-elle-la.html";
@@ -131,9 +136,9 @@ namespace MintPlayer.Fetcher.Test
             var songtekstennet_artist = fetcherContainer.Fetch(url_songtekstennet_artist, true).Result;
             #endregion
 
-            #endregion
+#endif
 
-            #region AZLyrics
+#if AZLyrics
 
             #region Song
             const string url_azlyrics_song = "https://www.azlyrics.com/lyrics/djkhaled/imtheone.html";
@@ -145,9 +150,9 @@ namespace MintPlayer.Fetcher.Test
             var azlyrics_artist = fetcherContainer.Fetch(url_azlyrics_artist, true).Result;
             #endregion
 
-            #endregion
+#endif
 
-            #region SongLyrics
+#if SongLyrics
 
             #region Song
             const string url_songlyrics_song = "http://www.songlyrics.com/dj-khaled-feat-justin-bieber-quavo-chance-the-rapper-lil-wayne/i-m-the-one-lyrics/";
@@ -164,9 +169,9 @@ namespace MintPlayer.Fetcher.Test
             var songlyrics_album = fetcherContainer.Fetch(url_songlyrics_album, true).Result;
             #endregion
 
-            #endregion
+#endif
 
-            #region LoloLyrics
+#if LoloLyrics
 
             #region Song
             var url_lololyrics_song = "https://www.lololyrics.com/lyrics/37950.html";
@@ -180,7 +185,7 @@ namespace MintPlayer.Fetcher.Test
             var lololyrics_artist = fetcherContainer.Fetch(url_lololyrics_artist, true).Result;
             #endregion
 
-            #endregion
+#endif
         }
     }
 }

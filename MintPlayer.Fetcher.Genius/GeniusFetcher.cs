@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace MintPlayer.Fetcher.Genius
 {
-    public class GeniusFetcher : Fetcher
+    internal class GeniusFetcher : Fetcher
     {
-        private readonly HttpClient httpClient;
-        public GeniusFetcher(HttpClient httpClient)
+        private readonly IRequestSender requestSender;
+        public GeniusFetcher(IRequestSender requestSender)
         {
-            this.httpClient = httpClient;
+            this.requestSender = requestSender;
         }
         public override IEnumerable<Regex> UrlRegex
         {
@@ -27,7 +27,7 @@ namespace MintPlayer.Fetcher.Genius
 
         public override async Task<Subject> Fetch(string url, bool trimTrash)
         {
-            var html = await SendRequest(httpClient, url);
+            var html = await requestSender.SendRequest(url);
             var page_data = await ReadPageData(html);
 
             var structure = new { currentPage = string.Empty };
@@ -119,8 +119,7 @@ namespace MintPlayer.Fetcher.Genius
 
             while (true)
             {
-                var response = await httpClient.GetAsync($"https://genius.com/api/artists/{data.Artist.Id}/songs?per_page=50&page={page}&sort=popularity");
-                var json_songs = await response.Content.ReadAsStringAsync();
+                var json_songs = await requestSender.SendRequest($"https://genius.com/api/artists/{data.Artist.Id}/songs?per_page=50&page={page}&sort=popularity");
                 var data_songs = JsonConvert.DeserializeAnonymousType(json_songs, songs_structure);
                 songs.AddRange(data_songs.response.songs);
 
@@ -131,8 +130,7 @@ namespace MintPlayer.Fetcher.Genius
             page = 1;
             while (true)
             {
-                var response = await httpClient.GetAsync($"https://genius.com/api/artists/{data.Artist.Id}/albums?per_page=50&page={page}");
-                var json_albums = await response.Content.ReadAsStringAsync();
+                var json_albums = await requestSender.SendRequest($"https://genius.com/api/artists/{data.Artist.Id}/albums?per_page=50&page={page}");
                 var data_albums = JsonConvert.DeserializeAnonymousType(json_albums, albums_structure);
                 albums.AddRange(data_albums.response.albums);
 

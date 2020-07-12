@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.Musixmatch;
+using MintPlayer.Fetcher.Musixmatch.Parsers;
 
 namespace MintPlayer.Fetcher.DependencyInjection
 {
@@ -9,6 +10,9 @@ namespace MintPlayer.Fetcher.DependencyInjection
         {
             return services
                 .AddSingleton<MusixmatchFetcher>()
+                .AddSingleton<IAlbumParser, AlbumParser>()
+                .AddSingleton<IArtistParser, ArtistParser>()
+                .AddSingleton<ISongParser, SongParser>()
                 .AddSingleton<IFetcher, MusixmatchFetcher>();
         }
     }
