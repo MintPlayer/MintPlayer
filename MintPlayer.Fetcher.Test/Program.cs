@@ -61,18 +61,19 @@ namespace MintPlayer.Fetcher.Test
             #region Song - OK
             //var url_genius_song = "https://genius.com/Dario-g-sunchyme-lyrics";
             //var url_genius_song = "https://genius.com/The-weeknd-i-feel-it-coming-lyrics";
-            var url_genius_song = "https://genius.com/Oasis-whatever-lyrics";
+            //var url_genius_song = "https://genius.com/Oasis-whatever-lyrics";
+            var url_genius_song = "https://genius.com/Dj-khaled-im-the-one-lyrics";
             var genius_song = fetcherContainer.Fetch(url_genius_song, true).Result;
             #endregion
 
             #region Artist - OK
-            var url_genius_artist = "https://genius.com/artists/Daft-punk";
-            var genius_artist = fetcherContainer.Fetch(url_genius_artist, true).Result;
+            //var url_genius_artist = "https://genius.com/artists/Daft-punk";
+            //var genius_artist = fetcherContainer.Fetch(url_genius_artist, true).Result;
             #endregion
 
             #region Album - OK
-            var url_genius_album = "https://genius.com/albums/Daft-punk/Random-access-memories";
-            var genius_album = fetcherContainer.Fetch(url_genius_album, true).Result;
+            //var url_genius_album = "https://genius.com/albums/Daft-punk/Random-access-memories";
+            //var genius_album = fetcherContainer.Fetch(url_genius_album, true).Result;
             #endregion
 
 #endif

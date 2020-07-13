@@ -33,9 +33,9 @@ namespace MintPlayer.Fetcher.Genius
 
         public override async Task<Subject> Fetch(string url, bool trimTrash)
         {
-            //var html = await requestSender.SendRequest(url);
+            var html = await requestSender.SendRequest(url);
 
-            var html = System.IO.File.ReadAllText("whatever.html");
+            //var html = System.IO.File.ReadAllText("whatever.html");
             if (html.Contains("__PRELOADED_STATE__"))
             {
                 var result = await v1Parser.Parse(html, trimTrash);
@@ -43,7 +43,8 @@ namespace MintPlayer.Fetcher.Genius
             }
             else
             {
-                throw new NotImplementedException();
+                var result = await v2Parser.Parse(html, trimTrash);
+                return result;
             }
         }
     }
