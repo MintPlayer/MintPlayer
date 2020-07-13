@@ -19,5 +19,11 @@ namespace MintPlayer.Fetcher.Genius.Data
     internal class LyricsBody
     {
         public string Html { get; set; }
+        public System.Collections.Generic.List<object> Children { get; set; } // object = [ string, LyricsNode ]
+    }
+
+    internal class LyricsNode
+    {
+        public System.Collections.Generic.List<object> Children { get; set; } // object = [ string, LyricsNode ]
     }
 }

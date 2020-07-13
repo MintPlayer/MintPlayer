@@ -1,0 +1,976 @@
+{
+  "currentPage": "songPage",
+  "deviceType": "desktop",
+  "session": {
+    "cmpEnabled": true,
+    "ccpaEnabled": true,
+    "showAds": true,
+    "logClientMetrics": false,
+    "fringeEnabled": true,
+    "taboolaEnabled": false
+  },
+  "songPage": {
+    "song": 2184346,
+    "paginatedComments": {
+      "comments": [],
+      "perPage": 10,
+      "nextPage": null
+    },
+    "lyricsData": {
+      "body": {
+        "children": [
+          {
+            "children": [ "Instrumental Track" ],
+            "tag": "p"
+          },
+          ""
+        ],
+        "tag": "root"
+      }
+    },
+    "dfpKv": [
+      {
+        "values": [ "2184346" ],
+        "name": "song_id"
+      },
+      {
+        "values": [ "Sunchyme" ],
+        "name": "song_title"
+      },
+      {
+        "values": [ "350673" ],
+        "name": "artist_id"
+      },
+      {
+        "values": [ "Dario G" ],
+        "name": "artist_name"
+      },
+      {
+        "values": [ "false" ],
+        "name": "is_explicit"
+      },
+      {
+        "values": [ "632" ],
+        "name": "pageviews"
+      },
+      {
+        "values": [ "16" ],
+        "name": "primary_tag_id"
+      },
+      {
+        "values": [ "pop" ],
+        "name": "primary_tag"
+      },
+      {
+        "values": [ "16" ],
+        "name": "tag_id"
+      },
+      {
+        "values": [ "E" ],
+        "name": "song_tier"
+      },
+      {
+        "values": [],
+        "name": "topic"
+      },
+      {
+        "values": [ "false" ],
+        "name": "has_song_story"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10"
+      },
+      {
+        "values": [ "false" ],
+        "name": "artist_in_top_10"
+      },
+      {
+        "values": [ "false" ],
+        "name": "album_in_top_10"
+      },
+      {
+        "values": [ "false" ],
+        "name": "new_release"
+      },
+      {
+        "values": [ "199806" ],
+        "name": "release_month"
+      },
+      {
+        "values": [ "1998" ],
+        "name": "release_year"
+      },
+      {
+        "values": [ "1990" ],
+        "name": "release_decade"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10_rock"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10_country"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10_r_and_b"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10_pop"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10_rap"
+      },
+      {
+        "values": [ "production" ],
+        "name": "environment"
+      },
+      {
+        "values": [ "web" ],
+        "name": "platform"
+      },
+      {
+        "values": [ "song" ],
+        "name": "ad_page_type"
+      }
+    ],
+    "trackingData": [
+      {
+        "value": 2184346,
+        "key": "Song ID"
+      },
+      {
+        "value": "Sunchyme",
+        "key": "Title"
+      },
+      {
+        "value": "Dario G",
+        "key": "Primary Artist"
+      },
+      {
+        "value": 350673,
+        "key": "Primary Artist ID"
+      },
+      {
+        "value": "Sunmachine",
+        "key": "Primary Album"
+      },
+      {
+        "value": 207825,
+        "key": "Primary Album ID"
+      },
+      {
+        "value": "pop",
+        "key": "Tag"
+      },
+      {
+        "value": "pop",
+        "key": "Primary Tag"
+      },
+      {
+        "value": 16,
+        "key": "Primary Tag ID"
+      },
+      {
+        "value": true,
+        "key": "Music?"
+      },
+      {
+        "value": "Song",
+        "key": "Annotatable Type"
+      },
+      {
+        "value": 2184346,
+        "key": "Annotatable ID"
+      },
+      {
+        "value": false,
+        "key": "featured_video"
+      },
+      {
+        "value": [],
+        "key": "cohort_ids"
+      },
+      {
+        "value": false,
+        "key": "has_verified_callout"
+      },
+      {
+        "value": false,
+        "key": "has_featured_annotation"
+      },
+      {
+        "value": "2015-07-13T19:17:23Z",
+        "key": "created_at"
+      },
+      {
+        "value": "2015-07-01",
+        "key": "created_month"
+      },
+      {
+        "value": 2015,
+        "key": "created_year"
+      },
+      {
+        "value": "E",
+        "key": "song_tier"
+      },
+      {
+        "value": false,
+        "key": "Has Recirculated Articles"
+      },
+      {
+        "value": null,
+        "key": "Lyrics Language"
+      },
+      {
+        "value": false,
+        "key": "Has Song Story"
+      },
+      {
+        "value": null,
+        "key": "Song Story ID"
+      },
+      {
+        "value": true,
+        "key": "Has Apple Match"
+      },
+      {
+        "value": "1998-06-08",
+        "key": "Release Date"
+      },
+      {
+        "value": null,
+        "key": "NRM Tier"
+      },
+      {
+        "value": null,
+        "key": "NRM Target Date"
+      },
+      {
+        "value": false,
+        "key": "Has Description"
+      },
+      {
+        "value": false,
+        "key": "Has Youtube URL"
+      },
+      {
+        "value": false,
+        "key": "Has Translation Q&A"
+      },
+      {
+        "value": 0,
+        "key": "Comment Count"
+      }
+    ],
+    "title": "Dario G – Sunchyme Lyrics | Genius Lyrics",
+    "path": "/Dario-g-sunchyme-lyrics",
+    "pageType": "song",
+    "initialAdUnits": [ "desktop_song_inread", "desktop_song_inread2", "desktop_song_inread3", "desktop_song_leaderboard", "desktop_song_lyrics_footer", "desktop_song_marquee", "desktop_song_medium1", "desktop_song_sidebar_top" ],
+    "headerBidPlacements": [],
+    "dmpDataLayer": { "page": { "type": "song" } },
+    "discussionUrl": "https://genius.com/discussions/377926-The-2020-genius-song-page-redesign",
+    "controllerAndAction": "songs#show",
+    "chartbeat": {
+      "title": "Dario G – Sunchyme Lyrics | Genius Lyrics",
+      "sections": "songs,tag:pop",
+      "authors": "Dario G"
+    }
+  },
+  "entities": {
+    "artists": {
+      "350673": {
+        "url": "https://genius.com/artists/Dario-g",
+        "slug": "Dario-g",
+        "name": "Dario G",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "indexCharacter": "d",
+        "imageUrl": "https://assets.genius.com/images/default_avatar_300.png?1594314430",
+        "id": 350673,
+        "headerImageUrl": "https://assets.genius.com/images/default_avatar_300.png?1594314430",
+        "apiPath": "/artists/350673",
+        "type": "artist"
+      }
+    },
+    "songs": {
+      "873775": {
+        "url": "https://genius.com/Dario-g-voices-lyrics",
+        "title": "Voices",
+        "path": "/Dario-g-voices-lyrics",
+        "lyricsState": "complete",
+        "id": 873775,
+        "apiPath": "/songs/873775",
+        "type": "song"
+      },
+      "956152": {
+        "url": "https://genius.com/Dario-g-voices-acoustic-version-lyrics",
+        "title": "Voices (acoustic version)",
+        "path": "/Dario-g-voices-acoustic-version-lyrics",
+        "lyricsState": "complete",
+        "id": 956152,
+        "apiPath": "/songs/956152",
+        "type": "song"
+      },
+      "1949398": {
+        "url": "https://genius.com/Dario-g-carnaval-de-paris-lyrics",
+        "title": "Carnaval de paris",
+        "path": "/Dario-g-carnaval-de-paris-lyrics",
+        "lyricsState": "complete",
+        "id": 1949398,
+        "apiPath": "/songs/1949398",
+        "type": "song"
+      },
+      "2184346": {
+        "url": "https://genius.com/Dario-g-sunchyme-lyrics",
+        "title": "Sunchyme",
+        "path": "/Dario-g-sunchyme-lyrics",
+        "lyricsState": "complete",
+        "id": 2184346,
+        "apiPath": "/songs/2184346",
+        "type": "song",
+        "writerArtists": [],
+        "verifiedLyricsBy": [],
+        "verifiedContributors": [],
+        "verifiedAnnotationsBy": [],
+        "topScholar": null,
+        "tags": [
+          {
+            "url": "https://genius.com/tags/pop",
+            "primary": true,
+            "name": "Pop",
+            "id": 16,
+            "type": "tag"
+          }
+        ],
+        "songRelationships": [
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "samples"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "sampled_in"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "interpolates"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "interpolated_by"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "cover_of"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "covered_by"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "remix_of"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "remixed_by"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "live_version_of"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "performed_live_as"
+          }
+        ],
+        "producerArtists": [],
+        "primaryTag": {
+          "url": "https://genius.com/tags/pop",
+          "primary": true,
+          "name": "Pop",
+          "id": 16,
+          "type": "tag"
+        },
+        "primaryArtist": 350673,
+        "media": [],
+        "lyricsMarkedCompleteBy": null,
+        "featuredArtists": [],
+        "descriptionAnnotation": 7320810,
+        "customPerformances": [],
+        "albums": [
+          {
+            "tracklist": [
+              {
+                "song": {
+                  "url": "https://genius.com/Dario-g-sunchyme-lyrics",
+                  "title": "Sunchyme",
+                  "path": "/Dario-g-sunchyme-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2184346,
+                  "apiPath": "/songs/2184346",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 1,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Dario-g-carnaval-de-paris-lyrics",
+                  "title": "Carnaval de paris",
+                  "path": "/Dario-g-carnaval-de-paris-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1949398,
+                  "apiPath": "/songs/1949398",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 2,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Dario-g-voices-lyrics",
+                  "title": "Voices",
+                  "path": "/Dario-g-voices-lyrics",
+                  "lyricsState": "complete",
+                  "id": 873775,
+                  "apiPath": "/songs/873775",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 4,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Dario-g-voices-acoustic-version-lyrics",
+                  "title": "Voices (acoustic version)",
+                  "path": "/Dario-g-voices-acoustic-version-lyrics",
+                  "lyricsState": "complete",
+                  "id": 956152,
+                  "apiPath": "/songs/956152",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 9,
+                "type": "album_appearance"
+              }
+            ],
+            "artist": {
+              "url": "https://genius.com/artists/Dario-g",
+              "slug": "Dario-g",
+              "name": "Dario G",
+              "isVerified": false,
+              "isMemeVerified": false,
+              "indexCharacter": "d",
+              "imageUrl": "https://assets.genius.com/images/default_avatar_300.png?1594314430",
+              "id": 350673,
+              "headerImageUrl": "https://assets.genius.com/images/default_avatar_300.png?1594314430",
+              "apiPath": "/artists/350673",
+              "type": "artist"
+            },
+            "url": "https://genius.com/albums/Dario-g/Sunmachine",
+            "releaseDateComponents": {
+              "day": null,
+              "month": null,
+              "year": 1998
+            },
+            "nameWithArtist": "Sunmachine (artist: Dario G)",
+            "name": "Sunmachine",
+            "id": 207825,
+            "fullTitle": "Sunmachine by Dario G",
+            "coverArtUrl": "https://images.genius.com/7d990003d162c1db3711a58e237628ab.500x500x1.jpg",
+            "coverArtThumbnailUrl": "https://images.genius.com/7d990003d162c1db3711a58e237628ab.300x300x1.jpg",
+            "apiPath": "/albums/207825",
+            "type": "album"
+          }
+        ],
+        "album": 207825,
+        "currentUserMetadata": {
+          "iqByAction": {},
+          "relationships": {},
+          "interactions": {
+            "following": false,
+            "pyong": false
+          },
+          "excludedPermissions": [ "follow", "award_transcription_iq", "remove_transcription_iq", "see_pageviews", "pyong", "edit_lyrics", "view_annotation_engagement_data", "publish", "unpublish", "edit_spotify_details", "hide", "unhide", "toggle_featured_video", "add_pinned_annotation_to", "add_community_annotation_to", "destroy", "mark_as_not_spam", "edit_spotify_annotations_for", "verify_lyrics", "unverify_lyrics", "edit_anything", "edit_any_media", "edit", "rename", "edit_tags", "watch_fact_track", "reindex", "view_lyrics_synchronization", "enable_media", "disable_media", "edit_lyrics_or_annotation_brackets", "see_editorial_indicators", "view_attribution_visualization", "edit_annotation_brackets", "preview_lyrics_for_export", "hide_apple_player", "unhide_apple_player", "trigger_apple_match", "mark_lyrics_evaluation_as_approved", "mark_lyrics_evaluation_as_staff_approved", "mark_lyrics_evaluation_as_unapproved", "mark_lyrics_evaluation_as_un_staff_approved", "view_transcriber_media_player", "override_apple_match", "edit_youtube_url", "edit_soundcloud_url", "edit_spotify_uuid", "edit_vevo_url", "moderate_annotations", "create_annotation", "see_short_id", "manage_chart_item", "create_tag", "propose_lyrics_edit", "moderate_lyrics_edit_proposals", "preview_react_song_page" ],
+          "permissions": [ "view_apple_music_player", "create_comment", "view_song_story_gallery" ]
+        },
+        "youtubeUrl": null,
+        "youtubeStart": null,
+        "vttpId": null,
+        "viewableByRoles": [],
+        "updatedByHumanAt": 1477031853,
+        "twitterShareMessageWithoutUrl": "Dario G – Sunchyme",
+        "twitterShareMessage": "Dario G – Sunchyme https://genius.com/Dario-g-sunchyme-lyrics",
+        "trackingPaths": {
+          "concurrent": "/Dario-g-sunchyme-lyrics",
+          "aggregate": "/Dario-g-sunchyme-lyrics"
+        },
+        "trackingData": [
+          {
+            "value": 2184346,
+            "key": "Song ID"
+          },
+          {
+            "value": "Sunchyme",
+            "key": "Title"
+          },
+          {
+            "value": "Dario G",
+            "key": "Primary Artist"
+          },
+          {
+            "value": 350673,
+            "key": "Primary Artist ID"
+          },
+          {
+            "value": "Sunmachine",
+            "key": "Primary Album"
+          },
+          {
+            "value": 207825,
+            "key": "Primary Album ID"
+          },
+          {
+            "value": "pop",
+            "key": "Tag"
+          },
+          {
+            "value": "pop",
+            "key": "Primary Tag"
+          },
+          {
+            "value": 16,
+            "key": "Primary Tag ID"
+          },
+          {
+            "value": true,
+            "key": "Music?"
+          },
+          {
+            "value": "Song",
+            "key": "Annotatable Type"
+          },
+          {
+            "value": 2184346,
+            "key": "Annotatable ID"
+          },
+          {
+            "value": false,
+            "key": "featured_video"
+          },
+          {
+            "value": [],
+            "key": "cohort_ids"
+          },
+          {
+            "value": false,
+            "key": "has_verified_callout"
+          },
+          {
+            "value": false,
+            "key": "has_featured_annotation"
+          },
+          {
+            "value": "2015-07-13T19:17:23Z",
+            "key": "created_at"
+          },
+          {
+            "value": "2015-07-01",
+            "key": "created_month"
+          },
+          {
+            "value": 2015,
+            "key": "created_year"
+          },
+          {
+            "value": "E",
+            "key": "song_tier"
+          },
+          {
+            "value": false,
+            "key": "Has Recirculated Articles"
+          },
+          {
+            "value": null,
+            "key": "Lyrics Language"
+          },
+          {
+            "value": false,
+            "key": "Has Song Story"
+          },
+          {
+            "value": null,
+            "key": "Song Story ID"
+          },
+          {
+            "value": true,
+            "key": "Has Apple Match"
+          },
+          {
+            "value": "1998-06-08",
+            "key": "Release Date"
+          },
+          {
+            "value": null,
+            "key": "NRM Tier"
+          },
+          {
+            "value": null,
+            "key": "NRM Target Date"
+          },
+          {
+            "value": false,
+            "key": "Has Description"
+          },
+          {
+            "value": false,
+            "key": "Has Youtube URL"
+          },
+          {
+            "value": false,
+            "key": "Has Translation Q&A"
+          },
+          {
+            "value": 0,
+            "key": "Comment Count"
+          }
+        ],
+        "titleWithFeatured": "Sunchyme",
+        "stats": {
+          "hot": false,
+          "verifiedAnnotations": 0,
+          "unreviewedAnnotations": 0,
+          "transcribers": 1,
+          "iqEarners": 0,
+          "contributors": 1,
+          "acceptedAnnotations": 0
+        },
+        "spotifyUuid": null,
+        "soundcloudUrl": null,
+        "songArtImageUrl": "https://images.genius.com/7d990003d162c1db3711a58e237628ab.500x500x1.jpg",
+        "songArtImageThumbnailUrl": "https://images.genius.com/7d990003d162c1db3711a58e237628ab.300x300x1.jpg",
+        "shareUrl": "https://genius.com/Dario-g-sunchyme-lyrics",
+        "releaseDateForDisplay": null,
+        "releaseDateComponents": null,
+        "releaseDate": null,
+        "recordingLocation": null,
+        "pyongsCount": null,
+        "pusherChannel": "song-2184346",
+        "published": false,
+        "pendingLyricsEditsCount": 0,
+        "lyricsUpdatedAt": 1466689828,
+        "lyricsPlaceholderReason": null,
+        "lyricsOwnerId": 1549345,
+        "isMusic": true,
+        "instrumental": false,
+        "hidden": false,
+        "headerImageUrl": "https://images.genius.com/7d990003d162c1db3711a58e237628ab.500x500x1.jpg",
+        "headerImageThumbnailUrl": "https://images.genius.com/7d990003d162c1db3711a58e237628ab.300x300x1.jpg",
+        "fullTitle": "Sunchyme by Dario G",
+        "featuredVideo": false,
+        "embedContent": "<div id=\\'rg_embed_link_2184346\\' class=\\'rg_embed_link\\' data-song-id=\\'2184346\\'>Read <a href=\\'https://genius.com/Dario-g-sunchyme-lyrics\\'>“Sunchyme” by Dario G<\\/a> on Genius<\\/div> <script crossorigin src=\\'//genius.com/songs/2184346/embed.js\\'><\\/script>",
+        "descriptionPreview": "",
+        "description": {
+          "markdown": "?",
+          "html": "<p>?<\/p>"
+        },
+        "customSongArtImageUrl": null,
+        "customHeaderImageUrl": null,
+        "commentCount": 0,
+        "appleMusicPlayerUrl": "https://genius.com/songs/2184346/apple_music_player",
+        "appleMusicId": "1325622277",
+        "annotationCount": 1
+      }
+    },
+    "albumAppearances": {
+      "873775": {
+        "song": 873775,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 4,
+        "type": "album_appearance"
+      },
+      "956152": {
+        "song": 956152,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 9,
+        "type": "album_appearance"
+      },
+      "1949398": {
+        "song": 1949398,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 2,
+        "type": "album_appearance"
+      },
+      "2184346": {
+        "song": 2184346,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 1,
+        "type": "album_appearance"
+      }
+    },
+    "albums": {
+      "207825": {
+        "tracklist": [ 2184346, 1949398, 873775, 956152 ],
+        "artist": 350673,
+        "url": "https://genius.com/albums/Dario-g/Sunmachine",
+        "releaseDateComponents": {
+          "day": null,
+          "month": null,
+          "year": 1998
+        },
+        "nameWithArtist": "Sunmachine (artist: Dario G)",
+        "name": "Sunmachine",
+        "id": 207825,
+        "fullTitle": "Sunmachine by Dario G",
+        "coverArtUrl": "https://images.genius.com/7d990003d162c1db3711a58e237628ab.500x500x1.jpg",
+        "coverArtThumbnailUrl": "https://images.genius.com/7d990003d162c1db3711a58e237628ab.300x300x1.jpg",
+        "apiPath": "/albums/207825",
+        "type": "album"
+      }
+    },
+    "users": {
+      "1549345": {
+        "currentUserMetadata": {
+          "interactions": { "following": false },
+          "excludedPermissions": [ "follow" ],
+          "permissions": []
+        },
+        "url": "https://genius.com/pressburg",
+        "roleForDisplay": null,
+        "name": "pressburg",
+        "login": "pressburg",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 0,
+        "id": 1549345,
+        "humanReadableRoleForDisplay": null,
+        "headerImageUrl": "https://images.rapgenius.com/avatars/medium/04d14b7ca5774ab1736acddc83edd261",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.rapgenius.com/avatars/medium/04d14b7ca5774ab1736acddc83edd261"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.rapgenius.com/avatars/small/04d14b7ca5774ab1736acddc83edd261"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.rapgenius.com/avatars/thumb/04d14b7ca5774ab1736acddc83edd261"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.rapgenius.com/avatars/tiny/04d14b7ca5774ab1736acddc83edd261"
+          }
+        },
+        "apiPath": "/users/1549345",
+        "aboutMeSummary": "If you come up with any problems, please send a private message to this account.",
+        "type": "user"
+      }
+    },
+    "annotations": {
+      "7320810": {
+        "verifiedBy": null,
+        "topComment": null,
+        "rejectionComment": null,
+        "createdBy": {
+          "currentUserMetadata": {
+            "interactions": { "following": false },
+            "excludedPermissions": [ "follow" ],
+            "permissions": []
+          },
+          "url": "https://genius.com/pressburg",
+          "roleForDisplay": null,
+          "name": "pressburg",
+          "login": "pressburg",
+          "isVerified": false,
+          "isMemeVerified": false,
+          "iq": 0,
+          "id": 1549345,
+          "humanReadableRoleForDisplay": null,
+          "headerImageUrl": "https://images.rapgenius.com/avatars/medium/04d14b7ca5774ab1736acddc83edd261",
+          "avatar": {
+            "medium": {
+              "boundingBox": {
+                "height": 400,
+                "width": 300
+              },
+              "url": "https://images.rapgenius.com/avatars/medium/04d14b7ca5774ab1736acddc83edd261"
+            },
+            "small": {
+              "boundingBox": {
+                "height": 100,
+                "width": 100
+              },
+              "url": "https://images.rapgenius.com/avatars/small/04d14b7ca5774ab1736acddc83edd261"
+            },
+            "thumb": {
+              "boundingBox": {
+                "height": 32,
+                "width": 32
+              },
+              "url": "https://images.rapgenius.com/avatars/thumb/04d14b7ca5774ab1736acddc83edd261"
+            },
+            "tiny": {
+              "boundingBox": {
+                "height": 16,
+                "width": 16
+              },
+              "url": "https://images.rapgenius.com/avatars/tiny/04d14b7ca5774ab1736acddc83edd261"
+            }
+          },
+          "apiPath": "/users/1549345",
+          "aboutMeSummary": "If you come up with any problems, please send a private message to this account.",
+          "type": "user"
+        },
+        "cosignedBy": [],
+        "authors": [
+          {
+            "user": 1549345,
+            "pinnedRole": null,
+            "attribution": 1,
+            "type": "user_attribution"
+          }
+        ],
+        "acceptedBy": null,
+        "currentUserMetadata": {
+          "iqByAction": {},
+          "interactions": {
+            "vote": null,
+            "pyong": false,
+            "cosign": false
+          },
+          "excludedPermissions": [ "vote", "edit", "cosign", "uncosign", "destroy", "accept", "reject", "see_unreviewed", "clear_votes", "propose_edit_to", "pin_to_profile", "unpin_from_profile", "update_source", "edit_custom_preview", "create_comment" ],
+          "permissions": []
+        },
+        "votesTotal": 0,
+        "verified": false,
+        "url": "https://genius.com/7320810/Dario-g-sunchyme/Sunchyme",
+        "twitterShareMessage": "“?” —@Genius",
+        "state": "needs_exegesis",
+        "source": null,
+        "shareUrl": "https://genius.com/7320810",
+        "referentId": 7320810,
+        "pyongsCount": null,
+        "proposedEditCount": 0,
+        "pinned": false,
+        "needsExegesis": true,
+        "id": 7320810,
+        "hasVoters": false,
+        "embedContent": "<blockquote class=\\'rg_standalone_container\\' data-src=\\'//genius.com/annotations/7320810/standalone_embed\\'><a href=\\'https://genius.com/7320810/Dario-g-sunchyme/Sunchyme\\'>Sunchyme<\\/a><br><a href=\\'https://genius.com/Dario-g-sunchyme-lyrics\\'>&#8213; Dario G – Sunchyme<\\/a><\\/blockquote><script async crossorigin src=\\'//genius.com/annotations/load_standalone_embeds.js\\'><\\/script>",
+        "deleted": false,
+        "customPreview": null,
+        "createdAt": 1436827263,
+        "community": true,
+        "commentCount": 0,
+        "body": {
+          "markdown": "",
+          "html": ""
+        },
+        "beingCreated": false,
+        "apiPath": "/annotations/7320810",
+        "type": "annotation"
+      }
+    },
+    "referents": {
+      "7320810": {
+        "annotations": [ 7320810 ],
+        "annotatable": {
+          "url": "https://genius.com/Dario-g-sunchyme-lyrics",
+          "type": "song",
+          "title": "Sunchyme",
+          "linkTitle": "Sunchyme by Dario G",
+          "imageUrl": "https://images.genius.com/7d990003d162c1db3711a58e237628ab.500x500x1.jpg",
+          "id": 2184346,
+          "context": "Dario G",
+          "clientTimestamps": {
+            "lyricsUpdatedAt": 1466689828,
+            "updatedByHumanAt": 1477031853
+          },
+          "apiPath": "/songs/2184346"
+        },
+        "twitterShareMessage": "“?” —@Genius",
+        "trackingPaths": {
+          "concurrent": "/Dario-g-sunchyme-lyrics",
+          "aggregate": "/7320810/Dario-g-sunchyme/Sunchyme"
+        },
+        "currentUserMetadata": {
+          "relationships": {},
+          "excludedPermissions": [ "add_pinned_annotation_to", "add_community_annotation_to" ],
+          "permissions": []
+        },
+        "verifiedAnnotatorIds": [],
+        "url": "https://genius.com/7320810/Dario-g-sunchyme/Sunchyme",
+        "songId": 2184346,
+        "range": { "content": "Sunchyme" },
+        "path": "/7320810/Dario-g-sunchyme/Sunchyme",
+        "isImage": false,
+        "isDescription": true,
+        "iosAppUrl": "genius://referents/7320810",
+        "id": 7320810,
+        "fragment": "Sunchyme",
+        "classification": "needs_exegesis",
+        "apiPath": "/referents/7320810",
+        "annotatorLogin": "pressburg",
+        "annotatorId": 1549345,
+        "type": "referent"
+      }
+    }
+  }
+}

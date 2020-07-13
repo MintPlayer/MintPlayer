@@ -1,11 +1,11 @@
-﻿#define SongMeanings
-//#define Genius
+﻿//#define SongMeanings
+#define Genius
 //#define Musixmatch
-#define LyricsCom
-#define SongtekstenNet
-#define AZLyrics
-#define SongLyrics
-#define LoloLyrics
+//#define LyricsCom
+//#define SongtekstenNet
+//#define AZLyrics
+//#define SongLyrics
+//#define LoloLyrics
 
 using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.DependencyInjection;
@@ -60,7 +60,8 @@ namespace MintPlayer.Fetcher.Test
 
             #region Song - OK
             //var url_genius_song = "https://genius.com/Dario-g-sunchyme-lyrics";
-            var url_genius_song = "https://genius.com/The-weeknd-i-feel-it-coming-lyrics";
+            //var url_genius_song = "https://genius.com/The-weeknd-i-feel-it-coming-lyrics";
+            var url_genius_song = "https://genius.com/Oasis-whatever-lyrics";
             var genius_song = fetcherContainer.Fetch(url_genius_song, true).Result;
             #endregion
 

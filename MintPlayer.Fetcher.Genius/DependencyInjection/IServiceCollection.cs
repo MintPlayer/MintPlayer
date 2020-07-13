@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.Genius;
+using MintPlayer.Fetcher.Genius.Parsers;
 
 namespace MintPlayer.Fetcher.DependencyInjection
 {
@@ -9,6 +10,14 @@ namespace MintPlayer.Fetcher.DependencyInjection
         {
             return services
                 .AddSingleton<GeniusFetcher>()
+                .AddSingleton<IV1Parser, V1Parser>()
+                .AddSingleton<IV2Parser, V2Parser>()
+                .AddSingleton<Genius.Parsers.V1.IAlbumParser, Genius.Parsers.V1.AlbumParser>()
+                .AddSingleton<Genius.Parsers.V1.IArtistParser, Genius.Parsers.V1.ArtistParser>()
+                .AddSingleton<Genius.Parsers.V1.ISongParser, Genius.Parsers.V1.SongParser>()
+                .AddSingleton<Genius.Parsers.V2.IAlbumParser, Genius.Parsers.V2.AlbumParser>()
+                .AddSingleton<Genius.Parsers.V2.IArtistParser, Genius.Parsers.V2.ArtistParser>()
+                .AddSingleton<Genius.Parsers.V2.ISongParser, Genius.Parsers.V2.SongParser>()
                 .AddSingleton<IFetcher, GeniusFetcher>();
         }
     }

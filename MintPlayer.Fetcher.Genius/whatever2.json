@@ -1,0 +1,3601 @@
+﻿{
+  "currentPage": "songPage",
+  "deviceType": "desktop",
+  "session": {
+    "cmpEnabled": true,
+    "ccpaEnabled": true,
+    "showAds": true,
+    "logClientMetrics": false,
+    "fringeEnabled": true,
+    "taboolaEnabled": false
+  },
+  "songPage": {
+    "song": 119645,
+    "paginatedComments": {
+      "comments": [ 4164319, 7471199, 7901262 ],
+      "perPage": 10,
+      "nextPage": null
+    },
+    "lyricsData": {
+      "body": {
+        "children": [
+          {
+            "children": [
+              "[Verse 1]",
+              { "tag": "br" },
+              "",
+              {
+                "children": [
+                  "I\\'m free to be whatever I",
+                  { "tag": "br" },
+                  "Whatever I choose and I\\'ll sing the blues if I want"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "7168816"
+                },
+                "attributes": { "href": "/7168816/Oasis-whatever/Im-free-to-be-whatever-i-whatever-i-choose-and-ill-sing-the-blues-if-i-want" },
+                "tag": "a"
+              },
+              { "tag": "br" },
+              "",
+              {
+                "children": [
+                  "I\\'m free to say whatever I",
+                  { "tag": "br" },
+                  "Whatever I like if it\\'s wrong or right, it\\'s alright"
+                ],
+                "data": {
+                  "classification": "unreviewed",
+                  "editorialState": "pending",
+                  "id": "7613326"
+                },
+                "attributes": {
+                  "class": "has_comments",
+                  "href": "/7613326/Oasis-whatever/Im-free-to-say-whatever-i-whatever-i-like-if-its-wrong-or-right-its-alright"
+                },
+                "tag": "a"
+              },
+              { "tag": "br" },
+              "",
+              { "tag": "br" },
+              "[Chorus]",
+              { "tag": "br" },
+              "Always seems to me",
+              { "tag": "br" },
+              "You only see what people want you to see",
+              { "tag": "br" },
+              "",
+              {
+                "children": [
+                  "How long\\'s it gonna be",
+                  { "tag": "br" },
+                  "Before we get on the bus and cause no fuss"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "7613341"
+                },
+                "attributes": {
+                  "class": "has_comments",
+                  "href": "/7613341/Oasis-whatever/How-longs-it-gonna-be-before-we-get-on-the-bus-and-cause-no-fuss"
+                },
+                "tag": "a"
+              },
+              { "tag": "br" },
+              "Get a grip on yourself it don\\'t cost much",
+              { "tag": "br" },
+              "",
+              { "tag": "br" },
+              "[Verse 2]",
+              { "tag": "br" },
+              "Free to be whatever you",
+              { "tag": "br" },
+              "Whatever you say if it comes no way, it\\'s alright",
+              { "tag": "br" },
+              "You\\'re free to be wherever you",
+              { "tag": "br" },
+              "",
+              {
+                "children": [ "Wherever you please you can shoot the breeze if you want" ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "10981773"
+                },
+                "attributes": { "href": "/10981773/Oasis-whatever/Wherever-you-please-you-can-shoot-the-breeze-if-you-want" },
+                "tag": "a"
+              },
+              { "tag": "br" },
+              "",
+              { "tag": "br" },
+              "[Chorus]",
+              { "tag": "br" },
+              "It always seems to me",
+              { "tag": "br" },
+              "You only see what people want you to see",
+              { "tag": "br" },
+              "",
+              {
+                "children": [
+                  "How long\\'s it gonna be",
+                  { "tag": "br" },
+                  "Before we get on the bus and cause no fuss"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "7613341"
+                },
+                "attributes": {
+                  "class": "has_comments",
+                  "href": "/7613341/Oasis-whatever/How-longs-it-gonna-be-before-we-get-on-the-bus-and-cause-no-fuss"
+                },
+                "tag": "a"
+              },
+              { "tag": "br" },
+              "Get a grip on yourself it don\\'t cost much",
+              { "tag": "br" },
+              "",
+              {
+                "data": { "name": "desktop_song_lyrics_inread" },
+                "tag": "inread-ad"
+              },
+              "[Verse 3]",
+              { "tag": "br" },
+              "",
+              {
+                "children": [
+                  "Free to be whatever I",
+                  { "tag": "br" },
+                  "Whatever I choose and I\\'ll sing the blues if I want"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "7168816"
+                },
+                "attributes": { "href": "/7168816/Oasis-whatever/Im-free-to-be-whatever-i-whatever-i-choose-and-ill-sing-the-blues-if-i-want" },
+                "tag": "a"
+              },
+              { "tag": "br" },
+              "",
+              { "tag": "br" },
+              "[Bridge]",
+              { "tag": "br" },
+              "Here in my mind",
+              { "tag": "br" },
+              "You know you might find",
+              { "tag": "br" },
+              "Something that you",
+              { "tag": "br" },
+              "You thought you once knew",
+              { "tag": "br" },
+              "But now it\\'s all gone",
+              { "tag": "br" },
+              "And you know it\\'s no fun",
+              { "tag": "br" },
+              "You know it\\'s no fun",
+              { "tag": "br" },
+              "And you know it\\'s no fun",
+              { "tag": "br" },
+              "",
+              { "tag": "br" },
+              "[Verse 4]",
+              { "tag": "br" },
+              "",
+              {
+                "children": [
+                  "I\\'m free to be whatever I",
+                  { "tag": "br" },
+                  "Whatever I choose and I\\'ll sing the blues if I want"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "7168816"
+                },
+                "attributes": { "href": "/7168816/Oasis-whatever/Im-free-to-be-whatever-i-whatever-i-choose-and-ill-sing-the-blues-if-i-want" },
+                "tag": "a"
+              },
+              { "tag": "br" },
+              "",
+              {
+                "children": [
+                  "I\\'m free to be whatever I",
+                  { "tag": "br" },
+                  "Whatever I choose and I\\'ll sing the blues if I want"
+                ],
+                "data": {
+                  "classification": "accepted",
+                  "editorialState": "accepted",
+                  "id": "7168816"
+                },
+                "attributes": { "href": "/7168816/Oasis-whatever/Im-free-to-be-whatever-i-whatever-i-choose-and-ill-sing-the-blues-if-i-want" },
+                "tag": "a"
+              },
+              { "tag": "br" },
+              "Whatever you do, whatever you say, I know it\\'s alright",
+              { "tag": "br" },
+              "Whatever you do, whatever you say, I know it\\'s alright"
+            ],
+            "tag": "p"
+          },
+          ""
+        ],
+        "tag": "root"
+      }
+    },
+    "dfpKv": [
+      {
+        "values": [ "119645" ],
+        "name": "song_id"
+      },
+      {
+        "values": [ "Whatever" ],
+        "name": "song_title"
+      },
+      {
+        "values": [ "21100" ],
+        "name": "artist_id"
+      },
+      {
+        "values": [ "Oasis" ],
+        "name": "artist_name"
+      },
+      {
+        "values": [ "false" ],
+        "name": "is_explicit"
+      },
+      {
+        "values": [ "39262" ],
+        "name": "pageviews"
+      },
+      {
+        "values": [ "567" ],
+        "name": "primary_tag_id"
+      },
+      {
+        "values": [ "rock" ],
+        "name": "primary_tag"
+      },
+      {
+        "values": [ "1623", "2976", "2033", "567" ],
+        "name": "tag_id"
+      },
+      {
+        "values": [ "E" ],
+        "name": "song_tier"
+      },
+      {
+        "values": [],
+        "name": "topic"
+      },
+      {
+        "values": [ "false" ],
+        "name": "has_song_story"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10"
+      },
+      {
+        "values": [ "false" ],
+        "name": "artist_in_top_10"
+      },
+      {
+        "values": [ "false" ],
+        "name": "album_in_top_10"
+      },
+      {
+        "values": [ "false" ],
+        "name": "new_release"
+      },
+      {
+        "values": [ "199412" ],
+        "name": "release_month"
+      },
+      {
+        "values": [ "1994" ],
+        "name": "release_year"
+      },
+      {
+        "values": [ "1990" ],
+        "name": "release_decade"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10_rock"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10_country"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10_r_and_b"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10_pop"
+      },
+      {
+        "values": [ "false" ],
+        "name": "in_top_10_rap"
+      },
+      {
+        "values": [ "production" ],
+        "name": "environment"
+      },
+      {
+        "values": [ "web" ],
+        "name": "platform"
+      },
+      {
+        "values": [ "song" ],
+        "name": "ad_page_type"
+      }
+    ],
+    "trackingData": [
+      {
+        "value": 119645,
+        "key": "Song ID"
+      },
+      {
+        "value": "Whatever",
+        "key": "Title"
+      },
+      {
+        "value": "Oasis",
+        "key": "Primary Artist"
+      },
+      {
+        "value": 21100,
+        "key": "Primary Artist ID"
+      },
+      {
+        "value": "Time Flies... 1994–2009",
+        "key": "Primary Album"
+      },
+      {
+        "value": 122913,
+        "key": "Primary Album ID"
+      },
+      {
+        "value": "rock",
+        "key": "Tag"
+      },
+      {
+        "value": "rock",
+        "key": "Primary Tag"
+      },
+      {
+        "value": 567,
+        "key": "Primary Tag ID"
+      },
+      {
+        "value": true,
+        "key": "Music?"
+      },
+      {
+        "value": "Song",
+        "key": "Annotatable Type"
+      },
+      {
+        "value": 119645,
+        "key": "Annotatable ID"
+      },
+      {
+        "value": true,
+        "key": "featured_video"
+      },
+      {
+        "value": [],
+        "key": "cohort_ids"
+      },
+      {
+        "value": false,
+        "key": "has_verified_callout"
+      },
+      {
+        "value": true,
+        "key": "has_featured_annotation"
+      },
+      {
+        "value": "2013-02-20T23:47:19Z",
+        "key": "created_at"
+      },
+      {
+        "value": "2013-02-01",
+        "key": "created_month"
+      },
+      {
+        "value": 2013,
+        "key": "created_year"
+      },
+      {
+        "value": "E",
+        "key": "song_tier"
+      },
+      {
+        "value": false,
+        "key": "Has Recirculated Articles"
+      },
+      {
+        "value": "en",
+        "key": "Lyrics Language"
+      },
+      {
+        "value": false,
+        "key": "Has Song Story"
+      },
+      {
+        "value": null,
+        "key": "Song Story ID"
+      },
+      {
+        "value": true,
+        "key": "Has Apple Match"
+      },
+      {
+        "value": "1994-12-18",
+        "key": "Release Date"
+      },
+      {
+        "value": null,
+        "key": "NRM Tier"
+      },
+      {
+        "value": null,
+        "key": "NRM Target Date"
+      },
+      {
+        "value": true,
+        "key": "Has Description"
+      },
+      {
+        "value": true,
+        "key": "Has Youtube URL"
+      },
+      {
+        "value": false,
+        "key": "Has Translation Q&A"
+      },
+      {
+        "value": 3,
+        "key": "Comment Count"
+      }
+    ],
+    "title": "Oasis – Whatever Lyrics | Genius Lyrics",
+    "path": "/Oasis-whatever-lyrics",
+    "pageType": "song",
+    "initialAdUnits": [ "desktop_song_inread", "desktop_song_inread2", "desktop_song_inread3", "desktop_song_leaderboard", "desktop_song_lyrics_footer", "desktop_song_marquee", "desktop_song_medium1", "desktop_song_sidebar_top" ],
+    "headerBidPlacements": [],
+    "dmpDataLayer": { "page": { "type": "song" } },
+    "discussionUrl": "https://genius.com/discussions/377926-The-2020-genius-song-page-redesign",
+    "controllerAndAction": "songs#show",
+    "chartbeat": {
+      "title": "Oasis – Whatever Lyrics | Genius Lyrics",
+      "sections": "songs,tag:rock",
+      "authors": "Oasis"
+    }
+  },
+  "entities": {
+    "artists": {
+      "21100": {
+        "iq": 105,
+        "url": "https://genius.com/artists/Oasis",
+        "slug": "Oasis",
+        "name": "Oasis",
+        "isVerified": true,
+        "isMemeVerified": false,
+        "indexCharacter": "o",
+        "imageUrl": "https://images.genius.com/5b44be44ae2cc44dd08db4e8e07b18bb.800x800x1.jpg",
+        "id": 21100,
+        "headerImageUrl": "https://images.genius.com/03628574fa075d2be67ace5f5a7b80f6.300x139x1.png",
+        "apiPath": "/artists/21100",
+        "type": "artist"
+      }
+    },
+    "songs": {
+      "76654": {
+        "url": "https://genius.com/Oasis-wonderwall-lyrics",
+        "title": "Wonderwall",
+        "path": "/Oasis-wonderwall-lyrics",
+        "lyricsState": "complete",
+        "id": 76654,
+        "apiPath": "/songs/76654",
+        "type": "song"
+      },
+      "92627": {
+        "url": "https://genius.com/Oasis-little-by-little-lyrics",
+        "title": "Little by Little",
+        "path": "/Oasis-little-by-little-lyrics",
+        "lyricsState": "complete",
+        "id": 92627,
+        "apiPath": "/songs/92627",
+        "type": "song"
+      },
+      "92630": {
+        "url": "https://genius.com/Oasis-live-forever-lyrics",
+        "title": "Live Forever",
+        "path": "/Oasis-live-forever-lyrics",
+        "lyricsState": "complete",
+        "id": 92630,
+        "apiPath": "/songs/92630",
+        "type": "song"
+      },
+      "92633": {
+        "url": "https://genius.com/Oasis-lyla-lyrics",
+        "title": "Lyla",
+        "path": "/Oasis-lyla-lyrics",
+        "lyricsState": "complete",
+        "id": 92633,
+        "apiPath": "/songs/92633",
+        "type": "song"
+      },
+      "92634": {
+        "url": "https://genius.com/Oasis-the-importance-of-being-idle-lyrics",
+        "title": "The Importance of Being Idle",
+        "path": "/Oasis-the-importance-of-being-idle-lyrics",
+        "lyricsState": "complete",
+        "id": 92634,
+        "apiPath": "/songs/92634",
+        "type": "song"
+      },
+      "106380": {
+        "url": "https://genius.com/Oasis-dont-look-back-in-anger-lyrics",
+        "title": "Don’t Look Back in Anger",
+        "path": "/Oasis-dont-look-back-in-anger-lyrics",
+        "lyricsState": "complete",
+        "id": 106380,
+        "apiPath": "/songs/106380",
+        "type": "song"
+      },
+      "107790": {
+        "url": "https://genius.com/Oasis-shakermaker-lyrics",
+        "title": "Shakermaker",
+        "path": "/Oasis-shakermaker-lyrics",
+        "lyricsState": "complete",
+        "id": 107790,
+        "apiPath": "/songs/107790",
+        "type": "song"
+      },
+      "118473": {
+        "url": "https://genius.com/Oasis-some-might-say-lyrics",
+        "title": "Some Might Say",
+        "path": "/Oasis-some-might-say-lyrics",
+        "lyricsState": "complete",
+        "id": 118473,
+        "apiPath": "/songs/118473",
+        "type": "song"
+      },
+      "119320": {
+        "url": "https://genius.com/Oasis-the-shock-of-the-lightning-lyrics",
+        "title": "The Shock of the Lightning",
+        "path": "/Oasis-the-shock-of-the-lightning-lyrics",
+        "lyricsState": "complete",
+        "id": 119320,
+        "apiPath": "/songs/119320",
+        "type": "song"
+      },
+      "119436": {
+        "url": "https://genius.com/Oasis-im-outta-time-lyrics",
+        "title": "I’m Outta Time",
+        "path": "/Oasis-im-outta-time-lyrics",
+        "lyricsState": "complete",
+        "id": 119436,
+        "apiPath": "/songs/119436",
+        "type": "song"
+      },
+      "119440": {
+        "url": "https://genius.com/Oasis-falling-down-lyrics",
+        "title": "Falling Down",
+        "path": "/Oasis-falling-down-lyrics",
+        "lyricsState": "complete",
+        "id": 119440,
+        "apiPath": "/songs/119440",
+        "type": "song"
+      },
+      "119645": {
+        "url": "https://genius.com/Oasis-whatever-lyrics",
+        "title": "Whatever",
+        "path": "/Oasis-whatever-lyrics",
+        "lyricsState": "complete",
+        "id": 119645,
+        "apiPath": "/songs/119645",
+        "type": "song",
+        "writerArtists": [
+          {
+            "url": "https://genius.com/artists/Noel-gallagher",
+            "slug": "Noel-gallagher",
+            "name": "Noel Gallagher",
+            "isVerified": false,
+            "isMemeVerified": false,
+            "indexCharacter": "n",
+            "imageUrl": "https://images.genius.com/da2fa64a8de881731a1bd57406a1a85a.1000x711x1.jpg",
+            "id": 69347,
+            "headerImageUrl": "https://images.genius.com/da2fa64a8de881731a1bd57406a1a85a.1000x711x1.jpg",
+            "apiPath": "/artists/69347",
+            "type": "artist"
+          },
+          {
+            "url": "https://genius.com/artists/Neil-innes",
+            "slug": "Neil-innes",
+            "name": "Neil Innes",
+            "isVerified": false,
+            "isMemeVerified": false,
+            "indexCharacter": "n",
+            "imageUrl": "https://images.genius.com/2d7e35e4aa34feb4bf7a5e337b9ca9ad.300x300x1.jpg",
+            "id": 377951,
+            "headerImageUrl": "https://images.genius.com/2d7e35e4aa34feb4bf7a5e337b9ca9ad.300x300x1.jpg",
+            "apiPath": "/artists/377951",
+            "type": "artist"
+          }
+        ],
+        "verifiedLyricsBy": [],
+        "verifiedContributors": [],
+        "verifiedAnnotationsBy": [],
+        "topScholar": {
+          "user": {
+            "currentUserMetadata": {
+              "interactions": { "following": false },
+              "excludedPermissions": [ "follow" ],
+              "permissions": []
+            },
+            "url": "https://genius.com/m4ths",
+            "roleForDisplay": "editor",
+            "name": "m4ths",
+            "login": "m4ths",
+            "isVerified": false,
+            "isMemeVerified": false,
+            "iq": 99203,
+            "id": 721779,
+            "humanReadableRoleForDisplay": "Editor",
+            "headerImageUrl": "https://s3.amazonaws.com/filepicker-images-rapgenius/eM4MQGEISUGa5YyqrcwW_american%20psycho%20huey%20lewis%20and%20the%20news%201.jpg",
+            "avatar": {
+              "medium": {
+                "boundingBox": {
+                  "height": 400,
+                  "width": 300
+                },
+                "url": "https://images.genius.com/avatars/medium/fdc6ec3683eb872c7a3da920306fad23"
+              },
+              "small": {
+                "boundingBox": {
+                  "height": 100,
+                  "width": 100
+                },
+                "url": "https://images.genius.com/avatars/small/fdc6ec3683eb872c7a3da920306fad23"
+              },
+              "thumb": {
+                "boundingBox": {
+                  "height": 32,
+                  "width": 32
+                },
+                "url": "https://images.genius.com/avatars/thumb/fdc6ec3683eb872c7a3da920306fad23"
+              },
+              "tiny": {
+                "boundingBox": {
+                  "height": 16,
+                  "width": 16
+                },
+                "url": "https://images.genius.com/avatars/tiny/fdc6ec3683eb872c7a3da920306fad23"
+              }
+            },
+            "apiPath": "/users/721779",
+            "aboutMeSummary": "Danish Genius Editor previously going under the nicks “melballe,” and “Mazm.”\n\n\n\nIf I rejected or deleted your annotation/suggestion, please take the time to read this guideline. If you’re still unsure why it was rejected/deleted, hit me up and I’ll talk you through it :-)\n\n\n\nBuy CDs. Be nice to animals. Follow No Crowd.\n\nMy CD Collection.\nMy Concert Diary.\n\n\n\nAchievements:\n\n\nWinner of Scribe-A-Thon March 2015 Edition (155 songs)\n11/04 2015 – First time having a transcribed song displayed on the Genius frontpage.\n18/04 2015 – Editored, ScopeY TAUGHT ME.\n04/05 2015 – 10K IQ\n09/12 2016 – 25K IQ\n03/01 2017 – 30K IQ\n08/01 2017 – Nr. 36 Rock Top Genius Scholar – OF ALL TIME!\n05/05 2017 – 40K IQ\n09/08 2017 – 50K IQ\n04/12 2017 – 60K IQ\n23/04 2018 – 70K IQ\n27/07 2018 – 80K IQ\n02/05 2019 – 90K IQ\n\n\n\n\n\nMy Projects:\n\nWhat I’m working on\n\n\n\nI REALLY KINDA LIKE THESE artists:\n\n\nOasis\nKanyeWest\nNoelGallaghersHighFlyingBirds\nQueensoftheStoneAge\nAC/DC\nArcticMonkeys\ntheSmiths\nMorrissey\nNephew – theStrokes – theFloorIsMadeofLava – theKillers – SpleenUnited – PeterSommer – Kasabian – Audioslave – Metallica – FooFighters – theWhiteStripes – Eminem – Suspekt – Mew – theGame – BonIver – KingsOfLeon – DaftPunk – Justice – TenaciousD – PushaT – Outkast – JohnMayer – Wu-TangClan – GhostfaceKillah – Raekwon – Drake – KendrickLamar – theKillers",
+            "type": "user"
+          },
+          "pinnedRole": null,
+          "attributionValue": 170.2,
+          "type": "user_attribution"
+        },
+        "tags": [
+          {
+            "url": "https://genius.com/tags/uk",
+            "primary": false,
+            "name": "UK",
+            "id": 1623,
+            "type": "tag"
+          },
+          {
+            "url": "https://genius.com/tags/brit-pop",
+            "primary": false,
+            "name": "Brit Pop",
+            "id": 2976,
+            "type": "tag"
+          },
+          {
+            "url": "https://genius.com/tags/british-rock",
+            "primary": false,
+            "name": "British Rock",
+            "id": 2033,
+            "type": "tag"
+          },
+          {
+            "url": "https://genius.com/tags/rock",
+            "primary": true,
+            "name": "Rock",
+            "id": 567,
+            "type": "tag"
+          }
+        ],
+        "songRelationships": [
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "samples"
+          },
+          {
+            "songs": [
+              {
+                "primaryArtist": {
+                  "iq": 8652,
+                  "url": "https://genius.com/artists/Gribin",
+                  "slug": "Gribin",
+                  "name": "GRIBIN",
+                  "isVerified": false,
+                  "isMemeVerified": false,
+                  "indexCharacter": "g",
+                  "imageUrl": "https://images.genius.com/433f352930591e50152f7909c7f54843.1000x1000x1.jpg",
+                  "id": 996296,
+                  "headerImageUrl": "https://images.genius.com/29ac1ef5a96104c80b0acb2926db86c2.667x1000x1.jpg",
+                  "apiPath": "/artists/996296",
+                  "type": "artist"
+                },
+                "url": "https://genius.com/Gribin-lets-take-a-new-lyrics",
+                "updatedByHumanAt": 1591790109,
+                "titleWithFeatured": "Давай По Новой (Let’s Take A New)",
+                "title": "Давай По Новой (Let’s Take A New)",
+                "stats": {
+                  "hot": false,
+                  "unreviewedAnnotations": 0
+                },
+                "songArtImageUrl": "https://images.genius.com/44f2bc3fccf0f99e2c54df86dc6ba549.1000x1000x1.jpg",
+                "songArtImageThumbnailUrl": "https://images.genius.com/44f2bc3fccf0f99e2c54df86dc6ba549.300x300x1.jpg",
+                "pyongsCount": null,
+                "path": "/Gribin-lets-take-a-new-lyrics",
+                "lyricsUpdatedAt": 1544686817,
+                "lyricsState": "complete",
+                "lyricsOwnerId": 3666207,
+                "instrumental": false,
+                "id": 3627513,
+                "headerImageUrl": "https://images.genius.com/44f2bc3fccf0f99e2c54df86dc6ba549.1000x1000x1.jpg",
+                "headerImageThumbnailUrl": "https://images.genius.com/44f2bc3fccf0f99e2c54df86dc6ba549.300x300x1.jpg",
+                "fullTitle": "Давай По Новой (Let’s Take A New) by GRIBIN",
+                "apiPath": "/songs/3627513",
+                "annotationCount": 0,
+                "type": "song"
+              }
+            ],
+            "type": "song_relationship",
+            "relationshipType": "sampled_in"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "interpolates"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "interpolated_by"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "cover_of"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "covered_by"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "remix_of"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "remixed_by"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "live_version_of"
+          },
+          {
+            "songs": [],
+            "type": "song_relationship",
+            "relationshipType": "performed_live_as"
+          }
+        ],
+        "producerArtists": [
+          {
+            "url": "https://genius.com/artists/Owen-morris",
+            "slug": "Owen-morris",
+            "name": "Owen Morris",
+            "isVerified": false,
+            "isMemeVerified": false,
+            "indexCharacter": "o",
+            "imageUrl": "https://images.genius.com/236e17176c3ed3ff6b996b15a32d7bb6.400x400x1.jpg",
+            "id": 41605,
+            "headerImageUrl": "https://images.genius.com/bbc865984950337175a81988378c46cc.600x400x1.jpg",
+            "apiPath": "/artists/41605",
+            "type": "artist"
+          },
+          {
+            "url": "https://genius.com/artists/Noel-gallagher",
+            "slug": "Noel-gallagher",
+            "name": "Noel Gallagher",
+            "isVerified": false,
+            "isMemeVerified": false,
+            "indexCharacter": "n",
+            "imageUrl": "https://images.genius.com/da2fa64a8de881731a1bd57406a1a85a.1000x711x1.jpg",
+            "id": 69347,
+            "headerImageUrl": "https://images.genius.com/da2fa64a8de881731a1bd57406a1a85a.1000x711x1.jpg",
+            "apiPath": "/artists/69347",
+            "type": "artist"
+          }
+        ],
+        "primaryTag": {
+          "url": "https://genius.com/tags/rock",
+          "primary": true,
+          "name": "Rock",
+          "id": 567,
+          "type": "tag"
+        },
+        "primaryArtist": 21100,
+        "media": [
+          {
+            "url": "http://www.youtube.com/watch?v=9gWMjHnBj-A",
+            "type": "video",
+            "start": 0,
+            "provider": "youtube"
+          },
+          {
+            "url": "https://open.spotify.com/track/6hqu7f96UPVAKCqiex5sgi",
+            "type": "audio",
+            "provider": "spotify",
+            "nativeUri": "spotify:track:6hqu7f96UPVAKCqiex5sgi"
+          }
+        ],
+        "lyricsMarkedCompleteBy": null,
+        "featuredArtists": [],
+        "descriptionAnnotation": 3751521,
+        "customPerformances": [
+          {
+            "artists": [
+              {
+                "url": "https://genius.com/artists/Noel-gallagher",
+                "slug": "Noel-gallagher",
+                "name": "Noel Gallagher",
+                "isVerified": false,
+                "isMemeVerified": false,
+                "indexCharacter": "n",
+                "imageUrl": "https://images.genius.com/da2fa64a8de881731a1bd57406a1a85a.1000x711x1.jpg",
+                "id": 69347,
+                "headerImageUrl": "https://images.genius.com/da2fa64a8de881731a1bd57406a1a85a.1000x711x1.jpg",
+                "apiPath": "/artists/69347",
+                "type": "artist"
+              }
+            ],
+            "label": "Lyrics By"
+          },
+          {
+            "artists": [
+              {
+                "url": "https://genius.com/artists/Paul-guigsy-mcguigan",
+                "slug": "Paul-guigsy-mcguigan",
+                "name": "Paul “Guigsy” McGuigan",
+                "isVerified": false,
+                "isMemeVerified": false,
+                "indexCharacter": "p",
+                "imageUrl": "https://images.genius.com/e9731bbb190fe22898eaee422cda4be0.291x291x1.jpg",
+                "id": 1018857,
+                "headerImageUrl": "https://images.genius.com/1f9d0d743a83d3f720c78be84798e7b9.1000x1000x1.png",
+                "apiPath": "/artists/1018857",
+                "type": "artist"
+              }
+            ],
+            "label": "Bass By"
+          },
+          {
+            "artists": [
+              {
+                "url": "https://genius.com/artists/Paul-bonehead-arthurs",
+                "slug": "Paul-bonehead-arthurs",
+                "name": "Paul “Bonehead” Arthurs",
+                "isVerified": false,
+                "isMemeVerified": false,
+                "indexCharacter": "p",
+                "imageUrl": "https://images.genius.com/d4be0341068269ef54c271b0eb321d32.250x300x1.jpg",
+                "id": 651080,
+                "headerImageUrl": "https://images.genius.com/d4be0341068269ef54c271b0eb321d32.250x300x1.jpg",
+                "apiPath": "/artists/651080",
+                "type": "artist"
+              }
+            ],
+            "label": "Guitar By"
+          },
+          {
+            "artists": [
+              {
+                "url": "https://genius.com/artists/Tony-mccarroll",
+                "slug": "Tony-mccarroll",
+                "name": "Tony McCarroll",
+                "isVerified": false,
+                "isMemeVerified": false,
+                "indexCharacter": "t",
+                "imageUrl": "https://assets.genius.com/images/default_avatar_300.png?1594314430",
+                "id": 654229,
+                "headerImageUrl": "https://assets.genius.com/images/default_avatar_300.png?1594314430",
+                "apiPath": "/artists/654229",
+                "type": "artist"
+              }
+            ],
+            "label": "Drums"
+          },
+          {
+            "artists": [
+              {
+                "url": "https://genius.com/artists/Noel-gallagher",
+                "slug": "Noel-gallagher",
+                "name": "Noel Gallagher",
+                "isVerified": false,
+                "isMemeVerified": false,
+                "indexCharacter": "n",
+                "imageUrl": "https://images.genius.com/da2fa64a8de881731a1bd57406a1a85a.1000x711x1.jpg",
+                "id": 69347,
+                "headerImageUrl": "https://images.genius.com/da2fa64a8de881731a1bd57406a1a85a.1000x711x1.jpg",
+                "apiPath": "/artists/69347",
+                "type": "artist"
+              }
+            ],
+            "label": "Lead guitar"
+          },
+          {
+            "artists": [
+              {
+                "iq": 100,
+                "url": "https://genius.com/artists/Liam-gallagher",
+                "slug": "Liam-gallagher",
+                "name": "Liam Gallagher",
+                "isVerified": true,
+                "isMemeVerified": false,
+                "indexCharacter": "l",
+                "imageUrl": "https://images.genius.com/3774ebf5a05c01b5368ddb224e572a05.635x635x1.jpg",
+                "id": 56368,
+                "headerImageUrl": "https://images.genius.com/003933251eeb2db3a3f026188bcae41a.1000x635x1.jpg",
+                "apiPath": "/artists/56368",
+                "type": "artist"
+              }
+            ],
+            "label": "Vocals"
+          },
+          {
+            "artists": [
+              {
+                "url": "https://genius.com/artists/Nick-ingman",
+                "slug": "Nick-ingman",
+                "name": "Nick Ingman",
+                "isVerified": false,
+                "isMemeVerified": false,
+                "indexCharacter": "n",
+                "imageUrl": "https://assets.genius.com/images/default_avatar_300.png?1594314430",
+                "id": 910554,
+                "headerImageUrl": "https://assets.genius.com/images/default_avatar_300.png?1594314430",
+                "apiPath": "/artists/910554",
+                "type": "artist"
+              },
+              {
+                "url": "https://genius.com/artists/Noel-gallagher",
+                "slug": "Noel-gallagher",
+                "name": "Noel Gallagher",
+                "isVerified": false,
+                "isMemeVerified": false,
+                "indexCharacter": "n",
+                "imageUrl": "https://images.genius.com/da2fa64a8de881731a1bd57406a1a85a.1000x711x1.jpg",
+                "id": 69347,
+                "headerImageUrl": "https://images.genius.com/da2fa64a8de881731a1bd57406a1a85a.1000x711x1.jpg",
+                "apiPath": "/artists/69347",
+                "type": "artist"
+              }
+            ],
+            "label": "Strings Arranged By"
+          },
+          {
+            "artists": [
+              {
+                "url": "https://genius.com/artists/London-session-orchestra",
+                "slug": "London-session-orchestra",
+                "name": "London Session Orchestra",
+                "isVerified": false,
+                "isMemeVerified": false,
+                "indexCharacter": "l",
+                "imageUrl": "https://images.genius.com/f8fe9d3ec9767914f367d0bd288affdf.1000x1000x1.jpg",
+                "id": 650368,
+                "headerImageUrl": "https://images.genius.com/f8fe9d3ec9767914f367d0bd288affdf.1000x1000x1.jpg",
+                "apiPath": "/artists/650368",
+                "type": "artist"
+              }
+            ],
+            "label": "Strings"
+          }
+        ],
+        "albums": [
+          {
+            "tracklist": [
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-supersonic-lyrics",
+                  "title": "Supersonic",
+                  "path": "/Oasis-supersonic-lyrics",
+                  "lyricsState": "complete",
+                  "id": 327470,
+                  "apiPath": "/songs/327470",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 1,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-roll-with-it-lyrics",
+                  "title": "Roll with It",
+                  "path": "/Oasis-roll-with-it-lyrics",
+                  "lyricsState": "complete",
+                  "id": 143250,
+                  "apiPath": "/songs/143250",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 2,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-live-forever-lyrics",
+                  "title": "Live Forever",
+                  "path": "/Oasis-live-forever-lyrics",
+                  "lyricsState": "complete",
+                  "id": 92630,
+                  "apiPath": "/songs/92630",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 3,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-wonderwall-lyrics",
+                  "title": "Wonderwall",
+                  "path": "/Oasis-wonderwall-lyrics",
+                  "lyricsState": "complete",
+                  "id": 76654,
+                  "apiPath": "/songs/76654",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 4,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-stop-crying-your-heart-out-lyrics",
+                  "title": "Stop Crying Your Heart Out",
+                  "path": "/Oasis-stop-crying-your-heart-out-lyrics",
+                  "lyricsState": "complete",
+                  "id": 338599,
+                  "apiPath": "/songs/338599",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 5,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-cigarettes-and-alcohol-lyrics",
+                  "title": "Cigarettes & Alcohol",
+                  "path": "/Oasis-cigarettes-and-alcohol-lyrics",
+                  "lyricsState": "complete",
+                  "id": 351933,
+                  "apiPath": "/songs/351933",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 6,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-songbird-lyrics",
+                  "title": "Songbird",
+                  "path": "/Oasis-songbird-lyrics",
+                  "lyricsState": "complete",
+                  "id": 386924,
+                  "apiPath": "/songs/386924",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 7,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-dont-look-back-in-anger-lyrics",
+                  "title": "Don’t Look Back in Anger",
+                  "path": "/Oasis-dont-look-back-in-anger-lyrics",
+                  "lyricsState": "complete",
+                  "id": 106380,
+                  "apiPath": "/songs/106380",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 8,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-the-hindu-times-lyrics",
+                  "title": "The Hindu Times",
+                  "path": "/Oasis-the-hindu-times-lyrics",
+                  "lyricsState": "complete",
+                  "id": 327543,
+                  "apiPath": "/songs/327543",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 9,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-stand-by-me-lyrics",
+                  "title": "Stand by Me",
+                  "path": "/Oasis-stand-by-me-lyrics",
+                  "lyricsState": "complete",
+                  "id": 230086,
+                  "apiPath": "/songs/230086",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 10,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-lord-dont-slow-me-down-lyrics",
+                  "title": "Lord Don’t Slow Me Down",
+                  "path": "/Oasis-lord-dont-slow-me-down-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1790968,
+                  "apiPath": "/songs/1790968",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 11,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-shakermaker-lyrics",
+                  "title": "Shakermaker",
+                  "path": "/Oasis-shakermaker-lyrics",
+                  "lyricsState": "complete",
+                  "id": 107790,
+                  "apiPath": "/songs/107790",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 12,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-all-around-the-world-lyrics",
+                  "title": "All Around the World",
+                  "path": "/Oasis-all-around-the-world-lyrics",
+                  "lyricsState": "complete",
+                  "id": 327570,
+                  "apiPath": "/songs/327570",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 13,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-some-might-say-lyrics",
+                  "title": "Some Might Say",
+                  "path": "/Oasis-some-might-say-lyrics",
+                  "lyricsState": "complete",
+                  "id": 118473,
+                  "apiPath": "/songs/118473",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 14,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-the-importance-of-being-idle-lyrics",
+                  "title": "The Importance of Being Idle",
+                  "path": "/Oasis-the-importance-of-being-idle-lyrics",
+                  "lyricsState": "complete",
+                  "id": 92634,
+                  "apiPath": "/songs/92634",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 15,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-dyou-know-what-i-mean-lyrics",
+                  "title": "D’You Know What I Mean?",
+                  "path": "/Oasis-dyou-know-what-i-mean-lyrics",
+                  "lyricsState": "complete",
+                  "id": 213826,
+                  "apiPath": "/songs/213826",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 16,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-lyla-lyrics",
+                  "title": "Lyla",
+                  "path": "/Oasis-lyla-lyrics",
+                  "lyricsState": "complete",
+                  "id": 92633,
+                  "apiPath": "/songs/92633",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 17,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-let-there-be-love-lyrics",
+                  "title": "Let There Be Love",
+                  "path": "/Oasis-let-there-be-love-lyrics",
+                  "lyricsState": "complete",
+                  "id": 386976,
+                  "apiPath": "/songs/386976",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 18,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-go-let-it-out-lyrics",
+                  "title": "Go Let It Out",
+                  "path": "/Oasis-go-let-it-out-lyrics",
+                  "lyricsState": "complete",
+                  "id": 385626,
+                  "apiPath": "/songs/385626",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 19,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-who-feels-love-lyrics",
+                  "title": "Who Feels Love?",
+                  "path": "/Oasis-who-feels-love-lyrics",
+                  "lyricsState": "complete",
+                  "id": 119647,
+                  "apiPath": "/songs/119647",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 20,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-little-by-little-lyrics",
+                  "title": "Little by Little",
+                  "path": "/Oasis-little-by-little-lyrics",
+                  "lyricsState": "complete",
+                  "id": 92627,
+                  "apiPath": "/songs/92627",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 21,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-the-shock-of-the-lightning-lyrics",
+                  "title": "The Shock of the Lightning",
+                  "path": "/Oasis-the-shock-of-the-lightning-lyrics",
+                  "lyricsState": "complete",
+                  "id": 119320,
+                  "apiPath": "/songs/119320",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 22,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-she-is-love-lyrics",
+                  "title": "She Is Love",
+                  "path": "/Oasis-she-is-love-lyrics",
+                  "lyricsState": "complete",
+                  "id": 386930,
+                  "apiPath": "/songs/386930",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 23,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-whatever-lyrics",
+                  "title": "Whatever",
+                  "path": "/Oasis-whatever-lyrics",
+                  "lyricsState": "complete",
+                  "id": 119645,
+                  "apiPath": "/songs/119645",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 24,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-im-outta-time-lyrics",
+                  "title": "I’m Outta Time",
+                  "path": "/Oasis-im-outta-time-lyrics",
+                  "lyricsState": "complete",
+                  "id": 119436,
+                  "apiPath": "/songs/119436",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 25,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-falling-down-lyrics",
+                  "title": "Falling Down",
+                  "path": "/Oasis-falling-down-lyrics",
+                  "lyricsState": "complete",
+                  "id": 119440,
+                  "apiPath": "/songs/119440",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 26,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-sunday-morning-call-lyrics",
+                  "title": "Sunday Morning Call",
+                  "path": "/Oasis-sunday-morning-call-lyrics",
+                  "lyricsState": "complete",
+                  "id": 385630,
+                  "apiPath": "/songs/385630",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 27,
+                "type": "album_appearance"
+              }
+            ],
+            "artist": {
+              "iq": 105,
+              "url": "https://genius.com/artists/Oasis",
+              "slug": "Oasis",
+              "name": "Oasis",
+              "isVerified": true,
+              "isMemeVerified": false,
+              "indexCharacter": "o",
+              "imageUrl": "https://images.genius.com/5b44be44ae2cc44dd08db4e8e07b18bb.800x800x1.jpg",
+              "id": 21100,
+              "headerImageUrl": "https://images.genius.com/03628574fa075d2be67ace5f5a7b80f6.300x139x1.png",
+              "apiPath": "/artists/21100",
+              "type": "artist"
+            },
+            "url": "https://genius.com/albums/Oasis/Time-flies-19942009",
+            "releaseDateComponents": {
+              "day": null,
+              "month": null,
+              "year": 2010
+            },
+            "nameWithArtist": "Time Flies... 1994–2009 (artist: Oasis)",
+            "name": "Time Flies... 1994–2009",
+            "id": 122913,
+            "fullTitle": "Time Flies... 1994–2009 by Oasis",
+            "coverArtUrl": "https://images.genius.com/bd8fc74bc095f89df2b6ad6ef55e5c7b.1000x1000x1.jpg",
+            "coverArtThumbnailUrl": "https://images.genius.com/bd8fc74bc095f89df2b6ad6ef55e5c7b.300x300x1.jpg",
+            "apiPath": "/albums/122913",
+            "type": "album"
+          },
+          {
+            "tracklist": [
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-better-let-you-know-lyrics",
+                  "title": "Better Let You Know",
+                  "path": "/Oasis-better-let-you-know-lyrics",
+                  "lyricsState": "complete",
+                  "id": 919356,
+                  "apiPath": "/songs/919356",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 2,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-i-will-show-you-lyrics",
+                  "title": "I Will Show You",
+                  "path": "/Oasis-i-will-show-you-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1116751,
+                  "apiPath": "/songs/1116751",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 3,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-life-in-vain-lyrics",
+                  "title": "Life In Vain",
+                  "path": "/Oasis-life-in-vain-lyrics",
+                  "lyricsState": "complete",
+                  "id": 949559,
+                  "apiPath": "/songs/949559",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 4,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-must-be-the-music-lyrics",
+                  "title": "Must Be the Music",
+                  "path": "/Oasis-must-be-the-music-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1311761,
+                  "apiPath": "/songs/1311761",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 5,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-see-the-sun-lyrics",
+                  "title": "See the Sun",
+                  "path": "/Oasis-see-the-sun-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1369104,
+                  "apiPath": "/songs/1369104",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 6,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-colour-my-life-lyrics",
+                  "title": "Colour My Life",
+                  "path": "/Oasis-colour-my-life-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1611849,
+                  "apiPath": "/songs/1611849",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 7,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-comin-on-strong-lyrics",
+                  "title": "Comin’ On Strong",
+                  "path": "/Oasis-comin-on-strong-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2819157,
+                  "apiPath": "/songs/2819157",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 8,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-if-we-shadows-lyrics",
+                  "title": "If We Shadows",
+                  "path": "/Oasis-if-we-shadows-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2881270,
+                  "apiPath": "/songs/2881270",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 9,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-strange-thing-lyrics",
+                  "title": "Strange Thing",
+                  "path": "/Oasis-strange-thing-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2026503,
+                  "apiPath": "/songs/2026503",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 10,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-take-me-away-lyrics",
+                  "title": "Take Me Away",
+                  "path": "/Oasis-take-me-away-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387084,
+                  "apiPath": "/songs/387084",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 11,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-i-will-believe-lyrics",
+                  "title": "I Will Believe",
+                  "path": "/Oasis-i-will-believe-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387052,
+                  "apiPath": "/songs/387052",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 12,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-dyer-wanna-be-a-spaceman-lyrics",
+                  "title": "D’Yer Wanna Be A Spaceman",
+                  "path": "/Oasis-dyer-wanna-be-a-spaceman-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387029,
+                  "apiPath": "/songs/387029",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 13,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-alive-lyrics",
+                  "title": "Alive",
+                  "path": "/Oasis-alive-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387001,
+                  "apiPath": "/songs/387001",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 14,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-cloudburst-lyrics",
+                  "title": "Cloudburst",
+                  "path": "/Oasis-cloudburst-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387019,
+                  "apiPath": "/songs/387019",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 15,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-sad-song-lyrics",
+                  "title": "Sad Song",
+                  "path": "/Oasis-sad-song-lyrics",
+                  "lyricsState": "complete",
+                  "id": 386861,
+                  "apiPath": "/songs/386861",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 16,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-whatever-lyrics",
+                  "title": "Whatever",
+                  "path": "/Oasis-whatever-lyrics",
+                  "lyricsState": "complete",
+                  "id": 119645,
+                  "apiPath": "/songs/119645",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 17,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-youve-got-to-hide-your-love-away-lyrics",
+                  "title": "You’ve Got To Hide Your Love Away",
+                  "path": "/Oasis-youve-got-to-hide-your-love-away-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387098,
+                  "apiPath": "/songs/387098",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 18,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-its-better-people-lyrics",
+                  "title": "It’s Better People",
+                  "path": "/Oasis-its-better-people-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387056,
+                  "apiPath": "/songs/387056",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 19,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-boneheads-bank-holiday-lyrics",
+                  "title": "Bonehead’s Bank Holiday",
+                  "path": "/Oasis-boneheads-bank-holiday-lyrics",
+                  "lyricsState": "complete",
+                  "id": 145443,
+                  "apiPath": "/songs/145443",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 20,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-round-are-way-lyrics",
+                  "title": "Round Are Way",
+                  "path": "/Oasis-round-are-way-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387066,
+                  "apiPath": "/songs/387066",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 21,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-step-out-lyrics",
+                  "title": "Step Out",
+                  "path": "/Oasis-step-out-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387071,
+                  "apiPath": "/songs/387071",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 22,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-cum-on-feel-the-noize-lyrics",
+                  "title": "Cum On Feel The Noize",
+                  "path": "/Oasis-cum-on-feel-the-noize-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387021,
+                  "apiPath": "/songs/387021",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 23,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-chipper-sob-lyrics",
+                  "title": "Chipper S.O.B.",
+                  "path": "/Oasis-chipper-sob-lyrics",
+                  "lyricsState": "complete",
+                  "id": 872912,
+                  "apiPath": "/songs/872912",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 24,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-angel-child-lyrics",
+                  "title": "Angel Child",
+                  "path": "/Oasis-angel-child-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387005,
+                  "apiPath": "/songs/387005",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 25,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-this-guys-in-love-with-you-lyrics",
+                  "title": "This Guy’s In Love With You",
+                  "path": "/Oasis-this-guys-in-love-with-you-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1169349,
+                  "apiPath": "/songs/1169349",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 26,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-its-a-crime-lyrics",
+                  "title": "It’s a Crime",
+                  "path": "/Oasis-its-a-crime-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1055005,
+                  "apiPath": "/songs/1055005",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 27,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-heroes-lyrics",
+                  "title": "Heroes",
+                  "path": "/Oasis-heroes-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387050,
+                  "apiPath": "/songs/387050",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 28,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-i-got-the-fever-lyrics",
+                  "title": "(I Got) The Fever",
+                  "path": "/Oasis-i-got-the-fever-lyrics",
+                  "lyricsState": "complete",
+                  "id": 386998,
+                  "apiPath": "/songs/386998",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 29,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-my-sister-lover-lyrics",
+                  "title": "My Sister Lover",
+                  "path": "/Oasis-my-sister-lover-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387059,
+                  "apiPath": "/songs/387059",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 30,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-the-fame-lyrics",
+                  "title": "The Fame",
+                  "path": "/Oasis-the-fame-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387090,
+                  "apiPath": "/songs/387090",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 31,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-flashbax-lyrics",
+                  "title": "Flashbax",
+                  "path": "/Oasis-flashbax-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387034,
+                  "apiPath": "/songs/387034",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 32,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-street-fighting-man-lyrics",
+                  "title": "Street Fighting Man",
+                  "path": "/Oasis-street-fighting-man-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387077,
+                  "apiPath": "/songs/387077",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 33,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-one-way-road-lyrics",
+                  "title": "One Way Road",
+                  "path": "/Oasis-one-way-road-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387061,
+                  "apiPath": "/songs/387061",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 36,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-carry-us-all-lyrics",
+                  "title": "Carry Us All",
+                  "path": "/Oasis-carry-us-all-lyrics",
+                  "lyricsState": "complete",
+                  "id": 92632,
+                  "apiPath": "/songs/92632",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 38,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-full-on-lyrics",
+                  "title": "Full On",
+                  "path": "/Oasis-full-on-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387036,
+                  "apiPath": "/songs/387036",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 39,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-just-getting-older-lyrics",
+                  "title": "Just Getting Older",
+                  "path": "/Oasis-just-getting-older-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2026559,
+                  "apiPath": "/songs/2026559",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 40,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-idlers-dream-lyrics",
+                  "title": "Idler’s Dream",
+                  "path": "/Oasis-idlers-dream-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2026541,
+                  "apiPath": "/songs/2026541",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 41,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-thank-you-for-the-good-times-lyrics",
+                  "title": "Thank You For The Good Times",
+                  "path": "/Oasis-thank-you-for-the-good-times-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2026587,
+                  "apiPath": "/songs/2026587",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 42,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-shout-it-out-loud-lyrics",
+                  "title": "Shout It Out Loud",
+                  "path": "/Oasis-shout-it-out-loud-lyrics",
+                  "lyricsState": "complete",
+                  "id": 708803,
+                  "apiPath": "/songs/708803",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 43,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-my-generation-lyrics",
+                  "title": "My Generation",
+                  "path": "/Oasis-my-generation-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2026576,
+                  "apiPath": "/songs/2026576",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 44,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-merry-xmas-everybody-lyrics",
+                  "title": "Merry Xmas Everybody",
+                  "path": "/Oasis-merry-xmas-everybody-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2026568,
+                  "apiPath": "/songs/2026568",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 45,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-youve-got-the-heart-of-a-star-lyrics",
+                  "title": "(You’ve Got) The Heart Of A Star",
+                  "path": "/Oasis-youve-got-the-heart-of-a-star-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1871876,
+                  "apiPath": "/songs/1871876",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 46,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-eyeball-tickler-lyrics",
+                  "title": "Eyeball Tickler",
+                  "path": "/Oasis-eyeball-tickler-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1872324,
+                  "apiPath": "/songs/1872324",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 47,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-wont-let-you-down-lyrics",
+                  "title": "Won’t Let You Down",
+                  "path": "/Oasis-wont-let-you-down-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2026633,
+                  "apiPath": "/songs/2026633",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 48,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-can-ysee-it-now-i-can-see-it-now-lyrics",
+                  "title": "Can Y’See It Now? (I Can See It Now!!)",
+                  "path": "/Oasis-can-ysee-it-now-i-can-see-it-now-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1872319,
+                  "apiPath": "/songs/1872319",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 49,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-pass-me-down-the-wine-lyrics",
+                  "title": "Pass Me Down The Wine",
+                  "path": "/Oasis-pass-me-down-the-wine-lyrics",
+                  "lyricsState": "complete",
+                  "id": 476510,
+                  "apiPath": "/songs/476510",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 50,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-the-quiet-ones-lyrics",
+                  "title": "The Quiet Ones",
+                  "path": "/Oasis-the-quiet-ones-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2026596,
+                  "apiPath": "/songs/2026596",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 51,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-sittin-here-in-silence-on-my-own-lyrics",
+                  "title": "Sittin’ Here In Silence (On My Own)",
+                  "path": "/Oasis-sittin-here-in-silence-on-my-own-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1872307,
+                  "apiPath": "/songs/1872307",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 52,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-who-put-the-weight-of-the-world-on-my-shoulders-lyrics",
+                  "title": "Who Put the Weight of the World On My Shoulders?",
+                  "path": "/Oasis-who-put-the-weight-of-the-world-on-my-shoulders-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2026612,
+                  "apiPath": "/songs/2026612",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 53,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-lord-dont-slow-me-down-lyrics",
+                  "title": "Lord Don’t Slow Me Down",
+                  "path": "/Oasis-lord-dont-slow-me-down-lyrics",
+                  "lyricsState": "complete",
+                  "id": 1790968,
+                  "apiPath": "/songs/1790968",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 54,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-i-believe-in-all-lyrics",
+                  "title": "I Believe In All",
+                  "path": "/Oasis-i-believe-in-all-lyrics",
+                  "lyricsState": "complete",
+                  "id": 2019168,
+                  "apiPath": "/songs/2019168",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 55,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-boy-with-the-blues-lyrics",
+                  "title": "Boy With The Blues",
+                  "path": "/Oasis-boy-with-the-blues-lyrics",
+                  "lyricsState": "complete",
+                  "id": 387008,
+                  "apiPath": "/songs/387008",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 57,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-untitled-the-one-ill-never-know-lyrics",
+                  "title": "Untitled (The One I’ll Never Know)",
+                  "path": "/Oasis-untitled-the-one-ill-never-know-lyrics",
+                  "lyricsState": "complete",
+                  "id": 3026120,
+                  "apiPath": "/songs/3026120",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": 58,
+                "type": "album_appearance"
+              },
+              {
+                "song": {
+                  "url": "https://genius.com/Oasis-goodbye-cold-world-lyrics",
+                  "title": "Goodbye Cold World",
+                  "path": "/Oasis-goodbye-cold-world-lyrics",
+                  "lyricsState": "complete",
+                  "id": 905634,
+                  "apiPath": "/songs/905634",
+                  "type": "song"
+                },
+                "currentUserMetadata": {
+                  "excludedPermissions": [],
+                  "permissions": [ "view_song" ]
+                },
+                "number": null,
+                "type": "album_appearance"
+              }
+            ],
+            "artist": {
+              "iq": 105,
+              "url": "https://genius.com/artists/Oasis",
+              "slug": "Oasis",
+              "name": "Oasis",
+              "isVerified": true,
+              "isMemeVerified": false,
+              "indexCharacter": "o",
+              "imageUrl": "https://images.genius.com/5b44be44ae2cc44dd08db4e8e07b18bb.800x800x1.jpg",
+              "id": 21100,
+              "headerImageUrl": "https://images.genius.com/03628574fa075d2be67ace5f5a7b80f6.300x139x1.png",
+              "apiPath": "/artists/21100",
+              "type": "artist"
+            },
+            "url": "https://genius.com/albums/Oasis/Miscellaneous",
+            "releaseDateComponents": null,
+            "nameWithArtist": "Miscellaneous (artist: Oasis)",
+            "name": "Miscellaneous",
+            "id": 123434,
+            "fullTitle": "Miscellaneous by Oasis",
+            "coverArtUrl": "https://images.genius.com/ce22c7663669ed368a01165eafa9717c.1000x1000x1.jpg",
+            "coverArtThumbnailUrl": "https://images.genius.com/ce22c7663669ed368a01165eafa9717c.300x300x1.jpg",
+            "apiPath": "/albums/123434",
+            "type": "album"
+          }
+        ],
+        "album": 122913,
+        "currentUserMetadata": {
+          "iqByAction": {},
+          "relationships": {},
+          "interactions": {
+            "following": false,
+            "pyong": false
+          },
+          "excludedPermissions": [ "follow", "award_transcription_iq", "remove_transcription_iq", "pyong", "edit_lyrics", "view_annotation_engagement_data", "publish", "unpublish", "edit_spotify_details", "hide", "unhide", "toggle_featured_video", "add_pinned_annotation_to", "add_community_annotation_to", "destroy", "mark_as_not_spam", "edit_spotify_annotations_for", "verify_lyrics", "unverify_lyrics", "edit_anything", "edit_any_media", "edit", "rename", "edit_tags", "watch_fact_track", "reindex", "view_lyrics_synchronization", "enable_media", "disable_media", "edit_lyrics_or_annotation_brackets", "see_editorial_indicators", "view_attribution_visualization", "edit_annotation_brackets", "preview_lyrics_for_export", "hide_apple_player", "unhide_apple_player", "trigger_apple_match", "mark_lyrics_evaluation_as_approved", "mark_lyrics_evaluation_as_staff_approved", "mark_lyrics_evaluation_as_unapproved", "mark_lyrics_evaluation_as_un_staff_approved", "view_transcriber_media_player", "override_apple_match", "edit_youtube_url", "edit_soundcloud_url", "edit_spotify_uuid", "edit_vevo_url", "moderate_annotations", "create_annotation", "see_short_id", "manage_chart_item", "create_tag", "propose_lyrics_edit", "moderate_lyrics_edit_proposals", "preview_react_song_page" ],
+          "permissions": [ "see_pageviews", "view_apple_music_player", "create_comment", "view_song_story_gallery" ]
+        },
+        "youtubeUrl": "http://www.youtube.com/watch?v=9gWMjHnBj-A",
+        "youtubeStart": null,
+        "vttpId": null,
+        "viewableByRoles": [],
+        "updatedByHumanAt": 1550939924,
+        "twitterShareMessageWithoutUrl": "Oasis – Whatever @oasis",
+        "twitterShareMessage": "Oasis – Whatever @oasis https://genius.com/Oasis-whatever-lyrics",
+        "trackingPaths": {
+          "concurrent": "/Oasis-whatever-lyrics",
+          "aggregate": "/Oasis-whatever-lyrics"
+        },
+        "trackingData": [
+          {
+            "value": 119645,
+            "key": "Song ID"
+          },
+          {
+            "value": "Whatever",
+            "key": "Title"
+          },
+          {
+            "value": "Oasis",
+            "key": "Primary Artist"
+          },
+          {
+            "value": 21100,
+            "key": "Primary Artist ID"
+          },
+          {
+            "value": "Time Flies... 1994–2009",
+            "key": "Primary Album"
+          },
+          {
+            "value": 122913,
+            "key": "Primary Album ID"
+          },
+          {
+            "value": "rock",
+            "key": "Tag"
+          },
+          {
+            "value": "rock",
+            "key": "Primary Tag"
+          },
+          {
+            "value": 567,
+            "key": "Primary Tag ID"
+          },
+          {
+            "value": true,
+            "key": "Music?"
+          },
+          {
+            "value": "Song",
+            "key": "Annotatable Type"
+          },
+          {
+            "value": 119645,
+            "key": "Annotatable ID"
+          },
+          {
+            "value": true,
+            "key": "featured_video"
+          },
+          {
+            "value": [],
+            "key": "cohort_ids"
+          },
+          {
+            "value": false,
+            "key": "has_verified_callout"
+          },
+          {
+            "value": true,
+            "key": "has_featured_annotation"
+          },
+          {
+            "value": "2013-02-20T23:47:19Z",
+            "key": "created_at"
+          },
+          {
+            "value": "2013-02-01",
+            "key": "created_month"
+          },
+          {
+            "value": 2013,
+            "key": "created_year"
+          },
+          {
+            "value": "E",
+            "key": "song_tier"
+          },
+          {
+            "value": false,
+            "key": "Has Recirculated Articles"
+          },
+          {
+            "value": "en",
+            "key": "Lyrics Language"
+          },
+          {
+            "value": false,
+            "key": "Has Song Story"
+          },
+          {
+            "value": null,
+            "key": "Song Story ID"
+          },
+          {
+            "value": true,
+            "key": "Has Apple Match"
+          },
+          {
+            "value": "1994-12-18",
+            "key": "Release Date"
+          },
+          {
+            "value": null,
+            "key": "NRM Tier"
+          },
+          {
+            "value": null,
+            "key": "NRM Target Date"
+          },
+          {
+            "value": true,
+            "key": "Has Description"
+          },
+          {
+            "value": true,
+            "key": "Has Youtube URL"
+          },
+          {
+            "value": false,
+            "key": "Has Translation Q&A"
+          },
+          {
+            "value": 3,
+            "key": "Comment Count"
+          }
+        ],
+        "titleWithFeatured": "Whatever",
+        "stats": {
+          "pageviews": 39262,
+          "hot": false,
+          "verifiedAnnotations": 0,
+          "unreviewedAnnotations": 1,
+          "transcribers": 2,
+          "iqEarners": 12,
+          "contributors": 12,
+          "acceptedAnnotations": 3
+        },
+        "spotifyUuid": "6hqu7f96UPVAKCqiex5sgi",
+        "soundcloudUrl": null,
+        "songArtImageUrl": "https://images.rapgenius.com/95100343903a9ea9b25045eca7749469.200x200x1.jpg",
+        "songArtImageThumbnailUrl": "https://images.rapgenius.com/95100343903a9ea9b25045eca7749469.200x200x1.jpg",
+        "shareUrl": "https://genius.com/Oasis-whatever-lyrics",
+        "releaseDateForDisplay": "December 18, 1994",
+        "releaseDateComponents": {
+          "day": 18,
+          "month": 12,
+          "year": 1994
+        },
+        "releaseDate": "1994-12-18",
+        "recordingLocation": "Rockfield Studios",
+        "pyongsCount": 10,
+        "pusherChannel": "song-119645",
+        "published": false,
+        "pendingLyricsEditsCount": 0,
+        "lyricsUpdatedAt": 1550949354,
+        "lyricsPlaceholderReason": null,
+        "lyricsOwnerId": 61411,
+        "isMusic": true,
+        "instrumental": false,
+        "hidden": false,
+        "headerImageUrl": "https://images.rapgenius.com/95100343903a9ea9b25045eca7749469.200x200x1.jpg",
+        "headerImageThumbnailUrl": "https://images.rapgenius.com/95100343903a9ea9b25045eca7749469.200x200x1.jpg",
+        "fullTitle": "Whatever by Oasis",
+        "featuredVideo": true,
+        "embedContent": "<div id=\\'rg_embed_link_119645\\' class=\\'rg_embed_link\\' data-song-id=\\'119645\\'>Read <a href=\\'https://genius.com/Oasis-whatever-lyrics\\'>“Whatever” by Oasis<\\/a> on Genius<\\/div> <script crossorigin src=\\'//genius.com/songs/119645/embed.js\\'><\\/script>",
+        "descriptionPreview": "“Whatever” was released as a single after the release of Definitely Maybe and was only included as a bonus track on the Mexican edition of Definitely Maybe. After Oasis split up it was released to a broader audience, when included on the single compilation album Time Flies… 1994-2009. The song is notable for its use of an orchestra. However, that was also what led to the song not being included on Definitely Maybe. At the time of recording the album, the band could not afford to hire an orchestra for the song.\\n\\nThe song came under fire for allegedly ripping off Neil Innes\\' song “How Sweet to Be an Idiot.” They later settled a plagiarism lawsuit and Innes received a songwriting credit.\\n\\nThe song was often performed live, ending with the lyrics to “Octopus’s Garden.”",
+        "description": {
+          "markdown": "\\\"Whatever\\\" was released as a single after the release of [*Definitely Maybe*](http://genius.com/albums/Oasis/Definitely-maybe) and was only included as a bonus track on the Mexican edition of *Definitely Maybe*. After Oasis split up it was released to a broader audience, when included on the single compilation album *[Time Flies... 1994-2009](http://genius.com/albums/Oasis/Time-flies-19942009)*. The song is notable for its use of an orchestra. However, that was also what led to the song not being included on *Definitely Maybe*. At the time of recording the album, the band could not afford to hire an orchestra for the song.\\n\\nThe song came under fire for allegedly ripping off Neil Innes\\' song \\\"How Sweet to Be an Idiot.\\\" They later settled a plagiarism lawsuit and Innes received a songwriting credit.\\n\\nThe song was often performed live, ending with the lyrics to \\\"[Octopus\\'s Garden](http://genius.com/The-beatles-octopuss-garden-lyrics).\\\"",
+          "html": "<p>“Whatever” was released as a single after the release of <a href=\\\"https://genius.com/albums/Oasis/Definitely-maybe\\\" rel=\\\"noopener\\\" data-api_path=\\\"/albums/22545\\\"><em>Definitely Maybe<\\/em><\\/a> and was only included as a bonus track on the Mexican edition of <em>Definitely Maybe<\\/em>. After Oasis split up it was released to a broader audience, when included on the single compilation album <em><a href=\\\"https://genius.com/albums/Oasis/Time-flies-19942009\\\" rel=\\\"noopener\\\" data-api_path=\\\"/albums/122913\\\">Time Flies… 1994-2009<\\/a><\\/em>. The song is notable for its use of an orchestra. However, that was also what led to the song not being included on <em>Definitely Maybe<\\/em>. At the time of recording the album, the band could not afford to hire an orchestra for the song.<\\/p>\\n\\n<p>The song came under fire for allegedly ripping off Neil Innes\\' song “How Sweet to Be an Idiot.” They later settled a plagiarism lawsuit and Innes received a songwriting credit.<\\/p>\\n\\n<p>The song was often performed live, ending with the lyrics to “<a href=\\\"https://genius.com/The-beatles-octopuss-garden-lyrics\\\" rel=\\\"noopener\\\" data-api_path=\\\"/songs/107905\\\">Octopus’s Garden<\\/a>.”<\\/p>"
+        },
+        "customSongArtImageUrl": "https://images.rapgenius.com/95100343903a9ea9b25045eca7749469.200x200x1.jpg",
+        "customHeaderImageUrl": "https://images.rapgenius.com/95100343903a9ea9b25045eca7749469.200x200x1.jpg",
+        "commentCount": 3,
+        "appleMusicPlayerUrl": "https://genius.com/songs/119645/apple_music_player",
+        "appleMusicId": "373957889",
+        "annotationCount": 5
+      },
+      "119647": {
+        "url": "https://genius.com/Oasis-who-feels-love-lyrics",
+        "title": "Who Feels Love?",
+        "path": "/Oasis-who-feels-love-lyrics",
+        "lyricsState": "complete",
+        "id": 119647,
+        "apiPath": "/songs/119647",
+        "type": "song"
+      },
+      "143250": {
+        "url": "https://genius.com/Oasis-roll-with-it-lyrics",
+        "title": "Roll with It",
+        "path": "/Oasis-roll-with-it-lyrics",
+        "lyricsState": "complete",
+        "id": 143250,
+        "apiPath": "/songs/143250",
+        "type": "song"
+      },
+      "213826": {
+        "url": "https://genius.com/Oasis-dyou-know-what-i-mean-lyrics",
+        "title": "D’You Know What I Mean?",
+        "path": "/Oasis-dyou-know-what-i-mean-lyrics",
+        "lyricsState": "complete",
+        "id": 213826,
+        "apiPath": "/songs/213826",
+        "type": "song"
+      },
+      "230086": {
+        "url": "https://genius.com/Oasis-stand-by-me-lyrics",
+        "title": "Stand by Me",
+        "path": "/Oasis-stand-by-me-lyrics",
+        "lyricsState": "complete",
+        "id": 230086,
+        "apiPath": "/songs/230086",
+        "type": "song"
+      },
+      "327470": {
+        "url": "https://genius.com/Oasis-supersonic-lyrics",
+        "title": "Supersonic",
+        "path": "/Oasis-supersonic-lyrics",
+        "lyricsState": "complete",
+        "id": 327470,
+        "apiPath": "/songs/327470",
+        "type": "song"
+      },
+      "327543": {
+        "url": "https://genius.com/Oasis-the-hindu-times-lyrics",
+        "title": "The Hindu Times",
+        "path": "/Oasis-the-hindu-times-lyrics",
+        "lyricsState": "complete",
+        "id": 327543,
+        "apiPath": "/songs/327543",
+        "type": "song"
+      },
+      "327570": {
+        "url": "https://genius.com/Oasis-all-around-the-world-lyrics",
+        "title": "All Around the World",
+        "path": "/Oasis-all-around-the-world-lyrics",
+        "lyricsState": "complete",
+        "id": 327570,
+        "apiPath": "/songs/327570",
+        "type": "song"
+      },
+      "338599": {
+        "url": "https://genius.com/Oasis-stop-crying-your-heart-out-lyrics",
+        "title": "Stop Crying Your Heart Out",
+        "path": "/Oasis-stop-crying-your-heart-out-lyrics",
+        "lyricsState": "complete",
+        "id": 338599,
+        "apiPath": "/songs/338599",
+        "type": "song"
+      },
+      "351933": {
+        "url": "https://genius.com/Oasis-cigarettes-and-alcohol-lyrics",
+        "title": "Cigarettes & Alcohol",
+        "path": "/Oasis-cigarettes-and-alcohol-lyrics",
+        "lyricsState": "complete",
+        "id": 351933,
+        "apiPath": "/songs/351933",
+        "type": "song"
+      },
+      "385626": {
+        "url": "https://genius.com/Oasis-go-let-it-out-lyrics",
+        "title": "Go Let It Out",
+        "path": "/Oasis-go-let-it-out-lyrics",
+        "lyricsState": "complete",
+        "id": 385626,
+        "apiPath": "/songs/385626",
+        "type": "song"
+      },
+      "385630": {
+        "url": "https://genius.com/Oasis-sunday-morning-call-lyrics",
+        "title": "Sunday Morning Call",
+        "path": "/Oasis-sunday-morning-call-lyrics",
+        "lyricsState": "complete",
+        "id": 385630,
+        "apiPath": "/songs/385630",
+        "type": "song"
+      },
+      "386924": {
+        "url": "https://genius.com/Oasis-songbird-lyrics",
+        "title": "Songbird",
+        "path": "/Oasis-songbird-lyrics",
+        "lyricsState": "complete",
+        "id": 386924,
+        "apiPath": "/songs/386924",
+        "type": "song"
+      },
+      "386930": {
+        "url": "https://genius.com/Oasis-she-is-love-lyrics",
+        "title": "She Is Love",
+        "path": "/Oasis-she-is-love-lyrics",
+        "lyricsState": "complete",
+        "id": 386930,
+        "apiPath": "/songs/386930",
+        "type": "song"
+      },
+      "386976": {
+        "url": "https://genius.com/Oasis-let-there-be-love-lyrics",
+        "title": "Let There Be Love",
+        "path": "/Oasis-let-there-be-love-lyrics",
+        "lyricsState": "complete",
+        "id": 386976,
+        "apiPath": "/songs/386976",
+        "type": "song"
+      },
+      "1790968": {
+        "url": "https://genius.com/Oasis-lord-dont-slow-me-down-lyrics",
+        "title": "Lord Don’t Slow Me Down",
+        "path": "/Oasis-lord-dont-slow-me-down-lyrics",
+        "lyricsState": "complete",
+        "id": 1790968,
+        "apiPath": "/songs/1790968",
+        "type": "song"
+      }
+    },
+    "albumAppearances": {
+      "76654": {
+        "song": 76654,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 4,
+        "type": "album_appearance"
+      },
+      "92627": {
+        "song": 92627,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 21,
+        "type": "album_appearance"
+      },
+      "92630": {
+        "song": 92630,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 3,
+        "type": "album_appearance"
+      },
+      "92633": {
+        "song": 92633,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 17,
+        "type": "album_appearance"
+      },
+      "92634": {
+        "song": 92634,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 15,
+        "type": "album_appearance"
+      },
+      "106380": {
+        "song": 106380,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 8,
+        "type": "album_appearance"
+      },
+      "107790": {
+        "song": 107790,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 12,
+        "type": "album_appearance"
+      },
+      "118473": {
+        "song": 118473,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 14,
+        "type": "album_appearance"
+      },
+      "119320": {
+        "song": 119320,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 22,
+        "type": "album_appearance"
+      },
+      "119436": {
+        "song": 119436,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 25,
+        "type": "album_appearance"
+      },
+      "119440": {
+        "song": 119440,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 26,
+        "type": "album_appearance"
+      },
+      "119645": {
+        "song": 119645,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 24,
+        "type": "album_appearance"
+      },
+      "119647": {
+        "song": 119647,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 20,
+        "type": "album_appearance"
+      },
+      "143250": {
+        "song": 143250,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 2,
+        "type": "album_appearance"
+      },
+      "213826": {
+        "song": 213826,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 16,
+        "type": "album_appearance"
+      },
+      "230086": {
+        "song": 230086,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 10,
+        "type": "album_appearance"
+      },
+      "327470": {
+        "song": 327470,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 1,
+        "type": "album_appearance"
+      },
+      "327543": {
+        "song": 327543,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 9,
+        "type": "album_appearance"
+      },
+      "327570": {
+        "song": 327570,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 13,
+        "type": "album_appearance"
+      },
+      "338599": {
+        "song": 338599,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 5,
+        "type": "album_appearance"
+      },
+      "351933": {
+        "song": 351933,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 6,
+        "type": "album_appearance"
+      },
+      "385626": {
+        "song": 385626,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 19,
+        "type": "album_appearance"
+      },
+      "385630": {
+        "song": 385630,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 27,
+        "type": "album_appearance"
+      },
+      "386924": {
+        "song": 386924,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 7,
+        "type": "album_appearance"
+      },
+      "386930": {
+        "song": 386930,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 23,
+        "type": "album_appearance"
+      },
+      "386976": {
+        "song": 386976,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 18,
+        "type": "album_appearance"
+      },
+      "1790968": {
+        "song": 1790968,
+        "currentUserMetadata": {
+          "excludedPermissions": [],
+          "permissions": [ "view_song" ]
+        },
+        "number": 11,
+        "type": "album_appearance"
+      }
+    },
+    "albums": {
+      "122913": {
+        "tracklist": [ 327470, 143250, 92630, 76654, 338599, 351933, 386924, 106380, 327543, 230086, 1790968, 107790, 327570, 118473, 92634, 213826, 92633, 386976, 385626, 119647, 92627, 119320, 386930, 119645, 119436, 119440, 385630 ],
+        "artist": 21100,
+        "url": "https://genius.com/albums/Oasis/Time-flies-19942009",
+        "releaseDateComponents": {
+          "day": null,
+          "month": null,
+          "year": 2010
+        },
+        "nameWithArtist": "Time Flies... 1994–2009 (artist: Oasis)",
+        "name": "Time Flies... 1994–2009",
+        "id": 122913,
+        "fullTitle": "Time Flies... 1994–2009 by Oasis",
+        "coverArtUrl": "https://images.genius.com/bd8fc74bc095f89df2b6ad6ef55e5c7b.1000x1000x1.jpg",
+        "coverArtThumbnailUrl": "https://images.genius.com/bd8fc74bc095f89df2b6ad6ef55e5c7b.300x300x1.jpg",
+        "apiPath": "/albums/122913",
+        "type": "album"
+      }
+    },
+    "users": {
+      "46981": {
+        "currentUserMetadata": {
+          "interactions": { "following": false },
+          "excludedPermissions": [ "follow" ],
+          "permissions": []
+        },
+        "url": "https://genius.com/BennySwans",
+        "roleForDisplay": "contributor",
+        "name": "BennySwoons",
+        "login": "BennySwans",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 129291,
+        "id": 46981,
+        "humanReadableRoleForDisplay": "Contributor",
+        "headerImageUrl": "https://images.rapgenius.com/avatars/medium/a2e3c022d0b2b4b87a17acec38db0d95",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.rapgenius.com/avatars/medium/a2e3c022d0b2b4b87a17acec38db0d95"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.rapgenius.com/avatars/small/a2e3c022d0b2b4b87a17acec38db0d95"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.rapgenius.com/avatars/thumb/a2e3c022d0b2b4b87a17acec38db0d95"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.rapgenius.com/avatars/tiny/a2e3c022d0b2b4b87a17acec38db0d95"
+          }
+        },
+        "apiPath": "/users/46981",
+        "aboutMeSummary": "Filmmaker. I made a list of every film I’ve ever seen here.",
+        "type": "user"
+      },
+      "61411": {
+        "currentUserMetadata": {
+          "interactions": { "following": false },
+          "excludedPermissions": [ "follow" ],
+          "permissions": []
+        },
+        "url": "https://genius.com/pizza-n-mandolino",
+        "roleForDisplay": "contributor",
+        "name": "pizza-n-mandolino",
+        "login": "pizza-n-mandolino",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 20940,
+        "id": 61411,
+        "humanReadableRoleForDisplay": "Contributor",
+        "headerImageUrl": "https://images.rapgenius.com/avatars/medium/4a55bd0a02ef10e977f288b41f686ce1",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.rapgenius.com/avatars/medium/4a55bd0a02ef10e977f288b41f686ce1"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.rapgenius.com/avatars/small/4a55bd0a02ef10e977f288b41f686ce1"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.rapgenius.com/avatars/thumb/4a55bd0a02ef10e977f288b41f686ce1"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.rapgenius.com/avatars/tiny/4a55bd0a02ef10e977f288b41f686ce1"
+          }
+        },
+        "apiPath": "/users/61411",
+        "aboutMeSummary": "Stove on my waist turn beef to patties",
+        "type": "user"
+      },
+      "721779": {
+        "currentUserMetadata": {
+          "interactions": { "following": false },
+          "excludedPermissions": [ "follow" ],
+          "permissions": []
+        },
+        "url": "https://genius.com/m4ths",
+        "roleForDisplay": "editor",
+        "name": "m4ths",
+        "login": "m4ths",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 99203,
+        "id": 721779,
+        "humanReadableRoleForDisplay": "Editor",
+        "headerImageUrl": "https://s3.amazonaws.com/filepicker-images-rapgenius/eM4MQGEISUGa5YyqrcwW_american%20psycho%20huey%20lewis%20and%20the%20news%201.jpg",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.genius.com/avatars/medium/fdc6ec3683eb872c7a3da920306fad23"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.genius.com/avatars/small/fdc6ec3683eb872c7a3da920306fad23"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.genius.com/avatars/thumb/fdc6ec3683eb872c7a3da920306fad23"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.genius.com/avatars/tiny/fdc6ec3683eb872c7a3da920306fad23"
+          }
+        },
+        "apiPath": "/users/721779",
+        "aboutMeSummary": "Danish Genius Editor previously going under the nicks “melballe,” and “Mazm.”\n\n\n\nIf I rejected or deleted your annotation/suggestion, please take the time to read this guideline. If you’re still unsure why it was rejected/deleted, hit me up and I’ll talk you through it :-)\n\n\n\nBuy CDs. Be nice to animals. Follow No Crowd.\n\nMy CD Collection.\nMy Concert Diary.\n\n\n\nAchievements:\n\n\nWinner of Scribe-A-Thon March 2015 Edition (155 songs)\n11/04 2015 – First time having a transcribed song displayed on the Genius frontpage.\n18/04 2015 – Editored, ScopeY TAUGHT ME.\n04/05 2015 – 10K IQ\n09/12 2016 – 25K IQ\n03/01 2017 – 30K IQ\n08/01 2017 – Nr. 36 Rock Top Genius Scholar – OF ALL TIME!\n05/05 2017 – 40K IQ\n09/08 2017 – 50K IQ\n04/12 2017 – 60K IQ\n23/04 2018 – 70K IQ\n27/07 2018 – 80K IQ\n02/05 2019 – 90K IQ\n\n\n\n\n\nMy Projects:\n\nWhat I’m working on\n\n\n\nI REALLY KINDA LIKE THESE artists:\n\n\nOasis\nKanyeWest\nNoelGallaghersHighFlyingBirds\nQueensoftheStoneAge\nAC/DC\nArcticMonkeys\ntheSmiths\nMorrissey\nNephew – theStrokes – theFloorIsMadeofLava – theKillers – SpleenUnited – PeterSommer – Kasabian – Audioslave – Metallica – FooFighters – theWhiteStripes – Eminem – Suspekt – Mew – theGame – BonIver – KingsOfLeon – DaftPunk – Justice – TenaciousD – PushaT – Outkast – JohnMayer – Wu-TangClan – GhostfaceKillah – Raekwon – Drake – KendrickLamar – theKillers",
+        "type": "user"
+      },
+      "1143413": {
+        "currentUserMetadata": {
+          "interactions": { "following": false },
+          "excludedPermissions": [ "follow" ],
+          "permissions": []
+        },
+        "url": "https://genius.com/teapot",
+        "roleForDisplay": "editor",
+        "name": "teapot",
+        "login": "teapot",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 16781,
+        "id": 1143413,
+        "humanReadableRoleForDisplay": "Editor",
+        "headerImageUrl": "https://images.genius.com/avatars/medium/85b12a5baae194d047d1d4cb94d71942",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.genius.com/avatars/medium/85b12a5baae194d047d1d4cb94d71942"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.genius.com/avatars/small/85b12a5baae194d047d1d4cb94d71942"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.genius.com/avatars/thumb/85b12a5baae194d047d1d4cb94d71942"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.genius.com/avatars/tiny/85b12a5baae194d047d1d4cb94d71942"
+          }
+        },
+        "apiPath": "/users/1143413",
+        "aboutMeSummary": "All things pass; strong art alone can know eternity.\\n\\nYou learn more from failure than success; failure builds character.\\n\\nTime is the wisest counselor of all.\\n\\nThere is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved.\\n\\nLearning is hard work, but everything you learn is yours and will make subsequent learning easier.\\n\\nThe first source of evil is inequality. From inequality comes wealth; from wealth are born luxury and idleness. From luxury come the arts and from idleness the sciences\\n\\nNil sine magno\\nvita labore dedit mortalibus.\\n\\nTime is the wisest of all counsellors\\n\\nMusic, the greatest good that mortals know,\\nAnd all of heaven we have below.\\n\\nNature has pointed out a mixed kind of life as most suitable to the human race, and secretly admonished them to allow none of these biases to draw too much, so as to incapacitate them for other occupations and entertainments. Indulge your passion for science, says she, but let your science be human, and such as may have a direct reference to action and society. Abstruse thought and profound researches I prohibit, and will severely punish, by the pensive melancholy which they introduce, by the endless uncertainty in which they involve you, and by the cold reception which your pretended discoveries shall meet with, when communicated. Be a philosopher; but, amidst all your philosophy, be still a man.\\n\\nVirtus est vitium fugere et sapientia prima\\nstultitia caruisse.\\n\\n“To be a master of metaphor is the greatest thing by far. It is the one thing that cannot be learnt from others, and it is also a sign of genius.”\\n\\nNon qui parum habet, sed qui plus cupit, pauper est.\\n\\nRara temporum felicitas, ubi sentire, quæ velis; & que sentias, dicere licet\\n\\n To every thing there is a season, and a time to every purpose under the heaven:\\n\\nOnly by pride cometh contention: but with the well advised is wisdom.\\n\\nAll men by nature desire to know. An indication of this is the delight we take in our senses; for even apart from their usefulness they are loved for themselves; and above all others the sense of sight. For not only with a view to action, but even when we are not going to do anything, we prefer sight to almost everything else. The reason is that this, most of all the senses, makes us know and brings to light many differences between things.\\n\\nAs water reflects the face,\\n    so one’s life reflects the heart.[a]\\n\\nIt is to one’s honor to avoid strife,\\nbut every fool is quick to quarrel.\\n\\n“Two things fill the mind with ever-increasing wonder and awe, the more often and the more intensely the mind of thought is drawn to them: the starry heavens above me and the moral law within me.”\\n\\nThe heavens declare the glory of God; and the firmament sheweth his handywork.\\nDay unto day uttereth speech, and night unto night sheweth knowledge.\\nThere is no speech nor language, where their voice is not heard.\\nTheir line is gone out through all the earth, and their words to the end of the world. In them hath he set a tabernacle for the sun,\\n\\nFor in much wisdom is much grief: and he that increases knowledge increases sorrow.\\n\\nHatred stirreth up strifes: but love covereth all sins.\\n\\nThere are more things, Lucilius, that frighten us than injure us, and we suffer more in imagination than in reality.\\n\\nThe refining pot is for silver and the furnace for gold, But the LORD tests the hearts.\\n\\n“We all should know that diversity makes for a rich tapestry, and we must understand that all the threads of the tapestry are equal in value no matter what their color.”\\n\\n“It’s Not Whether You Get Knocked Down, It’s Whether You Get Up.\\n\\n“Wer die Musik liebt, kann nie ganz unglücklich werden.”\\n\\nThe world is a dangerous place, not because of those who do evil, but because of those who look on and do nothing.\\n\\nLife isn’t about finding yourself; it’s about creating yourself.\\n\\nPhilosophy [i.e. natural philosophy] is written in this grand book — I mean the Universe — which stands continually open to our gaze, but it cannot be understood unless one first learns to comprehend the language and interpret the characters in which it is written. It is written in the language of mathematics, and its characters are triangles, circles, and other geometrical figures, without which it is humanly impossible to understand a single word of it; without these, one is wandering around in a dark labyrinth.\\n\\nYou cannot teach a man anything; you can only help him find it within himself.\\n\\n“Some books are to be tasted, others to be swallowed, and some few to be chewed and digested; that is, some books are to be read only in parts; others to be read, but not curiously; and some few are to be read wholly, and with diligence and attention.”\\n\\n‘If I have been able to see further, it was only because I stood on the shoulders of giants.’\\n\\nIn the sciences, every one has so much as he really knows and comprehends: what he believes only, and takes upon trust, are but shreds; which however well in the whole piece, make no considerable addition to his stock who gathers them. Such borrowed wealth, like fairy-money, though it were gold in the hand from which he received it, will be but leaves and dust when it comes to use.\\n\\nUt est rerum omnium magister usus\\n\\nReading furnishes the mind only with materials of knowledge; it is thinking that makes what we read ours.\\n\\nSleep that knits up the raveled sleeve of care, The death of each day’s life, sore labor’s bath, Balm of hurt minds, great nature’s second course, Chief nourisher in life’s feast.\\n\\nLife is like a bicycle, to remain balance you need to keep on moving forward\\n\\nSilence is better than unmeaning words.\\n\\n I had rather believe all the fables in the legends and the Talmud and the Alcoran, than that this universal frame is without a mind.\\n\\nWherever your life ends, it is all there. The advantage of living is not measured by length, but by use; some men have lived long, and lived little; attend to it while you are in it. It lies in your will, not in the number of years, for you to have lived enough.\\n\\nThe web of our life is of a mingled yarn, good and ill together: our virtues would be proud,if our faults whipped them not; and our crimes would despair, if they were not cherished by our virtues\\\"\\n\\nYeah, I love the sun but I respect the rain\\nLook forward to good times, can’t forget the pain\\n\\nOur doubts are traitors and make us lose the good we oft might win by fearing to attempt.\\n\\nPoeta nascitur, non fit.\\n\\nHarmonia est unitas in varietate.\\n\\nThat tranquillity of soul in which some place human happiness, is not a dead rest, but a regular progressive motion.\\n\\nNessun maggior dolore che ricordarsi del tempo felice nella miseria.\\n\\nAll Art constantly aspires towards the condition of Music.\\n\\nL\\'amore desta le cose che dormono: le tenebrose illumina: dà vita alle cose morte: forma le non formate: e dà perfezione alle imperfette\\n\\nAhimsa Paramo Dharma\\n\\n“Some people say, “Give the customers what they want.” But that’s not my approach. Our job is to figure out what they’re going to want before they do. I think Henry Ford once said, “If I’d asked customers what they wanted, they would have told me, ‘A faster horse!’” People don’t know what they want until you show it to them. That’s why I never rely on market research. Our task is to read things that are not yet on the page.” (Steve Jobs)\\n\\nThere is a tide in the affairs of men, Which, taken at the flood, leads on to fortune; Omitted, all the voyage of their life Is bound in shallows and in miseries. On such a full sea are we now afloat; And we must take the current when it serves, Or lose our ventures.\\n\\nEvery mistake you make is a lesson to learn and grow from.\\n\\nLife Is Like Riding a Bicycle. To Keep Your Balance You Must Keep Moving.\\n\\nManagement is doing things right. Leadership is doing the right thing.\\n\\nThere is no such thing as a new idea. It is impossible. We simply take a lot of old ideas and put them into a sort of mental kaleidoscope. We give them a turn and they make new and curious combinations\\n\\n Good artists borrow, great artists steal.\\n\\nThe purposes of a person’s heart are deep waters,\\n    but one who has insight draws them out.\\n\\n“The first man who, having fenced in a piece of land, said “This is mine,” and found people naïve enough to believe him, that man was the true founder of civil society. From how many crimes, wars, and murders, from how many horrors and misfortunes might not any one have saved mankind, by pulling up the stakes, or filling up the ditch, and crying to his fellows: Beware of listening to this impostor; you are undone if you once forget that the fruits of the earth belong to us all, and the earth itself to nobody.”\\n\\nActions speak louder than words.\\n\\n   If a man look sharply and attentively, he shall see Fortune; for though she is blind, she is not invisible\\n\\nTo every thing there is a season, and a time to every purpose under the heaven:\\nA time to be born, and a time to die; a time to plant, and a time to pluck up that which is planted\\nA time to kill, and a time to heal; a time to break down, and a time to build up;\\nA time to weep, and a time to laugh; a time to mourn, and a time to dance;\\nA time to cast away stones, and a time to gather stones together; a time to embrace, and a time to refrain from embracing;\\nA time to get, and a time to lose; a time to keep, and a time to cast away;\\nA time to rend, and a time to sew; a time to keep silence, and a time to speak;\\nA time to love, and a time to hate; a time of war, and a time of peace.\\n\\nBlessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful. But his delight is in the law of the LORD; and in his law doth he meditate day and night. And he shall be like a tree planted by the rivers of water, that bringeth forth his fruit in his season; his leaf also shall not wither; and whatsoever he doeth shall prosper.\\nThe ungodly are not so: but are like the chaff which the wind driveth away. Therefore the ungodly shall not stand in the judgment, nor sinners in the congregation of the righteous. For the LORD knoweth the way of the righteous: but the way of the ungodly shall perish.\\n\\n“The first man who, having fenced in a piece of land, said “This is mine,” and found people naïve enough to believe him, that man was the true founder of civil society. From how many crimes, wars, and murders, from how many horrors and misfortunes might not any one have saved mankind, by pulling up the stakes, or filling up the ditch, and crying to his fellows: Beware of listening to this impostor; you are undone if you once forget that the fruits of the earth belong to us all, and the earth itself to nobody.”\\n\\nSemper avarus eget\\n\\nBefore that time the Romans were satisfied with the practice of virtue; they were undone when they began to study it\\\"\\n\\nConfragosa in fastigium dignitatis via est.\\n\\nA good name is more desirable than great riches;\\n    to be esteemed is better than silver or gold.\\n\\nGold there is, and rubies in abundance,\\n    but lips that speak knowledge are a rare jewel.\\n\\n   A little philosophy inclineth man’s mind to atheism, but depth in philosophy bringeth men’s minds about to religion\\n\\nEverything is good as it leaves the hands of the Author of things; everything degenerates in the hands of man\\n\\nNocse te ipsum\\n\\nLet men learn for once that nature would have preserved them from science, as a mother snatches a dangerous weapon from the hands of her child. Let them know that all the secrets she hides are so many evils from which she protects them, and that the very difficulty they find in acquiring knowledge is not the least of her bounty towards them. Men are perverse; [140] but they would have been far worse, if they had had the misfortune to be born learned.",
+        "type": "user"
+      },
+      "7275204": {
+        "currentUserMetadata": {
+          "interactions": { "following": false },
+          "excludedPermissions": [ "follow" ],
+          "permissions": []
+        },
+        "url": "https://genius.com/neeraj_john",
+        "roleForDisplay": null,
+        "name": "neeraj_john",
+        "login": "neeraj_john",
+        "isVerified": false,
+        "isMemeVerified": false,
+        "iq": 102,
+        "id": 7275204,
+        "humanReadableRoleForDisplay": null,
+        "headerImageUrl": "https://images.genius.com/avatars/medium/c4c287c452fdbad1624b16bf191f3b44",
+        "avatar": {
+          "medium": {
+            "boundingBox": {
+              "height": 400,
+              "width": 300
+            },
+            "url": "https://images.genius.com/avatars/medium/c4c287c452fdbad1624b16bf191f3b44"
+          },
+          "small": {
+            "boundingBox": {
+              "height": 100,
+              "width": 100
+            },
+            "url": "https://images.genius.com/avatars/small/c4c287c452fdbad1624b16bf191f3b44"
+          },
+          "thumb": {
+            "boundingBox": {
+              "height": 32,
+              "width": 32
+            },
+            "url": "https://images.genius.com/avatars/thumb/c4c287c452fdbad1624b16bf191f3b44"
+          },
+          "tiny": {
+            "boundingBox": {
+              "height": 16,
+              "width": 16
+            },
+            "url": "https://images.genius.com/avatars/tiny/c4c287c452fdbad1624b16bf191f3b44"
+          }
+        },
+        "apiPath": "/users/7275204",
+        "aboutMeSummary": "",
+        "type": "user"
+      }
+    },
+    "annotations": {
+      "3751521": {
+        "verifiedBy": null,
+        "topComment": null,
+        "rejectionComment": null,
+        "createdBy": {
+          "currentUserMetadata": {
+            "interactions": { "following": false },
+            "excludedPermissions": [ "follow" ],
+            "permissions": []
+          },
+          "url": "https://genius.com/pizza-n-mandolino",
+          "roleForDisplay": "contributor",
+          "name": "pizza-n-mandolino",
+          "login": "pizza-n-mandolino",
+          "isVerified": false,
+          "isMemeVerified": false,
+          "iq": 20940,
+          "id": 61411,
+          "humanReadableRoleForDisplay": "Contributor",
+          "headerImageUrl": "https://images.rapgenius.com/avatars/medium/4a55bd0a02ef10e977f288b41f686ce1",
+          "avatar": {
+            "medium": {
+              "boundingBox": {
+                "height": 400,
+                "width": 300
+              },
+              "url": "https://images.rapgenius.com/avatars/medium/4a55bd0a02ef10e977f288b41f686ce1"
+            },
+            "small": {
+              "boundingBox": {
+                "height": 100,
+                "width": 100
+              },
+              "url": "https://images.rapgenius.com/avatars/small/4a55bd0a02ef10e977f288b41f686ce1"
+            },
+            "thumb": {
+              "boundingBox": {
+                "height": 32,
+                "width": 32
+              },
+              "url": "https://images.rapgenius.com/avatars/thumb/4a55bd0a02ef10e977f288b41f686ce1"
+            },
+            "tiny": {
+              "boundingBox": {
+                "height": 16,
+                "width": 16
+              },
+              "url": "https://images.rapgenius.com/avatars/tiny/4a55bd0a02ef10e977f288b41f686ce1"
+            }
+          },
+          "apiPath": "/users/61411",
+          "aboutMeSummary": "Stove on my waist turn beef to patties",
+          "type": "user"
+        },
+        "cosignedBy": [],
+        "authors": [
+          {
+            "user": 721779,
+            "pinnedRole": null,
+            "attribution": 0.5037037037037038,
+            "type": "user_attribution"
+          },
+          {
+            "user": 46981,
+            "pinnedRole": null,
+            "attribution": 0.45925925925925926,
+            "type": "user_attribution"
+          },
+          {
+            "user": 61411,
+            "pinnedRole": null,
+            "attribution": 0.037037037037037035,
+            "type": "user_attribution"
+          }
+        ],
+        "acceptedBy": {
+          "currentUserMetadata": {
+            "interactions": { "following": false },
+            "excludedPermissions": [ "follow" ],
+            "permissions": []
+          },
+          "url": "https://genius.com/pizza-n-mandolino",
+          "roleForDisplay": "contributor",
+          "name": "pizza-n-mandolino",
+          "login": "pizza-n-mandolino",
+          "isVerified": false,
+          "isMemeVerified": false,
+          "iq": 20940,
+          "id": 61411,
+          "humanReadableRoleForDisplay": "Contributor",
+          "headerImageUrl": "https://images.rapgenius.com/avatars/medium/4a55bd0a02ef10e977f288b41f686ce1",
+          "avatar": {
+            "medium": {
+              "boundingBox": {
+                "height": 400,
+                "width": 300
+              },
+              "url": "https://images.rapgenius.com/avatars/medium/4a55bd0a02ef10e977f288b41f686ce1"
+            },
+            "small": {
+              "boundingBox": {
+                "height": 100,
+                "width": 100
+              },
+              "url": "https://images.rapgenius.com/avatars/small/4a55bd0a02ef10e977f288b41f686ce1"
+            },
+            "thumb": {
+              "boundingBox": {
+                "height": 32,
+                "width": 32
+              },
+              "url": "https://images.rapgenius.com/avatars/thumb/4a55bd0a02ef10e977f288b41f686ce1"
+            },
+            "tiny": {
+              "boundingBox": {
+                "height": 16,
+                "width": 16
+              },
+              "url": "https://images.rapgenius.com/avatars/tiny/4a55bd0a02ef10e977f288b41f686ce1"
+            }
+          },
+          "apiPath": "/users/61411",
+          "aboutMeSummary": "Stove on my waist turn beef to patties",
+          "type": "user"
+        },
+        "currentUserMetadata": {
+          "iqByAction": {},
+          "interactions": {
+            "vote": null,
+            "pyong": false,
+            "cosign": false
+          },
+          "excludedPermissions": [ "vote", "edit", "cosign", "uncosign", "destroy", "accept", "reject", "see_unreviewed", "clear_votes", "propose_edit_to", "pin_to_profile", "unpin_from_profile", "update_source", "edit_custom_preview" ],
+          "permissions": [ "create_comment" ]
+        },
+        "votesTotal": 16,
+        "verified": false,
+        "url": "https://genius.com/3751521/Oasis-whatever/Whatever",
+        "twitterShareMessage": "““Whatever” was released as a single after the release of Definitely Maybe and was only included as a bon…” —@Genius",
+        "state": "accepted",
+        "source": null,
+        "shareUrl": "https://genius.com/3751521",
+        "referentId": 3751521,
+        "pyongsCount": 1,
+        "proposedEditCount": 0,
+        "pinned": false,
+        "needsExegesis": false,
+        "id": 3751521,
+        "hasVoters": true,
+        "embedContent": "<blockquote class=\\'rg_standalone_container\\' data-src=\\'//genius.com/annotations/3751521/standalone_embed\\'><a href=\\'https://genius.com/3751521/Oasis-whatever/Whatever\\'>Whatever<\\/a><br><a href=\\'https://genius.com/Oasis-whatever-lyrics\\'>&#8213; Oasis – Whatever<\\/a><\\/blockquote><script async crossorigin src=\\'//genius.com/annotations/load_standalone_embeds.js\\'><\\/script>",
+        "deleted": false,
+        "customPreview": null,
+        "createdAt": 1361404079,
+        "community": true,
+        "commentCount": 0,
+        "body": {
+          "markdown": "\\\"Whatever\\\" was released as a single after the release of [*Definitely Maybe*](http://genius.com/albums/Oasis/Definitely-maybe) and was only included as a bonus track on the Mexican edition of *Definitely Maybe*. After Oasis split up it was released to a broader audience, when included on the single compilation album *[Time Flies... 1994-2009](http://genius.com/albums/Oasis/Time-flies-19942009)*. The song is notable for its use of an orchestra. However, that was also what led to the song not being included on *Definitely Maybe*. At the time of recording the album, the band could not afford to hire an orchestra for the song.\\n\\nThe song came under fire for allegedly ripping off Neil Innes\\' song \\\"How Sweet to Be an Idiot.\\\" They later settled a plagiarism lawsuit and Innes received a songwriting credit.\\n\\nThe song was often performed live, ending with the lyrics to \\\"[Octopus\\'s Garden](http://genius.com/The-beatles-octopuss-garden-lyrics).\\\"",
+          "html": "<p>“Whatever” was released as a single after the release of <a href=\\\"https://genius.com/albums/Oasis/Definitely-maybe\\\" rel=\\\"noopener\\\" data-api_path=\\\"/albums/22545\\\"><em>Definitely Maybe<\\/em><\\/a> and was only included as a bonus track on the Mexican edition of <em>Definitely Maybe<\\/em>. After Oasis split up it was released to a broader audience, when included on the single compilation album <em><a href=\\\"https://genius.com/albums/Oasis/Time-flies-19942009\\\" rel=\\\"noopener\\\" data-api_path=\\\"/albums/122913\\\">Time Flies… 1994-2009<\\/a><\\/em>. The song is notable for its use of an orchestra. However, that was also what led to the song not being included on <em>Definitely Maybe<\\/em>. At the time of recording the album, the band could not afford to hire an orchestra for the song.<\\/p>\\n\\n<p>The song came under fire for allegedly ripping off Neil Innes\\' song “How Sweet to Be an Idiot.” They later settled a plagiarism lawsuit and Innes received a songwriting credit.<\\/p>\\n\\n<p>The song was often performed live, ending with the lyrics to “<a href=\\\"https://genius.com/The-beatles-octopuss-garden-lyrics\\\" rel=\\\"noopener\\\" data-api_path=\\\"/songs/107905\\\">Octopus’s Garden<\\/a>.”<\\/p>"
+        },
+        "beingCreated": false,
+        "apiPath": "/annotations/3751521",
+        "type": "annotation"
+      }
+    },
+    "referents": {
+      "3751521": {
+        "annotations": [ 3751521 ],
+        "annotatable": {
+          "url": "https://genius.com/Oasis-whatever-lyrics",
+          "type": "song",
+          "title": "Whatever",
+          "linkTitle": "Whatever by Oasis",
+          "imageUrl": "https://images.rapgenius.com/95100343903a9ea9b25045eca7749469.200x200x1.jpg",
+          "id": 119645,
+          "context": "Oasis",
+          "clientTimestamps": {
+            "lyricsUpdatedAt": 1550949354,
+            "updatedByHumanAt": 1550939924
+          },
+          "apiPath": "/songs/119645"
+        },
+        "twitterShareMessage": "““Whatever” was released as a single after the release of Definitely Maybe and was only included …” —@Genius",
+        "trackingPaths": {
+          "concurrent": "/Oasis-whatever-lyrics",
+          "aggregate": "/3751521/Oasis-whatever/Whatever"
+        },
+        "currentUserMetadata": {
+          "relationships": {},
+          "excludedPermissions": [ "add_pinned_annotation_to", "add_community_annotation_to" ],
+          "permissions": []
+        },
+        "verifiedAnnotatorIds": [],
+        "url": "https://genius.com/3751521/Oasis-whatever/Whatever",
+        "songId": 119645,
+        "range": { "content": "Whatever" },
+        "path": "/3751521/Oasis-whatever/Whatever",
+        "isImage": false,
+        "isDescription": true,
+        "iosAppUrl": "genius://referents/3751521",
+        "id": 3751521,
+        "fragment": "Whatever",
+        "classification": "accepted",
+        "apiPath": "/referents/3751521",
+        "annotatorLogin": "pizza-n-mandolino",
+        "annotatorId": 61411,
+        "type": "referent"
+      }
+    },
+    "comments": {
+      "4164319": {
+        "reason": null,
+        "author": 721779,
+        "anonymousAuthor": null,
+        "currentUserMetadata": {
+          "interactions": { "vote": null },
+          "excludedPermissions": [ "vote", "accept", "reject", "mark_spam", "integrate", "archive", "destroy" ],
+          "permissions": []
+        },
+        "votesTotal": 0,
+        "pinnedRole": null,
+        "id": 4164319,
+        "hasVoters": true,
+        "createdAt": 1478783417,
+        "body": {
+          "markdown": "@bennyyyy Hi Bennyyy. You\\'re absolutely right, they were a mess! I\\'ve tried getting the lyrics up to standard. How do you find them now? Any errors?",
+          "html": "<p><a href=\"https://genius.com/bennyyyy\" class=\"mention\" data-api_path=\"/users/3123568\">@bennyyyy<\/a> Hi Bennyyy. You’re absolutely right, they were a mess! I’ve tried getting the lyrics up to standard. How do you find them now? Any errors?<\/p>"
+        },
+        "apiPath": "/comments/4164319",
+        "type": "comment"
+      },
+      "7471199": {
+        "reason": null,
+        "author": 7275204,
+        "anonymousAuthor": null,
+        "currentUserMetadata": {
+          "interactions": { "vote": null },
+          "excludedPermissions": [ "vote", "accept", "reject", "mark_spam", "integrate", "archive", "destroy" ],
+          "permissions": []
+        },
+        "votesTotal": 0,
+        "pinnedRole": null,
+        "id": 7471199,
+        "hasVoters": false,
+        "createdAt": 1577946118,
+        "body": {
+          "markdown": "thank you so much whatever it was that suggested me this song ❤️",
+          "html": "<p>thank you so much whatever it was that suggested me this song ❤️<\/p>"
+        },
+        "apiPath": "/comments/7471199",
+        "type": "comment"
+      },
+      "7901262": {
+        "reason": null,
+        "author": 1143413,
+        "anonymousAuthor": null,
+        "currentUserMetadata": {
+          "interactions": { "vote": null },
+          "excludedPermissions": [ "vote", "accept", "reject", "mark_spam", "integrate", "archive", "destroy" ],
+          "permissions": []
+        },
+        "votesTotal": 0,
+        "pinnedRole": null,
+        "id": 7901262,
+        "hasVoters": false,
+        "createdAt": 1594576061,
+        "body": {
+          "markdown": "WHAT A GREAT TUNE",
+          "html": "<p>WHAT A GREAT TUNE<\/p>"
+        },
+        "apiPath": "/comments/7901262",
+        "type": "comment"
+      }
+    }
+  }
+}

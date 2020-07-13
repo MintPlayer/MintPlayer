@@ -12,7 +12,7 @@ namespace MintPlayer.Fetcher
     {
         public Task<string> ReadLdJson(string html)
         {
-            return new Task<string>(() =>
+            return Task.Run(() =>
             {
                 var ldJsonRegex = new Regex(@"\<script .*? type=\""application\/ld\+json\"".*?\>(?<body>.*?)\<\/script\>", RegexOptions.Singleline | RegexOptions.Multiline);
                 var ldJsonMatch = ldJsonRegex.Match(html);

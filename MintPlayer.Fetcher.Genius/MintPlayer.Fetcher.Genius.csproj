@@ -12,4 +12,10 @@
     <ProjectReference Include="..\MintPlayer.Fetcher\MintPlayer.Fetcher.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="whatever.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
