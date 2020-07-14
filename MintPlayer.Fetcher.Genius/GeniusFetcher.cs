@@ -12,10 +12,10 @@ namespace MintPlayer.Fetcher.Genius
     internal class GeniusFetcher : Fetcher
     {
         private readonly IRequestSender requestSender;
-        private readonly IV1Parser v1Parser;
-        private readonly IV2Parser v2Parser;
-        private readonly IV3Parser v3Parser;
-        public GeniusFetcher(IRequestSender requestSender, IV1Parser v1Parser, IV2Parser v2Parser, IV3Parser v3Parser)
+        private readonly Parsers.V1.IV1Parser v1Parser;
+        private readonly Parsers.V2.IV2Parser v2Parser;
+        private readonly Parsers.V3.IV3Parser v3Parser;
+        public GeniusFetcher(IRequestSender requestSender, Parsers.V1.IV1Parser v1Parser, Parsers.V2.IV2Parser v2Parser, Parsers.V3.IV3Parser v3Parser)
         {
             this.requestSender = requestSender;
             this.v1Parser = v1Parser;
