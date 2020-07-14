@@ -14,11 +14,13 @@ namespace MintPlayer.Fetcher.Genius
         private readonly IRequestSender requestSender;
         private readonly IV1Parser v1Parser;
         private readonly IV2Parser v2Parser;
-        public GeniusFetcher(IRequestSender requestSender, IV1Parser v1Parser, IV2Parser v2Parser)
+        private readonly IV3Parser v3Parser;
+        public GeniusFetcher(IRequestSender requestSender, IV1Parser v1Parser, IV2Parser v2Parser, IV3Parser v3Parser)
         {
             this.requestSender = requestSender;
             this.v1Parser = v1Parser;
             this.v2Parser = v2Parser;
+            this.v3Parser = v3Parser;
         }
 
         public override IEnumerable<Regex> UrlRegex
@@ -39,6 +41,11 @@ namespace MintPlayer.Fetcher.Genius
             if (html.Contains("__PRELOADED_STATE__"))
             {
                 var result = await v1Parser.Parse(html, trimTrash);
+                return result;
+            }
+            else if (html.Contains(@"itemprop=""page_data"""))
+            {
+                var result = await v3Parser.Parse(html, trimTrash);
                 return result;
             }
             else

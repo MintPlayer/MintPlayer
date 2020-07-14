@@ -19,7 +19,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2
             var song = JsonConvert.DeserializeObject<Data.Song>(ldJson);
             //return new Song
             //{
-                
+
             //}
             throw new NotImplementedException();
         }
