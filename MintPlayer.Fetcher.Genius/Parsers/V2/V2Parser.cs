@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V2
 {
-    internal interface IV2Parser
+    internal interface IV2Parser : IParser
     {
-        Task<Subject> Parse(string html, bool trimTrash);
     }
     internal class V2Parser : IV2Parser
     {
@@ -22,6 +21,15 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2
             this.albumParser = albumParser;
             this.songParser = songParser;
             this.ldJsonReader = ldJsonReader;
+        }
+
+        public Task<bool> IsMatch(string html)
+        {
+            var isMatch =
+                !html.Contains("__PRELOADED_STATE__")
+                &&
+                !html.Contains(@"itemprop=""page_data""");
+            return Task.FromResult(isMatch);
         }
 
         public async Task<Subject> Parse(string html, bool trimTrash)

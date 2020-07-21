@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1
 {
-    internal interface IV1Parser
+    internal interface IV1Parser : IParser
     {
-        Task<Subject> Parse(string html, bool trimTrash);
     }
     internal class V1Parser : IV1Parser
     {
@@ -23,6 +22,12 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1
             this.songParser = songParser;
         }
         
+        public Task<bool> IsMatch(string html)
+        {
+            var isMatch = html.Contains("__PRELOADED_STATE__");
+            return Task.FromResult(isMatch);
+        }
+
         public async Task<Subject> Parse(string html, bool trimTrash)
         {
             var page_data = await ReadPageData(html);
@@ -35,7 +40,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1
                 case "profile":
                     return await artistParser.ParseArtist(page_data);
                 case "songPage":
-                    return await songParser.ParseSong(page_data, trimTrash);
+                    return await songParser.ParseSong(html, page_data, trimTrash);
                 case "album":
                     return await albumParser.ParseAlbum(page_data);
                 default:

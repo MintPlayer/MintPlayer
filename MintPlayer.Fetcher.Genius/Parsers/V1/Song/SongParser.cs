@@ -9,7 +9,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Song
 {
     internal interface ISongParser
     {
-        Task<Subject> ParseSong(string pageData, bool trimTrash);
+        Task<Subject> ParseSong(string html, string pageData, bool trimTrash);
     }
     internal class SongParser : ISongParser
     {
@@ -19,10 +19,19 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Song
             this.lyricsTrimmer = lyricsTrimmer;
         }
 
-        public async Task<Subject> ParseSong(string pageData, bool trimTrash)
+        public async Task<Subject> ParseSong(string html, string pageData, bool trimTrash)
         {
             var data = JsonConvert.DeserializeObject<SongData>(pageData);
-            if(data.LyricsData.Body.Html == null)
+            if(data.LyricsData == null)
+            {
+                var rgxLyrics = new Regex(@"\<div class\=\""SongPageGrid-.*?\""\>(?<content>.*?)\<\/div\>\s*\<div class\=\""SectionLeaderboard__Container", RegexOptions.Singleline | RegexOptions.Multiline);
+                var mLyrics = rgxLyrics.Match(html);
+                if (mLyrics.Success)
+                {
+                    data.Song.Lyrics = mLyrics.Groups["content"].Value;
+                }
+            }
+            else if(data.LyricsData.Body.Html == null)
             {
 
             }

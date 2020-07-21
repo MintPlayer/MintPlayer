@@ -10,6 +10,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.DependencyInjection;
 using System;
+using System.Linq;
 using System.Net.Http;
 
 namespace MintPlayer.Fetcher.Test
@@ -64,6 +65,17 @@ namespace MintPlayer.Fetcher.Test
             //var url_genius_song = "https://genius.com/Oasis-whatever-lyrics";
             var url_genius_song = "https://genius.com/Dj-khaled-im-the-one-lyrics";
             var genius_song = fetcherContainer.Fetch(url_genius_song, true).Result;
+
+            var urls = new string[]
+            {
+                "https://genius.com/Dario-g-sunchyme-lyrics",
+                "https://genius.com/The-weeknd-i-feel-it-coming-lyrics",
+                "https://genius.com/Oasis-whatever-lyrics",
+                "https://genius.com/Dj-khaled-im-the-one-lyrics"
+            };
+            var songs = urls
+                .Select(u => fetcherContainer.Fetch(u, true).Result)
+                .ToList();
             #endregion
 
             #region Artist - OK

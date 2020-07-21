@@ -11,9 +11,8 @@ using System.Web;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V3
 {
-    internal interface IV3Parser
+    internal interface IV3Parser : IParser
     {
-        Task<Subject> Parse(string html, bool trimTrash);
     }
     internal class V3Parser : IV3Parser
     {
@@ -21,6 +20,15 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V3
         public V3Parser(ILyricsTrimmer lyricsTrimmer)
         {
             this.lyricsTrimmer = lyricsTrimmer;
+        }
+
+        public Task<bool> IsMatch(string html)
+        {
+            var isMatch =
+                !html.Contains("__PRELOADED_STATE__")
+                &&
+                html.Contains(@"itemprop=""page_data""");
+            return Task.FromResult(isMatch);
         }
 
         public async Task<Subject> Parse(string html, bool trimTrash)

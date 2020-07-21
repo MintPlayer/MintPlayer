@@ -1,8 +1,10 @@
 ﻿using MintPlayer.Fetcher.Dtos;
+using MintPlayer.Fetcher.Exceptions;
 using MintPlayer.Fetcher.Genius.Parsers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -37,22 +39,14 @@ namespace MintPlayer.Fetcher.Genius
         {
             var html = await requestSender.SendRequest(url);
 
-            //var html = System.IO.File.ReadAllText("whatever.html");
-            if (html.Contains("__PRELOADED_STATE__"))
-            {
-                var result = await v1Parser.Parse(html, trimTrash);
-                return result;
-            }
-            else if (html.Contains(@"itemprop=""page_data"""))
-            {
-                var result = await v3Parser.Parse(html, trimTrash);
-                return result;
-            }
-            else
-            {
-                var result = await v2Parser.Parse(html, trimTrash);
-                return result;
-            }
+            var parsers = new IParser[] { v1Parser, v2Parser, v3Parser };
+            var parser = parsers.FirstOrDefault(p => p.IsMatch(html).Result);
+
+            if(parser == null)
+                throw new NoParserFoundException(html);
+
+            var result = await parser.Parse(html, trimTrash);
+            return result;
         }
     }
 }
