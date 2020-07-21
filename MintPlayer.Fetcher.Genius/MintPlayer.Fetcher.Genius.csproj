@@ -13,6 +13,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Parsers\V1\Song\Example.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Parsers\V2\Song\Example.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Parsers\V3\Artist\Example.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Parsers\V3\Song\Example.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="whatever.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

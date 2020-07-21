@@ -67,7 +67,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V3.Song
                     Name = a.Name,
                     Url = a.Url
                 }).ToList(),
-                Lyrics = LyricsData.Body.Html,
+                //Lyrics = LyricsData.Body.Html,
                 Media = media
             };
         }

@@ -1,5 +1,6 @@
 ﻿using MintPlayer.Fetcher.Dtos;
 using MintPlayer.Fetcher.Genius.Parsers.V1;
+using MintPlayer.Fetcher.Genius.Parsers.V1.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Text.RegularExpressions;
@@ -7,19 +8,18 @@ using System.Threading.Tasks;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1
 {
-    internal interface IV1Parser : IParser
-    {
-    }
-    internal class V1Parser : IV1Parser
+    internal class V1Parser : IGeniusVersionParser
     {
         private readonly Artist.IArtistParser artistParser;
         private readonly Album.IAlbumParser albumParser;
         private readonly Song.ISongParser songParser;
-        public V1Parser(Artist.IArtistParser artistParser, Album.IAlbumParser albumParser, Song.ISongParser songParser)
+        private readonly IPageDataReader pageDataReader;
+        public V1Parser(Artist.IArtistParser artistParser, Album.IAlbumParser albumParser, Song.ISongParser songParser, IPageDataReader pageDataReader)
         {
             this.artistParser = artistParser;
             this.albumParser = albumParser;
             this.songParser = songParser;
+            this.pageDataReader = pageDataReader;
         }
         
         public Task<bool> IsMatch(string html)
@@ -30,7 +30,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1
 
         public async Task<Subject> Parse(string html, bool trimTrash)
         {
-            var page_data = await ReadPageData(html);
+            var page_data = await pageDataReader.Read(html);
 
             var structure = new { currentPage = string.Empty };
             var subject = JsonConvert.DeserializeAnonymousType(page_data, structure);
@@ -40,30 +40,12 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1
                 case "profile":
                     return await artistParser.ParseArtist(page_data);
                 case "songPage":
-                    return await songParser.ParseSong(html, page_data, trimTrash);
+                    return await songParser.Parse(html, trimTrash);
                 case "album":
                     return await albumParser.ParseAlbum(page_data);
                 default:
                     throw new Exception("Type not recognized");
             }
-        }
-
-        private Task<string> ReadPageData(string html)
-        {
-            //var pageDataRegex = new Regex(@"(?<=\<meta content\=\"")(.*?)(?=\""\sitemprop\=\""page_data\""\>\<\/meta\>)");
-            var pageDataRegex = new Regex(@"window\.__PRELOADED_STATE__\s\=\sJSON\.parse\(\'(?<data>.*?)\'\)\;");
-
-            var pageData = pageDataRegex.Match(html).Groups["data"].Value;
-            var fixedPageData = pageData
-                .Replace(@"\""", @"""")
-                .Replace(@"\\", @"\")
-                .Replace("&quot;", @"""")
-                .Replace("&amp;", "&")
-                .Replace("&lt;", "<")
-                .Replace("&gt;", ">")
-                .Replace("&#39;", "'");
-
-            return Task.FromResult(fixedPageData);
         }
     }
 }

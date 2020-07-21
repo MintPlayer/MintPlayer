@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V2
 {
-    internal interface IV2Parser : IParser
-    {
-    }
-    internal class V2Parser : IV2Parser
+    internal class V2Parser : IGeniusVersionParser
     {
         private readonly Artist.IArtistParser artistParser;
         private readonly Album.IAlbumParser albumParser;
@@ -25,10 +22,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2
 
         public Task<bool> IsMatch(string html)
         {
-            var isMatch =
-                !html.Contains("__PRELOADED_STATE__")
-                &&
-                !html.Contains(@"itemprop=""page_data""");
+            var isMatch = html.Contains(@"<div id=""application"">");
             return Task.FromResult(isMatch);
         }
 
