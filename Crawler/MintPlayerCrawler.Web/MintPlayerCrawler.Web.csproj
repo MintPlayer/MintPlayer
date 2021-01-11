@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>4.0</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
@@ -27,8 +27,13 @@
 
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="ClientApp\src\app\enums\eJobStatus.ts" />
     <None Remove="ClientApp\src\app\enums\eSidebarState.ts" />
     <None Remove="ClientApp\src\app\enums\eToggleButtonState.ts" />
+    <None Remove="ClientApp\src\app\entities\jobs\fetch-urls-job.ts" />
+    <None Remove="ClientApp\src\app\entities\jobs\index-job.ts" />
+    <None Remove="ClientApp\src\app\entities\jobs\job.ts" />
+    <None Remove="ClientApp\src\app\entities\jobs\request-job.ts" />
     <None Remove="ClientApp\src\app\pages\pages-routing.module.ts" />
     <None Remove="ClientApp\tsconfig.app.json" />
     <None Remove="ClientApp\tsconfig.json" />
@@ -46,8 +51,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\enums\eJobStatus.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eSidebarState.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eToggleButtonState.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\entities\jobs\fetch-urls-job.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\entities\jobs\index-job.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\entities\jobs\job.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\entities\jobs\request-job.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\pages\pages-routing.module.ts" />
   </ItemGroup>
 

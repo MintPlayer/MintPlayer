@@ -5,8 +5,8 @@
   <div class="form-group row">
     <div class="col-md-12">
       <div class="input-group">
-        <input type="text" class="form-control" />
-        <button type="button" class="btn btn-primary" title="Add crawl job for this URL">
+        <input type="text" [(ngModel)]="urlToAdd" class="form-control" />
+        <button type="button" (click)="createCrawlJob()" class="btn btn-primary" title="Add crawl job for this URL">
           <i class="fa fa-plus"></i>
         </button>
       </div>
