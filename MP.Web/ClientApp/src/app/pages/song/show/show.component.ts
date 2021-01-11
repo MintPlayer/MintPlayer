@@ -45,6 +45,13 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.routeParamsSubscription = this.route.params.subscribe((routeParams) => {
       this.loadSong(routeParams.id);
     });
+
+    let wrapLyrics = localStorage.getItem('wrapLyrics');
+    if (wrapLyrics === null) {
+      this.wrapLyrics = true;
+    } else {
+      this.wrapLyrics = wrapLyrics !== 'false';
+    }
   }
 
   ngOnDestroy() {
@@ -273,6 +280,12 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.addToPlaylist.emit(this.song);
   }
 
+  toggleWrapLyrics() {
+    this.wrapLyrics = !this.wrapLyrics;
+    localStorage.setItem('wrapLyrics', String(this.wrapLyrics));
+  }
+
+  wrapLyrics: boolean;
   song: Song = {
     id: 0,
     title: '',

@@ -88,10 +88,16 @@
         <a class="btn btn-secondary" [routerLink]='["/song",song.id,song.title | slugify,"sync"]' title="Synchronize song lyrics">
           <i class="fa fa-clock-o"></i>
         </a>
+        <button class="btn btn-secondary" (click)="toggleWrapLyrics()" title="Wrap lyrics">
+          <span class="fa-layers">
+            <i class="fa fa-bars"></i>
+            <i class="fa fa-times ne" *ngIf="!wrapLyrics"></i>
+          </span>
+        </button>
       </span>
     </header>
     <content>
-      <pre class="font-family-inherit font-size-initial mb-0 p-3 p-md-4">{{ song.lyrics.text }}</pre>
+      <pre class="font-family-inherit font-size-initial mb-0 p-3 p-md-4" [class]="{'white-space-pre-wrap':wrapLyrics}">{{ song.lyrics.text }}</pre>
     </content>
   </card>
   <card class="d-block" [noPadding]="true">
