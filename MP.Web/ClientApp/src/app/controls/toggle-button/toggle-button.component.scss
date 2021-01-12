@@ -1,0 +1,49 @@
+$transition-duration: .4s;
+$width: 60px;
+$height: 34px;
+$thumb-dia: 26px;
+$thumb-margin: ($height - $thumb-dia) / 2;
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: $width;
+  height: $height;
+
+  > .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: $transition-duration;
+
+    &.round {
+      border-radius: $height / 2;
+
+      &:before {
+        border-radius: 50%;
+      }
+    }
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: $thumb-dia;
+      width: $thumb-dia;
+      left: $thumb-margin;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+      background-color: white;
+      transition: $transition-duration;
+    }
+  }
+
+  &.checked .slider {
+    &:before {
+      transform: translateX($width - $height);
+    }
+  }
+}

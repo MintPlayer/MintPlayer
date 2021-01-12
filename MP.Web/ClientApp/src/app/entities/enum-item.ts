@@ -1,4 +1,4 @@
-export interface PlayerType {
+export interface EnumItem {
   id: number;
   description: string;
 }

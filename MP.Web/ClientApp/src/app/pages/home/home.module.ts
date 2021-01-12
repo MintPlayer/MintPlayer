@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { DirectivesModule } from '../../directives/directives.module';
 import { QueryParamsHandlingModule } from '../../directives/query-params-handling/query-params-handling.module';
 
 
@@ -16,7 +15,7 @@ import { QueryParamsHandlingModule } from '../../directives/query-params-handlin
     NgxJsonLdModule,
     TranslateModule,
     QueryParamsHandlingModule,
-    HomeRoutingModule
+    HomeRoutingModule,
   ]
 })
 export class HomeModule { }

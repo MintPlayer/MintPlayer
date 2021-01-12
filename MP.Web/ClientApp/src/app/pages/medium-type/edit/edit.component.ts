@@ -2,15 +2,15 @@ import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDi
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { PlayerTypeHelper } from '../../../helpers/player-type.helper';
 import { MediumType } from '../../../entities/medium-type';
-import { PlayerType } from '../../../entities/player-type';
 import { ePlayerType } from '../../../enums/ePlayerType';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { EnumHelper } from '../../../helpers/enum.helper';
+import { EnumItem } from '../../../entities/enum-item';
 
 @Component({
   selector: 'app-edit',
@@ -22,7 +22,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('SERVERSIDE') private serverSide: boolean,
     @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
     private mediumTypeService: MediumTypeService,
-    private playerTypeHelper: PlayerTypeHelper,
+    private enumHelper: EnumHelper,
     private navigation: NavigationHelper,
     private route: ActivatedRoute,
     private titleService: Title,
@@ -30,7 +30,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers
   ) {
-    this.playerTypes = this.playerTypeHelper.getPlayerTypes();
+    this.playerTypes = this.enumHelper.getItems(ePlayerType);
 
     if (serverSide) {
       this.setMediumType(mediumTypeInj);
@@ -65,7 +65,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     playerType: ePlayerType.None
   };
 
-  public playerTypes: PlayerType[] = [];
+  public playerTypes: EnumItem[] = [];
   public playerTypeSelected(playerType: number) {
     this.mediumType.playerType = ePlayerType[ePlayerType[playerType]];
   }

@@ -9,6 +9,9 @@ import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
+import { EnumHelper } from '../../../helpers/enum.helper';
+import { EnumItem } from '../../../entities/enum-item';
 
 @Component({
   selector: 'app-edit',
@@ -25,8 +28,11 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     private route: ActivatedRoute,
     private titleService: Title,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
+    private enumHelper: EnumHelper
   ) {
+    this.accessibilities = this.enumHelper.getItems(ePlaylistAccessibility);
+
     if (serverSide === false) {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
       this.loadPlaylist(id);
@@ -67,8 +73,14 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     id: 0,
     description: '',
     tracks: [],
+    accessibility: ePlaylistAccessibility.Private,
     user: null
   };
+
+  public accessibilities: EnumItem[] = [];
+  public accessibilitySelected(accessibility: number) {
+    this.playlist.accessibility = ePlaylistAccessibility[ePlaylistAccessibility[accessibility]];
+  }
 
   removeTrack(track: Song) {
     this.playlist.tracks.splice(this.playlist.tracks.indexOf(track), 1);

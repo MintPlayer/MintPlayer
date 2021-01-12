@@ -1,0 +1,4 @@
+ <!--[style.background-color]="_isToggled ? onColor : offColor"-->
+<label (click)="isToggled = !isToggled" class="switch" [class.checked]="isToggled">
+  <span class="slider" [class.round]="round" [@colorTransition]="{ value: isToggled ? 'color2' : 'color1', params: { color1: offColor, color2: onColor, 'duration': '.4s' } }"></span>
+</label>

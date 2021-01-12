@@ -4,13 +4,13 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { ePlayerType } from '../../../enums/ePlayerType';
 import { MediumType } from '../../../entities/medium-type';
-import { PlayerType } from '../../../entities/player-type';
-import { PlayerTypeHelper } from '../../../helpers/player-type.helper';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { EnumHelper } from '../../../helpers/enum.helper';
+import { EnumItem } from '../../../entities/enum-item';
 
 @Component({
   selector: 'app-create',
@@ -20,7 +20,7 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
     private mediumTypeService: MediumTypeService,
-    private playerTypeHelper: PlayerTypeHelper,
+    private enumHelper: EnumHelper,
     private navigation: NavigationHelper,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -28,7 +28,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private differs: KeyValueDiffers
   ) {
     this.titleService.setTitle('Create medium type');
-    this.playerTypes = this.playerTypeHelper.getPlayerTypes();
+    this.playerTypes = this.enumHelper.getItems(ePlayerType);
   }
 
   public mediumType: MediumType = {
@@ -37,7 +37,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     playerType: ePlayerType.None
   };
 
-  public playerTypes: PlayerType[] = [];
+  public playerTypes: EnumItem[] = [];
   public playerTypeSelected(playerType: number) {
     this.mediumType.playerType = ePlayerType[ePlayerType[playerType]];
   }

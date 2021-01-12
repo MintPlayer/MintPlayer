@@ -54,7 +54,9 @@ export class TagService {
     // Remove "subjects" from tag
     let clone = Object.assign({}, tag);
     clone.subjects = [];
-    clone.parent.subjects = [];
+    if (clone.parent !== null) {
+      clone.parent.subjects = [];
+    }
 
     return clone;
   }

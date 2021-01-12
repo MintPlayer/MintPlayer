@@ -6,6 +6,7 @@ import { Playlist } from '../../../entities/playlist';
 import { PlayButtonClickedEvent } from '../../../events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
 import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
 
 @Component({
   selector: 'app-show',
@@ -69,6 +70,7 @@ export class PlaylistShowComponent implements OnInit {
     id: 0,
     description: '',
     tracks: [],
+    accessibility: ePlaylistAccessibility.Private,
     user: null
   };
 }

@@ -8,6 +8,9 @@ import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
+import { EnumHelper } from '../../../helpers/enum.helper';
+import { EnumItem } from '../../../entities/enum-item';
 
 @Component({
   selector: 'app-create',
@@ -19,9 +22,11 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
   constructor(
     private playlistService: PlaylistService,
     private navigation: NavigationHelper,
+    private enumHelper: EnumHelper,
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers
   ) {
+    this.accessibilities = this.enumHelper.getItems(ePlaylistAccessibility);
   }
 
   songSuggestHttpHeaders: HttpHeaders = new HttpHeaders({
@@ -36,8 +41,14 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
     id: 0,
     description: '',
     tracks: [],
+    accessibility: ePlaylistAccessibility.Private,
     user: null
   };
+
+  public accessibilities: EnumItem[] = [];
+  public accessibilitySelected(accessibility: number) {
+    this.playlist.accessibility = ePlaylistAccessibility[ePlaylistAccessibility[accessibility]];
+  }
 
   removeTrack(track: Song) {
     this.playlist.tracks.splice(this.playlist.tracks.indexOf(track), 1);

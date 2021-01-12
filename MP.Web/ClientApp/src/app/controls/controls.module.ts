@@ -14,6 +14,7 @@ import { DatatableComponent } from './datatable/datatable.component';
 import { SortableListComponent } from './sortable-list/sortable-list.component';
 import { DropdownSearchBoxComponent } from './dropdown-search-box/dropdown-search-box.component';
 import { PopupComponent } from './popup/popup.component';
+import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
 
 
 
@@ -29,7 +30,8 @@ import { PopupComponent } from './popup/popup.component';
     DatatableComponent,
     SortableListComponent,
     DropdownSearchBoxComponent,
-    PopupComponent
+    PopupComponent,
+    ToggleButtonComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +50,8 @@ import { PopupComponent } from './popup/popup.component';
     DatatableComponent,
     SortableListComponent,
     DropdownSearchBoxComponent,
-    PopupComponent
+    PopupComponent,
+    ToggleButtonComponent
   ]
 })
 export class ControlsModule { }

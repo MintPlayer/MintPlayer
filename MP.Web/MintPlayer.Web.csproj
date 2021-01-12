@@ -10,6 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>true</BuildServerSideRenderer>
+    <UserSecretsId>21fecde5-53de-4525-b2c3-a4fe7f01a7fd</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -62,6 +63,7 @@
     <None Remove="ClientApp\src\app\directives\query-params-handling\query-params-handling.module.ts" />
     <None Remove="ClientApp\src\app\entities\artist.ts" />
     <None Remove="ClientApp\src\app\entities\blog-post.ts" />
+    <None Remove="ClientApp\src\app\entities\enum-item.ts" />
     <None Remove="ClientApp\src\app\entities\login-result.ts" />
     <None Remove="ClientApp\src\app\entities\lyrics.ts" />
     <None Remove="ClientApp\src\app\entities\medium-type.ts" />
@@ -69,7 +71,6 @@
     <None Remove="ClientApp\src\app\entities\person.ts" />
     <None Remove="ClientApp\src\app\entities\played-song.ts" />
     <None Remove="ClientApp\src\app\entities\player-info.ts" />
-    <None Remove="ClientApp\src\app\entities\player-type.ts" />
     <None Remove="ClientApp\src\app\entities\playlist.ts" />
     <None Remove="ClientApp\src\app\entities\point.ts" />
     <None Remove="ClientApp\src\app\entities\search-results.ts" />
@@ -83,6 +84,7 @@
     <None Remove="ClientApp\src\app\entities\user-data.ts" />
     <None Remove="ClientApp\src\app\entities\user.ts" />
     <None Remove="ClientApp\src\app\enums\ePlayerType.ts" />
+    <None Remove="ClientApp\src\app\enums\ePlaylistAccessibility.ts" />
     <None Remove="ClientApp\src\app\enums\ePlaylistPlayButton.ts" />
     <None Remove="ClientApp\src\app\enums\eRepeatMode.ts" />
     <None Remove="ClientApp\src\app\enums\eSidebarState.ts" />
@@ -91,13 +93,13 @@
     <None Remove="ClientApp\src\app\events\my-before-unload.event.ts" />
     <None Remove="ClientApp\src\app\events\play-button-clicked.event.ts" />
     <None Remove="ClientApp\src\app\helpers\dailymotion-api.helper.ts" />
+    <None Remove="ClientApp\src\app\helpers\enum.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\facebook-sdk.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\html-link.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\linkedin-sdk.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\navigation.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\pagination-request.ts" />
     <None Remove="ClientApp\src\app\helpers\pagination-response.ts" />
-    <None Remove="ClientApp\src\app\helpers\player-type.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\playlist-control.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\pwa.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\slugify.helper.ts" />
@@ -144,7 +146,7 @@
     <None Remove="ClientApp\src\app\pages\tagging\tag\tag-routing.module.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\tag\tag.module.ts" />
     <None Remove="ClientApp\src\app\translate-loaders\translate-json-loader.ts" />
-    <None Remove="ClientApp\src\styles\animations\slide-up-down - Copy.animation.ts" />
+    <None Remove="ClientApp\src\styles\animations\color-transition.animation.ts" />
     <None Remove="ClientApp\src\styles\animations\slide-up-down.animation.ts" />
     <None Remove="ClientApp\tsconfig.app.json" />
     <None Remove="ClientApp\tsconfig.json" />
@@ -178,7 +180,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\entities\person.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\played-song.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\player-info.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\player-type.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\entities\enum-item.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\playlist.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\point.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\search-results.ts" />
@@ -192,6 +194,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\entities\user-data.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\user.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\ePlayerType.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\enums\ePlaylistAccessibility.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\ePlaylistPlaybutton.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eRepeatMode.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eSidebarState.ts" />
@@ -206,7 +209,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\helpers\navigation.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\pagination-request.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\pagination-response.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\player-type.helper.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\helpers\enum.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\playlist-control.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\pwa.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\slugify.helper.ts" />
@@ -215,7 +218,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\helpers\youtube-api.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\interfaces\has-changes.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\translate-loaders\translate-json-loader.ts" />
-    <TypeScriptCompile Include="ClientApp\src\styles\animations\slide-up-down - Copy.animation.ts" />
+    <TypeScriptCompile Include="ClientApp\src\styles\animations\color-transition.animation.ts" />
     <TypeScriptCompile Include="ClientApp\src\styles\animations\slide-up-down.animation.ts" />
     <TypeScriptCompile Include="ClientApp\types\dailymotion\index.d.ts" />
   </ItemGroup>

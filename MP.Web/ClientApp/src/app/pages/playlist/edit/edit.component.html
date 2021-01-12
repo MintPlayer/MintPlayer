@@ -17,10 +17,18 @@
         General information
       </header>
       <content>
-        <div class="form-group row mb-0">
+        <div class="form-group row">
           <label [appFor]="txt_description" class="col-form-label col-md-6 col-lg-4 col-xl-3">Description</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <input type="text" [(ngModel)]="playlist.description" class="form-control" name="description" #txt_description autofocus />
+          </div>
+        </div>
+        <div class="form-group row mb-0">
+          <label [appFor]="cmb_accessibility" class="col-form-label col-md-6 col-lg-4 col-xl-3">Accessibility</label>
+          <div class="col-md-6 col-lg-8 col-xl-9">
+            <select class="form-control" name="accessibility" #cmb_accessibility [ngModel]="playlist.accessibility" (ngModelChange)="accessibilitySelected($event)">
+              <option *ngFor="let accessibility of accessibilities" [ngValue]="accessibility.id">{{ accessibility.description }}</option>
+            </select>
           </div>
         </div>
       </content>

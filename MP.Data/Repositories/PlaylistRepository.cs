@@ -116,7 +116,7 @@ namespace MintPlayer.Data.Repositories
                         .ThenInclude(t => t.Song)
                             .ThenInclude(s => s.Lyrics)
                     .Include(p => p.User)
-                    .Where(p => p.User == current_user)
+                    .Where(p => (p.User == current_user)/* || p.IsPublic*/)
                     .SingleOrDefaultAsync(p => p.Id == id);
                 return ToDto(playlist, true);
             }
@@ -165,6 +165,7 @@ namespace MintPlayer.Data.Repositories
 
             // Set new properties
             playlist_entity.Description = playlist.Description;
+            playlist_entity.Accessibility = playlist.Accessibility;
 
             //IEnumerable<Entities.PlaylistSong> tracks_to_add, tracks_to_remove, tracks_to_update;
             //trackHelper.CalculateUpdatedTracks(playlist_entity, playlist, mintplayer_context, out tracks_to_add, out tracks_to_update, out tracks_to_remove);
@@ -224,6 +225,7 @@ namespace MintPlayer.Data.Repositories
                     Id = playlist.Id,
                     Description = playlist.Description,
                     User = AccountRepository.ToDto(playlist.User),
+                    Accessibility = playlist.Accessibility,
                     Tracks = playlist.Tracks
                         .OrderBy(t => t.Index)
                         .Select(t => SongRepository.ToDto(t.Song, false, false))
@@ -246,7 +248,8 @@ namespace MintPlayer.Data.Repositories
             var entity_playlist = new Entities.Playlist
             {
                 Id = playlist.Id,
-                Description = playlist.Description
+                Description = playlist.Description,
+                Accessibility = playlist.Accessibility,
             };
 
             #region Tracks
