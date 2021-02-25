@@ -15,4 +15,5 @@ export interface Song extends Subject {
   description: string;
 
   artists: Artist[];
+  uncreditedArtists: Artist[];
 }

@@ -108,6 +108,9 @@ namespace MintPlayer.Data
                 .HasValue<Artist>("artist")
                 .HasValue<Song>("song");
 
+            // Artist.Credited default true
+            modelBuilder.Entity<ArtistSong>().Property(@as => @as.Credited).HasDefaultValue(true);
+
             // Many-to-many Subject-User (Like)
             modelBuilder.Entity<Like>().HasKey(like => new { like.SubjectId, like.UserId });
             modelBuilder.Entity<Like>().HasOne(like => like.Subject).WithMany(s => s.Likes).HasForeignKey(su => su.SubjectId).OnDelete(DeleteBehavior.Restrict);

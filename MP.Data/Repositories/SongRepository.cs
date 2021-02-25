@@ -344,6 +344,11 @@ namespace MintPlayer.Data.Repositories
 					DateUpdate = song.DateUpdate ?? song.DateInsert,
 
 					Artists = song.Artists
+						.Where(@as => @as.Credited)
+						.Select(@as => ArtistRepository.ToDto(@as.Artist, false, false))
+						.ToList(),
+					UncreditedArtists = song.Artists
+						.Where(@as => !@as.Credited)
 						.Select(@as => ArtistRepository.ToDto(@as.Artist, false, false))
 						.ToList(),
 					Media = song.Media == null ? null : song.Media

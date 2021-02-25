@@ -62,6 +62,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     title: '',
     released: null,
     artists: [],
+    uncreditedArtists: [],
     media: [],
     tags: [],
     lyrics: {

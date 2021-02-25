@@ -59,6 +59,17 @@
         </div>
         <div class="row">
           <div class="col-sm-5 col-xl-3">
+            <label class="font-weight-bold">Uncredited artists</label>
+          </div>
+          <div class="col-sm-7 col-xl-9">
+            <span *ngFor="let artist of song.uncreditedArtists; let last = last">
+              <a [routerLink]='["/artist",artist.id,artist.name | slugify]' title="Details for {{ artist.name }}">{{ artist.name }}</a>
+              {{ (!last) ? ',&nbsp;' : '' }}
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 col-xl-3">
             <label class="font-weight-bold">Tags</label>
           </div>
           <div class="col-sm-7 col-xl-9">

@@ -43,6 +43,10 @@ namespace MintPlayer.Dtos.Dtos
 		[DataMember]
 		[XmlElement(Namespace = "https://mintplayer.com/music")]
         public List<Artist> Artists { get; set; }
+        
+		[DataMember]
+		[XmlElement(Namespace = "https://mintplayer.com/music")]
+        public List<Artist> UncreditedArtists { get; set; }
 
         [XmlIgnore]
         [JsonIgnore]

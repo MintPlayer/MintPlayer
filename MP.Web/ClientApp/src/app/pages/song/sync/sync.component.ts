@@ -67,6 +67,7 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
     title: '',
     released: null,
     artists: [],
+    uncreditedArtists: [],
     media: [],
     tags: [],
     lyrics: {

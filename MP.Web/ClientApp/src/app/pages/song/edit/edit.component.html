@@ -36,6 +36,12 @@
           </div>
         </div>
         <div class="form-group row">
+          <label [appFor]="sel_uncr_artists" class="col-form-label col-md-4 col-xl-2">Uncredited artists</label>
+          <div class="col-md-8 col-xl-10">
+            <select2 [url]="'/api/subject/search/suggest/artist'" [method]="'get'" [headers]="httpHeaders" [items]="song.uncreditedArtists" #sel_uncr_artists></select2>
+          </div>
+        </div>
+        <div class="form-group row">
           <label [appFor]="sel_tags" class="col-form-label col-sm-4 col-xl-2">Tags</label>
           <div class="col-sm-8 col-xl-10">
             <select2 [url]="'/web/v1/Tag/suggest'" [method]="'post'" [headers]="httpHeaders" [items]="song.tags" [itemTemplate]="customTemplate" #sel_tags>
