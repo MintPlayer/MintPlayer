@@ -112,6 +112,7 @@ export class SortableListComponent implements OnInit {
 
   @HostListener('document:mousemove', ['$event'])
   mouseMove($event: MouseEvent) {
+    $event.stopPropagation();
     this.onDragMove({ x: $event.clientX, y: $event.clientY }, {
       preventDefaultFn: () => {
         $event.preventDefault();
