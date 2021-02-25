@@ -7,6 +7,8 @@ import { PlayButtonClickedEvent } from '../../../events/play-button-clicked.even
 import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
 import { NavigationHelper } from '../../../helpers/navigation.helper';
 import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
+import { HttpErrorResponse } from '@angular/common/http';
+import { STATUS_CODES } from 'http';
 
 @Component({
   selector: 'app-show',
@@ -20,6 +22,7 @@ export class PlaylistShowComponent implements OnInit {
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
     private navigation: NavigationHelper,
+    private router: Router,
     private route: ActivatedRoute,
     private titleService: Title
   ) {
@@ -34,7 +37,20 @@ export class PlaylistShowComponent implements OnInit {
   private loadPlaylist(id: number) {
     this.playlistService.getPlaylist(id, true).then((playlist) => {
       this.setPlaylist(playlist);
-    }).catch((error) => {
+    }).catch((error: HttpErrorResponse) => {
+      switch (error.status) {
+        case 401: // Unauthorized
+          this.navigation.navigate(['/account', 'login'], {
+            queryParams: {
+              return: this.router.url
+            }
+          });
+          break;
+        case 403: // Forbidden
+          break;
+        case 404:
+          break;
+      }
       console.error('Could not get playlist', error);
     });
   }

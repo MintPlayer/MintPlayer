@@ -114,9 +114,15 @@
         </span>
         <ul [@slideUpDown]="level1menu == 'playlists' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/playlist"]' [title]="'playlists.all_playlists' | translate" (click)="onItemSelected()">
+            <a [routerLink]='["/playlist"]' [title]="'playlists.my_playlists' | translate" (click)="onItemSelected()">
               <i class="fa fa-list"></i>
-              {{ 'playlists.all_playlists' | translate }}
+              {{ 'playlists.my_playlists' | translate }}
+            </a>
+          </li>
+          <li>
+            <a [routerLink]='["/playlist","public"]' [title]="'playlists.public_playlists' | translate" (click)="onItemSelected()">
+              <i class="fa fa-users"></i>
+              {{ 'playlists.public_playlists' | translate }}
             </a>
           </li>
           <li>

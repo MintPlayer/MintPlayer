@@ -29,7 +29,8 @@
   },
   "playlists": {
     "playlists": "Afspeellijsten",
-    "all_playlists": "Alle afspeellijsten",
+    "my_playlists": "Mijn afspeellijsten",
+    "public_playlists": "Openbare afspeellijsten",
     "add_playlist": "Afspeellijst toevoegen"
   },
   "community": {

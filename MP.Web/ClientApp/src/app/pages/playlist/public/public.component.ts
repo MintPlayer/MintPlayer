@@ -1,20 +1,19 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PlaylistService } from '../../../services/playlist/playlist.service';
-import { Playlist } from '../../../entities/playlist';
-import { PaginationResponse } from '../../../helpers/pagination-response';
+import { ActivatedRoute } from '@angular/router';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { Playlist } from '../../../entities/playlist';
 import { ePlaylistScope } from '../../../enums/ePlaylistScope';
+import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { PaginationResponse } from '../../../helpers/pagination-response';
+import { PlaylistService } from '../../../services/playlist/playlist.service';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: 'app-public',
+  templateUrl: './public.component.html',
+  styleUrls: ['./public.component.scss']
 })
-export class PlaylistListComponent implements OnInit {
+export class PlaylistPublicComponent implements OnInit {
 
   constructor(
     @Inject('SERVERSIDE') serverSide: boolean,
@@ -35,7 +34,7 @@ export class PlaylistListComponent implements OnInit {
   }
 
   loadPlaylists() {
-    this.playlistService.pagePlaylists(this.tableSettings.toPaginationRequest(), ePlaylistScope.My).then((playlists) => {
+    this.playlistService.pagePlaylists(this.tableSettings.toPaginationRequest(), ePlaylistScope.Public).then((playlists) => {
       this.setPlaylistData(playlists);
     }).catch((error) => {
       console.log(error);

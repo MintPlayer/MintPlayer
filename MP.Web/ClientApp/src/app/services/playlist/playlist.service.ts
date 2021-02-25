@@ -3,28 +3,39 @@ import { HttpClient } from '@angular/common/http';
 import { PaginationRequest } from '../../helpers/pagination-request';
 import { PaginationResponse } from '../../helpers/pagination-response';
 import { Playlist } from '../../entities/playlist';
+import { ePlaylistScope } from '../../enums/ePlaylistScope';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaylistService {
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
   }
 
-  public pagePlaylists(request: PaginationRequest) {
-    return this.httpClient.post<PaginationResponse<Playlist>>(`${this.baseUrl}/web/v2/playlist/page`, request).toPromise();
+  public pagePlaylists(request: PaginationRequest, scope: ePlaylistScope) {
+    switch (scope) {
+      case ePlaylistScope.My:
+        return this.httpClient.post<PaginationResponse<Playlist>>(`${this.baseUrl}/web/${this.apiVersion}/playlist/my/page`, request).toPromise();
+      case ePlaylistScope.Public:
+        return this.httpClient.post<PaginationResponse<Playlist>>(`${this.baseUrl}/web/${this.apiVersion}/playlist/public/page`, request).toPromise();
+    }
   }
 
-  public getPlaylists(include_relations: boolean = false) {
-    return this.httpClient.get<Playlist[]>(`${this.baseUrl}/web/v2/playlist`, {
-      headers: {
-        'include_relations': String(include_relations)
-      }
-    }).toPromise();
+  public getPlaylists(scope: ePlaylistScope, include_relations: boolean = false) {
+    let headers = {
+      'include_relations': String(include_relations)
+    };
+
+    switch (scope) {
+      case ePlaylistScope.My:
+        return this.httpClient.get<Playlist[]>(`${this.baseUrl}/web/${this.apiVersion}/playlist/my`, { headers }).toPromise();
+      case ePlaylistScope.Public:
+        return this.httpClient.get<Playlist[]>(`${this.baseUrl}/web/${this.apiVersion}/playlist/public`, { headers }).toPromise();
+    }
   }
 
   public getPlaylist(id: number, include_relations: boolean = false) {
-    return this.httpClient.get<Playlist>(`${this.baseUrl}/web/v2/playlist/${id}`, {
+    return this.httpClient.get<Playlist>(`${this.baseUrl}/web/${this.apiVersion}/playlist/${id}`, {
       headers: {
         'include_relations': String(include_relations)
       }
@@ -32,14 +43,14 @@ export class PlaylistService {
   }
 
   public createPlaylist(playlist: Playlist) {
-    return this.httpClient.post<Playlist>(`${this.baseUrl}/web/v2/playlist`, playlist).toPromise();
+    return this.httpClient.post<Playlist>(`${this.baseUrl}/web/${this.apiVersion}/playlist`, playlist).toPromise();
   }
 
   public updatePlaylist(playlist: Playlist) {
-    return this.httpClient.put<Playlist>(`${this.baseUrl}/web/v2/playlist/${playlist.id}`, playlist).toPromise();
+    return this.httpClient.put<Playlist>(`${this.baseUrl}/web/${this.apiVersion}/playlist/${playlist.id}`, playlist).toPromise();
   }
 
   public deletePlaylist(playlist: Playlist) {
-    return this.httpClient.delete<Playlist>(`${this.baseUrl}/web/v2/playlist/${playlist.id}`).toPromise();
+    return this.httpClient.delete<Playlist>(`${this.baseUrl}/web/${this.apiVersion}/playlist/${playlist.id}`).toPromise();
   }
 }

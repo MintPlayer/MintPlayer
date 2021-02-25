@@ -20,32 +20,62 @@ namespace MintPlayer.Web.Server.Controllers.Api
         }
 
         // POST: api/Playlist/page
-        [HttpPost("page", Name = "api-playlist-page")]
+        [HttpPost("my/page", Name = "api-playlist-my-page")]
         [Authorize]
-        public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PagePlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
+        public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PageMyPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
         {
-            var playlists = await playlistService.PagePlaylists(request);
+            var playlists = await playlistService.PagePlaylists(request, Data.Enums.ePlaylistScope.My);
+            return Ok(playlists);
+        }
+
+        // POST: api/Playlist/page
+        [HttpPost("public/page", Name = "api-playlist-public-page")]
+        public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PagePublicPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
+        {
+            var playlists = await playlistService.PagePlaylists(request, Data.Enums.ePlaylistScope.Public);
             return Ok(playlists);
         }
 
         // GET api/Playlist
-        [HttpGet(Name = "api-playlist-list")]
+        [HttpGet("my", Name = "api-playlist-my-list")]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Playlist>>> Get([FromHeader] bool include_relations = false)
+        public async Task<ActionResult<IEnumerable<Playlist>>> GetMyPlaylists([FromHeader] bool include_relations = false)
         {
-            var playlists = await playlistService.GetPlaylists(include_relations);
+            var playlists = await playlistService.GetPlaylists(Data.Enums.ePlaylistScope.My, include_relations);
+            return Ok(playlists);
+        }
+
+        // GET api/Playlist
+        [HttpGet("public", Name = "api-playlist-public-list")]
+        public async Task<ActionResult<IEnumerable<Playlist>>> GetPublicPlaylists([FromHeader] bool include_relations = false)
+        {
+            var playlists = await playlistService.GetPlaylists(Data.Enums.ePlaylistScope.Public, include_relations);
             return Ok(playlists);
         }
 
         // GET api/5
         [HttpGet("{id}", Name = "api-playlist-get", Order = 1)]
-        [Authorize]
         public async Task<ActionResult<Playlist>> Get(int id, [FromHeader]bool include_relations = false)
         {
-            var playlist = await playlistService.GetPlaylist(id, include_relations);
+            try
+            {
+                var playlist = await playlistService.GetPlaylist(id, include_relations);
 
-            if (playlist == null) return NotFound();
-            else return Ok(playlist);
+                if (playlist == null) return NotFound();
+                else return Ok(playlist);
+            }
+            catch (Data.Exceptions.ForbiddenException forbiddenEx)
+            {
+                return Forbid();
+            }
+            catch (UnauthorizedAccessException unauthEx)
+            {
+                return Unauthorized();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
         }
 
         // POST api/Playlist

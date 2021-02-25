@@ -10,13 +10,15 @@ using System.Threading.Tasks;
 using MintPlayer.Data.Extensions;
 using Microsoft.EntityFrameworkCore;
 using MintPlayer.Data.Helpers;
+using MintPlayer.Data.Enums;
+using MintPlayer.Data.Exceptions;
 
 namespace MintPlayer.Data.Repositories
 {
     internal interface IPlaylistRepository
     {
-        Task<Pagination.PaginationResponse<Playlist>> PagePlaylists(Pagination.PaginationRequest<Playlist> request);
-        Task<IEnumerable<Playlist>> GetPlaylists(bool include_relations = false);
+        Task<Pagination.PaginationResponse<Playlist>> PagePlaylists(Pagination.PaginationRequest<Playlist> request, ePlaylistScope playlistScope);
+        Task<IEnumerable<Playlist>> GetPlaylists(ePlaylistScope playlistScope, bool include_relations = false);
         Task<Playlist> GetPlaylist(int id, bool include_relations = false);
         Task<Playlist> InsertPlaylist(Playlist playlist);
         Task<Playlist> UpdatePlaylist(Playlist playlist);
@@ -38,12 +40,25 @@ namespace MintPlayer.Data.Repositories
             this.trackHelper = trackHelper;
         }
 
-        public async Task<Pagination.PaginationResponse<Playlist>> PagePlaylists(Pagination.PaginationRequest<Playlist> request)
+        public async Task<Pagination.PaginationResponse<Playlist>> PagePlaylists(Pagination.PaginationRequest<Playlist> request, ePlaylistScope playlistScope)
         {
             var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
 
-            var playlists = mintplayer_context.Playlists
-                .Where(p => p.User == user);
+            IQueryable<Entities.Playlist> playlists;
+            switch (playlistScope)
+            {
+                case ePlaylistScope.My:
+                    playlists = mintplayer_context.Playlists
+                        .Where(p => p.User == user);
+                    break;
+                case ePlaylistScope.Public:
+                    playlists = mintplayer_context.Playlists
+                        .Where(p => p.Accessibility == MintPlayer.Dtos.Enums.ePlaylistAccessibility.Public);
+                    break;
+                default:
+                    throw new ArgumentException(nameof(playlistScope));
+            }
+            
 
             // 1) Sort
             var ordered_playlists = request.SortDirection == System.ComponentModel.ListSortDirection.Descending
@@ -60,40 +75,44 @@ namespace MintPlayer.Data.Repositories
 
             var count_playlists = await playlists.CountAsync();
             return new Pagination.PaginationResponse<Playlist>(request, count_playlists, dto_playlists);
-
-
-            //var playlists = await mintplayer_context.Playlists
-            //    //.Where(p => p.User == user)
-            //    .Select(p => ToDto(p, false))
-            //    .ToListAsync();
-            //var count = await mintplayer_context.Playlists.CountAsync();
-            //return new Pagination.PaginationResponse<Playlist>(request, count, playlists);
         }
 
-        public async Task<IEnumerable<Playlist>> GetPlaylists(bool include_relations = false)
+        public async Task<IEnumerable<Playlist>> GetPlaylists(ePlaylistScope playlistScope, bool include_relations = false)
         {
             // Get current user
             var current_user = await user_manager.GetUserAsync(http_context.HttpContext.User);
 
+            IQueryable<Entities.Playlist> includeQuery;
             if (include_relations)
             {
-                var playlists = mintplayer_context.Playlists
+                includeQuery = mintplayer_context.Playlists
                     .Include(p => p.Tracks)
                         .ThenInclude(track => track.Song)
                             .ThenInclude(s => s.Media)
                                 .ThenInclude(m => m.Type)
-                    .Include(p => p.User)
-                    .Where(p => p.User == current_user)
-                    .Select(p => ToDto(p, true));
-                return playlists;
+                    .Include(p => p.User);
             }
             else
             {
-                var playlists = mintplayer_context.Playlists
-                    .Where(p => p.User == current_user)
-                    .Select(p => ToDto(p, false));
-                return playlists;
+                includeQuery = mintplayer_context.Playlists;
             }
+
+            IQueryable<Entities.Playlist> scopedQuery;
+            switch (playlistScope)
+            {
+                case ePlaylistScope.My:
+                    scopedQuery = includeQuery
+                        .Where(p => p.User == current_user);
+                    break;
+                case ePlaylistScope.Public:
+                    scopedQuery = includeQuery
+                        .Where(p => p.Accessibility == MintPlayer.Dtos.Enums.ePlaylistAccessibility.Public);
+                    break;
+                default:
+                    throw new ArgumentException(nameof(playlistScope));
+            }
+
+            return scopedQuery.Select(p => ToDto(p, include_relations));
         }
 
         public async Task<Playlist> GetPlaylist(int id, bool include_relations = false)
@@ -101,9 +120,11 @@ namespace MintPlayer.Data.Repositories
             // Get current user
             var current_user = await user_manager.GetUserAsync(http_context.HttpContext.User);
 
+            // Includes
+            IQueryable<Entities.Playlist> includeQuery;
             if (include_relations)
             {
-                var playlist = await mintplayer_context.Playlists
+                includeQuery = mintplayer_context.Playlists
                     .Include(p => p.Tracks)
                         .ThenInclude(t => t.Song)
                             .ThenInclude(s => s.Artists)
@@ -115,17 +136,41 @@ namespace MintPlayer.Data.Repositories
                     .Include(p => p.Tracks)
                         .ThenInclude(t => t.Song)
                             .ThenInclude(s => s.Lyrics)
-                    .Include(p => p.User)
-                    .Where(p => (p.User == current_user)/* || p.IsPublic*/)
-                    .SingleOrDefaultAsync(p => p.Id == id);
-                return ToDto(playlist, true);
+                    .Include(p => p.User);
             }
             else
             {
-                var playlist = await mintplayer_context.Playlists
-                    .Where(p => p.User == current_user)
-                    .SingleOrDefaultAsync(p => p.Id == id);
-                return ToDto(playlist);
+                includeQuery = mintplayer_context.Playlists
+                    .Include(p => p.User);
+            }
+
+            // Get by ID
+            var playlist = await includeQuery
+                .SingleOrDefaultAsync(p => p.Id == id);
+
+            // Convert to DTO
+            var dtoPlaylist = ToDto(playlist, include_relations);
+
+            // Security check if playlist is accessible
+            if (playlist == null)
+            {
+                return null;
+            }
+            else if (playlist.Accessibility == MintPlayer.Dtos.Enums.ePlaylistAccessibility.Public)
+            {
+                return dtoPlaylist;
+            }
+            else if (current_user == null)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            else if (playlist.User?.Id == current_user.Id)
+            {
+                return dtoPlaylist;
+            }
+            else
+            {
+                throw new ForbiddenException();
             }
         }
 
@@ -224,7 +269,7 @@ namespace MintPlayer.Data.Repositories
                 {
                     Id = playlist.Id,
                     Description = playlist.Description,
-                    User = AccountRepository.ToDto(playlist.User),
+                    User = AccountRepository.ToDto(playlist.User, false),
                     Accessibility = playlist.Accessibility,
                     Tracks = playlist.Tracks
                         .OrderBy(t => t.Index)

@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.Data.Services;
 
-namespace MintPlayer.Web.Server.Controllers.Web.V2
+namespace MintPlayer.Web.Server.Controllers.Web.V3
 {
     [Controller]
-    [Route("web/v2/[controller]")]
+    [Route("web/v3/[controller]")]
     public class PlaylistController : Controller
     {
         private readonly IPlaylistService playlistService;
@@ -19,26 +19,42 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
             this.playlistService = playlistService;
         }
 
-        // POST: web/Playlist/page
-        [HttpPost("page", Name = "web-v2-playlist-page")]
+        // POST: web/v3/Playlist/my/page
+        [HttpPost("my/page", Name = "web-v3-playlist-my-page")]
         [Authorize]
-        public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PagePlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
+        public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PageMyPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
         {
             var playlists = await playlistService.PagePlaylists(request, Data.Enums.ePlaylistScope.My);
             return Ok(playlists);
         }
 
-        // GET web/Playlist
-        [HttpGet(Name = "web-v2-playlist-list")]
+        // POST: web/v3/Playlist/public/page
+        [HttpPost("public/page", Name = "web-v3-playlist-public-page")]
+        public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PagePublicPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
+        {
+            var playlists = await playlistService.PagePlaylists(request, Data.Enums.ePlaylistScope.Public);
+            return Ok(playlists);
+        }
+
+        // GET web/v3/Playlist/my
+        [HttpGet("my", Name = "web-v3-playlist-my-list")]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Playlist>>> Get([FromHeader] bool include_relations = false)
+        public async Task<ActionResult<IEnumerable<Playlist>>> GetMyPlaylists([FromHeader] bool include_relations = false)
         {
             var playlists = await playlistService.GetPlaylists(Data.Enums.ePlaylistScope.My, include_relations);
             return Ok(playlists);
         }
 
+        // GET web/v3/Playlist/public
+        [HttpGet("public", Name = "web-v3-playlist-public-list")]
+        public async Task<ActionResult<IEnumerable<Playlist>>> GetPublicPlaylists([FromHeader] bool include_relations = false)
+        {
+            var playlists = await playlistService.GetPlaylists(Data.Enums.ePlaylistScope.Public, include_relations);
+            return Ok(playlists);
+        }
+
         // GET web/Playlist/5
-        [HttpGet("{id}", Name = "web-v2-playlist-get", Order = 1)]
+        [HttpGet("{id}", Name = "web-v3-playlist-get", Order = 1)]
         public async Task<ActionResult<Playlist>> Get(int id, [FromHeader]bool include_relations = false)
         {
             try
@@ -63,7 +79,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
         }
 
         // POST web/Playlist
-        [HttpPost(Name = "web-v2-playlist-create")]
+        [HttpPost(Name = "web-v3-playlist-create")]
         [Authorize]
         public async Task<ActionResult<Playlist>> Post([FromBody] Playlist playlist)
         {
@@ -79,7 +95,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
         }
 
         // PUT web/Playlist/5
-        [HttpPut("{id}", Name = "web-v2-playlist-update")]
+        [HttpPut("{id}", Name = "web-v3-playlist-update")]
         [Authorize]
         public async Task<ActionResult<Playlist>> Put(int id, [FromBody] Playlist playlist)
         {
@@ -88,7 +104,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
         }
 
         // DELETE web/Playlist/5
-        [HttpDelete("{id}", Name = "web-v2-playlist-delete")]
+        [HttpDelete("{id}", Name = "web-v3-playlist-delete")]
         public async Task<ActionResult> Delete(int id)
         {
             await playlistService.DeletePlaylist(id);

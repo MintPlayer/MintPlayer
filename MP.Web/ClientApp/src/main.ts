@@ -25,6 +25,7 @@ const providers: StaticProvider[] = [
   { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
   { provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: ['BASE_URL'] },
   { provide: 'SERVERSIDE', useValue: false },
+  { provide: 'API_VERSION', useValue: 'v3' },
   { provide: 'PEOPLE', useValue: null },
   { provide: 'PERSON', useValue: null },
   { provide: 'ARTISTS', useValue: null },

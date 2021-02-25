@@ -53,7 +53,7 @@ namespace MintPlayer.Data.Repositories
 				var identity_result = await user_manager.CreateAsync(entity_user, password);
 				if (identity_result.Succeeded)
 				{
-					var dto_user = ToDto(entity_user);
+					var dto_user = ToDto(entity_user, true);
 					var confirmation_token = await user_manager.GenerateEmailConfirmationTokenAsync(entity_user);
 					return new Tuple<User, string>(dto_user, confirmation_token);
 				}
@@ -90,7 +90,7 @@ namespace MintPlayer.Data.Repositories
 						{
 							Status = true,
 							Platform = "local",
-							User = ToDto(user)
+							User = ToDto(user, true)
 						};
 					}
 					else
@@ -99,7 +99,7 @@ namespace MintPlayer.Data.Repositories
 						{
 							Status = true,
 							Platform = "local",
-							User = ToDto(user),
+							User = ToDto(user, true),
 							Token = CreateToken(user)
 						};
 					}
@@ -190,7 +190,7 @@ namespace MintPlayer.Data.Repositories
 			{
 				Status = true,
 				Platform = info.LoginProvider,
-				User = ToDto(user)
+				User = ToDto(user, true)
 			};
 		}
 
@@ -236,7 +236,7 @@ namespace MintPlayer.Data.Repositories
 		public async Task<User> GetCurrentUser(ClaimsPrincipal userProperty)
 		{
 			var user = await user_manager.GetUserAsync(userProperty);
-			return ToDto(user);
+			return ToDto(user, true);
 		}
 
 		public async Task<IEnumerable<string>> GetCurrentRoles(ClaimsPrincipal userProperty)
@@ -294,13 +294,13 @@ namespace MintPlayer.Data.Repositories
 				PictureUrl = user.PictureUrl
 			};
 		}
-		internal static User ToDto(Entities.User user)
+		internal static User ToDto(Entities.User user, bool mapSensitiveData)
 		{
 			if (user == null) return null;
 			return new User
 			{
-				Id = user.Id,
-				Email = user.Email,
+				Id = mapSensitiveData ? user.Id : Guid.Empty,
+				Email = mapSensitiveData ? user.Email : null,
 				UserName = user.UserName,
 				PictureUrl = user.PictureUrl
 			};

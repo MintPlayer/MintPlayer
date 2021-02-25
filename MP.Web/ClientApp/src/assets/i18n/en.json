@@ -29,7 +29,8 @@
   },
   "playlists": {
     "playlists": "Playlists",
-    "all_playlists": "All playlists",
+    "my_playlists": "My playlists",
+    "public_playlists": "Public playlists",
     "add_playlist": "Add playlist"
   },
   "community": {

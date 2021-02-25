@@ -86,6 +86,7 @@
     <None Remove="ClientApp\src\app\enums\ePlayerType.ts" />
     <None Remove="ClientApp\src\app\enums\ePlaylistAccessibility.ts" />
     <None Remove="ClientApp\src\app\enums\ePlaylistPlayButton.ts" />
+    <None Remove="ClientApp\src\app\enums\ePlaylistScope.ts" />
     <None Remove="ClientApp\src\app\enums\eRepeatMode.ts" />
     <None Remove="ClientApp\src\app\enums\eSidebarState.ts" />
     <None Remove="ClientApp\src\app\enums\eSubjectType.ts" />
@@ -196,6 +197,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\enums\ePlayerType.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\ePlaylistAccessibility.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\ePlaylistPlaybutton.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\enums\ePlaylistScope.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eRepeatMode.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eSidebarState.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eSubjectType.ts" />

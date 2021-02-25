@@ -121,7 +121,7 @@ namespace MintPlayer.Data.Repositories.Blog
                 Title = blogPost.Title,
                 Headline = blogPost.Headline,
                 Body = blogPost.Body,
-                Author = AccountRepository.ToDto(blogPost.UserInsert),
+                Author = AccountRepository.ToDto(blogPost.UserInsert, false),
                 Published = blogPost.DateInsert
             };
         }

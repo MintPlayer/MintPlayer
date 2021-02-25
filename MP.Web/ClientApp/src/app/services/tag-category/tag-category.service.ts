@@ -8,15 +8,15 @@ import { TagCategory } from '../../entities/tag-category';
   providedIn: 'root'
 })
 export class TagCategoryService {
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
   }
 
   public pageTagCategories(request: PaginationRequest) {
-    return this.httpClient.post<PaginationResponse<TagCategory>>(`${this.baseUrl}/web/v2/TagCategory/page`, request).toPromise();
+    return this.httpClient.post<PaginationResponse<TagCategory>>(`${this.baseUrl}/web/${this.apiVersion}/TagCategory/page`, request).toPromise();
   }
 
   public getTagCategories(include_relations: boolean) {
-    return this.httpClient.get<TagCategory[]>(`${this.baseUrl}/web/v2/TagCategory`, {
+    return this.httpClient.get<TagCategory[]>(`${this.baseUrl}/web/${this.apiVersion}/TagCategory`, {
       headers: {
         'include_relations': String(include_relations)
       }
@@ -24,7 +24,7 @@ export class TagCategoryService {
   }
 
   public getTagCategory(id: number, include_relations: boolean) {
-    return this.httpClient.get<TagCategory>(`${this.baseUrl}/web/v2/TagCategory/${id}`, {
+    return this.httpClient.get<TagCategory>(`${this.baseUrl}/web/${this.apiVersion}/TagCategory/${id}`, {
       headers: {
         'include_relations': String(include_relations)
       }
@@ -32,14 +32,14 @@ export class TagCategoryService {
   }
 
   public createTagCategory(tagCategory: TagCategory) {
-    return this.httpClient.post<TagCategory>(`${this.baseUrl}/web/v2/TagCategory`, tagCategory).toPromise();
+    return this.httpClient.post<TagCategory>(`${this.baseUrl}/web/${this.apiVersion}/TagCategory`, tagCategory).toPromise();
   }
 
   public updateTagCategory(tagCategory: TagCategory) {
-    return this.httpClient.put<TagCategory>(`${this.baseUrl}/web/v2/TagCategory/${tagCategory.id}`, tagCategory).toPromise();
+    return this.httpClient.put<TagCategory>(`${this.baseUrl}/web/${this.apiVersion}/TagCategory/${tagCategory.id}`, tagCategory).toPromise();
   }
 
   public deleteTagCategory(tagCategory: TagCategory) {
-    return this.httpClient.delete(`${this.baseUrl}/web/v2/TagCategory/${tagCategory.id}`).toPromise();
+    return this.httpClient.delete(`${this.baseUrl}/web/${this.apiVersion}/TagCategory/${tagCategory.id}`).toPromise();
   }
 }

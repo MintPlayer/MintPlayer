@@ -9,15 +9,15 @@ import { Lyrics } from '../../entities/lyrics';
   providedIn: 'root'
 })
 export class SongService {
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
   }
 
   public pageSongs(request: PaginationRequest) {
-    return this.httpClient.post<PaginationResponse<Song>>(`${this.baseUrl}/web/v2/song/page`, request).toPromise();
+    return this.httpClient.post<PaginationResponse<Song>>(`${this.baseUrl}/web/${this.apiVersion}/song/page`, request).toPromise();
   }
 
   public getSongs(include_relations: boolean) {
-    return this.httpClient.get<Song[]>(`${this.baseUrl}/web/v2/song`, {
+    return this.httpClient.get<Song[]>(`${this.baseUrl}/web/${this.apiVersion}/song`, {
       headers: {
         'include_relations': String(include_relations)
       }
@@ -25,7 +25,7 @@ export class SongService {
   }
 
   public getSong(id: number, include_relations: boolean) {
-    return this.httpClient.get<Song>(`${this.baseUrl}/web/v2/song/${id}`, {
+    return this.httpClient.get<Song>(`${this.baseUrl}/web/${this.apiVersion}/song/${id}`, {
       headers: {
         'include_relations': String(include_relations)
       }
@@ -33,30 +33,30 @@ export class SongService {
   }
 
   public pageFavoriteSongs(request: PaginationRequest) {
-    return this.httpClient.post<PaginationResponse<Song>>(`${this.baseUrl}/web/v2/song/favorite`, request).toPromise();
+    return this.httpClient.post<PaginationResponse<Song>>(`${this.baseUrl}/web/${this.apiVersion}/song/favorite`, request).toPromise();
   }
 
   public getFavoriteSongs() {
-    return this.httpClient.get<Song[]>(`${this.baseUrl}/web/v2/song/favorite`).toPromise();
+    return this.httpClient.get<Song[]>(`${this.baseUrl}/web/${this.apiVersion}/song/favorite`).toPromise();
   }
 
   public getLyrics(songId: number) {
-    return this.httpClient.get<Lyrics>(`${this.baseUrl}/web/v2/song/${songId}/lyrics`).toPromise();
+    return this.httpClient.get<Lyrics>(`${this.baseUrl}/web/${this.apiVersion}/song/${songId}/lyrics`).toPromise();
   }
 
   public createSong(song: Song) {
-    return this.httpClient.post<Song>(`${this.baseUrl}/web/v2/song`, song).toPromise();
+    return this.httpClient.post<Song>(`${this.baseUrl}/web/${this.apiVersion}/song`, song).toPromise();
   }
 
   public updateSong(song: Song) {
-    return this.httpClient.put<Song>(`${this.baseUrl}/web/v2/song/${song.id}`, song).toPromise();
+    return this.httpClient.put<Song>(`${this.baseUrl}/web/${this.apiVersion}/song/${song.id}`, song).toPromise();
   }
 
   public updateTimeline(song: Song) {
-    return this.httpClient.put(`${this.baseUrl}/web/v2/song/${song.id}/timeline`, song).toPromise();
+    return this.httpClient.put(`${this.baseUrl}/web/${this.apiVersion}/song/${song.id}/timeline`, song).toPromise();
   }
 
   public deleteSong(song: Song) {
-    return this.httpClient.delete(`${this.baseUrl}/web/v2/song/${song.id}`).toPromise();
+    return this.httpClient.delete(`${this.baseUrl}/web/${this.apiVersion}/song/${song.id}`).toPromise();
   }
 }

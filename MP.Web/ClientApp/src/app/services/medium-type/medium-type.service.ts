@@ -6,11 +6,11 @@ import { MediumType } from '../../entities/medium-type';
   providedIn: 'root'
 })
 export class MediumTypeService {
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
   }
 
   public getMediumTypes(include_relations: boolean) {
-    return this.httpClient.get<MediumType[]>(`${this.baseUrl}/web/v2/mediumtype`, {
+    return this.httpClient.get<MediumType[]>(`${this.baseUrl}/web/${this.apiVersion}/mediumtype`, {
       headers: {
         'include_relations': String(include_relations),
       }
@@ -18,7 +18,7 @@ export class MediumTypeService {
   }
 
   public getMediumType(id: number, include_relations: boolean) {
-    return this.httpClient.get<MediumType>(`${this.baseUrl}/web/v2/mediumtype/${id}`, {
+    return this.httpClient.get<MediumType>(`${this.baseUrl}/web/${this.apiVersion}/mediumtype/${id}`, {
       headers: {
         'include_relations': String(include_relations),
       }
@@ -26,14 +26,14 @@ export class MediumTypeService {
   }
 
   public createMediumType(mediumtype: MediumType) {
-    return this.httpClient.post<MediumType>(`${this.baseUrl}/web/v2/mediumtype`, mediumtype).toPromise();
+    return this.httpClient.post<MediumType>(`${this.baseUrl}/web/${this.apiVersion}/mediumtype`, mediumtype).toPromise();
   }
 
   public updateMediumType(mediumtype: MediumType) {
-    return this.httpClient.put<MediumType>(`${this.baseUrl}/web/v2/mediumtype/${mediumtype.id}`, mediumtype).toPromise();
+    return this.httpClient.put<MediumType>(`${this.baseUrl}/web/${this.apiVersion}/mediumtype/${mediumtype.id}`, mediumtype).toPromise();
   }
 
   public deleteMediumType(mediumtype: MediumType) {
-    return this.httpClient.delete(`${this.baseUrl}/web/v2/mediumtype/${mediumtype.id}`).toPromise();
+    return this.httpClient.delete(`${this.baseUrl}/web/${this.apiVersion}/mediumtype/${mediumtype.id}`).toPromise();
   }
 }

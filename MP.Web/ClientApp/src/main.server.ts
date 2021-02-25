@@ -35,6 +35,7 @@ export default createServerRenderer(params => {
     { provide: 'BASE_URL', useFactory: getBaseUrl, deps: ['BOOT_PARAMS'] },
     { provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: ['BASE_URL'] },
     { provide: 'SERVERSIDE', useValue: true },
+    { provide: 'API_VERSION', useValue: 'v3' },
   ];
 
   //#region Provide data passed from C#
