@@ -84,9 +84,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
 		[AllowAnonymous]
 		[HttpGet("connect/{medium}/{provider}", Name = "web-v2-account-external-connect-challenge")]
 #if RELEASE
-		[Host("external.mintplayer.com")]
+        [Host("external.mintplayer.com")]
 #endif
-		public async Task<ActionResult> ExternalLogin([FromRoute]string medium, [FromRoute]string provider)
+        public async Task<ActionResult> ExternalLogin([FromRoute]string medium, [FromRoute]string provider)
 		{
 			//var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { medium, provider });
 			var redirectUrl = Url.RouteUrl("web-v2-account-external-connect-callback", new { medium, provider });
@@ -97,9 +97,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
 		// GET: web/Account/connect/{provider}/callback
 		[HttpGet("connect/{medium}/{provider}/callback", Name = "web-v2-account-external-connect-callback")]
 #if RELEASE
-		[Host("external.mintplayer.com")]
+        [Host("external.mintplayer.com")]
 #endif
-		public async Task<ActionResult> ExternalLoginCallback([FromRoute]string medium, [FromRoute]string provider)
+        public async Task<ActionResult> ExternalLoginCallback([FromRoute]string medium, [FromRoute]string provider)
 		{
 			try
 			{

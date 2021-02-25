@@ -46,6 +46,7 @@ namespace MintPlayer.Data.Extensions
 				.AddScoped<ITagRepository, TagRepository>()
 				.AddScoped<Repositories.Jobs.IElasticSearchJobRepository, Repositories.Jobs.ElasticSearchJobRepository>()
 				.AddScoped<Repositories.Blog.IBlogPostRepository, Repositories.Blog.BlogPostRepository>()
+				.AddScoped<Repositories.Logging.ILogEntryRepository, Repositories.Logging.LogEntryRepository>()
 				// Services
 				.AddScoped<IAccountService, AccountService>()
 				.AddScoped<IArtistService, ArtistService>()
@@ -57,6 +58,7 @@ namespace MintPlayer.Data.Extensions
 				.AddScoped<ITagCategoryService, TagCategoryService>()
 				.AddScoped<ITagService, TagService>()
 				.AddScoped<IBlogPostService, BlogPostService>()
+				.AddScoped<ILogEntryService, LogEntryService>()
 				// Helpers
 				.AddTransient<ArtistHelper>()
 				.AddTransient<SongHelper>()

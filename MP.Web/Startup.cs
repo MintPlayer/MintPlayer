@@ -20,6 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SpaServices.Routing;
@@ -349,7 +350,8 @@ namespace MintPlayer.Web
                     options.SlidingExpiration = true;
                     options.ExpireTimeSpan = TimeSpan.FromDays(3);
 #if RELEASE
-                    options.Cookie.Domain = ".mintplayer.com";
+                    //options.Cookie.Domain = ".mintplayer.com";
+                    options.Cookie.Domain = "mintplayer.com";
 #endif
                     options.Events.OnRedirectToLogin = (context) =>
                     {
@@ -362,10 +364,12 @@ namespace MintPlayer.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISpaRouteService spaRouteService)
         {
-            app.Use(async (context, next) =>
-            {
-                await next();
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    var logEntryService = context.RequestServices.GetRequiredService<Data.Services.ILogEntryService>();
+            //    await logEntryService.Log($"Processing request. BaseDirectory: {AppDomain.CurrentDomain.BaseDirectory}");
+            //    await next();
+            //});
 
             if (env.IsDevelopment())
             {
@@ -403,7 +407,7 @@ namespace MintPlayer.Web
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseResponseCaching();
+            //app.UseResponseCaching();
             app.Use(async (context, next) =>
             {
                 context.Response.OnStarting(() =>
@@ -670,7 +674,7 @@ namespace MintPlayer.Web
                             var tagService = context.RequestServices.GetService<Data.Services.ITagService>();
                             var playlistService = context.RequestServices.GetService<Data.Services.IPlaylistService>();
                             var blogPostService = context.RequestServices.GetService<Data.Services.IBlogPostService>();
-                            
+
                             var user = accountService.GetCurrentUser(context.User).Result;
                             data["user"] = user;
 
