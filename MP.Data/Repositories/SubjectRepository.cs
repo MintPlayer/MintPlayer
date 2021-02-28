@@ -21,6 +21,7 @@ namespace MintPlayer.Data.Repositories
 
 		Task<IEnumerable<Subject>> Suggest(string[] subjects, string search_term, bool include_relations, bool include_invisible_media);
 		Task<IEnumerable<Subject>> Search(string[] subjects, string search_term, bool exact, bool include_relations, bool include_invisible_media);
+		Task<Subject> GetSubjectByMedium(string url);
 
 		Task SaveChangesAsync();
     }
@@ -348,6 +349,14 @@ namespace MintPlayer.Data.Repositories
 			var result = person_results.Union(artist_results).Union(song_results);
 			return result;
 		}
+
+		public async Task<Subject> GetSubjectByMedium(string url)
+        {
+			var subject = await mintplayer_context.Subjects
+				.Where(s => s.Media.Any(m => m.Value == url))
+				.SingleOrDefaultAsync();
+			return ToDto(subject, false, false);
+        }
 
 		public async Task SaveChangesAsync()
 		{

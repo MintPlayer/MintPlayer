@@ -26,6 +26,7 @@ using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SpaServices.Routing;
 using MintPlayer.Data;
 using MintPlayer.Data.Extensions;
+using MintPlayer.Fetcher.DependencyInjection;
 using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
 using MintPlayer.Web.Services;
@@ -33,6 +34,7 @@ using Spa.SpaRoutes;
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebMarkupMin.AspNetCore3;
@@ -113,6 +115,17 @@ namespace MintPlayer.Web
 
             services.AddWebMarkupMin().AddHttpCompression();
             services.AddRouting();
+
+            services.AddSingleton<HttpClient>();
+            services.AddFetcherContainer()
+                .AddGeniusFetcher()
+                .AddMusixmatchFetcher()
+                .AddAZLyricsFetcher()
+                .AddSongLyricsFetcher()
+                .AddSongtekstenNetFetcher()
+                .AddLoloLyricsFetcher()
+                .AddLyricsComFetcher()
+                .AddSongMeaningsFetcher();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

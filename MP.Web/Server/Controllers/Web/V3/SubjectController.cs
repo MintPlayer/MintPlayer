@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.Data.Repositories;
 using MintPlayer.Data.Services;
+using MintPlayer.Web.Server.ViewModels.Subject;
+using MintPlayer.Fetcher;
 
 namespace MintPlayer.Web.Server.Controllers.Web.V3
 {
@@ -15,10 +17,12 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 	public class SubjectController : Controller
 	{
 		private ISubjectService subjectService;
-		public SubjectController(ISubjectService subjectService)
+        private readonly IFetcherContainer fetcherContainer;
+        public SubjectController(ISubjectService subjectService, IFetcherContainer fetcherContainer)
 		{
 			this.subjectService = subjectService;
-		}
+            this.fetcherContainer = fetcherContainer;
+        }
 
 		[HttpGet("{subject_id}/likes", Name = "web-v3-subject-getlikes")]
 		public async Task<ActionResult<SubjectLikeResult>> Likes([FromRoute]int subject_id)
@@ -58,5 +62,12 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			var results = await subjectService.Search(subjects, search_term, false, false, false);
 			return Ok(results);
 		}
+
+		[HttpPost("fetch", Name = "web-v3-subject-fetch")]
+		public async Task<ActionResult<Fetcher.Dtos.Subject>> Fetch([FromBody] FetchVM viewmodel)
+        {
+			var subject = await fetcherContainer.Fetch(viewmodel.Url, true);
+			return Ok(subject);
+        }
 	}
 }

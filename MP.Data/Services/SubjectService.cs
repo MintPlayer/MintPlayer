@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MintPlayer.Fetcher;
 
 namespace MintPlayer.Data.Services
 {
@@ -17,14 +18,17 @@ namespace MintPlayer.Data.Services
 
         Task<IEnumerable<Subject>> Suggest(string[] subjects, string search_term, bool include_relations, bool include_invisible_media);
         Task<SearchResults> Search(string[] subjects, string search_term, bool exact, bool include_relations, bool include_invisible_media);
+        Task<Fetcher.Dtos.Subject> Fetch(string url);
     }
 
     internal class SubjectService : ISubjectService
     {
         private ISubjectRepository subjectRepository;
-        public SubjectService(ISubjectRepository subjectRepository)
+        private readonly IFetcherContainer fetcherContainer;
+        public SubjectService(ISubjectRepository subjectRepository, IFetcherContainer fetcherContainer)
         {
             this.subjectRepository = subjectRepository;
+            this.fetcherContainer = fetcherContainer;
         }
 
         public async Task<SubjectLikeResult> GetLikes(int subjectId)
@@ -117,6 +121,15 @@ namespace MintPlayer.Data.Services
                 People = results.ToArray().Where(s => s.GetType() == typeof(Person)).Cast<Person>().ToList(),
                 Songs = results.ToArray().Where(s => s.GetType() == typeof(Song)).Cast<Song>().ToList()
             };
+        }
+
+        public async Task<Fetcher.Dtos.Subject> Fetch(string url)
+        {
+            var subject = await fetcherContainer.Fetch(url, true);
+
+
+
+            return subject;
         }
     }
 }

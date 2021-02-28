@@ -32,18 +32,14 @@
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="ClientApp\src\app\pages\tagging\**" />
     <Compile Remove="Dtos\**" />
-    <Compile Remove="Server\ViewModels\Subject\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\pages\tagging\**" />
     <Content Remove="Dtos\**" />
-    <Content Remove="Server\ViewModels\Subject\**" />
     <EmbeddedResource Remove="ClientApp\src\app\pages\tagging\**" />
     <EmbeddedResource Remove="Dtos\**" />
-    <EmbeddedResource Remove="Server\ViewModels\Subject\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="ClientApp\src\app\pages\tagging\**" />
     <None Remove="Dtos\**" />
-    <None Remove="Server\ViewModels\Subject\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
