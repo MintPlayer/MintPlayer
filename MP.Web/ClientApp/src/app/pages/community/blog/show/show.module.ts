@@ -6,7 +6,6 @@ import { ShowRoutingModule } from './show-routing.module';
 import { ShowComponent } from './show.component';
 import { PipesModule } from '../../../../pipes/pipes.module';
 import { DirectivesModule } from '../../../../directives/directives.module';
-import { QueryParamsHandlingModule } from '../../../../directives/query-params-handling/query-params-handling.module';
 
 
 @NgModule({
@@ -15,7 +14,6 @@ import { QueryParamsHandlingModule } from '../../../../directives/query-params-h
     CommonModule,
     NgxJsonLdModule,
     PipesModule,
-    QueryParamsHandlingModule,
     ShowRoutingModule
   ]
 })

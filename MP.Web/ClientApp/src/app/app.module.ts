@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,11 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ControlsModule } from './controls/controls.module';
 import { ComponentsModule } from './components/components.module';
-import { PipesModule } from './pipes/pipes.module';
 import { environment } from '../environments/environment';
 import { LinifyPipe } from './pipes/linify/linify.pipe';
-import { DirectivesModule } from './directives/directives.module';
-import { QueryParamsHandlingModule } from './directives/query-params-handling/query-params-handling.module';
+//import { QueryParamsHandlingModule } from './directives/query-params-handling/query-params-handling.module';
+import { QUERY_PARAMS_CONFIG, QueryParamsConfig } from '@mintplayer/ng-router';
 
 @NgModule({
   declarations: [
@@ -25,13 +23,19 @@ import { QueryParamsHandlingModule } from './directives/query-params-handling/qu
     HttpClientModule,
     ControlsModule,
     ComponentsModule,
-    QueryParamsHandlingModule, // For language queryparam
+    //QueryParamsHandlingModule, // For language queryparam
     TranslateModule.forChild(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
   ],
   providers: [
-    LinifyPipe
+    LinifyPipe,
+    {
+      provide: QUERY_PARAMS_CONFIG, useValue: <QueryParamsConfig>{
+        'lang': 'preserve',
+        'return': ''
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

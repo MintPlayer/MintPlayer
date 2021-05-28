@@ -14,7 +14,6 @@ import { DailymotionPlayerComponent } from './dailymotion-player/dailymotion-pla
 import { SocialSharesModule } from './social-shares/social-shares.module';
 import { FlagComponent } from './flag/flag.component';
 import { DirectivesModule } from '../directives/directives.module';
-import { QueryParamsHandlingModule } from '../directives/query-params-handling/query-params-handling.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,6 @@ import { QueryParamsHandlingModule } from '../directives/query-params-handling/q
     RouterModule,
     PipesModule,
     DirectivesModule,
-    QueryParamsHandlingModule,
     ControlsModule,
     SubjectModule,
     TranslateModule,

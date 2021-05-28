@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
 import { DirectivesModule } from '../../../directives/directives.module';
-import { QueryParamsHandlingModule } from '../../../directives/query-params-handling/query-params-handling.module';
 
 
 @NgModule({
@@ -15,7 +14,6 @@ import { QueryParamsHandlingModule } from '../../../directives/query-params-hand
     CommonModule,
     FormsModule,
     DirectivesModule,
-    QueryParamsHandlingModule,
     TranslateModule,
     RegisterRoutingModule
   ]

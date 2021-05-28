@@ -117,7 +117,7 @@ namespace MintPlayer.Web
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                configuration.RootPath = "ClientApp/dist/browser";
             });
             services.AddSpaRoutes(routes => routes
                 .Route("", "home")
