@@ -9,7 +9,7 @@
       <datatable [settings]="tableSettings" [data]="songData" [rowTemplate]="rowTemplate" (onReloadData)="loadFavoriteSongs()">
         <ng-template #rowTemplate let-song>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/song",song.id,song.title | slugify]'>{{ song.title }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/song",song.id,song.title | slugify]'>{{ song.title }}</a></td>
             <td class="text-nowrap">{{ song.released | date:'dd-MM-yyyy' }}</td>
           </tr>
         </ng-template>

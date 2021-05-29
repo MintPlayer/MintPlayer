@@ -1,17 +1,16 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { HttpHeaders } from '@angular/common/http';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { PersonService } from '../../../services/person/person.service';
 import { Person } from '../../../entities/person';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { MediumType } from '../../../entities/medium-type';
 import { Tag } from '../../../entities/tag';
-import { HttpHeaders } from '@angular/common/http';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -25,7 +24,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
@@ -64,7 +63,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   savePerson() {
     this.personService.createPerson(this.person).then((person) => {
       this.hasChanges = false;
-      this.navigation.navigate(['person', person.id, this.slugifyHelper.slugify(person.text)]);
+      this.router.navigate(['person', person.id, this.slugifyHelper.slugify(person.text)]);
     }).catch((error) => {
       console.error('Could not create person', error);
     });

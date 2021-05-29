@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { ListRoutingModule } from './list-routing.module';
 import { ListComponent } from './list.component';
@@ -12,6 +13,7 @@ import { DirectivesModule } from '../../../../directives/directives.module';
   imports: [
     CommonModule,
     PipesModule,
+    AdvancedRouterModule,
     ListRoutingModule
   ]
 })

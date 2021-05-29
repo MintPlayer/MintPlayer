@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { Song } from '../../../entities/song';
 import { Playlist } from '../../../entities/playlist';
-import { Title } from '@angular/platform-browser';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
 import { EnumHelper } from '../../../helpers/enum.helper';
 import { EnumItem } from '../../../entities/enum-item';
@@ -24,7 +24,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private slugifyHelper: SlugifyHelper,
@@ -90,7 +90,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
   savePlaylist() {
     this.playlistService.updatePlaylist(this.playlist).then((playlist) => {
       this.hasChanges = false;
-      this.navigation.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
+      this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
     }).catch((error) => {
       debugger;
     });

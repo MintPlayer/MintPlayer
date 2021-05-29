@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Title } from '@angular/platform-browser';
 import { ArtistService } from '../../../services/artist/artist.service';
 import { Artist } from '../../../entities/artist';
@@ -10,7 +11,6 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -23,7 +23,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('SERVERSIDE') private serverSide: boolean,
     private artistService: ArtistService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -89,7 +89,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public updateArtist() {
     this.artistService.updateArtist(this.artist).then((artist) => {
       this.hasChanges = false;
-      this.navigation.navigate(['artist', this.artist.id, this.slugifyHelper.slugify(artist.name)]);
+      this.router.navigate(['artist', this.artist.id, this.slugifyHelper.slugify(artist.name)]);
     }).catch((error) => {
       console.error('Could not update artist', error);
     });

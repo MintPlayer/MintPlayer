@@ -1,17 +1,16 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { HttpHeaders } from '@angular/common/http';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { PersonService } from '../../../services/person/person.service';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 import { Person } from '../../../entities/person';
 import { MediumType } from '../../../entities/medium-type';
-import { Tag } from '../../../entities/tag';
-import { HttpHeaders } from '@angular/common/http';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -23,7 +22,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('SERVERSIDE') private serverSide: boolean,
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -88,7 +87,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   updatePerson() {
     this.personService.updatePerson(this.person).then((person) => {
       this.hasChanges = false;
-      this.navigation.navigate(['person', this.person.id, this.slugifyHelper.slugify(person.text)]);
+      this.router.navigate(['person', this.person.id, this.slugifyHelper.slugify(person.text)]);
     }).catch((error) => {
       console.error('Could not update person', error);
     });

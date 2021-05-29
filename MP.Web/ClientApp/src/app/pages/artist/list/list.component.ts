@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { Router, UrlSerializer } from '@angular/router';
+import { UrlSerializer } from '@angular/router';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Title, Meta } from '@angular/platform-browser';
 import { ArtistService } from '../../../services/artist/artist.service';
 import { Artist } from '../../../entities/artist';
 import { PaginationResponse } from '../../../helpers/pagination-response';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-list',
@@ -19,7 +19,7 @@ export class ListComponent implements OnInit, OnDestroy {
     @Inject('SERVERSIDE') private serverSide: boolean,
     @Inject('ARTISTS') private artistsInj: PaginationResponse<Artist>,
     private artistService: ArtistService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private urlSerializer: UrlSerializer,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,

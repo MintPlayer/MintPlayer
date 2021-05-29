@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-//import { JsonLdModule } from '@mintplayer/ng-json-ld';
+import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { ShowRoutingModule } from './show-routing.module';
 import { PlaylistShowComponent } from './show.component';
 import { ControlsModule } from '../../../controls/controls.module';
 import { PipesModule } from '../../../pipes/pipes.module';
-import { DirectivesModule } from '../../../directives/directives.module';
 
 
 
@@ -14,10 +13,10 @@ import { DirectivesModule } from '../../../directives/directives.module';
   declarations: [PlaylistShowComponent],
   imports: [
     CommonModule,
+    AdvancedRouterModule,
     ControlsModule,
     PipesModule,
 
-    //JsonLdModule,
     ShowRoutingModule
   ]
 })

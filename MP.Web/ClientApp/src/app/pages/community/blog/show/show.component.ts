@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Title, Meta } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { BlogPost } from '../../../../entities/blog-post';
 import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Title, Meta } from '@angular/platform-browser';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../../helpers/url-generator.helper';
 import { WordCountPipe } from '../../../../pipes/word-count/word-count.pipe';
 import { AccountService } from '../../../../services/account/account.service';
-import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -22,7 +22,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('BASE_URL') private baseUrl: string,
     private blogPostService: BlogPostService,
     private accountService: AccountService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
@@ -208,7 +208,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteBlogPost() {
     this.blogPostService.deleteBlogPost(this.blogPost).then(() => {
-      this.navigation.navigate(['/community', 'blog']);
+      this.router.navigate(['/community', 'blog']);
     }).catch((error) => {
       console.error('Could not delete blog post', error);
     });

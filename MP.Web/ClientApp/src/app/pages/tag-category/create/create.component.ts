@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { TagCategory } from '../../../entities/tag-category';
 import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -17,7 +16,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
     private tagCategoryService: TagCategoryService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private differs: KeyValueDiffers
@@ -35,7 +34,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public saveCategory() {
     this.tagCategoryService.createTagCategory(this.tagCategory).then((category) => {
       this.hasChanges = false;
-      this.navigation.navigate(['tag', 'category', category.id]);
+      this.router.navigate(['tag', 'category', category.id]);
     }).catch((error) => {
       console.log('Could not create tag category', error);
     });

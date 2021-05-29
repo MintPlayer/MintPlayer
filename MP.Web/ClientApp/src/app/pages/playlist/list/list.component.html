@@ -3,7 +3,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">My playlists</h1>
       <span class="float-right">
-        <a [routerLink]='["/playlist","create"]' class="btn btn-primary">
+        <a [advRouterLink]='["/playlist","create"]' class="btn btn-primary">
           <i class="fa fa-plus"></i>
           Create playlist
         </a>
@@ -15,7 +15,7 @@
       <datatable [settings]="tableSettings" [data]="playlistData" [rowTemplate]="rowTemplate" (onReloadData)="loadPlaylists()">
         <ng-template #rowTemplate let-playlist>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/playlist",playlist.id,playlist.description | slugify]' title="Details for {{ playlist.description }}">{{ playlist.description }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/playlist",playlist.id,playlist.description | slugify]' title="Details for {{ playlist.description }}">{{ playlist.description }}</a></td>
           </tr>
         </ng-template>
       </datatable>

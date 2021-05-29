@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SongService } from '../../../services/song/song.service';
 import { Song } from '../../../entities/song';
 import { Artist } from '../../../entities/artist';
@@ -12,7 +13,6 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -24,7 +24,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('SERVERSIDE') private serverSide: boolean,
     private songService: SongService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -101,7 +101,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public updateSong() {
     this.songService.updateSong(this.song).then((song) => {
       this.hasChanges = false;
-      this.navigation.navigate(['song', this.song.id, this.slugifyHelper.slugify(song.title)]);
+      this.router.navigate(['song', this.song.id, this.slugifyHelper.slugify(song.title)]);
     }).catch((error) => {
       console.error('Could not update song', error);
     });

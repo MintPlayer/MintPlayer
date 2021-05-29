@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-//import { JsonLdModule } from '@mintplayer/ng-json-ld';
+import { JsonLdModule } from '@mintplayer/ng-json-ld';
+import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { ShowRoutingModule } from './show-routing.module';
 import { ShowComponent } from './show.component';
@@ -12,7 +13,8 @@ import { DirectivesModule } from '../../../../directives/directives.module';
   declarations: [ShowComponent],
   imports: [
     CommonModule,
-    //JsonLdModule,
+    JsonLdModule,
+    AdvancedRouterModule,
     PipesModule,
     ShowRoutingModule
   ]

@@ -10,8 +10,7 @@ import { ControlsModule } from './controls/controls.module';
 import { ComponentsModule } from './components/components.module';
 import { environment } from '../environments/environment';
 import { LinifyPipe } from './pipes/linify/linify.pipe';
-//import { QueryParamsHandlingModule } from './directives/query-params-handling/query-params-handling.module';
-import { QUERY_PARAMS_CONFIG, QueryParamsConfig } from '@mintplayer/ng-router';
+import { QUERY_PARAMS_CONFIG, QueryParamsConfig, AdvancedRouterModule } from '@mintplayer/ng-router';
 
 @NgModule({
   declarations: [
@@ -23,10 +22,10 @@ import { QUERY_PARAMS_CONFIG, QueryParamsConfig } from '@mintplayer/ng-router';
     HttpClientModule,
     ControlsModule,
     ComponentsModule,
-    //QueryParamsHandlingModule, // For language queryparam
     TranslateModule.forChild(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
+    AdvancedRouterModule
   ],
   providers: [
     LinifyPipe,

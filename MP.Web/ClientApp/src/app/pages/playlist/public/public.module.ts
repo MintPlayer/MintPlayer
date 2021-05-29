@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { ControlsModule } from '../../../controls/controls.module';
 import { PipesModule } from '../../../pipes/pipes.module';
@@ -14,6 +15,7 @@ import { PlaylistPublicComponent } from './public.component';
     CommonModule,
     ControlsModule,
     PipesModule,
+    AdvancedRouterModule,
 
     PublicRoutingModule
   ]

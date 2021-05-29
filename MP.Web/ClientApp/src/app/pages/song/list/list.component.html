@@ -3,7 +3,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">All songs</h1>
       <span class="float-right">
-        <a [routerLink]='["/song/create"]' class="btn btn-primary">
+        <a [advRouterLink]='["/song/create"]' class="btn btn-primary">
           <i class="fa fa-plus"></i>
           Create song
         </a>
@@ -15,7 +15,7 @@
       <datatable [settings]="tableSettings" [data]="songData" [rowTemplate]="rowTemplate" (onReloadData)="loadSongs()">
         <ng-template #rowTemplate let-song>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/song",song.id,song.title | slugify]'>{{ song.title }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/song",song.id,song.title | slugify]'>{{ song.title }}</a></td>
             <td class="text-nowrap">{{ song.released | date:'dd-MM-yyyy' }}</td>
           </tr>
         </ng-template>

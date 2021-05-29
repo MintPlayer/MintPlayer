@@ -3,7 +3,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">All tag categories</h1>
       <span class="float-right">
-        <a [routerLink]='["/tag","category","create"]' class="btn btn-primary">
+        <a [advRouterLink]='["/tag","category","create"]' class="btn btn-primary">
           <i class="fa fa-plus"></i>
           Create category
         </a>
@@ -15,7 +15,7 @@
       <datatable [settings]="tableSettings" [data]="tagCategoryData" [rowTemplate]="rowTemplate" (onReloadData)="loadTagCategories()">
         <ng-template #rowTemplate let-category>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/tag","category",category.id]' title="Details for {{ category.description }}">{{ category.description }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/tag","category",category.id]' title="Details for {{ category.description }}">{{ category.description }}</a></td>
             <td class="text-nowrap">{{ category.color }}</td>
           </tr>
         </ng-template>

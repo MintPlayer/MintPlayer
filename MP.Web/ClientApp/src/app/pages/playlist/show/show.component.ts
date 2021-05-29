@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { Playlist } from '../../../entities/playlist';
 import { PlayButtonClickedEvent } from '../../../events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
-import { HttpErrorResponse } from '@angular/common/http';
 import { STATUS_CODES } from 'http';
 
 @Component({
@@ -21,8 +21,8 @@ export class PlaylistShowComponent implements OnInit {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
-    private navigation: NavigationHelper,
-    private router: Router,
+    private nativeRouter: Router,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title
   ) {
@@ -40,9 +40,9 @@ export class PlaylistShowComponent implements OnInit {
     }).catch((error: HttpErrorResponse) => {
       switch (error.status) {
         case 401: // Unauthorized
-          this.navigation.navigate(['/account', 'login'], {
+          this.router.navigate(['/account', 'login'], {
             queryParams: {
-              return: this.router.url
+              return: this.nativeRouter.url
             }
           });
           break;
@@ -64,7 +64,7 @@ export class PlaylistShowComponent implements OnInit {
 
   deletePlaylist() {
     this.playlistService.deletePlaylist(this.playlist).then(() => {
-      this.navigation.navigate(['playlist']);
+      this.router.navigate(['playlist']);
     }).catch((error) => {
       console.error('Could not delete playlist', error);
     });

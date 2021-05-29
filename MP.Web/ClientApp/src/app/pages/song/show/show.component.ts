@@ -1,13 +1,13 @@
 import { Component, OnInit, EventEmitter, Output, Inject, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SongService } from '../../../services/song/song.service';
 import { Song } from '../../../entities/song';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { Subscription } from 'rxjs';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -23,7 +23,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('SONG') private songInj: Song,
     @Inject('BASE_URL') private baseUrl: string,
     private songService: SongService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
@@ -269,7 +269,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteSong() {
     this.songService.deleteSong(this.song).then(() => {
-      this.navigation.navigate(['song']);
+      this.router.navigate(['song']);
     }).catch((error) => {
       console.error('Could not delete song', error);
     });

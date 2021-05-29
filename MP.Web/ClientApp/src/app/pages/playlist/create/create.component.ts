@@ -1,13 +1,12 @@
 import { Component, OnInit, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer, OnDestroy } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Playlist } from '../../../entities/playlist';
 import { Song } from '../../../entities/song';
-import { HttpHeaders } from '@angular/common/http';
 import { PlaylistService } from '../../../services/playlist/playlist.service';
-import { Router } from '@angular/router';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
 import { EnumHelper } from '../../../helpers/enum.helper';
 import { EnumItem } from '../../../entities/enum-item';
@@ -21,7 +20,7 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
 
   constructor(
     private playlistService: PlaylistService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private enumHelper: EnumHelper,
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers
@@ -58,7 +57,7 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
   savePlaylist() {
     this.playlistService.createPlaylist(this.playlist).then((playlist) => {
       this.hasChanges = false;
-      this.navigation.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
+      this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
     }).catch((error) => {
       debugger;
     });

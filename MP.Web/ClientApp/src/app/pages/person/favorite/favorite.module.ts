@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { FavoriteRoutingModule } from './favorite-routing.module';
 import { FavoriteComponent } from './favorite.component';
@@ -13,6 +14,7 @@ import { DirectivesModule } from '../../../directives/directives.module';
   declarations: [FavoriteComponent],
   imports: [
     CommonModule,
+    AdvancedRouterModule,
     ControlsModule,
     PipesModule,
 

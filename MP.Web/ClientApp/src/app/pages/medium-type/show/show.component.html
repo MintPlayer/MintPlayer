@@ -3,7 +3,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">{{ mediumType.description }}</h1>
       <span class="float-right">
-        <a class="btn btn-primary" [routerLink]='["/mediumtype", mediumType.id, mediumType.description | slugify, "edit"]'>
+        <a class="btn btn-primary" [advRouterLink]='["/mediumtype", mediumType.id, mediumType.description | slugify, "edit"]'>
           <i class="fa fa-edit"></i>
           Edit
         </a>

@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Subscription } from 'rxjs';
 import { Tag } from '../../../../entities/tag';
 import { TagService } from '../../../../services/tag/tag.service';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
-import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -19,7 +19,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('TAG') tagInj: Tag,
     @Inject('BASE_URL') private baseUrl: string,
     private tagService: TagService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
@@ -107,7 +107,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   deleteTag() {
     this.tagService.deleteTag(this.tag).then(() => {
-      this.navigation.navigate(['tag', 'category', this.tag.category.id]);
+      this.router.navigate(['tag', 'category', this.tag.category.id]);
     }).catch((error) => {
       console.error('Could not delete tag category', error);
     });

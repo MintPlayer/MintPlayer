@@ -2,12 +2,10 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { MediumType } from '../../../entities/medium-type';
 import { ePlayerType } from '../../../enums/ePlayerType';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
-import { UrlGenerator } from '../../../helpers/url-generator.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -19,7 +17,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
@@ -102,7 +100,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteMediumType() {
     this.mediumTypeService.deleteMediumType(this.mediumType).then(() => {
-      this.navigation.navigate(['mediumtype']);
+      this.router.navigate(['mediumtype']);
     }).catch((error) => {
       console.error('Could not delete medium type', error);
     });

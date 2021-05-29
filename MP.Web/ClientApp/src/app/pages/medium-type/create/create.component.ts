@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { ePlayerType } from '../../../enums/ePlayerType';
 import { MediumType } from '../../../entities/medium-type';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 import { EnumHelper } from '../../../helpers/enum.helper';
 import { EnumItem } from '../../../entities/enum-item';
 
@@ -21,7 +20,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
     private mediumTypeService: MediumTypeService,
     private enumHelper: EnumHelper,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
@@ -45,7 +44,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public saveMediumType() {
     this.mediumTypeService.createMediumType(this.mediumType).then((mediumType) => {
       this.hasChanges = false;
-      this.navigation.navigate(['mediumtype', mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
+      this.router.navigate(['mediumtype', mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
     }).catch((error) => {
       console.error('Could not create medium type', error);
     });

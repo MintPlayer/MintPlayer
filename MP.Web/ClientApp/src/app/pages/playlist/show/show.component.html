@@ -4,7 +4,7 @@
       <h1 class="d-inline-block">{{ playlist.description }}</h1>
       <span class="float-none d-block float-sm-right d-sm-inline-block">
         <span class="float-none d-block float-sm-right d-sm-inline-block">
-          <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/playlist", playlist.id, playlist.description | slugify, "edit"]'>
+          <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/playlist", playlist.id, playlist.description | slugify, "edit"]'>
             <i class="fa fa-edit"></i>
             Edit
           </a>
@@ -34,7 +34,7 @@
     </header>
     <content>
       <div class="list-group">
-        <a *ngFor="let track of playlist.tracks" [routerLink]='["/song",track.id,track.title | slugify]' class="list-group-item list-group-item-action">{{ track.description }}</a>
+        <a *ngFor="let track of playlist.tracks" [advRouterLink]='["/song",track.id,track.title | slugify]' class="list-group-item list-group-item-action">{{ track.description }}</a>
       </div>
     </content>
   </card>

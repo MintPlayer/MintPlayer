@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { PersonService } from '../../../services/person/person.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { PersonService } from '../../../services/person/person.service';
 import { Person } from '../../../entities/person';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -19,7 +19,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     @Inject('PERSON') personInj: Person,
     @Inject('BASE_URL') private baseUrl: string,
     private personService: PersonService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
@@ -139,7 +139,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deletePerson() {
     this.personService.deletePerson(this.person).then(() => {
-      this.navigation.navigate(['person']);
+      this.router.navigate(['person']);
     }).catch((error) => {
       console.error('Could not delete person', error);
     });

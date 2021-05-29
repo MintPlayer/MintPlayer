@@ -4,7 +4,7 @@
       <h1 class="d-inline-block">{{ tag.description }}</h1>
       <span class="float-none d-block float-sm-right d-sm-inline-block">
         <span class="float-none d-block float-sm-right d-sm-inline-block">
-          <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/tag","category",tag.category.id,"tags",tag.id,"edit"]'>
+          <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id,"edit"]'>
             <i class="fa fa-edit"></i>
             Edit
           </a>
@@ -36,7 +36,7 @@
             <label class="font-weight-bold">Category</label>
           </div>
           <div class="col-sm-8 col-xl-10">
-            <a [routerLink]='["/tag","category",tag.category.id]'>{{ tag.category.description }}</a>
+            <a [advRouterLink]='["/tag","category",tag.category.id]'>{{ tag.category.description }}</a>
           </div>
         </div>
         <div class="row" *ngIf="tag.parent !== null">
@@ -44,7 +44,7 @@
             <label class="font-weight-bold">Parent tag</label>
           </div>
           <div class="col-sm-8 col-xl-10">
-            <a [routerLink]='["/tag","category",tag.category.id,"tags",tag.parent.id]'>{{ tag.parent.description }}</a>
+            <a [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.parent.id]'>{{ tag.parent.description }}</a>
           </div>
         </div>
       </div>
@@ -55,12 +55,12 @@
       <i class="fa fa-tags"></i>
       Tags
       <span class="btn-group pull-right">
-        <a [routerLink]='["/tag","category",tag.category.id,"tags",tag.id,"tags","create"]' class="btn btn-secondary">+</a>
+        <a [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id,"tags","create"]' class="btn btn-secondary">+</a>
       </span>
     </header>
     <content>
       <div class="list-group">
-        <a [routerLink]='["/tag","category",tag.category.id,"tags",child.id]' class="list-group-item list-group-item-action h4 mb-0 py-2" *ngFor="let child of tag.children">
+        <a [advRouterLink]='["/tag","category",tag.category.id,"tags",child.id]' class="list-group-item list-group-item-action h4 mb-0 py-2" *ngFor="let child of tag.children">
           <span class="badge float-left" [style.background]="tag.category.color" [style.color]="tag.category.color | fontColor">{{ child.description }}</span>
         </a>
       </div>

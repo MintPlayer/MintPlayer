@@ -1,7 +1,7 @@
 <body>
   <div class="app-header text-center">
     <app-navbar-toggler [(state)]="toggleButtonState" (stateChange)="updateSidebarState($event)" class="d-inline-block"></app-navbar-toggler>
-    <a [routerLink]='["/"]' class="d-block no-underline" title="MintPlayer">
+    <a [advRouterLink]='["/"]' class="d-block no-underline" title="MintPlayer">
       <span class="text-dark font-weight-bold d-inline-block my-1 logo">MintPlayer</span>
     </a>
     <playlist-toggler class="position-absolute" [(state)]="playlistToggleButtonState"></playlist-toggler>

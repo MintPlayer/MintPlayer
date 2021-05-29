@@ -1,16 +1,15 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, KeyValueDiffers, KeyValueDiffer, DoCheck } from '@angular/core';
-import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { HttpHeaders } from '@angular/common/http';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Artist } from '../../../entities/artist';
 import { ArtistService } from '../../../services/artist/artist.service';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { MediumType } from '../../../entities/medium-type';
-import { Title } from '@angular/platform-browser';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { HasChanges } from '../../../interfaces/has-changes';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -23,7 +22,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private artistService: ArtistService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
@@ -63,7 +62,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   saveArtist() {
     this.artistService.createArtist(this.artist).then((artist) => {
       this.hasChanges = false;
-      this.navigation.navigate(['/artist', artist.id, this.slugifyHelper.slugify(artist.name)]);
+      this.router.navigate(['/artist', artist.id, this.slugifyHelper.slugify(artist.name)]);
     }).catch((error) => {
       console.error('Could not create artist', error);
     });

@@ -9,7 +9,7 @@
       <datatable [settings]="tableSettings" [data]="playlistData" [rowTemplate]="rowTemplate" (onReloadData)="loadPlaylists()">
         <ng-template #rowTemplate let-playlist>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/playlist",playlist.id,playlist.description | slugify]' title="Details for {{ playlist.description }}">{{ playlist.description }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/playlist",playlist.id,playlist.description | slugify]' title="Details for {{ playlist.description }}">{{ playlist.description }}</a></td>
           </tr>
         </ng-template>
       </datatable>

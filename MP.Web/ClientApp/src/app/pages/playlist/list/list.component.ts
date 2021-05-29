@@ -1,12 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { Playlist } from '../../../entities/playlist';
 import { PaginationResponse } from '../../../helpers/pagination-response';
 import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 import { ePlaylistScope } from '../../../enums/ePlaylistScope';
 
 @Component({
@@ -20,7 +19,7 @@ export class PlaylistListComponent implements OnInit {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('PLAYLISTS') playlistsInj: PaginationResponse<Playlist>,
     private playlistService: PlaylistService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title
   ) {

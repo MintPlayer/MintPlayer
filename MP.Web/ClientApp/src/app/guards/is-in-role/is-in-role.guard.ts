@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { AccountService } from '../../services/account/account.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NavigationHelper } from '../../helpers/navigation.helper';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { AccountService } from '../../services/account/account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { NavigationHelper } from '../../helpers/navigation.helper';
 export class IsInRoleGuard implements CanActivate {
   constructor(
     private accountService: AccountService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
   ) {
   }
 
@@ -20,7 +20,7 @@ export class IsInRoleGuard implements CanActivate {
       let intersect = roles.filter(r => routeRoles.indexOf(r) > -1);
       return intersect.length > 0;
     }).catch((error: HttpErrorResponse) => {
-      this.navigation.navigate(['/account', 'login'], {
+      this.router.navigate(['/account', 'login'], {
         queryParams: {
           return: state.url
         }

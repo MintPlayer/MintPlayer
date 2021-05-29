@@ -6,7 +6,7 @@ import { AccountService } from '../../../services/account/account.service';
 import { LoginResult } from '../../../entities/login-result';
 import { User } from '../../../entities/user';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private accountService: AccountService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private htmlLink: HtmlLinkHelper,
     private metaService: Meta
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
     this.removeMetaTags();
-    this.navigation.navigate([], {
+    this.router.navigate([], {
       queryParams: {
         return: null
       }
@@ -96,12 +96,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   login() {
     this.accountService.login(this.email, this.password).then((result) => {
       if (result.status === true) {
-        this.navigation.navigateByUrl(this.returnUrl, {
-          queryParamsHandling: '',
-          queryParams: {
-            'lang': this.route.snapshot.queryParamMap.get('lang')
-          }
-        });
+        this.router.navigateByUrl(this.returnUrl);
         this.loginComplete.emit(result.user);
       } else {
         this.loginResult = result;
@@ -122,12 +117,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (result.status) {
       this.accountService.currentUser().then((user) => {
         this.loginComplete.emit(user);
-        this.navigation.navigateByUrl(this.returnUrl, {
-          queryParamsHandling: '',
-          queryParams: {
-            'lang': this.route.snapshot.queryParamMap.get('lang')
-          }
-        });
+        this.router.navigateByUrl(this.returnUrl);
       });
     } else {
       this.loginResult = result;

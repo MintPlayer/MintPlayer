@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, Inject, HostListener, KeyValueDiffers, KeyValueDiffer, DoCheck } from '@angular/core';
-import { TagService } from '../../../../services/tag/tag.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { TagService } from '../../../../services/tag/tag.service';
 import { Tag } from '../../../../entities/tag';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -19,7 +19,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('SERVERSIDE') private serverSide: boolean,
     @Inject('TAG') private tagInj: Tag,
     private tagService: TagService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -69,7 +69,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public updateTag() {
     this.tagService.updateTag(this.tag).then((tag) => {
       this.hasChanges = false;
-      this.navigation.navigate(['tag', 'category', tag.category.id, 'tags', tag.id]);
+      this.router.navigate(['tag', 'category', tag.category.id, 'tags', tag.id]);
     }).catch((error) => {
       console.log('Could not update tag', error);
     });

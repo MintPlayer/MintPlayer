@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, AfterViewInit, IterableDiffers, IterableDiffer, AfterViewChecked, ViewChild, ElementRef, Inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 
 @Component({
   selector: 'app-facebook-share',
@@ -15,7 +14,7 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class FacebookShareComponent implements OnInit, AfterViewChecked {
 
   constructor(
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private locationStrategy: LocationStrategy,
     differs: IterableDiffers,
     @Inject('BASE_URL') private baseUrl: string
@@ -55,8 +54,8 @@ export class FacebookShareComponent implements OnInit, AfterViewChecked {
   //#endregion
 
   private updateHref() {
-    let urlTree = this.navigation.createUrlTree(this.commands);
-    let urlSerialized = this.navigation.serializeUrl(urlTree);
+    let urlTree = this.router.createUrlTree(this.commands);
+    let urlSerialized = this.router.serializeUrl(urlTree);
     this.href = this.baseUrl + this.locationStrategy.prepareExternalUrl(urlSerialized);
   }
 

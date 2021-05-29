@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubjectModule } from './subject/subject.module';
@@ -14,6 +13,7 @@ import { DailymotionPlayerComponent } from './dailymotion-player/dailymotion-pla
 import { SocialSharesModule } from './social-shares/social-shares.module';
 import { FlagComponent } from './flag/flag.component';
 import { DirectivesModule } from '../directives/directives.module';
+import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { DirectivesModule } from '../directives/directives.module';
   ],
   imports: [
     CommonModule,
-    RouterModule,
+    AdvancedRouterModule,
     PipesModule,
     DirectivesModule,
     ControlsModule,

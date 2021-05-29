@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { MediumType } from '../../../entities/medium-type';
 import { ePlayerType } from '../../../enums/ePlayerType';
@@ -8,7 +9,6 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 import { EnumHelper } from '../../../helpers/enum.helper';
 import { EnumItem } from '../../../entities/enum-item';
 
@@ -23,7 +23,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
     private mediumTypeService: MediumTypeService,
     private enumHelper: EnumHelper,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -73,7 +73,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public updateMediumType() {
     this.mediumTypeService.updateMediumType(this.mediumType).then((mediumType) => {
       this.hasChanges = false;
-      this.navigation.navigate(['mediumtype', this.mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
+      this.router.navigate(['mediumtype', this.mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
     }).catch((error) => {
       console.error('Could not update medium type', error);
     });

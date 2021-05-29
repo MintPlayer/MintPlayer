@@ -3,7 +3,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">MintPlayer blog</h1>
       <span *ngIf="isBlogger" class="float-none d-block float-sm-right d-sm-inline-block">
-        <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/community", "blog", "create"]'>
+        <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/community", "blog", "create"]'>
           <!-- to handle -->
           <i class="fa fa-plus"></i>
           Create
@@ -15,7 +15,7 @@
     <div class="col-md-12 my-2">
       <span>{{ blogPost.published | date:'MMM dd, yyyy' }}</span>
       <h2 class="font-size-xx-large font-weight-normal">
-        <a [routerLink]='["/community", "blog", blogPost.id, blogPost.title | slugify]' [title]="blogPost.headline">{{ blogPost.title }}</a>
+        <a [advRouterLink]='["/community", "blog", blogPost.id, blogPost.title | slugify]' [title]="blogPost.headline">{{ blogPost.title }}</a>
       </h2>
       <p>{{ blogPost.headline }}</p>
     </div>

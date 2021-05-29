@@ -2,17 +2,16 @@ import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDi
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SongService } from '../../../services/song/song.service';
 import { Song } from '../../../entities/song';
 import { Artist } from '../../../entities/artist';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { MediumType } from '../../../entities/medium-type';
-import { Tag } from '../../../entities/tag';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -26,7 +25,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private songService: SongService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -89,7 +88,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   saveSong() {
     this.songService.createSong(this.song).then((song) => {
       this.hasChanges = false;
-      this.navigation.navigate(['song', song.id, this.slugifyHelper.slugify(song.title)]);
+      this.router.navigate(['song', song.id, this.slugifyHelper.slugify(song.title)]);
     }).catch((error) => {
       console.error('Could not create song', error);
     });

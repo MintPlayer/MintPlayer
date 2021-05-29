@@ -6,25 +6,25 @@
       <app-linkedin-share [routerLink]='[]' [text]="'Open-source music player'" class="m-1"></app-linkedin-share>
     </div>
     <div class="p-1 text-center">
-      <a [routerLink]='[]' [queryParams]="{'lang':null}" class="mx-2" title="English">
+      <a [advRouterLink]='[]' [queryParams]="{'lang':null}" class="mx-2" title="English">
         <app-flag [country]="'en'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
-      <a [routerLink]='[]' [queryParams]="{'lang':'nl'}" class="mx-2" title="Nederlands">
+      <a [advRouterLink]='[]' [queryParams]="{'lang':'nl'}" class="mx-2" title="Nederlands">
         <app-flag [country]="'nl'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
-      <a [routerLink]='[]' [queryParams]="{'lang':'fr'}" class="mx-2" title="Frans">
+      <a [advRouterLink]='[]' [queryParams]="{'lang':'fr'}" class="mx-2" title="Frans">
         <app-flag [country]="'fr'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
     </div>
     <ul>
       <li>
-        <a [routerLink]='["/"]' [title]="'home.homepage' | translate" (click)="onItemSelected()">
+        <a [advRouterLink]='["/"]' [title]="'home.homepage' | translate" (click)="onItemSelected()">
           <i class="fa fa-home"></i>
           {{ 'home.home' | translate }}
         </a>
       </li>
       <li>
-        <a [routerLink]='["/search"]' [title]="'search.search' | translate" (click)="onItemSelected()">
+        <a [advRouterLink]='["/search"]' [title]="'search.search' | translate" (click)="onItemSelected()">
           <i class="fa fa-search"></i>
           {{ 'search.search' | translate }}
         </a>
@@ -36,19 +36,19 @@
         </span>
         <ul [@slideUpDown]="level1menu == 'artists' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/artist"]' [title]="'artists.all_artists' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/artist"]' [title]="'artists.all_artists' | translate" (click)="onItemSelected()">
               <i class="fa fa-list"></i>
               {{ 'artists.all_artists' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/artist/create"]' [title]="'artists.add_artist' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/artist/create"]' [title]="'artists.add_artist' | translate" (click)="onItemSelected()">
               <i class="fa fa-plus"></i>
               {{ 'artists.add_artist' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/artist", "favorite"]' [title]="'artists.favorite_artists' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/artist", "favorite"]' [title]="'artists.favorite_artists' | translate" (click)="onItemSelected()">
               <i class="fa fa-star"></i>
               {{ 'artists.favorite_artists' | translate }}
             </a>
@@ -62,19 +62,19 @@
         </span>
         <ul [@slideUpDown]="level1menu == 'people' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/person"]' [title]="'people.all_people' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/person"]' [title]="'people.all_people' | translate" (click)="onItemSelected()">
               <i class="fa fa-list"></i>
               {{ 'people.all_people' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/person", "create"]' [title]="'people.add_person' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/person", "create"]' [title]="'people.add_person' | translate" (click)="onItemSelected()">
               <i class="fa fa-plus"></i>
               {{ 'people.add_person' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/person", "favorite"]' [title]="'people.favorite_people' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/person", "favorite"]' [title]="'people.favorite_people' | translate" (click)="onItemSelected()">
               <i class="fa fa-star"></i>
               {{ 'people.favorite_people' | translate }}
             </a>
@@ -88,19 +88,19 @@
         </span>
         <ul [@slideUpDown]="level1menu == 'songs' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/song"]' [title]="'songs.all_songs' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/song"]' [title]="'songs.all_songs' | translate" (click)="onItemSelected()">
               <i class="fa fa-list"></i>
               {{ 'songs.all_songs' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/song", "create"]' [title]="'songs.add_song' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/song", "create"]' [title]="'songs.add_song' | translate" (click)="onItemSelected()">
               <i class="fa fa-plus"></i>
               {{ 'songs.add_song' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/song", "favorite"]' [title]="'songs.favorite_songs' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/song", "favorite"]' [title]="'songs.favorite_songs' | translate" (click)="onItemSelected()">
               <i class="fa fa-star"></i>
               {{ 'songs.favorite_songs' | translate }}
             </a>
@@ -114,19 +114,19 @@
         </span>
         <ul [@slideUpDown]="level1menu == 'playlists' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/playlist"]' [title]="'playlists.my_playlists' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/playlist"]' [title]="'playlists.my_playlists' | translate" (click)="onItemSelected()">
               <i class="fa fa-list"></i>
               {{ 'playlists.my_playlists' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/playlist","public"]' [title]="'playlists.public_playlists' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/playlist","public"]' [title]="'playlists.public_playlists' | translate" (click)="onItemSelected()">
               <i class="fa fa-users"></i>
               {{ 'playlists.public_playlists' | translate }}
             </a>
           </li>
           <li>
-            <a [routerLink]='["/playlist","create"]' [title]="'playlists.add_playlist' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/playlist","create"]' [title]="'playlists.add_playlist' | translate" (click)="onItemSelected()">
               <i class="fa fa-plus"></i>
               {{ 'playlists.add_playlist' | translate }}
             </a>
@@ -140,7 +140,7 @@
         </span>
         <ul [@slideUpDown]="level1menu == 'community' ? 'in' : 'out'">
           <li>
-            <a [routerLink]='["/community","blog"]' [title]="'community.blog.our_blog' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/community","blog"]' [title]="'community.blog.our_blog' | translate" (click)="onItemSelected()">
               <i class="fa fa-rss"></i>
               {{ 'community.blog.blog' | translate }}
             </a>
@@ -152,13 +152,13 @@
             </a>
           </li>
           <!--<li>
-          <a [routerLink]='["/community","forum"]' title="MintPlayer forum" (click)="onItemSelected()">
+          <a [advRouterLink]='["/community","forum"]' title="MintPlayer forum" (click)="onItemSelected()">
             <i class="fa fa-comments"></i>
             Forum
           </a>
         </li>
         <li>
-          <a [routerLink]='["/community","developers"]' title="Tools for developers" (click)="onItemSelected()">
+          <a [advRouterLink]='["/community","developers"]' title="Tools for developers" (click)="onItemSelected()">
             <i class="fa fa-code"></i>
             Developers
           </a>
@@ -178,13 +178,13 @@
             </span>
             <ul [@slideUpDown]="level2menu == 'media' ? 'in' : 'out'">
               <li>
-                <a [routerLink]='["/mediumtype"]' [title]="'management.media.all_media' | translate" (click)="onItemSelected()">
+                <a [advRouterLink]='["/mediumtype"]' [title]="'management.media.all_media' | translate" (click)="onItemSelected()">
                   <i class="fa fa-list"></i>
                   {{ 'management.media.all_media' | translate }}
                 </a>
               </li>
               <li>
-                <a [routerLink]='["/mediumtype/create"]' [title]="'management.media.add_medium' | translate" (click)="onItemSelected()">
+                <a [advRouterLink]='["/mediumtype/create"]' [title]="'management.media.add_medium' | translate" (click)="onItemSelected()">
                   <i class="fa fa-plus"></i>
                   {{ 'management.media.add_medium' | translate }}
                 </a>
@@ -198,13 +198,13 @@
             </span>
             <ul [@slideUpDown]="level2menu == 'tags' ? 'in' : 'out'">
               <li>
-                <a [routerLink]='["/tag","category"]' [title]="'management.tags.manage_categories' | translate" (click)="onItemSelected()">
+                <a [advRouterLink]='["/tag","category"]' [title]="'management.tags.manage_categories' | translate" (click)="onItemSelected()">
                   <i class="fa fa-list"></i>
                   {{ 'management.tags.all_categories' | translate }}
                 </a>
               </li>
               <li>
-                <a [routerLink]='["/tag","category","create"]' [title]="'management.tags.add_category' | translate" (click)="onItemSelected()">
+                <a [advRouterLink]='["/tag","category","create"]' [title]="'management.tags.add_category' | translate" (click)="onItemSelected()">
                   <i class="fa fa-plus"></i>
                   {{ 'management.tags.add_category' | translate }}
                 </a>
@@ -220,19 +220,19 @@
         </span>
         <ul [@slideUpDown]="level1menu == 'account' ? 'in' : 'out'">
           <li *ngIf="activeUser === null">
-            <a [routerLink]='["/account","login"]' title="'account.login' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/account","login"]' title="'account.login' | translate" (click)="onItemSelected()">
               <i class="fa fa-sign-in"></i>
               {{ 'account.login' | translate }}
             </a>
           </li>
           <li *ngIf="activeUser === null">
-            <a [routerLink]='["/account","register"]' title="'account.create_account' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/account","register"]' title="'account.create_account' | translate" (click)="onItemSelected()">
               <i class="fa fa-user-plus"></i>
               {{ 'account.register' | translate }}
             </a>
           </li>
           <li *ngIf="activeUser !== null">
-            <a [routerLink]='["/account","profile"]' title="'account.profile' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/account","profile"]' title="'account.profile' | translate" (click)="onItemSelected()">
               <i class="fa fa-user-o"></i>
               {{ 'account.profile' | translate }}
             </a>
@@ -247,8 +247,8 @@
       </li>
     </ul>
     <div class="mt-auto text-center">
-      <a class="d-inline-block p-2 text-white" [routerLink]='["/gdpr","privacy-policy"]' (click)="onItemSelected()" [title]="'gdpr.privacy_policy.read' | translate">{{ 'gdpr.privacy_policy.privacy_policy' | translate }}</a>
-      <a class="d-inline-block p-2 text-white" [routerLink]='["/gdpr","terms-of-service"]' (click)="onItemSelected()" [title]="'gdpr.terms_of_service.read' | translate">{{ 'gdpr.terms_of_service.terms_of_service' | translate }}</a>
+      <a class="d-inline-block p-2 text-white" [advRouterLink]='["/gdpr","privacy-policy"]' (click)="onItemSelected()" [title]="'gdpr.privacy_policy.read' | translate">{{ 'gdpr.privacy_policy.privacy_policy' | translate }}</a>
+      <a class="d-inline-block p-2 text-white" [advRouterLink]='["/gdpr","terms-of-service"]' (click)="onItemSelected()" [title]="'gdpr.terms_of_service.read' | translate">{{ 'gdpr.terms_of_service.terms_of_service' | translate }}</a>
     </div>
   </nav>
 </div>

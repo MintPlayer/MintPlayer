@@ -3,7 +3,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">All people</h1>
       <span class="float-right">
-        <a [routerLink]='["/person/create"]' class="btn btn-primary">
+        <a [advRouterLink]='["/person/create"]' class="btn btn-primary">
           <i class="fa fa-plus"></i>
           Create person
         </a>
@@ -15,7 +15,7 @@
       <datatable [settings]="tableSettings" [data]="personData" [rowTemplate]="rowTemplate" (onReloadData)="loadPeople()">
         <ng-template #rowTemplate let-person>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/person",person.id,person.text | slugify]' title="Details for {{ person.firstName }} {{ person.lastName }}">{{ person.firstName }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/person",person.id,person.text | slugify]' title="Details for {{ person.firstName }} {{ person.lastName }}">{{ person.firstName }}</a></td>
             <td class="text-nowrap">{{ person.lastName }}</td>
             <td class="text-nowrap">{{ person.born | date:'dd/MM/yyyy' }}</td>
             <td class="text-nowrap">{{ person.died | date:'dd/MM/yyyy' }}</td>

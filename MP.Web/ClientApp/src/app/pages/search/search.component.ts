@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SubjectService } from '../../services/subject/subject.service';
 import { SearchResults } from '../../entities/search-results';
 import { eSubjectType } from '../../enums/eSubjectType';
@@ -10,7 +11,6 @@ import { Song } from '../../entities/song';
 import { HtmlLinkHelper } from '../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { UrlGenerator } from '../../helpers/url-generator.helper';
-import { NavigationHelper } from '../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-search',
@@ -23,7 +23,7 @@ import { NavigationHelper } from '../../helpers/navigation.helper';
 export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private subjectService: SubjectService,
     private htmlLink: HtmlLinkHelper,
@@ -94,7 +94,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   doSearch() {
-    this.navigation.navigate(['/search', this.searchterm]);
+    this.router.navigate(['/search', this.searchterm]);
   }
 
   private performSearch() {
@@ -106,7 +106,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   gotoSubject(subject: Person | Artist | Song) {
-    this.navigation.navigate(this.urlGenerator.generateCommands(subject));
+    this.router.navigate(this.urlGenerator.generateCommands(subject));
   }
 
 }

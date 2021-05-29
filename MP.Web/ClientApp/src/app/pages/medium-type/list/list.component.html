@@ -3,7 +3,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">All medium types</h1>
       <span class="float-right">
-        <a [routerLink]='["/mediumtype/create"]' class="btn btn-primary">
+        <a [advRouterLink]='["/mediumtype/create"]' class="btn btn-primary">
           <i class="fa fa-plus"></i>
           Create medium type
         </a>
@@ -22,7 +22,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let mediumtype of mediumTypes">
-              <td><a [routerLink]='["/mediumtype",mediumtype.id,mediumtype.description | slugify]' title="Details for {{ mediumtype.description }}">{{ mediumtype.description }}</a></td>
+              <td><a [advRouterLink]='["/mediumtype",mediumtype.id,mediumtype.description | slugify]' title="Details for {{ mediumtype.description }}">{{ mediumtype.description }}</a></td>
               <td>{{ playerTypes[mediumtype.playerType] }}</td>
             </tr>
           </tbody>

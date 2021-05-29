@@ -1,11 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
 import { Song } from '../../entities/song';
 import { SongRemovedEvent } from '../../events/song-removed.event';
 import { SongProgress } from '../../entities/song-progress';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { eRepeatMode } from '../../enums/eRepeatMode';
-import { NavigationHelper } from '../../helpers/navigation.helper';
 
 @Component({
   selector: 'playlist-sidebar',
@@ -16,9 +14,7 @@ import { NavigationHelper } from '../../helpers/navigation.helper';
   ]
 })
 export class PlaylistSidebarComponent implements OnInit {
-  constructor(
-    private navigation: NavigationHelper,
-  ) {
+  constructor() {
   }
 
   @Input()

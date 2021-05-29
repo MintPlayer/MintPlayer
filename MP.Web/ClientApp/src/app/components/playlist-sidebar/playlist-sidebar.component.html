@@ -33,7 +33,7 @@
   </div>
   <ul class="overflow-auto mb-0">
     <li *ngFor="let song of songs">
-      <a [routerLink]='["/song",song.id,song.title | slugify]' (click)="onSongClicked(song)" [title]="song.description" class="text-dark">
+      <a [advRouterLink]='["/song",song.id,song.title | slugify]' (click)="onSongClicked(song)" [title]="song.description" class="text-dark">
         <div class="equalizer align-middle" *ngIf="current == song"></div>
         <label class="align-middle cursor-pointer">{{ song.description }}</label>
       </a>
