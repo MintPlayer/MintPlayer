@@ -1,4 +1,4 @@
-import 'zone.js/dist/zone-node';
+import 'zone.js/node';
 import 'reflect-metadata';
 import { renderModule, renderModuleFactory } from '@angular/platform-server';
 import { APP_BASE_HREF } from '@angular/common';
@@ -153,4 +153,4 @@ export default createServerRenderer(params => {
   return renderPromise.then(html => ({ html }));
 });
 
-export { renderModule, renderModuleFactory } from '@angular/platform-server';
+//export { renderModule, renderModuleFactory } from '@angular/platform-server';

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { YoutubePlayButtonComponent } from './youtube-play-button.component';
 
@@ -6,7 +6,7 @@ describe('YoutubePlayButtonComponent', () => {
   let component: YoutubePlayButtonComponent;
   let fixture: ComponentFixture<YoutubePlayButtonComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ YoutubePlayButtonComponent ]
     })

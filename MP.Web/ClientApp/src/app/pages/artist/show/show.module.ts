@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxJsonLdModule } from '@ngx-lite/json-ld';
+import { JsonLdModule } from '@mintplayer/ng-json-ld';
 
 import { ShowRoutingModule } from './show-routing.module';
 import { ShowComponent } from './show.component';
@@ -15,7 +15,7 @@ import { DirectivesModule } from '../../../directives/directives.module';
   declarations: [ShowComponent],
   imports: [
     CommonModule,
-    NgxJsonLdModule,
+    JsonLdModule,
     ControlsModule,
     ComponentsModule,
     PipesModule,

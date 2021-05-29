@@ -3,6 +3,15 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { environment } from './environments/environment';
 import { AppBrowserModule } from './app/app.browser.module';
+import { env } from 'process';
+
+
+if (environment.production) {
+  console.log('Production');
+} else {
+  console.log('Development');
+}
+
 
 const getBaseUrl = () => {
   return document.getElementsByTagName('base')[0].href.slice(0, -1);
@@ -48,9 +57,9 @@ const providers: StaticProvider[] = [
   { provide: 'URL', useValue: null }
 ];
 
-if (environment.production) {
-  enableProdMode();
-}
+//if (environment.production) {
+//  enableProdMode();
+//}
 
 document.addEventListener('DOMContentLoaded', () => {
   platformBrowserDynamic(providers).bootstrapModule(AppBrowserModule)

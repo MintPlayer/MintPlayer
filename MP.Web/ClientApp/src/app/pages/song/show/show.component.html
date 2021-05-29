@@ -1,6 +1,6 @@
 <div class="container" *ngIf="song != null">
-  <ngx-json-ld [json]="songLd"></ngx-json-ld>
-  <ngx-json-ld *ngIf="videoLd != null" [json]="videoLd"></ngx-json-ld>
+  <json-ld [json]="songLd"></json-ld>
+  <json-ld *ngIf="videoLd != null" [json]="videoLd"></json-ld>
   <div class="form-group row">
     <div class="col-12">
       <h1 class="d-inline-block">{{ song.title }}</h1>

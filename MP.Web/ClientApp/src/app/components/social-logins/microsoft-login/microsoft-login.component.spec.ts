@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MicrosoftLoginComponent } from './microsoft-login.component';
 
@@ -6,7 +6,7 @@ describe('MicrosoftLoginComponent', () => {
   let component: MicrosoftLoginComponent;
   let fixture: ComponentFixture<MicrosoftLoginComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MicrosoftLoginComponent ]
     })
