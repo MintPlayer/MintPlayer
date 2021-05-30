@@ -1,4 +1,4 @@
-#define RebuildSPA
+//#define RebuildSPA
 
 using AspNetCoreOpenSearch.Extensions;
 using AspNetCoreOpenSearch.Options;
