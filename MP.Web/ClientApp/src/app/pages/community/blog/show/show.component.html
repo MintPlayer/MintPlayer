@@ -1,9 +1,9 @@
 <div class="container" *ngIf="blogPost != null">
   <json-ld [json]="blogPostLd"></json-ld>
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ blogPost.title }}</h1>
-      <span *ngIf="isBlogger" class="float-none d-block float-sm-right d-sm-inline-block">
+      <span *ngIf="isBlogger" class="float-none d-block pull-sm-right d-sm-inline-block">
         <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/community", "blog", blogPost.id, blogPost.title | slugify, "edit"]'>
           <!-- to handle -->
           <i class="fa fa-edit"></i>
@@ -16,7 +16,7 @@
       </span>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-md-12">
       <span class="d-inline-block mb-4 text-muted">{{ blogPost.published | date:'MMM dd, yyyy' }} - {{ blogPost.author.userName }}</span>
       <pre class="white-space-pre-wrap font-family-inherit font-size-initial">{{ blogPost.body }}</pre>

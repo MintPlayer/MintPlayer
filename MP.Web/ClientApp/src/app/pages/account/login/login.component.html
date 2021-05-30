@@ -5,19 +5,19 @@
         <h1 class="text-center">{{ 'account.login' | translate }}</h1>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <label [appFor]="txt_email" class="col-form-label col-sm-4 col-xl-3">{{ 'account.email_address' | translate }}</label>
       <div class="col-sm-8 col-xl-9">
         <input type="text" [(ngModel)]="email" name="email" class="form-control" #txt_email />
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <label [appFor]="txt_password" class="col-form-label col-sm-4 col-xl-3">{{ 'account.password' | translate }}</label>
       <div class="col-sm-8 col-xl-9">
         <input type="password" [(ngModel)]="password" name="password" class="form-control" #txt_password />
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12 text-center">
         <button type="submit" [title]="'account.login' | translate" class="btn btn-primary">
           <i class="fa fa-sign-in"></i>

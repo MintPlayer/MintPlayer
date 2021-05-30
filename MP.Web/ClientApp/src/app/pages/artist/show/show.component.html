@@ -1,10 +1,10 @@
 <div class="container" *ngIf="artist != null">
   <json-ld [json]="artistLd"></json-ld>
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ artist.name }}</h1>
-      <span class="float-none d-block float-sm-right d-sm-inline-block">
-        <span class="float-none d-block float-sm-right d-sm-inline-block">
+      <span class="float-none d-block pull-sm-right d-sm-inline-block">
+        <span class="float-none d-block pull-sm-right d-sm-inline-block">
           <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/artist", artist.id, artist.name | slugify, "edit"]'>
             <i class="fa fa-edit"></i>
             Edit
@@ -15,7 +15,7 @@
           </button>
         </span>
         <br class="d-none d-sm-inline-block" />
-        <subject-like [subject]="artist" class="float-none d-block float-sm-right d-sm-inline-block"></subject-like>
+        <subject-like [subject]="artist" class="float-none d-block pull-sm-right d-sm-inline-block"></subject-like>
       </span>
     </div>
   </div>
@@ -26,52 +26,52 @@
     </header>
     <content>
       <div class="container">
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-4 col-xl-3">
-            <label class="font-weight-bold">Name</label>
+            <label class="fw-bold">Name</label>
           </div>
           <div class="col-sm-8 col-xl-9">
             <label>{{ artist.name }}</label>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-4 col-xl-3">
-            <label class="font-weight-bold">Year started</label>
+            <label class="fw-bold">Year started</label>
           </div>
           <div class="col-sm-8 col-xl-9">
             <label>{{ artist.yearStarted }}</label>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-4 col-xl-3">
-            <label class="font-weight-bold">Year quit</label>
+            <label class="fw-bold">Year quit</label>
           </div>
           <div class="col-sm-8 col-xl-9">
             <label>{{ artist.yearQuit }}</label>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-4 col-xl-3">
-            <label class="font-weight-bold">Current members</label>
+            <label class="fw-bold">Current members</label>
           </div>
           <div class="col-sm-8 col-xl-9">
             <a *ngFor="let person of artist.currentMembers" [advRouterLink]='["/person",person.id,person.text | slugify]'>{{ person.firstName + ' ' + person.lastName }}</a>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-4 col-xl-3">
-            <label class="font-weight-bold">Past members</label>
+            <label class="fw-bold">Past members</label>
           </div>
           <div class="col-sm-8 col-xl-9">
             <a *ngFor="let person of artist.pastMembers" [advRouterLink]='["/person",person.id,person.text | slugify]'>{{ person.firstName + ' ' + person.lastName }}</a>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-4 col-xl-3">
-            <label class="font-weight-bold">Tags</label>
+            <label class="fw-bold">Tags</label>
           </div>
           <div class="col-sm-8 col-xl-9">
-            <a *ngFor="let tag of artist.tags" class="h4 d-inline-block mr-2 mb-0" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id]'>
+            <a *ngFor="let tag of artist.tags" class="h4 d-inline-block me-2 mb-0" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id]'>
               <span class="badge float-left" [style.background]="tag.category.color" [style.color]="tag.category.color | fontColor">{{ tag.description }}</span>
             </a>
           </div>

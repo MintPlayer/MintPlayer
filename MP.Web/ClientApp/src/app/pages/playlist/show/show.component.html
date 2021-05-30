@@ -1,9 +1,9 @@
 <div class="container" *ngIf="playlist != null">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ playlist.description }}</h1>
-      <span class="float-none d-block float-sm-right d-sm-inline-block">
-        <span class="float-none d-block float-sm-right d-sm-inline-block">
+      <span class="float-none d-block pull-sm-right d-sm-inline-block">
+        <span class="float-none d-block pull-sm-right d-sm-inline-block">
           <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/playlist", playlist.id, playlist.description | slugify, "edit"]'>
             <i class="fa fa-edit"></i>
             Edit

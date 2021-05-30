@@ -1,9 +1,9 @@
 <div class="container">
   <form (submit)="savePerson()">
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12">
         <h1 class="d-inline-block">Create new person</h1>
-        <span class="float-right">
+        <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
             Create person
@@ -17,31 +17,31 @@
         General information
       </header>
       <content>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="txt_first_name" class="col-form-label col-sm-4 col-xl-2">First name</label>
           <div class="col-sm-8 col-xl-10">
             <input type="text" [(ngModel)]="person.firstName" class="form-control" #txt_first_name name="first_name" autofocus />
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="txt_last_name" class="col-form-label col-sm-4 col-xl-2">Last name</label>
           <div class="col-sm-8 col-xl-10">
             <input type="text" [(ngModel)]="person.lastName" class="form-control" #txt_last_name name="last_name" autofocus />
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="txt_born" class="col-form-label col-sm-4 col-xl-2">Birth day</label>
           <div class="col-sm-8 col-xl-10">
             <input type="date" [ngModel]="person.born | date:'yyyy-MM-dd'" (ngModelChange)="person.born = $event" name="born" class="form-control" #txt_born autofocus />
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="txt_died" class="col-form-label col-sm-4 col-xl-2">Died</label>
           <div class="col-sm-8 col-xl-10">
             <input type="date" [ngModel]="person.died | date:'yyyy-MM-dd'" (ngModelChange)="person.died = $event" name="died" class="form-control" #txt_died autofocus />
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="sel_tags" class="col-form-label col-sm-4 col-xl-2">Tags</label>
           <div class="col-sm-8 col-xl-10">
             <select2 [url]="'/web/v1/Tag/suggest'" [method]="'post'" [headers]="httpHeaders" [items]="person.tags" [itemTemplate]="customTemplate" #sel_tags>

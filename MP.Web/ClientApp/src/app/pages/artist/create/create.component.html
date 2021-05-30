@@ -1,9 +1,9 @@
 <div class="container">
   <form (submit)="saveArtist()">
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12">
         <h1 class="d-inline-block">Create new artist</h1>
-        <span class="float-right">
+        <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
             Create artist
@@ -17,37 +17,37 @@
         General information
       </header>
       <content>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="txt_name" class="col-form-label col-md-6 col-lg-4 col-xl-3">Name</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <input type="text" [(ngModel)]="artist.name" class="form-control" name="name" #txt_name autofocus />
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="txt_year_started" class="col-form-label col-md-6 col-lg-4 col-xl-3">Year started</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <input type="number" [(ngModel)]="artist.yearStarted" class="form-control" name="year_started" #txt_year_started autofocus />
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="txt_year_quit" class="col-form-label col-md-6 col-lg-4 col-xl-3">Year quit</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <input type="number" [(ngModel)]="artist.yearQuit" class="form-control" name="year_quit" #txt_year_quit autofocus />
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="sel_current_members" class="col-form-label col-md-6 col-lg-4 col-xl-3">Current members</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <select2 [url]="'/api/subject/search/suggest/person'" [method]="'get'" [headers]="httpHeaders" [items]="artist.currentMembers" #sel_current_members></select2>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="sel_past_members" class="col-form-label col-md-6 col-lg-4 col-xl-3">Past members</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <select2 [url]="'/api/subject/search/suggest/person'" [method]="'get'" [headers]="httpHeaders" [items]="artist.pastMembers" #sel_past_members></select2>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="sel_tags" class="col-form-label col-md-6 col-lg-4 col-xl-3">Tags</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <select2 [url]="'/web/v1/Tag/suggest'" [method]="'post'" [headers]="httpHeaders" [items]="artist.tags" [itemTemplate]="customTemplate" #sel_tags>

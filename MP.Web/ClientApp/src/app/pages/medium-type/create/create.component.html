@@ -1,9 +1,9 @@
 <div class="container">
   <form (submit)="saveMediumType()">
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12">
         <h1 class="d-inline-block">Create new medium type</h1>
-        <span class="float-right">
+        <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
             Create medium type
@@ -11,13 +11,13 @@
         </span>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <label [appFor]="txt_description" class="col-form-label col-sm-4 col-xl-2">Description</label>
       <div class="col-sm-8 col-xl-10">
         <input type="text" [(ngModel)]="mediumType.description" class="form-control" #txt_description name="description" autofocus />
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <label [appFor]="cmb_playertype" class="col-form-label col-sm-4 col-xl-2">Player type</label>
       <div class="col-sm-8 col-xl-10">
         <select class="form-control" name="playertype" #cmb_playertype [ngModel]="mediumType.playerType" (ngModelChange)="playerTypeSelected($event)">

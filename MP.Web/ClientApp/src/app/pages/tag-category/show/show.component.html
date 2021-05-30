@@ -1,9 +1,9 @@
 <div class="container" *ngIf="tagCategory != null">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ tagCategory.description }}</h1>
-      <span class="float-none d-block float-sm-right d-sm-inline-block">
-        <span class="float-none d-block float-sm-right d-sm-inline-block">
+      <span class="float-none d-block pull-sm-right d-sm-inline-block">
+        <span class="float-none d-block pull-sm-right d-sm-inline-block">
           <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/tag", "category", tagCategory.id, "edit"]'>
             <i class="fa fa-edit"></i>
             Edit
@@ -25,7 +25,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-xl-2">
-            <label class="font-weight-bold">Description</label>
+            <label class="fw-bold">Description</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ tagCategory.description }}</label>
@@ -33,7 +33,7 @@
         </div>
         <div class="row">
           <div class="col-sm-4 col-xl-2">
-            <label class="font-weight-bold">Color</label>
+            <label class="fw-bold">Color</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ tagCategory.color }}</label>

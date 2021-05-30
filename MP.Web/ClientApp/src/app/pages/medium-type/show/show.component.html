@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ mediumType.description }}</h1>
-      <span class="float-right">
+      <span class="pull-right">
         <a class="btn btn-primary" [advRouterLink]='["/mediumtype", mediumType.id, mediumType.description | slugify, "edit"]'>
           <i class="fa fa-edit"></i>
           Edit
@@ -23,7 +23,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-xl-2">
-            <label class="font-weight-bold">Description</label>
+            <label class="fw-bold">Description</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ mediumType.description }}</label>
@@ -31,7 +31,7 @@
         </div>
         <div class="row">
           <div class="col-sm-4 col-xl-2">
-            <label class="font-weight-bold">Player type</label>
+            <label class="fw-bold">Player type</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ playerTypeEnum[mediumType.playerType] }}</label>

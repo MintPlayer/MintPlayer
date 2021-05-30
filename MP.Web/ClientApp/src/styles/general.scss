@@ -7,6 +7,14 @@ body {
   min-height: 100%;
 }
 
+a {
+  text-decoration: initial;
+}
+
+.table th {
+  border-bottom-color: #dee2e6 !important;
+}
+
 .dropdown-item {
   cursor: pointer;
 

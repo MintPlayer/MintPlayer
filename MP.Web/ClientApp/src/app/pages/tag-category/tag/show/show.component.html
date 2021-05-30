@@ -1,9 +1,9 @@
 <div class="container" *ngIf="tag != null">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ tag.description }}</h1>
-      <span class="float-none d-block float-sm-right d-sm-inline-block">
-        <span class="float-none d-block float-sm-right d-sm-inline-block">
+      <span class="float-none d-block pull-sm-right d-sm-inline-block">
+        <span class="float-none d-block pull-sm-right d-sm-inline-block">
           <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id,"edit"]'>
             <i class="fa fa-edit"></i>
             Edit
@@ -25,7 +25,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-xl-2">
-            <label class="font-weight-bold">Description</label>
+            <label class="fw-bold">Description</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ tag.description }}</label>
@@ -33,7 +33,7 @@
         </div>
         <div class="row">
           <div class="col-sm-4 col-xl-2">
-            <label class="font-weight-bold">Category</label>
+            <label class="fw-bold">Category</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <a [advRouterLink]='["/tag","category",tag.category.id]'>{{ tag.category.description }}</a>
@@ -41,7 +41,7 @@
         </div>
         <div class="row" *ngIf="tag.parent !== null">
           <div class="col-sm-4 col-xl-2">
-            <label class="font-weight-bold">Parent tag</label>
+            <label class="fw-bold">Parent tag</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <a [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.parent.id]'>{{ tag.parent.description }}</a>

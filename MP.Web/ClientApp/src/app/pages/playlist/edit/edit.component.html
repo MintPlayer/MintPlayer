@@ -1,9 +1,9 @@
 <div class="container">
   <form (submit)="savePlaylist()">
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12">
         <h1 class="d-inline-block">Edit playlist: {{ oldPlaylistDescription }}</h1>
-        <span class="float-right">
+        <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
             Update playlist
@@ -17,7 +17,7 @@
         General information
       </header>
       <content>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="txt_description" class="col-form-label col-md-6 col-lg-4 col-xl-3">Description</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <input type="text" [(ngModel)]="playlist.description" class="form-control" name="description" #txt_description autofocus />
