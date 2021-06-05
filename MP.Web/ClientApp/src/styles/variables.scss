@@ -12,13 +12,91 @@ $fa-padding: 2px;
 @media (prefers-color-scheme: light) {
   :root {
     --theme-text-color: #212529;
+    --theme-text-color-hover: #43474B;
     --theme-background-color: white;
+    --focus-background-color: rgba(0,0,0,0.15);
+    --focus-text-color: #212529;
+    --logo-text-color: #212529;
+    --card-header-background-color: rgba(0, 0, 0, 0.03);
+    --card-body-background-color: white;
+    --card-border-color: rgba(0, 0, 0, 0.125);
+    --link-color: #0d6efd;
+    --border-color: rgba(0,0,0,.15);
+  }
+
+  .table {
+    --bs-table-bg: transparent;
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: #212529;
+    --bs-table-striped-bg: rgba(0,0,0,0.05);
+    --bs-table-active-color: #212529;
+    --bs-table-active-bg: rgba(0,0,0,0.1);
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: rgba(0,0,0,0.08);
+  }
+
+  ul li {
+    --li-background-color: white;
+    --li-hover-background-color: #DCDCDC;
+  }
+
+  select {
+      --select-option-background: white;
+  }
+
+  .pagination {
+    --page-link-background-color: #FFF;
+    --page-link-text-color--disabled: #6C757D;
+    --page-link-background-color--disabled: #FFF;
+    --page-link-background-color--hover: #E9ECEF;
+    --page-link-text-color--active: #fff;
+    --page-link-background-color--active: #0d6efd;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --theme-text-color: #ADBAC7;
+    --theme-text-color: #BECBD8;
+    --theme-text-color-hover: #DFEDFA;
     --theme-background-color: #22272E;
+    --focus-background-color: rgba(255,255,255,0.15);
+    --focus-text-color: #DFEDFA;
+    --logo-text-color: #DEDAD7;
+    --card-header-background-color: #000000;
+    --card-body-background-color: #44494F;
+    --card-border-color: white;
+    --link-color: #2F8FFF;
+    --border-color: rgba(255,255,255,.15);
+  }
+
+  .table {
+    color: #DEDAD6;
+
+    --bs-table-bg: transparent;
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: #DEDAD6;
+    --bs-table-striped-bg: rgba(255,255,255,0.05);
+    --bs-table-active-color: #DEDAD6;
+    --bs-table-active-bg: rgba(0,0,0,0.1);
+    --bs-table-hover-color: #DEDAD6;
+    --bs-table-hover-bg: rgba(255,255,255,0.08);
+  }
+
+  ul li {
+    --li-background-color: #22272E;
+    --li-hover-background-color: #44494F;
+  }
+
+  select {
+    --select-option-background: black;
+  }
+
+  .pagination {
+    --page-link-background-color: #22272E;
+    --page-link-text-color--disabled: #6C757D;
+    --page-link-background-color--disabled: #22272E;
+    --page-link-background-color--hover: #383A30;
+    --page-link-text-color--active: #fff;
+    --page-link-background-color--active: #0d6efd;
   }
 }

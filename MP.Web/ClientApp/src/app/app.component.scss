@@ -10,11 +10,12 @@ h1 {
   z-index: $z-index-main;
   height: $header-height;
   border-bottom: $grey-border;
-  background: $white;
+  background: var(--theme-background-color);
 
   .logo {
     font-size: 2.5rem;
     line-height: 1.15;
+    color: var(--logo-text-color);
   }
 }
 
@@ -44,7 +45,7 @@ playlist-toggler {
   padding: 0;
   line-height: $footer-height;
   transition: left 0.3s, width 0.3s;
-  background: $white;
+  background: var(--theme-background-color);
   bottom: 0;
   left: $sidebar-width-lg;
   right: 0;

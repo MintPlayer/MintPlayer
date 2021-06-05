@@ -33,11 +33,11 @@
   </div>
   <ul class="overflow-auto mb-0">
     <li *ngFor="let song of songs">
-      <a [advRouterLink]='["/song",song.id,song.title | slugify]' (click)="onSongClicked(song)" [title]="song.description" class="text-dark">
+      <a [advRouterLink]='["/song",song.id,song.title | slugify]' (click)="onSongClicked(song)" [title]="song.description">
         <div class="equalizer align-middle" *ngIf="current == song"></div>
         <label class="align-middle cursor-pointer">{{ song.description }}</label>
       </a>
-      <button class="btn btn-playlist-remove" title="Remove song" (click)="removeSong($event,song)"><i class="fa fa-trash"></i></button>
+      <button class="btn btn-default btn-playlist-remove" title="Remove song" (click)="removeSong($event,song)"><i class="fa fa-trash"></i></button>
     </li>
   </ul>
 </div>

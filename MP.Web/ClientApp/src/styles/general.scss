@@ -8,10 +8,11 @@ html {
 body {
   min-height: 100%;
   background-color: var(--theme-background-color);
-  color: var(---theme-text-color);
+  color: var(--theme-text-color);
 }
 
 a {
+  color: var(--link-color);
   text-decoration: initial;
 }
 
@@ -39,6 +40,25 @@ h2, .h2 {
   border-radius: 0 !important;
 }
 
+.btn-default {
+  color: var(--theme-text-color);
+
+  &:hover {
+    color: var(--theme-text-color-hover);
+  }
+}
+
+.card {
+  .card-header {
+    background: var(--card-header-background-color);
+    border-bottom: 1px solid var(--card-border-color);
+  }
+
+  .card-body {
+    background: var(--card-body-background-color);
+  }
+}
+
 .card-header .input-group {
   margin: -7px -15px -8px -14px;
 }
@@ -63,4 +83,56 @@ h2, .h2 {
 .btn-caret-center {
   position: relative;
   top: 3px;
+}
+
+.form-control {
+  background-color: transparent;
+  color: var(--theme-text-color);
+
+  &:focus {
+    background-color: var(--focus-background-color);
+    color: var(--focus-text-color);
+  }
+}
+
+select2 {
+  background-color: transparent;
+
+  &.form-control-focus {
+    background-color: var(--focus-background-color);
+  }
+
+  > input {
+    color: var(--theme-text-color)
+  }
+}
+
+.dropdown-menu {
+  background-color: var(--theme-background-color);
+  border-color: var(--border-color);
+
+  li a {
+    color: var(--theme-text-color);
+  }
+}
+
+select option {
+  background: var(--select-option-background);
+}
+
+.pagination .page-item {
+  .page-link {
+    color: var(--link-color);
+    background-color: var(--page-link-background-color);
+  }
+
+  &.disabled .page-link {
+    color: var(--page-link-text-color--disabled);
+    background-color: var(--page-link-background-color--disabled);
+  }
+
+  &.active .page-link {
+    color: var(--page-link-text-color--active);
+    background-color: var(--page-link-background-color--active);
+  }
 }
