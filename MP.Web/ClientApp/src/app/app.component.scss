@@ -51,7 +51,7 @@ playlist-toggler {
 }
 
 .main-content {
-  background: $white;
+  background: var(--theme-background-color);
   margin-bottom: calc(1.5rem + 45px) !important;
 }
 

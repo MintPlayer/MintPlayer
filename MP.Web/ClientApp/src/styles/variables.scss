@@ -8,3 +8,17 @@ $white: #FFF;
 $sidebar-background: #333;
 $arrow-size: 10px;
 $fa-padding: 2px;
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --theme-text-color: #212529;
+    --theme-background-color: white;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --theme-text-color: #ADBAC7;
+    --theme-background-color: #22272E;
+  }
+}

@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 html {
   height: 100%;
   font-display: swap;
@@ -5,6 +7,8 @@ html {
 
 body {
   min-height: 100%;
+  background-color: var(--theme-background-color);
+  color: var(---theme-text-color);
 }
 
 a {
@@ -40,11 +44,11 @@ h2, .h2 {
 }
 
 .youtube-card, .dailymotion-card {
-    height: 0;
+  height: 0;
 
-    > .card {
-        margin-top: -290px;
-    }
+  > .card {
+    margin-top: -290px;
+  }
 }
 
 .card > .card-body > content {
@@ -53,10 +57,10 @@ h2, .h2 {
 }
 
 .card > .card-body > content > media-list {
-    margin-bottom: 10px !important;
+  margin-bottom: 10px !important;
 }
 
 .btn-caret-center {
-    position: relative;
-    top: 3px;
+  position: relative;
+  top: 3px;
 }
