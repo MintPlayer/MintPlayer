@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
 import { AccountService } from '../../../services/account/account.service';
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: AdvancedRouter,
     private route: ActivatedRoute,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
   }
 
@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private basicMetaTags: HTMLMetaElement[] = [];
   private ogMetaTags: HTMLMetaElement[] = [];
   private twitterMetaTags: HTMLMetaElement[] = [];
+  private hreflangTags: HTMLLinkElement[] = [];
   private addMetaTags() {
     this.addBasicMetaTags();
     this.addOpenGraphTags();
@@ -76,6 +77,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.twitterMetaTags !== null) {
       this.twitterMetaTags.forEach((tag) => {
         this.metaService.removeTagElement(tag);
+      });
+    }
+    if (this.hreflangTags !== null) {
+      this.hreflangTags.forEach((tag) => {
+        tag.parentNode.removeChild(tag);
       });
     }
   }

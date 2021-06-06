@@ -30,6 +30,7 @@ import { LinkedinSdkHelper } from './helpers/linkedin-sdk.helper';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { ePlayerType } from './enums/ePlayerType';
+import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
 
 @Component({
   selector: 'app-root',
@@ -61,7 +62,23 @@ export class AppComponent implements OnInit, OnDestroy {
   //#endregion
 
   @ViewChild('dmplayer') dmplayer: DailymotionPlayerComponent;
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('USER') userInj: User, private accountService: AccountService, private youtubeHelper: YoutubeHelper, private dailyMotionHelper: DailyMotionHelper, private facebookSdkHelper: FacebookSdkHelper, private twitterSdkHelper: TwitterSdkHelper, private linkedinSdkHelper: LinkedinSdkHelper, private ref: ChangeDetectorRef, private swUpdate: SwUpdate, private metaService: Meta, private linifyPipe: LinifyPipe, private route: ActivatedRoute, private translateService: TranslateService) {
+  constructor(
+    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject('USER') userInj: User,
+    private accountService: AccountService,
+    private youtubeHelper: YoutubeHelper,
+    private dailyMotionHelper: DailyMotionHelper,
+    private facebookSdkHelper: FacebookSdkHelper,
+    private twitterSdkHelper: TwitterSdkHelper,
+    private linkedinSdkHelper: LinkedinSdkHelper,
+    private ref: ChangeDetectorRef,
+    private swUpdate: SwUpdate,
+    private metaService: Meta,
+    private linifyPipe: LinifyPipe,
+    private route: ActivatedRoute,
+    private translateService: TranslateService,
+    private hreflangTagHelper: HreflangTagHelper,
+  ) {
     //#region Get user
     if (serverSide === true) {
       this.activeUser = userInj;
@@ -295,6 +312,8 @@ export class AppComponent implements OnInit, OnDestroy {
   //#endregion
 
   routingActivated(element: ElementRef) {
+    this.hreflangTagHelper.setHreflangTags();
+
     // Login complete
     if (element instanceof LoginComponent) {
       element.loginComplete.subscribe(this.loginCompleted);
