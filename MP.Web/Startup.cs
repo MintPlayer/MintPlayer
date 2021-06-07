@@ -98,6 +98,18 @@ namespace MintPlayer.Web
 
             services.AddHttpContextAccessor();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(CorsPolicies.AllowDatatables, policy =>
+                {
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .SetIsOriginAllowed((origin) => true);
+                });
+            });
+
             services
                 .AddControllersWithViews(options =>
                 {
@@ -399,12 +411,14 @@ namespace MintPlayer.Web
                 }
             );
             app.UseRouting();
+            app.UseCors(CorsPolicies.AllowDatatables);
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}")
+                .RequireCors("AllowPage");
             });
 
             //app.UseResponseCaching();

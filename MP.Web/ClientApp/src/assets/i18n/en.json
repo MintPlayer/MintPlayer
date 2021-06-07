@@ -25,7 +25,9 @@
     "songs": "Songs",
     "all_songs": "All songs",
     "add_song": "Add song",
-    "favorite_songs": "Favorite songs"
+    "favorite_songs": "Favorite songs",
+    "title": "Title",
+    "released": "Released"
   },
   "playlists": {
     "playlists": "Playlists",

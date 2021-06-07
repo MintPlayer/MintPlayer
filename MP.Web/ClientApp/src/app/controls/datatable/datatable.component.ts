@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { DatatableSettings } from './datatable-settings';
 import { PaginationResponse } from '../../helpers/pagination-response';
-import { get } from 'lodash'
 import { DataColumn } from './datacolumn';
 
 @Component({

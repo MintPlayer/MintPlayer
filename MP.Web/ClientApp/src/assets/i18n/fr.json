@@ -25,7 +25,9 @@
     "songs": "Chansons",
     "all_songs": "Tous chansons",
     "add_song": "Créer chanson",
-    "favorite_songs": "Chansons préférées"
+    "favorite_songs": "Chansons préférées",
+    "title": "Titre",
+    "released": "Sortie"
   },
   "playlists": {
     "playlists": "Playlists",

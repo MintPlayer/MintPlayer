@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.Data.Repositories;
 using MintPlayer.Data.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace MintPlayer.Web.Server.Controllers.Api
 {
@@ -21,6 +22,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
 		}
 
 		// POST: api/Person/page
+		//[EnableCors(CorsPolicies.AllowDatatables)]
 		[HttpPost("page", Name = "api-person-page")]
 		public async Task<ActionResult<Pagination.PaginationResponse<Person>>> PagePeople([FromBody] Pagination.PaginationRequest<Person> request)
 		{

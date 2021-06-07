@@ -25,7 +25,9 @@
     "songs": "Songs",
     "all_songs": "Alle songs",
     "add_song": "Song toevoegen",
-    "favorite_songs": "Favoriete songs"
+    "favorite_songs": "Favoriete songs",
+    "title": "Titel",
+    "released": "Uitgebracht"
   },
   "playlists": {
     "playlists": "Afspeellijsten",
