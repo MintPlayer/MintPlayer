@@ -411,7 +411,7 @@ namespace MintPlayer.Web
                 }
             );
             app.UseRouting();
-            app.UseCors(CorsPolicies.AllowDatatables);
+            app.UseCors();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

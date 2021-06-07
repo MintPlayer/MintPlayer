@@ -21,9 +21,9 @@ namespace MintPlayer.Web.Server.Controllers.Api
 			this.personService = personService;
 		}
 
-		// POST: api/Person/page
-		//[EnableCors(CorsPolicies.AllowDatatables)]
-		[HttpPost("page", Name = "api-person-page")]
+        // POST: api/Person/page
+        [EnableCors(CorsPolicies.AllowDatatables)]
+        [HttpPost("page", Name = "api-person-page")]
 		public async Task<ActionResult<Pagination.PaginationResponse<Person>>> PagePeople([FromBody] Pagination.PaginationRequest<Person> request)
 		{
 			var people = await personService.PagePeople(request);

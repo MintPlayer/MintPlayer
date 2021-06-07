@@ -22,9 +22,9 @@ namespace MintPlayer.Web.Server.Controllers.Api
 			this.songService = songService;
 		}
 
-		// POST: api/Song/page
-		//[EnableCors(CorsPolicies.AllowDatatables)]
-		[HttpPost("page", Name = "api-song-page")]
+        // POST: api/Song/page
+        [EnableCors(CorsPolicies.AllowDatatables)]
+        [HttpPost("page", Name = "api-song-page")]
 		public async Task<ActionResult<Pagination.PaginationResponse<Song>>> PageSongs([FromBody] Pagination.PaginationRequest<Song> request)
 		{
 			var songs = await songService.PageSongs(request);
