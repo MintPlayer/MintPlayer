@@ -104,9 +104,9 @@ namespace MintPlayer.Web
                 {
                     policy
                         .AllowAnyHeader()
-                        .AllowAnyMethod()
                         .AllowCredentials()
-                        .SetIsOriginAllowed((origin) => true);
+                        .WithMethods(HttpMethods.Post)
+                        .SetIsOriginAllowed((origin) => Regex.IsMatch(origin, @"http[s]{0,1}\:\/\/localhost\:[0-9]+"));
                 });
             });
 

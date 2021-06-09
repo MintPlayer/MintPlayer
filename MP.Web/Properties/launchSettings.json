@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "http://vehicle.test:44329",
+      "launchUrl": "https://localhost:44329",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production"
       }
