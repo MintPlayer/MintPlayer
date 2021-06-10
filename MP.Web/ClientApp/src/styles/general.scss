@@ -136,3 +136,9 @@ select option {
     background-color: var(--page-link-background-color--active);
   }
 }
+
+/*
+html, body, app-sidebar {
+  min-height: -webkit-fill-available;
+}
+*/

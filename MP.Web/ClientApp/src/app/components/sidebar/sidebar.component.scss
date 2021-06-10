@@ -2,10 +2,12 @@
 
 :host {
   background: $sidebar-background;
+  /*min-height: -webkit-fill-available;*/
 }
 
 .sidebar {
   height: 100%;
+  /*min-height: -webkit-fill-available;*/
 
   > nav {
     height: 100%;
