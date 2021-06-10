@@ -2,12 +2,15 @@
 
 :host {
   position: fixed;
-  top: $header-height;
+  top: calc(#{$header-height} - 1px);
+  bottom: $footer-height;
+  // Doesn't work well on Chrome for Android
+  //height: calc(100% - #{$header-height} - #{$footer-height} + 1px);
+  //margin-top: -1px;
+
   width: $playlist-width-lg;
-  height: calc(100% - #{$header-height} - #{$footer-height} + 1px);
   background: var(--theme-background-color);
   border: $grey-border;
-  margin-top: -1px;
   transition: right 0.3s;
 
   &.open {

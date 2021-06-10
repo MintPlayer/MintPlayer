@@ -66,9 +66,13 @@ playlist-toggler {
 
 app-sidebar {
   position: fixed;
-  height: calc(100% - #{$header-height});
+  // Doesn't work well on Chrome for Android
+  //height: calc(100% - #{$header-height});
+
   transition: all 0.3s;
   z-index: 200;
+  top: $header-height;
+  bottom: 0;
 }
 
 @mixin sidebar-hide-lg {
