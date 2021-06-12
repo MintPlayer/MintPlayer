@@ -2,6 +2,7 @@
 
 :host {
   position: fixed;
+  top: calc(#{$header-height} - 1px);
   // Doesn't work well on Chrome for Android
   //height: calc(100% - #{$header-height} - #{$footer-height} + 1px);
   height: calc(var(--viewport-height) - #{$header-height} - #{$footer-height} + 1px);
