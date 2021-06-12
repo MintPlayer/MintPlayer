@@ -68,11 +68,9 @@ app-sidebar {
   position: fixed;
   // Doesn't work well on Chrome for Android
   //height: calc(100% - #{$header-height});
-
-  transition: all 0.3s;
+  height: calc(var(--viewport-height) - #{$header-height});
+  transition: margin-left .3s, width .3s;
   z-index: 200;
-  top: $header-height;
-  bottom: 0;
 }
 
 @mixin sidebar-hide-lg {

@@ -159,6 +159,13 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
     //#endregion
+    //#region Viewport resize
+    if (!serverSide) {
+      visualViewport.addEventListener('resize', () => {
+        document.documentElement.style.setProperty('--viewport-height', `${visualViewport.height}px`);
+      });
+    }
+    //#endregion
   }
 
   //#region Add meta-tags
