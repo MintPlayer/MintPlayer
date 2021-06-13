@@ -7,11 +7,11 @@
         <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/community", "blog", blogPost.id, blogPost.title | slugify, "edit"]'>
           <!-- to handle -->
           <i class="fa fa-edit"></i>
-          Edit
+          {{ 'global.edit' | translate }}
         </a>
         <button (click)="deleteBlogPost()" class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto">
           <i class="fa fa-trash"></i>
-          Remove
+          {{ 'global.remove' | translate }}
         </button>
       </span>
     </div>

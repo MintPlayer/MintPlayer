@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">All artists</h1>
+      <h1 class="d-inline-block">{{ 'artists.all_artists' | translate }}</h1>
       <span class="pull-right">
         <a [advRouterLink]='["/artist/create"]' class="btn btn-primary">
           <i class="fa fa-plus"></i>
-          Create artist
+          {{ 'artists.add_artist' | translate }}
         </a>
       </span>
     </div>
@@ -13,13 +13,13 @@
   <div class="row">
     <div class="col-md-12">
       <datatable [settings]="tableSettings" [data]="artistData" (onReloadData)="loadArtists()">
-        <datatable-column title="Name" name="Name" [sortable]="true"></datatable-column>
-        <datatable-column title="Year started" name="YearStarted" [sortable]="true"></datatable-column>
-        <datatable-column title="Year quit" name="YearQuit" [sortable]="true"></datatable-column>
+        <datatable-column [title]="'artists.name' | translate" name="Name" [sortable]="true"></datatable-column>
+        <datatable-column title="'artists.year_started' | translate" name="YearStarted" [sortable]="true"></datatable-column>
+        <datatable-column title="'artists.year_quit' | translate" name="YearQuit" [sortable]="true"></datatable-column>
 
         <ng-template rowTemplate let-artist>
           <tr>
-            <td class="text-nowrap"><a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' title="Details for {{ artist.name }}">{{ artist.name }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' [title]="'global.details_for' | translate:{'name':artist.name}">{{ artist.name }}</a></td>
             <td class="text-nowrap">{{ artist.yearStarted }}</td>
             <td class="text-nowrap">{{ artist.yearQuit }}</td>
           </tr>

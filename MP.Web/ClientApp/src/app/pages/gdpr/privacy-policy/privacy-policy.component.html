@@ -1,54 +1,27 @@
-<h1>Privacy policy</h1>
-<p>
-  We try to be as transparent as possible.
-  Therefor we think it&39;s important for you to know what happens with your data while visiting our website.
-  The General Data Protection Regulation (GDPR), which took effect in Europe from 25 May 2018 motivates us to inform you about what exactly we store, and how we handle your data.
-</p>
-<p>
-  To make this as readable as possible, we&#39;ve split up the document into following sections:
-</p>
+<h1>{{ 'gdpr.privacy_policy.privacy_policy' | translate }}</h1>
+<p>{{ 'gdpr.privacy_policy.intro' | translate }}</p>
+<p>{{ 'gdpr.privacy_policy.declaration' | translate }}</p>
 <ul>
-  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="data-we-collect">What data do we collect</a></li>
-  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="handling-of-data">How we handle your data</a></li>
-  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="cookie-policy">What cookies do we use</a></li>
-  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="information-sharing">Does MintPlayer share any of your information</a></li>
-  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="data-removal">Request us to delete your data</a></li>
+  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="data-we-collect">{{ 'gdpr.privacy_policy.data_we_collect.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="handling-of-data">{{ 'gdpr.privacy_policy.handling_of_data.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="cookie-policy">{{ 'gdpr.privacy_policy.cookies.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="information-sharing">{{ 'gdpr.privacy_policy.information_sharing.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="data-removal">{{ 'gdpr.privacy_policy.data_removal.title' | translate }}</a></li>
 </ul>
-<h2 id="data-we-collect">What data do we collect?</h2>
+<h2 id="data-we-collect">{{ 'gdpr.privacy_policy.data_we_collect.title' | translate }}</h2>
 <p>
-  Our application initially does not collect any of your information or surfing behavior.
-  When you sign in, either by creating an account or by using a social-network login, we store your email address and username.
-  The password is always salted and then hashed immediately, then stored in the database.
-  The hashing algorithm used by our application is a trustworthy version.
-  When you attach a social login to your account, we store only the account identifier for that platform.
-  Our application does not do anything else except from reading your email address and username from your social login.
-  Your email address will <b>never</b> end up on the website.
-  Email addresses should be kept private at any time.
-  Your username will be displayed publicly when participating in our forum, but you can change your username at any time from your <a [advRouterLink]='["/account","profile"]'>profile page</a>.
+  {{ 'gdpr.privacy.data_we_collect.body' | translate }}
+  <a [advRouterLink]='["/account","profile"]'>{{ 'account.profile_page' | translate }}</a>.
 </p>
-<h2 id="handling-of-data">How we handle your data</h2>
+<h2 id="handling-of-data">{{ 'gdpr.privacy_policy.handling_of_data.title' | translate }}</h2>
+<p>{{ 'gdpr.privacy_policy.handling_of_data.body' | translate }}</p>
+<h2 id="cookie-policy">{{ 'gdpr.privacy_policy.cookies.title' | translate }}</h2>
+<p>{{ 'gdpr.privacy_policy.cookies.body' | translate }}</p>
+<h2 id="information-sharing">{{ 'gdpr.privacy_policy.information_sharing.title' | translate }}</h2>
+<p>{{ 'gdpr.privacy_policy.information_sharing.body' | translate }}</p>
+<h2 id="data-removal">{{ 'gdpr.privacy_policy.data_removal.title' | translate }}</h2>
+<p>{{ 'gdpr.privacy_policy.data_removal.body1' | translate }}</p>
 <p>
-  We keep track of the items you add, edit or remove from the database.
-  We don&#39;t share your data with anyone, and at this time nobody is able to see which items you liked/disliked, added/removed/edited from the database.
-  At this point, MintPlayer is a completely anonymous platform, where the focus is to let you keep track of the music you like, build playlists, and discover music.
-</p>
-<h2 id="cookie-policy">Cookie policy</h2>
-<p>
-  We don&#39;t store any third-party cookies. The only cookie we create is to enable you to login into our platform.
-</p>
-<h2 id="information-sharing">Does MintPlayer share any of your information</h2>
-<p>
-  In short: No.
-  <br />
-  Your information is completely contained to our system. Nobody can access your personal preferences or information.
-  We do not share, sell or trade your personal information with other parties in any way.
-</p>
-<h2 id="data-removal">Request us to delete your data</h2>
-<p>
-  You may at any time request us to delete your information we store in our database.
-  To ensure that this data deletion request is authorized, you must be logged in first.
-  Once your data deletion request is complete, you will not be able to recover the information stored in your account.
-</p>
-<p>
-  If you want to remove your data from our platform, please contact us at <a href="mailto:info@mintplayer.com">info@mintplayer.com</a>.
+  {{ 'gdpr.privacy_policy.data_removal.body2' | translate }}
+  <a href="mailto:info@mintplayer.com">info@mintplayer.com</a>.
 </p>

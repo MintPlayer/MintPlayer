@@ -1,4 +1,10 @@
 {
+  "global": {
+    "edit": "Edit",
+    "remove": "Remove",
+    "details_for": "Details for {{ name }}",
+    "general_information": "General information"
+  },
   "home": {
     "home": "Home",
     "title": "Open-source music player",
@@ -9,11 +15,26 @@
     "search": "Search",
     "search_anything": "Search for anything"
   },
+  "subjects": {
+    "tags": "Tags",
+    "media": "Media",
+    "general_information": "General information"
+  },
   "artists": {
     "artists": "Artists",
     "all_artists": "All artists",
     "add_artist": "Add artist",
-    "favorite_artists": "Favorite artists"
+    "create_artist": "Create artist",
+    "create_new_artist": "Create new artist",
+    "favorite_artists": "Favorite artists",
+    "my_favorite_artists": "My favorite artists",
+    "name": "Name",
+    "year_started": "Year started",
+    "year_quit": "Year quit",
+    "current_members": "Current members",
+    "past_members": "Past members",
+    "edit_artist": "Edit artist: {{ name }}",
+    "update_artist": "Update artist"
   },
   "people": {
     "people": "People",
@@ -67,6 +88,7 @@
     "register": "Register",
     "create_account": "Create account",
     "profile": "Profile",
+    "profile_page": "profile page",
     "sign_out": "Sign out",
     "log_out": "Log out",
     "email_address": "Email address",
@@ -98,14 +120,65 @@
       "login_registered": "Google account registered"
     }
   },
+  "blog": {
+    "write_blog_post": "Write blog post",
+    "write_new_blog_post": "Write new blog post",
+    "create_blog_post": "Create blog post",
+    "update_blog_post": "Update blog post",
+    "blog_post_information": "Blog post information",
+    "title": "Title",
+    "headline": "Headline",
+    "post": "Post"
+  },
   "gdpr": {
     "privacy_policy": {
       "privacy_policy": "Privacy policy",
-      "read": "Read how we handle your information"
+      "read": "Read how we handle your information",
+      "intro": "We try to be as transparent as possible.\r\nTherefor we think it's important for you to know what happens with your data while visiting our website. The General Data Protection Regulation (GDPR), which took effect in Europe from 25 May 2018 motivates us to inform you about what exactly we store, and how we handle your data.",
+      "declaration": "To make this as readable as possible, we've split up the document into following sections:",
+      "data_we_collect": {
+        "title": "What data do we collect",
+        "body": "Our application initially does not collect any of your information or surfing behavior. When you sign in, either by creating an account or by using a social-network login, we store your email address and username. The password is always salted and then hashed immediately, then stored in the database. The hashing algorithm used by our application is a trustworthy version. When you attach a social login to your account, we store only the account identifier for that platform. Our application does not do anything else except from reading your email address and username from your social login. Your email address will never end up on the website. Email addresses should be kept private at any time. Your username will be displayed publicly when participating in our forum, but you can change your username at any time from your"
+      },
+      "handling_of_data": {
+        "title": "How we handle your data",
+        "body": "We keep track of the items you add, edit or remove from the database. We don't share your data with anyone, and at this time nobody is able to see which items you liked/disliked, added/removed/edited from the database. At this point, MintPlayer is a completely anonymous platform, where the focus is to let you keep track of the music you like, build playlists, and discover music."
+      },
+      "cookies": {
+        "title": "Cookie policy",
+        "body": "We don't store any third-party cookies. The only cookie we create is to enable you to login into our platform."
+      },
+      "information_sharing": {
+        "title": "Does MintPlayer share any of your information",
+        "body": "In short: No.\r\nYour information is completely contained to our system. Nobody can access your personal preferences or information. We do not share, sell or trade your personal information with other parties in any way."
+      },
+      "data_removal": {
+        "title": "Request us to delete your data",
+        "body1": "You may at any time request us to delete your information we store in our database. To ensure that this data deletion request is authorized, you must be logged in first. Once your data deletion request is complete, you will not be able to recover the information stored in your account.",
+        "body2": "If you want to remove your data from our platform, please contact us at"
+      }
     },
     "terms_of_service": {
       "terms_of_service": "Terms of service",
-      "read": "Read our terms of service"
+      "read": "Read our terms of service",
+      "use_of_website": "Here are the ways you can or can't use our website.",
+      "use_of_trademark": {
+        "title": "Use of our trademark",
+        "body": "MintPlayer is a registered trademark and cannot be used at any time as part of a business name, trading name or domain name."
+      },
+      "link_to_website": {
+        "title": "Linking to our website",
+        "body": "MintPlayer is an open-source, community-driven project, with the goal of stimulating the music api ecosystem. You may link to our website from other websites, but under strict conditions",
+        "conditions": [
+          "You do not link to our website in a way that would cause damage or trashing of our platform",
+          "Our website must not be framed on any other site",
+          "You may not host our website on another location without changing the name"
+        ]
+      },
+      "bugs": {
+        "title": "Bugs - security vulnerabilities",
+        "body": "If you discover a bug or security vulnerability, you may contact us at"
+      }
     }
   }
 }

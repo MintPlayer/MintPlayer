@@ -1,4 +1,10 @@
 {
+  "global": {
+    "edit": "Ajuster",
+    "remove": "Supprimer",
+    "details_for": "Détails pour {{ name }}",
+    "general_information": "Informations générales"
+  },
   "home": {
     "home": "Accueil",
     "title": "Lecteur de musique open-source",
@@ -9,11 +15,26 @@
     "search": "Chercher",
     "search_anything": "Cherche quelque chose"
   },
+  "subjects": {
+    "tags": "Mots clés",
+    "media": "Médias",
+    "general_information": "Informations générales"
+  },
   "artists": {
     "artists": "Artistes",
     "all_artists": "Tous artistes",
     "add_artist": "Créer artiste",
-    "favorite_artists": "Artistes préférés"
+    "create_artist": "Créer artiste",
+    "create_new_artist": "Créer nouvel artiste",
+    "favorite_artists": "Artistes préférés",
+    "my_favorite_artists": "Mes artistes préférés",
+    "name": "Nom",
+    "year_started": "Année de début",
+    "year_quit": "Année d'arrêt",
+    "current_members": "Membres actuels",
+    "past_members": "Anciens membres",
+    "edit_artist": "Modifier artiste: {{ name }}",
+    "update_artist": "Mettre à jour l'artiste"
   },
   "people": {
     "people": "Personnes",
@@ -67,6 +88,7 @@
     "register": "Inscrire",
     "create_account": "Créer compte",
     "profile": "Mon profil",
+    "profile_page": "page de profil",
     "sign_out": "Déconnecter",
     "log_out": "Déconnecter",
     "email_address": "Addresse email",
@@ -98,14 +120,65 @@
       "login_registered": "Compte Google enregistrée"
     }
   },
+  "blog": {
+    "write_blog_post": "Rédiger un article de blog",
+    "write_new_blog_post": "Rédiger un nouveau article de blog",
+    "create_blog_post": "Créer article de blog",
+    "update_blog_post": "Mettre à jour l'article de blog",
+    "blog_post_information": "Informations de l'article de blog",
+    "title": "Titre",
+    "headline": "Gros titre",
+    "post": "Poste"
+  },
   "gdpr": {
     "privacy_policy": {
       "privacy_policy": "Politique de confidentialité",
-      "read": "Lisez ce qu'on fait avec tes dattes"
+      "read": "Lisez ce qu'on fait avec tes dattes",
+      "intro": "Nous essayons d'être le plus transparent que possible.\r\nPar conséquent, nous pensons qu'il est important que vous sachiez ce qui se passe avec vos données lorsque vous visitez notre site web. Le règlement général sur la protection des données (RGPD), entré en vigueur en Europe le 25 mai 2018, nous motive à vous informer sur ce que nous stockons exactement et comment nous traitons vos données.",
+      "declaration": "Pour rendre cela aussi lisible que possible, nous avons divisé le document en sections suivantes:",
+      "data_we_collect": {
+        "title": "Quelles données collectons-nous",
+        "body": "Notre application ne collecte initialement aucune de vos informations ou de votre comportement de navigation. Lorsque vous vous connectez, soit en créant un compte, soit en utilisant un identifiant de réseau social, nous stockons votre adresse e-mail et votre nom d'utilisateur. Le mot de passe est toujours salé puis haché immédiatement, puis stocké dans la base de données. L'algorithme de hachage utilisé par notre application est une version digne de confiance. Lorsque vous attachez une connexion sociale à votre compte, nous stockons uniquement l'identifiant de compte pour cette plate-forme. Notre application ne fait rien d'autre que de la lecture de votre adresse e-mail et nom d'utilisateur de votre connexion sociale. Votre adresse e-mail ne se retrouvera jamais sur le site Web. Les adresses e-mail doivent rester confidentielles à tout moment. Votre nom d'utilisateur sera affiché publiquement lorsque vous participerez à notre forum, mais vous pouvez modifier votre nom d'utilisateur à tout moment dans votre"
+      },
+      "handling_of_data": {
+        "title": "Comment nous traitons vos données",
+        "body": "Nous gardons une trace des éléments que vous ajoutez, modifiez ou supprimez de la base de données. Nous ne partageons pas vos données avec tout le monde, et à ce moment personne ne peut voir quels articles vous avez aimé / pas aimé, a ajouté / supprimé / modifié à partir de la base de données. À ce stade, MintPlayer est une plate-forme complètement anonyme, où l'objectif est de vous permettre de suivre la musique que vous aimez, de créer des listes de lecture et de découvrir de la musique."
+      },
+      "cookies": {
+        "title": "Politique de cookies",
+        "body": "Nous ne stockons aucun cookie tiers. Le seul cookie que nous créons est pour vous permettre de vous connecter à notre plateforme."
+      },
+      "information_sharing": {
+        "title": "MintPlayer partage-t-il certaines de vos informations",
+        "body": "En bref : Non.\r\nVos informations sont entièrement contenues dans notre système. Personne ne peut accéder à vos préférences ou informations personnelles. Nous ne partageons, ne vendons ni n'échangeons vos informations personnelles avec d'autres parties de quelque manière que ce soit."
+      },
+      "data_removal": {
+        "title": "Nous demander de supprimer vos données",
+        "body1": "Vous pouvez à tout moment nous demander de supprimer vos informations que nous stockons dans notre base de données. Pour vous assurer que cette demande de suppression de données est autorisée, vous devez d'abord être connecté. A partir du moment où votre demande de suppression de données est terminée, vous ne pourrez plus récupérer les informations stockées dans votre compte.",
+        "body2": "Si vous souhaitez supprimer vos données de notre plateforme, veuillez nous contacter à"
+      }
     },
     "terms_of_service": {
       "terms_of_service": "Conditions d'utilisation",
-      "read": "Lisez notre conditions d'utilisation"
+      "read": "Lisez notre conditions d'utilisation",
+      "use_of_website": "Voici les façons dont vous pouvez ou ne pouvez pas utiliser notre site web.",
+      "use_of_trademark": {
+        "title": "Utilisation de notre marque",
+        "body": "MintPlayer est une marque déposée et ne peut être utilisée à aucun moment dans le cadre d'un nom commercial ou d'un nom de domaine."
+      },
+      "link_to_website": {
+        "title": "Lien vers notre site Web",
+        "body": "MintPlayer est un projet open source, piloté par la communauté, dans le but de stimuler l'écosystème de l'API musicale. Vous pouvez créer un lien vers notre site Web à partir d'autres sites Web, mais dans des conditions strictes",
+        "conditions": [
+          "Vous ne créez pas de lien vers notre site web d'une manière qui pourrait endommager ou détruire notre plate-forme",
+          "Notre site web ne doit pas être encadré sur un autre site web",
+          "Vous ne pouvez pas héberger notre site web à un autre endroit sans changer le nom"
+        ]
+      },
+      "bugs": {
+        "title": "Bugs - vulnérabilités de sécurité",
+        "body": "Si vous découvrez un bogue ou une faille de sécurité, vous pouvez nous contacter à"
+      }
     }
   }
 }

@@ -1,27 +1,19 @@
-<h1>Terms of service</h1>
-<p>
-  Here are the ways you can or can&#39;t use our website.
-</p>
+<h1>{{ 'gdpr.terms_of_service.terms_of_service' | translate }}</h1>
+<p>{{ 'gdpr.terms_of_service.use_of_website' | translate }}</p>
 <ul>
-  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="trademark">Use of our trademark</a></li>
-  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="linking">Linking to our website</a></li>
-  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="bugs">Bugs - security vulnerabilities</a></li>
+  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="trademark">{{ 'gdpr.terms_of_service.use_of_trademark.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="linking">{{ 'gdpr.terms_of_service.link_to_website.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="bugs">{{ 'gdpr.terms_of_service.bugs.title' | translate }}</a></li>
 </ul>
-<h2 id="trademark">Use of our trademark?</h2>
-<p>
-  MintPlayer is a registered trademark and cannot be used at any time as part of a business name, trading name or domain name.
-</p>
-<h2 id="linking">Linking to our website</h2>
-<p>
-  MintPlayer is an open-source, community-driven project, with the goal of stimulating the music api ecosystem.
-  You may link to our website from other websites, but under strict conditions:
-</p>
+<h2 id="trademark">{{ 'gdpr.terms_of_service.use_of_trademark.title' | translate }}</h2>
+<p>{{ 'gdpr.terms_of_service.use_of_trademark.body' | translate }}</p>
+<h2 id="linking">{{ 'gdpr.terms_of_service.link_to_website.title' | translate }}</h2>
+<p>{{ 'gdpr.terms_of_service.link_to_website.body' | translate }}:</p>
 <ol>
-  <li>You do not link to our website in a way that would cause damage or trashing of our platform.</li>
-  <li>Our website must not be framed on any other site</li>
-  <li>You may not host our website on another location</li>
+  <li *ngFor="let condition of 'gdpr.terms_of_service.link_to_website.conditions' | translate | keyvalue">{{ condition.value }}</li>
 </ol>
-<h2 id="bugs">Bugs - security vulnerabilities</h2>
+<h2 id="bugs">{{ 'gdpr.terms_of_service.bugs.title' | translate }}</h2>
 <p>
-  If you discover a bug or security vulnerability, you may contact us at <a href="mailto:info@mintplayer.com">info@mintplayer.com</a>.
+  {{ 'gdpr.terms_of_service.bugs.body' | translate }}
+  <a href="mailto:info@mintplayer.com">info@mintplayer.com</a>.
 </p>

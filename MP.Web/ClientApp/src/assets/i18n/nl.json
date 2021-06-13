@@ -1,4 +1,10 @@
 {
+  "global": {
+    "edit": "Aanpassen",
+    "remove": "Verwijderen",
+    "details_for": "Details van {{ name }}",
+    "general_information": "Algemene info"
+  },
   "home": {
     "home": "Startpagina",
     "title": "Open-source muziekspeler",
@@ -13,7 +19,17 @@
     "artists": "Artiesten",
     "all_artists": "Alle artiesten",
     "add_artist": "Artiest toevoegen",
-    "favorite_artists": "Favoriete artiesten"
+    "create_artist": "Artiest aanmaken",
+    "create_new_artist": "Nieuwe artiest toevoegen",
+    "favorite_artists": "Favoriete artiesten",
+    "my_favorite_artists": "Mijn favoriete artiesten",
+    "name": "Naam",
+    "year_started": "Beginjaar",
+    "year_quit": "Eindjaar",
+    "current_members": "Huidige leden",
+    "past_members": "Vroegere leden",
+    "edit_artist": "Artiest bewerken: {{ name }}",
+    "update_artist": "Artiest updaten"
   },
   "people": {
     "people": "Personen",
@@ -67,6 +83,7 @@
     "register": "Registreren",
     "create_account": "Account aanmaken",
     "profile": "Profiel",
+    "profile_page": "Profielpagina",
     "sign_out": "Uitloggen",
     "log_out": "Uitloggen",
     "email_address": "E-mailadres",
@@ -98,14 +115,65 @@
       "login_registered": "Google account geregistreerd"
     }
   },
+  "blog": {
+    "write_blog_post": "Blogpost schrijven",
+    "write_new_blog_post": "Nieuwe blogpost schrijven",
+    "create_blog_post": "Blogpost aanmaken",
+    "update_blog_post": "Blogpost aanpassen",
+    "blog_post_information": "Blogpost informatie",
+    "title": "Titel",
+    "headline": "Headline",
+    "post": "Inhoud"
+  },
   "gdpr": {
     "privacy_policy": {
       "privacy_policy": "Privacybeleid",
-      "read": "Lees hier wat we doen met je informatie"
+      "read": "Lees hier wat we doen met je informatie",
+      "intro": "We proberen zo transparant mogelijk te zijn.\r\nDaarom vinden we het belangrijk dat u weet wat er gebeurt met uw data terwijl u onze website bezoekt. De General Data Protection Regulation (GDPR), die in Europa ingegaan is op 25 mei 2018 motiveert ons om u te informeren wat er precies wordt opgeslagen, en hoe uw data verder gebruikt wordt.",
+      "declaration": "Om dit zo leesbaar mogelijk te maken, hebben we dit document opgesplits in volgende delen:",
+      "data_we_collect": {
+        "title": "Welke gegevens verzamelen we",
+        "body": "In eerste instantie verzamelt onze applicatie geen informatie of surfgedrag. Wanneer u inlogt, ofwel door een account aan te maken, ofwel door met een social networkaccount in te loggen, worden uw e-mailadres en uw wachtwoord opgeslagen. Het wachtwoord wordt altijd ge-salt en onmiddellijk gehasht, om vervolgens op te slaan in de database. Het hashingalgoritme dat hierbij gebruikt wordt is betrouwbaar en sterk. Wanneer u een social networkaccount koppelt aan uw MintPlayer account, wordt enkel de account identifier voor dit platform bijgehouden. Onze applicatie doet niets anders dan uw e-mailadres en gebruikersnaam lezen uit uw extern profiel. Uw e-mailadres zal nooit op de website terechtkomen. E-mailadresse horen steeds privé gehouden te worden. Uw gebruikersnaam zal worden weergegeven wanneer u deelneemt op ons forum, maar u kan deze op ieder ogenblik aanpassen"
+      },
+      "handling_of_data": {
+        "title": "Wat er met uw data gebeurt",
+        "body": "We houden bij welke items u toevoegt, wijzigt of verwijdert uit onze database. We delen uw data met niemand, en op dit ogenblik kan niemand zien welke items je wel/niet leuk vind, toegevoegd/verwijderd/aangepast hebt in de database. Op dit ogenblik is MintPlayer een volledig anoniem platform, waarbij de focus vooral ligt op het bijhouden van uw favoriete muziek, bouwen van playlists, en het ontdekken van nieuwe muziek."
+      },
+      "cookies": {
+        "title": "Cookiebeleid",
+        "body": "Zelf slaan we geen cookies van derde partijen op. De enige cookie die onze applicatie zelf aanmaakt zorgt ervoor dat je kan inloggen op ons platform."
+      },
+      "information_sharing": {
+        "title": "Gaat MintPlayer uw informatie delen",
+        "body": "Kortweg: Neen.\r\nUw informatie is volledig begrensd tot ons systeem. Niemand heeft toegang tot uw persoonlijke voorkeuren of informatie. Uw persoonlijke gegevens worden niet gedeeld, verkocht of verruild met andere partijen, op geen enkele manier."
+      },
+      "data_removal": {
+        "title": "Vraag om uw gegevens te verwijderen",
+        "body1": "U kan ons op ieder moment vragen om de persoonlijke informatie die wij bijhouden (e-mailadres, gebruikersnaam, playlists) te laten verwijderen. Om zeker te zijn dat dit verzoek terecht is, moet u eerst ingelogd zijn. Eens uw verzoek afgerond is, is er geen mogelijkheid meer om de data te herstellen.",
+        "body2": "Indien u uw gegevens wil laten verwijderen, contacteer ons dan op"
+      }
     },
     "terms_of_service": {
       "terms_of_service": "Gebruiksvoorwaarden",
-      "read": "Lees hier onze gebruiksvoorwaarden"
+      "read": "Lees hier onze gebruiksvoorwaarden",
+      "use_of_website": "Here are the ways you can or can't use our website.",
+      "use_of_trademark": {
+        "title": "Use of our trademark",
+        "body": "MintPlayer is a registered trademark and cannot be used at any time as part of a business name, trading name or domain name."
+      },
+      "link_to_website": {
+        "title": "Linking to our website",
+        "body": "MintPlayer is an open-source, community-driven project, with the goal of stimulating the music api ecosystem. You may link to our website from other websites, but under strict conditions",
+        "conditions": [
+          "You do not link to our website in a way that would cause damage or trashing of our platform",
+          "Our website must not be framed on any other site",
+          "You may not host our website on another location without changing the name"
+        ]
+      },
+      "bugs": {
+        "title": "Bugs - security vulnerabilities",
+        "body": "If you discover a bug or security vulnerability, you may contact us at"
+      }
     }
   }
 }
