@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SongService } from '../../../services/song/song.service';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { Song } from '../../../entities/song';
 import { PaginationResponse } from '../../../helpers/pagination-response';
-import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 
 @Component({
   selector: 'app-favorite',
@@ -23,7 +23,7 @@ export class FavoriteComponent implements OnInit, OnDestroy {
   }
 
   loadFavoriteSongs() {
-    this.songService.pageFavoriteSongs(this.tableSettings.toPaginationRequest()).then((response) => {
+    this.songService.pageFavoriteSongs(this.tableSettings.toPagination()).then((response) => {
       this.setSongData(response);
     }).catch((error) => {
       console.log(error);
@@ -32,28 +32,17 @@ export class FavoriteComponent implements OnInit, OnDestroy {
 
   private setSongData(data: PaginationResponse<Song>) {
     this.songData = data;
-    this.tableSettings.pages.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
+    this.tableSettings.page.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }
 
   songData: PaginationResponse<Song> = new PaginationResponse();
 
   tableSettings: DatatableSettings = new DatatableSettings({
-    columns: [{
-      name: 'Title',
-      data: 'title',
-      title: 'Title',
-      sortable: true
-    }, {
-      name: 'Released',
-      data: 'released',
-      title: 'Released',
-      sortable: true
-    }],
-    perPages: {
+    perPage: {
       values: [10, 20, 50, 100],
       selected: 20
     },
-    pages: {
+    page: {
       values: [],
       selected: 1
     },

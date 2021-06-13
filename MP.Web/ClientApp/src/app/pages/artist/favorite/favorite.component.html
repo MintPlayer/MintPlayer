@@ -6,8 +6,12 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <datatable [settings]="tableSettings" [data]="artistData" [rowTemplate]="rowTemplate" (onReloadData)="loadFavoriteArtists()">
-        <ng-template #rowTemplate let-artist>
+      <datatable [settings]="tableSettings" [data]="artistData" (onReloadData)="loadFavoriteArtists()">
+        <datatable-column title="Name" name="Name" [sortable]="true"></datatable-column>
+        <datatable-column title="Year started" name="YearStarted" [sortable]="true"></datatable-column>
+        <datatable-column title="Year quit" name="YearQuit" [sortable]="true"></datatable-column>
+
+        <ng-template rowTemplate let-artist>
           <tr>
             <td class="text-nowrap"><a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' title="Details for {{ artist.name }}">{{ artist.name }}</a></td>
             <td class="text-nowrap">{{ artist.yearStarted }}</td>
@@ -15,8 +19,6 @@
           </tr>
         </ng-template>
       </datatable>
-      <pagination class="pull-left" [numbers]="tableSettings.perPages.values" [(selectedNumber)]="tableSettings.perPages.selected" (selectedNumberChange)="loadFavoriteArtists()" [showArrows]="false"></pagination>
-      <pagination class="pull-right" [numbers]="tableSettings.pages.values" [(selectedNumber)]="tableSettings.pages.selected" (selectedNumberChange)="loadFavoriteArtists()" [showArrows]="true"></pagination>
     </div>
   </div>
 </div>

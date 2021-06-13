@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { UrlSerializer } from '@angular/router';
-import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Title, Meta } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { ArtistService } from '../../../services/artist/artist.service';
 import { Artist } from '../../../entities/artist';
 import { PaginationResponse } from '../../../helpers/pagination-response';
-import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({
@@ -84,7 +84,7 @@ export class ListComponent implements OnInit, OnDestroy {
   //#endregion
 
   loadArtists() {
-    this.artistService.pageArtists(this.tableSettings.toPaginationRequest()).then((response) => {
+    this.artistService.pageArtists(this.tableSettings.toPagination()).then((response) => {
       this.setArtistData(response);
     }).catch((error) => {
       console.log(error);
@@ -94,33 +94,17 @@ export class ListComponent implements OnInit, OnDestroy {
   private setArtistData(data: PaginationResponse<Artist>) {
     console.log('artist data', data);
     this.artistData = data;
-    this.tableSettings.pages.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
+    this.tableSettings.page.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }
 
   artistData: PaginationResponse<Artist> = new PaginationResponse();
 
   tableSettings: DatatableSettings = new DatatableSettings({
-    columns: [{
-      name: 'Name',
-      data: 'name',
-      title: 'Name',
-      sortable: true
-    }, {
-      name: 'YearStarted',
-      data: 'yearStarted',
-      title: 'Year started',
-      sortable: true
-    }, {
-      name: 'YearQuit',
-      data: 'yearQuit',
-      title: 'Year quit',
-      sortable: true
-    }],
-    perPages: {
+    perPage: {
       values: [10, 20, 50, 100],
       selected: 20
     },
-    pages: {
+    page: {
       values: [],
       selected: 1
     },

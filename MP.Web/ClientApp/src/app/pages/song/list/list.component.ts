@@ -2,10 +2,10 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SongService } from '../../../services/song/song.service';
 import { Song } from '../../../entities/song';
 import { PaginationResponse } from '../../../helpers/pagination-response';
-import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({
@@ -86,7 +86,7 @@ export class ListComponent implements OnInit, OnDestroy {
   //#endregion
 
   loadSongs() {
-    this.songService.pageSongs({ perPage: this.tableSettings.perPages.selected, page: this.tableSettings.pages.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
+    this.songService.pageSongs({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
       this.setSongData(response);
     }).catch((error) => {
       console.error('Could not fetch songs', error);
@@ -96,28 +96,17 @@ export class ListComponent implements OnInit, OnDestroy {
   private setSongData(data: PaginationResponse<Song>) {
     console.log('song data', data);
     this.songData = data;
-    this.tableSettings.pages.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
+    this.tableSettings.page.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }
 
   songData: PaginationResponse<Song> = new PaginationResponse();
 
   tableSettings: DatatableSettings = new DatatableSettings({
-    columns: [{
-      name: 'Title',
-      data: 'title',
-      title: 'Title',
-      sortable: true
-    }, {
-      name: 'Released',
-      data: 'released',
-      title: 'Released',
-      sortable: true
-    }],
-    perPages: {
+    perPage: {
       values: [10, 20, 50, 100],
       selected: 20
     },
-    pages: {
+    page: {
       values: [],
       selected: 1
     },

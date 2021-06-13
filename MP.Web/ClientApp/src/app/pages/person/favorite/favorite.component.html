@@ -6,8 +6,13 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <datatable [settings]="tableSettings" [data]="personData" [rowTemplate]="rowTemplate" (onReloadData)="loadFavoritePeople()">
-        <ng-template #rowTemplate let-person>
+      <datatable [settings]="tableSettings" [data]="personData" (onReloadData)="loadFavoritePeople()">
+        <datatable-column title="First name" name="FirstName" [sortable]="true"></datatable-column>
+        <datatable-column title="Last name" name="LastName" [sortable]="true"></datatable-column>
+        <datatable-column title="Born" name="Born" [sortable]="true"></datatable-column>
+        <datatable-column title="Died" name="Died" [sortable]="true"></datatable-column>
+
+        <ng-template rowTemplate let-person>
           <tr>
             <td class="text-nowrap"><a [advRouterLink]='["/person",person.id,person.text | slugify]' title="Details for {{ person.firstName }} {{ person.lastName }}">{{ person.firstName }}</a></td>
             <td class="text-nowrap">{{ person.lastName }}</td>
@@ -16,8 +21,6 @@
           </tr>
         </ng-template>
       </datatable>
-      <pagination class="pull-left" [numbers]="tableSettings.perPages.values" [(selectedNumber)]="tableSettings.perPages.selected" (selectedNumberChange)="loadFavoritePeople()" [showArrows]="false"></pagination>
-      <pagination class="pull-right" [numbers]="tableSettings.pages.values" [(selectedNumber)]="tableSettings.pages.selected" (selectedNumberChange)="loadFavoritePeople()" [showArrows]="true"></pagination>
     </div>
   </div>
 </div>

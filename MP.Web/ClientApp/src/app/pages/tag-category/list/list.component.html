@@ -12,16 +12,17 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <datatable [settings]="tableSettings" [data]="tagCategoryData" [rowTemplate]="rowTemplate" (onReloadData)="loadTagCategories()">
-        <ng-template #rowTemplate let-category>
+      <datatable [settings]="tableSettings" [data]="tagCategoryData" (onReloadData)="loadTagCategories()">
+        <datatable-column title="Description" name="Description" [sortable]="true"></datatable-column>
+        <datatable-column title="Color" name="Color" [sortable]="true"></datatable-column>
+
+        <ng-template rowTemplate let-category>
           <tr>
             <td class="text-nowrap"><a [advRouterLink]='["/tag","category",category.id]' title="Details for {{ category.description }}">{{ category.description }}</a></td>
             <td class="text-nowrap">{{ category.color }}</td>
           </tr>
         </ng-template>
       </datatable>
-      <pagination class="pull-left" [numbers]="tableSettings.perPages.values" [(selectedNumber)]="tableSettings.perPages.selected" (selectedNumberChange)="loadTagCategories()" [showArrows]="false"></pagination>
-      <pagination class="pull-right" [numbers]="tableSettings.pages.values" [(selectedNumber)]="tableSettings.pages.selected" (selectedNumberChange)="loadTagCategories()" [showArrows]="true"></pagination>
     </div>
   </div>
 </div>

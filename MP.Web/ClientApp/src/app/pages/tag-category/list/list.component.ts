@@ -4,8 +4,8 @@ import { AdvancedRouter } from '@mintplayer/ng-router';
 import { TagCategory } from '../../../entities/tag-category';
 import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
 import { PaginationResponse } from '../../../helpers/pagination-response';
-import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
+import { DatatableSettings } from '@mintplayer/ng-datatables';
 
 @Component({
   selector: 'app-list',
@@ -80,7 +80,7 @@ export class ListComponent implements OnInit, OnDestroy {
   //#endregion
 
   loadTagCategories() {
-    this.categoryService.pageTagCategories({ perPage: this.tableSettings.perPages.selected, page: this.tableSettings.pages.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
+    this.categoryService.pageTagCategories({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
       this.setTagCategoryData(response);
     }).catch((error) => {
       console.log(error);
@@ -89,28 +89,17 @@ export class ListComponent implements OnInit, OnDestroy {
 
   private setTagCategoryData(data: PaginationResponse<TagCategory>) {
     this.tagCategoryData = data;
-    this.tableSettings.pages.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
+    this.tableSettings.page.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }
 
   tagCategoryData: PaginationResponse<TagCategory> = new PaginationResponse();
 
   tableSettings: DatatableSettings = new DatatableSettings({
-    columns: [{
-      name: 'Description',
-      data: 'description',
-      title: 'Description',
-      sortable: true
-    }, {
-      name: 'Color',
-      data: 'color',
-      title: 'Color',
-      sortable: true
-    }],
-    perPages: {
+    perPage: {
       values: [10, 20, 50, 100],
       selected: 20
     },
-    pages: {
+    page: {
       values: [],
       selected: 1
     },

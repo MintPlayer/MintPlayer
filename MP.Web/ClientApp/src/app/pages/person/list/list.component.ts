@@ -5,9 +5,9 @@ import { AdvancedRouter } from '@mintplayer/ng-router';
 import { PersonService } from '../../../services/person/person.service';
 import { Person } from '../../../entities/person';
 import { PaginationResponse } from '../../../helpers/pagination-response';
-import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
+import { DatatableSettings } from '@mintplayer/ng-datatables';
 
 @Component({
   selector: 'app-list',
@@ -84,7 +84,7 @@ export class ListComponent implements OnInit, OnDestroy {
   //#endregion
 
   loadPeople() {
-    this.personService.pagePeople(this.tableSettings.toPaginationRequest()).then((response) => {
+    this.personService.pagePeople(this.tableSettings.toPagination()).then((response) => {
       this.setPersonData(response);
     }).catch((error) => {
       console.error('Could not fetch people', error);
@@ -93,38 +93,17 @@ export class ListComponent implements OnInit, OnDestroy {
 
   private setPersonData(data: PaginationResponse<Person>) {
     this.personData = data;
-    this.tableSettings.pages.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
+    this.tableSettings.page.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }
 
   personData: PaginationResponse<Person> = new PaginationResponse();
 
   tableSettings: DatatableSettings = new DatatableSettings({
-    columns: [{
-      name: 'FirstName',
-      data: 'firstName',
-      title: 'First Name',
-      sortable: true
-    }, {
-      name: 'LastName',
-      data: 'lastName',
-      title: 'Last Name',
-      sortable: true
-    }, {
-      name: 'Born',
-      data: 'born',
-      title: 'Born',
-      sortable: true
-    }, {
-      name: 'Died',
-      data: 'died',
-      title: 'Died',
-      sortable: true
-    }],
-    perPages: {
+    perPage: {
       values: [10, 20, 50, 100],
       selected: 20
     },
-    pages: {
+    page: {
       values: [],
       selected: 1
     },

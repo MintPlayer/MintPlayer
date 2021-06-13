@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { AdvancedRouter } from '@mintplayer/ng-router';
-import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
 import { Playlist } from '../../../entities/playlist';
 import { ePlaylistScope } from '../../../enums/ePlaylistScope';
 import { PaginationResponse } from '../../../helpers/pagination-response';
@@ -34,7 +34,7 @@ export class PlaylistPublicComponent implements OnInit {
   }
 
   loadPlaylists() {
-    this.playlistService.pagePlaylists(this.tableSettings.toPaginationRequest(), ePlaylistScope.Public).then((playlists) => {
+    this.playlistService.pagePlaylists(this.tableSettings.toPagination(), ePlaylistScope.Public).then((playlists) => {
       this.setPlaylistData(playlists);
     }).catch((error) => {
       console.log(error);
@@ -43,23 +43,17 @@ export class PlaylistPublicComponent implements OnInit {
 
   private setPlaylistData(data: PaginationResponse<Playlist>) {
     this.playlistData = data;
-    this.tableSettings.pages.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
+    this.tableSettings.page.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }
 
   playlistData: PaginationResponse<Playlist> = new PaginationResponse();
 
   tableSettings: DatatableSettings = new DatatableSettings({
-    columns: [{
-      name: 'Description',
-      data: 'description',
-      title: 'Description',
-      sortable: true
-    }],
-    perPages: {
+    perPage: {
       values: [10, 20, 50, 100],
       selected: 20
     },
-    pages: {
+    page: {
       values: [],
       selected: 1
     },
