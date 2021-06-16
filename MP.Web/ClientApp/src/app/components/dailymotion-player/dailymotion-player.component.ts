@@ -3,7 +3,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { DailyMotionHelper } from '../../helpers/dailymotion-api.helper';
 import { BehaviorSubject } from 'rxjs';
-import { SongProgress } from '../../entities/song-progress';
+import { PlayerProgress } from '@mintplayer/ng-youtube-player';
 
 @Component({
   selector: 'app-dailymotion-player',
@@ -107,7 +107,7 @@ export class DailymotionPlayerComponent implements OnInit, OnDestroy, AfterViewI
                 this.progressTimer = setInterval(() => {
                   this.progressChange.emit({
                     currentTime: this.player.currentTime,
-                    total: this.player.duration
+                    duration: this.player.duration
                   });
                 }, 100);
               }
@@ -166,6 +166,6 @@ export class DailymotionPlayerComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   @Output()
-  public progressChange: EventEmitter<SongProgress> = new EventEmitter();
+  public progressChange: EventEmitter<PlayerProgress> = new EventEmitter();
 
 }

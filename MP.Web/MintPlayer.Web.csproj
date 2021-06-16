@@ -74,7 +74,6 @@
     <None Remove="ClientApp\src\app\entities\point.ts" />
     <None Remove="ClientApp\src\app\entities\search-results.ts" />
     <None Remove="ClientApp\src\app\entities\size.ts" />
-    <None Remove="ClientApp\src\app\entities\song-progress.ts" />
     <None Remove="ClientApp\src\app\entities\song.ts" />
     <None Remove="ClientApp\src\app\entities\subject-like-response.ts" />
     <None Remove="ClientApp\src\app\entities\subject.ts" />
@@ -104,7 +103,6 @@
     <None Remove="ClientApp\src\app\helpers\slugify.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\twitter-sdk.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\url-generator.helper.ts" />
-    <None Remove="ClientApp\src\app\helpers\youtube-api.helper.ts" />
     <None Remove="ClientApp\src\app\interfaces\has-changes.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\category-routing.module.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\category.module.ts" />
@@ -183,7 +181,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\entities\point.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\search-results.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\size.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\song-progress.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\song.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\subject-like-response.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\subject.ts" />
@@ -213,7 +210,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\helpers\slugify.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\twitter-sdk.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\url-generator.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\youtube-api.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\interfaces\has-changes.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\translate-loaders\translate-json-loader.ts" />
     <TypeScriptCompile Include="ClientApp\src\styles\animations\color-transition.animation.ts" />

@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { QUERY_PARAMS_CONFIG, QueryParamsConfig, AdvancedRouterModule } from '@mintplayer/ng-router';
+import { YoutubePlayerModule } from '@mintplayer/ng-youtube-player';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ControlsModule } from './controls/controls.module';
@@ -20,6 +21,7 @@ import { LinifyPipe } from './pipes/linify/linify.pipe';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
+    YoutubePlayerModule,
     ControlsModule,
     ComponentsModule,
     TranslateModule.forChild(),

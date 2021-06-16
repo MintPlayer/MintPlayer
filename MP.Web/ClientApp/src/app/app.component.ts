@@ -5,17 +5,13 @@ import { User } from './entities/user';
 import { LoginComponent } from './pages/account/login/login.component';
 import { RegisterComponent } from './pages/account/register/register.component';
 import { AccountService } from './services/account/account.service';
-import { YoutubeHelper } from './helpers/youtube-api.helper';
 import { ShowComponent as SongShowComponent } from './pages/song/show/show.component';
 import { Song } from './entities/song';
-import { YoutubePlayerComponent } from './components/youtube-player/youtube-player.component';
-import { SongRemovedEvent } from './events/song-removed.event';
 import { PlayedSong } from './entities/played-song';
-import { SongProgress } from './entities/song-progress';
 import { SwUpdate } from '@angular/service-worker';
 import { Meta } from '@angular/platform-browser';
+import { PlayerProgress, YoutubePlayerComponent } from '@mintplayer/ng-youtube-player';
 import { Size } from './entities/size';
-import { eRepeatMode } from './enums/eRepeatMode';
 import { PlaylistShowComponent } from './pages/playlist/show/show.component';
 import { PlayButtonClickedEvent } from './events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from './enums/ePlaylistPlayButton';
@@ -66,7 +62,6 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject('SERVERSIDE') serverSide: boolean,
     @Inject('USER') userInj: User,
     private accountService: AccountService,
-    private youtubeHelper: YoutubeHelper,
     private dailyMotionHelper: DailyMotionHelper,
     private facebookSdkHelper: FacebookSdkHelper,
     private twitterSdkHelper: TwitterSdkHelper,
@@ -127,14 +122,12 @@ export class AppComponent implements OnInit, OnDestroy {
     //#endregion
     //#region Initialize PlaylistController
     this.playlistControl = new PlaylistControl<Song>({
-      onGetCurrentPosition: () => this.player.position,
+      onGetCurrentPosition: () => this.player.currentTime,
       onPlayVideo: (song) => {
         console.log('player info', song.playerInfo);
         switch (song.playerInfo.type) {
           case ePlayerType.Youtube: {
-            this.youtubeHelper.loadApi().then((isLoaded) => {
-              this.player.playSong(song.playerInfo.id);
-            });
+            this.player.playVideoById(song.playerInfo.id);
           } break;
           case ePlayerType.DailyMotion: {
 
@@ -251,9 +244,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   // Current position of the current song (percentage)
-  songProgress: SongProgress = {
+  songProgress: PlayerProgress = {
     currentTime: 0,
-    total: 0
+    duration: 0
   };
 
   /** Add this song to the User playlist, and start playing if necessary */
@@ -296,7 +289,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Updates the value of the progress bar on the SidebarComponent.
    * @param progress Current percentage of the YoutubePlayer.
    */
-  updatePlayerProgress(progress: SongProgress) {
+  updatePlayerProgress(progress: PlayerProgress) {
     this.songProgress = progress;
     this.ref.detectChanges();
   }

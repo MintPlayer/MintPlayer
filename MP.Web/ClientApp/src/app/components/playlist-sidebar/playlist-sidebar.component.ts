@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Song } from '../../entities/song';
 import { SongRemovedEvent } from '../../events/song-removed.event';
-import { SongProgress } from '../../entities/song-progress';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { eRepeatMode } from '../../enums/eRepeatMode';
+import { PlayerProgress } from '@mintplayer/ng-youtube-player';
 
 @Component({
   selector: 'playlist-sidebar',
@@ -27,7 +27,7 @@ export class PlaylistSidebarComponent implements OnInit {
   public current: Song;
 
   @Input()
-  public songProgress: SongProgress;
+  public songProgress: PlayerProgress;
 
   @Output()
   public songRemoved: EventEmitter<SongRemovedEvent> = new EventEmitter();
@@ -82,6 +82,7 @@ export class PlaylistSidebarComponent implements OnInit {
     var index = this.songs.indexOf(song);
     //this.songs.splice(index, 1);
     $event.stopPropagation();
+    console.log('emit songRemoved', index, song);
     this.songRemoved.emit(new SongRemovedEvent({ index, song }));
   }
 

@@ -38,6 +38,7 @@ export class PlaylistControl<TVideo> {
   //#region Remove
   public async removeFromPlaylist(video: TVideo) {
     // Check if video to be removed is currently playing
+    debugger;
     if (this._currentPlayedVideo !== null) {
       if (this._currentPlayedVideo.video === video) {
         let next = this.findNextNotCurrentVideo();
@@ -195,6 +196,7 @@ export class PlaylistControl<TVideo> {
     }
   }
   private findNextVideo(force: boolean): NextVideoResult<PlayedVideo<TVideo>> {
+    debugger;
     if (this._playlist.length === 0) {
       // There are no more songs in the playlist
       return null;

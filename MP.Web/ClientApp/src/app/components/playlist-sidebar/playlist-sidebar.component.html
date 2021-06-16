@@ -26,8 +26,8 @@
     </div>
     <div class="d-flex flex-row text-center mx-2 mt-2" *ngIf="current !== null">
       <label class="m-0">{{ songProgress.currentTime * 1000 | date:'mm:ss' }}</label>
-      <progress-bar class="flex-grow-1 m-1" minimum="0" maximum="100" [value]="songProgress.currentTime / songProgress.total * 100"></progress-bar>
-      <label class="m-0">{{ songProgress.total * 1000 | date:'mm:ss' }}</label>
+      <progress-bar class="flex-grow-1 m-1" minimum="0" maximum="100" [value]="songProgress.currentTime / songProgress.duration * 100"></progress-bar>
+      <label class="m-0">{{ songProgress.duration * 1000 | date:'mm:ss' }}</label>
     </div>
     <marquee class="mx-2 mb-2" *ngIf="current !== null">{{ current.description }}</marquee>
   </div>

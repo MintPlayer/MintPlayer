@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { AdvancedRouterModule } from '@mintplayer/ng-router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubjectModule } from './subject/subject.module';
 import { SocialLoginsModule } from './social-logins/social-logins.module';
-import { YoutubePlayerComponent } from './youtube-player/youtube-player.component';
 import { YoutubePlayButtonComponent } from './youtube-play-button/youtube-play-button.component';
 import { PlaylistSidebarComponent } from './playlist-sidebar/playlist-sidebar.component';
 import { ControlsModule } from '../controls/controls.module';
@@ -13,12 +13,10 @@ import { DailymotionPlayerComponent } from './dailymotion-player/dailymotion-pla
 import { SocialSharesModule } from './social-shares/social-shares.module';
 import { FlagComponent } from './flag/flag.component';
 import { DirectivesModule } from '../directives/directives.module';
-import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 @NgModule({
   declarations: [
     SidebarComponent,
-    YoutubePlayerComponent,
     YoutubePlayButtonComponent,
     PlaylistSidebarComponent,
     DailymotionPlayerComponent,
@@ -38,7 +36,6 @@ import { AdvancedRouterModule } from '@mintplayer/ng-router';
   exports: [
     SidebarComponent,
     SubjectModule,
-    YoutubePlayerComponent,
     YoutubePlayButtonComponent,
     PlaylistSidebarComponent,
     DailymotionPlayerComponent,
