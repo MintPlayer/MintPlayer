@@ -172,7 +172,7 @@
         </span>
         <ul [@slideUpDown]="level1menu == 'management' ? 'in' : 'out'">
           <li>
-            <span title="'management.media.manage_media' | translate" [ngClass]="{'open':level2menu === 'media'}" (click)="level2toggle('media')">
+            <span [title]="'management.media.manage_media' | translate" [ngClass]="{'open':level2menu === 'media'}" (click)="level2toggle('media')">
               <i class="fa fa-medium"></i>
               {{ 'management.media.manage_media' | translate }}
             </span>
@@ -220,19 +220,19 @@
         </span>
         <ul [@slideUpDown]="level1menu == 'account' ? 'in' : 'out'">
           <li *ngIf="activeUser === null">
-            <a [advRouterLink]='["/account","login"]' title="'account.login' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/account","login"]' [title]="'account.login' | translate" (click)="onItemSelected()">
               <i class="fa fa-sign-in"></i>
               {{ 'account.login' | translate }}
             </a>
           </li>
           <li *ngIf="activeUser === null">
-            <a [advRouterLink]='["/account","register"]' title="'account.create_account' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/account","register"]' [title]="'account.create_account' | translate" (click)="onItemSelected()">
               <i class="fa fa-user-plus"></i>
               {{ 'account.register' | translate }}
             </a>
           </li>
           <li *ngIf="activeUser !== null">
-            <a [advRouterLink]='["/account","profile"]' title="'account.profile' | translate" (click)="onItemSelected()">
+            <a [advRouterLink]='["/account","profile"]' [title]="'account.profile' | translate" (click)="onItemSelected()">
               <i class="fa fa-user-o"></i>
               {{ 'account.profile' | translate }}
             </a>

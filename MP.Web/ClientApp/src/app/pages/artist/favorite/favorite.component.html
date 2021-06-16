@@ -13,7 +13,7 @@
 
         <ng-template rowTemplate let-artist>
           <tr>
-            <td class="text-nowrap"><a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' title="'global.details_for' | translate: {name:artist.name}">{{ artist.name }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' [title]="'global.details_for' | translate: {name:artist.name}">{{ artist.name }}</a></td>
             <td class="text-nowrap">{{ artist.yearStarted }}</td>
             <td class="text-nowrap">{{ artist.yearQuit }}</td>
           </tr>
