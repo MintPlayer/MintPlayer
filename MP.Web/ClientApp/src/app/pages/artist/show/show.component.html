@@ -96,7 +96,7 @@
           <tbody>
             <tr *ngFor="let song of artist.songs">
               <td>
-                <a [advRouterLink]='["/song",song.id,song.title | slugify]' class="text-nowrap" [title]="'global.details_for' | translate:{name: song.title} }}">{{ song.title }}</a>
+                <a [advRouterLink]='["/song",song.id,song.title | slugify]' class="text-nowrap" [title]="'global.details_for' | translate:{name: song.title}">{{ song.title }}</a>
               </td>
               <td>
                 <span class="text-nowrap">{{ song.released | date:'dd-MM-yyyy' }}</span>
