@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AdvancedRouterModule } from '@mintplayer/ng-router';
+import { ShareButtonsModule } from '@mintplayer/ng-share-buttons';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubjectModule } from './subject/subject.module';
 import { SocialLoginsModule } from './social-logins/social-logins.module';
@@ -10,7 +11,6 @@ import { PlaylistSidebarComponent } from './playlist-sidebar/playlist-sidebar.co
 import { ControlsModule } from '../controls/controls.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { DailymotionPlayerComponent } from './dailymotion-player/dailymotion-player.component';
-import { SocialSharesModule } from './social-shares/social-shares.module';
 import { FlagComponent } from './flag/flag.component';
 import { DirectivesModule } from '../directives/directives.module';
 
@@ -30,8 +30,8 @@ import { DirectivesModule } from '../directives/directives.module';
     ControlsModule,
     SubjectModule,
     TranslateModule,
-    SocialLoginsModule,
-    SocialSharesModule
+    ShareButtonsModule,
+    SocialLoginsModule
   ],
   exports: [
     SidebarComponent,

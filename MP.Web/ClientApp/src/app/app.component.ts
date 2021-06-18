@@ -7,7 +7,6 @@ import { RegisterComponent } from './pages/account/register/register.component';
 import { AccountService } from './services/account/account.service';
 import { ShowComponent as SongShowComponent } from './pages/song/show/show.component';
 import { Song } from './entities/song';
-import { PlayedSong } from './entities/played-song';
 import { SwUpdate } from '@angular/service-worker';
 import { Meta } from '@angular/platform-browser';
 import { PlayerProgress, YoutubePlayerComponent } from '@mintplayer/ng-youtube-player';
@@ -20,13 +19,13 @@ import { PlaylistControl } from './helpers/playlist-control.helper';
 import { SyncComponent } from './pages/song/sync/sync.component';
 import { DailyMotionHelper } from './helpers/dailymotion-api.helper';
 import { DailymotionPlayerComponent } from './components/dailymotion-player/dailymotion-player.component';
-import { FacebookSdkHelper } from './helpers/facebook-sdk.helper';
-import { TwitterSdkHelper } from './helpers/twitter-sdk.helper';
-import { LinkedinSdkHelper } from './helpers/linkedin-sdk.helper';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { ePlayerType } from './enums/ePlayerType';
 import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
+import { FacebookSdkService } from '@mintplayer/ng-share-buttons/lib/services/facebook-sdk/facebook-sdk.service';
+import { TwitterSdkService } from '@mintplayer/ng-share-buttons/lib/services/twitter-sdk/twitter-sdk.service';
+import { LinkedinSdkService } from '@mintplayer/ng-share-buttons/lib/services/linkedin-sdk/linkedin-sdk.service';
 
 @Component({
   selector: 'app-root',
@@ -63,9 +62,6 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject('USER') userInj: User,
     private accountService: AccountService,
     private dailyMotionHelper: DailyMotionHelper,
-    private facebookSdkHelper: FacebookSdkHelper,
-    private twitterSdkHelper: TwitterSdkHelper,
-    private linkedinSdkHelper: LinkedinSdkHelper,
     private ref: ChangeDetectorRef,
     private swUpdate: SwUpdate,
     private metaService: Meta,
@@ -91,9 +87,6 @@ export class AppComponent implements OnInit, OnDestroy {
     //  this.dmplayer.playSong('x2yhuhb');
     //});
     //#endregion
-    this.facebookSdkHelper.loadSdk();
-    this.twitterSdkHelper.loadSdk();
-    this.linkedinSdkHelper.loadSdk();
     //#region Check for updates
     if (this.swUpdate.isEnabled) {
       console.log('Updates enabled');
