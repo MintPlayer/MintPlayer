@@ -11,27 +11,22 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SpaServices.Routing;
-using MintPlayer.Data;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
 using MintPlayer.Web.Services;
 using Spa.SpaRoutes;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -129,7 +124,7 @@ namespace MintPlayer.Web
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist/browser";
+                configuration.RootPath = "ClientApp/dist";
             });
             services.AddSpaRoutes(routes => routes
                 .Route("", "home")
@@ -984,7 +979,7 @@ namespace MintPlayer.Web
                     });
 #pragma warning restore CS0618 // Type or member is obsolete
 
-                    app2.UseWebMarkupMin();
+                    //app2.UseWebMarkupMin();
 
                     if (env.IsDevelopment())
                     {

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AdvancedRouterModule } from '@mintplayer/ng-router';
-import { ShareButtonsModule } from '@mintplayer/ng-share-buttons';
+//import { ShareButtonsModule } from '@mintplayer/ng-share-buttons';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubjectModule } from './subject/subject.module';
 import { SocialLoginsModule } from './social-logins/social-logins.module';
@@ -30,7 +30,7 @@ import { DirectivesModule } from '../directives/directives.module';
     ControlsModule,
     SubjectModule,
     TranslateModule,
-    ShareButtonsModule,
+    //ShareButtonsModule,
     SocialLoginsModule
   ],
   exports: [
