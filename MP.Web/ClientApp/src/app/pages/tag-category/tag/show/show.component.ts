@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { Subscription } from 'rxjs';
 import { Tag } from '../../../../entities/tag';
 import { TagService } from '../../../../services/tag/tag.service';
@@ -15,7 +16,7 @@ import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 export class ShowComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('TAG') tagInj: Tag,
     @Inject('BASE_URL') private baseUrl: string,
     private tagService: TagService,

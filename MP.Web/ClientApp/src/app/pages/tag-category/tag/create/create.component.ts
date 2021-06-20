@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDi
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { TagService } from '../../../../services/tag/tag.service';
 import { TagCategoryService } from '../../../../services/tag-category/tag-category.service';
 import { Tag } from '../../../../entities/tag';
@@ -18,7 +19,7 @@ import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('TAGCATEGORY') tagCategoryInj: TagCategory,
     private tagCategoryService: TagCategoryService,
     private tagService: TagService,

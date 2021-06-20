@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, Inject, PLATFORM_ID } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { User } from '../../entities/user';
 import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down.animation';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+//import { BASE_URL } from '@mintplayer/ng-base-url';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,9 +14,19 @@ import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down.a
   ]
 })
 export class SidebarComponent implements OnInit {
-  constructor() {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, @Inject('BASE_URL') baseUrl: string) {
+    if (isPlatformServer(platformId)) {
+      this.platform = 'Server';
+    } else if (isPlatformBrowser(platformId)) {
+      this.platform = 'Browser';
+    } else {
+      this.platform = 'None';
+    }
+    this.baseUrl = baseUrl;
   }
 
+  baseUrl: string;
+  platform: string;
   level1menu: string = '';
   level2menu: string = '';
   level1toggle(menu: string) {

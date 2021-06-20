@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { Song } from '../../../entities/song';
 import { Playlist } from '../../../entities/playlist';
@@ -21,7 +22,7 @@ import { EnumItem } from '../../../entities/enum-item';
 export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
     private router: AdvancedRouter,

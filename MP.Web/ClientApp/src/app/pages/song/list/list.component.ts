@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { SongService } from '../../../services/song/song.service';
 import { Song } from '../../../entities/song';
 import { PaginationResponse } from '../../../helpers/pagination-response';
@@ -15,7 +16,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 })
 export class ListComponent implements OnInit, OnDestroy {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('SONGS') private songsInj: PaginationResponse<Song>,
     private songService: SongService,
     private router: AdvancedRouter,

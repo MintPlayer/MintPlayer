@@ -3,6 +3,7 @@ import { MediumTypeService } from '../../../services/medium-type/medium-type.ser
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { MediumType } from '../../../entities/medium-type';
 import { ePlayerType } from '../../../enums/ePlayerType';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
@@ -14,7 +15,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 })
 export class ShowComponent implements OnInit, OnDestroy {
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
     private mediumTypeService: MediumTypeService,
     private router: AdvancedRouter,

@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+//import { BASE_URL } from '@mintplayer/ng-base-url';
 import { BlogPost } from '../../entities/blog-post';
 
 @Injectable({

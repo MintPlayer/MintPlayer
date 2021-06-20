@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { MediumType } from '../../../entities/medium-type';
 import { ePlayerType } from '../../../enums/ePlayerType';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
@@ -13,7 +14,7 @@ import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 })
 export class ListComponent implements OnInit, OnDestroy {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('MEDIUMTYPES') private mediumtypesInj: MediumType[],
     private mediumTypeService: MediumTypeService,
     private titleService: Title,

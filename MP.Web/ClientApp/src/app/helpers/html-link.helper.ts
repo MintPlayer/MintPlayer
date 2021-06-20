@@ -5,10 +5,11 @@ import { DOCUMENT } from '@angular/common';
   providedIn: 'root'
 })
 export class HtmlLinkHelper {
-  constructor(@Inject(DOCUMENT) private document: HTMLDocument, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(@Inject(DOCUMENT) private document: HTMLDocument/*, @Inject('BASE_URL') private baseUrl: string*/) {
   }
 
   private linkTags = {};
+  private baseUrl = 'https://localhost:44329';
 
   public set(key: string, url: string) {
     let existingLinkTag = this.linkTags[key];

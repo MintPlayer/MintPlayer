@@ -2,16 +2,18 @@ import 'zone.js/node';
 import 'reflect-metadata';
 import { renderModule, renderModuleFactory } from '@angular/platform-server';
 import { APP_BASE_HREF } from '@angular/common';
-import { enableProdMode, StaticProvider, Inject } from '@angular/core';
+import { enableProdMode, StaticProvider } from '@angular/core';
 //import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
-import { createServerRenderer, BootFuncParams } from 'aspnet-prerendering';
+import { createServerRenderer } from 'aspnet-prerendering';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { SERVER_SIDE_BIS } from './app/test.provider';
 export { AppServerModule } from './app/app.server.module';
 
 enableProdMode();
 
-const getBaseUrl = (params: BootFuncParams) => {
-  return params.origin + params.baseUrl.slice(0, -1);
-}
+//const getBaseUrl = (params: BootFuncParams) => {
+//  return params.origin + params.baseUrl.slice(0, -1);
+//}
 const getExternalUrl = (baseUrl: string) => {
   if (/\blocalhost\b/.test(baseUrl)) {
     return baseUrl;
@@ -31,11 +33,17 @@ export default createServerRenderer(params => {
   const providers: StaticProvider[] = [
     //provideModuleMap(LAZY_MODULE_MAP),
     { provide: APP_BASE_HREF, useValue: params.baseUrl },
-    { provide: 'BOOT_PARAMS', useValue: params },
-    { provide: 'BASE_URL', useFactory: getBaseUrl, deps: ['BOOT_PARAMS'] },
-    { provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: ['BASE_URL'] },
-    { provide: 'SERVERSIDE', useValue: true },
-    { provide: 'API_VERSION', useValue: 'v3' },
+    //{ provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>params },
+    //{ provide: BASE_URL, useFactory: getBaseUrl, deps: [BOOT_FUNC_PARAMS] },
+    //{ provide: 'BASE_URL', useFactory: getBaseUrl, deps: [BOOT_FUNC_PARAMS] },
+    //{ provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: [BASE_URL] },
+    { provide: SERVER_SIDE, useValue: true },
+    { provide: SERVER_SIDE_BIS, useValue: true },
+    { provide: 'API_VERSION', useValue: 'v3' }, ,
+    {
+      provide: 'BASE_URL',
+      useValue: 'https://localhost:44329/'
+    }
   ];
 
   //#region Provide data passed from C#

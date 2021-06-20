@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDi
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { MediumType } from '../../../entities/medium-type';
 import { ePlayerType } from '../../../enums/ePlayerType';
@@ -19,7 +20,7 @@ import { EnumItem } from '../../../entities/enum-item';
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
     private mediumTypeService: MediumTypeService,
     private enumHelper: EnumHelper,

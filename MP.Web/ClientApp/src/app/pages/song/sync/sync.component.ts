@@ -3,6 +3,7 @@ import { Song } from '../../../entities/song';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { SongService } from '../../../services/song/song.service';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -16,7 +17,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 export class SyncComponent implements OnInit, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('SONG') private songInj: Song,
     private songService: SongService,
     private router: AdvancedRouter,

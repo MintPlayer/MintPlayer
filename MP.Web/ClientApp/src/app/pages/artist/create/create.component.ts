@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, OnDestroy, HostListener, KeyValueDiffers, Ke
 import { Title } from '@angular/platform-browser';
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { Artist } from '../../../entities/artist';
 import { ArtistService } from '../../../services/artist/artist.service';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
@@ -18,7 +19,7 @@ import { HasChanges } from '../../../interfaces/has-changes';
 })
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private artistService: ArtistService,
     private mediumTypeService: MediumTypeService,

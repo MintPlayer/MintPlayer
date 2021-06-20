@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { SubjectLikeResponse } from '../../../entities/subject-like-response';
 import { Subject } from '../../../entities/subject';
 import { SubjectService } from '../../../services/subject/subject.service';
@@ -9,7 +10,10 @@ import { SubjectService } from '../../../services/subject/subject.service';
   styleUrls: ['./subject-like.component.scss']
 })
 export class SubjectLikeComponent implements OnInit {
-  constructor(private subjectService: SubjectService, @Inject('SERVERSIDE') private serverSide: boolean) {
+  constructor(
+    private subjectService: SubjectService,
+    @Inject(SERVER_SIDE) private serverSide: boolean
+  ) {
   }
 
   private _subject: Subject;

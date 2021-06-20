@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Inject, HostListener, DoCheck, KeyValueDi
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
 import { TagCategory } from '../../../entities/tag-category';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
@@ -16,7 +17,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     private tagCategoryService: TagCategoryService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,

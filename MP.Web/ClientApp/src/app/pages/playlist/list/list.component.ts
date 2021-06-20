@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { Playlist } from '../../../entities/playlist';
 import { PaginationResponse } from '../../../helpers/pagination-response';
@@ -16,7 +17,7 @@ import { ePlaylistScope } from '../../../enums/ePlaylistScope';
 export class PlaylistListComponent implements OnInit {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('PLAYLISTS') playlistsInj: PaginationResponse<Playlist>,
     private playlistService: PlaylistService,
     private router: AdvancedRouter,

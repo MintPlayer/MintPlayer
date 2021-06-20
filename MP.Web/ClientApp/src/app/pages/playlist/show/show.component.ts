@@ -1,14 +1,15 @@
+import { STATUS_CODES } from 'http';
 import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { Playlist } from '../../../entities/playlist';
 import { PlayButtonClickedEvent } from '../../../events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
 import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
-import { STATUS_CODES } from 'http';
 
 @Component({
   selector: 'app-show',
@@ -18,7 +19,7 @@ import { STATUS_CODES } from 'http';
 export class PlaylistShowComponent implements OnInit {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
     private nativeRouter: Router,

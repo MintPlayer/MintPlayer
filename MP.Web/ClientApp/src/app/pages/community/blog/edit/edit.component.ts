@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, HostListener, DoCheck, KeyValueDiffers, KeyV
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
 import { SlugifyPipe } from '../../../../pipes/slugify/slugify.pipe';
 import { BlogPost } from '../../../../entities/blog-post';
@@ -16,7 +17,7 @@ import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
 export class EditComponent implements OnInit, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     private blogPostService: BlogPostService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,

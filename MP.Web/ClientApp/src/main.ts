@@ -1,9 +1,10 @@
 import { enableProdMode, StaticProvider, Inject, InjectionToken } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 
 import { environment } from './environments/environment';
 import { AppBrowserModule } from './app/app.browser.module';
-import { env } from 'process';
+import { SERVER_SIDE_BIS } from './app/test.provider';
 
 
 if (environment.production) {
@@ -13,9 +14,9 @@ if (environment.production) {
 }
 
 
-const getBaseUrl = () => {
-  return document.getElementsByTagName('base')[0].href.slice(0, -1);
-}
+//const getBaseUrl = () => {
+//  return document.getElementsByTagName('base')[0].href.slice(0, -1);
+//}
 const getExternalUrl = (baseUrl: string) => {
   if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
     return baseUrl;
@@ -31,9 +32,9 @@ const getExternalUrl = (baseUrl: string) => {
 
 
 const providers: StaticProvider[] = [
-  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
   { provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: ['BASE_URL'] },
-  { provide: 'SERVERSIDE', useValue: false },
+  { provide: SERVER_SIDE, useValue: false },
+  { provide: SERVER_SIDE_BIS, useValue: false },
   { provide: 'API_VERSION', useValue: 'v3' },
   { provide: 'PEOPLE', useValue: null },
   { provide: 'PERSON', useValue: null },
@@ -54,7 +55,11 @@ const providers: StaticProvider[] = [
   { provide: 'PROVIDERS', useValue: null },
   { provide: 'USER', useValue: null },
   { provide: 'PATH', useValue: null },
-  { provide: 'URL', useValue: null }
+  { provide: 'URL', useValue: null },
+  {
+    provide: 'BASE_URL',
+    useValue: 'https://localhost:44329/'
+  }
 ];
 
 //if (environment.production) {

@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { AccountService } from '../../../services/account/account.service';
 import { LoginResult } from '../../../entities/login-result';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
@@ -10,7 +11,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('LOGINS') private loginsInj: string[],
     @Inject('PROVIDERS') private providersInj: string[],
     private accountService: AccountService,

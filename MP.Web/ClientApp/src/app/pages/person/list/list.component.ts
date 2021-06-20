@@ -2,12 +2,13 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { DatatableSettings } from '@mintplayer/ng-datatables';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PersonService } from '../../../services/person/person.service';
 import { Person } from '../../../entities/person';
 import { PaginationResponse } from '../../../helpers/pagination-response';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
-import { DatatableSettings } from '@mintplayer/ng-datatables';
 
 @Component({
   selector: 'app-list',
@@ -16,7 +17,7 @@ import { DatatableSettings } from '@mintplayer/ng-datatables';
 })
 export class ListComponent implements OnInit, OnDestroy {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('PEOPLE') private peopleInj: PaginationResponse<Person>,
     private personService: PersonService,
     private router: AdvancedRouter,

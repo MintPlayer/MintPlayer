@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PersonService } from '../../../services/person/person.service';
 import { Person } from '../../../entities/person';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
@@ -15,7 +16,7 @@ import { UrlGenerator } from '../../../helpers/url-generator.helper';
 export class ShowComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('PERSON') personInj: Person,
     @Inject('BASE_URL') private baseUrl: string,
     private personService: PersonService,

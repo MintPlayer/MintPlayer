@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDi
 import { Title } from '@angular/platform-browser';
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PersonService } from '../../../services/person/person.service';
 import { Person } from '../../../entities/person';
 import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
@@ -20,7 +21,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,

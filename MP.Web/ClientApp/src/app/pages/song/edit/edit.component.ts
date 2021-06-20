@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { SongService } from '../../../services/song/song.service';
 import { Song } from '../../../entities/song';
 import { Artist } from '../../../entities/artist';
@@ -21,7 +22,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     private songService: SongService,
     private mediumTypeService: MediumTypeService,
     private router: AdvancedRouter,

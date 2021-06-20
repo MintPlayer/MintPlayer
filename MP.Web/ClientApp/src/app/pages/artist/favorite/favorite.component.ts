@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { ArtistService } from '../../../services/artist/artist.service';
 import { PaginationResponse } from '../../../helpers/pagination-response';
 import { Artist } from '../../../entities/artist';
@@ -13,7 +14,7 @@ import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 export class FavoriteComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject('SERVERSIDE') private serverside: boolean,
+    @Inject(SERVER_SIDE) private serverside: boolean,
     private artistService: ArtistService,
     private htmlLink: HtmlLinkHelper
   ) {
