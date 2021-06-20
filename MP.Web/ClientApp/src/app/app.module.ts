@@ -1,4 +1,4 @@
-import { NgModule, Optional } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,7 +13,6 @@ import { ControlsModule } from './controls/controls.module';
 import { ComponentsModule } from './components/components.module';
 import { environment } from '../environments/environment';
 import { LinifyPipe } from './pipes/linify/linify.pipe';
-import { SERVER_SIDE_BIS, TEST } from './test.provider';
 
 @NgModule({
   declarations: [
@@ -39,22 +38,8 @@ import { SERVER_SIDE_BIS, TEST } from './test.provider';
         'lang': 'preserve',
         'return': ''
       }
-    },
-    {
-      provide: TEST,
-      useFactory: getTest, deps: [ [new Optional(), SERVER_SIDE_BIS] ]
     }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-export function getTest(serverSide?: boolean) {
-  if (serverSide === null) {
-    return 'null';
-  } else if (serverSide === true) {
-    return 'true';
-  } else {
-    return 'false';
-  }
-}

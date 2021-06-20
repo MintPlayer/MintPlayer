@@ -6,7 +6,6 @@ import { enableProdMode, StaticProvider } from '@angular/core';
 //import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import { createServerRenderer } from 'aspnet-prerendering';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { SERVER_SIDE_BIS } from './app/test.provider';
 export { AppServerModule } from './app/app.server.module';
 
 enableProdMode();
@@ -38,8 +37,7 @@ export default createServerRenderer(params => {
     //{ provide: 'BASE_URL', useFactory: getBaseUrl, deps: [BOOT_FUNC_PARAMS] },
     //{ provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: [BASE_URL] },
     { provide: SERVER_SIDE, useValue: true },
-    { provide: SERVER_SIDE_BIS, useValue: true },
-    { provide: 'API_VERSION', useValue: 'v3' }, ,
+    { provide: 'API_VERSION', useValue: 'v3' },
     {
       provide: 'BASE_URL',
       useValue: 'https://localhost:44329/'

@@ -4,7 +4,6 @@ import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 
 import { environment } from './environments/environment';
 import { AppBrowserModule } from './app/app.browser.module';
-import { SERVER_SIDE_BIS } from './app/test.provider';
 
 
 if (environment.production) {
@@ -34,7 +33,6 @@ const getExternalUrl = (baseUrl: string) => {
 const providers: StaticProvider[] = [
   { provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: ['BASE_URL'] },
   { provide: SERVER_SIDE, useValue: false },
-  { provide: SERVER_SIDE_BIS, useValue: false },
   { provide: 'API_VERSION', useValue: 'v3' },
   { provide: 'PEOPLE', useValue: null },
   { provide: 'PERSON', useValue: null },

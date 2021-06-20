@@ -11,6 +11,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { Meta } from '@angular/platform-browser';
 import { PlayerProgress, YoutubePlayerComponent } from '@mintplayer/ng-youtube-player';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { TEST_STRING } from '@mintplayer/ng-base-url';
 import { Size } from './entities/size';
 import { PlaylistShowComponent } from './pages/playlist/show/show.component';
 import { PlayButtonClickedEvent } from './events/play-button-clicked.event';
@@ -24,10 +25,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { ePlayerType } from './enums/ePlayerType';
 import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
-import { FacebookSdkService } from '@mintplayer/ng-share-buttons/lib/services/facebook-sdk/facebook-sdk.service';
-import { TwitterSdkService } from '@mintplayer/ng-share-buttons/lib/services/twitter-sdk/twitter-sdk.service';
-import { LinkedinSdkService } from '@mintplayer/ng-share-buttons/lib/services/linkedin-sdk/linkedin-sdk.service';
-import { TEST } from './test.provider';
 
 @Component({
   selector: 'app-root',
@@ -43,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
   playlistToggleButtonState: eToggleButtonState = eToggleButtonState.closed;
 
   playlistControl: PlaylistControl<Song>;
-  test: string;
+  testString: string;
 
   //#region Player card size
   playerSize: Size = { width: 200, height: 150 };
@@ -61,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @ViewChild('dmplayer') dmplayer: DailymotionPlayerComponent;
   constructor(
-    @Inject(TEST) test: string,
+    @Inject(TEST_STRING) testString: string,
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('USER') userInj: User,
     private accountService: AccountService,
@@ -74,7 +71,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private hreflangTagHelper: HreflangTagHelper,
   ) {
-    this.test = test;
+    this.testString = testString;
 
     //#region Get user
     if (serverSide === true) {
