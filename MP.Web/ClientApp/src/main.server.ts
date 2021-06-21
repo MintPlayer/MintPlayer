@@ -5,34 +5,20 @@ import { APP_BASE_HREF } from '@angular/common';
 import { enableProdMode, StaticProvider } from '@angular/core';
 import { createServerRenderer } from 'aspnet-prerendering';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BASE_URL, BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
-import { EXTERNAL_URL } from './app/providers/external-url.provider';
+import { BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
 export { AppServerModule } from './app/app.server.module';
 
 enableProdMode();
-
-const getExternalUrl = (baseUrl: string) => {
-  if (/\blocalhost\b/.test(baseUrl)) {
-    return baseUrl;
-  } else {
-    let match = /^(?<protocol>http[s]{0,1})\:\/\/(?<url>.*)$/.exec(baseUrl);
-
-    let protocol = match.groups['protocol'];
-    let url = match.groups['url'];
-
-    return `${protocol}://external.${url}`;
-  }
-}
 
 export default createServerRenderer(params => {
   const { AppServerModule, AppServerModuleNgFactory, LAZY_MODULE_MAP } = (module as any).exports;
 
   const providers: StaticProvider[] = [
     { provide: APP_BASE_HREF, useValue: params.baseUrl },
-    { provide: EXTERNAL_URL, useFactory: getExternalUrl, deps: [BASE_URL] },
+    { provide: 'API_VERSION', useValue: 'v3' },
+
     { provide: SERVER_SIDE, useValue: true },
     { provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>params },
-    { provide: 'API_VERSION', useValue: 'v3' },
   ];
 
   //#region Provide data passed from C#

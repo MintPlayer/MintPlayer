@@ -1,11 +1,10 @@
-import { enableProdMode, StaticProvider, Inject, InjectionToken } from '@angular/core';
+import { enableProdMode, StaticProvider } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 
 import { environment } from './environments/environment';
 import { AppBrowserModule } from './app/app.browser.module';
-import { BASE_URL, BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
-import { EXTERNAL_URL } from './app/providers/external-url.provider';
+import { BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
 
 
 if (environment.production) {
@@ -14,25 +13,12 @@ if (environment.production) {
   console.log('Development');
 }
 
-const getExternalUrl = (baseUrl: string) => {
-  if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
-    return baseUrl;
-  } else {
-    let match = new RegExp("^(http[s]{0,1})\\:\\/\\/(.*)$").exec(baseUrl);
-
-    let protocol = match[1];
-    let url = match[2];
-
-    return `${protocol}://external.${url}`;
-  }
-}
-
-
 const providers: StaticProvider[] = [
-  { provide: EXTERNAL_URL, useFactory: getExternalUrl, deps: [BASE_URL] },
+  { provide: 'API_VERSION', useValue: 'v3' },
+
   { provide: SERVER_SIDE, useValue: false },
   { provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>null },
-  { provide: 'API_VERSION', useValue: 'v3' },
+
   { provide: 'PEOPLE', useValue: null },
   { provide: 'PERSON', useValue: null },
   { provide: 'ARTISTS', useValue: null },
@@ -53,15 +39,11 @@ const providers: StaticProvider[] = [
   { provide: 'USER', useValue: null },
   { provide: 'PATH', useValue: null },
   { provide: 'URL', useValue: null },
-  {
-    provide: 'BASE_URL',
-    useValue: 'https://localhost:44329/'
-  }
 ];
 
-//if (environment.production) {
-//  enableProdMode();
-//}
+if (environment.production) {
+  enableProdMode();
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   platformBrowserDynamic(providers).bootstrapModule(AppBrowserModule)

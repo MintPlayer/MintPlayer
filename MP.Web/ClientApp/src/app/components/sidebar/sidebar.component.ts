@@ -1,6 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { User } from '../../entities/user';
 import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down.animation';
 
