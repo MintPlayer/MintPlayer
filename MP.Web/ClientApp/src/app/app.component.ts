@@ -11,7 +11,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { Meta } from '@angular/platform-browser';
 import { PlayerProgress, YoutubePlayerComponent } from '@mintplayer/ng-youtube-player';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BASE_URL, TEST_STRING } from '@mintplayer/ng-base-url';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { Size } from './entities/size';
 import { PlaylistShowComponent } from './pages/playlist/show/show.component';
 import { PlayButtonClickedEvent } from './events/play-button-clicked.event';
@@ -41,7 +41,6 @@ export class AppComponent implements OnInit, OnDestroy {
   playlistToggleButtonState: eToggleButtonState = eToggleButtonState.closed;
 
   playlistControl: PlaylistControl<Song>;
-  testString: string;
 
   //#region Player card size
   playerSize: Size = { width: 200, height: 150 };
@@ -59,7 +58,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @ViewChild('dmplayer') dmplayer: DailymotionPlayerComponent;
   constructor(
-    @Inject(TEST_STRING) testString: string,
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('USER') userInj: User,
     private accountService: AccountService,
@@ -73,7 +71,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private hreflangTagHelper: HreflangTagHelper,
     @Inject(BASE_URL) private baseUrlFromLibrary: string,
   ) {
-    this.testString = testString;
     this.baseUrl = baseUrlFromLibrary;
     //#region Get user
     if (serverSide === true) {
