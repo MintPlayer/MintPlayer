@@ -10,7 +10,6 @@ import { YoutubePlayButtonComponent } from './youtube-play-button/youtube-play-b
 import { PlaylistSidebarComponent } from './playlist-sidebar/playlist-sidebar.component';
 import { ControlsModule } from '../controls/controls.module';
 import { PipesModule } from '../pipes/pipes.module';
-import { DailymotionPlayerComponent } from './dailymotion-player/dailymotion-player.component';
 import { FlagComponent } from './flag/flag.component';
 import { DirectivesModule } from '../directives/directives.module';
 
@@ -19,7 +18,6 @@ import { DirectivesModule } from '../directives/directives.module';
     SidebarComponent,
     YoutubePlayButtonComponent,
     PlaylistSidebarComponent,
-    DailymotionPlayerComponent,
     FlagComponent
   ],
   imports: [
@@ -38,7 +36,6 @@ import { DirectivesModule } from '../directives/directives.module';
     SubjectModule,
     YoutubePlayButtonComponent,
     PlaylistSidebarComponent,
-    DailymotionPlayerComponent,
     FlagComponent
   ]
 })

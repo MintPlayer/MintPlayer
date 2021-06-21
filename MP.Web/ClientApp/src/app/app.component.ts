@@ -19,8 +19,6 @@ import { ePlaylistPlaybutton } from './enums/ePlaylistPlayButton';
 import { LinifyPipe } from './pipes/linify/linify.pipe';
 import { PlaylistControl } from './helpers/playlist-control.helper';
 import { SyncComponent } from './pages/song/sync/sync.component';
-import { DailyMotionHelper } from './helpers/dailymotion-api.helper';
-import { DailymotionPlayerComponent } from './components/dailymotion-player/dailymotion-player.component';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { ePlayerType } from './enums/ePlayerType';
@@ -55,12 +53,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   //#endregion
 
-  @ViewChild('dmplayer') dmplayer: DailymotionPlayerComponent;
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('USER') userInj: User,
     private accountService: AccountService,
-    private dailyMotionHelper: DailyMotionHelper,
     private ref: ChangeDetectorRef,
     private swUpdate: SwUpdate,
     private metaService: Meta,
@@ -79,12 +75,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.activeUser = null;
       });
     }
-    //#endregion
-    //#region Load youtube API
-    //this.dailyMotionHelper.loadApi().then(() => {
-    //  console.log('play video x2yhuhb');
-    //  this.dmplayer.playSong('x2yhuhb');
-    //});
     //#endregion
     //#region Check for updates
     if (this.swUpdate.isEnabled) {

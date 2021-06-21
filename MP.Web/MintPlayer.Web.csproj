@@ -31,17 +31,21 @@
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="ClientApp\src\app\pages\tagging\**" />
+    <Compile Remove="ClientApp\types\**" />
     <Compile Remove="Dtos\**" />
     <Compile Remove="Server\ViewModels\Subject\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\pages\tagging\**" />
+    <Content Remove="ClientApp\types\**" />
     <Content Remove="Dtos\**" />
     <Content Remove="Server\ViewModels\Subject\**" />
     <EmbeddedResource Remove="ClientApp\src\app\pages\tagging\**" />
+    <EmbeddedResource Remove="ClientApp\types\**" />
     <EmbeddedResource Remove="Dtos\**" />
     <EmbeddedResource Remove="Server\ViewModels\Subject\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="ClientApp\src\app\pages\tagging\**" />
+    <None Remove="ClientApp\types\**" />
     <None Remove="Dtos\**" />
     <None Remove="Server\ViewModels\Subject\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
@@ -91,7 +95,6 @@
     <None Remove="ClientApp\src\app\enums\eToggleButtonState.ts" />
     <None Remove="ClientApp\src\app\events\my-before-unload.event.ts" />
     <None Remove="ClientApp\src\app\events\play-button-clicked.event.ts" />
-    <None Remove="ClientApp\src\app\helpers\dailymotion-api.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\enum.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\html-link.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\pagination-request.ts" />
@@ -146,7 +149,6 @@
     <None Remove="ClientApp\tsconfig.json" />
     <None Remove="ClientApp\tsconfig.server.json" />
     <None Remove="ClientApp\tsconfig.spec.json" />
-    <None Remove="ClientApp\types\dailymotion\index.d.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -195,7 +197,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\enums\eToggleButtonState.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\events\my-before-unload.event.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\events\play-button-clicked.event.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\dailymotion-api.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\html-link.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\pagination-request.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\pagination-response.ts" />
@@ -208,7 +209,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\translate-loaders\translate-json-loader.ts" />
     <TypeScriptCompile Include="ClientApp\src\styles\animations\color-transition.animation.ts" />
     <TypeScriptCompile Include="ClientApp\src\styles\animations\slide-up-down.animation.ts" />
-    <TypeScriptCompile Include="ClientApp\types\dailymotion\index.d.ts" />
   </ItemGroup>
 
   <ItemGroup>
