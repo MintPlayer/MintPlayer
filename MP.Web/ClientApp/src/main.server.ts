@@ -6,6 +6,7 @@ import { enableProdMode, StaticProvider } from '@angular/core';
 //import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import { createServerRenderer } from 'aspnet-prerendering';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
 export { AppServerModule } from './app/app.server.module';
 
 enableProdMode();
@@ -32,11 +33,11 @@ export default createServerRenderer(params => {
   const providers: StaticProvider[] = [
     //provideModuleMap(LAZY_MODULE_MAP),
     { provide: APP_BASE_HREF, useValue: params.baseUrl },
-    //{ provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>params },
     //{ provide: BASE_URL, useFactory: getBaseUrl, deps: [BOOT_FUNC_PARAMS] },
     //{ provide: 'BASE_URL', useFactory: getBaseUrl, deps: [BOOT_FUNC_PARAMS] },
     //{ provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: [BASE_URL] },
     { provide: SERVER_SIDE, useValue: true },
+    { provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>params },
     { provide: 'API_VERSION', useValue: 'v3' },
     {
       provide: 'BASE_URL',

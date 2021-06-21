@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
-//import { BaseUrlModule, BASE_URL } from '@mintplayer/ng-base-url';
 import { QUERY_PARAMS_CONFIG, QueryParamsConfig, AdvancedRouterModule } from '@mintplayer/ng-router';
 import { YoutubePlayerModule } from '@mintplayer/ng-youtube-player';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +28,6 @@ import { LinifyPipe } from './pipes/linify/linify.pipe';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule,
     AdvancedRouterModule,
-    //BaseUrlModule,
   ],
   providers: [
     LinifyPipe,

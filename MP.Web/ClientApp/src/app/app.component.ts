@@ -11,7 +11,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { Meta } from '@angular/platform-browser';
 import { PlayerProgress, YoutubePlayerComponent } from '@mintplayer/ng-youtube-player';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { TEST_STRING } from '@mintplayer/ng-base-url';
+import { BASE_URL, TEST_STRING } from '@mintplayer/ng-base-url';
 import { Size } from './entities/size';
 import { PlaylistShowComponent } from './pages/playlist/show/show.component';
 import { PlayButtonClickedEvent } from './events/play-button-clicked.event';
@@ -33,6 +33,7 @@ import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'MintPlayer';
+  baseUrl: string;
   activeUser: User = null;
   fullWidth: boolean = false;
   toggleButtonState: eToggleButtonState = eToggleButtonState.auto;
@@ -70,9 +71,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private translateService: TranslateService,
     private hreflangTagHelper: HreflangTagHelper,
+    @Inject(BASE_URL) private baseUrlFromLibrary: string,
   ) {
     this.testString = testString;
-
+    this.baseUrl = baseUrlFromLibrary;
     //#region Get user
     if (serverSide === true) {
       this.activeUser = userInj;

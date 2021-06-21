@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="main-footer px-3">
-        &copy; MintPlayer
+        &copy; MintPlayer ({{ baseUrl }})
       </div>
     </div>
     <playlist-sidebar [playerState]="playerState" [songs]="playlistControl.playlist" [current]="playlistControl.currentVideo" [songProgress]="songProgress" (songRemoved)="playlistControl.removeFromPlaylist($event.song)" (previousClicked)="playlistControl.previous()" (nextClicked)="playlistControl.next(true)" (songClicked)="collapsePlaylistSidebar()" (playPauseClicked)="playPausePlayer()" [(isRandom)]="playlistControl.shuffle" [(repeatMode)]="playlistControl.repeat" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
