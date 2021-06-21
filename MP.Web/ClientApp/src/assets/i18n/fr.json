@@ -1,9 +1,12 @@
 {
   "global": {
+    "add": "Ajouter",
     "edit": "Ajuster",
     "remove": "Supprimer",
+    "description": "Déscription",
     "details_for": "Détails pour {{ name }}",
-    "general_information": "Informations générales"
+    "general_information": "Informations générales",
+    "mintplayer_blog": "MintPlayer blog"
   },
   "home": {
     "home": "Accueil",
@@ -18,7 +21,23 @@
   "subjects": {
     "tags": "Mots clés",
     "media": "Médias",
-    "general_information": "Informations générales"
+    "remove_medium": "Supprimer ce medium",
+    "general_information": "Informations générales",
+    "like": "J'aime",
+    "dislike": "Je déteste"
+  },
+  "media": {
+    "value": "Valeur",
+    "medium": "Médium",
+    "add_medium": "Créer médium"
+  },
+  "medium_type": {
+    "create_medium_type": "Créer type de médium",
+    "create_new_medium_type": "Créer nouvelle type de médium",
+    "player_type": "Type de lecteur",
+    "edit_medium_type": "Modifier type de médium: {{ name }}",
+    "update_medium_type": "Mettre à jour le type de médium",
+    "all_medium_types": "Tous types de médium"
   },
   "artists": {
     "artists": "Artistes",
@@ -38,9 +57,16 @@
   },
   "people": {
     "people": "Personnes",
+    "create_person": "Créer personne",
+    "create_new_person": "Créer nouvel personne",
     "all_people": "Tous personnes",
     "add_person": "Créer personne",
-    "favorite_people": "Personnes préférées"
+    "favorite_people": "Personnes préférées",
+    "first_name": "Prénom",
+    "last_name": "Nom de famille",
+    "born": "Née",
+    "died": "Mort"
+
   },
   "songs": {
     "songs": "Chansons",
@@ -48,7 +74,8 @@
     "add_song": "Créer chanson",
     "favorite_songs": "Chansons préférées",
     "title": "Titre",
-    "released": "Sortie"
+    "released": "Sortie",
+    "play": "Jouer"
   },
   "playlists": {
     "playlists": "Playlists",
@@ -56,11 +83,20 @@
     "public_playlists": "Playlists publiques",
     "add_playlist": "Créer playlist"
   },
+  "player": {
+    "previous_song": "Chanson précédente",
+    "next_song": "Prochaine chanson",
+    "play_pause": "Démarre/pause",
+    "remove_song": "Supprimer chanson",
+    "shuffle": "Mélanger",
+    "repeat": "Répeter"
+  },
   "community": {
     "community": "Communauté",
     "blog": {
       "blog": "Blog",
-      "our_blog": "MintPlayer blog"
+      "our_blog": "MintPlayer blog",
+      "edit_post": "Modifier article de blog: {{ title }}"
     },
     "github": {
       "github": "GitHub",
@@ -100,21 +136,25 @@
     "update_profile": "Mettre à jour",
     "social_logins": "Connexions sociales",
     "microsoft": {
+      "login": "Connecter par Microsoft",
       "add_login": "Enregistre compte Microsoft",
       "remove_login": "Déregistre compte Microsoft",
       "login_registered": "Compte Microsoft enregistrée"
     },
     "facebook": {
+      "login": "Connecter par Facebook",
       "add_login": "Enregistre compte Facebook",
       "remove_login": "Déregistre compte Facebook",
       "login_registered": "Compte Facebook enregistrée"
     },
     "twitter": {
+      "login": "Connecter par Twitter",
       "add_login": "Enregistre compte Twitter",
       "remove_login": "Déregistre compte Twitter",
       "login_registered": "Compte Twitter enregistrée"
     },
     "google": {
+      "login": "Connecter par Google",
       "add_login": "Enregistre compte Google",
       "remove_login": "Déregistre compte Google",
       "login_registered": "Compte Google enregistrée"

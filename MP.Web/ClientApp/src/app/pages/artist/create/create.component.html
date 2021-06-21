@@ -26,13 +26,13 @@
         <div class="form-group row mb-3">
           <label [appFor]="txt_year_started" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'artists.year_started' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <input type="number" [(ngModel)]="artist.yearStarted" class="form-control" name="year_started" #txt_year_started autofocus />
+            <input type="number" [(ngModel)]="artist.yearStarted" class="form-control" name="year_started" #txt_year_started />
           </div>
         </div>
         <div class="form-group row mb-3">
           <label [appFor]="txt_year_quit" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'artists.year_quit' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <input type="number" [(ngModel)]="artist.yearQuit" class="form-control" name="year_quit" #txt_year_quit autofocus />
+            <input type="number" [(ngModel)]="artist.yearQuit" class="form-control" name="year_quit" #txt_year_quit />
           </div>
         </div>
         <div class="form-group row mb-3">

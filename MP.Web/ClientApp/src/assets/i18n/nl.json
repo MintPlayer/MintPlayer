@@ -1,9 +1,12 @@
 {
   "global": {
+    "add": "Toevoegen",
     "edit": "Aanpassen",
     "remove": "Verwijderen",
+    "description": "Omschrijving",
     "details_for": "Details van {{ name }}",
-    "general_information": "Algemene info"
+    "general_information": "Algemene info",
+    "mintplayer_blog": "MintPlayer blog"
   },
   "home": {
     "home": "Startpagina",
@@ -14,6 +17,27 @@
   "search": {
     "search": "Zoeken",
     "search_anything": "Geef een zoekterm in"
+  },
+  "subjects": {
+    "tags": "Tags",
+    "media": "Media",
+    "remove_medium": "Dit medium verwijderen",
+    "general_information": "Algemene info",
+    "like": "Vind ik leuk",
+    "dislike": "Vind ik niet leuk"
+  },
+  "media": {
+    "value": "Waarde",
+    "medium": "Medium",
+    "add_medium": "Medium toevoegen"
+  },
+  "medium_type": {
+    "create_medium_type": "Mediumtype toevoegen",
+    "create_new_medium_type": "Nieuw mediumtype toevoegen",
+    "player_type": "Spelertype",
+    "edit_medium_type": "Mediumtype aanpassen: {{ name }}",
+    "update_medium_type": "Mediumtype updaten",
+    "all_medium_types": "Alle mediumtypes"
   },
   "artists": {
     "artists": "Artiesten",
@@ -33,9 +57,15 @@
   },
   "people": {
     "people": "Personen",
+    "create_person": "Persoon toevoegen",
+    "create_new_person": "Nieuwe persoon toevoegen",
     "all_people": "Alle personen",
     "add_person": "Persoon toevoegen",
-    "favorite_people": "Favoriete personen"
+    "favorite_people": "Favoriete personen",
+    "first_name": "Voornaam",
+    "last_name": "Achternaam",
+    "born": "Geboren",
+    "died": "Overleden"
   },
   "songs": {
     "songs": "Songs",
@@ -43,7 +73,8 @@
     "add_song": "Song toevoegen",
     "favorite_songs": "Favoriete songs",
     "title": "Titel",
-    "released": "Uitgebracht"
+    "released": "Uitgebracht",
+    "play": "Afspelen"
   },
   "playlists": {
     "playlists": "Afspeellijsten",
@@ -51,11 +82,20 @@
     "public_playlists": "Openbare afspeellijsten",
     "add_playlist": "Afspeellijst toevoegen"
   },
+  "player": {
+    "previous_song": "Vorige song",
+    "next_song": "Volgende song",
+    "play_pause": "Speel af/pauzeer",
+    "remove_song": "Song verwijderen",
+    "shuffle": "Shuffle",
+    "repeat": "Herhaal"
+  },
   "community": {
     "community": "Community",
     "blog": {
       "blog": "Blog",
-      "our_blog": "MintPlayer blog"
+      "our_blog": "MintPlayer blog",
+      "edit_post": "Blogpost aanpassen: {{ title }}"
     },
     "github": {
       "github": "GitHub",
@@ -95,21 +135,25 @@
     "update_profile": "Profiel bijwerken",
     "social_logins": "Sociale logins",
     "microsoft": {
+      "login": "Login met Microsoft account",
       "add_login": "Microsoft login toevoegen",
       "remove_login": "Microsoft login verwijderen",
       "login_registered": "Microsoft account geregistreerd"
     },
     "facebook": {
+      "login": "Login met Facebook",
       "add_login": "Facebook login toevoegen",
       "remove_login": "Facebook login verwijderen",
       "login_registered": "Facebook account geregistreerd"
     },
     "twitter": {
+      "login": "Login met Twitter",
       "add_login": "Twitter login toevoegen",
       "remove_login": "Twitter login verwijderen",
       "login_registered": "Twitter account geregistreerd"
     },
     "google": {
+      "login": "Login met Google",
       "add_login": "Google login toevoegen",
       "remove_login": "Google login verwijderen",
       "login_registered": "Google account geregistreerd"

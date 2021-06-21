@@ -1,11 +1,11 @@
 <div class="sidebar-right d-flex flex-column h-100">
   <div class="d-block border-bottom">
     <div class="d-block text-center">
-      <button (click)="onToggleIsRandom()" title="Toggle random" class="btn btn-lg btn-default" data-toggle="button" [attr.aria-pressed]="isRandom" autocomplete="off">
+      <button (click)="onToggleIsRandom()" [title]="'player.shuffle' | translate" class="btn btn-lg btn-default" data-toggle="button" [attr.aria-pressed]="isRandom" autocomplete="off">
         <i class="fa fa-long-arrow-right" *ngIf="!isRandom"></i>
         <i class="fa fa-random" *ngIf="isRandom"></i>
       </button>
-      <button (click)="onToggleRepeat()" title="Repeat" class="btn btn-lg btn-default" data-toggle="button" [attr.aria-pressed]="isRandom" autocomplete="off">
+      <button (click)="onToggleRepeat()" [title]="'player.repeat' | translate" class="btn btn-lg btn-default" data-toggle="button" [attr.aria-pressed]="isRandom" autocomplete="off">
         <i class="fa fa-repeat">
           <i class="fa fa-sm fa-times-circle" *ngIf="repeatMode === repeatModes.noRepeat"></i>
           <i class="fa fa-sm fa-1" *ngIf="repeatMode === repeatModes.repeatOne"></i>
@@ -13,14 +13,14 @@
       </button>
     </div>
     <div class="d-block text-center">
-      <button (click)="onPreviousClicked()" title="Previous song" class="btn btn-lg btn-default">
+      <button (click)="onPreviousClicked()" [title]="'player.previous_song' | translate" class="btn btn-lg btn-default">
         <i class="fa fa-backward"></i>
       </button>
-      <button (click)="onPlayPauseClicked()" title="Toggle play/pause" class="btn btn-lg btn-default">
+      <button (click)="onPlayPauseClicked()" [title]="'play_pause' | translate" class="btn btn-lg btn-default">
         <i class="fa fa-play" *ngIf="(playerState != 1) && (playerState != 3)"></i>
         <i class="fa fa-pause" *ngIf="(playerState == 1) || (playerState == 3)"></i>
       </button>
-      <button (click)="onNextClicked()" title="Next song" class="btn btn-lg btn-default">
+      <button (click)="onNextClicked()" [title]="'player.next_song' | translate" class="btn btn-lg btn-default">
         <i class="fa fa-forward"></i>
       </button>
     </div>
@@ -37,7 +37,7 @@
         <div class="equalizer align-middle" *ngIf="current == song"></div>
         <label class="align-middle cursor-pointer">{{ song.description }}</label>
       </a>
-      <button class="btn btn-default btn-playlist-remove" title="Remove song" (click)="removeSong($event,song)"><i class="fa fa-trash"></i></button>
+      <button class="btn btn-default btn-playlist-remove" [title]="'remove_song' | translate" (click)="removeSong($event,song)"><i class="fa fa-trash"></i></button>
     </li>
   </ul>
 </div>

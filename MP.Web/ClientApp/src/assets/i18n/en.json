@@ -1,9 +1,12 @@
 {
   "global": {
+    "add": "Add",
     "edit": "Edit",
     "remove": "Remove",
+    "description": "Description",
     "details_for": "Details for {{ name }}",
-    "general_information": "General information"
+    "general_information": "General information",
+    "mintplayer_blog": "MintPlayer blog"
   },
   "home": {
     "home": "Home",
@@ -18,7 +21,23 @@
   "subjects": {
     "tags": "Tags",
     "media": "Media",
-    "general_information": "General information"
+    "remove_medium": "Remove this medium",
+    "general_information": "General information",
+    "like": "I like this",
+    "dislike": "I don't like this"
+  },
+  "media": {
+    "value": "Value",
+    "medium": "Medium",
+    "add_medium": "Add medium"
+  },
+  "medium_type": {
+    "create_medium_type": "Create medium type",
+    "create_medium_new_type": "Create new medium type",
+    "player_type": "Player type",
+    "edit_medium_type": "Edit medium type: {{ name }}",
+    "update_medium_type": "Update medium type",
+    "all_medium_types": "All medium types"
   },
   "artists": {
     "artists": "Artists",
@@ -38,9 +57,15 @@
   },
   "people": {
     "people": "People",
+    "create_person": "Create person",
+    "create_new_person": "Create new person",
     "all_people": "All people",
     "add_person": "Add person",
-    "favorite_people": "Favorite people"
+    "favorite_people": "Favorite people",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "born": "Born",
+    "died": "Died"
   },
   "songs": {
     "songs": "Songs",
@@ -48,7 +73,8 @@
     "add_song": "Add song",
     "favorite_songs": "Favorite songs",
     "title": "Title",
-    "released": "Released"
+    "released": "Released",
+    "play": "Play"
   },
   "playlists": {
     "playlists": "Playlists",
@@ -56,11 +82,20 @@
     "public_playlists": "Public playlists",
     "add_playlist": "Add playlist"
   },
+  "player": {
+    "previous_song": "Previous song",
+    "next_song": "Next song",
+    "play_pause": "Play/pause",
+    "remove_song": "Remove song",
+    "shuffle": "Shuffle",
+    "repeat": "Repeat"
+  },
   "community": {
     "community": "Community",
     "blog": {
       "blog": "Blog",
-      "our_blog": "MintPlayer blog"
+      "our_blog": "MintPlayer blog",
+      "edit_post": "Edit blog post: {{ title }}"
     },
     "github": {
       "github": "GitHub",
@@ -100,21 +135,25 @@
     "update_profile": "Update profile",
     "social_logins": "Social logins",
     "microsoft": {
+      "login": "Sign in with Microsoft account",
       "add_login": "Add Microsoft login",
       "remove_login": "Remove Microsoft login",
       "login_registered": "Microsoft account registered"
     },
     "facebook": {
+      "login": "Sign in with Facebook",
       "add_login": "Add Facebook login",
       "remove_login": "Remove Facebook login",
       "login_registered": "Facebook account registered"
     },
     "twitter": {
+      "login": "Sign in with Twitter",
       "add_login": "Add Twitter login",
       "remove_login": "Remove Twitter login",
       "login_registered": "Twitter account registered"
     },
     "google": {
+      "login": "Sign in with Google",
       "add_login": "Add Google login",
       "remove_login": "Remove Google login",
       "login_registered": "Google account registered"

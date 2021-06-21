@@ -2,8 +2,8 @@
   <nav class="d-flex flex-column">
     <div class="p-1 text-center">
       <facebook-share [routerLink]='["/"]' class="m-1"></facebook-share>
-      <twitter-share [routerLink]='["/"]' [text]="'Open-source music player'" class="mx-1 mt-1"></twitter-share>
-      <linkedin-share [routerLink]='["/"]' [text]="'Open-source music player'" class="mx-1 mb-1"></linkedin-share>
+      <twitter-share [routerLink]='["/"]' [text]="'home.title' | translate" class="mx-1 mt-1"></twitter-share>
+      <linkedin-share [routerLink]='["/"]' [text]="'home.title' | translate" class="mx-1 mb-1"></linkedin-share>
     </div>
     <div class="p-1 text-center">
       <a [advRouterLink]='[]' [queryParams]="{'lang':null}" class="mx-2" title="English">
@@ -12,7 +12,7 @@
       <a [advRouterLink]='[]' [queryParams]="{'lang':'nl'}" class="mx-2" title="Nederlands">
         <app-flag [country]="'nl'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
-      <a [advRouterLink]='[]' [queryParams]="{'lang':'fr'}" class="mx-2" title="Frans">
+      <a [advRouterLink]='[]' [queryParams]="{'lang':'fr'}" class="mx-2" title="Fran&ccedil;ais">
         <app-flag [country]="'fr'" [appHoverClass]="'brightness-250'"></app-flag>
       </a>
     </div>
@@ -166,7 +166,7 @@
         </ul>
       </li>
       <li>
-        <span title="Management" [ngClass]="{'open':level1menu === 'management'}" (click)="level1toggle('management')">
+        <span [title]="'management.management' | translate" [ngClass]="{'open':level1menu === 'management'}" (click)="level1toggle('management')">
           <i class="fa fa-cogs"></i>
           {{ 'management.management' | translate }}
         </span>

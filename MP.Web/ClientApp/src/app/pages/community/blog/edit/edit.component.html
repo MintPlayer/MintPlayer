@@ -2,7 +2,7 @@
   <form (submit)="updateBlogPost()">
     <div class="form-group row mb-3">
       <div class="col-12">
-        <h1 class="d-inline-block">Edit blog post: {{ oldBlogPostTitle }}</h1>
+        <h1 class="d-inline-block">{{ 'community.blog.edit_post' | translate: {title:oldBlogPostTitle} }}</h1>
         <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>

@@ -5,11 +5,11 @@
       <span class="pull-right">
         <a class="btn btn-primary" [advRouterLink]='["/mediumtype", mediumType.id, mediumType.description | slugify, "edit"]'>
           <i class="fa fa-edit"></i>
-          Edit
+          {{ 'global.edit' | translate }}
         </a>
         <button class="btn btn-secondary" (click)="deleteMediumType()">
           <i class="fa fa-trash"></i>
-          Remove
+          {{ 'global.remove' | translate }}
         </button>
       </span>
     </div>
@@ -17,13 +17,13 @@
   <card class="d-block mb-3">
     <header>
       <i class="fa fa-info"></i>
-      General information
+      {{ 'global.general_information' | translate }}
     </header>
     <content>
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-xl-2">
-            <label class="fw-bold">Description</label>
+            <label class="fw-bold">{{ 'global.description' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ mediumType.description }}</label>
@@ -31,7 +31,7 @@
         </div>
         <div class="row">
           <div class="col-sm-4 col-xl-2">
-            <label class="fw-bold">Player type</label>
+            <label class="fw-bold">{{ 'medium_type.player_type' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ playerTypeEnum[mediumType.playerType] }}</label>
