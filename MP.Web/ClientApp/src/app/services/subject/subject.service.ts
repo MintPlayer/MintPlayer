@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { Subject } from '../../entities/subject';
 import { SubjectLikeResponse } from '../../entities/subject-like-response';
 import { eSubjectType } from '../../enums/eSubjectType';
@@ -10,7 +10,7 @@ import { SearchResults } from '../../entities/search-results';
   providedIn: 'root'
 })
 export class SubjectService {
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
+  constructor(private httpClient: HttpClient, @Inject(BASE_URL) private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
   }
 
   public getLikes(subject: Subject) {

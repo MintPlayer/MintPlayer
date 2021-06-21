@@ -216,6 +216,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\providers\" />
     <Folder Include="ClientApp\src\assets\splash\" />
   </ItemGroup>
 

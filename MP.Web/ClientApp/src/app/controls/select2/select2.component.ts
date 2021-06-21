@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, Inject, TemplateRef, HostBinding } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { AutocompleteElement } from '../autocomplete-element';
 
 @Component({
@@ -12,7 +13,7 @@ import { AutocompleteElement } from '../autocomplete-element';
   }
 })
 export class Select2Component implements OnInit {
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private httpClient: HttpClient, @Inject(BASE_URL) private baseUrl: string) {
   }
 
   searchText: string = '';

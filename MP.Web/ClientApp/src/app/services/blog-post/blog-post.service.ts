@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { BlogPost } from '../../entities/blog-post';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { BlogPost } from '../../entities/blog-post';
 })
 export class BlogPostService {
 
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
+  constructor(private httpClient: HttpClient, @Inject(BASE_URL) private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
   }
 
   public getBlogPosts() {

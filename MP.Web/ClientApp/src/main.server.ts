@@ -3,17 +3,14 @@ import 'reflect-metadata';
 import { renderModule, renderModuleFactory } from '@angular/platform-server';
 import { APP_BASE_HREF } from '@angular/common';
 import { enableProdMode, StaticProvider } from '@angular/core';
-//import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import { createServerRenderer } from 'aspnet-prerendering';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
+import { BASE_URL, BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
+import { EXTERNAL_URL } from './app/providers/external-url.provider';
 export { AppServerModule } from './app/app.server.module';
 
 enableProdMode();
 
-//const getBaseUrl = (params: BootFuncParams) => {
-//  return params.origin + params.baseUrl.slice(0, -1);
-//}
 const getExternalUrl = (baseUrl: string) => {
   if (/\blocalhost\b/.test(baseUrl)) {
     return baseUrl;
@@ -31,18 +28,11 @@ export default createServerRenderer(params => {
   const { AppServerModule, AppServerModuleNgFactory, LAZY_MODULE_MAP } = (module as any).exports;
 
   const providers: StaticProvider[] = [
-    //provideModuleMap(LAZY_MODULE_MAP),
     { provide: APP_BASE_HREF, useValue: params.baseUrl },
-    //{ provide: BASE_URL, useFactory: getBaseUrl, deps: [BOOT_FUNC_PARAMS] },
-    //{ provide: 'BASE_URL', useFactory: getBaseUrl, deps: [BOOT_FUNC_PARAMS] },
-    //{ provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: [BASE_URL] },
+    { provide: EXTERNAL_URL, useFactory: getExternalUrl, deps: [BASE_URL] },
     { provide: SERVER_SIDE, useValue: true },
     { provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>params },
     { provide: 'API_VERSION', useValue: 'v3' },
-    {
-      provide: 'BASE_URL',
-      useValue: 'https://localhost:44329/'
-    }
   ];
 
   //#region Provide data passed from C#

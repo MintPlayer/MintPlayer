@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-//import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { TagCategory } from '../../../entities/tag-category';
 import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
@@ -18,7 +18,7 @@ export class ShowComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('TAGCATEGORY') tagCategoryInj: TagCategory,
-    @Inject('BASE_URL') private baseUrl: string,
+    @Inject(BASE_URL) private baseUrl: string,
     private tagCategoryService: TagCategoryService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,

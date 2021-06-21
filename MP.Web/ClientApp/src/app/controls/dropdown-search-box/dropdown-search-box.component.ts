@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Inject, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { AutocompleteElement } from '../autocomplete-element';
 
 @Component({
@@ -9,7 +10,7 @@ import { AutocompleteElement } from '../autocomplete-element';
 })
 export class DropdownSearchBoxComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private httpClient: HttpClient, @Inject(BASE_URL) private baseUrl: string) {
   }
 
   @Input() url: string;

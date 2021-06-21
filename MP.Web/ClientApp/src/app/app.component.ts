@@ -33,7 +33,6 @@ import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'MintPlayer';
-  baseUrl: string;
   activeUser: User = null;
   fullWidth: boolean = false;
   toggleButtonState: eToggleButtonState = eToggleButtonState.auto;
@@ -69,9 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private translateService: TranslateService,
     private hreflangTagHelper: HreflangTagHelper,
-    @Inject(BASE_URL) private baseUrlFromLibrary: string,
   ) {
-    this.baseUrl = baseUrlFromLibrary;
     //#region Get user
     if (serverSide === true) {
       this.activeUser = userInj;

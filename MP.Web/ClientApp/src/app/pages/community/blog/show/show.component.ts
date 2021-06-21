@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { BlogPost } from '../../../../entities/blog-post';
 import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
@@ -20,7 +21,7 @@ export class ShowComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('BLOGPOST') private blogPostInj: BlogPost,
-    @Inject('BASE_URL') private baseUrl: string,
+    @Inject(BASE_URL) private baseUrl: string,
     private blogPostService: BlogPostService,
     private accountService: AccountService,
     private router: AdvancedRouter,

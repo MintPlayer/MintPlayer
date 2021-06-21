@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { Song } from '../../entities/song';
 import { PaginationRequest } from '../../helpers/pagination-request';
 import { PaginationResponse } from '../../helpers/pagination-response';
@@ -10,7 +10,7 @@ import { Lyrics } from '../../entities/lyrics';
   providedIn: 'root'
 })
 export class SongService {
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
+  constructor(private httpClient: HttpClient, @Inject(BASE_URL) private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
   }
 
   public pageSongs(request: PaginationRequest) {

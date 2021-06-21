@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { Artist } from '../../../entities/artist';
 import { ArtistService } from '../../../services/artist/artist.service';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
@@ -18,7 +19,7 @@ export class ShowComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('ARTIST') private artistInj: Artist,
-    @Inject('BASE_URL') private baseUrl: string,
+    @Inject(BASE_URL) private baseUrl: string,
     private artistService: ArtistService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,

@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { Person } from '../../entities/person';
 import { PaginationRequest } from '../../helpers/pagination-request';
 import { PaginationResponse } from '../../helpers/pagination-response';
@@ -9,7 +9,7 @@ import { PaginationResponse } from '../../helpers/pagination-response';
   providedIn: 'root'
 })
 export class PersonService {
-  constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
+  constructor(private httpClient: HttpClient, @Inject(BASE_URL) private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
   }
 
   public pagePeople(request: PaginationRequest) {

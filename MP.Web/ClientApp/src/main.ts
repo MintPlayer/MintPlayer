@@ -4,7 +4,8 @@ import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 
 import { environment } from './environments/environment';
 import { AppBrowserModule } from './app/app.browser.module';
-import { BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
+import { BASE_URL, BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
+import { EXTERNAL_URL } from './app/providers/external-url.provider';
 
 
 if (environment.production) {
@@ -13,10 +14,6 @@ if (environment.production) {
   console.log('Development');
 }
 
-
-//const getBaseUrl = () => {
-//  return document.getElementsByTagName('base')[0].href.slice(0, -1);
-//}
 const getExternalUrl = (baseUrl: string) => {
   if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
     return baseUrl;
@@ -32,7 +29,7 @@ const getExternalUrl = (baseUrl: string) => {
 
 
 const providers: StaticProvider[] = [
-  { provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: ['BASE_URL'] },
+  { provide: EXTERNAL_URL, useFactory: getExternalUrl, deps: [BASE_URL] },
   { provide: SERVER_SIDE, useValue: false },
   { provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>null },
   { provide: 'API_VERSION', useValue: 'v3' },

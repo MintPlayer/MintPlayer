@@ -1,7 +1,8 @@
+import { Inject, Injectable } from '@angular/core';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 import { Subject } from '../entities/subject';
 import { Person } from '../entities/person';
 import { Artist } from '../entities/artist';
-import { Inject, Injectable } from '@angular/core';
 import { Song } from '../entities/song';
 import { SlugifyHelper } from './slugify.helper';
 import { BlogPost } from '../entities/blog-post';
@@ -10,7 +11,7 @@ import { BlogPost } from '../entities/blog-post';
   providedIn: 'root'
 })
 export class UrlGenerator {
-  constructor(@Inject('BASE_URL') private baseUrl: string, private slugifyHelper: SlugifyHelper) {
+  constructor(@Inject(BASE_URL) private baseUrl: string, private slugifyHelper: SlugifyHelper) {
   }
 
   public generateFullUrl(subject: Person | Artist | Song | BlogPost) {

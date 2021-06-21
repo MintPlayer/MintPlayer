@@ -12,7 +12,7 @@ export class HreflangTagHelper {
     private htmlLink: HtmlLinkHelper,
     private router: AdvancedRouter,
     @Inject(DOCUMENT) private document: HTMLDocument,
-    //@Inject('BASE_URL') private baseUrl: string,
+    //@Inject(BASE_URL) private baseUrl: string,
   ) { }
 
   private baseUrl = 'https://localhost:44329';

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JsonLdModule } from '@mintplayer/ng-json-ld';
 import { AdvancedRouterModule } from '@mintplayer/ng-router';
-//import { ShareButtonsModule } from '@mintplayer/ng-share-buttons';
+import { ShareButtonsModule } from '@mintplayer/ng-share-buttons';
 
 import { ControlsModule } from '../../../controls/controls.module';
 import { ComponentsModule } from '../../../components/components.module';
@@ -18,7 +18,7 @@ import { PipesModule } from '../../../pipes/pipes.module';
     CommonModule,
     JsonLdModule,
     AdvancedRouterModule,
-    //ShareButtonsModule,
+    ShareButtonsModule,
     ControlsModule,
     ComponentsModule,
     PipesModule,
