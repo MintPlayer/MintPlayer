@@ -36,7 +36,7 @@
     "@mintplayer/ng-pagination-component": "^1.0.0",
     "@mintplayer/ng-router": "^1.6.1",
     "@mintplayer/ng-server-side": "^1.0.0",
-    "@mintplayer/ng-share-buttons": "^1.5.1",
+    "@mintplayer/ng-share-buttons": "^1.6.0",
     "@mintplayer/ng-youtube-player": "^1.0.8",
     "@nguniversal/express-engine": "^12.0.1",
     "@ngx-translate/core": "^12.1.2",
