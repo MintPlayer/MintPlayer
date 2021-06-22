@@ -101,6 +101,10 @@ export class SortableListComponent implements OnInit {
   }
   //#endregion
 
+  //#region VerticalOnly
+  @Input() public verticalOnly: boolean = true;
+  //#endregion
+
   //#region MouseEvents
   itemMouseDown($event: MouseEvent, li: HTMLUListElement, item: any) {
     $event.preventDefault();

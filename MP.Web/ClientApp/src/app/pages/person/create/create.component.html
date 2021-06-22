@@ -24,19 +24,19 @@
           </div>
         </div>
         <div class="form-group row mb-3">
-          <label [appFor]="txt_last_name" class="col-form-label col-sm-4 col-xl-2">'people.last_name' | translate</label>
+          <label [appFor]="txt_last_name" class="col-form-label col-sm-4 col-xl-2">{{ 'people.last_name' | translate }}</label>
           <div class="col-sm-8 col-xl-10">
             <input type="text" [(ngModel)]="person.lastName" class="form-control" #txt_last_name name="last_name" />
           </div>
         </div>
         <div class="form-group row mb-3">
-          <label [appFor]="txt_born" class="col-form-label col-sm-4 col-xl-2">'people.born' | translate</label>
+          <label [appFor]="txt_born" class="col-form-label col-sm-4 col-xl-2">{{ 'people.born' | translate }}</label>
           <div class="col-sm-8 col-xl-10">
             <input type="date" [ngModel]="person.born | date:'yyyy-MM-dd'" (ngModelChange)="person.born = $event" name="born" class="form-control" #txt_born />
           </div>
         </div>
         <div class="form-group row mb-3">
-          <label [appFor]="txt_died" class="col-form-label col-sm-4 col-xl-2">'people.died' | translate</label>
+          <label [appFor]="txt_died" class="col-form-label col-sm-4 col-xl-2">{{ 'people.died' | translate }}</label>
           <div class="col-sm-8 col-xl-10">
             <input type="date" [ngModel]="person.died | date:'yyyy-MM-dd'" (ngModelChange)="person.died = $event" name="died" class="form-control" #txt_died />
           </div>
