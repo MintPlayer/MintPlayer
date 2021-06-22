@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { NavbarTogglerComponent } from './navbar-toggler/navbar-toggler.component';
 import { CardComponent } from './card/card.component';
-import { Select2Component } from './select2/select2.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { PlaylistTogglerComponent } from './playlist-toggler/playlist-toggler.component';
@@ -20,7 +19,6 @@ import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
   declarations: [
     NavbarTogglerComponent,
     CardComponent,
-    Select2Component,
     AutocompleteComponent,
     PlaylistTogglerComponent,
     ProgressBarComponent,
@@ -38,7 +36,6 @@ import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
   exports: [
     NavbarTogglerComponent,
     CardComponent,
-    Select2Component,
     AutocompleteComponent,
     PlaylistTogglerComponent,
     ProgressBarComponent,

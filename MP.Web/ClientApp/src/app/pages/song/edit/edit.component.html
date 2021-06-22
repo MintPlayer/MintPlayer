@@ -32,19 +32,19 @@
         <div class="form-group row mb-3">
           <label [appFor]="sel_artists" class="col-form-label col-sm-4 col-xl-2">Artists</label>
           <div class="col-sm-8 col-xl-10">
-            <select2 [url]="'/api/subject/search/suggest/artist'" [method]="'get'" [headers]="httpHeaders" [items]="song.artists" #sel_artists></select2>
+            <select2 [url]="'/api/subject/search/suggest/artist'" method="GET" [headers]="httpHeaders" [selectedItems]="song.artists" #sel_artists></select2>
           </div>
         </div>
         <div class="form-group row mb-3">
           <label [appFor]="sel_uncr_artists" class="col-form-label col-sm-4 col-xl-2">Uncredited artists</label>
           <div class="col-sm-8 col-xl-10">
-            <select2 [url]="'/api/subject/search/suggest/artist'" [method]="'get'" [headers]="httpHeaders" [items]="song.uncreditedArtists" #sel_uncr_artists></select2>
+            <select2 [url]="'/api/subject/search/suggest/artist'" method="GET" [headers]="httpHeaders" [selectedItems]="song.uncreditedArtists" #sel_uncr_artists></select2>
           </div>
         </div>
         <div class="form-group row mb-3">
           <label [appFor]="sel_tags" class="col-form-label col-sm-4 col-xl-2">Tags</label>
           <div class="col-sm-8 col-xl-10">
-            <select2 [url]="'/web/v1/Tag/suggest'" [method]="'post'" [headers]="httpHeaders" [items]="song.tags" [itemTemplate]="customTemplate" #sel_tags>
+            <select2 [url]="'/web/v1/Tag/suggest'" method="POST" [headers]="httpHeaders" [selectedItems]="song.tags" [itemTemplate]="customTemplate" #sel_tags>
               <ng-template #customTemplate let-item="item" let-select2="select2">
                 <span class="select2-item" [style.background]="item.category.color" [style.color]="item.category.color | fontColor">
                   <span [style.color]="item.category.color | fontColor" (click)="select2.removeItem(item,$event)">×</span>

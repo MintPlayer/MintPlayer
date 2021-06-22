@@ -90,7 +90,7 @@ h2, .h2 {
   color: var(--theme-text-color);
 
   &:focus {
-    background-color: var(--focus-background-color);
+    background-color: var(--focus-background-color) !important;
     color: var(--focus-text-color);
   }
 }
@@ -99,7 +99,7 @@ select2 {
   background-color: transparent;
 
   &.form-control-focus {
-    background-color: var(--focus-background-color);
+    background-color: var(--focus-background-color) !important;
   }
 
   > input {
