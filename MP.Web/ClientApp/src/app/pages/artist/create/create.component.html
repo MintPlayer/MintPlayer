@@ -50,8 +50,8 @@
         <div class="form-group row mb-3">
           <label [appFor]="sel_tags" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'subjects.tags' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <select2 [url]="'/web/v1/Tag/suggest'" method="POST" [headers]="httpHeaders" [selectedItems]="artist.tags" [itemTemplate]="customTemplate" #sel_tags>
-              <ng-template #customTemplate let-item="item" let-select2="select2">
+            <select2 [url]="'/web/v1/Tag/suggest'" method="POST" [headers]="httpHeaders" [selectedItems]="artist.tags" #sel_tags>
+              <ng-template itemTemplate let-item="item" let-select2="select2">
                 <span class="select2-item" [style.background]="item.category.color" [style.color]="item.category.color | fontColor">
                   <span [style.color]="item.category.color | fontColor" (click)="select2.removeItem(item,$event)">×</span>
                   {{ item.text }}

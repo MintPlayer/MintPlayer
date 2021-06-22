@@ -37,7 +37,7 @@
     "@mintplayer/ng-pagination-component": "^1.0.0",
     "@mintplayer/ng-player-progress": "^1.0.0",
     "@mintplayer/ng-router": "^1.6.1",
-    "@mintplayer/ng-select2": "^1.0.0",
+    "@mintplayer/ng-select2": "^1.0.1",
     "@mintplayer/ng-server-side": "^1.0.0",
     "@mintplayer/ng-share-buttons": "^1.6.0",
     "@mintplayer/ng-youtube-player": "^1.0.8",
