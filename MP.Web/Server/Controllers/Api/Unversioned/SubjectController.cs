@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.Data.Repositories;
 using MintPlayer.Data.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace MintPlayer.Web.Server.Controllers.Api
 {
@@ -43,6 +44,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
 			return Ok(result);
 		}
 
+		[EnableCors(CorsPolicies.AllowDatatables)]
 		[HttpGet("search/suggest/{subjects_concat}/{search_term}", Name = "api-subject-suggest")]
 		public async Task<ActionResult<IEnumerable<Subject>>> Suggest([FromRoute]string subjects_concat, [FromRoute]string search_term, [FromHeader]bool include_relations = false)
 		{
