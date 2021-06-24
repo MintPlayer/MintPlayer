@@ -12,8 +12,6 @@ export class AccountService {
   constructor(private httpClient: HttpClient, @Inject(BASE_URL) private baseUrl: string, @Inject('API_VERSION') private apiVersion: string) {
   }
 
-  //private baseUrl = 'https://localhost:44329';
-
   public register(data: UserData) {
     return this.httpClient.post(`${this.baseUrl}/web/${this.apiVersion}/Account/register`, data).toPromise();
   }
