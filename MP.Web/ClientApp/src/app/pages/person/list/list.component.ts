@@ -6,9 +6,9 @@ import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PersonService } from '../../../services/person/person.service';
 import { Person } from '../../../entities/person';
-import { PaginationResponse } from '../../../helpers/pagination-response';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
+import { PaginationResponse } from '@mintplayer/ng-pagination';
 
 @Component({
   selector: 'app-list',

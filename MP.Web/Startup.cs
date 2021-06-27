@@ -25,7 +25,6 @@ using MintPlayer.Data.Extensions;
 using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
 using MintPlayer.Web.Services;
-using Spa.SpaRoutes;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -391,10 +390,6 @@ namespace MintPlayer.Web
             app.UseHsts();
             app.UseHttpsRedirection();
             app.UseOpenSearch();
-            app.UseDefaultSitemapXmlStylesheet(options =>
-            {
-                options.StylesheetUrl = "/assets/stitemap.xsl";
-            });
 
             app.UseAuthentication();
 
@@ -414,6 +409,11 @@ namespace MintPlayer.Web
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}")
                 .RequireCors("AllowPage");
+
+                endpoints.MapDefaultSitemapXmlStylesheet(options =>
+                {
+                    options.StylesheetUrl = "/assets/stitemap.xsl";
+                });
             });
 
             //app.UseResponseCaching();

@@ -1,9 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '@mintplayer/ng-base-url';
+import { PaginationRequest, PaginationResponse } from '@mintplayer/ng-pagination';
 import { Artist } from '../../entities/artist';
-import { PaginationRequest } from '../../helpers/pagination-request';
-import { PaginationResponse } from '../../helpers/pagination-response';
 
 @Injectable({
   providedIn: 'root'

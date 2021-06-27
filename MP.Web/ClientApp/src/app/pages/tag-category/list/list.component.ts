@@ -3,9 +3,9 @@ import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { PaginationResponse } from '@mintplayer/ng-pagination';
 import { TagCategory } from '../../../entities/tag-category';
 import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
-import { PaginationResponse } from '../../../helpers/pagination-response';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({

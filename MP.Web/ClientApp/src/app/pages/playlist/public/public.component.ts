@@ -2,11 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
+import { PaginationResponse } from '@mintplayer/ng-pagination';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { Playlist } from '../../../entities/playlist';
 import { ePlaylistScope } from '../../../enums/ePlaylistScope';
-import { PaginationResponse } from '../../../helpers/pagination-response';
 import { PlaylistService } from '../../../services/playlist/playlist.service';
 
 @Component({

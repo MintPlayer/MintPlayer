@@ -4,9 +4,9 @@ import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { PaginationResponse } from '@mintplayer/ng-pagination';
 import { SongService } from '../../../services/song/song.service';
 import { Song } from '../../../entities/song';
-import { PaginationResponse } from '../../../helpers/pagination-response';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({
