@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 
 import { EditRoutingModule } from './edit-routing.module';
 import { EditComponent } from './edit.component';
-import { ControlsModule } from '../../../controls/controls.module';
-import { DirectivesModule } from '../../../directives/directives.module';
+import { CardModule } from '../../../controls/card/card.module';
+import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 
 
 
@@ -14,9 +14,9 @@ import { DirectivesModule } from '../../../directives/directives.module';
   imports: [
     CommonModule,
     FormsModule,
-    ControlsModule,
-    DirectivesModule,
 
+    CardModule,
+    ForDirectiveModule,
     EditRoutingModule
   ]
 })

@@ -3,7 +3,7 @@ import { User } from '../../entities/user';
 import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down.animation';
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   animations: [

@@ -5,8 +5,9 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
-import { DirectivesModule } from '../../../directives/directives.module';
 import { SocialLoginsModule } from '../../../components/social-logins/social-logins.module';
+import { PipesModule } from '../../../pipes/pipes.module';
+import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SocialLoginsModule } from '../../../components/social-logins/social-log
   imports: [
     CommonModule,
     FormsModule,
-    DirectivesModule,
+    PipesModule,
+    ForDirectiveModule,
     SocialLoginsModule,
     TranslateModule,
     LoginRoutingModule

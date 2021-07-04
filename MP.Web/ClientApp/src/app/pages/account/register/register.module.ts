@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
-import { DirectivesModule } from '../../../directives/directives.module';
+import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 
 
 @NgModule({
@@ -13,8 +13,9 @@ import { DirectivesModule } from '../../../directives/directives.module';
   imports: [
     CommonModule,
     FormsModule,
-    DirectivesModule,
     TranslateModule,
+
+    ForDirectiveModule,
     RegisterRoutingModule
   ]
 })

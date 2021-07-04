@@ -14,7 +14,6 @@ import { ListComponent } from './list.component';
     CommonModule,
     DatatablesModule,
     AdvancedRouterModule,
-
     ListRoutingModule
   ]
 })

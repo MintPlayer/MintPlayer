@@ -9,11 +9,14 @@ import { YoutubePlayerModule } from '@mintplayer/ng-youtube-player';
 import { BASE_URL } from '@mintplayer/ng-base-url';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ControlsModule } from './controls/controls.module';
-import { ComponentsModule } from './components/components.module';
 import { environment } from '../environments/environment';
 import { LinifyPipe } from './pipes/linify/linify.pipe';
 import { EXTERNAL_URL } from './providers/external-url.provider';
+import { SidebarModule } from './components/sidebar/sidebar.module';
+import { PlaylistSidebarModule } from './components/playlist-sidebar/playlist-sidebar.module';
+import { NavbarTogglerModule } from './controls/navbar-toggler/navbar-toggler.module';
+import { PlaylistTogglerModule } from './controls/playlist-toggler/playlist-toggler.module';
+import { CardModule } from './controls/card/card.module';
 
 const getExternalUrl = (baseUrl: string) => {
   if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
@@ -36,13 +39,18 @@ const getExternalUrl = (baseUrl: string) => {
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
-    YoutubePlayerModule,
-    ControlsModule,
-    ComponentsModule,
     TranslateModule.forChild(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    AppRoutingModule,
     AdvancedRouterModule,
+
+    CardModule,
+    SidebarModule,
+    YoutubePlayerModule,
+    NavbarTogglerModule,
+    PlaylistTogglerModule,
+    PlaylistSidebarModule,
+
+    AppRoutingModule,
   ],
   providers: [
     LinifyPipe,

@@ -14,9 +14,10 @@ import { PipesModule } from '../../../pipes/pipes.module';
   imports: [
     CommonModule,
     TranslateModule,
-    PipesModule,
     DatatablesModule,
     AdvancedRouterModule,
+
+    PipesModule,
     FavoriteRoutingModule
   ]
 })

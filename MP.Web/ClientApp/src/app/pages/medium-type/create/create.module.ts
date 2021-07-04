@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CreateRoutingModule } from './create-routing.module';
 import { CreateComponent } from './create.component';
-import { DirectivesModule } from '../../../directives/directives.module';
+import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 
 
 
@@ -15,8 +15,8 @@ import { DirectivesModule } from '../../../directives/directives.module';
     CommonModule,
     FormsModule,
     TranslateModule,
-    DirectivesModule,
 
+    ForDirectiveModule,
     CreateRoutingModule
   ]
 })

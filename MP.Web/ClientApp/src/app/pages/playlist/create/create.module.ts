@@ -5,8 +5,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { CreateRoutingModule } from './create-routing.module';
 import { PlaylistCreateComponent } from './create.component';
-import { ControlsModule } from '../../../controls/controls.module';
-import { DirectivesModule } from '../../../directives/directives.module';
+import { CardModule } from '../../../controls/card/card.module';
+import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
+import { DropdownSearchBoxModule } from '../../../controls/dropdown-search-box/dropdown-search-box.module';
 
 
 
@@ -15,10 +16,11 @@ import { DirectivesModule } from '../../../directives/directives.module';
   imports: [
     CommonModule,
     FormsModule,
-    ControlsModule,
     DragDropModule,
-    DirectivesModule,
 
+    CardModule,
+    ForDirectiveModule,
+    DropdownSearchBoxModule,
     CreateRoutingModule
   ]
 })

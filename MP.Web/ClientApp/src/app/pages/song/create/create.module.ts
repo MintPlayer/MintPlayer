@@ -5,10 +5,10 @@ import { Select2Module } from '@mintplayer/ng-select2';
 
 import { CreateRoutingModule } from './create-routing.module';
 import { CreateComponent } from './create.component';
-import { ComponentsModule } from '../../../components/components.module';
-import { ControlsModule } from '../../../controls/controls.module';
-import { DirectivesModule } from '../../../directives/directives.module';
+import { CardModule } from '../../../controls/card/card.module';
+import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 import { PipesModule } from '../../../pipes/pipes.module';
+import { MediaManagerModule } from '../../../components/subject/media-manager/media-manager.module';
 
 
 
@@ -18,11 +18,12 @@ import { PipesModule } from '../../../pipes/pipes.module';
     CommonModule,
     FormsModule,
     Select2Module,
-    ControlsModule,
-    ComponentsModule,
-    DirectivesModule,
 
+    CardModule,
     PipesModule,
+    ForDirectiveModule,
+    MediaManagerModule,
+
     CreateRoutingModule
   ]
 })

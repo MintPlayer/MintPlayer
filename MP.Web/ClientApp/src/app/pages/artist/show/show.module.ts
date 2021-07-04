@@ -6,11 +6,10 @@ import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { ShowRoutingModule } from './show-routing.module';
 import { ShowComponent } from './show.component';
-import { ComponentsModule } from '../../../components/components.module';
-import { ControlsModule } from '../../../controls/controls.module';
 import { PipesModule } from '../../../pipes/pipes.module';
-
-
+import { SubjectLikeModule } from '../../../components/subject/subject-like/subject-like.module';
+import { CardModule } from '../../../controls/card/card.module';
+import { MediaListModule } from '../../../components/subject/media-list/media-list.module';
 
 @NgModule({
   declarations: [ShowComponent],
@@ -18,11 +17,12 @@ import { PipesModule } from '../../../pipes/pipes.module';
     CommonModule,
     JsonLdModule,
     TranslateModule,
-    ControlsModule,
-    ComponentsModule,
-    PipesModule,
     AdvancedRouterModule,
 
+    PipesModule,
+    CardModule,
+    MediaListModule,
+    SubjectLikeModule,
     ShowRoutingModule
   ]
 })

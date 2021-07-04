@@ -4,7 +4,6 @@ import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { NotFoundRoutingModule } from './not-found-routing.module';
 import { NotFoundComponent } from './not-found.component';
-import { DirectivesModule } from '../../directives/directives.module';
 
 
 @NgModule({
@@ -12,6 +11,7 @@ import { DirectivesModule } from '../../directives/directives.module';
   imports: [
     CommonModule,
     AdvancedRouterModule,
+
     NotFoundRoutingModule
   ]
 })

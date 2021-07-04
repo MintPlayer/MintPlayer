@@ -2,23 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AdvancedRouterModule } from '@mintplayer/ng-router';
-
-import { SearchRoutingModule } from './search-routing.module';
-import { SearchComponent } from './search.component';
-import { AutocompleteModule } from '../../controls/autocomplete/autocomplete.module';
+import { PlaylistSidebarComponent } from './playlist-sidebar.component';
+import { ProgressBarModule } from '../../controls/progress-bar/progress-bar.module';
 import { PipesModule } from '../../pipes/pipes.module';
 
-
 @NgModule({
-  declarations: [SearchComponent],
+  declarations: [
+    PlaylistSidebarComponent
+  ],
   imports: [
     CommonModule,
     TranslateModule,
     AdvancedRouterModule,
-
-    PipesModule,
-    AutocompleteModule,
-    SearchRoutingModule
+    ProgressBarModule,
+    PipesModule
+  ],
+  exports: [
+    PlaylistSidebarComponent
   ]
 })
-export class SearchModule { }
+export class PlaylistSidebarModule { }

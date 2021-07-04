@@ -5,8 +5,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { CreateRoutingModule } from './create-routing.module';
 import { CreateComponent } from './create.component';
-import { ControlsModule } from '../../../../controls/controls.module';
-import { DirectivesModule } from '../../../../directives/directives.module';
+import { CardModule } from '../../../../controls/card/card.module';
+import { ForDirectiveModule } from '../../../../directives/for/for-directive.module';
 
 
 @NgModule({
@@ -15,8 +15,9 @@ import { DirectivesModule } from '../../../../directives/directives.module';
     CommonModule,
     FormsModule,
     TranslateModule,
-    ControlsModule,
-    DirectivesModule,
+
+    CardModule,
+    ForDirectiveModule,
     CreateRoutingModule
   ]
 })

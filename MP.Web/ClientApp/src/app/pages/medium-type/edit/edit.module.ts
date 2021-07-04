@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { EditRoutingModule } from './edit-routing.module';
 import { EditComponent } from './edit.component';
-import { DirectivesModule } from '../../../directives/directives.module';
+import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 
 
 
@@ -15,8 +15,8 @@ import { DirectivesModule } from '../../../directives/directives.module';
     CommonModule,
     FormsModule,
     TranslateModule,
-    DirectivesModule,
 
+    ForDirectiveModule,
     EditRoutingModule
   ]
 })

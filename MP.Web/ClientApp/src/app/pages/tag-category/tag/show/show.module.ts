@@ -4,7 +4,7 @@ import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { ShowRoutingModule } from './show-routing.module';
 import { ShowComponent } from './show.component';
-import { ControlsModule } from '../../../../controls/controls.module';
+import { CardModule } from '../../../../controls/card/card.module';
 import { PipesModule } from '../../../../pipes/pipes.module';
 
 
@@ -13,7 +13,8 @@ import { PipesModule } from '../../../../pipes/pipes.module';
   imports: [
     CommonModule,
     AdvancedRouterModule,
-    ControlsModule,
+
+    CardModule,
     PipesModule,
     ShowRoutingModule
   ]

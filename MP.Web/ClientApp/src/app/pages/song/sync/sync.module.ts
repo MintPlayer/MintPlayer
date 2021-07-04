@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 
 import { SyncRoutingModule } from './sync-routing.module';
 import { SyncComponent } from './sync.component';
-import { ControlsModule } from '../../../controls/controls.module';
-import { DirectivesModule } from '../../../directives/directives.module';
+import { CardModule } from '../../../controls/card/card.module';
 import { PipesModule } from '../../../pipes/pipes.module';
+import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 
 
 
@@ -15,10 +15,10 @@ import { PipesModule } from '../../../pipes/pipes.module';
   imports: [
     CommonModule,
     FormsModule,
-    ControlsModule,
-    DirectivesModule,
 
+    CardModule,
     PipesModule,
+    ForDirectiveModule,
     SyncRoutingModule
   ]
 })

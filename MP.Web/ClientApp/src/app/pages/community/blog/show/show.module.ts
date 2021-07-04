@@ -16,6 +16,7 @@ import { PipesModule } from '../../../../pipes/pipes.module';
     JsonLdModule,
     TranslateModule,
     AdvancedRouterModule,
+
     PipesModule,
     ShowRoutingModule
   ]
