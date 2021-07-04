@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AdvancedRouter } from '@mintplayer/ng-router';
-import { AccountService } from '../../services/account/account.service';
+import { AccountService } from '@mintplayer/ng-client';
 
 @Injectable({
   providedIn: 'root'

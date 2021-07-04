@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Song } from '../../entities/song';
 import { SongRemovedEvent } from '../../events/song-removed.event';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { eRepeatMode } from '../../enums/eRepeatMode';
 import { PlayerProgress } from '@mintplayer/ng-youtube-player';
+import { Song } from '@mintplayer/ng-client';
 
 @Component({
   selector: 'playlist-sidebar',

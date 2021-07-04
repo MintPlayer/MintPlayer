@@ -1,10 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
+import { AccountService, User, UserData } from '@mintplayer/ng-client';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Guid } from 'guid-typescript';
-import { AccountService } from '../../../services/account/account.service';
-import { UserData } from '../../../entities/user-data';
-import { User } from '../../../entities/user';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({

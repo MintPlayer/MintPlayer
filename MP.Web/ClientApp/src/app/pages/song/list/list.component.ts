@@ -5,8 +5,7 @@ import { AdvancedRouter } from '@mintplayer/ng-router';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
-import { SongService } from '../../../services/song/song.service';
-import { Song } from '../../../entities/song';
+import { Song, SongService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({

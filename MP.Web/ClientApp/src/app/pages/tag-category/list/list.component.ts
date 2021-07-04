@@ -4,8 +4,7 @@ import { AdvancedRouter } from '@mintplayer/ng-router';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
-import { TagCategory } from '../../../entities/tag-category';
-import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
+import { TagCategory, TagCategoryService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({

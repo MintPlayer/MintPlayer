@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from '../../entities/subject';
 import { AutocompleteElement } from '../autocomplete-element';
+import { Subject } from '@mintplayer/ng-client';
 
 @Component({
   selector: 'autocomplete',

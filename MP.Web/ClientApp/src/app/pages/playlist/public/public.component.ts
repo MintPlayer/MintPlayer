@@ -1,13 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { Playlist, PlaylistScope, PlaylistService } from '@mintplayer/ng-client';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { Playlist } from '../../../entities/playlist';
-import { ePlaylistScope } from '../../../enums/ePlaylistScope';
-import { PlaylistService } from '../../../services/playlist/playlist.service';
 
 @Component({
   selector: 'app-public',
@@ -35,7 +33,7 @@ export class PlaylistPublicComponent implements OnInit {
   }
 
   loadPlaylists() {
-    this.playlistService.pagePlaylists(this.tableSettings.toPagination(), ePlaylistScope.Public).then((playlists) => {
+    this.playlistService.pagePlaylists(this.tableSettings.toPagination(), PlaylistScope.Public).then((playlists) => {
       this.setPlaylistData(playlists);
     }).catch((error) => {
       console.log(error);

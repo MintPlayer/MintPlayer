@@ -4,8 +4,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { BASE_URL } from '@mintplayer/ng-base-url';
-import { PersonService } from '../../../services/person/person.service';
-import { Person } from '../../../entities/person';
+import { Person, PersonService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
 

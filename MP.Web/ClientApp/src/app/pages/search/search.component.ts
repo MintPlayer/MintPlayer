@@ -2,12 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
-import { SubjectService } from '../../services/subject/subject.service';
-import { SearchResults } from '../../entities/search-results';
-import { eSubjectType } from '../../enums/eSubjectType';
-import { Person } from '../../entities/person';
-import { Artist } from '../../entities/artist';
-import { Song } from '../../entities/song';
+import { Artist, Person, SearchResults, Song, SubjectService, SubjectType } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { UrlGenerator } from '../../helpers/url-generator.helper';
@@ -98,7 +93,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   private performSearch() {
-    this.subjectService.search(this.searchterm, [eSubjectType.person, eSubjectType.artist, eSubjectType.song]).then((results) => {
+    this.subjectService.search(this.searchterm, [SubjectType.person, SubjectType.artist, SubjectType.song]).then((results) => {
       this.searchResults = results;
     }).catch((error) => {
       console.error('Could not perform search query', error);

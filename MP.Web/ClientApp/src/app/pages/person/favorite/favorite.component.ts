@@ -2,9 +2,8 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
-import { PersonService } from '../../../services/person/person.service';
+import { Person, PersonService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { Person } from '../../../entities/person';
 
 @Component({
   selector: 'app-favorite',

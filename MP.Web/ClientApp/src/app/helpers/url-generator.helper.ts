@@ -1,11 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { BASE_URL } from '@mintplayer/ng-base-url';
-import { Subject } from '../entities/subject';
-import { Person } from '../entities/person';
-import { Artist } from '../entities/artist';
-import { Song } from '../entities/song';
+import { Artist, BlogPost, Person, Song } from '@mintplayer/ng-client';
 import { SlugifyHelper } from './slugify.helper';
-import { BlogPost } from '../entities/blog-post';
 
 @Injectable({
   providedIn: 'root'

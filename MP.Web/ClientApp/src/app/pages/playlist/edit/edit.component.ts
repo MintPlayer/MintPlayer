@@ -4,16 +4,13 @@ import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { PlaylistService } from '../../../services/playlist/playlist.service';
-import { Song } from '../../../entities/song';
-import { Playlist } from '../../../entities/playlist';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Playlist, PlaylistAccessibility, PlaylistService, Song } from '@mintplayer/ng-client';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
 import { EnumHelper } from '../../../helpers/enum.helper';
 import { EnumItem } from '../../../entities/enum-item';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-edit',
@@ -33,7 +30,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     private differs: KeyValueDiffers,
     private enumHelper: EnumHelper
   ) {
-    this.accessibilities = this.enumHelper.getItems(ePlaylistAccessibility);
+    this.accessibilities = this.enumHelper.getItems(PlaylistAccessibility);
 
     if (serverSide === false) {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -75,13 +72,13 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     id: 0,
     description: '',
     tracks: [],
-    accessibility: ePlaylistAccessibility.Private,
+    accessibility: PlaylistAccessibility.Private,
     user: null
   };
 
   public accessibilities: EnumItem[] = [];
   public accessibilitySelected(accessibility: number) {
-    this.playlist.accessibility = ePlaylistAccessibility[ePlaylistAccessibility[accessibility]];
+    this.playlist.accessibility = PlaylistAccessibility[PlaylistAccessibility[accessibility]];
   }
 
   drop(event: CdkDragDrop<string[]>) {

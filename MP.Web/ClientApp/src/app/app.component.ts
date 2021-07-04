@@ -1,17 +1,17 @@
 import { Component, ElementRef, ViewChild, ChangeDetectorRef, Inject, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
+import { SwUpdate } from '@angular/service-worker';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { User, Song, AccountService, PlayerType } from '@mintplayer/ng-client';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { PlayerProgress, YoutubePlayerComponent } from '@mintplayer/ng-youtube-player';
+
 import { eToggleButtonState } from './enums/eToggleButtonState';
 import { eSidebarState } from './enums/eSidebarState';
-import { User } from './entities/user';
 import { LoginComponent } from './pages/account/login/login.component';
 import { RegisterComponent } from './pages/account/register/register.component';
-import { AccountService } from './services/account/account.service';
 import { ShowComponent as SongShowComponent } from './pages/song/show/show.component';
-import { Song } from './entities/song';
-import { SwUpdate } from '@angular/service-worker';
-import { Meta } from '@angular/platform-browser';
-import { PlayerProgress, YoutubePlayerComponent } from '@mintplayer/ng-youtube-player';
-import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BASE_URL } from '@mintplayer/ng-base-url';
 import { Size } from './entities/size';
 import { PlaylistShowComponent } from './pages/playlist/show/show.component';
 import { PlayButtonClickedEvent } from './events/play-button-clicked.event';
@@ -19,9 +19,6 @@ import { ePlaylistPlaybutton } from './enums/ePlaylistPlayButton';
 import { LinifyPipe } from './pipes/linify/linify.pipe';
 import { PlaylistControl } from './helpers/playlist-control.helper';
 import { SyncComponent } from './pages/song/sync/sync.component';
-import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
-import { ePlayerType } from './enums/ePlayerType';
 import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
 
 @Component({
@@ -108,10 +105,10 @@ export class AppComponent implements OnInit, OnDestroy {
       onPlayVideo: (song) => {
         console.log('player info', song.playerInfo);
         switch (song.playerInfo.type) {
-          case ePlayerType.Youtube: {
+          case PlayerType.Youtube: {
             this.player.playVideoById(song.playerInfo.id);
           } break;
-          case ePlayerType.DailyMotion: {
+          case PlayerType.DailyMotion: {
 
           } break;
         }

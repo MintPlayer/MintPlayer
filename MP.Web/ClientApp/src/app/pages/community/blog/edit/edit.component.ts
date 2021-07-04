@@ -3,9 +3,8 @@ import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
+import { BlogPost, BlogPostService } from '@mintplayer/ng-client';
 import { SlugifyPipe } from '../../../../pipes/slugify/slugify.pipe';
-import { BlogPost } from '../../../../entities/blog-post';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
 

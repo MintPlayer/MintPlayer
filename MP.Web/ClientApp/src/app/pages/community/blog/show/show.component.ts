@@ -4,12 +4,10 @@ import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { BASE_URL } from '@mintplayer/ng-base-url';
-import { BlogPost } from '../../../../entities/blog-post';
-import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
+import { AccountService, BlogPost, BlogPostService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../../helpers/url-generator.helper';
 import { WordCountPipe } from '../../../../pipes/word-count/word-count.pipe';
-import { AccountService } from '../../../../services/account/account.service';
 
 @Component({
   selector: 'app-show',

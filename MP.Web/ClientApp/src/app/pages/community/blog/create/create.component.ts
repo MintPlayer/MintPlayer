@@ -1,8 +1,7 @@
 import { Component, OnInit, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
-import { BlogPost } from '../../../../entities/blog-post';
-import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
+import { BlogPost, BlogPostService } from '@mintplayer/ng-client';
 import { SlugifyPipe } from '../../../../pipes/slugify/slugify.pipe';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
@@ -71,7 +70,6 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   ngOnDestroy() {
-
   }
 
 }

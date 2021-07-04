@@ -4,8 +4,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { BASE_URL } from '@mintplayer/ng-base-url';
-import { TagCategory } from '../../../entities/tag-category';
-import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
+import { TagCategory, TagCategoryService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({

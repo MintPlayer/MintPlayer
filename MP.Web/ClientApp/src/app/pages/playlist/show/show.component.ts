@@ -5,11 +5,9 @@ import { Title } from '@angular/platform-browser';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { PlaylistService } from '../../../services/playlist/playlist.service';
-import { Playlist } from '../../../entities/playlist';
 import { PlayButtonClickedEvent } from '../../../events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
-import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
+import { Playlist, PlaylistAccessibility, PlaylistService } from '@mintplayer/ng-client';
 
 @Component({
   selector: 'app-show',
@@ -87,7 +85,7 @@ export class PlaylistShowComponent implements OnInit {
     id: 0,
     description: '',
     tracks: [],
-    accessibility: ePlaylistAccessibility.Private,
+    accessibility: PlaylistAccessibility.Private,
     user: null
   };
 }

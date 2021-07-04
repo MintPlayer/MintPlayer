@@ -2,11 +2,9 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy, Inject } from '@ang
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
-import { AccountService } from '../../../services/account/account.service';
-import { LoginResult } from '../../../entities/login-result';
-import { User } from '../../../entities/user';
-import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { AccountService, LoginResult, User } from '@mintplayer/ng-client';
+import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({
   selector: 'app-login',

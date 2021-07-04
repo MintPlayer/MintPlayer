@@ -1,11 +1,9 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { MediumType } from '../../../entities/medium-type';
-import { ePlayerType } from '../../../enums/ePlayerType';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({
@@ -107,10 +105,10 @@ export class ShowComponent implements OnInit, OnDestroy {
     });
   }
 
-  public playerTypeEnum = ePlayerType;
+  public playerTypeEnum = PlayerType;
   public mediumType: MediumType = {
     id: 0,
     description: '',
-    playerType: ePlayerType.None
+    playerType: PlayerType.None
   };
 }

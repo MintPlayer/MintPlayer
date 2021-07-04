@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
-import { ePlayerType } from '../../../enums/ePlayerType';
-import { MediumType } from '../../../entities/medium-type';
+import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -27,18 +25,18 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private differs: KeyValueDiffers
   ) {
     this.titleService.setTitle('Create medium type');
-    this.playerTypes = this.enumHelper.getItems(ePlayerType);
+    this.playerTypes = this.enumHelper.getItems(PlayerType);
   }
 
   public mediumType: MediumType = {
     id: 0,
     description: '',
-    playerType: ePlayerType.None
+    playerType: PlayerType.None
   };
 
   public playerTypes: EnumItem[] = [];
   public playerTypeSelected(playerType: number) {
-    this.mediumType.playerType = ePlayerType[ePlayerType[playerType]];
+    this.mediumType.playerType = PlayerType[PlayerType[playerType]];
   }
 
   public saveMediumType() {

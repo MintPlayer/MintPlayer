@@ -2,9 +2,8 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
-import { SongService } from '../../../services/song/song.service';
+import { Song, SongService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { Song } from '../../../entities/song';
 
 @Component({
   selector: 'app-favorite',

@@ -1,10 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
+import { AccountService, BlogPost, BlogPostService } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BlogPost } from '../../../../entities/blog-post';
-import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
-import { AccountService } from '../../../../services/account/account.service';
 
 @Component({
   selector: 'app-list',

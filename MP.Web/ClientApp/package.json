@@ -31,6 +31,7 @@
     "@angular/router": "~12.0.2",
     "@angular/service-worker": "~12.0.2",
     "@mintplayer/ng-base-url": "^2.3.1",
+    "@mintplayer/ng-client": "^1.0.0",
     "@mintplayer/ng-dailymotion-player": "^1.1.10",
     "@mintplayer/ng-datatables": "^2.0.1",
     "@mintplayer/ng-json-ld": "^1.1.0",

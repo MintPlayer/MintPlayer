@@ -3,9 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { MediumType } from '../../../entities/medium-type';
-import { ePlayerType } from '../../../enums/ePlayerType';
+import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -31,7 +29,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers
   ) {
-    this.playerTypes = this.enumHelper.getItems(ePlayerType);
+    this.playerTypes = this.enumHelper.getItems(PlayerType);
 
     if (serverSide) {
       this.setMediumType(mediumTypeInj);
@@ -63,12 +61,12 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   mediumType: MediumType = {
     id: 0,
     description: '',
-    playerType: ePlayerType.None
+    playerType: PlayerType.None
   };
 
   public playerTypes: EnumItem[] = [];
   public playerTypeSelected(playerType: number) {
-    this.mediumType.playerType = ePlayerType[ePlayerType[playerType]];
+    this.mediumType.playerType = PlayerType[PlayerType[playerType]];
   }
 
   public updateMediumType() {

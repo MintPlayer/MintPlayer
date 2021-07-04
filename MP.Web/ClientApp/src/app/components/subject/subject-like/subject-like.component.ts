@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Subject, SubjectLikeResponse, SubjectService } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { SubjectLikeResponse } from '../../../entities/subject-like-response';
-import { Subject } from '../../../entities/subject';
-import { SubjectService } from '../../../services/subject/subject.service';
 
 @Component({
   selector: 'subject-like',

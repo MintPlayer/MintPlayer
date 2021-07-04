@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ePlayerType } from '../enums/ePlayerType';
-import { KeyValue } from '@angular/common';
 import { EnumItem } from '../entities/enum-item';
 
 @Injectable({

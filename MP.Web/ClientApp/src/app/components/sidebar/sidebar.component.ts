@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { User } from '../../entities/user';
+import { User } from '@mintplayer/ng-client';
 import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down.animation';
 
 @Component({

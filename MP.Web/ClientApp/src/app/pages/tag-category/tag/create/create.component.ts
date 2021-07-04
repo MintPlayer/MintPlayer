@@ -3,11 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { TagService } from '../../../../services/tag/tag.service';
-import { TagCategoryService } from '../../../../services/tag-category/tag-category.service';
-import { Tag } from '../../../../entities/tag';
+import { Tag, TagCategory, TagCategoryService, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
-import { TagCategory } from '../../../../entities/tag-category';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
 

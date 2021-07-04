@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { AccountService, LoginResult } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { AccountService } from '../../../services/account/account.service';
-import { LoginResult } from '../../../entities/login-result';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({

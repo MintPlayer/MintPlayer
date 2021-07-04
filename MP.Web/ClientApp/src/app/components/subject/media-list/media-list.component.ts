@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Medium } from '../../../entities/medium';
+import { Medium } from '@mintplayer/ng-client';
 
 @Component({
   selector: 'media-list',

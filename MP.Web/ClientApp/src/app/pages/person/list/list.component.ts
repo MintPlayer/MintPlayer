@@ -4,11 +4,9 @@ import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { PersonService } from '../../../services/person/person.service';
-import { Person } from '../../../entities/person';
-import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
+import { Person, PersonService } from '@mintplayer/ng-client';
+import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({
   selector: 'app-list',

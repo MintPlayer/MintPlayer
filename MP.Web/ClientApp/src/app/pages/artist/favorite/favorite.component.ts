@@ -2,8 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
-import { ArtistService } from '../../../services/artist/artist.service';
-import { Artist } from '../../../entities/artist';
+import { Artist, ArtistService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({

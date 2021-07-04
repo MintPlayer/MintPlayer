@@ -1,4 +1,4 @@
-import { Song } from '../entities/song';
+import { Song } from "@mintplayer/ng-client";
 
 export class SongRemovedEvent {
   constructor(data?: Partial<SongRemovedEvent>) {

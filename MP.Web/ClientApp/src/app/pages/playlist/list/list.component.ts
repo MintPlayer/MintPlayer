@@ -5,9 +5,7 @@ import { AdvancedRouter } from '@mintplayer/ng-router';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
-import { PlaylistService } from '../../../services/playlist/playlist.service';
-import { Playlist } from '../../../entities/playlist';
-import { ePlaylistScope } from '../../../enums/ePlaylistScope';
+import { Playlist, PlaylistScope, PlaylistService } from '@mintplayer/ng-client';
 
 @Component({
   selector: 'app-list',
@@ -35,7 +33,7 @@ export class PlaylistListComponent implements OnInit {
   }
 
   loadPlaylists() {
-    this.playlistService.pagePlaylists(this.tableSettings.toPagination(), ePlaylistScope.My).then((playlists) => {
+    this.playlistService.pagePlaylists(this.tableSettings.toPagination(), PlaylistScope.My).then((playlists) => {
       this.setPlaylistData(playlists);
     }).catch((error) => {
       console.log(error);
