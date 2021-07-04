@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JsonLdModule } from '@mintplayer/ng-json-ld';
 import { AdvancedRouterModule } from '@mintplayer/ng-router';
+import { ShareButtonsModule } from '@mintplayer/ng-share-buttons';
 
 import { ShowRoutingModule } from './show-routing.module';
 import { ShowComponent } from './show.component';
@@ -24,6 +25,7 @@ import { MediaListModule } from '../../../components/subject/media-list/media-li
     PipesModule,
     MediaListModule,
     SubjectLikeModule,
+    ShareButtonsModule,
     YoutubePlayButtonModule,
     ShowRoutingModule
   ]

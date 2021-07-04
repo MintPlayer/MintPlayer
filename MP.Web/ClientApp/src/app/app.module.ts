@@ -12,11 +12,12 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { LinifyPipe } from './pipes/linify/linify.pipe';
 import { EXTERNAL_URL } from './providers/external-url.provider';
-import { SidebarModule } from './components/sidebar/sidebar.module';
+import { SidebarModule } from './components/main-sidebar/main-sidebar.module';
 import { PlaylistSidebarModule } from './components/playlist-sidebar/playlist-sidebar.module';
 import { NavbarTogglerModule } from './controls/navbar-toggler/navbar-toggler.module';
 import { PlaylistTogglerModule } from './controls/playlist-toggler/playlist-toggler.module';
 import { CardModule } from './controls/card/card.module';
+import { API_VERSION } from '@mintplayer/ng-client';
 
 const getExternalUrl = (baseUrl: string) => {
   if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
@@ -63,6 +64,9 @@ const getExternalUrl = (baseUrl: string) => {
       provide: EXTERNAL_URL,
       useFactory: getExternalUrl,
       deps: [BASE_URL]
+    }, {
+      provide: API_VERSION,
+      useValue: 'v3'
     }
   ],
   bootstrap: [AppComponent]

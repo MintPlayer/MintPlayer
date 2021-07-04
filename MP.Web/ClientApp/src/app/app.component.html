@@ -7,7 +7,7 @@
     <playlist-toggler class="position-absolute" [(state)]="playlistToggleButtonState"></playlist-toggler>
   </div>
   <div class="app-body" [ngClass]="sidebarState" id="app-body">
-    <sidebar (itemSelected)="collapseSidebar()" [activeUser]="activeUser" (logoutClicked)="logoutClicked()"></sidebar>
+    <main-sidebar (itemSelected)="collapseSidebar()" [activeUser]="activeUser" (logoutClicked)="logoutClicked()"></main-sidebar>
     <div class="main-body pb-1">
       <div class="main-content m-2 p-2 m-md-4 p-md-4">
         <div [ngClass]="{'mx-auto': true, 'main-container': true, 'width-100': fullWidth}">

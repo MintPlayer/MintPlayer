@@ -3,9 +3,9 @@ import { User } from '@mintplayer/ng-client';
 import { SlideUpDownAnimation } from '../../../styles/animations/slide-up-down.animation';
 
 @Component({
-  selector: 'sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
+  selector: 'main-sidebar',
+  templateUrl: './main-sidebar.component.html',
+  styleUrls: ['./main-sidebar.component.scss'],
   animations: [
     SlideUpDownAnimation
   ]
