@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DatatablesModule } from '@mintplayer/ng-datatables';
 import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
-import { ControlsModule } from '../../../controls/controls.module';
 import { PipesModule } from '../../../pipes/pipes.module';
-
 import { PublicRoutingModule } from './public-routing.module';
 import { PlaylistPublicComponent } from './public.component';
 
@@ -15,7 +13,6 @@ import { PlaylistPublicComponent } from './public.component';
   imports: [
     CommonModule,
     DatatablesModule,
-    ControlsModule,
     PipesModule,
     AdvancedRouterModule,
 

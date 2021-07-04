@@ -5,7 +5,6 @@ import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { ListRoutingModule } from './list-routing.module';
 import { ListComponent } from './list.component';
-import { ControlsModule } from '../../../controls/controls.module';
 
 
 
@@ -15,7 +14,6 @@ import { ControlsModule } from '../../../controls/controls.module';
     CommonModule,
     DatatablesModule,
     AdvancedRouterModule,
-    ControlsModule,
 
     ListRoutingModule
   ]

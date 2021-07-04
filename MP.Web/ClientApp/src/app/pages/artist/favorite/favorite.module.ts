@@ -6,7 +6,6 @@ import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { FavoriteRoutingModule } from './favorite-routing.module';
 import { FavoriteComponent } from './favorite.component';
-import { ControlsModule } from '../../../controls/controls.module';
 import { PipesModule } from '../../../pipes/pipes.module';
 
 
@@ -15,7 +14,6 @@ import { PipesModule } from '../../../pipes/pipes.module';
   imports: [
     CommonModule,
     TranslateModule,
-    ControlsModule,
     PipesModule,
     DatatablesModule,
     AdvancedRouterModule,

@@ -5,7 +5,6 @@ import { AdvancedRouterModule } from '@mintplayer/ng-router';
 import { ShareButtonsModule } from '@mintplayer/ng-share-buttons';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubjectModule } from './subject/subject.module';
-import { SocialLoginsModule } from './social-logins/social-logins.module';
 import { YoutubePlayButtonComponent } from './youtube-play-button/youtube-play-button.component';
 import { PlaylistSidebarComponent } from './playlist-sidebar/playlist-sidebar.component';
 import { ControlsModule } from '../controls/controls.module';
@@ -28,8 +27,7 @@ import { DirectivesModule } from '../directives/directives.module';
     ControlsModule,
     SubjectModule,
     TranslateModule,
-    ShareButtonsModule,
-    SocialLoginsModule
+    ShareButtonsModule
   ],
   exports: [
     SidebarComponent,
