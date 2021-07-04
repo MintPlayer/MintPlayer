@@ -8,7 +8,6 @@ import { PipesModule } from '../pipes/pipes.module';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { PlaylistTogglerComponent } from './playlist-toggler/playlist-toggler.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
-import { SortableListComponent } from './sortable-list/sortable-list.component';
 import { DropdownSearchBoxComponent } from './dropdown-search-box/dropdown-search-box.component';
 import { PopupComponent } from './popup/popup.component';
 import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
@@ -22,7 +21,6 @@ import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
     AutocompleteComponent,
     PlaylistTogglerComponent,
     ProgressBarComponent,
-    SortableListComponent,
     DropdownSearchBoxComponent,
     PopupComponent,
     ToggleButtonComponent
@@ -39,7 +37,6 @@ import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
     AutocompleteComponent,
     PlaylistTogglerComponent,
     ProgressBarComponent,
-    SortableListComponent,
     DropdownSearchBoxComponent,
     PopupComponent,
     ToggleButtonComponent

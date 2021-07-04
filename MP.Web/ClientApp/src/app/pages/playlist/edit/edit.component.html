@@ -39,14 +39,15 @@
         Tracks
       </header>
       <content>
-        <app-sortable-list [items]="playlist.tracks" [itemTemplate]="itemTemplate">
-          <ng-template #itemTemplate let-track>
-            {{ track.description }}
-            <button class="btn btn-default pull-right sortable-list-remove" (click)="removeTrack(track)">
+        <ul #trackList="cdkDropList" cdkDropList [cdkDropListData]="playlist.tracks" (cdkDropListDropped)="drop($event)" class="list-group sortable-list">
+          <li *ngFor="let song of playlist.tracks" cdkDrag class="list-group-item sortable-item">
+            <div cdkDragHandle class="align-self-stretch checkerboard"></div>
+            <span class="flex-grow-1">{{ song.description }}</span>
+            <button class="btn btn-default track-item-remove" (click)="removeTrack(song)">
               <i class="fa fa-remove"></i>
             </button>
-          </ng-template>
-        </app-sortable-list>
+          </li>
+        </ul>
         <dropdown-search-box (suggestionClicked)="onSuggestionClicked($event)" [url]="'/web/v2/Subject/search/suggest/song'" [method]="'get'" [headers]="songSuggestHttpHeaders" [textPropertyPath]="'description'" [searchPlaceholder]="'Enter a song title'" [searchingCaption]="'Searching songs'" [noResultsCaption]="'No songs found'"></dropdown-search-box>
       </content>
     </card>

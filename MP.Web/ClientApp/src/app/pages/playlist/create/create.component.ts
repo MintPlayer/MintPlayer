@@ -10,6 +10,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
 import { EnumHelper } from '../../../helpers/enum.helper';
 import { EnumItem } from '../../../entities/enum-item';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-create',
@@ -52,6 +53,21 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
   removeTrack(track: Song) {
     this.playlist.tracks.splice(this.playlist.tracks.indexOf(track), 1);
     return false;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
   }
 
   savePlaylist() {

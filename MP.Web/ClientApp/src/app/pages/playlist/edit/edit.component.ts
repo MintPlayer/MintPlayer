@@ -13,6 +13,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { ePlaylistAccessibility } from '../../../enums/ePlaylistAccessibility';
 import { EnumHelper } from '../../../helpers/enum.helper';
 import { EnumItem } from '../../../entities/enum-item';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-edit',
@@ -81,6 +82,21 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
   public accessibilities: EnumItem[] = [];
   public accessibilitySelected(accessibility: number) {
     this.playlist.accessibility = ePlaylistAccessibility[ePlaylistAccessibility[accessibility]];
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
   }
 
   removeTrack(track: Song) {

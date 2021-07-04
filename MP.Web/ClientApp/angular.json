@@ -32,6 +32,7 @@
               "node_modules/font-awesome/scss/font-awesome.scss",
               "src/styles/bootstrap-extensions.scss",
               "src/styles/font-awesome-extensions.scss",
+              "src/styles/drag-drop.scss",
               "src/styles/general.scss"
             ],
             "scripts": [],
@@ -107,6 +108,7 @@
               "node_modules/font-awesome/scss/font-awesome.scss",
               "src/styles/bootstrap-extensions.scss",
               "src/styles/font-awesome-extensions.scss",
+              "src/styles/drag-drop.scss",
               "src/styles/general.scss"
             ],
             "scripts": []

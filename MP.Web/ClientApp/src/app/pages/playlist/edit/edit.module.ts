@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { EditRoutingModule } from './edit-routing.module';
 import { PlaylistEditComponent } from './edit.component';
@@ -14,6 +15,7 @@ import { DirectivesModule } from '../../../directives/directives.module';
   imports: [
     CommonModule,
     FormsModule,
+    DragDropModule,
     ControlsModule,
     DirectivesModule,
 
