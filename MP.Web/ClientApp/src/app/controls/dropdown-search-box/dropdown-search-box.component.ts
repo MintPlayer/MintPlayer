@@ -34,12 +34,12 @@ export class DropdownSearchBoxComponent implements OnInit {
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
       setTimeout(() => {
-        console.log(this.searchBox);
         this.searchBox.nativeElement.focus();
       }, 10);
     }
     return false;
   }
+
   performSearch() {
     if (!!this.search) {
       this.busy = true;
