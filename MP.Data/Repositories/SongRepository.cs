@@ -340,6 +340,7 @@ namespace MintPlayer.Data.Repositories
 					Description = song.Description,
 					YoutubeId = song.YoutubeId,
 					DailymotionId = song.DailymotionId,
+					VimeoId = song.VimeoId,
 					PlayerInfo = song.PlayerInfo,
 					DateUpdate = song.DateUpdate ?? song.DateInsert,
 
@@ -379,6 +380,7 @@ namespace MintPlayer.Data.Repositories
 					Description = song.Description,
 					YoutubeId = song.YoutubeId,
 					DailymotionId = song.DailymotionId,
+					VimeoId = song.VimeoId,
 					PlayerInfo = song.PlayerInfo,
 					DateUpdate = song.DateUpdate ?? song.DateInsert
 				};

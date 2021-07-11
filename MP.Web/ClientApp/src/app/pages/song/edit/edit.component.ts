@@ -54,6 +54,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     text: '',
     youtubeId: '',
     dailymotionId: '',
+    vimeoId: '',
     playerInfo: null,
     description: '',
     dateUpdate: null

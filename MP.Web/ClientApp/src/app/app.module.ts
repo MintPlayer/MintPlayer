@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { QUERY_PARAMS_CONFIG, QueryParamsConfig, AdvancedRouterModule } from '@mintplayer/ng-router';
-import { YoutubePlayerModule } from '@mintplayer/ng-youtube-player';
 import { BASE_URL } from '@mintplayer/ng-base-url';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +17,7 @@ import { NavbarTogglerModule } from './controls/navbar-toggler/navbar-toggler.mo
 import { PlaylistTogglerModule } from './controls/playlist-toggler/playlist-toggler.module';
 import { CardModule } from './controls/card/card.module';
 import { API_VERSION } from '@mintplayer/ng-client';
+import { VideoPlayerModule } from '@mintplayer/ng-video-player';
 
 const getExternalUrl = (baseUrl: string) => {
   if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
@@ -46,7 +46,7 @@ const getExternalUrl = (baseUrl: string) => {
 
     CardModule,
     SidebarModule,
-    YoutubePlayerModule,
+    VideoPlayerModule,
     NavbarTogglerModule,
     PlaylistTogglerModule,
     PlaylistSidebarModule,

@@ -28,7 +28,7 @@
     </header>
     <content>
       <div class="d-table caption-bottom">
-        <youtube-player #player (stateChange)="playerStateChanged($event)" (progressChange)="updatePlayerProgress($event)" [width]="playerSize.width" [height]="playerSize.height"></youtube-player>
+        <video-player #player (stateChange)="playerStateChanged($event)" (progressChange)="playerProgressChange($event)" [width]="playerSize.width" [height]="playerSize.height"></video-player>
         <span class="d-table-caption">
           <span class="d-block text-center p-2" *ngIf="currentLyricsLine !== null">{{ currentLyricsLine }}</span>
           <span class="d-block text-center p-2" *ngIf="isSyncComponent">{{ songProgress.currentTime | number: '1.1' }}</span>

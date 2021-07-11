@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { User, Song, AccountService, PlayerType } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { PlayerProgress, YoutubePlayerComponent } from '@mintplayer/ng-youtube-player';
+import { PlayerProgress } from '@mintplayer/ng-player-progress';
 
 import { eToggleButtonState } from './enums/eToggleButtonState';
 import { eSidebarState } from './enums/eSidebarState';
@@ -20,6 +20,7 @@ import { LinifyPipe } from './pipes/linify/linify.pipe';
 import { PlaylistControl } from './helpers/playlist-control.helper';
 import { SyncComponent } from './pages/song/sync/sync.component';
 import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
+import { PlayerState, VideoPlayerComponent } from '@mintplayer/ng-video-player';
 
 @Component({
   selector: 'app-root',
@@ -104,17 +105,11 @@ export class AppComponent implements OnInit, OnDestroy {
       onGetCurrentPosition: () => this.player.currentTime,
       onPlayVideo: (song) => {
         console.log('player info', song.playerInfo);
-        switch (song.playerInfo.type) {
-          case PlayerType.Youtube: {
-            this.player.playVideoById(song.playerInfo.id);
-          } break;
-          case PlayerType.DailyMotion: {
-
-          } break;
-        }
+        debugger;
+        this.player.url = song.playerInfo.url;
       },
       onStopVideo: () => {
-        this.player.stop();
+        this.player.playerState = PlayerState.ended;
       }
     });
     //#endregion
@@ -138,6 +133,24 @@ export class AppComponent implements OnInit, OnDestroy {
       });
     }
     //#endregion
+
+
+
+
+
+
+
+
+    let matches = new RegExp(/http[s]{0,1}:\/\/(www\.){0,1}youtube\.com\/watch\?v=(?<id>[^&]+)/, 'g')
+      .exec('https://www.youtube.com/watch?v=UqQ9NWzIiM4');
+
+    console.log('matches', matches);
+
+
+
+
+
+
   }
 
   //#region Add meta-tags
@@ -233,14 +246,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.playlistControl.addToPlaylist(song);
   }
 
-  @ViewChild('player') player: YoutubePlayerComponent;
+  @ViewChild('player') player: VideoPlayerComponent;
 
   private lyricsTimer: NodeJS.Timer;
-  playerState: YT.PlayerState = YT.PlayerState.UNSTARTED;
-  playerStateChanged(state: YT.PlayerState) {
+  playerState: PlayerState = PlayerState.unstarted;
+  playerStateChanged(state: PlayerState) {
     this.playerState = state;
+    //console.log('Player state changed', state);
     switch (state) {
-      case YT.PlayerState.PLAYING:
+      case PlayerState.playing:
         if (this.playlistControl.currentVideo.lyrics.timeline === null) {
           this.currentLyricsLine = null;
         } else {
@@ -249,12 +263,12 @@ export class AppComponent implements OnInit, OnDestroy {
           }, 100);
         }
         break;
-      case YT.PlayerState.PAUSED:
+      case PlayerState.paused:
         if (this.lyricsTimer !== null) {
           clearInterval(this.lyricsTimer);
         }
         break;
-      case YT.PlayerState.ENDED:
+      case PlayerState.ended:
         this.playNextSong();
         break;
       default:
@@ -268,7 +282,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Updates the value of the progress bar on the SidebarComponent.
    * @param progress Current percentage of the YoutubePlayer.
    */
-  updatePlayerProgress(progress: PlayerProgress) {
+  playerProgressChange(progress: PlayerProgress) {
     this.songProgress = progress;
     this.ref.detectChanges();
   }
@@ -282,10 +296,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.ref.detectChanges();
   }
   playPausePlayer() {
-    if (this.playerState === YT.PlayerState.PLAYING) {
-      this.player.pause();
+    if (this.playerState === PlayerState.playing) {
+      this.player.playerState = PlayerState.paused;
     } else {
-      this.player.play();
+      this.player.playerState = PlayerState.playing;
     }
   }
   //#endregion

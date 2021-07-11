@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, AfterViewInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { BASE_URL } from '@mintplayer/ng-base-url';
-import { DailymotionPlayerComponent } from '@mintplayer/ng-dailymotion-player';
 import { HtmlLinkHelper } from '../../helpers/html-link.helper';
 
 @Component({

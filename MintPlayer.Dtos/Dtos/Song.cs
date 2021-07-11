@@ -27,12 +27,16 @@ namespace MintPlayer.Dtos.Dtos
 		[DataMember]
 		[XmlElement(Namespace = "https://mintplayer.com/music")]
         public string YoutubeId { get; internal set; }
-		
-		[DataMember]
+
+        [DataMember]
         [XmlElement(Namespace = "https://mintplayer.com/music")]
         public string DailymotionId { get; internal set; }
-        
-		[DataMember]
+
+        [DataMember]
+        [XmlElement(Namespace = "https://mintplayer.com/music")]
+        public string VimeoId { get; internal set; }
+
+        [DataMember]
 		[XmlElement(Namespace = "https://mintplayer.com/music")]
         public PlayerInfo PlayerInfo { get; internal set; }
         

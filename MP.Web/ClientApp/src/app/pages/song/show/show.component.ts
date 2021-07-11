@@ -302,6 +302,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     text: '',
     youtubeId: '',
     dailymotionId: '',
+    vimeoId: '',
     playerInfo: null,
     description: '',
     dateUpdate: null

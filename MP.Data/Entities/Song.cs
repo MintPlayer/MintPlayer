@@ -43,6 +43,20 @@ namespace MintPlayer.Data.Entities
 			}
 		}
 		#endregion
+		#region VimeoId
+		[NotMapped]
+		public string VimeoId
+		{
+			get
+			{
+				if (Media == null) return null;
+
+				var vimeoVideo = Media.FirstOrDefault(m => m.Type.PlayerType == MintPlayer.Dtos.Enums.ePlayerType.Vimeo);
+				return ParseVimeoId(vimeoVideo);
+			}
+		}
+		#endregion
+
 		#region PlayerInfo
 		[NotMapped]
 		public MintPlayer.Dtos.Dtos.PlayerInfo PlayerInfo
@@ -58,14 +72,26 @@ namespace MintPlayer.Data.Entities
 					case MintPlayer.Dtos.Enums.ePlayerType.Youtube:
 						return new MintPlayer.Dtos.Dtos.PlayerInfo
 						{
+							Type = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
 							Id = YoutubeId,
-							Type = MintPlayer.Dtos.Enums.ePlayerType.Youtube
+							Url = video.Value,
+							ImageUrl = $"https://i.ytimg.com/vi/{YoutubeId}/hqdefault.jpg",
 						};
 					case MintPlayer.Dtos.Enums.ePlayerType.DailyMotion:
 						return new MintPlayer.Dtos.Dtos.PlayerInfo
 						{
+							Type = MintPlayer.Dtos.Enums.ePlayerType.DailyMotion,
 							Id = DailymotionId,
-							Type = MintPlayer.Dtos.Enums.ePlayerType.DailyMotion
+							Url = video.Value,
+							ImageUrl = $"https://www.dailymotion.com/thumbnail/video/{DailymotionId}",
+						};
+					case MintPlayer.Dtos.Enums.ePlayerType.Vimeo:
+						return new MintPlayer.Dtos.Dtos.PlayerInfo
+						{
+							Type = MintPlayer.Dtos.Enums.ePlayerType.Vimeo,
+							Id = VimeoId,
+							Url = video.Value,
+							ImageUrl = $"https://i.vimeocdn.com/video/99213072?mw=960&mh=540",
 						};
 					default:
 						throw new Exception("Unexpected value for PlayerType");
@@ -127,6 +153,15 @@ namespace MintPlayer.Data.Entities
 
 			// https://www.dailymotion.com/video/x2yhuhb
 			var m1 = Regex.Match(dailymotionVideo.Value, @"http[s]{0,1}\:\/\/www\.dailymotion\.com\/video\/(?<id>.+)$");
+			if (m1.Success) return m1.Groups["id"].Value;
+			else return null;
+		}
+		private string ParseVimeoId(Medium vimeoVideo)
+        {
+			if (vimeoVideo == null) return null;
+
+			// https://vimeo.com/14190306
+			var m1 = Regex.Match(vimeoVideo.Value, @"http[s]{0,1}\:\/\/(www\.){0,1}vimeo\.com\/(?<id>[0-9]+)$");
 			if (m1.Success) return m1.Groups["id"].Value;
 			else return null;
 		}
