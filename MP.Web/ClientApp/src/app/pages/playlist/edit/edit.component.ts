@@ -81,7 +81,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     this.playlist.accessibility = PlaylistAccessibility[PlaylistAccessibility[accessibility]];
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  trackDropped(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,

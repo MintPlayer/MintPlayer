@@ -52,7 +52,7 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
     return false;
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  trackDropped(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,

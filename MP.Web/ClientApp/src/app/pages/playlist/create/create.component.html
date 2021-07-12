@@ -39,8 +39,8 @@
         Tracks
       </header>
       <content>
-        <ul #trackList="cdkDropList" cdkDropList [cdkDropListData]="playlist.tracks" (cdkDropListDropped)="drop($event)" class="list-group sortable-list">
-          <li *ngFor="let song of playlist.tracks" cdkDrag class="list-group-item sortable-item">
+        <ul #trackList="cdkDropList" cdkDropList [cdkDropListData]="playlist.tracks" (cdkDropListDropped)="trackDropped($event)" class="list-group sortable-list">
+          <li *ngFor="let song of playlist.tracks" cdkDrag class="list-group-item sortable-item d-flex">
             <div cdkDragHandle class="align-self-stretch checkerboard"></div>
             <span class="flex-grow-1">{{ song.description }}</span>
             <button class="btn btn-default pull-right track-item-remove" (click)="removeTrack(song)">
