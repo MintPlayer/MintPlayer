@@ -87,6 +87,8 @@
     "previous_song": "Chanson précédente",
     "next_song": "Prochaine chanson",
     "play_pause": "Démarre/pause",
+    "play": "Démarre",
+    "pause": "Pause",
     "remove_song": "Supprimer chanson",
     "shuffle": "Mélanger",
     "repeat": "Répeter"

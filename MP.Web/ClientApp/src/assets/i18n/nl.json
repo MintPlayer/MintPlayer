@@ -86,6 +86,8 @@
     "previous_song": "Vorige song",
     "next_song": "Volgende song",
     "play_pause": "Speel af/pauzeer",
+    "play": "Afspelen",
+    "pause": "Pauzeren",
     "remove_song": "Song verwijderen",
     "shuffle": "Shuffle",
     "repeat": "Herhaal"

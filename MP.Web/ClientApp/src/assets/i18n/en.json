@@ -86,6 +86,8 @@
     "previous_song": "Previous song",
     "next_song": "Next song",
     "play_pause": "Play/pause",
+    "play": "Play",
+    "pause": "Pause",
     "remove_song": "Remove song",
     "shuffle": "Shuffle",
     "repeat": "Repeat"
