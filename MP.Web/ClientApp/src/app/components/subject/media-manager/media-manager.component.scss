@@ -1,0 +1,7 @@
+.form-control {
+  background-color: var(--card-body-background-color);
+}
+
+*[cdkdraghandle] {
+  cursor: move;
+}
