@@ -252,7 +252,6 @@ export class AppComponent implements OnInit, OnDestroy {
   playerState: PlayerState = PlayerState.unstarted;
   playerStateChanged(state: PlayerState) {
     this.playerState = state;
-    //console.log('Player state changed', state);
     switch (state) {
       case PlayerState.playing:
         if (this.playlistControl.currentVideo.lyrics.timeline === null) {

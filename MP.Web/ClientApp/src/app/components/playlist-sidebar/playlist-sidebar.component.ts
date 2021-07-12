@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Song } from '@mintplayer/ng-client';
 import { PlayerProgress } from '@mintplayer/ng-player-progress';
+import { PlayerState } from '@mintplayer/ng-video-player';
 import { SongRemovedEvent } from '../../events/song-removed.event';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { eRepeatMode } from '../../enums/eRepeatMode';
@@ -17,8 +18,10 @@ export class PlaylistSidebarComponent implements OnInit {
   constructor() {
   }
 
+  playerStateValues = PlayerState;
+
   @Input()
-  public playerState: YT.PlayerState;
+  public playerState: PlayerState;
 
   @Input()
   public songs: Song[];
