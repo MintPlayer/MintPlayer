@@ -37,6 +37,7 @@ namespace MintPlayer.Data.Repositories.Blog
         {
             var blogposts = mintPlayerContext.BlogPosts
                 .Include(bp => bp.UserInsert)
+                .OrderByDescending(bp => bp.DateInsert)
                 .Select(bp => ToDto(bp));
             return Task.FromResult<IEnumerable<BlogPost>>(blogposts);
         }

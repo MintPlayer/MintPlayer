@@ -158,7 +158,8 @@ namespace MintPlayer.Data.Repositories
                 {
                     UserName = username,
                     Email = email,
-                    PictureUrl = null
+                    PictureUrl = null,
+                    EmailConfirmed = true,
                 };
                 var id_result = await user_manager.CreateAsync(new_user);
                 if (id_result.Succeeded)
