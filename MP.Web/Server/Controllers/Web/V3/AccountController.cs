@@ -74,7 +74,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
             {
 				var decodedCode = System.Text.Encoding.UTF8.GetString(Base64UrlTextEncoder.Decode(code));
 				await accountService.VerifyEmailConfirmationToken(email, decodedCode);
-				return Ok();
+				return Redirect(string.Empty);
             }
 			catch(VerifyEmailException verifyEx)
             {
