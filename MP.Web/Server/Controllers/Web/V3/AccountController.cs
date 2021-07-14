@@ -67,8 +67,8 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
             }
 		}
 
-		[HttpGet("verify/{email}/{code}", Name = "web-v3-account-verify")]
-		public async Task<ActionResult> Verify([FromRoute] string email, [FromRoute] string code)
+		[HttpGet("verify", Name = "web-v3-account-verify")]
+		public async Task<ActionResult> Verify([FromQuery] string email, [FromQuery] string code)
         {
             try
             {
