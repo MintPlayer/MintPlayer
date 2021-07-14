@@ -12,6 +12,7 @@ using MintPlayer.Data.Services;
 using MintPlayer.Web.Server.ViewModels.Account;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Authentication;
+using MintPlayer.AspNetCore.SpaServices.Routing;
 
 namespace MintPlayer.Web.Server.Controllers.Web.V3
 {
@@ -19,11 +20,13 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 	[Route("web/v3/[controller]")]
 	public class AccountController : Controller
 	{
-		private IAccountService accountService;
-		public AccountController(IAccountService accountService)
+		private readonly IAccountService accountService;
+        private readonly ISpaRouteService spaRouteService;
+        public AccountController(IAccountService accountService, ISpaRouteService spaRouteService)
 		{
 			this.accountService = accountService;
-		}
+            this.spaRouteService = spaRouteService;
+        }
 
 		/**
 		 * 
@@ -74,7 +77,8 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
             {
 				var decodedCode = System.Text.Encoding.UTF8.GetString(Base64UrlTextEncoder.Decode(code));
 				await accountService.VerifyEmailConfirmationToken(email, decodedCode);
-				return Redirect(string.Empty);
+				var loginUrl = spaRouteService.GenerateUrl("account-login", new { });
+				return Redirect(loginUrl);
             }
 			catch(VerifyEmailException verifyEx)
             {
