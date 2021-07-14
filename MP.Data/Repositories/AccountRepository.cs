@@ -81,34 +81,38 @@ namespace MintPlayer.Data.Repositories
 					throw new LoginException();
 
 				var checkPasswordResult = await signin_manager.CheckPasswordSignInAsync(user, password, true);
-				if (checkPasswordResult.Succeeded)
-				{
-					if (createCookie)
-					{
-						var signinResult = await signin_manager.PasswordSignInAsync(user, password, true, true);
-						return new LoginResult
-						{
-							Status = true,
-							Platform = "local",
-							User = ToDto(user, true)
-						};
-					}
-					else
-					{
-						return new LoginResult
-						{
-							Status = true,
-							Platform = "local",
-							User = ToDto(user, true),
-							Token = CreateToken(user)
-						};
-					}
-				}
-				else
-				{
-					throw new LoginException();
-				}
-			}
+                if (!checkPasswordResult.Succeeded)
+                {
+                    throw new LoginException();
+                }
+
+                if (createCookie)
+                {
+                    var signinResult = await signin_manager.PasswordSignInAsync(user, password, true, true);
+                    if (!signinResult.Succeeded)
+                    {
+                        throw new LoginException();
+                    }
+
+                    return new LoginResult
+                    {
+                        Status = true,
+                        Platform = "local",
+                        User = ToDto(user, true)
+                    };
+                }
+                else
+                {
+                    return new LoginResult
+                    {
+                        Status = true,
+                        Platform = "local",
+                        User = ToDto(user, true),
+                        Token = CreateToken(user)
+                    };
+                }
+
+            }
 			catch (LoginException loginEx)
 			{
 				throw loginEx;
