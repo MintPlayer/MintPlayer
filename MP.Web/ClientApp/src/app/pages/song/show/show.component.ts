@@ -5,7 +5,7 @@ import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { BASE_URL } from '@mintplayer/ng-base-url';
 import { Song, SongService } from '@mintplayer/ng-client';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
@@ -276,9 +276,9 @@ export class ShowComponent implements OnInit, OnDestroy {
     });
   }
 
-  @Output() addToPlaylist: EventEmitter<Song> = new EventEmitter();
+  addToPlaylist: Subject<Song> = new Subject<Song>();
   public doAddToPlaylist() {
-    this.addToPlaylist.emit(this.song);
+    this.addToPlaylist.next(this.song);
   }
 
   toggleWrapLyrics() {

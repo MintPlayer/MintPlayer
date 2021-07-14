@@ -3,6 +3,7 @@ import { Meta } from '@angular/platform-browser';
 import { AccountService, User, UserData } from '@mintplayer/ng-client';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Guid } from 'guid-typescript';
+import { Subject } from 'rxjs';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
 @Component({
@@ -85,7 +86,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.accountService.login(this.data.user.email, this.data.password).then((login_result) => {
         if (login_result.status === true) {
           this.router.navigate(['/']);
-          this.loginComplete.emit(login_result.user);
+          this.loginComplete.next(login_result.user);
         } else {
           debugger;
         }
@@ -97,5 +98,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
   }
 
-  @Output() loginComplete: EventEmitter<User> = new EventEmitter();
+  @Output() loginComplete: Subject<User> = new Subject<User>();
 }

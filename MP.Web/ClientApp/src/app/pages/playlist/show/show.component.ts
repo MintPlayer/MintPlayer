@@ -1,4 +1,3 @@
-import { STATUS_CODES } from 'http';
 import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -8,6 +7,7 @@ import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlayButtonClickedEvent } from '../../../events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
 import { Playlist, PlaylistAccessibility, PlaylistService } from '@mintplayer/ng-client';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-show',
@@ -69,10 +69,10 @@ export class PlaylistShowComponent implements OnInit {
     });
   }
 
-  public playbuttonClicked: EventEmitter<PlayButtonClickedEvent> = new EventEmitter<PlayButtonClickedEvent>();
+  public playbuttonClicked: Subject<PlayButtonClickedEvent> = new EventEmitter<PlayButtonClickedEvent>();
   playlistPlaybuttons = ePlaylistPlaybutton;
   onPlaybuttonClicked(button: ePlaylistPlaybutton) {
-    this.playbuttonClicked.emit(new PlayButtonClickedEvent({
+    this.playbuttonClicked.next(new PlayButtonClickedEvent({
       button: button,
       songs: this.playlist.tracks
     }));

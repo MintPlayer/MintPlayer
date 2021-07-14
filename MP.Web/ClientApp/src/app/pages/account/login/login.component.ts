@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
+import { Observable, of, Subject } from 'rxjs';
 import { AccountService, LoginResult, User } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
@@ -101,7 +102,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.accountService.login(this.email, this.password).then((result) => {
       if (result.status === true) {
         this.router.navigateByUrl(this.returnUrl);
-        this.loginComplete.emit(result.user);
+        this.loginComplete.next(result.user);
       } else {
         this.loginResult = result;
       }
@@ -120,7 +121,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   socialLoginDone(result: LoginResult) {
     if (result.status) {
       this.accountService.currentUser().then((user) => {
-        this.loginComplete.emit(user);
+        this.loginComplete.next(user);
         this.router.navigateByUrl(this.returnUrl);
       });
     } else {
@@ -131,5 +132,5 @@ export class LoginComponent implements OnInit, OnDestroy {
   forgotPassword() {
   }
 
-  @Output() loginComplete: EventEmitter<User> = new EventEmitter();
+  loginComplete: Subject<User> = new Subject<User>();
 }
