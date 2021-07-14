@@ -13,7 +13,7 @@
       "launchBrowser": true,
       "launchUrl": "https://localhost:44329",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     },
     "MintPlayer.Web": {

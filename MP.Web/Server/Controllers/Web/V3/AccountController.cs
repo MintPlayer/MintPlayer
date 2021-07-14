@@ -240,11 +240,11 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		[Authorize]
 		[HttpPut("password", Name = "web-v3-account-update-password")]
-		public async Task<ActionResult> UpdatePassword(string currentPassword, string newPassword, string confirmation)
+		public async Task<ActionResult> UpdatePassword([FromBody] UpdatePasswordVM updatePassword)
         {
             try
 			{
-				await accountService.UpdatePassword(User, currentPassword, newPassword, confirmation);
+				await accountService.UpdatePassword(User, updatePassword.CurrentPassword, updatePassword.NewPassword, updatePassword.Confirmation);
 				return Ok();
 			}
 			catch (ChangePasswordException passwordEx)
