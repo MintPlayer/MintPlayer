@@ -80,12 +80,11 @@ namespace MintPlayer.Data.Repositories
 				if (user == null)
 					throw new LoginException();
 
-				var result = await signin_manager.CheckPasswordSignInAsync(user, password, false);
+				var result = await signin_manager.PasswordSignInAsync(user, password, true, true);
 				if (result.Succeeded)
 				{
 					if (createCookie)
 					{
-						await signin_manager.SignInAsync(user, true);
 						return new LoginResult
 						{
 							Status = true,
@@ -185,7 +184,7 @@ namespace MintPlayer.Data.Repositories
 				await user_manager.AddLoginAsync(user, new UserLoginInfo(info.LoginProvider, info.ProviderKey, info.ProviderDisplayName));
 			}
 
-			await signin_manager.SignInAsync(user, true);
+			await signin_manager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true);
 			return new LoginResult
 			{
 				Status = true,
