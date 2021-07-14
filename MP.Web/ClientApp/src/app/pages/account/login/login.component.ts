@@ -88,6 +88,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   email: string;
   password: string;
+  unconfirmedEmail: boolean;
   private returnUrl: string = '';
   loginResult: LoginResult = {
     status: true,
@@ -95,7 +96,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     platform: 'local',
     user: null,
     error: null,
-    errorDescription: null
+    errorDescription: null,
   };
 
   login() {
@@ -107,15 +108,47 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loginResult = result;
       }
     }).catch((error: HttpErrorResponse) => {
+      switch (error.status) {
+        case 403: {
+          this.loginResult = {
+            status: false,
+            medium: '',
+            platform: 'local',
+            user: null,
+            error: 'Confirm email address',
+            errorDescription: 'Your email address is not confirmed. If you don\'t have a confirmation email, click the button below to re-send one.'
+          };
+          this.unconfirmedEmail = true;
+        } break;
+        default: {
+          this.loginResult = {
+            status: false,
+            medium: '',
+            platform: 'local',
+            user: null,
+            error: 'Login attempt failed',
+            errorDescription: 'Check your connection'
+          };
+          this.unconfirmedEmail = false;
+        } break;
+      }
+    });
+  }
+
+  resendConfirmationEmail() {
+    this.accountService.resendConfirmationEmail(this.email).then(() => {
+      this.unconfirmedEmail = false;
+    }).catch((error) => {
       this.loginResult = {
         status: false,
         medium: '',
         platform: 'local',
         user: null,
-        error: 'Login attempt failed',
-        errorDescription: 'Check your connection'
+        error: 'Could not send confirmation email',
+        errorDescription: 'Something went wrong while sending the confirmation email'
       };
     });
+    return false;
   }
 
   socialLoginDone(result: LoginResult) {

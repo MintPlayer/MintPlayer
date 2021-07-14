@@ -136,6 +136,9 @@
     "use_social_login": "Gebruik een social login",
     "update_profile": "Profiel bijwerken",
     "social_logins": "Sociale logins",
+    "confirmation": {
+      "resend": "Bevestigingse-mail opnieuw versturen"
+    },
     "microsoft": {
       "login": "Login met Microsoft account",
       "add_login": "Microsoft login toevoegen",

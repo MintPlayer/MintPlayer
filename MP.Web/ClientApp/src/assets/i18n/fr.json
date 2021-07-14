@@ -137,6 +137,9 @@
     "use_social_login": "Utilise connexion sociale",
     "update_profile": "Mettre à jour",
     "social_logins": "Connexions sociales",
+    "confirmation": {
+      "resend": "Renvoyer email de confirmation"
+    },
     "microsoft": {
       "login": "Connecter par Microsoft",
       "add_login": "Enregistre compte Microsoft",

@@ -19,7 +19,9 @@ namespace MintPlayer.Data.Repositories
 {
     internal interface IAccountRepository
     {
-        Task<Tuple<User, string>> Register(User user, string password);
+        Task<User> Register(User user, string password);
+        Task<string> GenerateEmailConfirmationToken(string email);
+        Task VerifyEmailConfirmationToken(string email, string token);
         Task<LoginResult> LocalLogin(string email, string password, bool createCookie);
         Task<IEnumerable<AuthenticationScheme>> GetExternalLoginProviders();
         Task<AuthenticationProperties> ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
@@ -47,7 +49,7 @@ namespace MintPlayer.Data.Repositories
             this.jwtIssuerOptions = jwtIssuerOptions.Value;
         }
 
-        public async Task<Tuple<User, string>> Register(User user, string password)
+        public async Task<User> Register(User user, string password)
         {
             try
             {
@@ -56,8 +58,7 @@ namespace MintPlayer.Data.Repositories
                 if (identity_result.Succeeded)
                 {
                     var dto_user = ToDto(entity_user, true);
-                    var confirmation_token = await user_manager.GenerateEmailConfirmationTokenAsync(entity_user);
-                    return new Tuple<User, string>(dto_user, confirmation_token);
+                    return dto_user;
                 }
                 else
                 {
@@ -74,54 +75,67 @@ namespace MintPlayer.Data.Repositories
             }
         }
 
+        public async Task<string> GenerateEmailConfirmationToken(string email)
+        {
+            var user = await user_manager.FindByEmailAsync(email);
+            var token = await user_manager.GenerateEmailConfirmationTokenAsync(user);
+            return token;
+        }
+
+        public async Task VerifyEmailConfirmationToken(string email, string token)
+        {
+            var user = await user_manager.FindByEmailAsync(email);
+            var result = await user_manager.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                throw new VerifyEmailException(
+                    new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)))
+                );
+            }
+        }
+
         public async Task<LoginResult> LocalLogin(string email, string password, bool createCookie)
         {
-            try
+            var user = await user_manager.FindByEmailAsync(email);
+            if (user == null)
+                throw new LoginException();
+
+            var checkPasswordResult = await signin_manager.CheckPasswordSignInAsync(user, password, true);
+            if (!checkPasswordResult.Succeeded)
             {
-                var user = await user_manager.FindByEmailAsync(email);
-                if (user == null)
-                    throw new LoginException();
-
-                var checkPasswordResult = await signin_manager.CheckPasswordSignInAsync(user, password, true);
-                if (!checkPasswordResult.Succeeded)
-                {
-                    throw new LoginException();
-                }
-
-                if (createCookie)
-                {
-                    var signinResult = await signin_manager.PasswordSignInAsync(user, password, true, true);
-                    if (!signinResult.Succeeded)
-                    {
-                        throw new LoginException();
-                    }
-
-                    return new LoginResult
-                    {
-                        Status = true,
-                        Platform = "local",
-                        User = ToDto(user, true)
-                    };
-                }
-                else
-                {
-                    return new LoginResult
-                    {
-                        Status = true,
-                        Platform = "local",
-                        User = ToDto(user, true),
-                        Token = CreateToken(user)
-                    };
-                }
-
+                throw new LoginException();
             }
-            catch (LoginException loginEx)
+
+            var isEmailConfirmed = await user_manager.IsEmailConfirmedAsync(user);
+            if (!isEmailConfirmed)
             {
-                throw loginEx;
+                throw new EmailNotConfirmedException();
             }
-            catch (Exception ex)
+
+            if (createCookie)
             {
-                throw new LoginException(ex);
+                var signinResult = await signin_manager.PasswordSignInAsync(user, password, true, true);
+                if (!signinResult.Succeeded)
+                {
+                    throw new LoginException();
+                }
+
+                return new LoginResult
+                {
+                    Status = true,
+                    Platform = "local",
+                    User = ToDto(user, true)
+                };
+            }
+            else
+            {
+                return new LoginResult
+                {
+                    Status = true,
+                    Platform = "local",
+                    User = ToDto(user, true),
+                    Token = CreateToken(user)
+                };
             }
         }
 

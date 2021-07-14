@@ -291,6 +291,14 @@ namespace MintPlayer.Web
                     options.ConsumerSecret = Configuration["TwitterOptions:ApiSecret"];
                     options.RetrieveUserDetails = true;
                 })
+                .Configure<Data.Options.SmtpOptions>(options =>
+                {
+                    options.Host = Configuration["Mail:Host"];
+                    options.Port = Configuration.GetValue<int>("Mail:Port");
+                    options.UseTLS = Configuration.GetValue<bool>("Mail:Tls");
+                    options.User = Configuration["Mail:User"];
+                    options.Password = Configuration["Mail:Password"];
+                })
                 .Configure<RazorViewEngineOptions>(options =>
                 {
                     var new_locations = options.ViewLocationFormats.Select(vlf => $"/Server{vlf}").ToList();

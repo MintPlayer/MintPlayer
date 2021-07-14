@@ -6,12 +6,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.Data.Repositories;
+using System.Net.Mail;
+using Microsoft.Extensions.Options;
+using MintPlayer.Data.Options;
+using MintPlayer.Data.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
 namespace MintPlayer.Data.Services
 {
     public interface IAccountService
     {
         Task Register(User user, string password);
+        Task SendConfirmationEmail(string email);
+        Task VerifyEmailConfirmationToken(string email, string token);
         Task<LoginResult> LocalLogin(string email, string password, bool createCookie);
         Task<IEnumerable<string>> GetProviders();
         Task<AuthenticationProperties> ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
@@ -28,17 +37,49 @@ namespace MintPlayer.Data.Services
 
     internal class AccountService : IAccountService
     {
-        private IAccountRepository accountRepository;
-        public AccountService(IAccountRepository accountRepository)
+        private readonly IAccountRepository accountRepository;
+        private readonly IOptions<SmtpOptions> smtpOptions;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly LinkGenerator linkGenerator;
+        public AccountService(IAccountRepository accountRepository, IOptions<Options.SmtpOptions> smtpOptions, IHttpContextAccessor httpContextAccessor, LinkGenerator linkGenerator)
         {
             this.accountRepository = accountRepository;
+            this.smtpOptions = smtpOptions;
+            this.httpContextAccessor = httpContextAccessor;
+            this.linkGenerator = linkGenerator;
         }
 
         public async Task Register(User user, string password)
         {
-            var registrationData = await accountRepository.Register(user, password);
-            //var newUser = registrationData.Item1;
-            //var confirmationToken = registrationData.Item2;
+            var newUser = await accountRepository.Register(user, password);
+            await SendConfirmationEmail(user.Email);
+        }
+
+        public async Task SendConfirmationEmail(string email)
+        {
+            await Task.Run(async () =>
+            {
+                using (var client = new SmtpClient())
+                {
+                    client.Connect(smtpOptions.Value.Host, smtpOptions.Value.Port, smtpOptions.Value.UseTLS);
+                    client.Credentials = new System.Net.NetworkCredential(smtpOptions.Value.User, smtpOptions.Value.Password);
+
+                    var code = await accountRepository.GenerateEmailConfirmationToken(email);
+                    var url = this.linkGenerator.GetUriByName("web-v3-account-verify", new { email, code = Base64UrlTextEncoder.Encode(System.Text.Encoding.UTF8.GetBytes(code)) }, httpContextAccessor.HttpContext.Request.Scheme, httpContextAccessor.HttpContext.Request.Host);
+
+                    var html = $@"Please confirm your account by clicking <a href=""{url}"">here</a>.";
+                    using (var message = new MailMessage("no-reply@mintplayer.com", email, "Confirm email address", html))
+                    {
+                        message.IsBodyHtml = true;
+                        client.Send(message);
+                    }
+                }
+            });
+        }
+
+        public async Task VerifyEmailConfirmationToken(string email, string token)
+        {
+            await accountRepository.VerifyEmailConfirmationToken(email, token);
         }
 
         public async Task<LoginResult> LocalLogin(string email, string password, bool createCookie)

@@ -136,6 +136,9 @@
     "use_social_login": "Or use a social login instead",
     "update_profile": "Update profile",
     "social_logins": "Social logins",
+    "confirmation": {
+      "resend": "Re-send confirmation email"
+    },
     "microsoft": {
       "login": "Sign in with Microsoft account",
       "add_login": "Add Microsoft login",

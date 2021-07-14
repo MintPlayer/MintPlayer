@@ -11,6 +11,7 @@ using MintPlayer.Data.Repositories;
 using MintPlayer.Data.Services;
 using MintPlayer.Web.Server.ViewModels.Account;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Authentication;
 
 namespace MintPlayer.Web.Server.Controllers.Web.V3
 {
@@ -52,6 +53,39 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			}
 		}
 
+		[HttpPost("verify/resend", Name = "web-v3-account-verify-resend")]
+		public async Task<ActionResult> ResendConfirmationEmail([FromBody] ResendConfirmationEmailVM model)
+		{
+            try
+            {
+				await accountService.SendConfirmationEmail(model.Email);
+				return Ok();
+            }
+            catch (Exception)
+            {
+				return StatusCode(500);
+            }
+		}
+
+		[HttpGet("verify/{email}/{code}", Name = "web-v3-account-verify")]
+		public async Task<ActionResult> Verify([FromRoute] string email, [FromRoute] string code)
+        {
+            try
+            {
+				var decodedCode = System.Text.Encoding.UTF8.GetString(Base64UrlTextEncoder.Decode(code));
+				await accountService.VerifyEmailConfirmationToken(email, decodedCode);
+				return Ok();
+            }
+			catch(VerifyEmailException verifyEx)
+            {
+				return StatusCode(501);
+			}
+			catch (Exception ex)
+            {
+				return StatusCode(500);
+            }
+        }
+
 		// POST: web/Account/login
 		[HttpPost("login", Name = "web-v3-account-login")]
 		public async Task<ActionResult<LoginResult>> Login([FromBody]LoginVM loginVM)
@@ -65,6 +99,10 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			{
 				return Unauthorized();
 			}
+			catch (EmailNotConfirmedException confirmEx)
+            {
+				return StatusCode(403);
+            }
 			catch (Exception ex)
 			{
 				return StatusCode(500);

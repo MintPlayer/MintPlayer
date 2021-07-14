@@ -45,6 +45,12 @@
             <b>{{ loginResult.error }}</b>
           </p>
           <p>{{ loginResult.errorDescription }}</p>
+          <div class="d-block text-center">
+            <button (click)="resendConfirmationEmail()" *ngIf="unconfirmedEmail" class="btn">
+              <i class="fa fa-send"></i>
+              {{ 'account.confirmation.resend' | translate }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
