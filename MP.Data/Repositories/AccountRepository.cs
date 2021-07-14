@@ -28,6 +28,8 @@ namespace MintPlayer.Data.Repositories
 		Task AddExternalLogin(ClaimsPrincipal userProperty);
 		Task RemoveExternalLogin(ClaimsPrincipal userProperty, string provider);
 		Task<User> GetCurrentUser(ClaimsPrincipal userProperty);
+		Task<bool> GetHasPassword(ClaimsPrincipal userProperty);
+		Task UpdatePassword(ClaimsPrincipal userProperty, string currentPassword, string newPassword, string confirmation);
 		Task<IEnumerable<string>> GetCurrentRoles(ClaimsPrincipal userProperty);
 		Task Logout();
 	}
@@ -241,6 +243,36 @@ namespace MintPlayer.Data.Repositories
 		{
 			var user = await user_manager.GetUserAsync(userProperty);
 			return ToDto(user, true);
+		}
+
+		public async Task<bool> GetHasPassword(ClaimsPrincipal userProperty)
+		{
+			var user = await user_manager.GetUserAsync(userProperty);
+			var hasPassword = await user_manager.HasPasswordAsync(user);
+			return hasPassword;
+		}
+
+		public async Task UpdatePassword(ClaimsPrincipal userProperty, string currentPassword, string newPassword, string confirmation)
+		{
+			if (newPassword != confirmation)
+            {
+				throw new ChangePasswordException();
+			}
+
+			var user = await user_manager.GetUserAsync(userProperty);
+			var result = await user_manager.ChangePasswordAsync(user, currentPassword, newPassword);
+
+			if (!result.Succeeded)
+            {
+				throw new ChangePasswordException(
+					new Exception(
+						string.Join(
+							Environment.NewLine,
+							result.Errors.Select(e => e.Description)
+						)
+					)
+				);
+			}
 		}
 
 		public async Task<IEnumerable<string>> GetCurrentRoles(ClaimsPrincipal userProperty)

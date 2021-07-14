@@ -20,6 +20,8 @@ namespace MintPlayer.Data.Services
         Task AddExternalLogin(ClaimsPrincipal userProperty);
         Task RemoveExternalLogin(ClaimsPrincipal userProperty, string provider);
         Task<User> GetCurrentUser(ClaimsPrincipal userProperty);
+        Task<bool> GetHasPassword(ClaimsPrincipal userProperty);
+        Task UpdatePassword(ClaimsPrincipal userProperty, string currentPassword, string newPassword, string confirmation);
         Task<IEnumerable<string>> GetCurrentRoles(ClaimsPrincipal userProperty);
         Task Logout();
     }
@@ -77,6 +79,17 @@ namespace MintPlayer.Data.Services
         public async Task RemoveExternalLogin(ClaimsPrincipal userProperty, string provider)
         {
             await accountRepository.RemoveExternalLogin(userProperty, provider);
+        }
+
+        public async Task<bool> GetHasPassword(ClaimsPrincipal userProperty)
+        {
+            var hasPassword = await accountRepository.GetHasPassword(userProperty);
+            return hasPassword;
+        }
+
+        public async Task UpdatePassword(ClaimsPrincipal userProperty, string currentPassword, string newPassword, string confirmation)
+        {
+            await accountRepository.UpdatePassword(userProperty, currentPassword, newPassword, confirmation);
         }
 
         public async Task<User> GetCurrentUser(ClaimsPrincipal userProperty)

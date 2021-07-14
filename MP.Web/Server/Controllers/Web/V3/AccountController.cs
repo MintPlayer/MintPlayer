@@ -230,6 +230,33 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			return Ok(user);
 		}
 
+		[Authorize]
+		[HttpGet("password", Name = "web-v3-account-has-password")]
+		public async Task<ActionResult<bool>> GetHasPassword()
+		{
+			var hasPassword = await accountService.GetHasPassword(User);
+			return Ok(hasPassword);
+		}
+
+		[Authorize]
+		[HttpPut("password", Name = "web-v3-account-update-password")]
+		public async Task<ActionResult> UpdatePassword(string currentPassword, string newPassword, string confirmation)
+        {
+            try
+			{
+				await accountService.UpdatePassword(User, currentPassword, newPassword, confirmation);
+				return Ok();
+			}
+			catch (ChangePasswordException passwordEx)
+            {
+				return StatusCode(500);
+            }
+            catch (Exception ex)
+            {
+				return StatusCode(500);
+			}
+		}
+
 		// GET: web/Account/roles
 		[Authorize]
 		[HttpGet("roles", Name = "web-v3-account-roles")]
