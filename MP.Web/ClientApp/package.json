@@ -56,7 +56,7 @@
     "font-awesome": "^4.7.0",
     "guid-typescript": "^1.0.9",
     "ng-click-outside": "^8.0.0",
-    "rxjs": "^7.1.0",
+    "rxjs": "^6.0.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
