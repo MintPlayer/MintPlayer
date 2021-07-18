@@ -38,7 +38,7 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
     id: 0,
     description: '',
     tracks: [],
-    accessibility: PlaylistAccessibility.Private,
+    accessibility: PlaylistAccessibility.private,
     user: null
   };
 

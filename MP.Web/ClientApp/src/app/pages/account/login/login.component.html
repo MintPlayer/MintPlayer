@@ -40,7 +40,7 @@
     </div>
     <div class="row">
       <div class="col-12 text-center">
-        <div *ngIf="loginResult.status == false" class="alert alert-danger" role="alert">
+        <div *ngIf="loginResult.status == loginStatuses.failed" class="alert alert-danger" role="alert">
           <p>
             <b>{{ loginResult.error }}</b>
           </p>

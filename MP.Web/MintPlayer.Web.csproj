@@ -81,6 +81,7 @@
     <None Remove="ClientApp\src\app\helpers\slugify.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\url-generator.helper.ts" />
     <None Remove="ClientApp\src\app\interfaces\has-changes.ts" />
+    <None Remove="ClientApp\src\app\interfaces\two-factor-registration-url.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\category-routing.module.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\category.module.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\create\create.component.html" />
@@ -160,6 +161,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\helpers\slugify.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\url-generator.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\interfaces\has-changes.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\interfaces\two-factor-registration-url.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\translate-loaders\translate-json-loader.ts" />
     <TypeScriptCompile Include="ClientApp\src\styles\animations\color-transition.animation.ts" />
     <TypeScriptCompile Include="ClientApp\src\styles\animations\slide-up-down.animation.ts" />

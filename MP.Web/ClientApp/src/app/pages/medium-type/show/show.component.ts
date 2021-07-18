@@ -109,6 +109,6 @@ export class ShowComponent implements OnInit, OnDestroy {
   public mediumType: MediumType = {
     id: 0,
     description: '',
-    playerType: PlayerType.None
+    playerType: PlayerType.none
   };
 }

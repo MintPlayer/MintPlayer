@@ -1,6 +1,6 @@
 ﻿namespace MintPlayer.Web.Server.ViewModels.Account
 {
-	public class LoginResultVM
+	public class ExternalLoginResultVM
 	{
 		public bool Status { get; set; }
 		public string Medium { get; set; }

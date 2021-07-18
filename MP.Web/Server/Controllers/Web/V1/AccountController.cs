@@ -53,12 +53,19 @@ namespace MintPlayer.Web.Server.Controllers.Web.V1
 
 		// POST: web/Account/login
 		[HttpPost("login", Name = "web-v1-account-login")]
-		public async Task<ActionResult<LoginResult>> Login([FromBody]LoginVM loginVM)
+		public async Task<ActionResult<LocalLoginResult>> Login([FromBody]LoginVM loginVM)
 		{
 			try
 			{
 				var login_result = await accountService.LocalLogin(loginVM.Email, loginVM.Password, true);
-				return Ok(login_result);
+                switch (login_result.Status)
+                {
+                    case Dtos.Enums.LoginStatus.Success:
+                    case Dtos.Enums.LoginStatus.RequiresTwoFactor:
+						return Ok(login_result);
+					default:
+						throw new Exception();
+                }
 			}
 			catch (LoginException loginEx)
 			{
@@ -96,31 +103,30 @@ namespace MintPlayer.Web.Server.Controllers.Web.V1
 			try
 			{
 				var login_result = await accountService.PerfromExternalLogin();
-				if (login_result.Status)
-				{
-					var model = new LoginResultVM
-					{
-						Status = true,
-						Platform = login_result.Platform
-					};
-					return View(model);
-				}
-				else
-				{
-					var model = new LoginResultVM
-					{
-						Status = false,
-						Platform = login_result.Platform,
+                switch (login_result.Status)
+                {
+                    case Dtos.Enums.LoginStatus.Success:
+						var successModel = new ExternalLoginResultVM
+						{
+							Status = true,
+							Platform = login_result.Platform
+						};
+						return View(successModel);
+					default:
+						var failedModel = new ExternalLoginResultVM
+						{
+							Status = false,
+							Platform = login_result.Platform,
 
-						Error = login_result.Error,
-						ErrorDescription = login_result.ErrorDescription
-					};
-					return View(model);
+							Error = login_result.Error,
+							ErrorDescription = login_result.ErrorDescription
+						};
+						return View(failedModel);
 				}
 			}
 			catch (OtherAccountException otherAccountEx)
 			{
-				var model = new LoginResultVM
+				var model = new ExternalLoginResultVM
 				{
 					Status = false,
 					Platform = provider,
@@ -132,7 +138,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V1
 			}
 			catch (Exception ex)
 			{
-				var model = new LoginResultVM
+				var model = new ExternalLoginResultVM
 				{
 					Status = false,
 					Platform = provider,
@@ -171,7 +177,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V1
 			try
 			{
 				await accountService.AddExternalLogin(User);
-				var model = new LoginResultVM
+				var model = new ExternalLoginResultVM
 				{
 					Status = true,
 					Platform = provider
@@ -180,7 +186,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V1
 			}
 			catch (Exception)
 			{
-				var model = new LoginResultVM
+				var model = new ExternalLoginResultVM
 				{
 					Status = false,
 					Platform = provider,

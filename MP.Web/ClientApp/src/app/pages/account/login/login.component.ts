@@ -6,6 +6,7 @@ import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Observable, of, Subject } from 'rxjs';
 import { AccountService, LoginResult, User } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
+import { LoginStatus } from '@mintplayer/ng-client';
 
 @Component({
   selector: 'app-login',
@@ -90,8 +91,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   password: string;
   unconfirmedEmail: boolean;
   private returnUrl: string = '';
+  loginStatuses = LoginStatus;
   loginResult: LoginResult = {
-    status: true,
+    status: LoginStatus.success,
     medium: '',
     platform: 'local',
     user: null,
@@ -101,17 +103,23 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.accountService.login(this.email, this.password).then((result) => {
-      if (result.status === true) {
-        this.router.navigateByUrl(this.returnUrl);
-        this.loginComplete.next(result.user);
-      } else {
-        this.loginResult = result;
+      switch (result.status) {
+        case LoginStatus.success: {
+          this.router.navigateByUrl(this.returnUrl);
+          this.loginComplete.next(result.user);
+        } break;
+        case LoginStatus.requiresTwoFactor: {
+          this.router.navigate(['/account/two-factor']);
+        } break;
+        default: {
+          this.loginResult = result;
+        } break;
       }
     }).catch((error: HttpErrorResponse) => {
       switch (error.status) {
         case 403: {
           this.loginResult = {
-            status: false,
+            status: LoginStatus.failed,
             medium: '',
             platform: 'local',
             user: null,
@@ -122,7 +130,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         } break;
         default: {
           this.loginResult = {
-            status: false,
+            status: LoginStatus.failed,
             medium: '',
             platform: 'local',
             user: null,
@@ -140,7 +148,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.unconfirmedEmail = false;
     }).catch((error) => {
       this.loginResult = {
-        status: false,
+        status: LoginStatus.success,
         medium: '',
         platform: 'local',
         user: null,

@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { User, Song, AccountService, PlayerType } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlayerProgress } from '@mintplayer/ng-player-progress';
+import { PlayerState, VideoPlayerComponent } from '@mintplayer/ng-video-player';
 
 import { eToggleButtonState } from './enums/eToggleButtonState';
 import { eSidebarState } from './enums/eSidebarState';
@@ -20,7 +21,6 @@ import { LinifyPipe } from './pipes/linify/linify.pipe';
 import { PlaylistControl } from './helpers/playlist-control.helper';
 import { SyncComponent } from './pages/song/sync/sync.component';
 import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
-import { PlayerState, VideoPlayerComponent } from '@mintplayer/ng-video-player';
 
 @Component({
   selector: 'app-root',
@@ -83,10 +83,8 @@ export class AppComponent implements OnInit, OnDestroy {
       });
       this.swUpdate.available.subscribe((upd) => {
         console.log('Update available');
-        if (confirm('Do you want to install the new version of the app?')) {
-          console.log('Activating update');
-          this.swUpdate.activateUpdate();
-        }
+        console.log('Activating update');
+        this.swUpdate.activateUpdate();
       }, (error) => {
           console.log(error);
       });

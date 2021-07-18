@@ -14,6 +14,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using MintPlayer.Dtos.Enums;
+using MintPlayer.Data.Exceptions.Account.TwoFactor;
 
 namespace MintPlayer.Data.Repositories
 {
@@ -22,10 +24,10 @@ namespace MintPlayer.Data.Repositories
         Task<User> Register(User user, string password);
         Task<string> GenerateEmailConfirmationToken(string email);
         Task VerifyEmailConfirmationToken(string email, string token);
-        Task<LoginResult> LocalLogin(string email, string password, bool createCookie);
+        Task<LocalLoginResult> LocalLogin(string email, string password, bool createCookie);
         Task<IEnumerable<AuthenticationScheme>> GetExternalLoginProviders();
         Task<AuthenticationProperties> ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
-        Task<LoginResult> PerfromExternalLogin();
+        Task<ExternalLoginResult> PerfromExternalLogin();
         Task<IEnumerable<UserLoginInfo>> GetExternalLogins(ClaimsPrincipal userProperty);
         Task AddExternalLogin(ClaimsPrincipal userProperty);
         Task RemoveExternalLogin(ClaimsPrincipal userProperty, string provider);
@@ -34,6 +36,12 @@ namespace MintPlayer.Data.Repositories
         Task UpdatePassword(ClaimsPrincipal userProperty, string currentPassword, string newPassword, string confirmation);
         Task<IEnumerable<string>> GetCurrentRoles(ClaimsPrincipal userProperty);
         Task Logout();
+
+        Task<User> GetTwoFactorUser();
+        Task<string> GenerateTwoFactorRegistrationCode(ClaimsPrincipal userProperty);
+        Task<IEnumerable<string>> GenerateTwoFactorBackupCodes(ClaimsPrincipal userProperty);
+        Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code);
+        Task<User> TwoFactorLogin(string authenticatorCode, bool remember);
     }
     internal class AccountRepository : IAccountRepository
     {
@@ -94,7 +102,7 @@ namespace MintPlayer.Data.Repositories
             }
         }
 
-        public async Task<LoginResult> LocalLogin(string email, string password, bool createCookie)
+        public async Task<LocalLoginResult> LocalLogin(string email, string password, bool createCookie)
         {
             var user = await user_manager.FindByEmailAsync(email);
             if (user == null)
@@ -115,24 +123,47 @@ namespace MintPlayer.Data.Repositories
             if (createCookie)
             {
                 var signinResult = await signin_manager.PasswordSignInAsync(user, password, true, true);
-                if (!signinResult.Succeeded)
+                if (signinResult.Succeeded)
+                {
+                    return new LocalLoginResult
+                    {
+                        Status = LoginStatus.Success,
+                        User = ToDto(user, true)
+                    };
+                }
+
+                if (signinResult.RequiresTwoFactor)
+                {
+                    return new LocalLoginResult
+                    {
+                        Status = LoginStatus.RequiresTwoFactor,
+                        User = ToDto(user, true)
+                    };
+                }
+
+                // Login failed, but not because it required TwoFactor authentication
+                throw new LoginException();
+            }
+            else
+            {
+                var checkpassword = await user_manager.CheckPasswordAsync(user, password);
+                if (!checkpassword)
                 {
                     throw new LoginException();
                 }
 
-                return new LoginResult
+                if (user.TwoFactorEnabled)
                 {
-                    Status = true,
-                    Platform = "local",
-                    User = ToDto(user, true)
-                };
-            }
-            else
-            {
-                return new LoginResult
+                    return new LocalLoginResult
+                    {
+                        Status = LoginStatus.RequiresTwoFactor,
+                        User = ToDto(user, true)
+                    };
+                }
+
+                return new LocalLoginResult
                 {
-                    Status = true,
-                    Platform = "local",
+                    Status = LoginStatus.Success,
                     User = ToDto(user, true),
                     Token = CreateToken(user)
                 };
@@ -156,7 +187,7 @@ namespace MintPlayer.Data.Repositories
             return Task.FromResult(properties);
         }
 
-        public async Task<LoginResult> PerfromExternalLogin()
+        public async Task<ExternalLoginResult> PerfromExternalLogin()
         {
             var info = await signin_manager.GetExternalLoginInfoAsync();
             if (info == null)
@@ -207,9 +238,9 @@ namespace MintPlayer.Data.Repositories
             }
 
             await signin_manager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true);
-            return new LoginResult
+            return new ExternalLoginResult
             {
-                Status = true,
+                Status = LoginStatus.Success,
                 Platform = info.LoginProvider,
                 User = ToDto(user, true)
             };
@@ -309,6 +340,73 @@ namespace MintPlayer.Data.Repositories
         public async Task Logout()
         {
             await signin_manager.SignOutAsync();
+        }
+
+
+
+
+        public async Task<User> GetTwoFactorUser()
+        {
+            var user = await signin_manager.GetTwoFactorAuthenticationUserAsync();
+            return ToDto(user, true);
+        }
+
+        public async Task<string> GenerateTwoFactorRegistrationCode(ClaimsPrincipal userProperty)
+        {
+            //var user = await signin_manager.GetTwoFactorAuthenticationUserAsync();
+            var user = await user_manager.GetUserAsync(userProperty);
+
+            var code = await user_manager.GetAuthenticatorKeyAsync(user);
+            if (string.IsNullOrEmpty(code))
+            {
+                await user_manager.ResetAuthenticatorKeyAsync(user);
+                code = await user_manager.GetAuthenticatorKeyAsync(user);
+            }
+
+            return code;
+        }
+
+        public async Task<IEnumerable<string>> GenerateTwoFactorBackupCodes(ClaimsPrincipal userProperty)
+        {
+            var user = await user_manager.GetUserAsync(userProperty);
+            var codes = await user_manager.GenerateNewTwoFactorRecoveryCodesAsync(user, 10);
+            return codes;
+        }
+
+        public async Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code)
+        {
+            var user = await user_manager.GetUserAsync(userProperty);
+            var is2faTokenValid = await user_manager.VerifyTwoFactorTokenAsync(user, user_manager.Options.Tokens.AuthenticatorTokenProvider, code);
+
+            if (!is2faTokenValid)
+            {
+                throw new InvalidTwoFactorCodeException();
+            }
+
+            var result = await user_manager.SetTwoFactorEnabledAsync(user, true);
+            if (!result.Succeeded)
+            {
+                throw new TwoFactorSetupException();
+            }
+        }
+
+        //public async Task SetTwoFactorAuthenticationEnabled(bool enabled)
+        //{
+        //    signin_manager.twofactor
+        //}
+
+        public async Task<User> TwoFactorLogin(string authenticatorCode, bool remember)
+        {
+            var user = await signin_manager.GetTwoFactorAuthenticationUserAsync();
+            var result = await signin_manager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, true, remember);
+            if (result.Succeeded)
+            {
+                return ToDto(user, true);
+            }
+            else
+            {
+                throw new LoginException();
+            }
         }
 
         #region Helper methods

@@ -13,6 +13,8 @@ using MintPlayer.Web.Server.ViewModels.Account;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Authentication;
 using MintPlayer.AspNetCore.SpaServices.Routing;
+using System.Text.Encodings.Web;
+using MintPlayer.Data.Exceptions.Account.TwoFactor;
 
 namespace MintPlayer.Web.Server.Controllers.Web.V3
 {
@@ -22,10 +24,12 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 	{
 		private readonly IAccountService accountService;
         private readonly ISpaRouteService spaRouteService;
-        public AccountController(IAccountService accountService, ISpaRouteService spaRouteService)
+        private readonly UrlEncoder urlEncoder;
+        public AccountController(IAccountService accountService, ISpaRouteService spaRouteService, UrlEncoder urlEncoder)
 		{
 			this.accountService = accountService;
             this.spaRouteService = spaRouteService;
+            this.urlEncoder = urlEncoder;
         }
 
 		/**
@@ -97,7 +101,14 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			try
 			{
 				var login_result = await accountService.LocalLogin(loginVM.Email, loginVM.Password, true);
-				return Ok(login_result);
+				switch (login_result.Status)
+				{
+					case Dtos.Enums.LoginStatus.Success:
+					case Dtos.Enums.LoginStatus.RequiresTwoFactor:
+						return Ok(login_result);
+					default:
+						throw new Exception();
+				}
 			}
 			catch (LoginException loginEx)
 			{
@@ -112,6 +123,59 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 				return StatusCode(500);
 			}
 		}
+
+		[Authorize]
+		[HttpPost("two-factor-registration", Name = "web-v3-account-twofactor-registration")]
+		public async Task<ActionResult<TwoFactorRegistrationUrlVM>> GetTwoFactorRegistrationUrl()
+		{
+			const string appName = "MintPlayer";
+			var user = await accountService.GetCurrentUser(User);
+			var image = "https://mintplayer.com/assets/logo/music_note_120.png";
+			var registrationCode = await accountService.GenerateTwoFactorRegistrationCode(User);
+			//var backupCodes = await accountService.GenerateTwoFactorBackupCodes(User);
+			var registrationUrl = $"otpauth://totp/{urlEncoder.Encode(appName)}:{urlEncoder.Encode(user.Email)}?secret={registrationCode}&issuer={urlEncoder.Encode(appName)}&image={urlEncoder.Encode(image)}&digits=6";
+
+			return Ok(new TwoFactorRegistrationUrlVM
+			{
+				RegistrationUrl = registrationUrl,
+				//BackupCodes = backupCodes,
+			});
+		}
+
+        [Authorize]
+        [HttpPost("two-factor-setup", Name = "web-v3-account-twofactor-setup")]
+        public async Task<ActionResult<IEnumerable<string>>> SetupTwoFactor([FromBody] TwoFactorSetupVM twoFactorSetup)
+        {
+            //var isCodeValid = await accountService.two
+            //var registrationCode = await accountService.GenerateTwoFactorRegistrationCode(User);
+
+            try
+			{
+				await accountService.FinishTwoFactorSetup(User, twoFactorSetup.SetupCode);
+				var backupCodes = await accountService.GenerateTwoFactorBackupCodes(User);
+				return Ok(backupCodes);
+			}
+            catch (InvalidTwoFactorCodeException invEx)
+            {
+				return StatusCode(401);
+            }
+			catch (TwoFactorSetupException twoFactorEx)
+            {
+				return StatusCode(500);
+            }
+			catch (Exception ex)
+            {
+				return StatusCode(500);
+			}
+
+		}
+
+		[HttpPost("two-factor-login")]
+		public async Task<User> TwoFactorLogin([FromBody] TwoFactorLoginVM twoFactorLoginVM)
+        {
+			 var user = await accountService.TwoFactorLogin(twoFactorLoginVM.Code, twoFactorLoginVM.Remember);
+			return user;
+        }
 
 		// GET: web/Account/providers
 		[AllowAnonymous]
@@ -146,33 +210,32 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			try
 			{
 				var login_result = await accountService.PerfromExternalLogin();
-				if (login_result.Status)
+				switch (login_result.Status)
 				{
-					var model = new LoginResultVM
-					{
-						Status = true,
-						Medium = medium,
-						Platform = login_result.Platform
-					};
-					return View(model);
-				}
-				else
-				{
-					var model = new LoginResultVM
-					{
-						Status = false,
-						Medium = medium,
-						Platform = login_result.Platform,
+					case Dtos.Enums.LoginStatus.Success:
+						var successModel = new ExternalLoginResultVM
+						{
+							Status = true,
+							Medium = medium,
+							Platform = login_result.Platform
+						};
+						return View(successModel);
+					default:
+						var failedModel = new ExternalLoginResultVM
+						{
+							Status = false,
+							Medium = medium,
+							Platform = login_result.Platform,
 
-						Error = login_result.Error,
-						ErrorDescription = login_result.ErrorDescription
-					};
-					return View(model);
+							Error = login_result.Error,
+							ErrorDescription = login_result.ErrorDescription
+						};
+						return View(failedModel);
 				}
 			}
 			catch (OtherAccountException otherAccountEx)
 			{
-				var model = new LoginResultVM
+				var model = new ExternalLoginResultVM
 				{
 					Status = false,
 					Medium = medium,
@@ -185,7 +248,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			}
 			catch (Exception ex)
 			{
-				var model = new LoginResultVM
+				var model = new ExternalLoginResultVM
 				{
 					Status = false,
 					Medium = medium,
@@ -231,7 +294,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			try
 			{
 				await accountService.AddExternalLogin(User);
-				var model = new LoginResultVM
+				var model = new ExternalLoginResultVM
 				{
 					Status = true,
 					Medium = medium,
@@ -241,7 +304,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			}
 			catch (Exception)
 			{
-				var model = new LoginResultVM
+				var model = new ExternalLoginResultVM
 				{
 					Status = false,
 					Medium = medium,

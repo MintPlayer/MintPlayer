@@ -31,7 +31,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public mediumType: MediumType = {
     id: 0,
     description: '',
-    playerType: PlayerType.None
+    playerType: PlayerType.none
   };
 
   public playerTypes: EnumItem[] = [];

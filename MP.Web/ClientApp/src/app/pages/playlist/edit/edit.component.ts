@@ -72,7 +72,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     id: 0,
     description: '',
     tracks: [],
-    accessibility: PlaylistAccessibility.Private,
+    accessibility: PlaylistAccessibility.private,
     user: null
   };
 

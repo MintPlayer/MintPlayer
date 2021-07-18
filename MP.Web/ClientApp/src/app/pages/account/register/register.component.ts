@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { AccountService, User, UserData } from '@mintplayer/ng-client';
+import { LoginStatus } from '@mintplayer/ng-client';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
@@ -84,7 +85,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public register() {
     this.accountService.register(this.data).then((result) => {
       this.accountService.login(this.data.user.email, this.data.password).then((login_result) => {
-        if (login_result.status === true) {
+        if (login_result.status === LoginStatus.success) {
           this.router.navigate(['/']);
           this.loginComplete.next(login_result.user);
         } else {

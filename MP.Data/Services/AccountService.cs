@@ -21,10 +21,10 @@ namespace MintPlayer.Data.Services
         Task Register(User user, string password);
         Task SendConfirmationEmail(string email);
         Task VerifyEmailConfirmationToken(string email, string token);
-        Task<LoginResult> LocalLogin(string email, string password, bool createCookie);
+        Task<LocalLoginResult> LocalLogin(string email, string password, bool createCookie);
         Task<IEnumerable<string>> GetProviders();
         Task<AuthenticationProperties> ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
-        Task<LoginResult> PerfromExternalLogin();
+        Task<ExternalLoginResult> PerfromExternalLogin();
         Task<IEnumerable<UserLoginInfo>> GetExternalLogins(ClaimsPrincipal userProperty);
         Task AddExternalLogin(ClaimsPrincipal userProperty);
         Task RemoveExternalLogin(ClaimsPrincipal userProperty, string provider);
@@ -33,6 +33,11 @@ namespace MintPlayer.Data.Services
         Task UpdatePassword(ClaimsPrincipal userProperty, string currentPassword, string newPassword, string confirmation);
         Task<IEnumerable<string>> GetCurrentRoles(ClaimsPrincipal userProperty);
         Task Logout();
+
+        Task<string> GenerateTwoFactorRegistrationCode(ClaimsPrincipal userProperty);
+        Task<IEnumerable<string>> GenerateTwoFactorBackupCodes(ClaimsPrincipal userProperty);
+        Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code);
+        Task<User> TwoFactorLogin(string authenticatorCode, bool remember);
     }
 
     internal class AccountService : IAccountService
@@ -82,7 +87,7 @@ namespace MintPlayer.Data.Services
             await accountRepository.VerifyEmailConfirmationToken(email, token);
         }
 
-        public async Task<LoginResult> LocalLogin(string email, string password, bool createCookie)
+        public async Task<LocalLoginResult> LocalLogin(string email, string password, bool createCookie)
         {
             var login_result = await accountRepository.LocalLogin(email, password, createCookie);
             return login_result;
@@ -100,7 +105,7 @@ namespace MintPlayer.Data.Services
             return properties;
         }
 
-        public async Task<LoginResult> PerfromExternalLogin()
+        public async Task<ExternalLoginResult> PerfromExternalLogin()
         {
             var loginResult = await accountRepository.PerfromExternalLogin();
             return loginResult;
@@ -147,6 +152,29 @@ namespace MintPlayer.Data.Services
         public async Task Logout()
         {
             await accountRepository.Logout();
+        }
+
+        public async Task<string> GenerateTwoFactorRegistrationCode(ClaimsPrincipal userProperty)
+        {
+            var registrationCode = await accountRepository.GenerateTwoFactorRegistrationCode(userProperty);
+            return registrationCode;
+        }
+
+        public async Task<IEnumerable<string>> GenerateTwoFactorBackupCodes(ClaimsPrincipal userProperty)
+        {
+            var codes = await accountRepository.GenerateTwoFactorBackupCodes(userProperty);
+            return codes;
+        }
+
+        public async Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code)
+        {
+            await accountRepository.FinishTwoFactorSetup(userProperty, code);
+        }
+
+        public async Task<User> TwoFactorLogin(string authenticatorCode, bool remember)
+        {
+            var result = await accountRepository.TwoFactorLogin(authenticatorCode, remember);
+            return result;
         }
     }
 }

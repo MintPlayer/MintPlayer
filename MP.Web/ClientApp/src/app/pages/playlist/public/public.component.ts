@@ -33,7 +33,7 @@ export class PlaylistPublicComponent implements OnInit {
   }
 
   loadPlaylists() {
-    this.playlistService.pagePlaylists(this.tableSettings.toPagination(), PlaylistScope.Public).then((playlists) => {
+    this.playlistService.pagePlaylists(this.tableSettings.toPagination(), PlaylistScope.public).then((playlists) => {
       this.setPlaylistData(playlists);
     }).catch((error) => {
       console.log(error);

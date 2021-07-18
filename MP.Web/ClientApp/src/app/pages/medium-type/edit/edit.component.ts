@@ -61,7 +61,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   mediumType: MediumType = {
     id: 0,
     description: '',
-    playerType: PlayerType.None
+    playerType: PlayerType.none
   };
 
   public playerTypes: EnumItem[] = [];

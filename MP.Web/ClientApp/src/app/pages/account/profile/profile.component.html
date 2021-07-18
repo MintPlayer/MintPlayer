@@ -39,6 +39,56 @@
     </card>
     <card class="d-block mb-3">
       <header>
+        <i class="fa fa-lock"></i>
+        {{ 'account.two_factor.two_factor_authentication' | translate }}
+        <span class="float-end">
+          <toggle-button [(isToggled)]="is2FaEnabled" (isToggledChange)="change2FactorAuthentication($event)"></toggle-button>
+        </span>
+      </header>
+      <content>
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-12">
+              <span class="d-block text-center h2">{{ 'account.two_factor.enable' | translate }}</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6">
+              <label>{{ 'account.two_factor.scan' | translate }}</label>
+            </div>
+            <div class="col-xl-6">
+              <qr-code [value]="twoFaRegistrationUrl" size="200" errorCorrectionLevel="M"></qr-code>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6">
+              <label>{{ 'account.two_factor.enter_code' | translate }}</label>
+            </div>
+            <div class="col-xl-6">
+              <input type="text" [(ngModel)]="verificationCode" class="form-control" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 text-center">
+              <button (click)="finshTwoFactorSetup()" class="btn btn-default">
+                <i class="fa fa-key"></i>
+                Enable 2FA
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <p>{{ 'account.two_factor.write_down_backup_codes' | translate }}</p>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let backupCode of backupCodes">{{ backupCode }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </content>
+    </card>
+    <card class="d-block mb-3">
+      <header>
         <i class="fa fa-comments"></i>
         {{ 'account.social_logins' | translate }}
       </header>

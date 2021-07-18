@@ -18,12 +18,12 @@ export class ToggleButtonComponent implements OnInit {
   }
 
   //#region isToggled
-  _isToggled: boolean = false;
-  @Output() public isToggledChange = new EventEmitter<boolean>();
+  _isToggled: boolean | null = false;
+  @Output() public isToggledChange = new EventEmitter<boolean | null>();
   public get isToggled() {
     return this._isToggled;
   }
-  @Input() public set isToggled(value: boolean) {
+  @Input() public set isToggled(value: boolean | null) {
     console.log(this._isToggled);
     this._isToggled = value;
     this.isToggledChange.emit(this._isToggled);

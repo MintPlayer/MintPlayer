@@ -85,7 +85,7 @@ export class PlaylistShowComponent implements OnInit {
     id: 0,
     description: '',
     tracks: [],
-    accessibility: PlaylistAccessibility.Private,
+    accessibility: PlaylistAccessibility.private,
     user: null
   };
 }
