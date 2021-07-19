@@ -32,6 +32,7 @@ namespace MintPlayer.Data.Mappers
                 var songHelper = serviceProvider.GetRequiredService<SongHelper>();
 
                 var lastLyric = song.Lyrics == null ? null : song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault();
+                var playerInfos = songHelper.GetPlayerInfos(song.Media).ToList();
 
                 return new MintPlayer.Dtos.Dtos.Song
                 {
@@ -46,9 +47,9 @@ namespace MintPlayer.Data.Mappers
 
                     Text = song.Text,
                     Description = song.Description,
-                    YoutubeId = song.YoutubeId,
-                    DailymotionId = song.DailymotionId,
-                    VimeoId = song.VimeoId,
+                    YoutubeId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Youtube)?.Id,
+                    DailymotionId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.DailyMotion)?.Id,
+                    VimeoId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Vimeo)?.Id,
                     PlayerInfos = songHelper.GetPlayerInfos(song.Media).ToList(),
                     DateUpdate = song.DateUpdate ?? song.DateInsert,
 
@@ -73,7 +74,7 @@ namespace MintPlayer.Data.Mappers
             {
                 var lastLyric = song.Lyrics == null ? null : song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault();
                 var songHelper = serviceProvider.GetRequiredService<SongHelper>();
-
+                var playerInfos = songHelper.GetPlayerInfos(song.Media).ToList();
                 return new MintPlayer.Dtos.Dtos.Song
                 {
                     Id = song.Id,
@@ -87,10 +88,10 @@ namespace MintPlayer.Data.Mappers
 
                     Text = song.Text,
                     Description = song.Description,
-                    YoutubeId = song.YoutubeId,
-                    DailymotionId = song.DailymotionId,
-                    VimeoId = song.VimeoId,
-                    PlayerInfos = songHelper.GetPlayerInfos(song.Media).ToList(),
+                    YoutubeId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Youtube)?.Id,
+                    DailymotionId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.DailyMotion)?.Id,
+                    VimeoId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Vimeo)?.Id,
+                    PlayerInfos = playerInfos,
                     DateUpdate = song.DateUpdate ?? song.DateInsert
                 };
             }
