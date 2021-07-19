@@ -38,7 +38,7 @@ namespace MintPlayer.Dtos.Dtos
 
         [DataMember]
 		[XmlElement(Namespace = "https://mintplayer.com/music")]
-        public PlayerInfo PlayerInfo { get; internal set; }
+        public List<PlayerInfo> PlayerInfos { get; internal set; }
         
 		[DataMember]
 		[XmlElement(Namespace = "https://mintplayer.com/music")]

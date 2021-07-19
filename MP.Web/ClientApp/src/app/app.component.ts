@@ -103,9 +103,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.playlistControl = new PlaylistControl<Song>({
       onGetCurrentPosition: () => this.player.currentTime,
       onPlayVideo: (song) => {
-        console.log('player info', song.playerInfo);
+        console.log('player infos', song.playerInfos);
         debugger;
-        this.player.url = song.playerInfo.url;
+        if (song.playerInfos.length > 0) {
+          this.player.url = song.playerInfos[0].url;
+        }
       },
       onStopVideo: () => {
         this.player.playerState = PlayerState.ended;

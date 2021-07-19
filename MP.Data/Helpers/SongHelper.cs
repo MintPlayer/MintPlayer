@@ -34,8 +34,8 @@ namespace MintPlayer.Data.Helpers
 
 			// Compute artists to update
 			var en_to_update = old.Artists.Except(en_to_remove);
-            foreach (var item in en_to_update)
-            {
+			foreach (var item in en_to_update)
+			{
 				if (@new.Artists.Any(a => a.Id == item.ArtistId))
 					item.Credited = true;
 				else if (@new.UncreditedArtists.Any(a => a.Id == item.ArtistId))
@@ -49,34 +49,46 @@ namespace MintPlayer.Data.Helpers
 			to_update = en_to_update.ToArray();
 		}
 
-		internal Medium GetPlayableMedium(IEnumerable<Medium> media)
+		internal IEnumerable<MintPlayer.Dtos.Dtos.PlayerInfo> GetPlayerInfos(IEnumerable<Medium> media)
 		{
-			if (media == null) return null;
-
-			var playableRegexes = new Dictionary<Regex, MintPlayer.Dtos.Enums.ePlayerType>
+			if (media != null)
 			{
-				[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}youtube\.com\/watch\?v=(?<id>[^&]+)")] = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
-				[new Regex(@"http[s]{0,1}:\/\/m\.youtube\.com\/watch\?v=(?<id>[^&]+)")] = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
-				[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}youtu\.be\/(?<id>.+)$")] = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
-
-				[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}dailymotion\.com\/video\/(?<id>[0-9A-Za-z]+)$")] = MintPlayer.Dtos.Enums.ePlayerType.DailyMotion,
-
-				[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}vimeo\.com\/(?<id>[0-9]+)$")] = MintPlayer.Dtos.Enums.ePlayerType.Vimeo,
-			};
-
-			foreach (var medium in media)
-			{
-				foreach (var regex in playableRegexes)
+				var playableRegexes = new Dictionary<Regex, MintPlayer.Dtos.Enums.ePlayerType>
 				{
-					var match = regex.Key.Match(medium.Value);
-					if (match.Success)
+					[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}youtube\.com\/watch\?v=(?<id>[^&]+)")] = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
+					[new Regex(@"http[s]{0,1}:\/\/m\.youtube\.com\/watch\?v=(?<id>[^&]+)")] = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
+					[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}youtu\.be\/(?<id>.+)$")] = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
+
+					[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}dailymotion\.com\/video\/(?<id>[0-9A-Za-z]+)$")] = MintPlayer.Dtos.Enums.ePlayerType.DailyMotion,
+
+					[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}vimeo\.com\/(?<id>[0-9]+)$")] = MintPlayer.Dtos.Enums.ePlayerType.Vimeo,
+				};
+
+				foreach (var medium in media)
+				{
+					foreach (var regex in playableRegexes)
 					{
-						return medium;
+						var match = regex.Key.Match(medium.Value);
+						if (match.Success)
+						{
+							var id = match.Groups["id"].Value;
+							yield return new MintPlayer.Dtos.Dtos.PlayerInfo
+							{
+								Type = regex.Value,
+								Url = medium.Value,
+								Id = id,
+								ImageUrl = regex.Value switch
+								{
+									MintPlayer.Dtos.Enums.ePlayerType.Youtube => $"https://i.ytimg.com/vi/{id}/hqdefault.jpg",
+									MintPlayer.Dtos.Enums.ePlayerType.DailyMotion => $"https://www.dailymotion.com/thumbnail/video/{id}",
+									MintPlayer.Dtos.Enums.ePlayerType.Vimeo => $"https://i.vimeocdn.com/video/99213072?mw=960&mh=540",
+									_ => null
+								}
+							};
+						}
 					}
 				}
 			}
-
-			return null;
 		}
 	}
 }

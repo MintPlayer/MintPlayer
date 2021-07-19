@@ -303,7 +303,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     youtubeId: '',
     dailymotionId: '',
     vimeoId: '',
-    playerInfo: null,
+    playerInfos: [],
     description: '',
     dateUpdate: null
   };

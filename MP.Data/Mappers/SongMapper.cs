@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MintPlayer.Data.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace MintPlayer.Data.Mappers
                 var artistMapper = serviceProvider.GetRequiredService<IArtistMapper>();
                 var mediumMapper = serviceProvider.GetRequiredService<IMediumMapper>();
                 var tagMapper = serviceProvider.GetRequiredService<ITagMapper>();
+                var songHelper = serviceProvider.GetRequiredService<SongHelper>();
 
                 var lastLyric = song.Lyrics == null ? null : song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault();
 
@@ -47,7 +49,7 @@ namespace MintPlayer.Data.Mappers
                     YoutubeId = song.YoutubeId,
                     DailymotionId = song.DailymotionId,
                     VimeoId = song.VimeoId,
-                    PlayerInfo = song.PlayerInfo,
+                    PlayerInfos = songHelper.GetPlayerInfos(song.Media).ToList(),
                     DateUpdate = song.DateUpdate ?? song.DateInsert,
 
                     Artists = song.Artists
@@ -70,6 +72,7 @@ namespace MintPlayer.Data.Mappers
             else
             {
                 var lastLyric = song.Lyrics == null ? null : song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault();
+                var songHelper = serviceProvider.GetRequiredService<SongHelper>();
 
                 return new MintPlayer.Dtos.Dtos.Song
                 {
@@ -87,7 +90,7 @@ namespace MintPlayer.Data.Mappers
                     YoutubeId = song.YoutubeId,
                     DailymotionId = song.DailymotionId,
                     VimeoId = song.VimeoId,
-                    PlayerInfo = song.PlayerInfo,
+                    PlayerInfos = songHelper.GetPlayerInfos(song.Media).ToList(),
                     DateUpdate = song.DateUpdate ?? song.DateInsert
                 };
             }
