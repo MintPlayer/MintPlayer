@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { BASE_URL } from '@mintplayer/ng-base-url';
 import { AccountService, API_VERSION, LoginResult, User } from '@mintplayer/ng-client';
 import { AdvancedRouter } from '@mintplayer/ng-router';
@@ -20,6 +21,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private router: AdvancedRouter,
     private accountService: AccountService,
     private htmlLink: HtmlLinkHelper,
+    private domSanitizer: DomSanitizer,
 
     private httpClient: HttpClient,
     @Inject(BASE_URL) private baseUrl: string,
@@ -45,6 +47,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.httpClient.post<TwoFactorRegistrationUrl>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-registration`, {})
         .subscribe((urlData) => {
           this.twoFaRegistrationUrl = urlData.registrationUrl;
+          this.twoFaRegistrationUrlSanitized = this.domSanitizer.bypassSecurityTrustUrl(this.twoFaRegistrationUrl);
         });
     }
   }
@@ -58,6 +61,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   userLogins: string[] = [];
 
   twoFaRegistrationUrl: string = null;
+  twoFaRegistrationUrlSanitized: SafeUrl = null;
 
   backupCodes: string[] = null;
   isRegistrationSuccess: boolean = false;

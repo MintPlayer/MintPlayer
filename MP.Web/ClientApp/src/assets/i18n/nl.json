@@ -140,12 +140,17 @@
     "two_factor": {
       "two_factor_authentication": "Tweestaps-verificatie",
       "enable": "Tweestaps-verificatie inschakelen",
+      "enable_2fa": "2FA inschakelen",
       "enter_code_enable": "Genereer vervolgens een 6-cijfercode met de authenticator app en voer deze in in het volgende tekstvak",
       "scan": "Open de Authenticator app op uw mobiel toestel, scan volgende QR-code in",
+      "add_account": "Account toevoegen",
+      "or_open_app": "Of open de authenticator app",
+      "generate_code": "Genereer code",
       "write_down_backup_codes": "Dit zijn je backup-codes. Schrijf ze ergens op en houd ze bij op een veilige plaats. Je hebt ze nog nodig in het geval dat je je smartphone zou verliezen. Na het verlaten van deze pagina kan je ze niet meer opvragen.",
       "login_instructions": "Open de Authenticator app op uw smartphone genereer een 6-cijferige code voor MintPlayer. Geef deze code hieronder in:",
 
       "disable": "Tweestaps-verificatie uitschakelen",
+      "disable_2fa": "2FA uitschakelen",
       "enter_code_disable": "Genereer een 6-cijfercode met de authenticator app en voer deze in in het volgende tekstvak"
     },
     "confirmation": {

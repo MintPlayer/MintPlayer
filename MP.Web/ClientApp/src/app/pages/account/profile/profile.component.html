@@ -53,11 +53,26 @@
           </div>
         </div>
         <div class="row">
+          <div class="col-xl-12">
+            <span class="d-block h3">{{ 'account.two_factor.add_account' | translate }}</span>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-xl-6">
             <label>{{ 'account.two_factor.scan' | translate }}</label>
           </div>
-          <div class="col-xl-6">
+          <div class="col-xl-6 text-center">
             <qr-code [value]="twoFaRegistrationUrl" size="200" errorCorrectionLevel="M"></qr-code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 text-center">
+            <a [href]="twoFaRegistrationUrlSanitized">{{ 'account.two_factor.or_open_app' | translate }}</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12">
+            <span class="d-block h3">{{ 'account.two_factor.generate_code' | translate }}</span>
           </div>
         </div>
         <div class="row">
@@ -72,7 +87,7 @@
           <div class="col-xl-12 text-center">
             <button type="submit" class="btn btn-default">
               <i class="fa fa-key"></i>
-              Enable 2FA
+              {{ 'account.two_factor.enable_2fa' | translate }}
             </button>
           </div>
         </div>
@@ -95,7 +110,7 @@
           <div class="col-xl-12 text-center">
             <button type="submit" class="btn btn-default">
               <i class="fa fa-key"></i>
-              Disable 2FA
+              {{ 'account.two_factor.disable_2fa' | translate }}
             </button>
           </div>
         </div>
