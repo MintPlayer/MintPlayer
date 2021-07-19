@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using MintPlayer.Data.Helpers;
+using MintPlayer.Data.Mappers;
 using MintPlayer.Data.Options;
 using MintPlayer.Data.Repositories;
 using MintPlayer.Data.Services;
@@ -63,6 +64,20 @@ namespace MintPlayer.Data.Extensions
                 .AddScoped<ITagService, TagService>()
                 .AddScoped<IBlogPostService, BlogPostService>()
                 .AddScoped<ILogEntryService, LogEntryService>()
+                // Mappers
+                .AddScoped<IArtistMapper, ArtistMapper>()
+                .AddScoped<IMediumMapper, MediumMapper>()
+                .AddScoped<IMediumTypeMapper, MediumTypeMapper>()
+                .AddScoped<IPersonMapper, PersonMapper>()
+                .AddScoped<IPlaylistMapper, PlaylistMapper>()
+                .AddScoped<IRoleMapper, RoleMapper>()
+                .AddScoped<ISongMapper, SongMapper>()
+                .AddScoped<ISubjectMapper, SubjectMapper>()
+                .AddScoped<ITagCategoryMapper, TagCategoryMapper>()
+                .AddScoped<ITagMapper, TagMapper>()
+                .AddScoped<IUserMapper, UserMapper>()
+                .AddScoped<IBlogPostMapper, BlogPostMapper>()
+                .AddScoped<IElasticSearchIndexJobMapper, ElasticSearchIndexJobMapper>()
                 // Helpers
                 .AddTransient<ArtistHelper>()
                 .AddTransient<SongHelper>()

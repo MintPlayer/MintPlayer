@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using MintPlayer.Data.Helpers;
 using MintPlayer.Data.Enums;
 using MintPlayer.Data.Exceptions;
+using MintPlayer.Data.Mappers;
 
 namespace MintPlayer.Data.Repositories
 {
@@ -32,12 +33,19 @@ namespace MintPlayer.Data.Repositories
         private readonly MintPlayerContext mintplayer_context;
         private readonly UserManager<Entities.User> user_manager;
         private readonly TrackHelper trackHelper;
-        public PlaylistRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager, TrackHelper trackHelper)
+        private readonly IPlaylistMapper playlistMapper;
+        public PlaylistRepository(
+            IHttpContextAccessor http_context,
+            MintPlayerContext mintplayer_context,
+            UserManager<Entities.User> user_manager,
+            TrackHelper trackHelper,
+            IPlaylistMapper playlistMapper)
         {
             this.http_context = http_context;
             this.mintplayer_context = mintplayer_context;
             this.user_manager = user_manager;
             this.trackHelper = trackHelper;
+            this.playlistMapper = playlistMapper;
         }
 
         public async Task<Pagination.PaginationResponse<Playlist>> PagePlaylists(Pagination.PaginationRequest<Playlist> request, ePlaylistScope playlistScope)
@@ -71,7 +79,7 @@ namespace MintPlayer.Data.Repositories
                 .Take(request.PerPage);
 
             // 3) Convert to DTO
-            var dto_playlists = await paged_playlists.Select(p => ToDto(p, false)).ToListAsync();
+            var dto_playlists = await paged_playlists.Select(p => playlistMapper.Entity2Dto(p, false)).ToListAsync();
 
             var count_playlists = await playlists.CountAsync();
             return new Pagination.PaginationResponse<Playlist>(request, count_playlists, dto_playlists);
@@ -112,7 +120,7 @@ namespace MintPlayer.Data.Repositories
                     throw new ArgumentException(nameof(playlistScope));
             }
 
-            return scopedQuery.Select(p => ToDto(p, include_relations));
+            return scopedQuery.Select(p => playlistMapper.Entity2Dto(p, include_relations));
         }
 
         public async Task<Playlist> GetPlaylist(int id, bool include_relations = false)
@@ -149,7 +157,7 @@ namespace MintPlayer.Data.Repositories
                 .SingleOrDefaultAsync(p => p.Id == id);
 
             // Convert to DTO
-            var dtoPlaylist = ToDto(playlist, include_relations);
+            var dtoPlaylist = playlistMapper.Entity2Dto(playlist, include_relations);
 
             // Security check if playlist is accessible
             if (playlist == null)
@@ -177,7 +185,7 @@ namespace MintPlayer.Data.Repositories
         public async Task<Playlist> InsertPlaylist(Playlist playlist)
         {
             // Convert to entity
-            var entity_playlist = ToEntity(playlist, mintplayer_context);
+            var entity_playlist = playlistMapper.Dto2Entity(playlist, mintplayer_context);
 
             // Get current user
             entity_playlist.User = await user_manager.GetUserAsync(http_context.HttpContext.User);
@@ -186,7 +194,7 @@ namespace MintPlayer.Data.Repositories
             await mintplayer_context.Playlists.AddAsync(entity_playlist);
             await mintplayer_context.SaveChangesAsync();
 
-            var new_playlist = ToDto(entity_playlist);
+            var new_playlist = playlistMapper.Entity2Dto(entity_playlist);
             return new_playlist;
         }
 
@@ -237,7 +245,7 @@ namespace MintPlayer.Data.Repositories
 
             await mintplayer_context.SaveChangesAsync();
 
-            return ToDto(playlist_entity, true);
+            return playlistMapper.Entity2Dto(playlist_entity, true);
         }
 
         public async Task DeletePlaylist(int playlistId)
@@ -258,58 +266,5 @@ namespace MintPlayer.Data.Repositories
         {
             await mintplayer_context.SaveChangesAsync();
         }
-
-        #region Conversion methods
-        internal static Playlist ToDto(Entities.Playlist playlist, bool include_relations = false)
-        {
-            if (playlist == null) return null;
-            if (include_relations)
-            {
-                return new Playlist
-                {
-                    Id = playlist.Id,
-                    Description = playlist.Description,
-                    User = AccountRepository.ToDto(playlist.User, false),
-                    Accessibility = playlist.Accessibility,
-                    Tracks = playlist.Tracks
-                        .OrderBy(t => t.Index)
-                        .Select(t => SongRepository.ToDto(t.Song, false, false))
-                        .ToList()
-                };
-            }
-            else
-            {
-                return new Playlist
-                {
-                    Id = playlist.Id,
-                    Description = playlist.Description
-                };
-            }
-        }
-
-        internal static Entities.Playlist ToEntity(Playlist playlist, MintPlayerContext mintplayer_context)
-        {
-            if (playlist == null) return null;
-            var entity_playlist = new Entities.Playlist
-            {
-                Id = playlist.Id,
-                Description = playlist.Description,
-                Accessibility = playlist.Accessibility,
-            };
-
-            #region Tracks
-            if (playlist.Tracks != null)
-            {
-                entity_playlist.Tracks = playlist.Tracks.Select((song, index) =>
-                {
-                    var entity_song = mintplayer_context.Songs.Find(song.Id);
-                    return new Entities.PlaylistSong(entity_playlist, entity_song) { Index = index };
-                }).ToList();
-            }
-            #endregion
-
-            return entity_playlist;
-        }
-        #endregion
     }
 }

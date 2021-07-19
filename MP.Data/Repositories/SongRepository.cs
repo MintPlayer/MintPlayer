@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MintPlayer.Data.Extensions;
+using MintPlayer.Data.Mappers;
 
 namespace MintPlayer.Data.Repositories
 {
@@ -33,15 +34,24 @@ namespace MintPlayer.Data.Repositories
 		private readonly UserManager<Entities.User> user_manager;
 		private readonly SongHelper song_helper;
 		private readonly SubjectHelper subject_helper;
-		private readonly Jobs.IElasticSearchJobRepository elasticSearchJobRepository;
-		public SongRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager, SongHelper song_helper, SubjectHelper subject_helper, Jobs.IElasticSearchJobRepository elasticSearchJobRepository)
+        private readonly ISongMapper songMapper;
+        private readonly Jobs.IElasticSearchJobRepository elasticSearchJobRepository;
+		public SongRepository(
+			IHttpContextAccessor http_context,
+			MintPlayerContext mintplayer_context,
+			UserManager<Entities.User> user_manager,
+			SongHelper song_helper,
+			SubjectHelper subject_helper,
+			ISongMapper songMapper,
+			Jobs.IElasticSearchJobRepository elasticSearchJobRepository)
 		{
 			this.http_context = http_context;
 			this.mintplayer_context = mintplayer_context;
 			this.user_manager = user_manager;
 			this.song_helper = song_helper;
             this.subject_helper = subject_helper;
-			this.elasticSearchJobRepository = elasticSearchJobRepository;
+            this.songMapper = songMapper;
+            this.elasticSearchJobRepository = elasticSearchJobRepository;
 		}
 
         public async Task<Pagination.PaginationResponse<Song>> PageSongs(Pagination.PaginationRequest<Song> request)
@@ -59,7 +69,7 @@ namespace MintPlayer.Data.Repositories
 			   .Take(request.PerPage);
 
             // 3) Convert to DTO
-            var dto_songs = await paged_songs.Select(song => ToDto(song, false, false)).ToListAsync();
+            var dto_songs = await paged_songs.Select(song => songMapper.Entity2Dto(song, false, false)).ToListAsync();
 
             var count_songs = await mintplayer_context.Songs.CountAsync();
             return new Pagination.PaginationResponse<Song>(request, count_songs, dto_songs);
@@ -87,7 +97,7 @@ namespace MintPlayer.Data.Repositories
 						.ThenInclude(m => m.Type)
 					.Include(song => song.Tags)
 						.ThenInclude(st => st.Tag)
-					.Select(song => ToDto(song, include_relations, include_invisible_media));
+					.Select(song => songMapper.Entity2Dto(song, include_relations, include_invisible_media));
 				return Task.FromResult<IEnumerable<Song>>(songs);
 			}
 			else
@@ -98,7 +108,7 @@ namespace MintPlayer.Data.Repositories
 						.ThenInclude(@as => @as.Artist)
 					.Include(song => song.Media)
 						.ThenInclude(m => m.Type)
-					.Select(song => ToDto(song, include_relations, include_invisible_media));
+					.Select(song => songMapper.Entity2Dto(song, include_relations, include_invisible_media));
 				return Task.FromResult<IEnumerable<Song>>(songs);
 			}
 		}
@@ -117,7 +127,7 @@ namespace MintPlayer.Data.Repositories
 						.ThenInclude(st => st.Tag)
 							.ThenInclude(t => t.Category)
 					.SingleOrDefaultAsync(s => s.Id == id);
-				return ToDto(song, include_relations, include_invisible_media);
+				return songMapper.Entity2Dto(song, include_relations, include_invisible_media);
 			}
 			else
 			{
@@ -127,7 +137,7 @@ namespace MintPlayer.Data.Repositories
 					.Include(s => s.Media)
 						.ThenInclude(m => m.Type)
 					.SingleOrDefaultAsync(s => s.Id == id);
-				return ToDto(song, include_relations, include_invisible_media);
+				return songMapper.Entity2Dto(song, include_relations, include_invisible_media);
 			}
 		}
 
@@ -153,7 +163,7 @@ namespace MintPlayer.Data.Repositories
 				.Take(request.PerPage);
 
 			// 4) Convert to DTO
-			var dto_songs = paged_songs.Select(song => ToDto(song, false, false));
+			var dto_songs = paged_songs.Select(song => songMapper.Entity2Dto(song, false, false));
 
 			var count_songs = await filtered_songs.CountAsync();
 			return new Pagination.PaginationResponse<Song>(request, count_songs, dto_songs);
@@ -166,7 +176,7 @@ namespace MintPlayer.Data.Repositories
 
 			var songs = mintplayer_context.Songs
 				.Where(s => s.Likes.Any(l => l.User == user && l.DoesLike))
-				.Select(s => ToDto(s, false, false));
+				.Select(s => songMapper.Entity2Dto(s, false, false));
 
 			return songs;
 		}
@@ -177,7 +187,7 @@ namespace MintPlayer.Data.Repositories
 			var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
 
 			// Convert to entity
-			var entity_song = ToEntity(song, user, mintplayer_context);
+			var entity_song = songMapper.Dto2Entity(song, user, mintplayer_context);
 			entity_song.UserInsert = user;
 			entity_song.DateInsert = DateTime.Now;
 
@@ -185,7 +195,7 @@ namespace MintPlayer.Data.Repositories
 			await mintplayer_context.Songs.AddAsync(entity_song);
 			await mintplayer_context.SaveChangesAsync();
 
-			var new_song = ToDto(entity_song, false, false);
+			var new_song = songMapper.Entity2Dto(entity_song, false, false);
 			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
 			{
 				Subject = new_song,
@@ -255,7 +265,7 @@ namespace MintPlayer.Data.Repositories
 			// Update
 			mintplayer_context.Entry(song_entity).State = EntityState.Modified;
 
-			var updated_song = ToDto(song_entity, false, false);
+			var updated_song = songMapper.Entity2Dto(song_entity, false, false);
 			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
 			{
 				Subject = updated_song,
@@ -303,7 +313,7 @@ namespace MintPlayer.Data.Repositories
 			song.UserDelete = user;
 			song.DateDelete = DateTime.Now;
 
-			var deleted_song = ToDto(song, false, false);
+			var deleted_song = songMapper.Entity2Dto(song, false, false);
 			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
 			{
 				Subject = deleted_song,
@@ -316,124 +326,5 @@ namespace MintPlayer.Data.Repositories
 		{
 			await mintplayer_context.SaveChangesAsync();
 		}
-
-		#region Conversion methods
-		internal static Song ToDto(Entities.Song song, bool include_relations, bool include_invisible_media)
-		{
-			if (song == null) return null;
-			if (include_relations)
-			{
-				var lastLyric = song.Lyrics == null ? null : song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault();
-
-				return new Song
-				{
-					Id = song.Id,
-					Title = song.Title,
-					Released = song.Released,
-					Lyrics = new Lyrics
-					{
-						Text = lastLyric?.Text,
-						Timeline = lastLyric?.Timeline
-					},
-
-					Text = song.Text,
-					Description = song.Description,
-					YoutubeId = song.YoutubeId,
-					DailymotionId = song.DailymotionId,
-					VimeoId = song.VimeoId,
-					PlayerInfo = song.PlayerInfo,
-					DateUpdate = song.DateUpdate ?? song.DateInsert,
-
-					Artists = song.Artists
-						.Where(@as => @as.Credited)
-						.Select(@as => ArtistRepository.ToDto(@as.Artist, false, false))
-						.ToList(),
-					UncreditedArtists = song.Artists
-						.Where(@as => !@as.Credited)
-						.Select(@as => ArtistRepository.ToDto(@as.Artist, false, false))
-						.ToList(),
-					Media = song.Media == null ? null : song.Media
-						.Where(m => m.Type.Visible | include_invisible_media)
-						.Select(medium => MediumRepository.ToDto(medium, true))
-						.ToList(),
-					Tags = song.Tags == null ? null : song.Tags
-						.Select(st => TagRepository.ToDto(st.Tag))
-						.ToList()
-				};
-			}
-			else
-			{
-				var lastLyric = song.Lyrics == null ? null : song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault();
-
-				return new Song
-				{
-					Id = song.Id,
-					Title = song.Title,
-					Released = song.Released,
-					Lyrics = new Lyrics
-					{
-						Text = lastLyric?.Text,
-						Timeline = lastLyric?.Timeline
-					},
-
-					Text = song.Text,
-					Description = song.Description,
-					YoutubeId = song.YoutubeId,
-					DailymotionId = song.DailymotionId,
-					VimeoId = song.VimeoId,
-					PlayerInfo = song.PlayerInfo,
-					DateUpdate = song.DateUpdate ?? song.DateInsert
-				};
-			}
-		}
-		/// <summary>Only use this method for creation of a song</summary>
-		internal static Entities.Song ToEntity(Song song, Entities.User user, MintPlayerContext mintplayer_context)
-		{
-			if (song == null) return null;
-			var entity_song = new Entities.Song
-			{
-				Id = song.Id,
-				Title = song.Title,
-				Released = song.Released
-			};
-			if (song.Artists != null)
-			{
-				entity_song.Artists = song.Artists.Select(artist =>
-				{
-					var entity_artist = mintplayer_context.Artists.Find(artist.Id);
-					return new Entities.ArtistSong(entity_artist, entity_song);
-				}).ToList();
-			}
-			entity_song.Lyrics = new List<Entities.Lyrics>(new[] {
-				new Entities.Lyrics
-				{
-					Song = entity_song,
-					User = user,
-					Text = song.Lyrics.Text,
-					Timeline = song.Lyrics.Timeline
-				},
-			});
-			if (song.Media != null)
-			{
-				entity_song.Media = song.Media.Select(m =>
-				{
-					var medium = MediumRepository.ToEntity(m, mintplayer_context);
-					medium.Subject = entity_song;
-					return medium;
-				}).ToList();
-			}
-			#region Tags
-			if (song.Tags != null)
-			{
-				entity_song.Tags = song.Tags.Select(t =>
-				{
-					var tag = mintplayer_context.Tags.Find(t.Id);
-					return new Entities.SubjectTag(entity_song, tag);
-				}).ToList();
-			}
-			#endregion
-			return entity_song;
-		}
-		#endregion
 	}
 }

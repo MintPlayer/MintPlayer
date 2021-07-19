@@ -13,9 +13,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using MintPlayer.Dtos.Enums;
 using MintPlayer.Data.Exceptions.Account.TwoFactor;
+using MintPlayer.Data.Mappers;
 
 namespace MintPlayer.Data.Repositories
 {
@@ -47,14 +47,21 @@ namespace MintPlayer.Data.Repositories
     internal class AccountRepository : IAccountRepository
     {
         private MintPlayerContext mintplayer_context;
+        private readonly IUserMapper userMapper;
         private UserManager<Entities.User> user_manager;
         private SignInManager<Entities.User> signin_manager;
         private JwtIssuerOptions jwtIssuerOptions;
-        public AccountRepository(UserManager<Entities.User> user_manager, SignInManager<Entities.User> signin_manager, MintPlayerContext mintplayer_context, IOptions<JwtIssuerOptions> jwtIssuerOptions)
+        public AccountRepository(
+            UserManager<Entities.User> user_manager,
+            SignInManager<Entities.User> signin_manager,
+            MintPlayerContext mintplayer_context,
+            IOptions<JwtIssuerOptions> jwtIssuerOptions,
+            IUserMapper userMapper)
         {
             this.user_manager = user_manager;
             this.signin_manager = signin_manager;
             this.mintplayer_context = mintplayer_context;
+            this.userMapper = userMapper;
             this.jwtIssuerOptions = jwtIssuerOptions.Value;
         }
 
@@ -62,11 +69,11 @@ namespace MintPlayer.Data.Repositories
         {
             try
             {
-                var entity_user = ToEntity(user);
+                var entity_user = userMapper.Dto2Entity(user);
                 var identity_result = await user_manager.CreateAsync(entity_user, password);
                 if (identity_result.Succeeded)
                 {
-                    var dto_user = ToDto(entity_user, true);
+                    var dto_user = userMapper.Entity2Dto(entity_user, true);
                     return dto_user;
                 }
                 else
@@ -129,7 +136,7 @@ namespace MintPlayer.Data.Repositories
                     return new LocalLoginResult
                     {
                         Status = LoginStatus.Success,
-                        User = ToDto(user, true)
+                        User = userMapper.Entity2Dto(user, true)
                     };
                 }
 
@@ -138,7 +145,7 @@ namespace MintPlayer.Data.Repositories
                     return new LocalLoginResult
                     {
                         Status = LoginStatus.RequiresTwoFactor,
-                        User = ToDto(user, true)
+                        User = userMapper.Entity2Dto(user, true)
                     };
                 }
 
@@ -158,14 +165,14 @@ namespace MintPlayer.Data.Repositories
                     return new LocalLoginResult
                     {
                         Status = LoginStatus.RequiresTwoFactor,
-                        User = ToDto(user, true)
+                        User = userMapper.Entity2Dto(user, true)
                     };
                 }
 
                 return new LocalLoginResult
                 {
                     Status = LoginStatus.Success,
-                    User = ToDto(user, true),
+                    User = userMapper.Entity2Dto(user, true),
                     Token = CreateToken(user)
                 };
             }
@@ -243,7 +250,7 @@ namespace MintPlayer.Data.Repositories
             {
                 Status = LoginStatus.Success,
                 Platform = info.LoginProvider,
-                User = ToDto(user, true)
+                User = userMapper.Entity2Dto(user, true)
             };
         }
 
@@ -289,7 +296,7 @@ namespace MintPlayer.Data.Repositories
         public async Task<User> GetCurrentUser(ClaimsPrincipal userProperty)
         {
             var user = await user_manager.GetUserAsync(userProperty);
-            return ToDto(user, true);
+            return userMapper.Entity2Dto(user, true);
         }
 
         public async Task<bool> GetHasPassword(ClaimsPrincipal userProperty)
@@ -349,7 +356,7 @@ namespace MintPlayer.Data.Repositories
         public async Task<User> GetTwoFactorUser()
         {
             var user = await signin_manager.GetTwoFactorAuthenticationUserAsync();
-            return ToDto(user, true);
+            return userMapper.Entity2Dto(user, true);
         }
 
         public async Task<string> GenerateTwoFactorRegistrationCode(ClaimsPrincipal userProperty)
@@ -408,18 +415,13 @@ namespace MintPlayer.Data.Repositories
             }
         }
 
-        //public async Task SetTwoFactorAuthenticationEnabled(bool enabled)
-        //{
-        //    signin_manager.twofactor
-        //}
-
         public async Task<User> TwoFactorLogin(string authenticatorCode, bool remember)
         {
             var user = await signin_manager.GetTwoFactorAuthenticationUserAsync();
             var result = await signin_manager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, true, remember);
             if (result.Succeeded)
             {
-                return ToDto(user, true);
+                return userMapper.Entity2Dto(user, true);
             }
             else
             {
@@ -457,32 +459,6 @@ namespace MintPlayer.Data.Repositories
             var str_token = token_handler.WriteToken(token);
 
             return str_token;
-        }
-        #endregion
-        #region Conversion methods
-        internal static Entities.User ToEntity(User user)
-        {
-            if (user == null) return null;
-            return new Entities.User
-            {
-                Id = user.Id,
-                Email = user.Email,
-                UserName = user.UserName,
-                TwoFactorEnabled = user.IsTwoFactorEnabled,
-                PictureUrl = user.PictureUrl
-            };
-        }
-        internal static User ToDto(Entities.User user, bool mapSensitiveData)
-        {
-            if (user == null) return null;
-            return new User
-            {
-                Id = mapSensitiveData ? user.Id : Guid.Empty,
-                Email = mapSensitiveData ? user.Email : null,
-                UserName = user.UserName,
-                IsTwoFactorEnabled = user.TwoFactorEnabled,
-                PictureUrl = user.PictureUrl,
-            };
         }
         #endregion
     }

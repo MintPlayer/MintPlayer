@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MintPlayer.Data.Mappers;
 using MintPlayer.Dtos.Dtos;
 using System;
 using System.Collections.Generic;
@@ -21,21 +22,27 @@ namespace MintPlayer.Data.Repositories
 	}
 	internal class MediumTypeRepository : IMediumTypeRepository
 	{
-		private IHttpContextAccessor http_context;
-		private MintPlayerContext mintplayer_context;
-		private UserManager<Entities.User> user_manager;
-		public MediumTypeRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager)
+		private readonly IHttpContextAccessor http_context;
+		private readonly MintPlayerContext mintplayer_context;
+		private readonly UserManager<Entities.User> user_manager;
+        private readonly IMediumTypeMapper mediumTypeMapper;
+        public MediumTypeRepository(
+			IHttpContextAccessor http_context,
+			MintPlayerContext mintplayer_context,
+			UserManager<Entities.User> user_manager,
+			IMediumTypeMapper mediumTypeMapper)
 		{
 			this.http_context = http_context;
 			this.mintplayer_context = mintplayer_context;
 			this.user_manager = user_manager;
-		}
+            this.mediumTypeMapper = mediumTypeMapper;
+        }
 
 		public Task<IEnumerable<MediumType>> GetMediumTypes(bool include_relations, bool include_invisible_types)
 		{
 			var medium_types = mintplayer_context.MediumTypes
 				.Where(mt => mt.Visible | include_invisible_types)
-				.Select(mt => ToDto(mt));
+				.Select(mt => mediumTypeMapper.Entity2Dto(mt));
 			return Task.FromResult<IEnumerable<MediumType>>(medium_types);
 		}
 
@@ -44,12 +51,12 @@ namespace MintPlayer.Data.Repositories
 			var medium_type = await mintplayer_context.MediumTypes
 				.Where(mt => mt.Visible | include_invisible_types)
 				.SingleOrDefaultAsync(mt => mt.Id == id);
-			return ToDto(medium_type);
+			return mediumTypeMapper.Entity2Dto(medium_type);
 		}
 
 		public async Task<MediumType> InsertMediumType(MediumType mediumType)
 		{
-			var entity_medium_type = ToEntity(mediumType, mintplayer_context);
+			var entity_medium_type = mediumTypeMapper.Dto2Entity(mediumType, mintplayer_context);
 
 			var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
 			entity_medium_type.UserInsert = user;
@@ -57,7 +64,7 @@ namespace MintPlayer.Data.Repositories
 			await mintplayer_context.MediumTypes.AddAsync(entity_medium_type);
 			await mintplayer_context.SaveChangesAsync();
 
-			return ToDto(entity_medium_type);
+			return mediumTypeMapper.Entity2Dto(entity_medium_type);
 		}
 
 		public async Task<MediumType> UpdateMediumType(MediumType mediumType)
@@ -71,7 +78,7 @@ namespace MintPlayer.Data.Repositories
 			var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
 			entity_medium_type.UserUpdate = user;
 
-			return ToDto(entity_medium_type);
+			return mediumTypeMapper.Entity2Dto(entity_medium_type);
 		}
 
 		public async Task DeleteMediumType(int medium_type_id)
@@ -85,30 +92,5 @@ namespace MintPlayer.Data.Repositories
 		{
 			await mintplayer_context.SaveChangesAsync();
 		}
-
-		#region Conversion Methods
-		internal static MediumType ToDto(Entities.MediumType mediumType)
-		{
-			if (mediumType == null) return null;
-			return new MediumType
-			{
-				Id = mediumType.Id,
-				Description = mediumType.Description,
-				PlayerType = mediumType.PlayerType,
-				Visible = mediumType.Visible
-			};
-		}
-		internal static Entities.MediumType ToEntity(MediumType mediumType, MintPlayerContext mintplayer_context)
-		{
-			if (mediumType == null) return null;
-			return new Entities.MediumType
-			{
-				Id = mediumType.Id,
-				Description = mediumType.Description,
-				PlayerType = mediumType.PlayerType,
-				Visible = mediumType.Visible
-			};
-		}
-		#endregion
 	}
 }

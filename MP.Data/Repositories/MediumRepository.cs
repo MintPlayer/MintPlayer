@@ -39,37 +39,5 @@ namespace MintPlayer.Data.Repositories
 				}
 			}
 		}
-
-		internal static Medium ToDto(Entities.Medium medium, bool include_relations = false)
-		{
-			if (medium == null) return null;
-			if (include_relations)
-			{
-				return new Medium
-				{
-					Id = medium.Id,
-					Type = MediumTypeRepository.ToDto(medium.Type),
-					Value = medium.Value
-				};
-			}
-			else
-			{
-				return new Medium
-				{
-					Id = medium.Id,
-					Value = medium.Value
-				};
-			}
-		}
-		internal static Entities.Medium ToEntity(Medium medium, MintPlayerContext mintplayer_context)
-		{
-			if (medium == null) return null;
-			return new Entities.Medium
-			{
-				Id = medium.Id,
-				Type = mintplayer_context.MediumTypes.Find(medium.Type.Id),
-				Value = medium.Value
-			};
-		}
 	}
 }
