@@ -21,6 +21,7 @@ import { LinifyPipe } from './pipes/linify/linify.pipe';
 import { PlaylistControl } from './helpers/playlist-control.helper';
 import { SyncComponent } from './pages/song/sync/sync.component';
 import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
+import { TwoFactorComponent } from './pages/account/two-factor/two-factor.component';
 
 @Component({
   selector: 'app-root',
@@ -307,6 +308,8 @@ export class AppComponent implements OnInit, OnDestroy {
     // Login complete
     if (element instanceof LoginComponent) {
       element.loginComplete.subscribe(this.loginCompleted);
+    } else if (element instanceof TwoFactorComponent) {
+      element.loginComplete.subscribe(this.loginCompleted);
     } else if (element instanceof RegisterComponent) {
       element.loginComplete.subscribe(this.loginCompleted);
     } else if (element instanceof SongShowComponent) {
@@ -335,6 +338,8 @@ export class AppComponent implements OnInit, OnDestroy {
   routingDeactivated(element: ElementRef) {
     // Login complete
     if (element instanceof LoginComponent) {
+      element.loginComplete.unsubscribe();
+    } else if (element instanceof TwoFactorComponent) {
       element.loginComplete.unsubscribe();
     } else if (element instanceof RegisterComponent) {
       element.loginComplete.unsubscribe();

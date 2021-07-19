@@ -132,13 +132,11 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			var user = await accountService.GetCurrentUser(User);
 			var image = "https://mintplayer.com/assets/logo/music_note_120.png";
 			var registrationCode = await accountService.GenerateTwoFactorRegistrationCode(User);
-			//var backupCodes = await accountService.GenerateTwoFactorBackupCodes(User);
 			var registrationUrl = $"otpauth://totp/{urlEncoder.Encode(appName)}:{urlEncoder.Encode(user.Email)}?secret={registrationCode}&issuer={urlEncoder.Encode(appName)}&image={urlEncoder.Encode(image)}&digits=6";
 
 			return Ok(new TwoFactorRegistrationUrlVM
 			{
 				RegistrationUrl = registrationUrl,
-				//BackupCodes = backupCodes,
 			});
 		}
 
@@ -146,9 +144,6 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [HttpPost("two-factor-setup", Name = "web-v3-account-twofactor-setup")]
         public async Task<ActionResult<IEnumerable<string>>> SetupTwoFactor([FromBody] TwoFactorSetupVM twoFactorSetup)
         {
-            //var isCodeValid = await accountService.two
-            //var registrationCode = await accountService.GenerateTwoFactorRegistrationCode(User);
-
             try
 			{
 				await accountService.FinishTwoFactorSetup(User, twoFactorSetup.SetupCode);
@@ -167,7 +162,29 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
             {
 				return StatusCode(500);
 			}
+		}
 
+		[Authorize]
+		[HttpPost("two-factor-disable", Name = "web-v3-account-twofactor-disable")]
+		public async Task<ActionResult> DisableTwoFactor([FromBody] TwoFactorDisableVM twoFactorDisable)
+		{
+			try
+			{
+				await accountService.TwoFactorDisable(User, twoFactorDisable.SetupCode);
+				return Ok();
+			}
+			catch (InvalidTwoFactorCodeException invEx)
+			{
+				return StatusCode(401);
+			}
+			catch (TwoFactorSetupException twoFactorEx)
+			{
+				return StatusCode(500);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500);
+			}
 		}
 
 		[HttpPost("two-factor-login")]

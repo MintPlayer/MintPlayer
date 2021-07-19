@@ -41,6 +41,7 @@ namespace MintPlayer.Data.Repositories
         Task<string> GenerateTwoFactorRegistrationCode(ClaimsPrincipal userProperty);
         Task<IEnumerable<string>> GenerateTwoFactorBackupCodes(ClaimsPrincipal userProperty);
         Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code);
+        Task TwoFactorDisable(ClaimsPrincipal userProperty, string code);
         Task<User> TwoFactorLogin(string authenticatorCode, bool remember);
     }
     internal class AccountRepository : IAccountRepository
@@ -373,6 +374,23 @@ namespace MintPlayer.Data.Repositories
             return codes;
         }
 
+        public async Task TwoFactorDisable(ClaimsPrincipal userProperty, string code)
+        {
+            var user = await user_manager.GetUserAsync(userProperty);
+            var is2faTokenValid = await user_manager.VerifyTwoFactorTokenAsync(user, user_manager.Options.Tokens.AuthenticatorTokenProvider, code);
+
+            if (!is2faTokenValid)
+            {
+                throw new InvalidTwoFactorCodeException();
+            }
+
+            var result = await user_manager.SetTwoFactorEnabledAsync(user, false);
+            if (!result.Succeeded)
+            {
+                throw new TwoFactorSetupException();
+            }
+        }
+
         public async Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code)
         {
             var user = await user_manager.GetUserAsync(userProperty);
@@ -450,6 +468,7 @@ namespace MintPlayer.Data.Repositories
                 Id = user.Id,
                 Email = user.Email,
                 UserName = user.UserName,
+                TwoFactorEnabled = user.IsTwoFactorEnabled,
                 PictureUrl = user.PictureUrl
             };
         }
@@ -461,7 +480,8 @@ namespace MintPlayer.Data.Repositories
                 Id = mapSensitiveData ? user.Id : Guid.Empty,
                 Email = mapSensitiveData ? user.Email : null,
                 UserName = user.UserName,
-                PictureUrl = user.PictureUrl
+                IsTwoFactorEnabled = user.TwoFactorEnabled,
+                PictureUrl = user.PictureUrl,
             };
         }
         #endregion

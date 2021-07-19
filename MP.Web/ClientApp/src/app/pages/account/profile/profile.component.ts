@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { BASE_URL } from '@mintplayer/ng-base-url';
-import { AccountService, API_VERSION, LoginResult } from '@mintplayer/ng-client';
+import { AccountService, API_VERSION, LoginResult, User } from '@mintplayer/ng-client';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
@@ -38,14 +38,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.accountService.hasPassword().then((hasPassword) => {
         this.hasPassword = hasPassword;
       });
+      this.accountService.currentUser().then((user) => {
+        this.user = user;
+        console.log('user', this.user);
+      });
       this.httpClient.post<TwoFactorRegistrationUrl>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-registration`, {})
         .subscribe((urlData) => {
-          console.log('Set twoFaRegistrationUrl', urlData.registrationUrl);
           this.twoFaRegistrationUrl = urlData.registrationUrl;
         });
     }
   }
 
+  user: User = null;
   hasPassword: boolean | null = null;
   currentPassword: string = null;
   newPassword: string = null;
@@ -53,10 +57,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   loginProviders: string[] = [];
   userLogins: string[] = [];
 
-  is2FaEnabled: boolean = false;
   twoFaRegistrationUrl: string = null;
-  verificationCode: string = '';
-  backupCodes: string[] = [];
+
+  backupCodes: string[] = null;
+  isRegistrationSuccess: boolean = false;
 
   socialLoginDone(result: LoginResult) {
     if (result.status) {
@@ -73,7 +77,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateProfile() {
+  updatePassword() {
     if (this.newPassword !== '') {
       this.accountService.updatePassword(this.currentPassword, this.newPassword, this.passwordConfirmation)
         .then(() => {
@@ -82,15 +86,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  change2FactorAuthentication(enable: boolean) {
-    console.log(enable ? 'Enable 2-factor authentication' : 'Disable 2-factor authentication');
-
-  }
-
+  enableVerificationCode: string = '';
   finshTwoFactorSetup() {
-    this.httpClient.post<string[]>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-setup`, { setupCode: this.verificationCode })
+    this.httpClient.post<string[]>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-setup`, { setupCode: this.enableVerificationCode })
       .subscribe((backupCodes) => {
         this.backupCodes = backupCodes;
+        this.isRegistrationSuccess = true;
+        this.user.isTwoFactorEnabled = true;
+      });
+
+    return false;
+  }
+
+  disableVerificationCode: string = '';
+  disableTwoFactor() {
+    this.httpClient.post<string[]>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-disable`, { setupCode: this.disableVerificationCode })
+      .subscribe(() => {
+        this.user.isTwoFactorEnabled = false;
       });
 
     return false;

@@ -76,6 +76,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       id: Guid.createEmpty()['value'],
       userName: '',
       email: '',
+      isTwoFactorEnabled: false,
       pictureUrl: ''
     },
     password: '',

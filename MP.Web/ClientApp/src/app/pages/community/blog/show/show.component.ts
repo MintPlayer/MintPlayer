@@ -130,6 +130,7 @@ export class ShowComponent implements OnInit, OnDestroy {
       id: null,
       email: '',
       userName: '',
+      isTwoFactorEnabled: false,
       pictureUrl: ''
     },
     published: null

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
@@ -34,11 +34,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
     this.removeMetaTags();
-    this.router.navigate([], {
-      queryParams: {
-        return: null
-      }
-    });
+    //if (!!this.removeReturnurlQueryParameter) {
+    //  this.router.navigate([], {
+    //    queryParams: {
+    //      return: null
+    //    }
+    //  });
+    //}
   }
 
   //#region Add meta-tags
@@ -91,6 +93,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   password: string;
   unconfirmedEmail: boolean;
   private returnUrl: string = '';
+  private removeReturnurlQueryParameter: boolean = false;
   loginStatuses = LoginStatus;
   loginResult: LoginResult = {
     status: LoginStatus.success,
@@ -105,11 +108,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.accountService.login(this.email, this.password).then((result) => {
       switch (result.status) {
         case LoginStatus.success: {
+          this.removeReturnurlQueryParameter = true;
           this.router.navigateByUrl(this.returnUrl);
           this.loginComplete.next(result.user);
         } break;
         case LoginStatus.requiresTwoFactor: {
-          this.router.navigate(['/account/two-factor']);
+          console.log('returnUrl', this.returnUrl);
+          this.router.navigate(['/account', 'two-factor'], { queryParams: { return: this.returnUrl } });
         } break;
         default: {
           this.loginResult = result;

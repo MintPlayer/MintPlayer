@@ -135,14 +135,18 @@
     "forgot_password": "Wachtwoord vergeten",
     "use_social_login": "Gebruik een social login",
     "update_profile": "Profiel bijwerken",
+    "update_password": "Wachtwoord instellen",
     "social_logins": "Sociale logins",
     "two_factor": {
       "two_factor_authentication": "Tweestaps-verificatie",
       "enable": "Tweestaps-verificatie inschakelen",
-      "scan": "Open de Authenticator app op uw mobiel toestel, scan volgende QR-code in.",
-      "enter_code": "Voer nu een 6-cijfercode in in het volgende tekstvak:",
+      "enter_code_enable": "Genereer vervolgens een 6-cijfercode met de authenticator app en voer deze in in het volgende tekstvak",
+      "scan": "Open de Authenticator app op uw mobiel toestel, scan volgende QR-code in",
       "write_down_backup_codes": "Dit zijn je backup-codes. Schrijf ze ergens op en houd ze bij op een veilige plaats. Je hebt ze nog nodig in het geval dat je je smartphone zou verliezen. Na het verlaten van deze pagina kan je ze niet meer opvragen.",
-      "login_instructions": "Open de Authenticator app op uw smartphone genereer een 6-cijferige code voor MintPlayer. Geef deze code hieronder in:"
+      "login_instructions": "Open de Authenticator app op uw smartphone genereer een 6-cijferige code voor MintPlayer. Geef deze code hieronder in:",
+
+      "disable": "Tweestaps-verificatie uitschakelen",
+      "enter_code_disable": "Genereer een 6-cijfercode met de authenticator app en voer deze in in het volgende tekstvak"
     },
     "confirmation": {
       "resend": "Bevestigingse-mail opnieuw versturen"

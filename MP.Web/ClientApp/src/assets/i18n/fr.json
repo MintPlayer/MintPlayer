@@ -136,14 +136,18 @@
     "forgot_password": "Mot de passe oubliée",
     "use_social_login": "Utilise connexion sociale",
     "update_profile": "Mettre à jour",
+    "update_password": "Change mon mot de passe",
     "social_logins": "Connexions sociales",
     "two_factor": {
       "two_factor_authentication": "Authentification à 2 facteurs",
       "enable": "Activer authentification à 2 facteurs",
+      "enter_code_enable": "Alors générez une code de 6 chiffres avec votre app Authenticator et entrez-le dans ce zone de texte:",
       "scan": "Ouvriez votre app Authenticator, scannez ce code QR.",
-      "enter_code": "Alors entrez une code de 6 chiffres dans ce zone de texte:",
       "write_down_backup_codes": "Voici votre codes de sauvegarde. Ecrivez-lui et conservez-lui dans un endroit sécure. Vous en irez besoin en cas que vous perdriez votre téléphone. Après de quitter cette page-ci, vous ne les pouvez plus voir.",
-      "login_instructions": "Ouvriez votre app Authenticator sur ton portable et générez un code de 6 chiffres pour MintPlayer. Introduissez le code dans le zone de texte ci-dessous:"
+      "login_instructions": "Ouvriez votre app Authenticator sur ton portable et générez un code de 6 chiffres pour MintPlayer. Introduissez le code dans le zone de texte ci-dessous:",
+
+      "disable": "Déactiver authentification à 2 facteurs",
+      "enter_code_disable": "Générez une code de 6 chiffres avec votre app Authenticator et entrez-le dans ce zone de texte:"
     },
     "confirmation": {
       "resend": "Renvoyer email de confirmation"

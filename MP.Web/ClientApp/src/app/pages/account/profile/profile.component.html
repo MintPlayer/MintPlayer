@@ -1,22 +1,16 @@
 <div class="container">
-  <form (submit)="updateProfile()">
-    <div class="form-group row mb-3">
-      <div class="col-12">
-        <h1 class="d-inline-block">{{ 'account.update_profile' | translate }}</h1>
-        <span class="pull-right">
-          <button type="submit" class="btn btn-primary">
-            <i class="fa fa-save"></i>
-            {{ 'account.update_profile' | translate }}
-          </button>
-        </span>
-      </div>
+  <div class="form-group row mb-3">
+    <div class="col-12">
+      <h1 class="d-inline-block">{{ 'account.update_profile' | translate }}</h1>
     </div>
-    <card class="d-block mb-3">
-      <header>
-        <i class="fa fa-key"></i>
-        Set password
-      </header>
-      <content>
+  </div>
+  <card class="d-block mb-3">
+    <header>
+      <i class="fa fa-key"></i>
+      {{ 'account.update_profile' | translate }}
+    </header>
+    <content>
+      <form (submit)="updatePassword()">
         <div class="form-group row mb-3" *ngIf="hasPassword">
           <label class="col-sm-6 col-lg-4 col-form-label" [appFor]="txt_current_password">Current password</label>
           <div class="col-sm-6 col-lg-8">
@@ -35,130 +29,158 @@
             <input type="password" [(ngModel)]="passwordConfirmation" class="form-control" #txt_confirm_password />
           </div>
         </div>
-      </content>
-    </card>
-    <card class="d-block mb-3">
-      <header>
-        <i class="fa fa-lock"></i>
-        {{ 'account.two_factor.two_factor_authentication' | translate }}
-        <span class="float-end">
-          <toggle-button [(isToggled)]="is2FaEnabled" (isToggledChange)="change2FactorAuthentication($event)"></toggle-button>
-        </span>
-      </header>
-      <content>
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-12">
-              <span class="d-block text-center h2">{{ 'account.two_factor.enable' | translate }}</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xl-6">
-              <label>{{ 'account.two_factor.scan' | translate }}</label>
-            </div>
-            <div class="col-xl-6">
-              <qr-code [value]="twoFaRegistrationUrl" size="200" errorCorrectionLevel="M"></qr-code>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xl-6">
-              <label>{{ 'account.two_factor.enter_code' | translate }}</label>
-            </div>
-            <div class="col-xl-6">
-              <input type="text" [(ngModel)]="verificationCode" class="form-control" />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xl-12 text-center">
-              <button (click)="finshTwoFactorSetup()" class="btn btn-default">
-                <i class="fa fa-key"></i>
-                Enable 2FA
-              </button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <p>{{ 'account.two_factor.write_down_backup_codes' | translate }}</p>
-              <ul class="list-group">
-                <li class="list-group-item" *ngFor="let backupCode of backupCodes">{{ backupCode }}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </content>
-    </card>
-    <card class="d-block mb-3">
-      <header>
-        <i class="fa fa-comments"></i>
-        {{ 'account.social_logins' | translate }}
-      </header>
-      <content>
-        <div class="form-group row mb-3" *ngIf="loginProviders.indexOf('Microsoft') > -1">
-          <div class="col-md-6 col-lg-4">
-            <app-microsoft-login class="d-block" *ngIf="userLogins.indexOf('Microsoft') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-microsoft-login>
-            <button *ngIf="userLogins.indexOf('Microsoft') > -1" (click)="removeSocialLogin('Microsoft')" class="btn w-100 btn-warning border-dark">
-              <i class="fa fa-trash-o"></i>
-              {{ 'account.microsoft.remove_login' | translate }}
+        <div class="row mt-3">
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-default">
+              <i class="fa fa-save"></i>
+              {{ 'account.update_password' | translate }}
             </button>
           </div>
-          <div class="col-md-6 col-lg-8 col-form-label">
-            <span *ngIf="userLogins.indexOf('Microsoft') == -1">{{ 'account.microsoft.add_login' | translate }}</span>
-            <span *ngIf="userLogins.indexOf('Microsoft') > -1">{{ 'account.microsoft.login_registered' | translate }}</span>
+        </div>
+      </form>
+    </content>
+  </card>
+  <card class="d-block mb-3">
+    <header>
+      <i class="fa fa-lock"></i>
+      {{ 'account.two_factor.two_factor_authentication' | translate }}
+    </header>
+    <content>
+      <form (submit)="finshTwoFactorSetup()" *ngIf="user && user.isTwoFactorEnabled === false">
+        <div class="row">
+          <div class="col-xl-12">
+            <span class="d-block text-center h2">{{ 'account.two_factor.enable' | translate }}</span>
           </div>
         </div>
-        <div class="form-group row mb-3" *ngIf="loginProviders.indexOf('Facebook') > -1">
-          <div class="col-md-6 col-lg-4">
-            <app-facebook-login class="d-block" *ngIf="userLogins.indexOf('Facebook') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-facebook-login>
-            <button *ngIf="userLogins.indexOf('Facebook') > -1" (click)="removeSocialLogin('Facebook')" class="btn w-100 btn-warning border-dark">
-              <i class="fa fa-trash-o"></i>
-              {{ 'account.facebook.remove_login' | translate }}
-            </button>
+        <div class="row">
+          <div class="col-xl-6">
+            <label>{{ 'account.two_factor.scan' | translate }}</label>
           </div>
-          <div class="col-md-6 col-lg-8 col-form-label">
-            <span *ngIf="userLogins.indexOf('Facebook') == -1">{{ 'account.facebook.add_login' | translate }}</span>
-            <span *ngIf="userLogins.indexOf('Facebook') > -1">{{ 'account.facebook.login_registered' | translate }}</span>
+          <div class="col-xl-6">
+            <qr-code [value]="twoFaRegistrationUrl" size="200" errorCorrectionLevel="M"></qr-code>
           </div>
         </div>
-        <div class="form-group row mb-3" *ngIf="loginProviders.indexOf('Twitter') > -1">
-          <div class="col-md-6 col-lg-4">
-            <app-twitter-login class="d-block" *ngIf="userLogins.indexOf('Twitter') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-twitter-login>
-            <button *ngIf="userLogins.indexOf('Twitter') > -1" (click)="removeSocialLogin('Twitter')" class="btn w-100 btn-warning border-dark">
-              <i class="fa fa-trash-o"></i>
-              {{ 'account.twitter.remove_login' | translate }}
-            </button>
+        <div class="row">
+          <div class="col-xl-6">
+            <label>{{ 'account.two_factor.enter_code_enable' | translate }}</label>
           </div>
-          <div class="col-md-6 col-lg-8 col-form-label">
-            <span *ngIf="userLogins.indexOf('Twitter') == -1">{{ 'account.twitter.add_login' | translate }}</span>
-            <span *ngIf="userLogins.indexOf('Twitter') > -1">{{ 'account.twitter.login_registered' | translate }}</span>
+          <div class="col-xl-6">
+            <input type="text" [(ngModel)]="enableVerificationCode" class="form-control" />
           </div>
         </div>
-        <div class="form-group row mb-3" *ngIf="loginProviders.indexOf('Google') > -1">
-          <div class="col-md-6 col-lg-4">
-            <app-google-login class="d-block" *ngIf="userLogins.indexOf('Google') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-google-login>
-            <button *ngIf="userLogins.indexOf('Google') > -1" (click)="removeSocialLogin('Google')" class="btn w-100 btn-warning border-dark">
-              <i class="fa fa-trash-o"></i>
-              {{ 'account.google.remove_login' | translate }}
+        <div class="row">
+          <div class="col-xl-12 text-center">
+            <button type="submit" class="btn btn-default">
+              <i class="fa fa-key"></i>
+              Enable 2FA
             </button>
-          </div>
-          <div class="col-md-6 col-lg-8 col-form-label">
-            <span *ngIf="userLogins.indexOf('Google') == -1">{{ 'account.google.add_login' | translate }}</span>
-            <span *ngIf="userLogins.indexOf('Google') > -1">{{ 'account.google.login_registered' | translate }}</span>
           </div>
         </div>
-        <!--<div class="form-group row mb-3" *ngIf="loginProviders.indexOf('GitHub') > -1">
-          <div class="col-md-6 col-lg-4">
-            <app-github-login class="d-block" *ngIf="userLogins.indexOf('GitHub') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-github-login>
-            <button *ngIf="userLogins.indexOf('GitHub') > -1" (click)="removeSocialLogin('GitHub')" class="btn w-100 btn-warning border-dark">
-              <i class="fa fa-trash-o"></i>
-              Remove GitHub login
+      </form>
+      <form (submit)="disableTwoFactor()" *ngIf="user && user.isTwoFactorEnabled === true">
+        <div class="row">
+          <div class="col-xl-12">
+            <span class="d-block text-center h2">{{ 'account.two_factor.disable' | translate }}</span>
+          </div>
+        </div>
+        <div class="row" *ngIf="!isRegistrationSuccess">
+          <div class="col-xl-6">
+            <label>{{ 'account.two_factor.enter_code_disable' | translate }}</label>
+          </div>
+          <div class="col-xl-6">
+            <input type="text" [(ngModel)]="disableVerificationCode" class="form-control" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 text-center">
+            <button type="submit" class="btn btn-default">
+              <i class="fa fa-key"></i>
+              Disable 2FA
             </button>
           </div>
-          <div class="col-md-6 col-lg-8 align-self-center">
-            <span *ngIf="userLogins.indexOf('GitHub') == -1">Add GitHub login</span>
-            <span *ngIf="userLogins.indexOf('GitHub') > -1">GitHub account registered</span>
+        </div>
+        <div class="row" *ngIf="backupCodes !== null">
+          <div class="col-md-12">
+            <p>{{ 'account.two_factor.write_down_backup_codes' | translate }}</p>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let backupCode of backupCodes">{{ backupCode }}</li>
+            </ul>
           </div>
-        </div>-->
-      </content>
-    </card>
-  </form>
+        </div>
+      </form>
+    </content>
+  </card>
+  <card class="d-block mb-3">
+    <header>
+      <i class="fa fa-comments"></i>
+      {{ 'account.social_logins' | translate }}
+    </header>
+    <content>
+      <div class="form-group row mb-3" *ngIf="loginProviders.indexOf('Microsoft') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-microsoft-login class="d-block" *ngIf="userLogins.indexOf('Microsoft') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-microsoft-login>
+          <button *ngIf="userLogins.indexOf('Microsoft') > -1" (click)="removeSocialLogin('Microsoft')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            {{ 'account.microsoft.remove_login' | translate }}
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 col-form-label">
+          <span *ngIf="userLogins.indexOf('Microsoft') == -1">{{ 'account.microsoft.add_login' | translate }}</span>
+          <span *ngIf="userLogins.indexOf('Microsoft') > -1">{{ 'account.microsoft.login_registered' | translate }}</span>
+        </div>
+      </div>
+      <div class="form-group row mb-3" *ngIf="loginProviders.indexOf('Facebook') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-facebook-login class="d-block" *ngIf="userLogins.indexOf('Facebook') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-facebook-login>
+          <button *ngIf="userLogins.indexOf('Facebook') > -1" (click)="removeSocialLogin('Facebook')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            {{ 'account.facebook.remove_login' | translate }}
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 col-form-label">
+          <span *ngIf="userLogins.indexOf('Facebook') == -1">{{ 'account.facebook.add_login' | translate }}</span>
+          <span *ngIf="userLogins.indexOf('Facebook') > -1">{{ 'account.facebook.login_registered' | translate }}</span>
+        </div>
+      </div>
+      <div class="form-group row mb-3" *ngIf="loginProviders.indexOf('Twitter') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-twitter-login class="d-block" *ngIf="userLogins.indexOf('Twitter') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-twitter-login>
+          <button *ngIf="userLogins.indexOf('Twitter') > -1" (click)="removeSocialLogin('Twitter')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            {{ 'account.twitter.remove_login' | translate }}
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 col-form-label">
+          <span *ngIf="userLogins.indexOf('Twitter') == -1">{{ 'account.twitter.add_login' | translate }}</span>
+          <span *ngIf="userLogins.indexOf('Twitter') > -1">{{ 'account.twitter.login_registered' | translate }}</span>
+        </div>
+      </div>
+      <div class="form-group row mb-3" *ngIf="loginProviders.indexOf('Google') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-google-login class="d-block" *ngIf="userLogins.indexOf('Google') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-google-login>
+          <button *ngIf="userLogins.indexOf('Google') > -1" (click)="removeSocialLogin('Google')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            {{ 'account.google.remove_login' | translate }}
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 col-form-label">
+          <span *ngIf="userLogins.indexOf('Google') == -1">{{ 'account.google.add_login' | translate }}</span>
+          <span *ngIf="userLogins.indexOf('Google') > -1">{{ 'account.google.login_registered' | translate }}</span>
+        </div>
+      </div>
+      <!--<div class="form-group row mb-3" *ngIf="loginProviders.indexOf('GitHub') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-github-login class="d-block" *ngIf="userLogins.indexOf('GitHub') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-github-login>
+          <button *ngIf="userLogins.indexOf('GitHub') > -1" (click)="removeSocialLogin('GitHub')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            Remove GitHub login
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 align-self-center">
+          <span *ngIf="userLogins.indexOf('GitHub') == -1">Add GitHub login</span>
+          <span *ngIf="userLogins.indexOf('GitHub') > -1">GitHub account registered</span>
+        </div>
+      </div>-->
+    </content>
+  </card>
 </div>

@@ -1,8 +1,10 @@
+@use 'sass:math';
+
 $transition-duration: .4s;
 $width: 30px;
 $height: 17px;
 $thumb-dia: 13px;
-$thumb-margin: ($height - $thumb-dia) / 2;
+$thumb-margin: math.div($height - $thumb-dia, 2);
 
 .switch {
   position: relative;
@@ -20,7 +22,7 @@ $thumb-margin: ($height - $thumb-dia) / 2;
     transition: $transition-duration;
 
     &.round {
-      border-radius: $height / 2;
+      border-radius: math.div($height, 2);
 
       &:before {
         border-radius: 50%;
