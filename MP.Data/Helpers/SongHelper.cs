@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using MintPlayer.Data.Entities;
+using System.Text.RegularExpressions;
 
 namespace MintPlayer.Data.Helpers
 {
@@ -46,6 +47,36 @@ namespace MintPlayer.Data.Helpers
 			to_remove = en_to_remove.ToArray();
 			to_add = en_to_add.ToArray();
 			to_update = en_to_update.ToArray();
+		}
+
+		internal Medium GetPlayableMedium(IEnumerable<Medium> media)
+		{
+			if (media == null) return null;
+
+			var playableRegexes = new Dictionary<Regex, MintPlayer.Dtos.Enums.ePlayerType>
+			{
+				[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}youtube\.com\/watch\?v=(?<id>[^&]+)")] = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
+				[new Regex(@"http[s]{0,1}:\/\/m\.youtube\.com\/watch\?v=(?<id>[^&]+)")] = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
+				[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}youtu\.be\/(?<id>.+)$")] = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
+
+				[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}dailymotion\.com\/video\/(?<id>[0-9A-Za-z]+)$")] = MintPlayer.Dtos.Enums.ePlayerType.DailyMotion,
+
+				[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}vimeo\.com\/(?<id>[0-9]+)$")] = MintPlayer.Dtos.Enums.ePlayerType.Vimeo,
+			};
+
+			foreach (var medium in media)
+			{
+				foreach (var regex in playableRegexes)
+				{
+					var match = regex.Key.Match(medium.Value);
+					if (match.Success)
+					{
+						return medium;
+					}
+				}
+			}
+
+			return null;
 		}
 	}
 }

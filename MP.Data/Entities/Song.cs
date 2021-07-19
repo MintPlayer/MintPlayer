@@ -55,52 +55,53 @@ namespace MintPlayer.Data.Entities
 				return ParseVimeoId(vimeoVideo);
 			}
 		}
-		#endregion
+        #endregion
 
-		#region PlayerInfo
-		[NotMapped]
-		public MintPlayer.Dtos.Dtos.PlayerInfo PlayerInfo
-		{
-			get
-			{
+		// this must disappear
+        #region PlayerInfo
+        [NotMapped]
+        public MintPlayer.Dtos.Dtos.PlayerInfo PlayerInfo
+        {
+            get
+            {
 				if (Media == null) return null;
 				var video = Media.FirstOrDefault(m => m.Type.PlayerType != MintPlayer.Dtos.Enums.ePlayerType.None);
-				if (video == null) return null;
+                if (video == null) return null;
 
-				switch (video.Type.PlayerType)
-				{
-					case MintPlayer.Dtos.Enums.ePlayerType.Youtube:
-						return new MintPlayer.Dtos.Dtos.PlayerInfo
-						{
-							Type = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
-							Id = YoutubeId,
-							Url = video.Value,
-							ImageUrl = $"https://i.ytimg.com/vi/{YoutubeId}/hqdefault.jpg",
-						};
-					case MintPlayer.Dtos.Enums.ePlayerType.DailyMotion:
-						return new MintPlayer.Dtos.Dtos.PlayerInfo
-						{
-							Type = MintPlayer.Dtos.Enums.ePlayerType.DailyMotion,
-							Id = DailymotionId,
-							Url = video.Value,
-							ImageUrl = $"https://www.dailymotion.com/thumbnail/video/{DailymotionId}",
-						};
-					case MintPlayer.Dtos.Enums.ePlayerType.Vimeo:
-						return new MintPlayer.Dtos.Dtos.PlayerInfo
-						{
-							Type = MintPlayer.Dtos.Enums.ePlayerType.Vimeo,
-							Id = VimeoId,
-							Url = video.Value,
-							ImageUrl = $"https://i.vimeocdn.com/video/99213072?mw=960&mh=540",
-						};
-					default:
-						throw new Exception("Unexpected value for PlayerType");
-				}
-			}
-		}
-		#endregion
-		#region Description
-		[NotMapped]
+                switch (video.Type.PlayerType)
+                {
+                    case MintPlayer.Dtos.Enums.ePlayerType.Youtube:
+                        return new MintPlayer.Dtos.Dtos.PlayerInfo
+                        {
+                            Type = MintPlayer.Dtos.Enums.ePlayerType.Youtube,
+                            Id = YoutubeId,
+                            Url = video.Value,
+                            ImageUrl = $"https://i.ytimg.com/vi/{YoutubeId}/hqdefault.jpg",
+                        };
+                    case MintPlayer.Dtos.Enums.ePlayerType.DailyMotion:
+                        return new MintPlayer.Dtos.Dtos.PlayerInfo
+                        {
+                            Type = MintPlayer.Dtos.Enums.ePlayerType.DailyMotion,
+                            Id = DailymotionId,
+                            Url = video.Value,
+                            ImageUrl = $"https://www.dailymotion.com/thumbnail/video/{DailymotionId}",
+                        };
+                    case MintPlayer.Dtos.Enums.ePlayerType.Vimeo:
+                        return new MintPlayer.Dtos.Dtos.PlayerInfo
+                        {
+                            Type = MintPlayer.Dtos.Enums.ePlayerType.Vimeo,
+                            Id = VimeoId,
+                            Url = video.Value,
+                            ImageUrl = $"https://i.vimeocdn.com/video/99213072?mw=960&mh=540",
+                        };
+                    default:
+                        throw new Exception("Unexpected value for PlayerType");
+                }
+            }
+        }
+        #endregion
+        #region Description
+        [NotMapped]
 		public string Description
 		{
 			get
