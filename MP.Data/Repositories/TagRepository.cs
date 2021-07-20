@@ -31,12 +31,12 @@ namespace MintPlayer.Data.Repositories
         private readonly IHttpContextAccessor http_context;
         private readonly MintPlayerContext mintplayer_context;
         private readonly UserManager<Entities.User> user_manager;
-        private readonly TagMapper tagMapper;
+        private readonly ITagMapper tagMapper;
         public TagRepository(
             IHttpContextAccessor http_context,
             MintPlayerContext mintplayer_context,
             UserManager<Entities.User> user_manager,
-            TagMapper tagMapper)
+            ITagMapper tagMapper)
         {
             this.http_context = http_context;
             this.mintplayer_context = mintplayer_context;
