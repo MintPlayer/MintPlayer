@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
-  "version": 556,
+  "version": 562,
   "assetGroups": [
     {
       "name": "app",
@@ -36,6 +36,7 @@
         "!/web/Account/**",
         "!/web/v1/Account/**",
         "!/web/v2/Account/**",
+        "!/web/v3/Account/**",
         "!/api/**"
       ],
       "cacheConfig": {
@@ -60,7 +61,8 @@
       "urls": [
         "/web/Account/**",
         "/web/v1/Account/**",
-        "/web/v2/Account/**"
+        "/web/v2/Account/**",
+        "/web/v3/Account/**"
       ],
       "cacheConfig": {
         "maxSize": 0,
@@ -97,6 +99,8 @@
     "!/**/*__*/**",
     "!/web/v2/Account/connect/**/**",
     "!/web/v2/Account/add/**/**",
+    "!/web/v3/Account/connect/**/**",
+    "!/web/v3/Account/add/**/**",
     "!/api/**"
   ],
   "cacheConfig": {

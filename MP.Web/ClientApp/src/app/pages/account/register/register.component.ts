@@ -77,6 +77,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       userName: '',
       email: '',
       isTwoFactorEnabled: false,
+      bypass2faForExternalLogin: false,
       pictureUrl: ''
     },
     password: '',

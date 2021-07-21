@@ -140,6 +140,7 @@
     "social_logins": "Connexions sociales",
     "two_factor": {
       "two_factor_authentication": "Authentification à 2 facteurs",
+      "enabled": "Authentification à 2 facteurs est actif",
       "enable": "Activer authentification à 2 facteurs",
       "enable_2fa": "Activer 2FA",
       "enter_code_enable": "Alors générez une code de 6 chiffres avec votre app Authenticator et entrez-le dans ce zone de texte:",
@@ -150,9 +151,13 @@
       "write_down_backup_codes": "Voici votre codes de sauvegarde. Ecrivez-lui et conservez-lui dans un endroit sécure. Vous en irez besoin en cas que vous perdriez votre téléphone. Après de quitter cette page-ci, vous ne les pouvez plus voir.",
       "login_instructions": "Ouvriez votre app Authenticator sur ton portable et générez un code de 6 chiffres pour MintPlayer. Introduissez le code dans le zone de texte ci-dessous:",
 
+      "disabled": "Authentification à 2 facteurs est inactif",
       "disable": "Déactiver authentification à 2 facteurs",
       "disable_2fa": "Déactiver 2FA",
-      "enter_code_disable": "Générez une code de 6 chiffres avec votre app Authenticator et entrez-le dans ce zone de texte:"
+      "enter_code_disable": "Générez une code de 6 chiffres avec votre app Authenticator et entrez-le dans ce zone de texte:",
+
+      "extra_options": "Options supplémentaires",
+      "bypass_2fa_for_external_logins": "Contourner authentification à 2 facteurs pour les connexions externes (Microsoft, Google, ...)"
     },
     "confirmation": {
       "resend": "Renvoyer email de confirmation"

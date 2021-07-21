@@ -48,7 +48,7 @@
             </button>
           </li>
         </ul>
-        <dropdown-search-box (suggestionClicked)="onSuggestionClicked($event)" [url]="'/web/v2/Subject/search/suggest/song'" [method]="'get'" [headers]="songSuggestHttpHeaders" [textPropertyPath]="'description'" [searchPlaceholder]="'Enter a song title'" [searchingCaption]="'Searching songs'" [noResultsCaption]="'No songs found'"></dropdown-search-box>
+        <dropdown-search-box (suggestionClicked)="onSuggestionClicked($event)" [url]="'/web/v3/Subject/search/suggest/song'" [method]="'get'" [headers]="songSuggestHttpHeaders" [textPropertyPath]="'description'" [searchPlaceholder]="'Enter a song title'" [searchingCaption]="'Searching songs'" [noResultsCaption]="'No songs found'"></dropdown-search-box>
       </content>
     </card>
   </form>

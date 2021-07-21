@@ -108,14 +108,14 @@ namespace MintPlayer.Web.Server.Controllers.Web.V1
                     case Dtos.Enums.LoginStatus.Success:
 						var successModel = new ExternalLoginResultVM
 						{
-							Status = true,
+							Status = Dtos.Enums.LoginStatus.Success,
 							Platform = login_result.Platform
 						};
 						return View(successModel);
 					default:
 						var failedModel = new ExternalLoginResultVM
 						{
-							Status = false,
+							Status = Dtos.Enums.LoginStatus.Failed,
 							Platform = login_result.Platform,
 
 							Error = login_result.Error,
@@ -128,7 +128,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V1
 			{
 				var model = new ExternalLoginResultVM
 				{
-					Status = false,
+					Status = Dtos.Enums.LoginStatus.Failed,
 					Platform = provider,
 
 					Error = "Could not login",
@@ -140,7 +140,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V1
 			{
 				var model = new ExternalLoginResultVM
 				{
-					Status = false,
+					Status = Dtos.Enums.LoginStatus.Failed,
 					Platform = provider,
 
 					Error = "Could not login",
@@ -179,7 +179,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V1
 				await accountService.AddExternalLogin(User);
 				var model = new ExternalLoginResultVM
 				{
-					Status = true,
+					Status = Dtos.Enums.LoginStatus.Success,
 					Platform = provider
 				};
 				return View(model);
@@ -188,7 +188,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V1
 			{
 				var model = new ExternalLoginResultVM
 				{
-					Status = false,
+					Status = Dtos.Enums.LoginStatus.Failed,
 					Platform = provider,
 
 					Error = "Could not login",

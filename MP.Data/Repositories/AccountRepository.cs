@@ -42,6 +42,7 @@ namespace MintPlayer.Data.Repositories
         Task<IEnumerable<string>> GenerateTwoFactorBackupCodes(ClaimsPrincipal userProperty);
         Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code);
         Task TwoFactorDisable(ClaimsPrincipal userProperty, string code);
+        Task SetTwoFactorBypass(ClaimsPrincipal userProperty, bool bypass, string code);
         Task<User> TwoFactorLogin(string authenticatorCode, bool remember);
     }
     internal class AccountRepository : IAccountRepository
@@ -245,14 +246,33 @@ namespace MintPlayer.Data.Repositories
                 await user_manager.AddLoginAsync(user, new UserLoginInfo(info.LoginProvider, info.ProviderKey, info.ProviderDisplayName));
             }
 
-            var bypass2faForExternalLogins = true;
-            var signinResult = await signin_manager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true, bypass2faForExternalLogins);
-            return new ExternalLoginResult
+            var signinResult = await signin_manager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true, user.Bypass2faForExternalLogin);
+
+            if (signinResult.Succeeded)
             {
-                Status = LoginStatus.Success,
-                Platform = info.LoginProvider,
-                User = userMapper.Entity2Dto(user, true)
-            };
+                return new ExternalLoginResult
+                {
+                    Status = LoginStatus.Success,
+                    Platform = info.LoginProvider,
+                    User = userMapper.Entity2Dto(user, true),
+                };
+            }
+            else if (signinResult.RequiresTwoFactor)
+            {
+                return new ExternalLoginResult
+                {
+                    Status = LoginStatus.RequiresTwoFactor,
+                    Platform = info.LoginProvider,
+                    User = userMapper.Entity2Dto(user, true),
+                };
+            }
+            else
+            {
+                return new ExternalLoginResult
+                {
+                    Status = LoginStatus.Failed,
+                };
+            }
         }
 
         public async Task<IEnumerable<UserLoginInfo>> GetExternalLogins(ClaimsPrincipal userProperty)
@@ -397,6 +417,20 @@ namespace MintPlayer.Data.Repositories
             {
                 throw new TwoFactorSetupException();
             }
+        }
+
+        public async Task SetTwoFactorBypass(ClaimsPrincipal userProperty, bool bypass, string code)
+        {
+            var user = await user_manager.GetUserAsync(userProperty);
+            var is2faTokenValid = await user_manager.VerifyTwoFactorTokenAsync(user, user_manager.Options.Tokens.AuthenticatorTokenProvider, code);
+
+            if (!is2faTokenValid)
+            {
+                throw new InvalidTwoFactorCodeException();
+            }
+
+            user.Bypass2faForExternalLogin = bypass;
+            await mintplayer_context.SaveChangesAsync();
         }
 
         public async Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code)

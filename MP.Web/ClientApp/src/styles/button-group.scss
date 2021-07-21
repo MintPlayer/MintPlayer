@@ -1,0 +1,10 @@
+$round-radius: 500px;
+
+.btn-group.rounded button:first-child {
+  border-top-left-radius: $round-radius !important;
+  border-bottom-left-radius: $round-radius !important;
+}
+.btn-group.rounded button:last-child {
+  border-top-right-radius: $round-radius !important;
+  border-bottom-right-radius: $round-radius !important;
+}

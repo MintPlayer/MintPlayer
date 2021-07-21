@@ -92,13 +92,8 @@
           </div>
         </div>
       </form>
-      <form (submit)="disableTwoFactor()" *ngIf="user && user.isTwoFactorEnabled === true">
-        <div class="row">
-          <div class="col-xl-12">
-            <span class="d-block text-center h2">{{ 'account.two_factor.disable' | translate }}</span>
-          </div>
-        </div>
-        <div class="row" *ngIf="!isRegistrationSuccess">
+      <div *ngIf="user && user.isTwoFactorEnabled === true">
+        <div class="row mb-3">
           <div class="col-xl-6">
             <label>{{ 'account.two_factor.enter_code_disable' | translate }}</label>
           </div>
@@ -106,15 +101,29 @@
             <input type="text" [(ngModel)]="disableVerificationCode" class="form-control" />
           </div>
         </div>
-        <div class="row">
-          <div class="col-xl-12 text-center">
-            <button type="submit" class="btn btn-default">
+        <div class="row mb-3">
+          <div class="col-xl-6 py-2">
+            {{ 'account.two_factor.enabled' | translate }}
+          </div>
+          <div class="col-xl-6">
+            <button (click)="disableTwoFactor()" class="btn btn-default pull-right">
               <i class="fa fa-key"></i>
               {{ 'account.two_factor.disable_2fa' | translate }}
             </button>
           </div>
         </div>
-        <div class="row" *ngIf="backupCodes !== null">
+        <div class="row mb-3">
+          <div class="col-xl-6">
+            <label>{{ 'account.two_factor.bypass_2fa_for_external_logins' | translate }}</label>
+          </div>
+          <div class="col-xl-6">
+            <div class="btn-group rounded pull-right">
+              <button (click)="setBypass2faForExternalLogin(true)" class="btn" [class.btn-primary]="user.bypass2faForExternalLogin" [class.btn-secondary]="!user.bypass2faForExternalLogin" [attr.disabled]="user.bypass2faForExternalLogin ? true : null">Enable</button>
+              <button (click)="setBypass2faForExternalLogin(false)" class="btn" [class.btn-primary]="!user.bypass2faForExternalLogin" [class.btn-secondary]="user.bypass2faForExternalLogin" [attr.disabled]="user.bypass2faForExternalLogin ? null : true">Disable</button>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3" *ngIf="backupCodes !== null">
           <div class="col-md-12">
             <p>{{ 'account.two_factor.write_down_backup_codes' | translate }}</p>
             <ul class="list-group">
@@ -122,7 +131,7 @@
             </ul>
           </div>
         </div>
-      </form>
+      </div>
     </content>
   </card>
   <card class="d-block mb-3">

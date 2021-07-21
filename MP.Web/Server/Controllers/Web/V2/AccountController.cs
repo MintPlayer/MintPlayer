@@ -114,9 +114,10 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
                 switch (login_result.Status)
                 {
                     case Dtos.Enums.LoginStatus.Success:
+					case Dtos.Enums.LoginStatus.RequiresTwoFactor:
 						var successModel = new ExternalLoginResultVM
 						{
-							Status = true,
+							Status = Dtos.Enums.LoginStatus.Success,
 							Medium = medium,
 							Platform = login_result.Platform
 						};
@@ -124,7 +125,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
                     default:
 						var failedModel = new ExternalLoginResultVM
 						{
-							Status = false,
+							Status = Dtos.Enums.LoginStatus.Failed,
 							Medium = medium,
 							Platform = login_result.Platform,
 
@@ -138,7 +139,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
 			{
 				var model = new ExternalLoginResultVM
 				{
-					Status = false,
+					Status = Dtos.Enums.LoginStatus.Failed,
 					Medium = medium,
 					Platform = provider,
 
@@ -151,7 +152,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
 			{
 				var model = new ExternalLoginResultVM
 				{
-					Status = false,
+					Status = Dtos.Enums.LoginStatus.Failed,
 					Medium = medium,
 					Platform = provider,
 
@@ -197,7 +198,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
 				await accountService.AddExternalLogin(User);
 				var model = new ExternalLoginResultVM
 				{
-					Status = true,
+					Status = Dtos.Enums.LoginStatus.Success,
 					Medium = medium,
 					Platform = provider
 				};
@@ -207,7 +208,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V2
 			{
 				var model = new ExternalLoginResultVM
 				{
-					Status = false,
+					Status = Dtos.Enums.LoginStatus.Failed,
 					Medium = medium,
 					Platform = provider,
 

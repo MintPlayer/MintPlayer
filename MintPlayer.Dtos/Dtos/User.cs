@@ -27,6 +27,10 @@ namespace MintPlayer.Dtos.Dtos
 
 		[DataMember]
 		[XmlElement(Namespace = "https://mintplayer.com/music")]
+		public bool Bypass2faForExternalLogin { get; set; }
+
+		[DataMember]
+		[XmlElement(Namespace = "https://mintplayer.com/music")]
 		public string PictureUrl { get; set; }
 	}
 }

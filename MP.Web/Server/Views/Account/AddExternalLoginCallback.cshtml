@@ -4,30 +4,14 @@
 <head>
     <title>Bezig met verwerken...</title>
     <script type="text/javascript">
-@if (Model.Status)
-{
-    <text>
         var message = {
-            status: true,
-            medium: "@Model.Medium",
-            platform: "@Model.Platform"
-        };
-        window.opener.postMessage(JSON.stringify(message), "https://mintplayer.com");
-    </text>
-}
-else
-{
-    <text>
-        var message = {
-            status: false,
+            status: @Model.Status,
             medium: "@Model.Medium",
             platform: "@Model.Platform",
             error: "@Model.Error",
             errorDescription: "@Model.ErrorDescription"
         };
         window.opener.postMessage(JSON.stringify(message), "https://mintplayer.com");
-    </text>
-}
     </script>
 </head>
 <body>

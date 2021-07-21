@@ -113,7 +113,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.loginComplete.next(result.user);
         } break;
         case LoginStatus.requiresTwoFactor: {
-          console.log('returnUrl', this.returnUrl);
           this.router.navigate(['/account', 'two-factor'], { queryParams: { return: this.returnUrl } });
         } break;
         default: {
@@ -165,13 +164,23 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   socialLoginDone(result: LoginResult) {
-    if (result.status) {
-      this.accountService.currentUser().then((user) => {
-        this.loginComplete.next(user);
-        this.router.navigateByUrl(this.returnUrl);
-      });
-    } else {
-      this.loginResult = result;
+    console.log('login result', result);
+    switch (result.status) {
+      case LoginStatus.success: {
+        this.accountService.currentUser().then((user) => {
+          this.loginComplete.next(user);
+          this.router.navigateByUrl(this.returnUrl);
+        });
+        break;
+      }
+      case LoginStatus.requiresTwoFactor: {
+        this.router.navigate(['/account', 'two-factor'], { queryParams: { return: this.returnUrl } });
+        break;
+      }
+      default: {
+        this.loginResult = result;
+        break;
+      }
     }
   }
 

@@ -33,6 +33,7 @@
               "src/styles/bootstrap-extensions.scss",
               "src/styles/font-awesome-extensions.scss",
               "src/styles/drag-drop.scss",
+              "src/styles/button-group.scss",
               "src/styles/general.scss"
             ],
             "scripts": [],
@@ -110,6 +111,7 @@
               "src/styles/bootstrap-extensions.scss",
               "src/styles/font-awesome-extensions.scss",
               "src/styles/drag-drop.scss",
+              "src/styles/button-group.scss",
               "src/styles/general.scss"
             ],
             "scripts": []

@@ -139,6 +139,7 @@
     "social_logins": "Sociale logins",
     "two_factor": {
       "two_factor_authentication": "Tweestaps-verificatie",
+      "enabled": "Tweestaps-verificatie is ingeschakeld",
       "enable": "Tweestaps-verificatie inschakelen",
       "enable_2fa": "2FA inschakelen",
       "enter_code_enable": "Genereer vervolgens een 6-cijfercode met de authenticator app en voer deze in in het volgende tekstvak",
@@ -149,9 +150,13 @@
       "write_down_backup_codes": "Dit zijn je backup-codes. Schrijf ze ergens op en houd ze bij op een veilige plaats. Je hebt ze nog nodig in het geval dat je je smartphone zou verliezen. Na het verlaten van deze pagina kan je ze niet meer opvragen.",
       "login_instructions": "Open de Authenticator app op uw smartphone genereer een 6-cijferige code voor MintPlayer. Geef deze code hieronder in:",
 
+      "disabled": "Tweestaps-verificatie is uitgeschakeld",
       "disable": "Tweestaps-verificatie uitschakelen",
       "disable_2fa": "2FA uitschakelen",
-      "enter_code_disable": "Genereer een 6-cijfercode met de authenticator app en voer deze in in het volgende tekstvak"
+      "enter_code_disable": "Genereer een 6-cijfercode met de authenticator app en voer deze in in het volgende tekstvak",
+
+      "extra_options": "Extra opties",
+      "bypass_2fa_for_external_logins": "2-factor authenticatie overslaan voor externe logins (Microsoft, Google, ...)"
     },
     "confirmation": {
       "resend": "Bevestigingse-mail opnieuw versturen"

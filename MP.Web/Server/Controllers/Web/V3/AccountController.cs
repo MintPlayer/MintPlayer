@@ -187,6 +187,29 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			}
 		}
 
+		[Authorize]
+		[HttpPut("two-factor-bypass", Name = "web-v3-account-twofactor-bypass")]
+		public async Task<ActionResult> BypassTwoFactorForExternalLogins([FromBody] TwoFactorBypassVM twoFactorBypass)
+		{
+			try
+			{
+				await accountService.SetTwoFactorBypass(User, twoFactorBypass.Bypass2faForExternalLogins, twoFactorBypass.SetupCode);
+				return Ok();
+			}
+			catch (InvalidTwoFactorCodeException invEx)
+			{
+				return StatusCode(401);
+			}
+			catch (TwoFactorSetupException twoFactorEx)
+			{
+				return StatusCode(500);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500);
+			}
+		}
+
 		[HttpPost("two-factor-login")]
 		public async Task<User> TwoFactorLogin([FromBody] TwoFactorLoginVM twoFactorLoginVM)
         {
@@ -230,9 +253,10 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 				switch (login_result.Status)
 				{
 					case Dtos.Enums.LoginStatus.Success:
+					case Dtos.Enums.LoginStatus.RequiresTwoFactor:
 						var successModel = new ExternalLoginResultVM
 						{
-							Status = true,
+							Status = login_result.Status,
 							Medium = medium,
 							Platform = login_result.Platform
 						};
@@ -240,7 +264,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 					default:
 						var failedModel = new ExternalLoginResultVM
 						{
-							Status = false,
+							Status = login_result.Status,
 							Medium = medium,
 							Platform = login_result.Platform,
 
@@ -254,7 +278,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			{
 				var model = new ExternalLoginResultVM
 				{
-					Status = false,
+					Status = Dtos.Enums.LoginStatus.Failed,
 					Medium = medium,
 					Platform = provider,
 
@@ -267,7 +291,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			{
 				var model = new ExternalLoginResultVM
 				{
-					Status = false,
+					Status = Dtos.Enums.LoginStatus.Failed,
 					Medium = medium,
 					Platform = provider,
 
@@ -313,7 +337,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 				await accountService.AddExternalLogin(User);
 				var model = new ExternalLoginResultVM
 				{
-					Status = true,
+					Status = Dtos.Enums.LoginStatus.Success,
 					Medium = medium,
 					Platform = provider
 				};
@@ -323,7 +347,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			{
 				var model = new ExternalLoginResultVM
 				{
-					Status = false,
+					Status = Dtos.Enums.LoginStatus.Failed,
 					Medium = medium,
 					Platform = provider,
 

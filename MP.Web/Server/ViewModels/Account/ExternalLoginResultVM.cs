@@ -1,8 +1,10 @@
-﻿namespace MintPlayer.Web.Server.ViewModels.Account
+﻿using MintPlayer.Dtos.Enums;
+
+namespace MintPlayer.Web.Server.ViewModels.Account
 {
 	public class ExternalLoginResultVM
 	{
-		public bool Status { get; set; }
+		public LoginStatus Status { get; set; }
 		public string Medium { get; set; }
 		public string Platform { get; set; }
 

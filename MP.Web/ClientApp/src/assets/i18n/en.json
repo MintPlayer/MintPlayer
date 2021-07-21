@@ -139,6 +139,7 @@
     "social_logins": "Social logins",
     "two_factor": {
       "two_factor_authentication": "Two-factor authentication",
+      "enabled": "2-factor authentication is enabled",
       "enable": "Enable 2-factor authentication",
       "enable_2fa": "Enable 2FA",
       "enter_code_enable": "Now enter a generated 6-digit number in this box:",
@@ -149,9 +150,14 @@
       "write_down_backup_codes": "These are your backup codes. Write them down and keep them somewhere safe. You'll need them in case you lose your mobile phone. You won't be able to view them again after leaving this page.",
       "login_instructions": "Open the authenticator app on your mobile phone and generate a 6-digit number for MintPlayer. Enter the code in the textbox below:",
 
+      "disabled": "2-factor authentication is disabled",
       "disable": "Disable 2-factor authentication",
       "disable_2fa": "Disable 2FA",
-      "enter_code_disable": "Generate a 6-digit number with your authenticator app and enter it in this box:"
+      "enter_code_disable": "Generate a 6-digit number with your authenticator app and enter it in this box:",
+
+      "extra_options": "Extra options",
+      "bypass_2fa_for_external_logins": "Bypass 2-factor-authentication for external logins (Microsoft, Google, ...)"
+
     },
     "confirmation": {
       "resend": "Re-send confirmation email"

@@ -112,6 +112,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  setBypass2faForExternalLogin(enable: boolean) {
+    this.accountService.setBypass2faForExternalLogin(this.disableVerificationCode, enable)
+      .then(() => {
+        this.user.bypass2faForExternalLogin = enable;
+      });
+
+    return false;
+  }
+
   ngOnInit() {
     this.htmlLink.setCanonicalWithoutQuery();
   }
