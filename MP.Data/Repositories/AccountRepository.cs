@@ -245,7 +245,8 @@ namespace MintPlayer.Data.Repositories
                 await user_manager.AddLoginAsync(user, new UserLoginInfo(info.LoginProvider, info.ProviderKey, info.ProviderDisplayName));
             }
 
-            await signin_manager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true);
+            var bypass2faForExternalLogins = true;
+            var signinResult = await signin_manager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true, bypass2faForExternalLogins);
             return new ExternalLoginResult
             {
                 Status = LoginStatus.Success,
