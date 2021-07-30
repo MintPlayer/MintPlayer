@@ -213,7 +213,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[HttpPost("two-factor-login")]
 		public async Task<User> TwoFactorLogin([FromBody] TwoFactorLoginVM twoFactorLoginVM)
         {
-			 var user = await accountService.TwoFactorLogin(twoFactorLoginVM.Code, twoFactorLoginVM.Remember);
+			var user = await accountService.TwoFactorLogin(twoFactorLoginVM.Code, twoFactorLoginVM.Remember);
 			return user;
         }
 
@@ -229,9 +229,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/connect/{provider}
 		[AllowAnonymous]
 		[HttpGet("connect/{medium}/{provider}", Name = "web-v3-account-external-connect-challenge")]
-#if RELEASE
-        [Host("external.mintplayer.com")]
-#endif
+//#if RELEASE
+//        [Host("external.mintplayer.com")]
+//#endif
         public async Task<ActionResult> ExternalLogin([FromRoute]string medium, [FromRoute]string provider)
 		{
 			//var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { medium, provider });
@@ -242,9 +242,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		// GET: web/Account/connect/{provider}/callback
 		[HttpGet("connect/{medium}/{provider}/callback", Name = "web-v3-account-external-connect-callback")]
-#if RELEASE
-        [Host("external.mintplayer.com")]
-#endif
+//#if RELEASE
+//        [Host("external.mintplayer.com")]
+//#endif
         public async Task<ActionResult> ExternalLoginCallback([FromRoute]string medium, [FromRoute]string provider)
 		{
 			try
@@ -314,9 +314,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/add/{provider}
 		[Authorize]
 		[HttpGet("add/{medium}/{provider}", Name = "web-v3-account-external-add-challenge")]
-#if RELEASE
-		[Host("external.mintplayer.com")]
-#endif
+//#if RELEASE
+//		[Host("external.mintplayer.com")]
+//#endif
 		public async Task<ActionResult> AddExternalLogin([FromRoute]string medium, [FromRoute]string provider)
 		{
 			var redirectUrl = Url.RouteUrl("web-v3-account-external-add-callback", new { medium, provider });
@@ -327,9 +327,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/add/{provider}/callback
 		[Authorize]
 		[HttpGet("add/{medium}/{provider}/callback", Name = "web-v3-account-external-add-callback")]
-#if RELEASE
-		[Host("external.mintplayer.com")]
-#endif
+//#if RELEASE
+//		[Host("external.mintplayer.com")]
+//#endif
 		public async Task<ActionResult> AddExternalLoginCallback([FromRoute]string medium, [FromRoute]string provider)
 		{
 			try

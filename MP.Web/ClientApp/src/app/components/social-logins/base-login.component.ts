@@ -36,7 +36,7 @@ export class BaseLoginComponent {
     if (typeof window !== 'undefined') {
       var medium = this.pwaHelper.isPwa() ? 'pwa' : 'web';
 
-      this.authWindow = window.open(`${this.externalUrl}/web/${this.apiVersion}/Account/${this.action}/${medium}/${this.platform}`, '_blank', 'width=600,height=400');
+      this.authWindow = window.open(`${this.externalUrl}/web/${this.apiVersion}/Account/${this.action}/${medium}/${this.platform}?ngsw-bypass=true`, '_blank', 'width=600,height=400');
 
       this.isOpen = true;
       var timer = setInterval(() => {

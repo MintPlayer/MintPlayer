@@ -20,16 +20,18 @@ import { API_VERSION } from '@mintplayer/ng-client';
 import { VideoPlayerModule } from '@mintplayer/ng-video-player';
 
 const getExternalUrl = (baseUrl: string) => {
-  if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
-    return baseUrl;
-  } else {
-    let match = new RegExp("^(http[s]{0,1})\\:\\/\\/(.*)$").exec(baseUrl);
+  //if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
+  //  return baseUrl;
+  //} else {
+  //  let match = new RegExp("^(http[s]{0,1})\\:\\/\\/(.*)$").exec(baseUrl);
 
-    let protocol = match[1];
-    let url = match[2];
+  //  let protocol = match[1];
+  //  let url = match[2];
 
-    return `${protocol}://external.${url}`;
-  }
+  //  return `${protocol}://external.${url}`;
+  //}
+
+  return baseUrl;
 }
 
 @NgModule({
