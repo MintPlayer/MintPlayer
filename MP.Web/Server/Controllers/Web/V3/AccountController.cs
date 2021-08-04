@@ -146,7 +146,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         {
             try
 			{
-				await accountService.FinishTwoFactorSetup(User, twoFactorSetup.SetupCode);
+				await accountService.SetTwoFactorEnabled(User, twoFactorSetup.SetupCode, true);
 				var backupCodes = await accountService.GenerateTwoFactorBackupCodes(User);
 				return Ok(backupCodes);
 			}
@@ -170,7 +170,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		{
 			try
 			{
-				await accountService.TwoFactorDisable(User, twoFactorDisable.SetupCode);
+				await accountService.SetTwoFactorEnabled(User, twoFactorDisable.SetupCode, false);
 				return Ok();
 			}
 			catch (InvalidTwoFactorCodeException invEx)

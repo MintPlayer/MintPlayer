@@ -40,8 +40,7 @@ namespace MintPlayer.Data.Repositories
         Task<User> GetTwoFactorUser();
         Task<string> GenerateTwoFactorRegistrationCode(ClaimsPrincipal userProperty);
         Task<IEnumerable<string>> GenerateTwoFactorBackupCodes(ClaimsPrincipal userProperty);
-        Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code);
-        Task TwoFactorDisable(ClaimsPrincipal userProperty, string code);
+        Task SetTwoFactorEnabled(ClaimsPrincipal userProperty, string code, bool enable);
         Task SetTwoFactorBypass(ClaimsPrincipal userProperty, bool bypass, string code);
         Task<User> TwoFactorLogin(string authenticatorCode, bool remember);
     }
@@ -402,7 +401,7 @@ namespace MintPlayer.Data.Repositories
             return codes;
         }
 
-        public async Task TwoFactorDisable(ClaimsPrincipal userProperty, string code)
+        public async Task SetTwoFactorEnabled(ClaimsPrincipal userProperty, string code, bool enable)
         {
             var user = await user_manager.GetUserAsync(userProperty);
             var is2faTokenValid = await user_manager.VerifyTwoFactorTokenAsync(user, user_manager.Options.Tokens.AuthenticatorTokenProvider, code);
@@ -412,7 +411,7 @@ namespace MintPlayer.Data.Repositories
                 throw new InvalidTwoFactorCodeException();
             }
 
-            var result = await user_manager.SetTwoFactorEnabledAsync(user, false);
+            var result = await user_manager.SetTwoFactorEnabledAsync(user, enable);
             if (!result.Succeeded)
             {
                 throw new TwoFactorSetupException();
@@ -431,23 +430,6 @@ namespace MintPlayer.Data.Repositories
 
             user.Bypass2faForExternalLogin = bypass;
             await mintplayer_context.SaveChangesAsync();
-        }
-
-        public async Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code)
-        {
-            var user = await user_manager.GetUserAsync(userProperty);
-            var is2faTokenValid = await user_manager.VerifyTwoFactorTokenAsync(user, user_manager.Options.Tokens.AuthenticatorTokenProvider, code);
-
-            if (!is2faTokenValid)
-            {
-                throw new InvalidTwoFactorCodeException();
-            }
-
-            var result = await user_manager.SetTwoFactorEnabledAsync(user, true);
-            if (!result.Succeeded)
-            {
-                throw new TwoFactorSetupException();
-            }
         }
 
         public async Task<User> TwoFactorLogin(string authenticatorCode, bool remember)

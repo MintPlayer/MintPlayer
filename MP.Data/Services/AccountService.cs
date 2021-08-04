@@ -36,8 +36,7 @@ namespace MintPlayer.Data.Services
 
         Task<string> GenerateTwoFactorRegistrationCode(ClaimsPrincipal userProperty);
         Task<IEnumerable<string>> GenerateTwoFactorBackupCodes(ClaimsPrincipal userProperty);
-        Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code);
-        Task TwoFactorDisable(ClaimsPrincipal userProperty, string code);
+        Task SetTwoFactorEnabled(ClaimsPrincipal userProperty, string code, bool enable);
         Task SetTwoFactorBypass(ClaimsPrincipal userProperty, bool bypass, string code);
         Task<User> TwoFactorLogin(string authenticatorCode, bool remember);
     }
@@ -168,14 +167,9 @@ namespace MintPlayer.Data.Services
             return codes;
         }
 
-        public async Task FinishTwoFactorSetup(ClaimsPrincipal userProperty, string code)
+        public async Task SetTwoFactorEnabled(ClaimsPrincipal userProperty, string code, bool enable)
         {
-            await accountRepository.FinishTwoFactorSetup(userProperty, code);
-        }
-
-        public async Task TwoFactorDisable(ClaimsPrincipal userProperty, string code)
-        {
-            await accountRepository.TwoFactorDisable(userProperty, code);
+            await accountRepository.SetTwoFactorEnabled(userProperty, code, enable);
         }
 
         public async Task SetTwoFactorBypass(ClaimsPrincipal userProperty, bool bypass, string code)
