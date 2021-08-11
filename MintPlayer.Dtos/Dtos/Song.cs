@@ -37,6 +37,10 @@ namespace MintPlayer.Dtos.Dtos
         public string VimeoId { get; internal set; }
 
         [DataMember]
+        [XmlElement(Namespace = "https://mintplayer.com/music")]
+        public string SoundCloudUrl { get; internal set; }
+
+        [DataMember]
 		[XmlElement(Namespace = "https://mintplayer.com/music")]
         public List<PlayerInfo> PlayerInfos { get; internal set; }
         

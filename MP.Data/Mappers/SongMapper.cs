@@ -50,6 +50,7 @@ namespace MintPlayer.Data.Mappers
                     YoutubeId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Youtube)?.Id,
                     DailymotionId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.DailyMotion)?.Id,
                     VimeoId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Vimeo)?.Id,
+                    SoundCloudUrl = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.SoundCloud)?.Id,
                     PlayerInfos = songHelper.GetPlayerInfos(song.Media).ToList(),
                     DateUpdate = song.DateUpdate ?? song.DateInsert,
 
@@ -91,6 +92,7 @@ namespace MintPlayer.Data.Mappers
                     YoutubeId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Youtube)?.Id,
                     DailymotionId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.DailyMotion)?.Id,
                     VimeoId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Vimeo)?.Id,
+                    SoundCloudUrl = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.SoundCloud)?.Id,
                     PlayerInfos = playerInfos,
                     DateUpdate = song.DateUpdate ?? song.DateInsert
                 };

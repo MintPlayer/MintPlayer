@@ -62,6 +62,8 @@ namespace MintPlayer.Data.Helpers
 					[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}dailymotion\.com\/video\/(?<id>[0-9A-Za-z]+)$")] = MintPlayer.Dtos.Enums.ePlayerType.DailyMotion,
 
 					[new Regex(@"http[s]{0,1}:\/\/(www\.){0,1}vimeo\.com\/(?<id>[0-9]+)$")] = MintPlayer.Dtos.Enums.ePlayerType.Vimeo,
+
+					[new Regex(@"(?<id>http[s]{0,1}:\/\/(www\.){0,1}soundcloud\.com\/.+)$")] = MintPlayer.Dtos.Enums.ePlayerType.SoundCloud
 				};
 
 				foreach (var medium in media)
@@ -82,6 +84,7 @@ namespace MintPlayer.Data.Helpers
 									MintPlayer.Dtos.Enums.ePlayerType.Youtube => $"https://i.ytimg.com/vi/{id}/hqdefault.jpg",
 									MintPlayer.Dtos.Enums.ePlayerType.DailyMotion => $"https://www.dailymotion.com/thumbnail/video/{id}",
 									MintPlayer.Dtos.Enums.ePlayerType.Vimeo => $"https://i.vimeocdn.com/video/99213072?mw=960&mh=540",
+									MintPlayer.Dtos.Enums.ePlayerType.SoundCloud => $"https://i1.sndcdn.com/artworks-eA5afLkRFfiD-0-t500x500.jpg",
 									_ => null
 								}
 							};
