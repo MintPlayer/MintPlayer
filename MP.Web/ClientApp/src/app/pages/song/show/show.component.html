@@ -21,7 +21,7 @@
     </div>
   </div>
   <div *ngIf="(!!song) && (!!song.playerInfos) && (song.playerInfos.length > 0)" class="yt-image mw-100 mx-auto" [ngStyle]="{'width':'480px','height':'360px','background-image': 'url(' + song.playerInfos[0].imageUrl + ')'}">
-    <youtube-play-button (click)="doAddToPlaylist()"></youtube-play-button>
+    <youtube-play-button (click)="doAddToPlaylist(null)"></youtube-play-button>
   </div>
   <card class="d-block mb-3">
     <header>
@@ -117,7 +117,7 @@
       Media
     </header>
     <content>
-      <media-list [media]="song.media" class="d-inline-block m-3 m-md-4"></media-list>
+      <media-list [media]="song.media" (playButtonClicked)="doAddToPlaylist($event)" class="d-inline-block m-3 m-md-4"></media-list>
     </content>
   </card>
 </div>

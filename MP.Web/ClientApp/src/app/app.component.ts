@@ -3,7 +3,7 @@ import { Meta } from '@angular/platform-browser';
 import { SwUpdate } from '@angular/service-worker';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { User, Song, AccountService, PlayerType } from '@mintplayer/ng-client';
+import { User, Song, AccountService, Medium } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlayerProgress } from '@mintplayer/ng-player-progress';
 import { PlayerState, VideoPlayerComponent } from '@mintplayer/ng-video-player';
@@ -22,6 +22,7 @@ import { PlaylistControl } from './helpers/playlist-control.helper';
 import { SyncComponent } from './pages/song/sync/sync.component';
 import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
 import { TwoFactorComponent } from './pages/account/two-factor/two-factor.component';
+import { SongWithMedium } from './interfaces/song-with-medium';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   sidebarState: eSidebarState = eSidebarState.auto;
   playlistToggleButtonState: eToggleButtonState = eToggleButtonState.closed;
 
-  playlistControl: PlaylistControl<Song>;
+  playlistControl: PlaylistControl<SongWithMedium>;
 
   //#region Player card size
   playerSize: Size = { width: 200, height: 150 };
@@ -100,13 +101,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.onWindowResize();
     //#endregion
     //#region Initialize PlaylistController
-    this.playlistControl = new PlaylistControl<Song>({
+    this.playlistControl = new PlaylistControl<SongWithMedium>({
       onGetCurrentPosition: () => this.player.currentTime,
       onPlayVideo: (song) => {
-        console.log('player infos', song.playerInfos);
-        debugger;
-        if (song.playerInfos.length > 0) {
-          this.player.url = song.playerInfos[0].url;
+        if (song.medium !== null) {
+          this.player.url = song.medium.value;
+        } else if (song.song.playerInfos.length > 0) {
+          this.player.url = song.song.playerInfos[0].url;
         }
       },
       onStopVideo: () => {
@@ -119,7 +120,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.translateService.setDefaultLang(defaultLang);
     this.route.queryParamMap.subscribe((params) => {
       let lang = params.get('lang');
-      console.log('language', lang);
       if (lang === null) {
         this.translateService.use(defaultLang);
       } else {
@@ -134,24 +134,6 @@ export class AppComponent implements OnInit, OnDestroy {
       });
     }
     //#endregion
-
-
-
-
-
-
-
-
-    let matches = new RegExp(/http[s]{0,1}:\/\/(www\.){0,1}youtube\.com\/watch\?v=(?<id>[^&]+)/, 'g')
-      .exec('https://www.youtube.com/watch?v=UqQ9NWzIiM4');
-
-    console.log('matches', matches);
-
-
-
-
-
-
   }
 
   //#region Add meta-tags
@@ -208,10 +190,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private computeCurrentLyricsLine() {
     let linesPassed = this.linifyPipe
-      .transform(this.playlistControl.currentVideo.lyrics.text)
+      .transform(this.playlistControl.currentVideo.song.lyrics.text)
       .map((value, index) => {
         return {
-          time: this.playlistControl.currentVideo.lyrics.timeline[index],
+          time: this.playlistControl.currentVideo.song.lyrics.timeline[index],
           line: value
         };
       }).filter((value, index) => {
@@ -243,7 +225,7 @@ export class AppComponent implements OnInit, OnDestroy {
   };
 
   /** Add this song to the User playlist, and start playing if necessary */
-  addToPlaylist = (song: Song) => {
+  addToPlaylist = (song: SongWithMedium) => {
     this.playlistControl.addToPlaylist(song);
   }
 
@@ -255,7 +237,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.playerState = state;
     switch (state) {
       case PlayerState.playing:
-        if (this.playlistControl.currentVideo.lyrics.timeline === null) {
+        if (this.playlistControl.currentVideo.song.lyrics.timeline === null) {
           this.currentLyricsLine = null;
         } else {
           this.lyricsTimer = setInterval(() => {
@@ -320,15 +302,15 @@ export class AppComponent implements OnInit, OnDestroy {
       element.playbuttonClicked.subscribe((event: PlayButtonClickedEvent) => {
         switch (event.button) {
           case ePlaylistPlaybutton.addToQueue: {
-            this.playlistControl.addToPlaylist(...event.songs);
+            this.playlistControl.addToPlaylist(...event.songs.map(s => <SongWithMedium>{ song: s, medium: null }));
           } break;
           case ePlaylistPlaybutton.playNow: {
             this.playlistControl.shuffle = false;
-            this.playlistControl.setPlaylist(event.songs);
+            this.playlistControl.setPlaylist(event.songs.map(s => <SongWithMedium>{ song: s, medium: null }));
           } break;
           case ePlaylistPlaybutton.shuffle: {
             this.playlistControl.shuffle = true;
-            this.playlistControl.setPlaylist(event.songs);
+            this.playlistControl.setPlaylist(event.songs.map(s => <SongWithMedium>{ song: s, medium: null }));
           } break;
         }
       });

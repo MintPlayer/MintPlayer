@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Medium } from '@mintplayer/ng-client';
 import { PlayerTypeFinderService } from '@mintplayer/ng-video-player';
 
@@ -20,4 +20,9 @@ export class MediaListComponent implements OnInit {
   }
 
   @Input() media: Medium[];
+
+  @Output() public playButtonClicked: EventEmitter<Medium> = new EventEmitter();
+  onPlayButtonClicked(medium: Medium) {
+    this.playButtonClicked.emit(medium);
+  }
 }

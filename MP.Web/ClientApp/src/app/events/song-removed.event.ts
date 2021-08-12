@@ -1,4 +1,4 @@
-import { Song } from "@mintplayer/ng-client";
+import { SongWithMedium } from "../interfaces/song-with-medium";
 
 export class SongRemovedEvent {
   constructor(data?: Partial<SongRemovedEvent>) {
@@ -9,5 +9,5 @@ export class SongRemovedEvent {
   }
 
   public index: number;
-  public song: Song;
+  public song: SongWithMedium;
 }

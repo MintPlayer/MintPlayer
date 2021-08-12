@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Song } from '@mintplayer/ng-client';
 import { PlayerProgress } from '@mintplayer/ng-player-progress';
 import { PlayerState } from '@mintplayer/ng-video-player';
 import { SongRemovedEvent } from '../../events/song-removed.event';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { eRepeatMode } from '../../enums/eRepeatMode';
+import { SongWithMedium } from '../../interfaces/song-with-medium';
 
 @Component({
   selector: 'playlist-sidebar',
@@ -24,10 +24,10 @@ export class PlaylistSidebarComponent implements OnInit {
   public playerState: PlayerState;
 
   @Input()
-  public songs: Song[];
+  public songs: SongWithMedium[];
 
   @Input()
-  public current: Song;
+  public current: SongWithMedium;
 
   @Input()
   public songProgress: PlayerProgress;
@@ -45,7 +45,7 @@ export class PlaylistSidebarComponent implements OnInit {
   public playPauseClicked: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  public songClicked: EventEmitter<Song> = new EventEmitter();
+  public songClicked: EventEmitter<SongWithMedium> = new EventEmitter();
 
   onPreviousClicked() {
     this.previousClicked.emit();
@@ -56,7 +56,7 @@ export class PlaylistSidebarComponent implements OnInit {
   onPlayPauseClicked() {
     this.playPauseClicked.emit();
   }
-  onSongClicked(song: Song) {
+  onSongClicked(song: SongWithMedium) {
     this.songClicked.emit(song);
   }
 
@@ -81,7 +81,7 @@ export class PlaylistSidebarComponent implements OnInit {
   }
   //#endregion
 
-  public removeSong($event: MouseEvent, song: Song) {
+  public removeSong($event: MouseEvent, song: SongWithMedium) {
     var index = this.songs.indexOf(song);
     //this.songs.splice(index, 1);
     $event.stopPropagation();

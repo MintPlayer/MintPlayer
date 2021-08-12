@@ -4,11 +4,12 @@ import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { BASE_URL } from '@mintplayer/ng-base-url';
-import { Song, SongService } from '@mintplayer/ng-client';
+import { Medium, Song, SongService } from '@mintplayer/ng-client';
 import { Subject, Subscription } from 'rxjs';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
+import { SongWithMedium } from '../../../interfaces/song-with-medium';
 
 @Component({
   selector: 'app-show',
@@ -276,9 +277,9 @@ export class ShowComponent implements OnInit, OnDestroy {
     });
   }
 
-  addToPlaylist: Subject<Song> = new Subject<Song>();
-  public doAddToPlaylist() {
-    this.addToPlaylist.next(this.song);
+  addToPlaylist: Subject<SongWithMedium> = new Subject<SongWithMedium>();
+  public doAddToPlaylist(medium: Medium) {
+    this.addToPlaylist.next({ song: this.song, medium });
   }
 
   toggleWrapLyrics() {

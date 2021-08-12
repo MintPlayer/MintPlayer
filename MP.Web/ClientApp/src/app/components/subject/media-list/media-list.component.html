@@ -9,7 +9,7 @@
   <tbody>
     <tr *ngFor="let medium of media">
       <td class="p-0">
-        <button class="btn btn-default" [title]="'media.play_this_item' | translate" *ngIf="isPlayable(medium.value)">
+        <button class="btn btn-default" (click)="onPlayButtonClicked(medium)" [title]="'media.play_this_item' | translate" *ngIf="isPlayable(medium.value)">
           <i class="fa fa-play"></i>
         </button>
       </td>
