@@ -29,7 +29,8 @@
   "media": {
     "value": "Waarde",
     "medium": "Medium",
-    "add_medium": "Medium toevoegen"
+    "add_medium": "Medium toevoegen",
+    "play_this_item": "Deze url aan de wachtrij toevoegen"
   },
   "medium_type": {
     "create_medium_type": "Mediumtype toevoegen",

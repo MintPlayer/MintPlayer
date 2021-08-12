@@ -1,12 +1,18 @@
 <table class="table table-striped table-hover m-0">
   <thead>
     <tr>
+      <th></th>
       <th>{{ 'media.value' | translate }}</th>
       <th class="hidden-xs-down">{{ 'media.medium' | translate }}</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let medium of media">
+      <td class="p-0">
+        <button class="btn btn-default" [title]="'media.play_this_item' | translate" *ngIf="isPlayable(medium.value)">
+          <i class="fa fa-play"></i>
+        </button>
+      </td>
       <td><a [href]="medium.value" target="_blank" rel="noreferrer noopener" [title]="medium.type.description" class="text-nowrap">{{ medium.value }}</a></td>
       <td class="hidden-xs-down">{{ medium.type.description }}</td>
     </tr>

@@ -29,7 +29,8 @@
   "media": {
     "value": "Value",
     "medium": "Medium",
-    "add_medium": "Add medium"
+    "add_medium": "Add medium",
+    "play_this_item": "Add this url to the queue"
   },
   "medium_type": {
     "create_medium_type": "Create medium type",

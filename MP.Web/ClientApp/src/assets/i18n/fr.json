@@ -29,7 +29,8 @@
   "media": {
     "value": "Valeur",
     "medium": "Médium",
-    "add_medium": "Créer médium"
+    "add_medium": "Créer médium",
+    "play_this_item": "Ajouter cet url au playlist"
   },
   "medium_type": {
     "create_medium_type": "Créer type de médium",
