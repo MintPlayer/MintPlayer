@@ -33,7 +33,7 @@
   },
   "medium_type": {
     "create_medium_type": "Create medium type",
-    "create_medium_new_type": "Create new medium type",
+    "create_new_medium_type": "Create new medium type",
     "player_type": "Player type",
     "edit_medium_type": "Edit medium type: {{ name }}",
     "update_medium_type": "Update medium type",
