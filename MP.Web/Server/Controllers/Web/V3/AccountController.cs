@@ -229,12 +229,11 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/connect/{provider}
 		[AllowAnonymous]
 		[HttpGet("connect/{medium}/{provider}", Name = "web-v3-account-external-connect-challenge")]
-//#if RELEASE
-//        [Host("external.mintplayer.com")]
-//#endif
+#if RELEASE
+        [Host("external.mintplayer.com")]
+#endif
         public async Task<ActionResult> ExternalLogin([FromRoute]string medium, [FromRoute]string provider)
 		{
-			//var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { medium, provider });
 			var redirectUrl = Url.RouteUrl("web-v3-account-external-connect-callback", new { medium, provider });
 			var properties = await accountService.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
 			return Challenge(properties, provider);
@@ -242,9 +241,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		// GET: web/Account/connect/{provider}/callback
 		[HttpGet("connect/{medium}/{provider}/callback", Name = "web-v3-account-external-connect-callback")]
-//#if RELEASE
-//        [Host("external.mintplayer.com")]
-//#endif
+#if RELEASE
+        [Host("external.mintplayer.com")]
+#endif
         public async Task<ActionResult> ExternalLoginCallback([FromRoute]string medium, [FromRoute]string provider)
 		{
 			try
@@ -253,7 +252,6 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 				switch (login_result.Status)
 				{
 					case Dtos.Enums.LoginStatus.Success:
-					case Dtos.Enums.LoginStatus.RequiresTwoFactor:
 						var successModel = new ExternalLoginResultVM
 						{
 							Status = login_result.Status,
@@ -261,6 +259,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 							Platform = login_result.Platform
 						};
 						return View(successModel);
+					case Dtos.Enums.LoginStatus.RequiresTwoFactor:
+						// For external logins, show the two-factor input form in the popup.
+						return RedirectToAction(nameof(ExternalLoginTwoFactor), new { medium, provider = login_result.Platform });
 					default:
 						var failedModel = new ExternalLoginResultVM
 						{
@@ -302,6 +303,46 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			}
 		}
 
+#if RELEASE
+        [Host("external.mintplayer.com")]
+#endif
+        [HttpGet("two-factor-login-external/{medium}/{provider}")]
+		public ActionResult ExternalLoginTwoFactor([FromRoute] string medium, [FromRoute] string provider)
+        {
+			var model = new ExternalLoginTwoFactorVM
+			{
+				SubmitUrl = Url.Action(nameof(ExternalLoginTwoFactorCallback), new { medium, provider })
+			};
+			return View(model);
+        }
+
+#if RELEASE
+        [Host("external.mintplayer.com")]
+#endif
+        [HttpPost("two-factor-login-external/{medium}/{provider}")]
+		public async Task<ActionResult> ExternalLoginTwoFactorCallback([FromRoute] string medium, [FromRoute] string provider, [FromForm] ExternalLoginTwoFactorVM externalLoginTwoFactorVM)
+		{
+            try
+            {
+				var user = await accountService.TwoFactorLogin(externalLoginTwoFactorVM.Code, externalLoginTwoFactorVM.Remember);
+				if (user == null) throw new Exception();
+
+				var successModel = new ExternalLoginResultVM
+				{
+					Status = Dtos.Enums.LoginStatus.Success,
+					Medium = medium,
+					Platform = provider,
+					User = user
+				};
+				return View(nameof(ExternalLoginCallback), successModel);
+			}
+            catch (Exception)
+            {
+				return RedirectToAction(nameof(ExternalLoginTwoFactor), new { medium, provider });
+            }
+
+		}
+
 		// GET: web/Account/logins
 		[Authorize]
 		[HttpGet("logins", Name = "web-v3-account-external-logins")]
@@ -314,10 +355,10 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/add/{provider}
 		[Authorize]
 		[HttpGet("add/{medium}/{provider}", Name = "web-v3-account-external-add-challenge")]
-//#if RELEASE
-//		[Host("external.mintplayer.com")]
-//#endif
-		public async Task<ActionResult> AddExternalLogin([FromRoute]string medium, [FromRoute]string provider)
+#if RELEASE
+		[Host("external.mintplayer.com")]
+#endif
+        public async Task<ActionResult> AddExternalLogin([FromRoute]string medium, [FromRoute]string provider)
 		{
 			var redirectUrl = Url.RouteUrl("web-v3-account-external-add-callback", new { medium, provider });
 			var properties = await accountService.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
@@ -327,11 +368,11 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/add/{provider}/callback
 		[Authorize]
 		[HttpGet("add/{medium}/{provider}/callback", Name = "web-v3-account-external-add-callback")]
-//#if RELEASE
-//		[Host("external.mintplayer.com")]
-//#endif
-		public async Task<ActionResult> AddExternalLoginCallback([FromRoute]string medium, [FromRoute]string provider)
-		{
+#if RELEASE
+		[Host("external.mintplayer.com")]
+#endif
+        public async Task<ActionResult> AddExternalLoginCallback([FromRoute] string medium, [FromRoute] string provider)
+        {
 			try
 			{
 				await accountService.AddExternalLogin(User);

@@ -1,0 +1,21 @@
+﻿@model MintPlayer.Web.Server.ViewModels.Account.ExternalLoginTwoFactorVM
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <form method="post" action="@Model.SubmitUrl">
+        @Html.HiddenFor(m => m.SubmitUrl)
+        Open the authenticator app on your smartphone and generate a code for MintPlayer:
+        <br />
+        @Html.TextBoxFor(m => m.Code)
+        <br />
+        <label>
+            @Html.CheckBoxFor(m => m.Remember)
+            Remember this device
+        </label>
+    </form>
+</body>
+</html>
