@@ -17,7 +17,6 @@ import { EnumItem } from '../../../entities/enum-item';
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
     private mediumTypeService: MediumTypeService,
-    private enumHelper: EnumHelper,
     private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -25,19 +24,12 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private differs: KeyValueDiffers
   ) {
     this.titleService.setTitle('Create medium type');
-    this.playerTypes = this.enumHelper.getItems(PlayerType);
   }
 
   public mediumType: MediumType = {
     id: 0,
-    description: '',
-    playerType: PlayerType.none
+    description: ''
   };
-
-  public playerTypes: EnumItem[] = [];
-  public playerTypeSelected(playerType: number) {
-    this.mediumType.playerType = PlayerType[PlayerType[playerType]];
-  }
 
   public saveMediumType() {
     this.mediumTypeService.createMediumType(this.mediumType).then((mediumType) => {

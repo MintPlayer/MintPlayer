@@ -108,7 +108,6 @@ export class ShowComponent implements OnInit, OnDestroy {
   public playerTypeEnum = PlayerType;
   public mediumType: MediumType = {
     id: 0,
-    description: '',
-    playerType: PlayerType.none
+    description: ''
   };
 }

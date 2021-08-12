@@ -73,7 +73,7 @@ namespace MintPlayer.Data.Repositories
 				.SingleOrDefaultAsync(mt => mt.Id == mediumType.Id);
 
 			entity_medium_type.Description = mediumType.Description;
-			entity_medium_type.PlayerType = mediumType.PlayerType;
+			//entity_medium_type.PlayerType = mediumType.PlayerType;
 
 			var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
 			entity_medium_type.UserUpdate = user;

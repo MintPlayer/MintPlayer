@@ -21,7 +21,6 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
     private mediumTypeService: MediumTypeService,
-    private enumHelper: EnumHelper,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
@@ -29,8 +28,6 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers
   ) {
-    this.playerTypes = this.enumHelper.getItems(PlayerType);
-
     if (serverSide) {
       this.setMediumType(mediumTypeInj);
     } else {
@@ -60,14 +57,8 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   oldMediumTypeDescription: string = '';
   mediumType: MediumType = {
     id: 0,
-    description: '',
-    playerType: PlayerType.none
+    description: ''
   };
-
-  public playerTypes: EnumItem[] = [];
-  public playerTypeSelected(playerType: number) {
-    this.mediumType.playerType = PlayerType[PlayerType[playerType]];
-  }
 
   public updateMediumType() {
     this.mediumTypeService.updateMediumType(this.mediumType).then((mediumType) => {
