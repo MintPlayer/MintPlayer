@@ -381,7 +381,7 @@ namespace MintPlayer.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISpaRouteService spaRouteService, Microsoft.AspNetCore.Antiforgery.IAntiforgery antiforgery)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISpaRouteService spaRouteService)
         {
             //app.Use(async (context, next) =>
             //{
@@ -402,20 +402,9 @@ namespace MintPlayer.Web
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
             app.UseHttpsRedirection();
-            //app.UseAntiforgery();
-            app.UseMiddleware<Antiforgery>();
-            //app.Use(async (context, next) =>
-            //{
-            //    context.Response.OnStarting(async () =>
-            //    {
-            //        // This adds headers to the current-user rest-call-
-            //        var tokens = antiforgery.GetAndStoreTokens(context);
-            //        context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { Path = "/", HttpOnly = false });
-            //    });
-            //    await next();
-            //});
-
+            app.UseAntiforgery();
             app.UseOpenSearch();
+
             app.UseAuthentication();
 
             app.UseWhen(
@@ -466,15 +455,6 @@ namespace MintPlayer.Web
 
                     //    context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
                     //    context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
-                    //}
-                    //OnPrepareResponse = (context) =>
-                    //{
-                    //    //context.Context.Response.OnStarting(() =>
-                    //    //{
-                    //        // Doesn't do a damn thing
-                    //        context.Context.Response.Cookies.Append("Hellooooo", "lalalalalalalala", new CookieOptions { IsEssential = true, Domain = "localhost:44329", Expires = DateTime.Now.AddDays(20), HttpOnly = true, MaxAge = TimeSpan.FromDays(20), Path = "/", Secure = true });
-                    //    //  return Task.CompletedTask;
-                    //    //});
                     //}
                 });
             }
@@ -686,14 +666,6 @@ namespace MintPlayer.Web
 
                     //        context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
                     //        context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
-                    //    }
-                    //};
-
-                    //spa.Options.DefaultPageStaticFileOptions = new StaticFileOptions
-                    //{
-                    //    OnPrepareResponse = (context) =>
-                    //    {
-                    //        context.Context.Response.Cookies.Append("Hellooooo", "lalalalalalalala", new CookieOptions { IsEssential = true, Domain = "localhost:44329", Expires = DateTime.Now.AddDays(20), HttpOnly = true, MaxAge = TimeSpan.FromDays(20), Path = "/", Secure = true });
                     //    }
                     //};
 
@@ -1038,28 +1010,4 @@ namespace MintPlayer.Web
 #endif
         }
     }
-
-
-    internal class Antiforgery
-    {
-        private readonly RequestDelegate next;
-        private readonly IAntiforgery antiforgery;
-        public Antiforgery(RequestDelegate next, IAntiforgery antiforgery)
-        {
-            this.next = next;
-            this.antiforgery = antiforgery;
-        }
-
-        public async Task Invoke(HttpContext httpContext)
-        {
-            await next(httpContext);
-
-            //if (string.Equals(httpContext.Request.Path.Value, "/", StringComparison.OrdinalIgnoreCase))
-            //{
-            var tokens = antiforgery.GetAndStoreTokens(httpContext);
-            httpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { Path = "/", HttpOnly = false });
-            //}
-        }
-    }
-
 }
