@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { QUERY_PARAMS_CONFIG, QueryParamsConfig, AdvancedRouterModule } from '@mintplayer/ng-router';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BaseUrlOptions, BASE_URL, BASE_URL_OPTIONS } from '@mintplayer/ng-base-url';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -25,10 +25,17 @@ const getExternalUrl = (baseUrl: string) => {
   } else {
     let match = new RegExp("^(http[s]{0,1})\\:\\/\\/(.*)$").exec(baseUrl);
 
-    let protocol = match[1];
-    let url = match[2];
+    if (match === null) {
 
-    return `${protocol}://external.${url}`;
+      let noSchemeMatch = new RegExp("^\\/\\/(.*)$").exec(baseUrl);
+      let url = noSchemeMatch[1];
+      return `//external.${url}`;
+    } else {
+      let protocol = match[1];
+      let url = match[2];
+
+      return `${protocol}://external.${url}`;
+    }
   }
 
   //return baseUrl;
@@ -42,6 +49,10 @@ const getExternalUrl = (baseUrl: string) => {
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-XSRF-TOKEN'
+    }),
     TranslateModule.forChild(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AdvancedRouterModule,
@@ -66,6 +77,12 @@ const getExternalUrl = (baseUrl: string) => {
       provide: EXTERNAL_URL,
       useFactory: getExternalUrl,
       deps: [BASE_URL]
+    }, {
+      // Drop the scheme from the base-url provider
+      provide: BASE_URL_OPTIONS,
+      useValue: <BaseUrlOptions>{
+        dropScheme: true
+      }
     }, {
       provide: API_VERSION,
       useValue: 'v3'

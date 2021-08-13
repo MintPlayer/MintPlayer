@@ -83,6 +83,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// PUT: web/Song/5
 		[HttpPut("{id}", Name = "web-v3-song-update")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		public async Task<ActionResult<Song>> Put(int id, [FromBody] Song song)
 		{
 			var updated_song = await songService.UpdateSong(song);
