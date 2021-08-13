@@ -47,8 +47,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// POST: web/Person/favorite
-		[HttpPost("favorite", Name = "web-v3-person-favorite-page")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPost("favorite", Name = "web-v3-person-favorite-page")]
 		public async Task<ActionResult<Pagination.PaginationResponse<Person>>> PageFavoriteArtists([FromBody] Pagination.PaginationRequest<Person> request)
 		{
 			var artists = await personService.PageLikedPeople(request);
@@ -56,8 +57,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// GET: web/Person/favorite
-		[HttpGet("favorite", Name = "web-v3-person-favorite")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpGet("favorite", Name = "web-v3-person-favorite")]
 		public async Task<ActionResult<IEnumerable<Person>>> FavoritePeople()
 		{
 			var people = await personService.GetLikedPeople();
@@ -65,8 +67,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// POST: web/Person
-		[HttpPost(Name = "web-v3-person-create")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPost(Name = "web-v3-person-create")]
 		public async Task<ActionResult<Person>> Post([FromBody] Person person)
 		{
 			var new_person = await personService.InsertPerson(person);
@@ -74,8 +77,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// PUT: web/Person/5
-		[HttpPut("{id}", Name = "web-v3-person-update")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPut("{id}", Name = "web-v3-person-update")]
 		public async Task<ActionResult<Person>> Put(int id, [FromBody] Person person)
 		{
 			var updated_person = await personService.UpdatePerson(person);
@@ -83,8 +87,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// DELETE: web/Person/5
-		[HttpDelete("{id}", Name = "web-v3-person-delete")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpDelete("{id}", Name = "web-v3-person-delete")]
 		public async Task<ActionResult> Delete(int id)
 		{
 			await personService.DeletePerson(id);

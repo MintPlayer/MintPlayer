@@ -39,8 +39,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// POST: web/MediumType
-		[HttpPost(Name = "web-v3-mediumtype-create")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPost(Name = "web-v3-mediumtype-create")]
 		public async Task<ActionResult<MediumType>> Post([FromBody]MediumType mediumType)
 		{
 			mediumType.Visible = true;
@@ -49,8 +50,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// PUT: web/MediumType/5
-		[HttpPut("{id}", Name = "web-v3-mediumtype-update")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPut("{id}", Name = "web-v3-mediumtype-update")]
 		public async Task<ActionResult<MediumType>> Put(int id, [FromBody]MediumType mediumType)
 		{
 			var medium_type = await mediumTypeService.UpdateMediumType(mediumType);
@@ -58,8 +60,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// DELETE: web/MediumType/5
-		[HttpDelete("{id}", Name = "web-v3-mediumtype-delete")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpDelete("{id}", Name = "web-v3-mediumtype-delete")]
 		public async Task<ActionResult> Delete(int id)
 		{
 			await mediumTypeService.DeleteMediumType(id);

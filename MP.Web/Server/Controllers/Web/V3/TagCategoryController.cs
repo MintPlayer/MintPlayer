@@ -43,24 +43,27 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
             else return Ok(category);
         }
 
-        [HttpPost(Name = "web-v3-tagcategory-create")]
         [Authorize]
+		[ValidateAntiForgeryToken]
+        [HttpPost(Name = "web-v3-tagcategory-create")]
         public async Task<ActionResult<TagCategory>> Post([FromBody] TagCategory tagCategory)
         {
             var newTagCategory = await tagCategoryService.InsertTagCategory(tagCategory);
             return Ok(newTagCategory);
         }
 
-        [HttpPut("{id}", Name = "web-v3-tagcategory-update")]
         [Authorize]
+		[ValidateAntiForgeryToken]
+        [HttpPut("{id}", Name = "web-v3-tagcategory-update")]
         public async Task<ActionResult<TagCategory>> Put(int id, [FromBody] TagCategory tagCategory)
         {
             var updatedTagCategory = await tagCategoryService.UpdateTagCategory(tagCategory);
             return Ok(updatedTagCategory);
         }
 
-        [HttpDelete("{id}", Name = "web-v3-tagcategory-delete")]
         [Authorize]
+		[ValidateAntiForgeryToken]
+        [HttpDelete("{id}", Name = "web-v3-tagcategory-delete")]
         public async Task<ActionResult> Delete(int id)
         {
             await tagCategoryService.DeleteTagCategory(id);

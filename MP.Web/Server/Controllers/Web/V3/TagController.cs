@@ -58,24 +58,27 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
             else return Ok(tag);
         }
 
-        [HttpPost(Name = "web-v3-tag-create")]
         [Authorize]
+		[ValidateAntiForgeryToken]
+        [HttpPost(Name = "web-v3-tag-create")]
         public async Task<ActionResult<Tag>> Post([FromBody] Tag tag)
         {
             var newTag = await tagService.InsertTag(tag);
             return Ok(newTag);
         }
 
-        [HttpPut("{id}", Name = "web-v3-tag-update")]
         [Authorize]
+		[ValidateAntiForgeryToken]
+        [HttpPut("{id}", Name = "web-v3-tag-update")]
         public async Task<ActionResult<Tag>> Put(int id, [FromBody] Tag tag)
         {
             var updatedTag = await tagService.UpdateTag(tag);
             return Ok(updatedTag);
         }
 
-        [HttpDelete("{id}", Name = "web-v3-tag-delete")]
         [Authorize]
+		[ValidateAntiForgeryToken]
+        [HttpDelete("{id}", Name = "web-v3-tag-delete")]
         public async Task<ActionResult> Delete(int id)
         {
             await tagService.DeleteTag(id);

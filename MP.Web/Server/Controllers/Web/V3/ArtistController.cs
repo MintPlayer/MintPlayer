@@ -48,8 +48,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// POST: web/Artist/favorite
-		[HttpPost("favorite", Name = "web-v3-artist-favorite-page")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPost("favorite", Name = "web-v3-artist-favorite-page")]
 		public async Task<ActionResult<Pagination.PaginationResponse<Artist>>> PageFavoriteArtists([FromBody] Pagination.PaginationRequest<Artist> request)
 		{
 			var artists = await artistService.PageLikedArtists(request);
@@ -57,8 +58,8 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// GET: web/Artist/favorite
-		[HttpGet("favorite", Name = "web-v3-artist-favorite")]
 		[Authorize]
+		[HttpGet("favorite", Name = "web-v3-artist-favorite")]
 		public async Task<ActionResult<IEnumerable<Artist>>> FavoriteArtists()
 		{
 			var artists = await artistService.GetLikedArtists();
@@ -66,8 +67,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// POST: web/Artist
-		[HttpPost(Name = "web-v3-artist-create")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPost(Name = "web-v3-artist-create")]
 		public async Task<ActionResult<Artist>> Post([FromBody] Artist artist)
 		{
 			var new_artist = await artistService.InsertArtist(artist);
@@ -75,8 +77,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// PUT: web/Artist/5
-		[HttpPut("{id}", Name = "web-v3-artist-update")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPut("{id}", Name = "web-v3-artist-update")]
 		public async Task<ActionResult<Artist>> Put(int id, [FromBody] Artist artist)
 		{
 			var updated_artist = await artistService.UpdateArtist(artist);
@@ -84,8 +87,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// DELETE: web/Artist/5
-		[HttpDelete("{id}", Name = "web-v3-artist-delete")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpDelete("{id}", Name = "web-v3-artist-delete")]
 		public async Task<ActionResult> Delete(int id)
 		{
 			await artistService.DeleteArtist(id);

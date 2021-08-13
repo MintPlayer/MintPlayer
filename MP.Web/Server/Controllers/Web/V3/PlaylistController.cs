@@ -20,8 +20,8 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         // POST: web/v3/Playlist/my/page
-        [HttpPost("my/page", Name = "web-v3-playlist-my-page")]
         [Authorize]
+        [HttpPost("my/page", Name = "web-v3-playlist-my-page")]
         public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PageMyPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
         {
             var playlists = await playlistService.PagePlaylists(request, Data.Enums.ePlaylistScope.My);
@@ -37,8 +37,8 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         // GET web/v3/Playlist/my
-        [HttpGet("my", Name = "web-v3-playlist-my-list")]
         [Authorize]
+        [HttpGet("my", Name = "web-v3-playlist-my-list")]
         public async Task<ActionResult<IEnumerable<Playlist>>> GetMyPlaylists([FromHeader] bool include_relations = false)
         {
             var playlists = await playlistService.GetPlaylists(Data.Enums.ePlaylistScope.My, include_relations);
@@ -79,8 +79,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         // POST web/Playlist
-        [HttpPost(Name = "web-v3-playlist-create")]
         [Authorize]
+		[ValidateAntiForgeryToken]
+        [HttpPost(Name = "web-v3-playlist-create")]
         public async Task<ActionResult<Playlist>> Post([FromBody] Playlist playlist)
         {
             try
@@ -95,8 +96,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         // PUT web/Playlist/5
-        [HttpPut("{id}", Name = "web-v3-playlist-update")]
         [Authorize]
+		[ValidateAntiForgeryToken]
+        [HttpPut("{id}", Name = "web-v3-playlist-update")]
         public async Task<ActionResult<Playlist>> Put(int id, [FromBody] Playlist playlist)
         {
             var updated_playlist = await playlistService.UpdatePlaylist(playlist);
@@ -104,6 +106,8 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         // DELETE web/Playlist/5
+        [Authorize]
+		[ValidateAntiForgeryToken]
         [HttpDelete("{id}", Name = "web-v3-playlist-delete")]
         public async Task<ActionResult> Delete(int id)
         {

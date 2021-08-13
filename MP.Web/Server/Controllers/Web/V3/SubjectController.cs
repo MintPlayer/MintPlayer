@@ -28,6 +28,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		[HttpPost("{subject_id}/likes", Name = "web-v3-subject-like")]
 		public async Task<ActionResult<SubjectLikeResult>> Like([FromRoute]int subject_id, [FromBody]bool like)
 		{

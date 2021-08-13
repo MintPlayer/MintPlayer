@@ -55,8 +55,8 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// POST: web/Song/favorite
-		[HttpPost("favorite", Name = "web-v3-song-favorite-page")]
 		[Authorize]
+		[HttpPost("favorite", Name = "web-v3-song-favorite-page")]
 		public async Task<ActionResult<Pagination.PaginationResponse<Artist>>> PageFavoriteSongs([FromBody] Pagination.PaginationRequest<Song> request)
 		{
 			var songs = await songService.PageLikedSongs(request);
@@ -64,8 +64,8 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// GET: web/Song/favorite
-		[HttpGet("favorite", Name = "web-v3-song-favorite")]
 		[Authorize]
+		[HttpGet("favorite", Name = "web-v3-song-favorite")]
 		public async Task<ActionResult<IEnumerable<Song>>> FavoriteSongs()
 		{
 			var songs = await songService.GetLikedSongs();
@@ -73,33 +73,36 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		// POST: web/Song
-		[HttpPost(Name = "web-v3-song-create")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPost(Name = "web-v3-song-create")]
 		public async Task<ActionResult<Song>> Post([FromBody] Song song)
 		{
 			var new_song = await songService.InsertSong(song);
 			return Ok(new_song);
 		}
 		// PUT: web/Song/5
-		[HttpPut("{id}", Name = "web-v3-song-update")]
 		[Authorize]
 		[ValidateAntiForgeryToken]
+		[HttpPut("{id}", Name = "web-v3-song-update")]
 		public async Task<ActionResult<Song>> Put(int id, [FromBody] Song song)
 		{
 			var updated_song = await songService.UpdateSong(song);
 			return Ok(updated_song);
 		}
 		// PUT: web/Song/5/timeline
-		[HttpPut("{id}/timeline", Name = "web-v3-song-timeline-update")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPut("{id}/timeline", Name = "web-v3-song-timeline-update")]
 		public async Task<ActionResult<Song>> UpdateTimeline(int id, [FromBody] Song song)
 		{
 			await songService.UpdateTimeline(song);
 			return Ok();
 		}
 		// DELETE: web/Song/5
-		[HttpDelete("{id}", Name = "web-v3-song-delete")]
 		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpDelete("{id}", Name = "web-v3-song-delete")]
 		public async Task<ActionResult> Delete(int id)
 		{
 			await songService.DeleteSong(id);

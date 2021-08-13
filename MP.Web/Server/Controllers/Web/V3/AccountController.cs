@@ -42,6 +42,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		 **/
 
 		// POST: web/Account/register
+		[ValidateAntiForgeryToken]
 		[HttpPost("register", Name = "web-v3-account-register")]
 		public async Task<ActionResult> Register([FromBody]UserDataVM userCreateVM)
 		{
@@ -60,6 +61,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			}
 		}
 
+		[ValidateAntiForgeryToken]
 		[HttpPost("verify/resend", Name = "web-v3-account-verify-resend")]
 		public async Task<ActionResult> ResendConfirmationEmail([FromBody] ResendConfirmationEmailVM model)
 		{
@@ -95,6 +97,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
 		// POST: web/Account/login
+		[ValidateAntiForgeryToken]
 		[HttpPost("login", Name = "web-v3-account-login")]
 		public async Task<ActionResult<LoginResult>> Login([FromBody]LoginVM loginVM)
 		{
@@ -125,6 +128,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		[HttpPost("two-factor-registration", Name = "web-v3-account-twofactor-registration")]
 		public async Task<ActionResult<TwoFactorRegistrationUrlVM>> GetTwoFactorRegistrationUrl()
 		{
@@ -141,6 +145,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
         [Authorize]
+		[ValidateAntiForgeryToken]
         [HttpPost("two-factor-setup", Name = "web-v3-account-twofactor-setup")]
         public async Task<ActionResult<IEnumerable<string>>> SetupTwoFactor([FromBody] TwoFactorSetupVM twoFactorSetup)
         {
@@ -165,6 +170,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		[HttpPost("two-factor-disable", Name = "web-v3-account-twofactor-disable")]
 		public async Task<ActionResult> DisableTwoFactor([FromBody] TwoFactorDisableVM twoFactorDisable)
 		{
@@ -188,6 +194,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		[HttpPut("two-factor-bypass", Name = "web-v3-account-twofactor-bypass")]
 		public async Task<ActionResult> BypassTwoFactorForExternalLogins([FromBody] TwoFactorBypassVM twoFactorBypass)
 		{
@@ -210,6 +217,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			}
 		}
 
+		[ValidateAntiForgeryToken]
 		[HttpPost("two-factor-login")]
 		public async Task<User> TwoFactorLogin([FromBody] TwoFactorLoginVM twoFactorLoginVM)
         {
@@ -319,6 +327,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 #if RELEASE
         [Host("external.mintplayer.com")]
 #endif
+		[ValidateAntiForgeryToken]
         [HttpPost("two-factor-login-external/{medium}/{provider}")]
 		public async Task<ActionResult> ExternalLoginTwoFactorCallback([FromRoute] string medium, [FromRoute] string provider, [FromForm] ExternalLoginTwoFactorVM externalLoginTwoFactorVM)
 		{
@@ -367,6 +376,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		// GET: web/Account/add/{provider}/callback
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		[HttpGet("add/{medium}/{provider}/callback", Name = "web-v3-account-external-add-callback")]
 #if RELEASE
 		[Host("external.mintplayer.com")]
@@ -401,6 +411,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		// DELETE: web/Account/logins/{provider}
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		[HttpDelete("logins/{provider}", Name = "web-v3-account-external-delete")]
 		public async Task<ActionResult> DeleteLogin(string provider)
 		{
@@ -418,6 +429,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		[HttpGet("password", Name = "web-v3-account-has-password")]
 		public async Task<ActionResult<bool>> GetHasPassword()
 		{
@@ -426,6 +438,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		[HttpPut("password", Name = "web-v3-account-update-password")]
 		public async Task<ActionResult> UpdatePassword([FromBody] UpdatePasswordVM updatePassword)
         {
@@ -455,6 +468,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		// POST: web/Account/logout
 		[Authorize]
+		[ValidateAntiForgeryToken]
 		[HttpPost("logout", Name = "web-v3-account-logout")]
 		public async Task<ActionResult> Logout()
 		{

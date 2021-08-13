@@ -38,6 +38,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
             else return Ok(blogpost);
         }
 
+		[ValidateAntiForgeryToken]
         [HttpPost(Name = "web-v3-blogpost-create")]
         public async Task<ActionResult<BlogPost>> Post([FromBody] BlogPost blogPost)
         {
@@ -45,6 +46,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
             return Ok(newBlogPost);
         }
 
+		[ValidateAntiForgeryToken]
         [HttpPut("{id}", Name = "web-v3-blogpost-update")]
         public async Task<ActionResult<BlogPost>> Put([FromBody] BlogPost blogPost)
         {
@@ -52,6 +54,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
             return Ok(updatedBlogPost);
         }
 
+		[ValidateAntiForgeryToken]
         [HttpDelete("{id}", Name = "web-v3-blogpost-delete")]
         public async Task<ActionResult> Delete(int id)
         {
