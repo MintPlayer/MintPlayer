@@ -313,9 +313,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 #if RELEASE
         [Host("external.mintplayer.com")]
 #endif
-        [HttpGet("two-factor-login-external/{medium}/{provider}")]
+        [HttpGet("two-factor-login-external/{medium}/{provider}", Name = "web-v3-account-external-twofactor")]
 		public ActionResult ExternalLoginTwoFactor([FromRoute] string medium, [FromRoute] string provider)
-        {
+		{
 			var model = new ExternalLoginTwoFactorVM
 			{
 				SubmitUrl = Url.Action(nameof(ExternalLoginTwoFactorCallback), new { medium, provider })
@@ -327,7 +327,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Host("external.mintplayer.com")]
 #endif
 		[ValidateAntiForgeryToken]
-        [HttpPost("two-factor-login-external/{medium}/{provider}")]
+        [HttpPost("two-factor-login-external/{medium}/{provider}", Name = "web-v3-account-external-twofactor-callback")]
 		public async Task<ActionResult> ExternalLoginTwoFactorCallback([FromRoute] string medium, [FromRoute] string provider, [FromForm] ExternalLoginTwoFactorVM externalLoginTwoFactorVM)
 		{
             try

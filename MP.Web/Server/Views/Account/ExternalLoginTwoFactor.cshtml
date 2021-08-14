@@ -8,6 +8,7 @@
 <body>
     <form method="post" action="@Model.SubmitUrl">
         @Html.HiddenFor(m => m.SubmitUrl)
+        @Html.AntiForgeryToken()
         Open the authenticator app on your smartphone and generate a code for MintPlayer:
         <br />
         @Html.TextBoxFor(m => m.Code)
