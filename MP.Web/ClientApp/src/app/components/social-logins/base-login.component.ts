@@ -51,7 +51,10 @@ export class BaseLoginComponent {
   handleMessage(event: Event) {
     const message = event as MessageEvent;
     // Only trust messages from the below origin.
-    if (!this.externalUrl.startsWith(message.origin)) return;
+    //console.log(`Received message, External url: ${this.externalUrl}, Message origin: ${message.origin}`);
+
+    const messageOrigin = message.origin.replace(/^https?\:/, '');
+    if (!this.externalUrl.startsWith(messageOrigin)) return;
 
     // Filter out Augury
     if (message.data.messageSource != null)

@@ -31,24 +31,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.userLogins = loginsInj;
       this.loginProviders = providersInj;
     } else {
-      this.accountService.getLogins().then((logins) => {
-        this.userLogins = logins;
-      });
-      this.accountService.getProviders().then((providers) => {
-        this.loginProviders = providers;
-      });
-      this.accountService.hasPassword().then((hasPassword) => {
-        this.hasPassword = hasPassword;
-      });
-      this.accountService.currentUser().then((user) => {
-        this.user = user;
-        console.log('user', this.user);
-      });
-      this.httpClient.post<TwoFactorRegistrationUrl>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-registration`, {})
-        .subscribe((urlData) => {
-          this.twoFaRegistrationUrl = urlData.registrationUrl;
-          this.twoFaRegistrationUrlSanitized = this.domSanitizer.bypassSecurityTrustUrl(this.twoFaRegistrationUrl);
+      this.accountService.csrfRefresh().then(() => {
+        this.accountService.getLogins().then((logins) => {
+          this.userLogins = logins;
         });
+        this.accountService.getProviders().then((providers) => {
+          this.loginProviders = providers;
+        });
+        this.accountService.hasPassword().then((hasPassword) => {
+          this.hasPassword = hasPassword;
+        });
+        this.accountService.currentUser().then((user) => {
+          this.user = user;
+          console.log('user', this.user);
+        });
+        this.httpClient.post<TwoFactorRegistrationUrl>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-registration`, {})
+          .subscribe((urlData) => {
+            this.twoFaRegistrationUrl = urlData.registrationUrl;
+            this.twoFaRegistrationUrlSanitized = this.domSanitizer.bypassSecurityTrustUrl(this.twoFaRegistrationUrl);
+          });
+      });
     }
   }
 

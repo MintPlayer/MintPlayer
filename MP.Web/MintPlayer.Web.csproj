@@ -25,7 +25,7 @@
     <PackageReference Include="MintPlayer.AspNetCore.OpenSearch" Version="1.1.1" />
     <PackageReference Include="MintPlayer.AspNetCore.SitemapXml" Version="2.0.1" />
     <PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="1.1.5" />
-    <PackageReference Include="MintPlayer.AspNetCore.XsrfForSpas" Version="1.0.4" />
+    <PackageReference Include="MintPlayer.AspNetCore.XsrfForSpas" Version="1.0.6" />
     <PackageReference Include="WebMarkupMin.AspNetCore3" Version="2.10.0" />
   </ItemGroup>
 

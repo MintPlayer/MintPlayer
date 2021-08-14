@@ -178,7 +178,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   logoutClicked() {
     this.accountService.logout().then(() => {
-      this.activeUser = null;
+      this.accountService.csrfRefresh().then(() => {
+        this.activeUser = null;
+      });
     }).catch((error) => {
       console.error('Could not logout', error);
     });

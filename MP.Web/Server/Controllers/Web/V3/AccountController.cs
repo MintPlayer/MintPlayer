@@ -128,7 +128,6 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[Authorize]
-		[ValidateAntiForgeryToken]
 		[HttpPost("two-factor-registration", Name = "web-v3-account-twofactor-registration")]
 		public async Task<ActionResult<TwoFactorRegistrationUrlVM>> GetTwoFactorRegistrationUrl()
 		{
@@ -429,7 +428,6 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[Authorize]
-		[ValidateAntiForgeryToken]
 		[HttpGet("password", Name = "web-v3-account-has-password")]
 		public async Task<ActionResult<bool>> GetHasPassword()
 		{
@@ -475,5 +473,15 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			await accountService.Logout();
 			return Ok();
 		}
+
+		[HttpPost("csrf-refresh", Name = "web-v3-account-csrf-refresh")]
+		public async Task<ActionResult> RefreshCsrfToken()
+        {
+			// Just an empty method that returns a new cookie with a new CSRF token.
+			// Call this method when the user has signed in/out.
+			await Task.Delay(5);
+
+			return Ok();
+        }
 	}
 }

@@ -87,12 +87,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public register() {
     this.accountService.register(this.data).then((result) => {
       this.accountService.login(this.data.user.email, this.data.password).then((login_result) => {
-        if (login_result.status === LoginStatus.success) {
-          this.router.navigate(['/']);
-          this.loginComplete.next(login_result.user);
-        } else {
-          debugger;
-        }
+        this.accountService.csrfRefresh().then(() => {
+          if (login_result.status === LoginStatus.success) {
+            this.router.navigate(['/']);
+            this.loginComplete.next(login_result.user);
+          } else {
+            debugger;
+          }
+        });
       }).catch((error) => {
         console.error('Could not register', error);
       });

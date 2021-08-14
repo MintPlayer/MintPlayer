@@ -78,6 +78,7 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
     youtubeId: '',
     dailymotionId: '',
     vimeoId: '',
+    soundCloudUrl: '',
     playerInfos: [],
     description: '',
     dateUpdate: null

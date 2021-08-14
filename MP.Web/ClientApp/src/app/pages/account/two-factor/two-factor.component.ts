@@ -34,9 +34,11 @@ export class TwoFactorComponent implements OnInit {
 
   verifyCode() {
     this.httpClient.post<string[]>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-login`, { code: this.setupCode, remember: false }).subscribe((backupCodes) => {
-      this.accountService.currentUser().then((user) => {
-        this.loginComplete.next(user);
-        this.router.navigateByUrl(this.returnUrl);
+      this.accountService.csrfRefresh().then(() => {
+        this.accountService.currentUser().then((user) => {
+          this.loginComplete.next(user);
+          this.router.navigateByUrl(this.returnUrl);
+        });
       });
     });
     return false;

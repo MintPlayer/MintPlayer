@@ -34,13 +34,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
     this.removeMetaTags();
-    //if (!!this.removeReturnurlQueryParameter) {
-    //  this.router.navigate([], {
-    //    queryParams: {
-    //      return: null
-    //    }
-    //  });
-    //}
   }
 
   //#region Add meta-tags
@@ -93,7 +86,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   password: string;
   unconfirmedEmail: boolean;
   private returnUrl: string = '';
-  private removeReturnurlQueryParameter: boolean = false;
   loginStatuses = LoginStatus;
   loginResult: LoginResult = {
     status: LoginStatus.success,
@@ -105,20 +97,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   };
 
   login() {
-    this.accountService.login(this.email, this.password).then((result) => {
-      switch (result.status) {
-        case LoginStatus.success: {
-          this.removeReturnurlQueryParameter = true;
-          this.router.navigateByUrl(this.returnUrl);
-          this.loginComplete.next(result.user);
-        } break;
-        case LoginStatus.requiresTwoFactor: {
-          this.router.navigate(['/account', 'two-factor'], { queryParams: { return: this.returnUrl } });
-        } break;
-        default: {
-          this.loginResult = result;
-        } break;
-      }
+    this.accountService.login(this.email, this.password).then((loginResult) => {
+      this.accountService.csrfRefresh().then(() => {
+        switch (loginResult.status) {
+          case LoginStatus.success: {
+            this.router.navigateByUrl(this.returnUrl);
+            this.loginComplete.next(loginResult.user);
+          } break;
+          case LoginStatus.requiresTwoFactor: {
+            this.router.navigate(['/account', 'two-factor'], { queryParams: { return: this.returnUrl } });
+          } break;
+          default: {
+            this.loginResult = loginResult;
+          } break;
+        }
+      });
     }).catch((error: HttpErrorResponse) => {
       switch (error.status) {
         case 403: {
@@ -167,9 +160,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     console.log('login result', result);
     switch (result.status) {
       case LoginStatus.success: {
-        this.accountService.currentUser().then((user) => {
-          this.loginComplete.next(user);
-          this.router.navigateByUrl(this.returnUrl);
+        this.accountService.csrfRefresh().then(() => {
+          this.accountService.currentUser().then((user) => {
+            this.loginComplete.next(user);
+            this.router.navigateByUrl(this.returnUrl);
+          });
         });
         break;
       }

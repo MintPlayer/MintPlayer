@@ -69,6 +69,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     youtubeId: '',
     dailymotionId: '',
     vimeoId: '',
+    soundCloudUrl: '',
     playerInfos: [],
     description: '',
     dateUpdate: null
