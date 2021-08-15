@@ -89,8 +89,19 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<Artist>> Put(int id, [FromBody] Artist artist)
 		{
-			var updated_artist = await artistService.UpdateArtist(artist);
-			return Ok(updated_artist);
+            try
+			{
+				var updated_artist = await artistService.UpdateArtist(artist);
+				return Ok(updated_artist);
+			}
+			catch (Data.Exceptions.ConcurrencyException concurrencyEx)
+			{
+				return Conflict();
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500);
+			}
 		}
 
 		// DELETE: web/Artist/5

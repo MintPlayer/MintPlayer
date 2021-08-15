@@ -9,6 +9,7 @@ using MintPlayer.Data.Repositories;
 using MintPlayer.Data.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 
 namespace MintPlayer.Web.Server.Controllers.Api
 {
@@ -105,8 +106,19 @@ namespace MintPlayer.Web.Server.Controllers.Api
 		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 		public async Task<ActionResult<Song>> Put([FromBody] Song song)
 		{
-			var updated_song = await songService.UpdateSong(song);
-			return Ok(updated_song);
+			try
+			{
+				var updated_song = await songService.UpdateSong(song);
+				return Ok(updated_song);
+			}
+			catch (Data.Exceptions.ConcurrencyException concurrencyEx)
+			{
+				return Conflict();
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500);
+			}
 		}
 
 		/// <summary>Updates the timeline for a specific song.</summary>

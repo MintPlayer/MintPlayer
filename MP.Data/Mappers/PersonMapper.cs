@@ -39,6 +39,7 @@ namespace MintPlayer.Data.Mappers
 
 					Text = person.Text,
 					DateUpdate = person.DateUpdate ?? person.DateInsert,
+					ConcurrencyStamp = Convert.ToBase64String(person.ConcurrencyStamp),
 
 					Artists = person.Artists
 						.Select(ap => artistMapper.Entity2Dto(ap.Artist, false, include_invisible_media))
@@ -63,7 +64,8 @@ namespace MintPlayer.Data.Mappers
 					Died = person.Died,
 
 					Text = person.Text,
-					DateUpdate = person.DateUpdate ?? person.DateInsert
+					DateUpdate = person.DateUpdate ?? person.DateInsert,
+                    ConcurrencyStamp = Convert.ToBase64String(person.ConcurrencyStamp),
 				};
 			}
 		}

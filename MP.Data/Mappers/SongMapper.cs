@@ -45,14 +45,16 @@ namespace MintPlayer.Data.Mappers
                         Timeline = lastLyric?.Timeline
                     },
 
-                    Text = song.Text,
                     Description = song.Description,
                     YoutubeId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Youtube)?.Id,
                     DailymotionId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.DailyMotion)?.Id,
                     VimeoId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Vimeo)?.Id,
                     SoundCloudUrl = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.SoundCloud)?.Id,
                     PlayerInfos = songHelper.GetPlayerInfos(song.Media).ToList(),
+
+                    Text = song.Text,
                     DateUpdate = song.DateUpdate ?? song.DateInsert,
+                    ConcurrencyStamp = Convert.ToBase64String(song.ConcurrencyStamp),
 
                     Artists = song.Artists
                         .Where(@as => @as.Credited)
@@ -87,14 +89,16 @@ namespace MintPlayer.Data.Mappers
                         Timeline = lastLyric?.Timeline
                     },
 
-                    Text = song.Text,
                     Description = song.Description,
                     YoutubeId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Youtube)?.Id,
                     DailymotionId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.DailyMotion)?.Id,
                     VimeoId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Vimeo)?.Id,
                     SoundCloudUrl = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.SoundCloud)?.Id,
                     PlayerInfos = playerInfos,
-                    DateUpdate = song.DateUpdate ?? song.DateInsert
+
+                    Text = song.Text,
+                    DateUpdate = song.DateUpdate ?? song.DateInsert,
+                    ConcurrencyStamp = Convert.ToBase64String(song.ConcurrencyStamp),
                 };
             }
         }

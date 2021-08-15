@@ -186,6 +186,11 @@ namespace MintPlayer.Data.Repositories
 				.Include(p => p.Tags)
 				.SingleOrDefaultAsync(p => p.Id == person.Id);
 
+			if (Convert.ToBase64String(entity_person.ConcurrencyStamp) != person.ConcurrencyStamp)
+			{
+				throw new Exceptions.ConcurrencyException();
+			}
+
 			// Set new properties
 			entity_person.FirstName = person.FirstName;
 			entity_person.LastName = person.LastName;

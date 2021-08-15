@@ -196,6 +196,11 @@ namespace MintPlayer.Data.Repositories
                 .Include(a => a.Tags)
                 .SingleOrDefaultAsync(a => a.Id == artist.Id);
 
+            if (Convert.ToBase64String(artist_entity.ConcurrencyStamp) != artist.ConcurrencyStamp)
+            {
+                throw new Exceptions.ConcurrencyException();
+            }
+
             // Set new properties
             artist_entity.Name = artist.Name;
             artist_entity.YearStarted = artist.YearStarted;

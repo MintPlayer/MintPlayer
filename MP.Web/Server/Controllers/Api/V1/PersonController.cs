@@ -9,6 +9,7 @@ using MintPlayer.Data.Repositories;
 using MintPlayer.Data.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Data;
 
 namespace MintPlayer.Web.Server.Controllers.Api
 {
@@ -95,8 +96,19 @@ namespace MintPlayer.Web.Server.Controllers.Api
 		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 		public async Task<ActionResult<Person>> Put(int id, [FromBody] Person person)
 		{
-			var updated_person = await personService.UpdatePerson(person);
-			return Ok(updated_person);
+			try
+			{
+				var updated_person = await personService.UpdatePerson(person);
+				return Ok(updated_person);
+			}
+			catch (Data.Exceptions.ConcurrencyException concurrencyEx)
+			{
+				return Conflict();
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500);
+			}
 		}
 
 		/// <summary>Deletes a person from the database.</summary>

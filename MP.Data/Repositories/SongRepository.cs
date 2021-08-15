@@ -216,6 +216,11 @@ namespace MintPlayer.Data.Repositories
 				.Include(s => s.Tags)
 				.SingleOrDefaultAsync(s => s.Id == song.Id);
 
+			if (Convert.ToBase64String(song_entity.ConcurrencyStamp) != song.ConcurrencyStamp)
+			{
+				throw new Exceptions.ConcurrencyException();
+			}
+
 			// Set new properties
 			song_entity.Title = song.Title;
 			song_entity.Released = song.Released;

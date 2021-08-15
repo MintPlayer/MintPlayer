@@ -37,6 +37,7 @@ namespace MintPlayer.Data.Mappers
 
                     Text = artist.Text,
                     DateUpdate = artist.DateUpdate ?? artist.DateInsert,
+                    ConcurrencyStamp = Convert.ToBase64String(artist.ConcurrencyStamp),
 
                     PastMembers = artist.Members
                         .Where(ap => !ap.Active)
@@ -66,7 +67,8 @@ namespace MintPlayer.Data.Mappers
                     YearQuit = artist.YearQuit,
 
                     Text = artist.Text,
-                    DateUpdate = artist.DateUpdate ?? artist.DateInsert
+                    DateUpdate = artist.DateUpdate ?? artist.DateInsert,
+                    ConcurrencyStamp = Convert.ToBase64String(artist.ConcurrencyStamp),
                 };
             }
         }

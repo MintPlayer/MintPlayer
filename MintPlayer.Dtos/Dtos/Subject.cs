@@ -28,8 +28,12 @@ namespace MintPlayer.Dtos.Dtos
 		[XmlElement(Namespace = "https://mintplayer.com/music")]
 		public string Text { get; internal set; }
 
-		#region DateUpdate
-		[XmlIgnore]
+		[DataMember]
+		[XmlElement(Namespace = "https://mintplayer.com/music")]
+        public string ConcurrencyStamp { get; set; }
+
+        #region DateUpdate
+        [XmlIgnore]
 		[JsonIgnore]
 		[Nest.Ignore]
 		[IgnoreDataMember]
