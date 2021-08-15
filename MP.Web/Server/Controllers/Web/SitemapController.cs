@@ -34,6 +34,7 @@ namespace MintPlayer.Web.Server.Controllers.Web
         // GET: web/Sitemap
         [Produces("text/xml")]
         [HttpGet(Name = "web-sitemap-index")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<SitemapIndex> Index()
         {
             const int per_page = 100;
@@ -52,6 +53,7 @@ namespace MintPlayer.Web.Server.Controllers.Web
         // GET: web/Sitemap/{subject}/{count}/{page}
         [Produces("text/xml")]
         [HttpGet("{subject}/{count}/{page}", Name = "web-sitemap-sitemap")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> Sitemap(string subject, int count, int page)
         {
             string[] languages = new string[] { "fr", "nl" };

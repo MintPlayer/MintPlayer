@@ -44,6 +44,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// POST: web/Account/register
 		[ValidateAntiForgeryToken]
 		[HttpPost("register", Name = "web-v3-account-register")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> Register([FromBody]UserDataVM userCreateVM)
 		{
 			try
@@ -63,6 +64,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		[ValidateAntiForgeryToken]
 		[HttpPost("verify/resend", Name = "web-v3-account-verify-resend")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> ResendConfirmationEmail([FromBody] ResendConfirmationEmailVM model)
 		{
             try
@@ -77,6 +79,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[HttpGet("verify", Name = "web-v3-account-verify")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> Verify([FromQuery] string email, [FromQuery] string code)
         {
             try
@@ -99,6 +102,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// POST: web/Account/login
 		[ValidateAntiForgeryToken]
 		[HttpPost("login", Name = "web-v3-account-login")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<LoginResult>> Login([FromBody]LoginVM loginVM)
 		{
 			try
@@ -129,6 +133,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		[Authorize]
 		[HttpPost("two-factor-registration", Name = "web-v3-account-twofactor-registration")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<TwoFactorRegistrationUrlVM>> GetTwoFactorRegistrationUrl()
 		{
 			const string appName = "MintPlayer";
@@ -146,6 +151,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Authorize]
 		[ValidateAntiForgeryToken]
         [HttpPost("two-factor-setup", Name = "web-v3-account-twofactor-setup")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<IEnumerable<string>>> SetupTwoFactor([FromBody] TwoFactorSetupVM twoFactorSetup)
         {
             try
@@ -171,6 +177,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpPost("two-factor-disable", Name = "web-v3-account-twofactor-disable")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> DisableTwoFactor([FromBody] TwoFactorDisableVM twoFactorDisable)
 		{
 			try
@@ -195,6 +202,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpPut("two-factor-bypass", Name = "web-v3-account-twofactor-bypass")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> BypassTwoFactorForExternalLogins([FromBody] TwoFactorBypassVM twoFactorBypass)
 		{
 			try
@@ -218,6 +226,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		[ValidateAntiForgeryToken]
 		[HttpPost("two-factor-login")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<User> TwoFactorLogin([FromBody] TwoFactorLoginVM twoFactorLoginVM)
         {
 			var user = await accountService.TwoFactorLogin(twoFactorLoginVM.Code, twoFactorLoginVM.Remember);
@@ -227,6 +236,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/providers
 		[AllowAnonymous]
 		[HttpGet("providers", Name = "web-v3-account-external-providers")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<IEnumerable<string>>> Providers()
 		{
 			var result = await accountService.GetProviders();
@@ -236,10 +246,11 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/connect/{provider}
 		[AllowAnonymous]
 		[HttpGet("connect/{medium}/{provider}", Name = "web-v3-account-external-connect-challenge")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 #if RELEASE
         [Host("external.mintplayer.com")]
 #endif
-        public async Task<ActionResult> ExternalLogin([FromRoute]string medium, [FromRoute]string provider)
+		public async Task<ActionResult> ExternalLogin([FromRoute]string medium, [FromRoute]string provider)
 		{
 			var redirectUrl = Url.RouteUrl("web-v3-account-external-connect-callback", new { medium, provider });
 			var properties = await accountService.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
@@ -248,10 +259,11 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		// GET: web/Account/connect/{provider}/callback
 		[HttpGet("connect/{medium}/{provider}/callback", Name = "web-v3-account-external-connect-callback")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 #if RELEASE
         [Host("external.mintplayer.com")]
 #endif
-        public async Task<ActionResult> ExternalLoginCallback([FromRoute]string medium, [FromRoute]string provider)
+		public async Task<ActionResult> ExternalLoginCallback([FromRoute]string medium, [FromRoute]string provider)
 		{
 			try
 			{
@@ -314,6 +326,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Host("external.mintplayer.com")]
 #endif
         [HttpGet("two-factor-login-external/{medium}/{provider}", Name = "web-v3-account-external-twofactor")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public ActionResult ExternalLoginTwoFactor([FromRoute] string medium, [FromRoute] string provider)
 		{
 			var model = new ExternalLoginTwoFactorVM
@@ -328,6 +341,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 #endif
 		[ValidateAntiForgeryToken]
         [HttpPost("two-factor-login-external/{medium}/{provider}", Name = "web-v3-account-external-twofactor-callback")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> ExternalLoginTwoFactorCallback([FromRoute] string medium, [FromRoute] string provider, [FromForm] ExternalLoginTwoFactorVM externalLoginTwoFactorVM)
 		{
             try
@@ -354,6 +368,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/logins
 		[Authorize]
 		[HttpGet("logins", Name = "web-v3-account-external-logins")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<IEnumerable<string>>> GetExternalLogins()
 		{
 			var logins = await accountService.GetExternalLogins(User);
@@ -363,10 +378,11 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/add/{provider}
 		[Authorize]
 		[HttpGet("add/{medium}/{provider}", Name = "web-v3-account-external-add-challenge")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 #if RELEASE
 		[Host("external.mintplayer.com")]
 #endif
-        public async Task<ActionResult> AddExternalLogin([FromRoute]string medium, [FromRoute]string provider)
+		public async Task<ActionResult> AddExternalLogin([FromRoute]string medium, [FromRoute]string provider)
 		{
 			var redirectUrl = Url.RouteUrl("web-v3-account-external-add-callback", new { medium, provider });
 			var properties = await accountService.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
@@ -377,10 +393,11 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpGet("add/{medium}/{provider}/callback", Name = "web-v3-account-external-add-callback")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 #if RELEASE
 		[Host("external.mintplayer.com")]
 #endif
-        public async Task<ActionResult> AddExternalLoginCallback([FromRoute] string medium, [FromRoute] string provider)
+		public async Task<ActionResult> AddExternalLoginCallback([FromRoute] string medium, [FromRoute] string provider)
         {
 			try
 			{
@@ -412,6 +429,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpDelete("logins/{provider}", Name = "web-v3-account-external-delete")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> DeleteLogin(string provider)
 		{
 			await accountService.RemoveExternalLogin(User, provider);
@@ -421,6 +439,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/current-user
 		[Authorize]
 		[HttpGet("current-user", Name = "web-v3-account-currentuser")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<User>> GetCurrentUser()
 		{
 			var user = await accountService.GetCurrentUser(User);
@@ -429,6 +448,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		[Authorize]
 		[HttpGet("password", Name = "web-v3-account-has-password")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<bool>> GetHasPassword()
 		{
 			var hasPassword = await accountService.GetHasPassword(User);
@@ -438,6 +458,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpPut("password", Name = "web-v3-account-update-password")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> UpdatePassword([FromBody] UpdatePasswordVM updatePassword)
         {
             try
@@ -458,6 +479,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Account/roles
 		[Authorize]
 		[HttpGet("roles", Name = "web-v3-account-roles")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
 		{
 			var roles = await accountService.GetCurrentRoles(User);
@@ -468,6 +490,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpPost("logout", Name = "web-v3-account-logout")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> Logout()
 		{
 			await accountService.Logout();
@@ -475,6 +498,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[HttpPost("csrf-refresh", Name = "web-v3-account-csrf-refresh")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> RefreshCsrfToken()
         {
 			// Just an empty method that returns a new cookie with a new CSRF token.

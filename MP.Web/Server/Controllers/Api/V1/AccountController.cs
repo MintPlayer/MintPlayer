@@ -9,11 +9,12 @@ using MintPlayer.Data.Exceptions.Account;
 using MintPlayer.Data.Repositories;
 using MintPlayer.Data.Services;
 using MintPlayer.Web.Server.ViewModels.Account;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace MintPlayer.Web.Server.Controllers.Api
 {
 	[ApiController]
-	[Route("api/[controller]")]
+	[Route("api/v1/[controller]")]
 	public class AccountController : Controller
 	{
 		private IAccountService accountService;
@@ -22,13 +23,14 @@ namespace MintPlayer.Web.Server.Controllers.Api
 			this.accountService = accountService;
 		}
 
-		// POST: api/Account/register
+		/// <summary>Registers a new MintPlayer user.</summary>
+		/// <param name="registrationInformation">Registration data for the new user.</param>
 		[HttpPost("register", Name = "api-account-register")]
-		public async Task<ActionResult> Register([FromBody]UserDataVM userCreateVM)
+		public async Task<ActionResult> Register([FromBody]UserDataVM registrationInformation)
 		{
 			try
 			{
-				await accountService.Register(userCreateVM.User, userCreateVM.Password);
+				await accountService.Register(registrationInformation.User, registrationInformation.Password);
 				return Ok();
 			}
 			catch (RegistrationException registrationEx)
@@ -41,13 +43,15 @@ namespace MintPlayer.Web.Server.Controllers.Api
 			}
 		}
 
-		// POST: api/Account/login
+		/// <summary>Attempts to login a user and generates a Bearer token for that user.</summary>
+		/// <param name="loginInfo">Login credentials for the user.</param>
+		/// <returns>An object containing the status, user and token. If the login failed contains the error.</returns>
 		[HttpPost("login", Name = "api-account-login")]
-		public async Task<ActionResult<LoginResult>> Login([FromBody]LoginVM loginVM)
+		public async Task<ActionResult<LoginResult>> Login([FromBody]LoginVM loginInfo)
 		{
 			try
 			{
-				var login_result = await accountService.LocalLogin(loginVM.Email, loginVM.Password, false);
+				var login_result = await accountService.LocalLogin(loginInfo.Email, loginInfo.Password, false);
 				return Ok(login_result);
 			}
 			catch (LoginException loginEx)
@@ -60,18 +64,20 @@ namespace MintPlayer.Web.Server.Controllers.Api
 			}
 		}
 
-		// GET: api/Account/current-user
-		[Authorize(AuthenticationSchemes = "Bearer")]
+		/// <summary>Check who is currently signed in.</summary>
+		/// <returns>The currently signed in user.</returns>
 		[HttpGet("current-user", Name = "api-account-currentuser")]
+		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 		public async Task<ActionResult<User>> GetCurrentUser()
 		{
 			var user = await accountService.GetCurrentUser(User);
 			return Ok(user);
 		}
 
-		// GET: api/Account/roles
-		[Authorize(AuthenticationSchemes = "Bearer")]
+		/// <summary>Check the roles for the current user.</summary>
+		/// <returns>A list of roles for the currently signed-in user.</returns>
 		[HttpGet("roles", Name = "api-account-roles")]
+		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 		public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
 		{
 			var roles = await accountService.GetCurrentRoles(User);

@@ -66,7 +66,7 @@ namespace MintPlayer.Data.Repositories
                 default:
                     throw new ArgumentException(nameof(playlistScope));
             }
-            
+
 
             // 1) Sort
             var ordered_playlists = request.SortDirection == System.ComponentModel.ListSortDirection.Descending
@@ -258,8 +258,15 @@ namespace MintPlayer.Data.Repositories
                 .Where(p => p.User == current_user)
                 .SingleOrDefaultAsync(p => p.Id == playlistId);
 
-            // Mark as deleted
-            playlist.IsDeleted = true;
+            if (playlist != null)
+            {
+                // Mark as deleted
+                playlist.IsDeleted = true;
+            }
+            else
+            {
+                throw new NotFoundException();
+            }
         }
 
         public async Task SaveChangesAsync()

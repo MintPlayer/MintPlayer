@@ -22,6 +22,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		// POST: web/Person/page
 		[HttpPost("page", Name = "web-v3-person-page")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<Pagination.PaginationResponse<Person>>> PagePeople([FromBody] Pagination.PaginationRequest<Person> request)
 		{
 			var people = await personService.PagePeople(request);
@@ -30,6 +31,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		// GET: web/Person
 		[HttpGet(Name = "web-v3-person-list")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<IEnumerable<Person>>> Get([FromHeader]bool include_relations = false)
 		{
 			var people = await personService.GetPeople(include_relations, false);
@@ -38,6 +40,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		// GET: web/Person/5
 		[HttpGet("{id}", Name = "web-v3-person-get", Order = 1)]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<Person>> Get(int id, [FromHeader]bool include_relations = false)
 		{
 			var person = await personService.GetPerson(id, include_relations, false);
@@ -50,6 +53,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpPost("favorite", Name = "web-v3-person-favorite-page")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<Pagination.PaginationResponse<Person>>> PageFavoriteArtists([FromBody] Pagination.PaginationRequest<Person> request)
 		{
 			var artists = await personService.PageLikedPeople(request);
@@ -60,6 +64,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpGet("favorite", Name = "web-v3-person-favorite")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<IEnumerable<Person>>> FavoritePeople()
 		{
 			var people = await personService.GetLikedPeople();
@@ -70,6 +75,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpPost(Name = "web-v3-person-create")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<Person>> Post([FromBody] Person person)
 		{
 			var new_person = await personService.InsertPerson(person);
@@ -80,6 +86,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpPut("{id}", Name = "web-v3-person-update")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<Person>> Put(int id, [FromBody] Person person)
 		{
 			var updated_person = await personService.UpdatePerson(person);
@@ -90,6 +97,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpDelete("{id}", Name = "web-v3-person-delete")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> Delete(int id)
 		{
 			await personService.DeletePerson(id);

@@ -22,6 +22,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         // POST: web/v3/Playlist/my/page
         [Authorize]
         [HttpPost("my/page", Name = "web-v3-playlist-my-page")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PageMyPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
         {
             var playlists = await playlistService.PagePlaylists(request, Data.Enums.ePlaylistScope.My);
@@ -30,6 +31,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
         // POST: web/v3/Playlist/public/page
         [HttpPost("public/page", Name = "web-v3-playlist-public-page")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PagePublicPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
         {
             var playlists = await playlistService.PagePlaylists(request, Data.Enums.ePlaylistScope.Public);
@@ -39,6 +41,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         // GET web/v3/Playlist/my
         [Authorize]
         [HttpGet("my", Name = "web-v3-playlist-my-list")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<IEnumerable<Playlist>>> GetMyPlaylists([FromHeader] bool include_relations = false)
         {
             var playlists = await playlistService.GetPlaylists(Data.Enums.ePlaylistScope.My, include_relations);
@@ -47,6 +50,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
         // GET web/v3/Playlist/public
         [HttpGet("public", Name = "web-v3-playlist-public-list")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<IEnumerable<Playlist>>> GetPublicPlaylists([FromHeader] bool include_relations = false)
         {
             var playlists = await playlistService.GetPlaylists(Data.Enums.ePlaylistScope.Public, include_relations);
@@ -55,6 +59,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
         // GET web/Playlist/5
         [HttpGet("{id}", Name = "web-v3-playlist-get", Order = 1)]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Playlist>> Get(int id, [FromHeader]bool include_relations = false)
         {
             try
@@ -82,6 +87,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Authorize]
 		[ValidateAntiForgeryToken]
         [HttpPost(Name = "web-v3-playlist-create")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Playlist>> Post([FromBody] Playlist playlist)
         {
             try
@@ -99,6 +105,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Authorize]
 		[ValidateAntiForgeryToken]
         [HttpPut("{id}", Name = "web-v3-playlist-update")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Playlist>> Put(int id, [FromBody] Playlist playlist)
         {
             var updated_playlist = await playlistService.UpdatePlaylist(playlist);
@@ -109,6 +116,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Authorize]
 		[ValidateAntiForgeryToken]
         [HttpDelete("{id}", Name = "web-v3-playlist-delete")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult> Delete(int id)
         {
             await playlistService.DeletePlaylist(id);

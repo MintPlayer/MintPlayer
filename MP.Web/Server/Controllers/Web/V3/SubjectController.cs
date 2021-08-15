@@ -21,6 +21,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[HttpGet("{subject_id}/likes", Name = "web-v3-subject-getlikes")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<SubjectLikeResult>> Likes([FromRoute]int subject_id)
 		{
 			var result = await subjectService.GetLikes(subject_id);
@@ -30,6 +31,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpPost("{subject_id}/likes", Name = "web-v3-subject-like")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<SubjectLikeResult>> Like([FromRoute]int subject_id, [FromBody]bool like)
 		{
 			var result = await subjectService.Like(subject_id, like);
@@ -38,6 +40,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		[Authorize]
 		[HttpGet("favorite", Name = "web-v3-subject-favorite")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<IEnumerable<Subject>>> FavoriteSubjects()
 		{
 			var result = await subjectService.GetLikedSubjects();
@@ -45,6 +48,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[HttpGet("search/suggest/{subjects_concat}/{search_term}", Name = "web-v3-subject-suggest")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<IEnumerable<Subject>>> Suggest([FromRoute]string subjects_concat, [FromRoute]string search_term, [FromHeader]bool include_relations = false)
 		{
 			var subjects = subjects_concat.Split('-');
@@ -53,6 +57,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		}
 
 		[HttpGet("search/{subjects_concat}/{search_term}", Name = "web-v3-subject-search")]
+		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<SearchResults>> Search([FromRoute]string subjects_concat, [FromRoute]string search_term)
 		{
 			var subjects = subjects_concat.Split('-');

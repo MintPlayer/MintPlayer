@@ -103,6 +103,9 @@
     "github": {
       "github": "GitHub",
       "follow": "Volg ons op GitHub"
+    },
+    "swagger": {
+      "swagger": "Swagger"
     }
   },
   "management": {

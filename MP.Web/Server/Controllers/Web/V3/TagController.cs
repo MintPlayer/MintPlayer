@@ -22,6 +22,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         [HttpPost("page", Name = "web-v3-tag-page")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Pagination.PaginationResponse<Tag>>> PageTagCategories([FromBody] Pagination.PaginationRequest<Tag> request)
         {
             var tags = await tagService.PageTags(request);
@@ -29,6 +30,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         [HttpPost("suggest", Name = "web-v3-tag-suggest")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<IEnumerable<Tag>>> Suggest([FromBody] SuggestVM suggestVM, [FromHeader(Name = "include_relations")] bool include_relations = false)
         {
             var tags = await tagService.Suggest(suggestVM.SearchTerm, include_relations);
@@ -36,6 +38,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         [HttpPost("search", Name = "web-v3-tag-search")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<IEnumerable<Tag>>> Search([FromBody] SearchVM searchVM)
         {
             var tags = await tagService.Search(searchVM.SearchTerm);
@@ -43,6 +46,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         [HttpGet(Name = "web-v3-tag-list")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<IEnumerable<Tag>>> Get([FromHeader]bool root_tags_only = true, [FromHeader] bool include_relations = false)
         {
             var tags = await tagService.GetTags(root_tags_only, include_relations);
@@ -50,6 +54,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         [HttpGet("{id}", Name = "web-v3-tag-get", Order = 1)]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Tag>> Get(int id, [FromHeader] bool include_relations = false)
         {
             var tag = await tagService.GetTag(id, include_relations);
@@ -61,6 +66,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Authorize]
 		[ValidateAntiForgeryToken]
         [HttpPost(Name = "web-v3-tag-create")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Tag>> Post([FromBody] Tag tag)
         {
             var newTag = await tagService.InsertTag(tag);
@@ -70,6 +76,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Authorize]
 		[ValidateAntiForgeryToken]
         [HttpPut("{id}", Name = "web-v3-tag-update")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Tag>> Put(int id, [FromBody] Tag tag)
         {
             var updatedTag = await tagService.UpdateTag(tag);
@@ -79,6 +86,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Authorize]
 		[ValidateAntiForgeryToken]
         [HttpDelete("{id}", Name = "web-v3-tag-delete")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult> Delete(int id)
         {
             await tagService.DeleteTag(id);

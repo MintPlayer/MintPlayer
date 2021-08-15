@@ -7,6 +7,7 @@ namespace MintPlayer.Web.Server.Controllers.Web
     {
 		// GET: robots.txt
         [HttpGet(Name = "web-robots")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Index()
         {
             Response.ContentType = "text/plain";

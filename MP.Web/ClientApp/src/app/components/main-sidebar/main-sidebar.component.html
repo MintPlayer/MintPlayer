@@ -146,6 +146,12 @@
             </a>
           </li>
           <li>
+            <a [advRouterLink]="'/swagger'" rel="noopener noreferrer" [title]="'community.github.follow' | translate" target="_blank" (click)="onItemSelected()">
+              <i class="fa fa-code"></i>
+              {{ 'community.swagger.swagger' | translate }}
+            </a>
+          </li>
+          <li>
             <a href="https://github.com/MintPlayer/MintPlayer" rel="noopener noreferrer" [title]="'community.github.follow' | translate" target="_blank" (click)="onItemSelected()">
               <i class="fa fa-github"></i>
               {{ 'community.github.github' | translate }}
@@ -155,12 +161,6 @@
           <a [advRouterLink]='["/community","forum"]' title="MintPlayer forum" (click)="onItemSelected()">
             <i class="fa fa-comments"></i>
             Forum
-          </a>
-        </li>
-        <li>
-          <a [advRouterLink]='["/community","developers"]' title="Tools for developers" (click)="onItemSelected()">
-            <i class="fa fa-code"></i>
-            Developers
           </a>
         </li>-->
         </ul>

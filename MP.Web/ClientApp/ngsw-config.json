@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
-  "version": 584,
+  "version": 586,
   "assetGroups": [
     {
       "name": "app",
@@ -93,7 +93,9 @@
     "!/**/*__*/**",
     "!/web/v3/Account/connect/**",
     "!/web/v3/Account/add/**",
-    "!/api/**"
+    "!/api/**",
+    "!/swagger",
+    "!/swagger/**"
   ],
   "cacheConfig": {
     "strategy": "freshness"

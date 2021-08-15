@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.Data.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MintPlayer.Data.Exceptions;
 
 namespace MintPlayer.Web.Server.Controllers.Api
 {
     [Controller]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class PlaylistController : Controller
     {
         private readonly IPlaylistService playlistService;
@@ -19,16 +21,20 @@ namespace MintPlayer.Web.Server.Controllers.Api
             this.playlistService = playlistService;
         }
 
-        // POST: api/Playlist/page
+        /// <summary>Page through the current user's playlists in the database.</summary>
+        /// <param name="request">Object containing the pagination information.</param>
+        /// <returns>A slice of the playlists for the current user.</returns>
         [HttpPost("my/page", Name = "api-playlist-my-page")]
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PageMyPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
         {
             var playlists = await playlistService.PagePlaylists(request, Data.Enums.ePlaylistScope.My);
             return Ok(playlists);
         }
 
-        // POST: api/Playlist/page
+        /// <summary>Page through the public playlists in the database.</summary>
+        /// <param name="request">Object containing the pagination information.</param>
+        /// <returns>A slice of the public playlists.</returns>
         [HttpPost("public/page", Name = "api-playlist-public-page")]
         public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PagePublicPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
         {
@@ -36,16 +42,20 @@ namespace MintPlayer.Web.Server.Controllers.Api
             return Ok(playlists);
         }
 
-        // GET api/Playlist
+        /// <summary>Get the playlists for the current user from the database.</summary>
+        /// <param name="include_relations">Specifies whether the related entities should be included in the response.</param>
+        /// <returns>The playlists for the current user.</returns>
         [HttpGet("my", Name = "api-playlist-my-list")]
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<Playlist>>> GetMyPlaylists([FromHeader] bool include_relations = false)
         {
             var playlists = await playlistService.GetPlaylists(Data.Enums.ePlaylistScope.My, include_relations);
             return Ok(playlists);
         }
 
-        // GET api/Playlist
+        /// <summary>Get the public playlists from the database.</summary>
+        /// <param name="include_relations">Specifies whether the related entities should be included in the response.</param>
+        /// <returns>A list of the public playlists.</returns>
         [HttpGet("public", Name = "api-playlist-public-list")]
         public async Task<ActionResult<IEnumerable<Playlist>>> GetPublicPlaylists([FromHeader] bool include_relations = false)
         {
@@ -53,9 +63,12 @@ namespace MintPlayer.Web.Server.Controllers.Api
             return Ok(playlists);
         }
 
-        // GET api/5
+        /// <summary>Get a specific playlist from the database.</summary>
+        /// <param name="id">The id of the playlist to retrieve.</param>
+        /// <param name="include_relations">Specifies whether the related entities should be included in the response.</param>
+        /// <returns>The playlist with the specified id.</returns>
         [HttpGet("{id}", Name = "api-playlist-get", Order = 1)]
-        public async Task<ActionResult<Playlist>> Get(int id, [FromHeader]bool include_relations = false)
+        public async Task<ActionResult<Playlist>> GetPlaylist(int id, [FromHeader] bool include_relations = false)
         {
             try
             {
@@ -78,30 +91,47 @@ namespace MintPlayer.Web.Server.Controllers.Api
             }
         }
 
-        // POST api/Playlist
+        /// <summary>Creates a new playlist in the database.</summary>
+        /// <param name="playlist">Playlist to be inserted in the database.</param>
+        /// <returns>The newly created playlist with the newly assigned id.</returns>
         [HttpPost(Name = "api-playlist-create")]
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Playlist>> Post([FromBody] Playlist playlist)
         {
             var new_playlist = await playlistService.InsertPlaylist(playlist);
             return Ok(new_playlist);
         }
 
-        // PUT api/Playlist/5
+        /// <summary>Updates a playlist in the database.</summary>
+        /// <param name="playlist">New playlist information.</param>
+        /// <returns>The updated playlist.</returns>
         [HttpPut("{id}", Name = "api-playlist-update")]
-        [Authorize]
-        public async Task<ActionResult<Playlist>> Put(int id, [FromBody] Playlist playlist)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult<Playlist>> Put([FromBody] Playlist playlist)
         {
             var updated_playlist = await playlistService.UpdatePlaylist(playlist);
             return Ok(updated_playlist);
         }
 
-        // DELETE api/Playlist/5
+        /// <summary>Deletes a playlist from the database.</summary>
+        /// <param name="id">Id of the playlist to delete.</param>
         [HttpDelete("{id}", Name = "api-playlist-delete")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Delete(int id)
         {
-            await playlistService.DeletePlaylist(id);
-            return Ok();
+            try
+            {
+                await playlistService.DeletePlaylist(id);
+                return Ok();
+            }
+            catch (NotFoundException notFoundEx)
+            {
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         [HttpPost("page", Name = "web-v3-tagcategory-page")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Pagination.PaginationResponse<TagCategory>>> PageTagCategories([FromBody] Pagination.PaginationRequest<TagCategory> request)
         {
             var categories = await tagCategoryService.PageTagCategories(request);
@@ -28,6 +29,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         [HttpGet(Name = "web-v3-tagcategory-list")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<IEnumerable<TagCategory>>> Get([FromHeader] bool include_relations = false)
         {
             var categories = await tagCategoryService.GetTagCategories(include_relations);
@@ -35,6 +37,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         }
 
         [HttpGet("{id}", Name = "web-v3-tagcategory-get", Order = 1)]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TagCategory>> Get(int id, [FromHeader] bool include_relations = false)
         {
             var category = await tagCategoryService.GetTagCategory(id, include_relations);
@@ -46,6 +49,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Authorize]
 		[ValidateAntiForgeryToken]
         [HttpPost(Name = "web-v3-tagcategory-create")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TagCategory>> Post([FromBody] TagCategory tagCategory)
         {
             var newTagCategory = await tagCategoryService.InsertTagCategory(tagCategory);
@@ -55,6 +59,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Authorize]
 		[ValidateAntiForgeryToken]
         [HttpPut("{id}", Name = "web-v3-tagcategory-update")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<TagCategory>> Put(int id, [FromBody] TagCategory tagCategory)
         {
             var updatedTagCategory = await tagCategoryService.UpdateTagCategory(tagCategory);
@@ -64,6 +69,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [Authorize]
 		[ValidateAntiForgeryToken]
         [HttpDelete("{id}", Name = "web-v3-tagcategory-delete")]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult> Delete(int id)
         {
             await tagCategoryService.DeleteTagCategory(id);
