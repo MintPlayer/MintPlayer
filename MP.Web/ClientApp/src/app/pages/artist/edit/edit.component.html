@@ -20,7 +20,7 @@
         <div class="form-group row mb-3">
           <label [appFor]="txt_name" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'artists.name' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <input type="text" [(ngModel)]="artist.name" class="form-control" #txt_name name="name" [focusOnLoad] />
+            <input type="text" [(ngModel)]="artist.name" class="form-control" #txt_name name="name" autofocus />
           </div>
         </div>
         <div class="form-group row mb-3">
