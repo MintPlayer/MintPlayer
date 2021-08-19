@@ -14,7 +14,7 @@
     <div class="form-group row mb-3">
       <label [appFor]="txt_description" class="col-form-label col-sm-4 col-xl-2">{{ 'global.description' | translate }}</label>
       <div class="col-sm-8 col-xl-10">
-        <input type="text" [(ngModel)]="mediumType.description" class="form-control" #txt_description name="description" autofocus />
+        <input type="text" [(ngModel)]="mediumType.description" class="form-control" #txt_description name="description" [focusOnLoad] />
       </div>
     </div>
   </form>

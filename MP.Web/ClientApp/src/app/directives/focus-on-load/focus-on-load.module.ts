@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AutofocusDirective } from './autofocus.directive';
+import { FocusOnLoadDirective } from './focus-on-load.directive';
 
 @NgModule({
   declarations: [
-    AutofocusDirective
+    FocusOnLoadDirective
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    AutofocusDirective
+    FocusOnLoadDirective
   ]
 })
-export class AutofocusDirectiveModule {
+export class focusOnLoadDirectiveModule {
 }

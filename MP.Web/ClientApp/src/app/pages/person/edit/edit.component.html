@@ -20,25 +20,25 @@
         <div class="form-group row mb-3">
           <label [appFor]="txt_first_name" class="col-form-label col-sm-4 col-xl-2">First name</label>
           <div class="col-sm-8 col-xl-10">
-            <input type="text" [(ngModel)]="person.firstName" class="form-control" #txt_first_name name="first_name" autofocus />
+            <input type="text" [(ngModel)]="person.firstName" class="form-control" #txt_first_name name="first_name" />
           </div>
         </div>
         <div class="form-group row mb-3">
           <label [appFor]="txt_last_name" class="col-form-label col-sm-4 col-xl-2">Last name</label>
           <div class="col-sm-8 col-xl-10">
-            <input type="text" [(ngModel)]="person.lastName" class="form-control" #txt_last_name name="last_name" autofocus />
+            <input type="text" [(ngModel)]="person.lastName" class="form-control" #txt_last_name name="last_name" />
           </div>
         </div>
         <div class="form-group row mb-3">
           <label [appFor]="txt_born" class="col-form-label col-sm-4 col-xl-2">Birth day</label>
           <div class="col-sm-8 col-xl-10">
-            <input type="date" [ngModel]="person.born | date:'yyyy-MM-dd'" (ngModelChange)="person.born = $event" name="born" class="form-control" #txt_born autofocus />
+            <input type="date" [ngModel]="person.born | date:'yyyy-MM-dd'" (ngModelChange)="person.born = $event" name="born" class="form-control" #txt_born [focusOnLoad] />
           </div>
         </div>
         <div class="form-group row mb-3">
           <label [appFor]="txt_died" class="col-form-label col-sm-4 col-xl-2">Died</label>
           <div class="col-sm-8 col-xl-10">
-            <input type="date" [ngModel]="person.died | date:'yyyy-MM-dd'" (ngModelChange)="person.died = $event" name="died" class="form-control" #txt_died autofocus />
+            <input type="date" [ngModel]="person.died | date:'yyyy-MM-dd'" (ngModelChange)="person.died = $event" name="died" class="form-control" #txt_died />
           </div>
         </div>
         <div class="form-group row mb-3">

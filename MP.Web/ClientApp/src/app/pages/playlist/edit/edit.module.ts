@@ -8,6 +8,7 @@ import { PlaylistEditComponent } from './edit.component';
 import { CardModule } from '../../../controls/card/card.module';
 import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 import { DropdownSearchBoxModule } from '../../../controls/dropdown-search-box/dropdown-search-box.module';
+import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
 
 
 
@@ -20,6 +21,7 @@ import { DropdownSearchBoxModule } from '../../../controls/dropdown-search-box/d
 
     CardModule,
     ForDirectiveModule,
+    focusOnLoadDirectiveModule,
     DropdownSearchBoxModule,
     EditRoutingModule
   ]

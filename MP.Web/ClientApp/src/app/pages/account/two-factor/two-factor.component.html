@@ -2,12 +2,17 @@
   <div class="row">
     <div class="col-md-12 text-center">
       <p>{{ 'account.two_factor.login_instructions' | translate }}</p>
-      <div class="input-group">
-        <input type="text" [autofocus] [(ngModel)]="setupCode" class="form-control" />
+      <div class="input-group mb-3">
+        <input type="text" [focusOnLoad] [(ngModel)]="setupCode" class="form-control" />
         <button type="submit" class="btn btn-primary">
           <i class="fa fa-unlock"></i>
           Login
         </button>
+      </div>
+      <div class="text-center">
+        <label>
+          <input type="checkbox" [checked]="twoFactorRememberMe" (change)="twoFactorRememberMe = $event.target.checked" />
+        </label>
       </div>
     </div>
   </div>

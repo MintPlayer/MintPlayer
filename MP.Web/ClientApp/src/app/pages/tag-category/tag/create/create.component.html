@@ -21,7 +21,7 @@
         <div class="form-group row mb-0">
           <label [appFor]="txt_description" class="col-form-label col-sm-4 col-xl-3">Description</label>
           <div class="col-sm-8 col-xl-9">
-            <input type="text" [(ngModel)]="tag.description" class="form-control" #txt_description name="description" autofocus />
+            <input type="text" [(ngModel)]="tag.description" class="form-control" #txt_description name="description" [focusOnLoad] />
           </div>
         </div>
       </content>

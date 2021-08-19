@@ -10,6 +10,7 @@ import { CardModule } from '../../../controls/card/card.module';
 import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 import { MediaManagerModule } from '../../../components/subject/media-manager/media-manager.module';
 import { PipesModule } from '../../../pipes/pipes.module';
+import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
 
 
 
@@ -24,6 +25,7 @@ import { PipesModule } from '../../../pipes/pipes.module';
     CardModule,
     PipesModule,
     ForDirectiveModule,
+    focusOnLoadDirectiveModule,
     MediaManagerModule,
     CreateRoutingModule
   ]

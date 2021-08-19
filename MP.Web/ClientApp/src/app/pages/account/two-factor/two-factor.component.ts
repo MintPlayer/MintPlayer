@@ -30,10 +30,11 @@ export class TwoFactorComponent implements OnInit {
   }
 
   setupCode: string = '';
+  twoFactorRememberMe: boolean = false;
   private returnUrl: string = '';
 
   verifyCode() {
-    this.httpClient.post<string[]>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-login`, { code: this.setupCode, remember: false }).subscribe((backupCodes) => {
+    this.httpClient.post<User>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-login`, { code: this.setupCode, remember: this.twoFactorRememberMe }).subscribe((u) => {
       this.accountService.csrfRefresh().then(() => {
         this.accountService.currentUser().then((user) => {
           this.loginComplete.next(user);

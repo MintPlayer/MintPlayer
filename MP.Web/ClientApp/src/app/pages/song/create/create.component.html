@@ -44,13 +44,13 @@
         <div class="form-group row mb-3">
           <label [appFor]="txt_title" class="col-form-label col-md-4 col-xl-2">Title</label>
           <div class="col-md-8 col-xl-10">
-            <input type="text" [(ngModel)]="song.title" class="form-control" #txt_title name="title" autofocus />
+            <input type="text" [(ngModel)]="song.title" class="form-control" #txt_title name="title" [focusOnLoad] />
           </div>
         </div>
         <div class="form-group row mb-3">
           <label [appFor]="txt_released" class="col-form-label col-md-4 col-xl-2">Released</label>
           <div class="col-md-8 col-xl-10">
-            <input type="date" [ngModel]="song.released | date:'yyyy-MM-dd'" (ngModelChange)="updateReleaseDate($event)" name="released" class="form-control" #txt_released autofocus />
+            <input type="date" [ngModel]="song.released | date:'yyyy-MM-dd'" (ngModelChange)="updateReleaseDate($event)" name="released" class="form-control" #txt_released />
           </div>
         </div>
         <div class="form-group row mb-3">
