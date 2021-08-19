@@ -119,6 +119,11 @@ namespace MintPlayer.Web
                 {
                     options.StylesheetUrl = "/assets/stitemap.xsl";
                 })
+                .AddMvcOptions(options =>
+                {
+                    options.OutputFormatters.OfType<Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter>().FirstOrDefault().SupportedMediaTypes.Add("text/plain");
+                    options.OutputFormatters.Remove(options.OutputFormatters.OfType<Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter>().FirstOrDefault());
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Latest)
                 .AddNewtonsoftJson();
 

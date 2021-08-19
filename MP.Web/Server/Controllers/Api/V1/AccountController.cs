@@ -47,6 +47,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
 		/// <param name="loginInfo">Login credentials for the user.</param>
 		/// <returns>An object containing the status, user and token. If the login failed contains the error.</returns>
 		[HttpPost("login", Name = "api-account-login")]
+		//[Produces("application/json", "text/json", "application/xml", "text/xml")]
 		public async Task<ActionResult<LoginResult>> Login([FromBody]LoginVM loginInfo)
 		{
 			try
