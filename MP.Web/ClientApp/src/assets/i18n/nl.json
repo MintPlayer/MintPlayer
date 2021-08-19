@@ -160,7 +160,8 @@
       "enter_code_disable": "Genereer een 6-cijfercode met de authenticator app en voer deze in in het volgende tekstvak",
 
       "extra_options": "Extra opties",
-      "bypass_2fa_for_external_logins": "2-factor authenticatie overslaan voor externe logins (Microsoft, Google, ...)"
+      "bypass_2fa_for_external_logins": "2-factor authenticatie overslaan voor externe logins (Microsoft, Google, ...)",
+      "remember_me": "Onthoud dit toestel"
     },
     "confirmation": {
       "resend": "Bevestigingse-mail opnieuw versturen"

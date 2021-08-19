@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication;
 using MintPlayer.AspNetCore.SpaServices.Routing;
 using System.Text.Encodings.Web;
 using MintPlayer.Data.Exceptions.Account.TwoFactor;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MintPlayer.Web.Server.Controllers.Web.V3
 {
@@ -25,11 +26,13 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		private readonly IAccountService accountService;
         private readonly ISpaRouteService spaRouteService;
         private readonly UrlEncoder urlEncoder;
-        public AccountController(IAccountService accountService, ISpaRouteService spaRouteService, UrlEncoder urlEncoder)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public AccountController(IAccountService accountService, ISpaRouteService spaRouteService, UrlEncoder urlEncoder, IWebHostEnvironment webHostEnvironment)
 		{
 			this.accountService = accountService;
             this.spaRouteService = spaRouteService;
             this.urlEncoder = urlEncoder;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
 		/**
@@ -329,9 +332,14 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public ActionResult ExternalLoginTwoFactor([FromRoute] string medium, [FromRoute] string provider)
 		{
+			var root = webHostEnvironment.ContentRootPath + "/ClientApp/dist";
+			var files = System.IO.Directory.GetFiles(root, "styles.*.css");
+			var angularStylesheet = files.Any() ? Url.Content($"~/{System.IO.Path.GetFileName(files.First())}") : null;
+
 			var model = new ExternalLoginTwoFactorVM
 			{
-				SubmitUrl = Url.Action(nameof(ExternalLoginTwoFactorCallback), new { medium, provider })
+				SubmitUrl = Url.Action(nameof(ExternalLoginTwoFactorCallback), new { medium, provider }),
+				StylesheetUrl = angularStylesheet
 			};
 			return View(model);
         }

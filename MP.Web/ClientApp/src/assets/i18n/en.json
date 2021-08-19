@@ -160,7 +160,8 @@
       "enter_code_disable": "Generate a 6-digit number with your authenticator app and enter it in this box:",
 
       "extra_options": "Extra options",
-      "bypass_2fa_for_external_logins": "Bypass 2-factor-authentication for external logins (Microsoft, Google, ...)"
+      "bypass_2fa_for_external_logins": "Bypass 2-factor-authentication for external logins (Microsoft, Google, ...)",
+      "remember_me": "Remember this device"
 
     },
     "confirmation": {

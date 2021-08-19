@@ -12,6 +12,7 @@
       <div class="text-center">
         <label>
           <input type="checkbox" [checked]="twoFactorRememberMe" (change)="twoFactorRememberMe = $event.target.checked" />
+          {{ 'account.two_factor.remember_me' | translate }}
         </label>
       </div>
     </div>

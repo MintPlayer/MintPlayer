@@ -161,7 +161,8 @@
       "enter_code_disable": "Générez une code de 6 chiffres avec votre app Authenticator et entrez-le dans ce zone de texte:",
 
       "extra_options": "Options supplémentaires",
-      "bypass_2fa_for_external_logins": "Contourner authentification à 2 facteurs pour les connexions externes (Microsoft, Google, ...)"
+      "bypass_2fa_for_external_logins": "Contourner authentification à 2 facteurs pour les connexions externes (Microsoft, Google, ...)",
+      "remember_me": "Recollecter cet appareil"
     },
     "confirmation": {
       "resend": "Renvoyer email de confirmation"

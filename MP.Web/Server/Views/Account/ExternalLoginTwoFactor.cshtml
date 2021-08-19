@@ -3,20 +3,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <link rel="stylesheet" href="@Model.StylesheetUrl">
 </head>
 <body>
-    <form method="post" action="@Model.SubmitUrl">
+    <form method="post" action="@Model.SubmitUrl" class="position-absolute w-100 h-100">
         @Html.HiddenFor(m => m.SubmitUrl)
         @Html.AntiForgeryToken()
-        Open the authenticator app on your smartphone and generate a code for MintPlayer:
-        <br />
-        @Html.TextBoxFor(m => m.Code)
-        <br />
-        <label>
-            @Html.CheckBoxFor(m => m.Remember)
-            Remember this device
-        </label>
+        <div class="h-100 d-flex flex-column justify-content-center">
+            <div class="container">
+                <div class="row mb-3">
+                    <div class="col-md-12 text-center">
+                        <span>Open the authenticator app on your smartphone and generate a code for MintPlayer:</span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        @Html.TextBoxFor(m => m.Code, new { autofocus = "autofocus", @class = "d-block form-control" })
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12 text-center">
+                        <label>
+                            @Html.CheckBoxFor(m => m.Remember)
+                            Remember this device
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-primary px-5">
+                            <i class="fa fa-unlock"></i>
+                            Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 </body>
 </html>
