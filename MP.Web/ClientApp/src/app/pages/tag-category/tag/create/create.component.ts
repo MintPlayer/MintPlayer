@@ -46,7 +46,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     this.tagCategoryService.getTagCategory(categoryId, false).then((category) => {
       this.tag.category = category;
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -78,7 +78,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
       var categoryId = parseInt(this.route.snapshot.paramMap.get('category_id'));
       this.router.navigate(['/tag', 'category', categoryId, 'tags', tag.id]);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 

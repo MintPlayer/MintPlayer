@@ -26,7 +26,7 @@ export class FavoriteComponent implements OnInit, OnDestroy {
     this.personService.pageFavoritePeople(this.tableSettings.toPagination()).then((response) => {
       this.setPersonData(response);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 

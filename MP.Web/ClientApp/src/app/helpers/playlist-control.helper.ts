@@ -11,10 +11,8 @@ export class PlaylistControl<TVideo> {
   //#region Methods
   //#region AddToPlaylist
   public async addToPlaylist(...videos: TVideo[]) {
-    console.log('PlaylistControl.AddToPlaylist', videos);
     let clones = videos.map((video) => Object.assign({}, video));
     this._playlist.push(...clones);
-    console.log('currentPlayedVideo', this._currentPlayedVideo);
     if (this._currentPlayedVideo === null) {
       let playedVideo: PlayedVideo<TVideo>;
       if (this.shuffle) {
@@ -157,7 +155,6 @@ export class PlaylistControl<TVideo> {
 
   //#region Methods
   private async playVideo(video: PlayedVideo<TVideo>) {
-    console.log('PlaylistControl.PlayVideo');
     this.onSetCurrentPlayedVideo(video);
     this.onPlayVideo(video.video);
   }

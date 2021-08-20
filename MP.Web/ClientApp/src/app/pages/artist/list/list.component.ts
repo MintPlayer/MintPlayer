@@ -87,12 +87,11 @@ export class ListComponent implements OnInit, OnDestroy {
     this.artistService.pageArtists(this.tableSettings.toPagination()).then((response) => {
       this.setArtistData(response);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 
   private setArtistData(data: PaginationResponse<Artist>) {
-    console.log('artist data', data);
     this.artistData = data;
     this.tableSettings.page.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }

@@ -83,7 +83,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.categoryService.pageTagCategories({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
       this.setTagCategoryData(response);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 

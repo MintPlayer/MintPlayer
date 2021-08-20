@@ -50,9 +50,8 @@ export class BaseLoginComponent {
 
   handleMessage(event: Event) {
     const message = event as MessageEvent;
-    // Only trust messages from the below origin.
-    //console.log(`Received message, External url: ${this.externalUrl}, Message origin: ${message.origin}`);
 
+    // Only trust messages from the below origin.
     const messageOrigin = message.origin.replace(/^https?\:/, '');
     if (!this.externalUrl.startsWith(messageOrigin)) return;
 

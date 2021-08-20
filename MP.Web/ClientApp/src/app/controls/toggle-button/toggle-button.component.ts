@@ -24,7 +24,6 @@ export class ToggleButtonComponent implements OnInit {
     return this._isToggled;
   }
   @Input() public set isToggled(value: boolean | null) {
-    console.log(this._isToggled);
     this._isToggled = value;
     this.isToggledChange.emit(this._isToggled);
   }

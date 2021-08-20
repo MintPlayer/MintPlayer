@@ -26,7 +26,7 @@ export class FavoriteComponent implements OnInit, OnDestroy {
     this.artistService.pageFavoriteArtists(this.tableSettings.toPagination()).then((response) => {
       this.setArtistData(response);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 

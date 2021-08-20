@@ -35,7 +35,7 @@ export class EditComponent implements OnInit, DoCheck, HasChanges {
     this.blogPostService.getBlogPost(id).then((blogPost) => {
       this.setBlogPost(blogPost);
     }).catch((error) => {
-      console.log('Could not fetch blog post', error);
+      console.error('Could not fetch blog post', error);
     });
   }
 
@@ -67,7 +67,7 @@ export class EditComponent implements OnInit, DoCheck, HasChanges {
       this.hasChanges = false;
       this.router.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 

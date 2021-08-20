@@ -85,7 +85,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.blogPostService.getBlogPosts().then((blogPosts) => {
       this.setBlogPosts(blogPosts);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 

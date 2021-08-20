@@ -84,7 +84,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.tagCategoryService.getTagCategory(id, true).then((tagCategory) => {
       this.setTagCategory(tagCategory);
     }).catch((error) => {
-      console.log('Could not get tag category', error);
+      console.error('Could not get tag category', error);
     });
   }
 

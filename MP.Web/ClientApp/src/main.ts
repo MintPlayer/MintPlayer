@@ -7,9 +7,7 @@ import { AppBrowserModule } from './app/app.browser.module';
 import { BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
 
 
-if (environment.production) {
-  console.log('Production');
-} else {
+if (!environment.production) {
   console.log('Development');
 }
 

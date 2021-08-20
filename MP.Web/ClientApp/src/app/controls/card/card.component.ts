@@ -28,7 +28,6 @@ export class CardComponent implements OnInit {
   onDragStart(location: Point) {
     if (this.isDraggable) {
       this.isMouseDown = true;
-      //console.log(`$event: ${$event.x}, ${$event.y}, drag offset: ${this.host.nativeElement.offsetLeft}, ${this.host.nativeElement.offsetTop}`);
       this.dragOffset = {
         x: location.x - this.elementOffset.x,
         y: location.y - this.elementOffset.y

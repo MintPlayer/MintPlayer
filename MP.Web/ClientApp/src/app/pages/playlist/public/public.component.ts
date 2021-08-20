@@ -36,7 +36,7 @@ export class PlaylistPublicComponent implements OnInit {
     this.playlistService.pagePlaylists(this.tableSettings.toPagination(), PlaylistScope.public).then((playlists) => {
       this.setPlaylistData(playlists);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 

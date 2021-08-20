@@ -92,7 +92,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.tagService.getTag(id, true).then((tag) => {
       this.setTag(tag);
     }).catch((error) => {
-      console.log('Could not get tag', error);
+      console.error('Could not get tag', error);
     });
   }
 

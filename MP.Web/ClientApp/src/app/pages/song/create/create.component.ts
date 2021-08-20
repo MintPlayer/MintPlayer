@@ -41,10 +41,6 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     }
   }
 
-  printItem(item: any) {
-    console.log(item);
-  }
-
   updateReleaseDate(date: Date) {
     this.song.released = new Date(date);
   }

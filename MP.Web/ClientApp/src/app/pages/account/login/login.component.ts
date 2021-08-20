@@ -157,7 +157,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   socialLoginDone(result: LoginResult) {
-    console.log('login result', result);
     switch (result.status) {
       case LoginStatus.success: {
         this.accountService.csrfRefresh().then(() => {

@@ -37,7 +37,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     this.tagService.getTag(id, true).then((tag) => {
       this.setTag(tag);
     }).catch((error) => {
-      console.log('Could not fetch tag category', error);
+      console.error('Could not fetch tag category', error);
     });
   }
 
@@ -71,7 +71,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
       this.hasChanges = false;
       this.router.navigate(['tag', 'category', tag.category.id, 'tags', tag.id]);
     }).catch((error) => {
-      console.log('Could not update tag', error);
+      console.error('Could not update tag', error);
     });
   }
 

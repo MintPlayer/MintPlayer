@@ -85,7 +85,6 @@ export class PlaylistSidebarComponent implements OnInit {
     var index = this.songs.indexOf(song);
     //this.songs.splice(index, 1);
     $event.stopPropagation();
-    console.log('emit songRemoved', index, song);
     this.songRemoved.emit(new SongRemovedEvent({ index, song }));
   }
 

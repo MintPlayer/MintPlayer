@@ -50,7 +50,7 @@ export class DropdownSearchBoxComponent implements OnInit {
           }).subscribe((response) => {
             this.suggestions = response;
           }, (error) => {
-            console.log(error);
+            console.error(error);
           }, () => {
             this.busy = false;
           });
@@ -63,7 +63,7 @@ export class DropdownSearchBoxComponent implements OnInit {
           }).subscribe((response) => {
             this.suggestions = response;
           }, (error) => {
-            console.log(error);
+            console.error(error);
           }, () => {
             this.busy = false;
           });

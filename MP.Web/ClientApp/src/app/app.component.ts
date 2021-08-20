@@ -78,22 +78,17 @@ export class AppComponent implements OnInit, OnDestroy {
     //#endregion
     //#region Check for updates
     if (this.swUpdate.isEnabled) {
-      console.log('Updates enabled');
       this.swUpdate.activated.subscribe((upd) => {
-        console.log('Update activated');
         window.location.reload();
       });
       this.swUpdate.available.subscribe((upd) => {
-        console.log('Update available');
-        console.log('Activating update');
         this.swUpdate.activateUpdate();
       }, (error) => {
-          console.log(error);
+        console.error(error);
       });
       this.swUpdate.checkForUpdate().then(() => {
-        console.log('Checking for updates');
       }).catch((error) => {
-        console.log('Could not check for app updates', error);
+        console.error('Could not check for app updates', error);
       });
     }
     //#endregion
@@ -191,21 +186,25 @@ export class AppComponent implements OnInit, OnDestroy {
   currentLyricsLine: string = null;
 
   private computeCurrentLyricsLine() {
-    let linesPassed = this.linifyPipe
-      .transform(this.playlistControl.currentVideo.song.lyrics.text)
-      .map((value, index) => {
-        return {
-          time: this.playlistControl.currentVideo.song.lyrics.timeline[index],
-          line: value
-        };
-      }).filter((value, index) => {
-        return value.time < this.songProgress.currentTime;
-      });
-
-    if (linesPassed.length > 0) {
-      this.currentLyricsLine = linesPassed[linesPassed.length - 1].line;
-    } else {
+    if (this.playlistControl.currentVideo === null) {
       this.currentLyricsLine = null;
+    } else {
+      let linesPassed = this.linifyPipe
+        .transform(this.playlistControl.currentVideo.song.lyrics.text)
+        .map((value, index) => {
+          return {
+            time: this.playlistControl.currentVideo.song.lyrics.timeline[index],
+            line: value
+          };
+        }).filter((value, index) => {
+          return value.time < this.songProgress.currentTime;
+        });
+
+      if (linesPassed.length > 0) {
+        this.currentLyricsLine = linesPassed[linesPassed.length - 1].line;
+      } else {
+        this.currentLyricsLine = null;
+      }
     }
   }
   //#endregion

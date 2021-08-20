@@ -31,7 +31,6 @@ export class ShowComponent implements OnInit, OnDestroy {
     private wordCountPipe: WordCountPipe
   ) {
     if (serverSide === true) {
-      console.log('Got blogpost from server');
       this.setBlogPost(blogPostInj);
     } else {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));

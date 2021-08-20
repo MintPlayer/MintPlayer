@@ -17,7 +17,6 @@ export class ProgressBarComponent implements OnInit {
   }
   @Input() set value(value: number) {
     this._value = value;
-    //console.log('Set value');
     this.updatePercentage();
   }
   //#endregion

@@ -35,7 +35,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
       this.hasChanges = false;
       this.router.navigate(['tag', 'category', category.id]);
     }).catch((error) => {
-      console.log('Could not create tag category', error);
+      console.error('Could not create tag category', error);
     });
   }
 
