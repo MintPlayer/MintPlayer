@@ -8,7 +8,7 @@ namespace MintPlayer.Data.Mappers
 {
     internal interface ITagMapper
     {
-        MintPlayer.Dtos.Dtos.Tag Entity2Dto(Entities.Tag tag, bool include_subjects = false);
+        MintPlayer.Dtos.Dtos.Tag Entity2Dto(Entities.Tag tag, bool include_subjects = false, bool include_tags = false);
         Entities.Tag Dto2Entity(MintPlayer.Dtos.Dtos.Tag tag, MintPlayerContext mintplayer_context);
     }
 
@@ -20,50 +20,68 @@ namespace MintPlayer.Data.Mappers
             this.serviceProvider = serviceProvider;
         }
 
-        public MintPlayer.Dtos.Dtos.Tag Entity2Dto(Entities.Tag tag, bool include_subjects = false)
+        public MintPlayer.Dtos.Dtos.Tag Entity2Dto(Entities.Tag tag, bool include_subjects = false, bool include_tags = false)
         {
-            if (tag == null) return null;
+            if (tag == null)
+            {
+                return null;
+            }
+
+            var result = new MintPlayer.Dtos.Dtos.Tag
+            {
+                Id = tag.Id,
+                Description = tag.Description,
+            };
+
+            if (tag.Category != null)
+            {
+                var tagCategoryMapper = serviceProvider.GetRequiredService<ITagCategoryMapper>();
+                result.Category = tagCategoryMapper.Entity2Dto(tag.Category);
+            }
 
             if (include_subjects)
             {
-                var tagCategoryMapper = serviceProvider.GetRequiredService<ITagCategoryMapper>();
-                var subjectMapper = serviceProvider.GetRequiredService<ISubjectMapper>();
-                return new MintPlayer.Dtos.Dtos.Tag
+                if (tag.Subjects != null)
                 {
-                    Id = tag.Id,
-                    Description = tag.Description,
-                    Subjects = tag.Subjects.Select(s => subjectMapper.Entity2Dto(s.Subject, false, false)).ToList(),
-                    Category = tagCategoryMapper.Entity2Dto(tag.Category),
-
-                    Parent = Entity2Dto(tag.Parent),
-                    Children = tag.Children.Select(t => Entity2Dto(t)).ToList()
-                };
+                    var subjectMapper = serviceProvider.GetRequiredService<ISubjectMapper>();
+                    result.Subjects = tag.Subjects.Select(s => subjectMapper.Entity2Dto(s.Subject, false)).ToList();
+                }
             }
-            else
+
+            if (include_tags)
             {
                 var tagCategoryMapper = serviceProvider.GetRequiredService<ITagCategoryMapper>();
-                return new MintPlayer.Dtos.Dtos.Tag
+                
+                result.Parent = Entity2Dto(tag.Parent);
+
+                if (tag.Children != null)
                 {
-                    Id = tag.Id,
-                    Description = tag.Description,
-                    Category = tagCategoryMapper.Entity2Dto(tag.Category)
-                };
+                    result.Children = tag.Children.Select(t => Entity2Dto(t)).ToList();
+                }
             }
+
+            return result;
         }
 
         public Entities.Tag Dto2Entity(MintPlayer.Dtos.Dtos.Tag tag, MintPlayerContext mintplayer_context)
         {
-            if (tag == null) return null;
+            if (tag == null)
+            {
+                return null;
+            }
+
             var entity_tag = new Entities.Tag
             {
                 Id = tag.Id,
                 Description = tag.Description,
                 Category = mintplayer_context.TagCategories.Find(tag.Category.Id)
             };
+
             if (tag.Parent != null)
             {
                 entity_tag.Parent = mintplayer_context.Tags.Find(tag.Parent.Id);
             }
+
             return entity_tag;
         }
     }

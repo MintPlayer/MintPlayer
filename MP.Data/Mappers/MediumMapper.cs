@@ -19,25 +19,27 @@ namespace MintPlayer.Data.Mappers
 
 		public MintPlayer.Dtos.Dtos.Medium Entity2Dto(Entities.Medium medium, bool include_relations = false)
 		{
-			if (medium == null) return null;
+			if (medium == null)
+            {
+                return null;
+            }
+
+			var result = new MintPlayer.Dtos.Dtos.Medium
+			{
+				Id = medium.Id,
+				Value = medium.Value
+			};
+
 			if (include_relations)
 			{
-				var mediumTypeMapper = serviceProvider.GetRequiredService<IMediumTypeMapper>();
-				return new MintPlayer.Dtos.Dtos.Medium
+				if (medium.Type != null)
 				{
-					Id = medium.Id,
-					Type = mediumTypeMapper.Entity2Dto(medium.Type),
-					Value = medium.Value
-				};
+					var mediumTypeMapper = serviceProvider.GetRequiredService<IMediumTypeMapper>();
+					result.Type = mediumTypeMapper.Entity2Dto(medium.Type);
+				}
 			}
-			else
-			{
-				return new MintPlayer.Dtos.Dtos.Medium
-				{
-					Id = medium.Id,
-					Value = medium.Value
-				};
-			}
+
+			return result;
 		}
 	
 		public Entities.Medium Dto2Entity(MintPlayer.Dtos.Dtos.Medium medium, MintPlayerContext mintplayer_context)

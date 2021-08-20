@@ -6,7 +6,7 @@ namespace MintPlayer.Data.Mappers
 {
     internal interface IArtistMapper
     {
-        MintPlayer.Dtos.Dtos.Artist Entity2Dto(Entities.Artist artist, bool include_relations, bool include_invisible_media);
+        MintPlayer.Dtos.Dtos.Artist Entity2Dto(Entities.Artist artist, bool include_invisible_media, bool include_relations = false);
         Entities.Artist Dto2Entity(MintPlayer.Dtos.Dtos.Artist artist, MintPlayerContext mintplayer_context);
     }
 
@@ -19,58 +19,67 @@ namespace MintPlayer.Data.Mappers
             this.serviceProvider = serviceProvider;
         }
 
-        public MintPlayer.Dtos.Dtos.Artist Entity2Dto(Entities.Artist artist, bool include_relations, bool include_invisible_media)
+        public MintPlayer.Dtos.Dtos.Artist Entity2Dto(Entities.Artist artist, bool include_invisible_media, bool include_relations = false)
         {
-            if (artist == null) return null;
+            if (artist == null)
+            {
+                return null;
+            }
+
+            var result = new MintPlayer.Dtos.Dtos.Artist
+            {
+                Id = artist.Id,
+                Name = artist.Name,
+                YearStarted = artist.YearStarted,
+                YearQuit = artist.YearQuit,
+
+                Text = artist.Text,
+                DateUpdate = artist.DateUpdate ?? artist.DateInsert,
+                ConcurrencyStamp = Convert.ToBase64String(artist.ConcurrencyStamp),
+            };
+
             if (include_relations)
             {
-                var mediumMapper = serviceProvider.GetRequiredService<IMediumMapper>();
-                var personMapper = serviceProvider.GetRequiredService<IPersonMapper>();
-                var songMapper = serviceProvider.GetRequiredService<ISongMapper>();
-                var tagMapper = serviceProvider.GetRequiredService<ITagMapper>();
-                return new MintPlayer.Dtos.Dtos.Artist
+                if (artist.Members != null)
                 {
-                    Id = artist.Id,
-                    Name = artist.Name,
-                    YearStarted = artist.YearStarted,
-                    YearQuit = artist.YearQuit,
-
-                    Text = artist.Text,
-                    DateUpdate = artist.DateUpdate ?? artist.DateInsert,
-                    ConcurrencyStamp = Convert.ToBase64String(artist.ConcurrencyStamp),
-
-                    PastMembers = artist.Members
+                    var personMapper = serviceProvider.GetRequiredService<IPersonMapper>();
+                    result.PastMembers = artist.Members
                         .Where(ap => !ap.Active)
-                        .Select(ap => personMapper.Entity2Dto(ap.Person, false, include_invisible_media))
-                        .ToList(),
-                    CurrentMembers = artist.Members
+                        .Select(ap => personMapper.Entity2Dto(ap.Person, include_invisible_media))
+                        .ToList();
+                    result.CurrentMembers = artist.Members
                         .Where(ap => ap.Active)
-                        .Select(ap => personMapper.Entity2Dto(ap.Person, false, include_invisible_media))
-                        .ToList(),
-                    Songs = artist.Songs
-                        .Select(@as => songMapper.Entity2Dto(@as.Song, false, include_invisible_media))
-                        .ToList(),
-                    Media = artist.Media == null ? null : artist.Media
+                        .Select(ap => personMapper.Entity2Dto(ap.Person, include_invisible_media))
+                        .ToList();
+                }
+
+                if (artist.Songs != null)
+                {
+                    var songMapper = serviceProvider.GetRequiredService<ISongMapper>();
+                    result.Songs = artist.Songs
+                        .Select(@as => songMapper.Entity2Dto(@as.Song, include_invisible_media))
+                        .ToList();
+                }
+
+                if (artist.Media != null)
+                {
+                    var mediumMapper = serviceProvider.GetRequiredService<IMediumMapper>();
+                    result.Media = artist.Media == null ? null : artist.Media
                         .Where(medium => medium.Type.Visible | include_invisible_media)
                         .Select(medium => mediumMapper.Entity2Dto(medium, true))
-                        .ToList(),
-                    Tags = artist.Tags == null ? null : artist.Tags.Select(st => tagMapper.Entity2Dto(st.Tag)).ToList()
-                };
-            }
-            else
-            {
-                return new MintPlayer.Dtos.Dtos.Artist
-                {
-                    Id = artist.Id,
-                    Name = artist.Name,
-                    YearStarted = artist.YearStarted,
-                    YearQuit = artist.YearQuit,
+                        .ToList();
+                }
 
-                    Text = artist.Text,
-                    DateUpdate = artist.DateUpdate ?? artist.DateInsert,
-                    ConcurrencyStamp = Convert.ToBase64String(artist.ConcurrencyStamp),
-                };
+                if (artist.Tags != null)
+                {
+                    var tagMapper = serviceProvider.GetRequiredService<ITagMapper>();
+                    result.Tags = artist.Tags == null ? null : artist.Tags
+                        .Select(st => tagMapper.Entity2Dto(st.Tag))
+                        .ToList();
+                }
             }
+
+            return result;
         }
 
         public Entities.Artist Dto2Entity(MintPlayer.Dtos.Dtos.Artist artist, MintPlayerContext mintplayer_context)

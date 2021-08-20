@@ -9,7 +9,7 @@ namespace MintPlayer.Data.Mappers
 {
     internal interface ISongMapper
     {
-        MintPlayer.Dtos.Dtos.Song Entity2Dto(Entities.Song song, bool include_relations, bool include_invisible_media);
+        MintPlayer.Dtos.Dtos.Song Entity2Dto(Entities.Song song, bool include_invisible_media, bool include_relations = false);
         Entities.Song Dto2Entity(MintPlayer.Dtos.Dtos.Song song, Entities.User user, MintPlayerContext mintplayer_context);
     }
 
@@ -21,86 +21,79 @@ namespace MintPlayer.Data.Mappers
             this.serviceProvider = serviceProvider;
         }
 
-        public MintPlayer.Dtos.Dtos.Song Entity2Dto(Entities.Song song, bool include_relations, bool include_invisible_media)
+        public MintPlayer.Dtos.Dtos.Song Entity2Dto(Entities.Song song, bool include_invisible_media, bool include_relations = false)
         {
-            if (song == null) return null;
+            if (song == null)
+            {
+                return null;
+            }
+
+            
+            var songHelper = serviceProvider.GetRequiredService<SongHelper>();
+            var playerInfos = songHelper.GetPlayerInfos(song.Media).ToList();
+            
+            var result = new MintPlayer.Dtos.Dtos.Song
+            {
+                Id = song.Id,
+                Title = song.Title,
+                Released = song.Released,
+
+                Description = song.Description,
+                YoutubeId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Youtube)?.Id,
+                DailymotionId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.DailyMotion)?.Id,
+                VimeoId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Vimeo)?.Id,
+                SoundCloudUrl = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.SoundCloud)?.Id,
+                PlayerInfos = playerInfos,
+
+                Text = song.Text,
+                DateUpdate = song.DateUpdate ?? song.DateInsert,
+                ConcurrencyStamp = Convert.ToBase64String(song.ConcurrencyStamp),
+            };
+
             if (include_relations)
             {
-                var artistMapper = serviceProvider.GetRequiredService<IArtistMapper>();
-                var mediumMapper = serviceProvider.GetRequiredService<IMediumMapper>();
-                var tagMapper = serviceProvider.GetRequiredService<ITagMapper>();
-                var songHelper = serviceProvider.GetRequiredService<SongHelper>();
-
-                var lastLyric = song.Lyrics == null ? null : song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault();
-                var playerInfos = songHelper.GetPlayerInfos(song.Media).ToList();
-
-                return new MintPlayer.Dtos.Dtos.Song
+                if (song.Lyrics != null)
                 {
-                    Id = song.Id,
-                    Title = song.Title,
-                    Released = song.Released,
-                    Lyrics = new MintPlayer.Dtos.Dtos.Lyrics
+                    var lastLyric = song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault();
+                    result.Lyrics = new MintPlayer.Dtos.Dtos.Lyrics
                     {
                         Text = lastLyric?.Text,
                         Timeline = lastLyric?.Timeline
-                    },
+                    };
+                }
 
-                    Description = song.Description,
-                    YoutubeId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Youtube)?.Id,
-                    DailymotionId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.DailyMotion)?.Id,
-                    VimeoId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Vimeo)?.Id,
-                    SoundCloudUrl = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.SoundCloud)?.Id,
-                    PlayerInfos = songHelper.GetPlayerInfos(song.Media).ToList(),
-
-                    Text = song.Text,
-                    DateUpdate = song.DateUpdate ?? song.DateInsert,
-                    ConcurrencyStamp = Convert.ToBase64String(song.ConcurrencyStamp),
-
-                    Artists = song.Artists
+                if (song.Artists != null)
+                {
+                    var artistMapper = serviceProvider.GetRequiredService<IArtistMapper>();
+                    result.Artists = song.Artists
                         .Where(@as => @as.Credited)
-                        .Select(@as => artistMapper.Entity2Dto(@as.Artist, false, false))
-                        .ToList(),
-                    UncreditedArtists = song.Artists
+                        .Select(@as => artistMapper.Entity2Dto(@as.Artist, false))
+                        .ToList();
+                    result.UncreditedArtists = song.Artists
                         .Where(@as => !@as.Credited)
-                        .Select(@as => artistMapper.Entity2Dto(@as.Artist, false, false))
-                        .ToList(),
-                    Media = song.Media == null ? null : song.Media
+                        .Select(@as => artistMapper.Entity2Dto(@as.Artist, false))
+                        .ToList();
+                }
+
+                if (song.Media != null)
+                {
+                    var mediumMapper = serviceProvider.GetRequiredService<IMediumMapper>();
+                    result.Media = song.Media
                         .Where(m => m.Type.Visible | include_invisible_media)
                         .Select(medium => mediumMapper.Entity2Dto(medium, true))
-                        .ToList(),
-                    Tags = song.Tags == null ? null : song.Tags
-                        .Select(st => tagMapper.Entity2Dto(st.Tag))
-                        .ToList()
-                };
-            }
-            else
-            {
-                var lastLyric = song.Lyrics == null ? null : song.Lyrics.OrderBy(l => l.UpdatedAt).LastOrDefault();
-                var songHelper = serviceProvider.GetRequiredService<SongHelper>();
-                var playerInfos = songHelper.GetPlayerInfos(song.Media).ToList();
-                return new MintPlayer.Dtos.Dtos.Song
+                        .ToList();
+                }
+
+                if (song.Tags != null)
                 {
-                    Id = song.Id,
-                    Title = song.Title,
-                    Released = song.Released,
-                    Lyrics = new MintPlayer.Dtos.Dtos.Lyrics
-                    {
-                        Text = lastLyric?.Text,
-                        Timeline = lastLyric?.Timeline
-                    },
-
-                    Description = song.Description,
-                    YoutubeId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Youtube)?.Id,
-                    DailymotionId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.DailyMotion)?.Id,
-                    VimeoId = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.Vimeo)?.Id,
-                    SoundCloudUrl = playerInfos.FirstOrDefault(p => p.Type == MintPlayer.Dtos.Enums.ePlayerType.SoundCloud)?.Id,
-                    PlayerInfos = playerInfos,
-
-                    Text = song.Text,
-                    DateUpdate = song.DateUpdate ?? song.DateInsert,
-                    ConcurrencyStamp = Convert.ToBase64String(song.ConcurrencyStamp),
-                };
+                    var tagMapper = serviceProvider.GetRequiredService<ITagMapper>();
+                    result.Tags = song.Tags
+                        .Select(st => tagMapper.Entity2Dto(st.Tag))
+                        .ToList();
+                }
             }
+
+            return result;
         }
 
         /// <summary>Only use this method for creation of a song</summary>

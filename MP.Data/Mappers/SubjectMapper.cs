@@ -5,7 +5,7 @@ namespace MintPlayer.Data.Mappers
 {
     internal interface ISubjectMapper
     {
-        MintPlayer.Dtos.Dtos.Subject Entity2Dto(Entities.Subject subject, bool include_relations, bool include_invisible_media);
+        MintPlayer.Dtos.Dtos.Subject Entity2Dto(Entities.Subject subject, bool include_invisible_media, bool include_relations = false);
     }
 
     internal class SubjectMapper : ISubjectMapper
@@ -16,7 +16,7 @@ namespace MintPlayer.Data.Mappers
             this.serviceProvider = serviceProvider;
         }
 
-        public MintPlayer.Dtos.Dtos.Subject Entity2Dto(Entities.Subject subject, bool include_relations, bool include_invisible_media)
+        public MintPlayer.Dtos.Dtos.Subject Entity2Dto(Entities.Subject subject, bool include_invisible_media, bool include_relations = false)
         {
             if (subject == null) return null;
 
@@ -24,17 +24,17 @@ namespace MintPlayer.Data.Mappers
             if (subject_type == typeof(Entities.Person))
             {
                 var personMapper = serviceProvider.GetRequiredService<IPersonMapper>();
-                return personMapper.Entity2Dto((Entities.Person)subject, include_relations, include_invisible_media);
+                return personMapper.Entity2Dto((Entities.Person)subject, include_invisible_media, include_relations);
             }
             else if (subject_type == typeof(Entities.Artist))
             {
                 var artistMapper = serviceProvider.GetRequiredService<IArtistMapper>();
-                return artistMapper.Entity2Dto((Entities.Artist)subject, include_relations, include_invisible_media);
+                return artistMapper.Entity2Dto((Entities.Artist)subject, include_invisible_media, include_relations);
             }
             else if (subject_type == typeof(Entities.Song))
             {
                 var songMapper = serviceProvider.GetRequiredService<ISongMapper>();
-                return songMapper.Entity2Dto((Entities.Song)subject, include_relations, include_invisible_media);
+                return songMapper.Entity2Dto((Entities.Song)subject, include_invisible_media, include_relations);
             }
             else
             {

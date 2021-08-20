@@ -16,7 +16,6 @@
 			{
 				Id = mediumType.Id,
 				Description = mediumType.Description,
-				//PlayerType = mediumType.PlayerType,
 				Visible = mediumType.Visible
 			};
 		}
@@ -29,8 +28,7 @@
 			{
 				Id = mediumType.Id,
 				Description = mediumType.Description,
-				//PlayerType = mediumType.PlayerType,
-				Visible = mediumType.Visible
+                Visible = mediumType.Visible
 			};
 		}
 	}

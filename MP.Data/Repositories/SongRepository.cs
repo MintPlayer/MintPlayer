@@ -97,7 +97,7 @@ namespace MintPlayer.Data.Repositories
 						.ThenInclude(m => m.Type)
 					.Include(song => song.Tags)
 						.ThenInclude(st => st.Tag)
-					.Select(song => songMapper.Entity2Dto(song, include_relations, include_invisible_media));
+					.Select(song => songMapper.Entity2Dto(song, include_invisible_media, include_relations));
 				return Task.FromResult<IEnumerable<Song>>(songs);
 			}
 			else
@@ -108,7 +108,7 @@ namespace MintPlayer.Data.Repositories
 						.ThenInclude(@as => @as.Artist)
 					.Include(song => song.Media)
 						.ThenInclude(m => m.Type)
-					.Select(song => songMapper.Entity2Dto(song, include_relations, include_invisible_media));
+					.Select(song => songMapper.Entity2Dto(song, include_invisible_media, include_relations));
 				return Task.FromResult<IEnumerable<Song>>(songs);
 			}
 		}
@@ -127,7 +127,7 @@ namespace MintPlayer.Data.Repositories
 						.ThenInclude(st => st.Tag)
 							.ThenInclude(t => t.Category)
 					.SingleOrDefaultAsync(s => s.Id == id);
-				return songMapper.Entity2Dto(song, include_relations, include_invisible_media);
+				return songMapper.Entity2Dto(song, include_invisible_media, include_relations);
 			}
 			else
 			{
@@ -137,7 +137,7 @@ namespace MintPlayer.Data.Repositories
 					.Include(s => s.Media)
 						.ThenInclude(m => m.Type)
 					.SingleOrDefaultAsync(s => s.Id == id);
-				return songMapper.Entity2Dto(song, include_relations, include_invisible_media);
+				return songMapper.Entity2Dto(song, include_invisible_media, include_relations);
 			}
 		}
 
@@ -223,7 +223,7 @@ namespace MintPlayer.Data.Repositories
 
 			if (Convert.ToBase64String(song_entity.ConcurrencyStamp) != song.ConcurrencyStamp)
 			{
-				var databaseValue = songMapper.Entity2Dto(song_entity, true, false);
+				var databaseValue = songMapper.Entity2Dto(song_entity, false, true);
 				throw Exceptions.ConcurrencyException.Create(databaseValue);
 			}
 

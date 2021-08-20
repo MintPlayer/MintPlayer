@@ -60,7 +60,7 @@ namespace MintPlayer.Data.Repositories
                 .Take(request.PerPage);
 
             // 3) Convert to DTO
-            var dto_tags = await paged_tags.Select(tag => tagMapper.Entity2Dto(tag, false)).ToListAsync();
+            var dto_tags = await paged_tags.Select(tag => tagMapper.Entity2Dto(tag, false, false)).ToListAsync();
 
             var count_tags = await mintplayer_context.Tags.CountAsync();
             return new PaginationResponse<Tag>(request, count_tags, dto_tags);
@@ -73,14 +73,14 @@ namespace MintPlayer.Data.Repositories
                 var tag_opions = mintplayer_context.Tags
                     .Include(t => t.Category)
                     .Where(t => t.Description.Contains(search_term))
-                    .Select(t => tagMapper.Entity2Dto(t, false));
-                return Task.FromResult<IEnumerable<MintPlayer.Dtos.Dtos.Tag>>(tag_opions);
+                    .Select(t => tagMapper.Entity2Dto(t, false, false));
+                return Task.FromResult<IEnumerable<Tag>>(tag_opions);
             }
             else
             {
                 var tag_opions = mintplayer_context.Tags
                     .Where(t => t.Description.Contains(search_term))
-                    .Select(t => tagMapper.Entity2Dto(t, false));
+                    .Select(t => tagMapper.Entity2Dto(t, false, false));
                 return Task.FromResult<IEnumerable<Tag>>(tag_opions);
             }
         }
@@ -89,7 +89,7 @@ namespace MintPlayer.Data.Repositories
         {
             var tag_opions = mintplayer_context.Tags
                 .Where(t => t.Description == search_term)
-                .Select(t => tagMapper.Entity2Dto(t, false));
+                .Select(t => tagMapper.Entity2Dto(t, false, false));
             return Task.FromResult<IEnumerable<Tag>>(tag_opions);
         }
 
@@ -108,7 +108,7 @@ namespace MintPlayer.Data.Repositories
                     ? tags.Where(t => t.Parent == null)
                     : tags.AsQueryable();
 
-                return Task.FromResult<IEnumerable<Tag>>(tags_filtered.Select(t => tagMapper.Entity2Dto(t, true)));
+                return Task.FromResult<IEnumerable<Tag>>(tags_filtered.Select(t => tagMapper.Entity2Dto(t, true, true)));
             }
             else
             {
@@ -119,7 +119,7 @@ namespace MintPlayer.Data.Repositories
                     ? tags.Where(t => t.Parent == null)
                     : tags.AsQueryable();
 
-                return Task.FromResult<IEnumerable<Tag>>(tags_filtered.Select(t => tagMapper.Entity2Dto(t, false)));
+                return Task.FromResult<IEnumerable<Tag>>(tags_filtered.Select(t => tagMapper.Entity2Dto(t, false, false)));
             }
         }
 
@@ -134,7 +134,7 @@ namespace MintPlayer.Data.Repositories
                     .Include(t => t.Parent)
                     .Include(t => t.Children)
                     .SingleOrDefaultAsync(t => t.Id == id);
-                return tagMapper.Entity2Dto(tag, true);
+                return tagMapper.Entity2Dto(tag, true, true);
             }
             else
             {

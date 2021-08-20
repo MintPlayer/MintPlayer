@@ -80,13 +80,13 @@ namespace MintPlayer.Data.Repositories
 						.ThenInclude(m => m.Type)
 					.Include(person => person.Tags)
 						.ThenInclude(st => st.Tag)
-					.Select(person => personMapper.Entity2Dto(person, include_relations, include_invisible_media));
+					.Select(person => personMapper.Entity2Dto(person, include_invisible_media, include_relations));
 				return Task.FromResult<IEnumerable<Person>>(people);
 			}
 			else
 			{
 				var people = mintplayer_context.People
-					.Select(person => personMapper.Entity2Dto(person, include_relations, include_invisible_media));
+					.Select(person => personMapper.Entity2Dto(person, include_invisible_media, include_relations));
 				return Task.FromResult<IEnumerable<Person>>(people);
 			}
 		}
@@ -104,13 +104,13 @@ namespace MintPlayer.Data.Repositories
 						.ThenInclude(st => st.Tag)
 							.ThenInclude(t => t.Category)
 					.SingleOrDefaultAsync(p => p.Id == id);
-				return personMapper.Entity2Dto(person, include_relations, include_invisible_media);
+				return personMapper.Entity2Dto(person, include_invisible_media, include_relations);
 			}
 			else
 			{
 				var person = await mintplayer_context.People
 					.SingleOrDefaultAsync(p => p.Id == id);
-				return personMapper.Entity2Dto(person, include_relations, include_invisible_media);
+				return personMapper.Entity2Dto(person, include_invisible_media, include_relations);
 			}
 		}
 
@@ -193,7 +193,7 @@ namespace MintPlayer.Data.Repositories
 
 			if (Convert.ToBase64String(entity_person.ConcurrencyStamp) != person.ConcurrencyStamp)
 			{
-				var databaseValue = personMapper.Entity2Dto(entity_person, true, false);
+				var databaseValue = personMapper.Entity2Dto(entity_person, false, true);
 				throw Exceptions.ConcurrencyException.Create(databaseValue);
 			}
 

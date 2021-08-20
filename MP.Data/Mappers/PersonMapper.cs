@@ -8,7 +8,7 @@ namespace MintPlayer.Data.Mappers
 {
     internal interface IPersonMapper
     {
-		MintPlayer.Dtos.Dtos.Person Entity2Dto(Entities.Person person, bool include_relations, bool include_invisible_media);
+		MintPlayer.Dtos.Dtos.Person Entity2Dto(Entities.Person person, bool include_invisible_media, bool include_relations = false);
 		Entities.Person Dto2Entity(MintPlayer.Dtos.Dtos.Person person, MintPlayerContext mintplayer_context);
 	}
 
@@ -20,60 +20,65 @@ namespace MintPlayer.Data.Mappers
             this.serviceProvider = serviceProvider;
         }
 
-		public MintPlayer.Dtos.Dtos.Person Entity2Dto(Entities.Person person, bool include_relations, bool include_invisible_media)
+		public MintPlayer.Dtos.Dtos.Person Entity2Dto(Entities.Person person, bool include_invisible_media, bool include_relations = false)
 		{
-			if (person == null) return null;
+			if (person == null)
+            {
+                return null;
+            }
+
+			var result = new MintPlayer.Dtos.Dtos.Person
+			{
+				Id = person.Id,
+				FirstName = person.FirstName,
+				LastName = person.LastName,
+				Born = person.Born,
+				Died = person.Died,
+
+				Text = person.Text,
+				DateUpdate = person.DateUpdate ?? person.DateInsert,
+				ConcurrencyStamp = Convert.ToBase64String(person.ConcurrencyStamp),
+			};
+
 			if (include_relations)
 			{
-				var artistMapper = serviceProvider.GetRequiredService<IArtistMapper>();
-				var mediumMapper = serviceProvider.GetRequiredService<IMediumMapper>();
-				var tagMapper = serviceProvider.GetRequiredService<ITagMapper>();
-
-				return new MintPlayer.Dtos.Dtos.Person
+				if (person.Artists != null)
 				{
-					Id = person.Id,
-					FirstName = person.FirstName,
-					LastName = person.LastName,
-					Born = person.Born,
-					Died = person.Died,
+					var artistMapper = serviceProvider.GetRequiredService<IArtistMapper>();
+					result.Artists = person.Artists
+						.Select(ap => artistMapper.Entity2Dto(ap.Artist, include_invisible_media))
+						.ToList();
+				}
 
-					Text = person.Text,
-					DateUpdate = person.DateUpdate ?? person.DateInsert,
-					ConcurrencyStamp = Convert.ToBase64String(person.ConcurrencyStamp),
-
-					Artists = person.Artists
-						.Select(ap => artistMapper.Entity2Dto(ap.Artist, false, include_invisible_media))
-						.ToList(),
-					Media = person.Media == null ? null : person.Media
+				if (person.Media != null)
+				{
+					var mediumMapper = serviceProvider.GetRequiredService<IMediumMapper>();
+					result.Media = person.Media
 						.Where(medium => medium.Type.Visible | include_invisible_media)
 						.Select(medium => mediumMapper.Entity2Dto(medium, true))
-						.ToList(),
-					Tags = person.Tags == null ? null : person.Tags
-						.Select(st => tagMapper.Entity2Dto(st.Tag))
-						.ToList()
-				};
-			}
-			else
-			{
-				return new MintPlayer.Dtos.Dtos.Person
-				{
-					Id = person.Id,
-					FirstName = person.FirstName,
-					LastName = person.LastName,
-					Born = person.Born,
-					Died = person.Died,
+						.ToList();
+				}
 
-					Text = person.Text,
-					DateUpdate = person.DateUpdate ?? person.DateInsert,
-                    ConcurrencyStamp = Convert.ToBase64String(person.ConcurrencyStamp),
-				};
+				if (person.Tags != null)
+				{
+					var tagMapper = serviceProvider.GetRequiredService<ITagMapper>();
+					result.Tags = person.Tags
+						.Select(st => tagMapper.Entity2Dto(st.Tag))
+						.ToList();
+				}
 			}
+
+			return result;
 		}
 
 		public Entities.Person Dto2Entity(MintPlayer.Dtos.Dtos.Person person, MintPlayerContext mintplayer_context)
 		{
-			if (person == null) return null;
-			var entity_person = new Entities.Person
+			if (person == null)
+            {
+                return null;
+            }
+
+            var entity_person = new Entities.Person
 			{
 				Id = person.Id,
 				FirstName = person.FirstName,

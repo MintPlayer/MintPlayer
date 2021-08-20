@@ -86,13 +86,13 @@ namespace MintPlayer.Data.Repositories
                         .ThenInclude(m => m.Type)
                     .Include(artist => artist.Tags)
                         .ThenInclude(st => st.Tag)
-                    .Select(artist => artistMapper.Entity2Dto(artist, include_relations, include_invisible_media));
+                    .Select(artist => artistMapper.Entity2Dto(artist, include_invisible_media, include_relations));
                 return Task.FromResult<IEnumerable<Artist>>(artists);
             }
             else
             {
                 var artists = mintplayer_context.Artists
-                    .Select(artist => artistMapper.Entity2Dto(artist, include_relations, include_invisible_media));
+                    .Select(artist => artistMapper.Entity2Dto(artist, include_invisible_media, include_relations));
                 return Task.FromResult<IEnumerable<Artist>>(artists);
             }
         }
@@ -112,13 +112,13 @@ namespace MintPlayer.Data.Repositories
                         .ThenInclude(st => st.Tag)
                             .ThenInclude(t => t.Category)
                     .SingleOrDefaultAsync(a => a.Id == id);
-                return artistMapper.Entity2Dto(artist, include_relations, include_invisible_media);
+                return artistMapper.Entity2Dto(artist, include_invisible_media, include_relations);
             }
             else
             {
                 var artist = await mintplayer_context.Artists
                     .SingleOrDefaultAsync(a => a.Id == id);
-                return artistMapper.Entity2Dto(artist, include_relations, include_invisible_media);
+                return artistMapper.Entity2Dto(artist, include_invisible_media, include_relations);
             }
         }
 
@@ -203,7 +203,7 @@ namespace MintPlayer.Data.Repositories
 
             if (Convert.ToBase64String(artist_entity.ConcurrencyStamp) != artist.ConcurrencyStamp)
             {
-                var databaseValue = artistMapper.Entity2Dto(artist_entity, true, false);
+                var databaseValue = artistMapper.Entity2Dto(artist_entity, false, true);
                 throw Exceptions.ConcurrencyException.Create(databaseValue);
             }
 
@@ -260,7 +260,7 @@ namespace MintPlayer.Data.Repositories
             artist.DateDelete = DateTime.Now;
 
             var deleted_artist = artistMapper.Entity2Dto(artist, false, false);
-            var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
+            var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Dtos.Jobs.ElasticSearchIndexJob
             {
                 Subject = deleted_artist,
                 SubjectStatus = MintPlayer.Dtos.Enums.eSubjectAction.Deleted,

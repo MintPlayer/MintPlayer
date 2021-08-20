@@ -24,8 +24,8 @@ namespace MintPlayer.Data.Mappers
                 Id = mapSensitiveData ? user.Id : Guid.Empty,
                 Email = mapSensitiveData ? user.Email : null,
                 UserName = user.UserName,
-                IsTwoFactorEnabled = user.TwoFactorEnabled,
-                Bypass2faForExternalLogin = user.Bypass2faForExternalLogin,
+                IsTwoFactorEnabled = mapSensitiveData ? user.TwoFactorEnabled : false,
+                Bypass2faForExternalLogin = mapSensitiveData ? user.Bypass2faForExternalLogin : false,
                 PictureUrl = user.PictureUrl,
             };
         }

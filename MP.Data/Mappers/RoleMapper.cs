@@ -18,7 +18,11 @@ namespace MintPlayer.Data.Mappers
 
         public MintPlayer.Dtos.Dtos.Role Entity2Dto(Entities.Role role)
         {
-            if (role == null) return null;
+            if (role == null)
+            {
+                return null;
+            }
+
             return new MintPlayer.Dtos.Dtos.Role
             {
                 Id = role.Id,
@@ -28,7 +32,11 @@ namespace MintPlayer.Data.Mappers
 
         public Entities.Role Dto2Entity(MintPlayer.Dtos.Dtos.Role role)
         {
-            if (role == null) return null;
+            if (role == null)
+            {
+                return null;
+            }
+
             return new Entities.Role
             {
                 Id = role.Id,

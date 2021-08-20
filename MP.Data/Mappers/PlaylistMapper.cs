@@ -22,31 +22,37 @@ namespace MintPlayer.Data.Mappers
 
         public MintPlayer.Dtos.Dtos.Playlist Entity2Dto(Entities.Playlist playlist, bool include_relations = false)
         {
-            if (playlist == null) return null;
+            if (playlist == null)
+            {
+                return null;
+            }
+
+            var result = new MintPlayer.Dtos.Dtos.Playlist
+            {
+                Id = playlist.Id,
+                Description = playlist.Description,
+                Accessibility = playlist.Accessibility,
+            };
+
             if (include_relations)
             {
-                var userMapper = serviceProvider.GetRequiredService<IUserMapper>();
-                var songMapper = serviceProvider.GetRequiredService<ISongMapper>();
-                return new MintPlayer.Dtos.Dtos.Playlist
+                if (playlist.User != null)
                 {
-                    Id = playlist.Id,
-                    Description = playlist.Description,
-                    User = userMapper.Entity2Dto(playlist.User, false),
-                    Accessibility = playlist.Accessibility,
-                    Tracks = playlist.Tracks
+                    var userMapper = serviceProvider.GetRequiredService<IUserMapper>();
+                    result.User = userMapper.Entity2Dto(playlist.User, false);
+                }
+
+                if (playlist.Tracks != null)
+                {
+                    var songMapper = serviceProvider.GetRequiredService<ISongMapper>();
+                    result.Tracks = playlist.Tracks
                         .OrderBy(t => t.Index)
                         .Select(t => songMapper.Entity2Dto(t.Song, false, false))
-                        .ToList()
-                };
+                        .ToList();
+                }
             }
-            else
-            {
-                return new MintPlayer.Dtos.Dtos.Playlist
-                {
-                    Id = playlist.Id,
-                    Description = playlist.Description
-                };
-            }
+
+            return result;
         }
 
         public Entities.Playlist Dto2Entity(MintPlayer.Dtos.Dtos.Playlist playlist, MintPlayerContext mintplayer_context)
