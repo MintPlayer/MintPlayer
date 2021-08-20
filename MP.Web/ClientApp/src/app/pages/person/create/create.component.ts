@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { MediumType, MediumTypeService, Person, PersonService } from '@mintplayer/ng-client';
+import { API_VERSION, MediumType, MediumTypeService, Person, PersonService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -18,6 +18,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
     @Inject(SERVER_SIDE) private serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
@@ -27,6 +28,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers
   ) {
+    this.apiVersion = apiVersion;
     this.titleService.setTitle('Create person');
     if (serverSide === false) {
       this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
@@ -39,6 +41,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     }
   }
 
+  apiVersion: string = '';
   mediumTypes: MediumType[] = [];
   person: Person = {
     id: 0,

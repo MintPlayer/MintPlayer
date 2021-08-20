@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Title } from '@angular/platform-browser';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { Artist, ArtistService, MediumType, MediumTypeService } from '@mintplayer/ng-client';
+import { API_VERSION, Artist, ArtistService, MediumType, MediumTypeService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -19,6 +19,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
     @Inject(SERVER_SIDE) private serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     private artistService: ArtistService,
     private mediumTypeService: MediumTypeService,
     private router: AdvancedRouter,
@@ -28,6 +29,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers
   ) {
+    this.apiVersion = apiVersion;
     if (serverSide === false) {
       // Get artist
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -38,6 +40,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     }
   }
 
+  apiVersion: string = '';
   mediumTypes: MediumType[] = [];
   oldName: string = '';
   artist: Artist = {

@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { MediumType, MediumTypeService, Song, SongService } from '@mintplayer/ng-client';
+import { API_VERSION, MediumType, MediumTypeService, Song, SongService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -19,6 +19,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
     @Inject(SERVER_SIDE) private serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private songService: SongService,
     private mediumTypeService: MediumTypeService,
@@ -29,6 +30,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers
   ) {
+    this.apiVersion = apiVersion;
     this.titleService.setTitle('Add new song');
     if (serverSide === false) {
       this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
@@ -47,6 +49,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   //fetchUrl: string = '';
   //fetchDialogVisible: string = 'out';
+  apiVersion: string = '';
   mediumTypes: MediumType[] = [];
   oldSongTitle: string = '';
   song: Song = {

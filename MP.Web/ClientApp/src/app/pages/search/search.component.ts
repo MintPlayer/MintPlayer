@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
-import { Artist, Person, SearchResults, Song, SubjectService, SubjectType } from '@mintplayer/ng-client';
+import { API_VERSION, Artist, Person, SearchResults, Song, SubjectService, SubjectType } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { UrlGenerator } from '../../helpers/url-generator.helper';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -18,6 +19,7 @@ import { UrlGenerator } from '../../helpers/url-generator.helper';
 export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
+    @Inject(API_VERSION) apiVersion: string,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
     private subjectService: SubjectService,
@@ -25,6 +27,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     private metaService: Meta,
     private urlGenerator: UrlGenerator
   ) {
+    this.apiVersion = apiVersion;
     this.route.paramMap.subscribe((params) => {
       if (params.has('searchTerm')) {
         this.searchterm = params.get('searchTerm');
@@ -81,6 +84,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
   //#endregion
 
+  apiVersion: string = '';
   searchterm: string = '';
   searchResults: SearchResults = {
     artists: [],

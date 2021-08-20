@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { MediumType, MediumTypeService, Person, PersonService } from '@mintplayer/ng-client';
+import { API_VERSION, MediumType, MediumTypeService, Person, PersonService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -18,6 +18,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
     @Inject(SERVER_SIDE) private serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
     private router: AdvancedRouter,
@@ -27,6 +28,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers
   ) {
+    this.apiVersion = apiVersion;
     if (serverSide === false) {
       // Get person
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -63,6 +65,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     });
   }
 
+  apiVersion: string = '';
   oldPersonName: string = '';
   mediumTypes: MediumType[] = [];
   person: Person = {

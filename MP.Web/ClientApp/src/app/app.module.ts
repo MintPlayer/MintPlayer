@@ -18,6 +18,7 @@ import { PlaylistTogglerModule } from './controls/playlist-toggler/playlist-togg
 import { CardModule } from './controls/card/card.module';
 import { API_VERSION } from '@mintplayer/ng-client';
 import { VideoPlayerModule } from '@mintplayer/ng-video-player';
+import { EditComponent } from './pages/song/edit/edit.component';
 
 const getExternalUrl = (baseUrl: string) => {
   if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
