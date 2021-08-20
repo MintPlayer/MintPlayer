@@ -94,7 +94,6 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   private setSongData(data: PaginationResponse<Song>) {
-    console.error('song data', data);
     this.songData = data;
     this.tableSettings.page.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }
