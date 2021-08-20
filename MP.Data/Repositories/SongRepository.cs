@@ -216,9 +216,15 @@ namespace MintPlayer.Data.Repositories
 				.Include(s => s.Tags)
 				.SingleOrDefaultAsync(s => s.Id == song.Id);
 
+			if (song_entity == null)
+			{
+				throw new Exceptions.NotFoundException();
+			}
+
 			if (Convert.ToBase64String(song_entity.ConcurrencyStamp) != song.ConcurrencyStamp)
 			{
-				throw new Exceptions.ConcurrencyException();
+				var databaseValue = songMapper.Entity2Dto(song_entity, true, false);
+				throw Exceptions.ConcurrencyException.Create(databaseValue);
 			}
 
 			// Set new properties
@@ -312,6 +318,11 @@ namespace MintPlayer.Data.Repositories
 		{
 			// Find existing song
 			var song = await mintplayer_context.Songs.FindAsync(song_id);
+
+			if (song == null)
+			{
+				throw new Exceptions.NotFoundException();
+			}
 
 			// Get current user
 			var user = await user_manager.GetUserAsync(http_context.HttpContext.User);

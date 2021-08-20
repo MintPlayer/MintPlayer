@@ -186,9 +186,15 @@ namespace MintPlayer.Data.Repositories
 				.Include(p => p.Tags)
 				.SingleOrDefaultAsync(p => p.Id == person.Id);
 
+			if (entity_person == null)
+			{
+				throw new Exceptions.NotFoundException();
+			}
+
 			if (Convert.ToBase64String(entity_person.ConcurrencyStamp) != person.ConcurrencyStamp)
 			{
-				throw new Exceptions.ConcurrencyException();
+				var databaseValue = personMapper.Entity2Dto(entity_person, true, false);
+				throw Exceptions.ConcurrencyException.Create(databaseValue);
 			}
 
 			// Set new properties
@@ -227,6 +233,11 @@ namespace MintPlayer.Data.Repositories
 		{
 			// Find existing person
 			var person = await mintplayer_context.People.FindAsync(person_id);
+
+			if (person == null)
+			{
+				throw new Exceptions.NotFoundException();
+			}
 
 			// Get current user
 			var user = await user_manager.GetUserAsync(http_context.HttpContext.User);

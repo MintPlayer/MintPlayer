@@ -94,9 +94,13 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
                 var updated_person = await personService.UpdatePerson(person);
                 return Ok(updated_person);
             }
-            catch (Data.Exceptions.ConcurrencyException concurrencyEx)
+            catch (Data.Exceptions.NotFoundException notFoundEx)
             {
-                return Conflict();
+                return NotFound();
+            }
+            catch (Data.Exceptions.ConcurrencyException<Person> concurrencyEx)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status409Conflict, concurrencyEx.DatabaseValue);
             }
             catch (Exception ex)
             {
@@ -111,9 +115,19 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult> Delete(int id)
         {
-            await personService.DeletePerson(id);
-            await personService.DeletePerson(id);
-            return Ok();
+            try
+            {
+                await personService.DeletePerson(id);
+                return Ok();
+            }
+            catch (Data.Exceptions.NotFoundException notFoundEx)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

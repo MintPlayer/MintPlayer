@@ -100,9 +100,13 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
                 var updated_song = await songService.UpdateSong(song);
                 return Ok(updated_song);
             }
-            catch (Data.Exceptions.ConcurrencyException concurrencyEx)
+            catch (Data.Exceptions.NotFoundException notFoundEx)
             {
-                return Conflict();
+                return NotFound();
+            }
+            catch (Data.Exceptions.ConcurrencyException<Song> concurrencyEx)
+            {
+                return StatusCode(Microsoft.AspNetCore.Http.StatusCodes.Status409Conflict, concurrencyEx.DatabaseValue);
             }
             catch (Exception ex)
             {
@@ -126,8 +130,19 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult> Delete(int id)
         {
-            await songService.DeleteSong(id);
-            return Ok();
+            try
+            {
+                await songService.DeleteSong(id);
+                return Ok();
+            }
+            catch (Data.Exceptions.NotFoundException notFoundEx)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }
