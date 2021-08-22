@@ -32,9 +32,10 @@ namespace MintPlayer.Fetcher
             return fetcher;
         }
 
-        public Task<Dtos.Subject> Fetch(string url, bool trimTrash)
+        public async Task<Dtos.Subject> Fetch(string url, bool trimTrash)
         {
-            return GetFetcher(url).Fetch(url, trimTrash);
+            var subject = await GetFetcher(url).Fetch(url, trimTrash);
+            return subject;
         }
     }
 }
