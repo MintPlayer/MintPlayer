@@ -18,9 +18,9 @@
         &copy; {{ title }}
       </div>
     </div>
-    <playlist-sidebar [playerState]="playerState" [songs]="playlistControl.playlist" [current]="playlistControl.currentVideo" [songProgress]="songProgress" (songRemoved)="playlistControl.removeFromPlaylist($event.song)" (previousClicked)="playlistControl.previous()" (nextClicked)="playlistControl.next(true)" (songClicked)="collapsePlaylistSidebar()" (playPauseClicked)="playPausePlayer()" [(isRandom)]="playlistControl.shuffle" [(repeatMode)]="playlistControl.repeat" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
+    <playlist-sidebar [playerState]="playerState" [songs]="playlistControl.playlist" [current]="playlistControl.video$ | async" [songProgress]="songProgress" (songRemoved)="playlistControl.removeFromPlaylist($event.song)" (previousClicked)="playlistControl.previous()" (nextClicked)="playlistControl.next()" (songClicked)="collapsePlaylistSidebar()" (playPauseClicked)="playPausePlayer()" [(isRandom)]="playlistControl.shuffle" [(repeatMode)]="playlistControl.repeat" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
   </div>
-  <card class="youtube-card" [ngClass]="{'d-none':playlistControl.currentVideo === null}" [noPadding]="true" [isDraggable]="true">
+  <card class="youtube-card" [ngClass]="{'d-none':(playlistControl.video$ | async) === null}" [noPadding]="true" [isDraggable]="true">
     <header>
       <div class="pull-left">
         Currently playing

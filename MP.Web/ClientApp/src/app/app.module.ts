@@ -6,6 +6,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { QUERY_PARAMS_CONFIG, QueryParamsConfig, AdvancedRouterModule } from '@mintplayer/ng-router';
 import { BaseUrlOptions, BASE_URL, BASE_URL_OPTIONS } from '@mintplayer/ng-base-url';
+import { API_VERSION } from '@mintplayer/ng-client';
+import { VideoPlayerModule } from '@mintplayer/ng-video-player';
+import { PlaylistControllerModule } from '@mintplayer/ng-playlist-controller';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -16,9 +19,6 @@ import { PlaylistSidebarModule } from './components/playlist-sidebar/playlist-si
 import { NavbarTogglerModule } from './controls/navbar-toggler/navbar-toggler.module';
 import { PlaylistTogglerModule } from './controls/playlist-toggler/playlist-toggler.module';
 import { CardModule } from './controls/card/card.module';
-import { API_VERSION } from '@mintplayer/ng-client';
-import { VideoPlayerModule } from '@mintplayer/ng-video-player';
-import { EditComponent } from './pages/song/edit/edit.component';
 
 const getExternalUrl = (baseUrl: string) => {
   if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
@@ -57,6 +57,7 @@ const getExternalUrl = (baseUrl: string) => {
     TranslateModule.forChild(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AdvancedRouterModule,
+    PlaylistControllerModule,
 
     CardModule,
     SidebarModule,

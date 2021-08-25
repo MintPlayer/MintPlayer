@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, ChangeDetectorRef, Inject, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, ElementRef, ViewChild, ChangeDetectorRef, Inject, OnInit, OnDestroy, AfterViewInit, HostListener } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { SwUpdate } from '@angular/service-worker';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { User, Song, AccountService, Medium } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlayerProgress } from '@mintplayer/ng-player-progress';
 import { PlayerState, VideoPlayerComponent } from '@mintplayer/ng-video-player';
+import { takeUntil } from 'rxjs/operators';
 
 import { eToggleButtonState } from './enums/eToggleButtonState';
 import { eSidebarState } from './enums/eSidebarState';
@@ -18,26 +19,29 @@ import { PlaylistShowComponent } from './pages/playlist/show/show.component';
 import { PlayButtonClickedEvent } from './events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from './enums/ePlaylistPlayButton';
 import { LinifyPipe } from './pipes/linify/linify.pipe';
-import { PlaylistControl } from './helpers/playlist-control.helper';
 import { SyncComponent } from './pages/song/sync/sync.component';
 import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
 import { TwoFactorComponent } from './pages/account/two-factor/two-factor.component';
 import { SongWithMedium } from './interfaces/song-with-medium';
+import { PlaylistController } from '@mintplayer/ng-playlist-controller';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   title = 'MintPlayer';
   activeUser: User = null;
   fullWidth: boolean = false;
+  isViewInited: boolean = false;
   toggleButtonState: eToggleButtonState = eToggleButtonState.auto;
   sidebarState: eSidebarState = eSidebarState.auto;
   playlistToggleButtonState: eToggleButtonState = eToggleButtonState.closed;
 
-  playlistControl: PlaylistControl<SongWithMedium>;
+  playlistControl: PlaylistController<SongWithMedium>;
+  private destroyed$ = new Subject();
 
   //#region Player card size
   playerSize: Size = { width: 200, height: 150 };
@@ -96,19 +100,20 @@ export class AppComponent implements OnInit, OnDestroy {
     this.onWindowResize();
     //#endregion
     //#region Initialize PlaylistController
-    this.playlistControl = new PlaylistControl<SongWithMedium>({
-      onGetCurrentPosition: () => this.player.currentTime,
-      onPlayVideo: (song) => {
-        if (song.medium !== null) {
-          this.player.url = song.medium.value;
-        } else if (song.song.playerInfos.length > 0) {
-          this.player.url = song.song.playerInfos[0].url;
+    this.playlistControl = new PlaylistController<SongWithMedium>();
+    this.playlistControl.video$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((song) => {
+        if (this.isViewInited) {
+          if (song === null) {
+            this.player.setUrl(null);
+          } else if (song.medium !== null) {
+            this.player.setUrl(song.medium.value);
+          } else if (song.song.playerInfos.length > 0) {
+            this.player.setUrl(song.song.playerInfos[0].url);
+          }
         }
-      },
-      onStopVideo: () => {
-        this.player.playerState = PlayerState.ended;
-      }
-    });
+      });
     //#endregion
     //#region Translate
     const defaultLang = 'en';
@@ -143,6 +148,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.ogMetaTags.forEach((tag) => {
       this.metaService.removeTagElement(tag);
     });
+    this.destroyed$.next(true);
+  }
+  ngAfterViewInit() {
+    this.isViewInited = true;
   }
   //#endregion
 
@@ -186,14 +195,14 @@ export class AppComponent implements OnInit, OnDestroy {
   currentLyricsLine: string = null;
 
   private computeCurrentLyricsLine() {
-    if (this.playlistControl.currentVideo === null) {
+    if (this.playlistControl.video$.value === null) {
       this.currentLyricsLine = null;
     } else {
       let linesPassed = this.linifyPipe
-        .transform(this.playlistControl.currentVideo.song.lyrics.text)
+        .transform(this.playlistControl.video$.value.song.lyrics.text)
         .map((value, index) => {
           return {
-            time: this.playlistControl.currentVideo.song.lyrics.timeline[index],
+            time: this.playlistControl.video$.value.song.lyrics.timeline[index],
             line: value
           };
         }).filter((value, index) => {
@@ -238,7 +247,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.playerState = state;
     switch (state) {
       case PlayerState.playing:
-        if (this.playlistControl.currentVideo.song.lyrics.timeline === null) {
+        if (this.playlistControl.video$.value.song.lyrics.timeline === null) {
           this.currentLyricsLine = null;
         } else {
           this.lyricsTimer = setInterval(() => {
@@ -275,7 +284,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.playlistControl.previous();
   }
   playNextSong() {
-    this.playlistControl.next(false);
+    this.playlistControl.playerEnded();
     this.ref.detectChanges();
   }
   playPausePlayer() {

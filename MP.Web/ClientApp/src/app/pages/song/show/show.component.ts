@@ -48,11 +48,13 @@ export class ShowComponent implements OnInit, OnDestroy {
       this.loadSong(routeParams.id);
     });
 
-    let wrapLyrics = localStorage.getItem('wrapLyrics');
-    if (wrapLyrics === null) {
-      this.wrapLyrics = true;
-    } else {
-      this.wrapLyrics = wrapLyrics !== 'false';
+    if (typeof window !== 'undefined') {
+      let wrapLyrics = localStorage.getItem('wrapLyrics');
+      if (wrapLyrics === null) {
+        this.wrapLyrics = true;
+      } else {
+        this.wrapLyrics = wrapLyrics !== 'false';
+      }
     }
   }
 

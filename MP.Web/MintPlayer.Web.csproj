@@ -78,7 +78,6 @@
     <None Remove="ClientApp\src\app\events\play-button-clicked.event.ts" />
     <None Remove="ClientApp\src\app\helpers\enum.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\html-link.helper.ts" />
-    <None Remove="ClientApp\src\app\helpers\playlist-control.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\pwa.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\slugify.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\url-generator.helper.ts" />
@@ -159,7 +158,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\events\play-button-clicked.event.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\html-link.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\enum.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\playlist-control.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\pwa.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\slugify.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\url-generator.helper.ts" />
