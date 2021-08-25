@@ -24,7 +24,9 @@
     "remove_medium": "Dit medium verwijderen",
     "general_information": "Algemene info",
     "like": "Vind ik leuk",
-    "dislike": "Vind ik niet leuk"
+    "dislike": "Vind ik niet leuk",
+    "changed_while_editing": "De {{ subject }} is veranderd terwijl u deze aan het bewerken was",
+    "current_database_value": "Huidige database waarde: {{ value }}"
   },
   "media": {
     "value": "Waarde",
@@ -41,6 +43,7 @@
     "all_medium_types": "Alle mediumtypes"
   },
   "artists": {
+    "artist": "Artiest",
     "artists": "Artiesten",
     "all_artists": "Alle artiesten",
     "add_artist": "Artiest toevoegen",
@@ -57,6 +60,7 @@
     "update_artist": "Artiest updaten"
   },
   "people": {
+    "person": "Persoon",
     "people": "Personen",
     "create_person": "Persoon toevoegen",
     "create_new_person": "Nieuwe persoon toevoegen",
@@ -69,6 +73,7 @@
     "died": "Overleden"
   },
   "songs": {
+    "song": "Song",
     "songs": "Songs",
     "all_songs": "Alle songs",
     "add_song": "Song toevoegen",

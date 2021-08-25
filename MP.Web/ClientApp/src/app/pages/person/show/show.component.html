@@ -27,7 +27,7 @@
       <div class="container">
         <div class="row mb-2">
           <div class="col-sm-4 col-xl-2">
-            <label class="fw-bold">First name</label>
+            <label class="fw-bold">{{ 'people.first_name' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ person.firstName }}</label>
@@ -35,7 +35,7 @@
         </div>
         <div class="row mb-2">
           <div class="col-sm-4 col-xl-2">
-            <label class="fw-bold">Last name</label>
+            <label class="fw-bold">{{ 'people.last_name' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ person.lastName }}</label>
@@ -43,7 +43,7 @@
         </div>
         <div class="row mb-2">
           <div class="col-sm-4 col-xl-2">
-            <label class="fw-bold">Birth day</label>
+            <label class="fw-bold">{{ 'people.born' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ person.born | date:'dd-MM-yyyy' }}</label>
@@ -51,7 +51,7 @@
         </div>
         <div class="row mb-2">
           <div class="col-sm-4 col-xl-2">
-            <label class="fw-bold">Died</label>
+            <label class="fw-bold">{{ 'people.died' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ person.died | date:'dd-MM-yyyy' }}</label>
@@ -59,7 +59,7 @@
         </div>
         <div class="row mb-2">
           <div class="col-sm-4 col-xl-2">
-            <label class="fw-bold">Tags</label>
+            <label class="fw-bold">{{ 'subjects.tags' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <a *ngFor="let tag of person.tags" class="h4 d-inline-block me-2 mb-0" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id]'>
@@ -99,7 +99,7 @@
   <card class="d-block" [noPadding]="true">
     <header>
       <i class="fa fa-medium"></i>
-      Media
+      {{ 'subjects.media' | translate }}
     </header>
     <content>
       <media-list [media]="person.media" class="d-inline-block m-3 m-md-4"></media-list>

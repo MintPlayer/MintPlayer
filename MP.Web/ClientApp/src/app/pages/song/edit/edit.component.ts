@@ -63,6 +63,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     description: '',
     dateUpdate: null
   };
+  concurrentSong: Song = null;
 
   public httpHeaders: HttpHeaders = new HttpHeaders({
     'include_relations': String(true)
@@ -104,7 +105,15 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
       this.hasChanges = false;
       this.router.navigate(['song', this.song.id, this.slugifyHelper.slugify(song.title)]);
     }).catch((error) => {
-      console.error('Could not update song', error);
+      switch (error.status) {
+        case 409: {
+          console.log("Error 409", error);
+          this.concurrentSong = error.error;
+        } break;
+        default: {
+          console.error('Could not update song', error);
+        } break;
+      }
     });
   }
 

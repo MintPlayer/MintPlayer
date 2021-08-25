@@ -11,6 +11,9 @@
         </span>
       </div>
     </div>
+    <div class="alert alert-danger" role="alert" *ngIf="!!concurrentSong">
+      {{ 'subjects.changed_while_editing' | translate: {subject: 'songs.song' | translate} }}
+    </div>
     <card class="d-block mb-3" [overflowX]="false">
       <header>
         <i class="fa fa-info"></i>
@@ -20,13 +23,15 @@
         <div class="form-group row mb-3">
           <label [appFor]="txt_title" class="col-form-label col-sm-4 col-xl-2">Title</label>
           <div class="col-sm-8 col-xl-10">
-            <input type="text" [(ngModel)]="song.title" class="form-control" #txt_title name="title" autofocus />
+            <input type="text" [(ngModel)]="song.title" class="form-control" [class.is-invalid]="!!concurrentSong && (song.title !== concurrentSong.title)" #txt_title name="title" autofocus />
+            <div class="invalid-feedback" *ngIf="!!concurrentSong">{{ 'subjects.current_database_value' | translate: {value:concurrentSong.title} }}</div>
           </div>
         </div>
         <div class="form-group row mb-3">
           <label [appFor]="txt_released" class="col-form-label col-sm-4 col-xl-2">Released</label>
           <div class="col-sm-8 col-xl-10">
-            <input type="date" [ngModel]="song.released | date:'yyyy-MM-dd'" (ngModelChange)="song.released = $event" name="released" class="form-control" #txt_released />
+            <input type="date" [ngModel]="song.released | date:'yyyy-MM-dd'" class="form-control" [class.is-invalid]="!!concurrentSong && (song.released !== concurrentSong.released)" (ngModelChange)="song.released = $event" name="released" #txt_released />
+            <div class="invalid-feedback" *ngIf="!!concurrentSong">{{ 'subjects.current_database_value' | translate: {value:(concurrentSong.released | date:'yyyy-MM-dd')} }}</div>
           </div>
         </div>
         <div class="form-group row mb-3">

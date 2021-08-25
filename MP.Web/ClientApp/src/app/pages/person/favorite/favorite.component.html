@@ -1,16 +1,16 @@
 <div class="container-fluid">
   <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">My favorite people</h1>
+      <h1 class="d-inline-block">{{ 'people.favorite_people' | translate }}</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
       <datatable [settings]="tableSettings" [data]="personData" (onReloadData)="loadFavoritePeople()">
-        <datatable-column title="First name" name="FirstName" [sortable]="true"></datatable-column>
-        <datatable-column title="Last name" name="LastName" [sortable]="true"></datatable-column>
-        <datatable-column title="Born" name="Born" [sortable]="true"></datatable-column>
-        <datatable-column title="Died" name="Died" [sortable]="true"></datatable-column>
+        <datatable-column title="'people.first_name' | translate" name="FirstName" [sortable]="true"></datatable-column>
+        <datatable-column title="'people.last_name' | translate" name="LastName" [sortable]="true"></datatable-column>
+        <datatable-column title="'people.born' | translate" name="Born" [sortable]="true"></datatable-column>
+        <datatable-column title="'people.died' | translate" name="Died" [sortable]="true"></datatable-column>
 
         <ng-template rowTemplate let-person>
           <tr>

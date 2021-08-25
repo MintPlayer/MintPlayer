@@ -24,7 +24,9 @@
     "remove_medium": "Remove this medium",
     "general_information": "General information",
     "like": "I like this",
-    "dislike": "I don't like this"
+    "dislike": "I don't like this",
+    "changed_while_editing": "The {{ subject }} was changed while you were editing",
+    "current_database_value": "Current database value: {{ value }}"
   },
   "media": {
     "value": "Value",
@@ -41,6 +43,7 @@
     "all_medium_types": "All medium types"
   },
   "artists": {
+    "artist": "artist",
     "artists": "Artists",
     "all_artists": "All artists",
     "add_artist": "Add artist",
@@ -57,6 +60,7 @@
     "update_artist": "Update artist"
   },
   "people": {
+    "person": "person",
     "people": "People",
     "create_person": "Create person",
     "create_new_person": "Create new person",
@@ -69,6 +73,7 @@
     "died": "Died"
   },
   "songs": {
+    "song": "song",
     "songs": "Songs",
     "all_songs": "All songs",
     "add_song": "Add song",

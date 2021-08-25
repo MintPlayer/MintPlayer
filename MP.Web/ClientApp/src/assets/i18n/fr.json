@@ -24,7 +24,9 @@
     "remove_medium": "Supprimer ce medium",
     "general_information": "Informations générales",
     "like": "J'aime",
-    "dislike": "Je déteste"
+    "dislike": "Je déteste",
+    "changed_while_editing": "Le {{ subject }} was changed while you were editing",
+    "current_database_value": "Valeur dans base de dattes à ce moment: {{ value }}"
   },
   "media": {
     "value": "Valeur",
@@ -41,6 +43,7 @@
     "all_medium_types": "Tous types de médium"
   },
   "artists": {
+    "artist": "artiste",
     "artists": "Artistes",
     "all_artists": "Tous artistes",
     "add_artist": "Créer artiste",
@@ -57,6 +60,7 @@
     "update_artist": "Mettre à jour l'artiste"
   },
   "people": {
+    "person": "personne",
     "people": "Personnes",
     "create_person": "Créer personne",
     "create_new_person": "Créer nouvel personne",
@@ -70,6 +74,7 @@
 
   },
   "songs": {
+    "song": "chanson",
     "songs": "Chansons",
     "all_songs": "Tous chansons",
     "add_song": "Créer chanson",

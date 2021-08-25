@@ -80,6 +80,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     text: '',
     dateUpdate: null
   };
+  concurrentPerson: Person = null;
 
   public httpHeaders: HttpHeaders = new HttpHeaders({
     'include_relations': String(true)
@@ -90,7 +91,15 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
       this.hasChanges = false;
       this.router.navigate(['person', this.person.id, this.slugifyHelper.slugify(person.text)]);
     }).catch((error) => {
-      console.error('Could not update person', error);
+      switch (error.status) {
+        case 409: {
+          console.log("Error 409", error);
+          this.concurrentPerson = error.error;
+        } break;
+        default: {
+          console.error('Could not update person', error);
+        } break;
+      }
     });
   }
 

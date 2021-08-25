@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Title } from '@angular/platform-browser';
@@ -55,7 +55,8 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     tags: [],
     text: '',
     dateUpdate: null
-  }
+  };
+  concurrentArtist: Artist = null;
 
   httpHeaders: HttpHeaders = new HttpHeaders({
     'include_relations': String(true)
@@ -91,8 +92,16 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     this.artistService.updateArtist(this.artist).then((artist) => {
       this.hasChanges = false;
       this.router.navigate(['artist', this.artist.id, this.slugifyHelper.slugify(artist.name)]);
-    }).catch((error) => {
-      console.error('Could not update artist', error);
+    }).catch((error: HttpErrorResponse) => {
+      switch (error.status) {
+        case 409: {
+          console.log("Error 409", error);
+          this.concurrentArtist = error.error;
+        } break;
+        default: {
+          console.error('Could not update artist', error);
+        } break;
+      }
     });
   }
 
