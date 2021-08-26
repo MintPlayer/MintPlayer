@@ -21,6 +21,9 @@ namespace MintPlayer.Data.Services
         Task Register(User user, string password);
         Task SendConfirmationEmail(string email);
         Task VerifyEmailConfirmationToken(string email, string token);
+        Task<string> GeneratePasswordResetToken(string email);
+        Task SendPasswordResetEmail(string email, string resetUrl);
+        Task ResetPassword(string email, string token, string newPassword);
         Task<LocalLoginResult> LocalLogin(string email, string password, bool createCookie);
         Task<IEnumerable<string>> GetProviders();
         Task<AuthenticationProperties> ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
@@ -44,13 +47,13 @@ namespace MintPlayer.Data.Services
     internal class AccountService : IAccountService
     {
         private readonly IAccountRepository accountRepository;
-        private readonly IOptions<SmtpOptions> smtpOptions;
+        private readonly IMailService mailService;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly LinkGenerator linkGenerator;
-        public AccountService(IAccountRepository accountRepository, IOptions<Options.SmtpOptions> smtpOptions, IHttpContextAccessor httpContextAccessor, LinkGenerator linkGenerator)
+        public AccountService(IAccountRepository accountRepository, IMailService mailService, IHttpContextAccessor httpContextAccessor, LinkGenerator linkGenerator)
         {
             this.accountRepository = accountRepository;
-            this.smtpOptions = smtpOptions;
+            this.mailService = mailService;
             this.httpContextAccessor = httpContextAccessor;
             this.linkGenerator = linkGenerator;
         }
@@ -65,13 +68,10 @@ namespace MintPlayer.Data.Services
         {
             await Task.Run(async () =>
             {
-                using (var client = new SmtpClient())
+                using (var client = await mailService.CreateSmtpClient())
                 {
-                    client.Connect(smtpOptions.Value.Host, smtpOptions.Value.Port, smtpOptions.Value.UseTLS);
-                    client.Credentials = new System.Net.NetworkCredential(smtpOptions.Value.User, smtpOptions.Value.Password);
-
                     var code = await accountRepository.GenerateEmailConfirmationToken(email);
-                    var url = this.linkGenerator.GetUriByName("web-v3-account-verify", new { email, code = Base64UrlTextEncoder.Encode(System.Text.Encoding.UTF8.GetBytes(code)) }, httpContextAccessor.HttpContext.Request.Scheme, httpContextAccessor.HttpContext.Request.Host);
+                    var url = linkGenerator.GetUriByName("web-v3-account-verify", new { email, code = Base64UrlTextEncoder.Encode(System.Text.Encoding.UTF8.GetBytes(code)) }, httpContextAccessor.HttpContext.Request.Scheme, httpContextAccessor.HttpContext.Request.Host);
 
                     var html = $@"Please confirm your account by clicking <a href=""{url}"">here</a>.";
                     using (var message = new MailMessage("no-reply@mintplayer.com", email, "Confirm email address", html))
@@ -86,6 +86,33 @@ namespace MintPlayer.Data.Services
         public async Task VerifyEmailConfirmationToken(string email, string token)
         {
             await accountRepository.VerifyEmailConfirmationToken(email, token);
+        }
+
+        public async Task<string> GeneratePasswordResetToken(string email)
+        {
+            var token = await accountRepository.GeneratePasswordResetToken(email);
+            return token;
+        }
+
+        public async Task SendPasswordResetEmail(string email, string resetUrl)
+        {
+            await Task.Run(async () =>
+            {
+                using (var client = await mailService.CreateSmtpClient())
+                {
+                    var html = $@"You can reset your password through the <a href=""{resetUrl}"">following link</a>";
+                    using (var message = new MailMessage("no-reply@mintplayer.com", email, "Reset password", html))
+                    {
+                        message.IsBodyHtml = true;
+                        client.Send(message);
+                    }
+                }
+            });
+        }
+
+        public async Task ResetPassword(string email, string token, string newPassword)
+        {
+            await accountRepository.ResetPassword(email, token, newPassword);
         }
 
         public async Task<LocalLoginResult> LocalLogin(string email, string password, bool createCookie)

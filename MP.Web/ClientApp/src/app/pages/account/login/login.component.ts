@@ -178,8 +178,5 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  forgotPassword() {
-  }
-
   loginComplete: Subject<User> = new Subject<User>();
 }

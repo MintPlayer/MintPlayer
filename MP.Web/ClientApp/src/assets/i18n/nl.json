@@ -139,7 +139,15 @@
     "log_out": "Uitloggen",
     "email_address": "E-mailadres",
     "username": "Gebruikersnaam",
-    "password": "Wachtwoord",
+    "password": {
+      "password": "Wachtwoord",
+      "send_email": "E-mail versturen",
+      "email_sent": "E-mail verzonden",
+      "email_sent_message": "Er is een e-mail verzonden met een link om uw wachtwoord opnieuw in te stellen. Klik op de link in de e-mail en volg de instructies.",
+      "reset": "Wachtwoord opnieuw instellen",
+      "reset_success": "Wachtwoord resetten voltooid",
+      "reset_success_message": "Uw wachtwoord werd met succes opnieuw ingesteld"
+    },
     "repeat_password": "Herhaal wachtwoord",
     "forgot_password": "Wachtwoord vergeten",
     "use_social_login": "Gebruik een social login",

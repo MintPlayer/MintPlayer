@@ -159,6 +159,10 @@ namespace MintPlayer.Web
                     .Route("login", "login")
                     .Route("register", "register")
                     .Route("profile", "profile")
+                    .Group("password/reset", "passwordreset", password_routes => password_routes
+                        .Route("request", "request")
+                        .Route("perform", "perform")
+                    )
                 )
                 .Group("person", "person", person_routes => person_routes
                     .Route("", "list")

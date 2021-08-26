@@ -24,6 +24,8 @@ namespace MintPlayer.Data.Repositories
         Task<User> Register(User user, string password);
         Task<string> GenerateEmailConfirmationToken(string email);
         Task VerifyEmailConfirmationToken(string email, string token);
+        Task<string> GeneratePasswordResetToken(string email);
+        Task ResetPassword(string email, string token, string newPassword);
         Task<LocalLoginResult> LocalLogin(string email, string password, bool createCookie);
         Task<IEnumerable<AuthenticationScheme>> GetExternalLoginProviders();
         Task<AuthenticationProperties> ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
@@ -105,6 +107,25 @@ namespace MintPlayer.Data.Repositories
             if (!result.Succeeded)
             {
                 throw new VerifyEmailException(
+                    new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)))
+                );
+            }
+        }
+
+        public async Task<string> GeneratePasswordResetToken(string email)
+        {
+            var user = await user_manager.FindByEmailAsync(email);
+            var token = await user_manager.GeneratePasswordResetTokenAsync(user);
+            return token;
+        }
+
+        public async Task ResetPassword(string email, string token, string newPassword)
+        {
+            var user = await user_manager.FindByEmailAsync(email);
+            var result = await user_manager.ResetPasswordAsync(user, token, newPassword);
+            if (!result.Succeeded)
+            {
+                throw new ResetPasswordException(
                     new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)))
                 );
             }

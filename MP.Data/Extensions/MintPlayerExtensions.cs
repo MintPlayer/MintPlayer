@@ -82,7 +82,8 @@ namespace MintPlayer.Data.Extensions
                 .AddTransient<ArtistHelper>()
                 .AddTransient<SongHelper>()
                 .AddTransient<SubjectHelper>()
-                .AddTransient<TrackHelper>();
+                .AddTransient<TrackHelper>()
+                .AddScoped<IMailService, MailService>();
 
             return services;
         }

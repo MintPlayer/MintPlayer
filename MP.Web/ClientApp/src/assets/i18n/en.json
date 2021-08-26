@@ -139,13 +139,21 @@
     "log_out": "Log out",
     "email_address": "Email address",
     "username": "Username",
-    "password": "Password",
     "repeat_password": "Repeat password",
     "forgot_password": "Forgot password",
     "use_social_login": "Or use a social login instead",
     "update_profile": "Update profile",
     "update_password": "Set password",
     "social_logins": "Social logins",
+    "password": {
+      "password": "Password",
+      "send_email": "Send email",
+      "email_sent": "Email sent",
+      "email_sent_message": "An email has been sent containing a link to reset your password. Click the link and follow the instructions.",
+      "reset": "Reset password",
+      "reset_success": "Password reset complete",
+      "reset_success_message": "Your password was successfully reset"
+    },
     "two_factor": {
       "two_factor_authentication": "Two-factor authentication",
       "enabled": "2-factor authentication is enabled",

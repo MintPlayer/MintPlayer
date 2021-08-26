@@ -102,6 +102,60 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
             }
         }
 
+		[ValidateAntiForgeryToken]
+		[HttpPost("password/reset", Name = "web-v3-account-resetpassword-request")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult> RequestResetPassword([FromBody] RequestResetPasswordVM model)
+        {
+            try
+            {
+				var token = await accountService.GeneratePasswordResetToken(model.Email);
+				var encodedToken = Base64UrlTextEncoder.Encode(System.Text.Encoding.UTF8.GetBytes(token));
+				var resetUrl = spaRouteService.GenerateUrl("account-passwordreset-perform", new { email = model.Email, token = encodedToken }, HttpContext);
+				await accountService.SendPasswordResetEmail(model.Email, resetUrl);
+				return Ok();
+            }
+            catch (Exception)
+            {
+				return StatusCode(500);
+            }
+        }
+
+		//[HttpGet("password/reset", Name = "web-v3-account-resetpassword-form")]
+		//[ApiExplorerSettings(IgnoreApi = true)]
+		//public async Task<ActionResult> ResetPassword([FromQuery] string email, [FromQuery] string token)
+		//{
+		//	try
+		//	{
+		//		var url = spaRouteService.GenerateUrl("")
+		//	}
+		//	catch (Exception)
+		//	{
+		//		return StatusCode(500);
+		//	}
+		//}
+
+		[HttpPut("password/reset", Name = "web-v3-account-resetpassword-reset")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult> ResetPassword([FromBody] ResetPasswordVM model)
+        {
+            try
+            {
+				if (model.NewPassword != model.NewPasswordConfirmation)
+                {
+					return Forbid();
+                }
+
+				var token = System.Text.Encoding.UTF8.GetString(Base64UrlTextEncoder.Decode(model.Token));
+				await accountService.ResetPassword(model.Email, token, model.NewPassword);
+				return Ok();
+            }
+            catch (Exception ex)
+            {
+				return StatusCode(500);
+            }
+        }
+
 		// POST: web/Account/login
 		[ValidateAntiForgeryToken]
 		[HttpPost("login", Name = "web-v3-account-login")]

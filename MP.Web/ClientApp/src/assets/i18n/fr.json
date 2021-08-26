@@ -140,7 +140,15 @@
     "log_out": "Déconnecter",
     "email_address": "Addresse email",
     "username": "Nom d'utilisateur",
-    "password": "Mot de passe",
+    "password": {
+      "password": "Mot de passe",
+      "send_email": "Envoyer e-mail",
+      "email_sent": "E-mail envoyé",
+      "email_sent_message": "Nous avons envoyé un e-mail avec un lien qui permet de remettre votre mot de passe. Cliquez-lui et suivez les instructions.",
+      "reset": "Remettre mot de passe",
+      "reset_success": "Réinitialisation du mot de passe complète",
+      "reset_success_message": "Votre mot de passe a été remis avec succès"
+    },
     "repeat_password": "Répète mot de passe",
     "forgot_password": "Mot de passe oubliée",
     "use_social_login": "Utilise connexion sociale",

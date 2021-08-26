@@ -4,7 +4,7 @@
       <div class="col-12">
         <h1 class="d-inline-block">{{ 'account.create_account' | translate }}</h1>
         <span class="pull-right">
-          <button type="submit" [title]="'create_account' | translate" class="btn btn-primary">
+          <button type="submit" [title]="'account.create_account' | translate" class="btn btn-primary">
             <i class="fa fa-save"></i>
             {{ 'account.create_account' | translate }}
           </button>
@@ -24,9 +24,9 @@
       </div>
     </div>
     <div class="form-group row mb-3">
-      <label [appFor]="txt_password" class="col-form-label col-sm-4 col-xl-3">{{ 'account.password' | translate }}</label>
+      <label [appFor]="txt_password" class="col-form-label col-sm-4 col-xl-3">{{ 'account.password.password' | translate }}</label>
       <div class="col-sm-8 col-xl-9">
-        <input type="password" [title]="'account.password' | translate" [(ngModel)]="data.password" class="form-control" name="password" #txt_password />
+        <input type="password" [title]="'account.password.password' | translate" [(ngModel)]="data.password" class="form-control" name="password" #txt_password />
       </div>
     </div>
     <div class="form-group row mb-3">
