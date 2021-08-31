@@ -84,10 +84,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   updatePassword() {
     if (this.newPassword !== '') {
-      this.accountService.updatePassword(this.currentPassword, this.newPassword, this.passwordConfirmation)
-        .then(() => {
-          this.router.navigate(['/']);
-        });
+      this.accountService.updatePassword(this.currentPassword, this.newPassword, this.passwordConfirmation).then(() => {
+        this.router.navigate(['/']);
+      }).catch((error) => {
+
+      });
     }
   }
 

@@ -56,6 +56,11 @@ $fa-padding: 2px;
     --page-link-text-color--active: #fff;
     --page-link-background-color--active: #0d6efd;
   }
+
+  .modal {
+    --modal-background-color: #FFF;
+    --modal-border-color: rgba(0, 0, 0, 0.2);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -102,5 +107,10 @@ $fa-padding: 2px;
     --page-link-background-color--hover: #383A30;
     --page-link-text-color--active: #fff;
     --page-link-background-color--active: #0d6efd;
+  }
+
+  .modal {
+    --modal-background-color: #333;
+    --modal-border-color: rgba(255, 255, 255, 0.2);
   }
 }

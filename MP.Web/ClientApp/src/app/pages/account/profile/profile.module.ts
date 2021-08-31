@@ -10,6 +10,7 @@ import { SocialLoginsModule } from '../../../components/social-logins/social-log
 import { CardModule } from '../../../controls/card/card.module';
 import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 import { ToggleButtonModule } from '../../../controls/toggle-button/toggle-button.module';
+import { ModalModule } from '../../../components/modal/modal.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ToggleButtonModule } from '../../../controls/toggle-button/toggle-butto
     TranslateModule,
     QrCodeModule,
     CardModule,
+    ModalModule,
     ToggleButtonModule,
     ForDirectiveModule,
     SocialLoginsModule,

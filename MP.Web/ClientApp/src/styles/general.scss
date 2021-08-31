@@ -141,6 +141,29 @@ select option {
   }
 }
 
+.modal {
+  .modal-header {
+    border-bottom-color: var(--modal-border-color);
+
+    header {
+      display: contents;
+    }
+  }
+
+  .modal-content {
+    background: var(--modal-background-color);
+    border-color: var(--modal-border-color);
+  }
+
+  .modal-footer {
+    border-top-color: var(--modal-border-color);
+  }
+}
+
+.btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
 .checkerboard {
   background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
   background-size: 10px 10px;

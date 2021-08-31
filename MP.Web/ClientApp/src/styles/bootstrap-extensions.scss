@@ -180,3 +180,11 @@
 .flex-shrink-inherit {
     flex-shrink: inherit;
 }
+
+.modal {
+    background: rgba(0, 0, 0, 0.4);
+
+    &.show {
+        display: block;
+    }
+}
