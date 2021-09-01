@@ -1,10 +1,14 @@
 import { HttpClient } from '@angular/common/http';
+import { ElementRef, ViewChild } from '@angular/core';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { BASE_URL } from '@mintplayer/ng-base-url';
 import { AccountService, API_VERSION, LoginResult, User } from '@mintplayer/ng-client';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { filter, map, take, takeUntil, takeWhile } from 'rxjs/operators';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { TwoFactorRegistrationUrl } from '../../../interfaces/two-factor-registration-url';
 
@@ -51,6 +55,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
           });
       });
     }
+
+    this.isNotRequestingVerificationCode$
+      .pipe(takeUntil(this.destroyed$))
+      .pipe(filter(r => !r))
+      .subscribe((r) => {
+        this.verificationCode = '';
+        setTimeout(() => {
+          if (!!this.txtVerificationCode) {
+            this.txtVerificationCode.nativeElement.focus();
+          }
+        }, 20);
+      });
   }
 
   user: User = null;
@@ -63,9 +79,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   twoFaRegistrationUrl: string = null;
   twoFaRegistrationUrlSanitized: SafeUrl = null;
-
   backupCodes: string[] = null;
-  isRegistrationSuccess: boolean = false;
 
   socialLoginDone(result: LoginResult) {
     if (result.status) {
@@ -87,41 +101,57 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.accountService.updatePassword(this.currentPassword, this.newPassword, this.passwordConfirmation).then(() => {
         this.router.navigate(['/']);
       }).catch((error) => {
-
+        console.error(error);
       });
     }
   }
 
-  enableVerificationCode: string = '';
-  finshTwoFactorSetup() {
-    this.httpClient.post<string[]>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-setup`, { setupCode: this.enableVerificationCode })
-      .subscribe((backupCodes) => {
-        this.backupCodes = backupCodes;
-        this.isRegistrationSuccess = true;
-        this.user.isTwoFactorEnabled = true;
-      });
-
-    return false;
+  verificationCode: string = '';
+  isNotRequestingVerificationCode$ = new Subject<boolean>();
+  private twoFactorCodeEntered$ = new Subject<string>();
+  onTwoFactorCodeEntered(code: string | null) {
+    if (code === null) {
+      this.isNotRequestingVerificationCode$.next(true);
+    } else {
+      this.twoFactorCodeEntered$.next(code);
+    }
   }
 
-  disableVerificationCode: string = '';
-  disableTwoFactor() {
-    this.httpClient.post<string[]>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-disable`, { setupCode: this.disableVerificationCode })
-      .subscribe(() => {
-        this.user.isTwoFactorEnabled = false;
+  setEnableTwoFactor(enable: boolean) {
+    console.log('set isNotRequestingVerificationCode$ to false');
+    this.isNotRequestingVerificationCode$.next(false);
+    this.twoFactorCodeEntered$
+      .pipe(takeUntil(this.isNotRequestingVerificationCode$), takeUntil(this.destroyed$))
+      .subscribe((code) => {
+        this.httpClient.post<string[]>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-setup`, { setupCode: code, enabled: enable })
+          .subscribe((backupCodes) => {
+            this.backupCodes = backupCodes;
+            this.user.isTwoFactorEnabled = enable;
+            this.isNotRequestingVerificationCode$.next(true);
+          }, () => {
+            console.log('wrong code');
+          });
       });
-
     return false;
   }
 
   setBypass2faForExternalLogin(enable: boolean) {
-    this.accountService.setBypass2faForExternalLogin(this.disableVerificationCode, enable)
-      .then(() => {
-        this.user.bypass2faForExternalLogin = enable;
+    this.isNotRequestingVerificationCode$.next(false);
+    this.twoFactorCodeEntered$
+      .pipe(takeUntil(this.isNotRequestingVerificationCode$), takeUntil(this.destroyed$))
+      .subscribe((code) => {
+        this.accountService.setBypass2faForExternalLogin(code, enable).then(() => {
+          this.user.bypass2faForExternalLogin = enable;
+          this.isNotRequestingVerificationCode$.next(true);
+        });
+      }, () => {
+        console.log('Wrong code');
       });
-
     return false;
   }
+
+  private destroyed$ = new Subject();
+  @ViewChild('txt_verification_code') txtVerificationCode: ElementRef<HTMLInputElement>;
 
   ngOnInit() {
     this.htmlLink.setCanonicalWithoutQuery();
@@ -129,5 +159,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
+    this.destroyed$.next(true);
   }
 }

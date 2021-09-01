@@ -3,6 +3,8 @@
     "add": "Ajouter",
     "edit": "Ajuster",
     "remove": "Supprimer",
+    "close": "Fermer",
+    "complete": "Compléter",
     "description": "Déscription",
     "details_for": "Détails pour {{ name }}",
     "general_information": "Informations générales",

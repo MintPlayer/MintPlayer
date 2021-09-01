@@ -3,6 +3,8 @@
     "add": "Add",
     "edit": "Edit",
     "remove": "Remove",
+    "close": "Close",
+    "complete": "Complete",
     "description": "Description",
     "details_for": "Details for {{ name }}",
     "general_information": "General information",

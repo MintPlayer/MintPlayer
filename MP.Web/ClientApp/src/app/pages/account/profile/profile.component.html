@@ -46,15 +46,10 @@
       {{ 'account.two_factor.two_factor_authentication' | translate }}
     </header>
     <content>
-      <form (submit)="finshTwoFactorSetup()" *ngIf="user && user.isTwoFactorEnabled === false">
+      <form (submit)="setEnableTwoFactor(true)" *ngIf="user && (user.isTwoFactorEnabled === false)">
         <div class="row">
           <div class="col-xl-12">
             <span class="d-block text-center h2">{{ 'account.two_factor.enable' | translate }}</span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xl-12">
-            <span class="d-block h3">{{ 'account.two_factor.add_account' | translate }}</span>
           </div>
         </div>
         <div class="row">
@@ -63,24 +58,8 @@
           </div>
           <div class="col-xl-6 text-center">
             <qr-code [value]="twoFaRegistrationUrl" size="200" errorCorrectionLevel="M"></qr-code>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xl-12 text-center">
+            <br />
             <a [href]="twoFaRegistrationUrlSanitized">{{ 'account.two_factor.or_open_app' | translate }}</a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xl-12">
-            <span class="d-block h3">{{ 'account.two_factor.generate_code' | translate }}</span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xl-6">
-            <label>{{ 'account.two_factor.enter_code_enable' | translate }}</label>
-          </div>
-          <div class="col-xl-6">
-            <input type="text" [(ngModel)]="enableVerificationCode" class="form-control" />
           </div>
         </div>
         <div class="row">
@@ -94,19 +73,11 @@
       </form>
       <div *ngIf="user && user.isTwoFactorEnabled === true">
         <div class="row mb-3">
-          <div class="col-xl-6">
-            <label>{{ 'account.two_factor.enter_code_disable' | translate }}</label>
-          </div>
-          <div class="col-xl-6">
-            <input type="text" [(ngModel)]="disableVerificationCode" class="form-control" />
-          </div>
-        </div>
-        <div class="row mb-3">
           <div class="col-xl-6 py-2">
             {{ 'account.two_factor.enabled' | translate }}
           </div>
           <div class="col-xl-6 text-center text-xl-end">
-            <button (click)="disableTwoFactor()" class="btn btn-default">
+            <button (click)="setEnableTwoFactor(false)" class="btn btn-default">
               <i class="fa fa-key"></i>
               {{ 'account.two_factor.disable_2fa' | translate }}
             </button>
@@ -208,14 +179,34 @@
     </content>
   </card>
 </div>
-<modal>
-  <header>
-    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-  </header>
-  <p>Woohoo, you're reading this text in a modal!</p>
-  <footer>
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Save changes</button>
-  </footer>
-</modal>
+<form (submit)="onTwoFactorCodeEntered(verificationCode)" *ngIf="(isNotRequestingVerificationCode$ | async) === false">
+  <modal>
+    <header>
+      <h5 class="modal-title">{{ 'account.two_factor.two_factor_authentication' | translate }}</h5>
+      <button type="button" (click)="onTwoFactorCodeEntered(null)" class="btn-close" aria-label="Close"></button>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          {{ (isNotRequestingVerificationCode$ | async) ? 'false' : 'true' }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          {{ 'account.two_factor.login_instructions' | translate }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <input type="text" #txt_verification_code [(ngModel)]="verificationCode" class="form-control d-block" />
+        </div>
+      </div>
+    </div>
+    <footer>
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-key"></i>
+        {{ 'global.complete' | translate }}
+      </button>
+    </footer>
+  </modal>
+</form>

@@ -3,6 +3,8 @@
     "add": "Toevoegen",
     "edit": "Aanpassen",
     "remove": "Verwijderen",
+    "close": "Sluiten",
+    "complete": "Voltooien",
     "description": "Omschrijving",
     "details_for": "Details van {{ name }}",
     "general_information": "Algemene info",

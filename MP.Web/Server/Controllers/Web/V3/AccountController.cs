@@ -24,16 +24,16 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 	public class AccountController : Controller
 	{
 		private readonly IAccountService accountService;
-        private readonly ISpaRouteService spaRouteService;
-        private readonly UrlEncoder urlEncoder;
-        private readonly IWebHostEnvironment webHostEnvironment;
-        public AccountController(IAccountService accountService, ISpaRouteService spaRouteService, UrlEncoder urlEncoder, IWebHostEnvironment webHostEnvironment)
+		private readonly ISpaRouteService spaRouteService;
+		private readonly UrlEncoder urlEncoder;
+		private readonly IWebHostEnvironment webHostEnvironment;
+		public AccountController(IAccountService accountService, ISpaRouteService spaRouteService, UrlEncoder urlEncoder, IWebHostEnvironment webHostEnvironment)
 		{
 			this.accountService = accountService;
-            this.spaRouteService = spaRouteService;
-            this.urlEncoder = urlEncoder;
-            this.webHostEnvironment = webHostEnvironment;
-        }
+			this.spaRouteService = spaRouteService;
+			this.urlEncoder = urlEncoder;
+			this.webHostEnvironment = webHostEnvironment;
+		}
 
 		/**
 		 * 
@@ -48,7 +48,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[ValidateAntiForgeryToken]
 		[HttpPost("register", Name = "web-v3-account-register")]
 		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<ActionResult> Register([FromBody]UserDataVM userCreateVM)
+		public async Task<ActionResult> Register([FromBody] UserDataVM userCreateVM)
 		{
 			try
 			{
@@ -70,56 +70,56 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> ResendConfirmationEmail([FromBody] ResendConfirmationEmailVM model)
 		{
-            try
-            {
+			try
+			{
 				await accountService.SendConfirmationEmail(model.Email);
 				return Ok();
-            }
-            catch (Exception)
-            {
+			}
+			catch (Exception)
+			{
 				return StatusCode(500);
-            }
+			}
 		}
 
 		[HttpGet("verify", Name = "web-v3-account-verify")]
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> Verify([FromQuery] string email, [FromQuery] string code)
-        {
-            try
-            {
+		{
+			try
+			{
 				var decodedCode = System.Text.Encoding.UTF8.GetString(Base64UrlTextEncoder.Decode(code));
 				await accountService.VerifyEmailConfirmationToken(email, decodedCode);
 				var loginUrl = spaRouteService.GenerateUrl("account-login", new { });
 				return Redirect(loginUrl);
-            }
-			catch(VerifyEmailException verifyEx)
-            {
+			}
+			catch (VerifyEmailException verifyEx)
+			{
 				return StatusCode(501);
 			}
 			catch (Exception ex)
-            {
+			{
 				return StatusCode(500);
-            }
-        }
+			}
+		}
 
 		[ValidateAntiForgeryToken]
 		[HttpPost("password/reset", Name = "web-v3-account-resetpassword-request")]
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> RequestResetPassword([FromBody] RequestResetPasswordVM model)
-        {
-            try
-            {
+		{
+			try
+			{
 				var token = await accountService.GeneratePasswordResetToken(model.Email);
 				var encodedToken = Base64UrlTextEncoder.Encode(System.Text.Encoding.UTF8.GetBytes(token));
 				var resetUrl = spaRouteService.GenerateUrl("account-passwordreset-perform", new { email = model.Email, token = encodedToken }, HttpContext);
 				await accountService.SendPasswordResetEmail(model.Email, resetUrl);
 				return Ok();
-            }
-            catch (Exception)
-            {
+			}
+			catch (Exception)
+			{
 				return StatusCode(500);
-            }
-        }
+			}
+		}
 
 		//[HttpGet("password/reset", Name = "web-v3-account-resetpassword-form")]
 		//[ApiExplorerSettings(IgnoreApi = true)]
@@ -138,29 +138,29 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[HttpPut("password/reset", Name = "web-v3-account-resetpassword-reset")]
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> ResetPassword([FromBody] ResetPasswordVM model)
-        {
-            try
-            {
+		{
+			try
+			{
 				if (model.NewPassword != model.NewPasswordConfirmation)
-                {
+				{
 					return Forbid();
-                }
+				}
 
 				var token = System.Text.Encoding.UTF8.GetString(Base64UrlTextEncoder.Decode(model.Token));
 				await accountService.ResetPassword(model.Email, token, model.NewPassword);
 				return Ok();
-            }
-            catch (Exception ex)
-            {
+			}
+			catch (Exception ex)
+			{
 				return StatusCode(500);
-            }
-        }
+			}
+		}
 
 		// POST: web/Account/login
 		[ValidateAntiForgeryToken]
 		[HttpPost("login", Name = "web-v3-account-login")]
 		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<ActionResult<LoginResult>> Login([FromBody]LoginVM loginVM)
+		public async Task<ActionResult<LoginResult>> Login([FromBody] LoginVM loginVM)
 		{
 			try
 			{
@@ -179,9 +179,9 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 				return Unauthorized();
 			}
 			catch (EmailNotConfirmedException confirmEx)
-            {
+			{
 				return StatusCode(403);
-            }
+			}
 			catch (Exception ex)
 			{
 				return StatusCode(500);
@@ -205,42 +205,24 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			});
 		}
 
-        [Authorize]
-		[ValidateAntiForgeryToken]
-        [HttpPost("two-factor-setup", Name = "web-v3-account-twofactor-setup")]
-		[ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<ActionResult<IEnumerable<string>>> SetupTwoFactor([FromBody] TwoFactorSetupVM twoFactorSetup)
-        {
-            try
-			{
-				await accountService.SetTwoFactorEnabled(User, twoFactorSetup.SetupCode, true);
-				var backupCodes = await accountService.GenerateTwoFactorBackupCodes(User);
-				return Ok(backupCodes);
-			}
-            catch (InvalidTwoFactorCodeException invEx)
-            {
-				return StatusCode(401);
-            }
-			catch (TwoFactorSetupException twoFactorEx)
-            {
-				return StatusCode(500);
-            }
-			catch (Exception ex)
-            {
-				return StatusCode(500);
-			}
-		}
-
 		[Authorize]
 		[ValidateAntiForgeryToken]
-		[HttpPost("two-factor-disable", Name = "web-v3-account-twofactor-disable")]
+		[HttpPost("two-factor-setup", Name = "web-v3-account-twofactor-setup")]
 		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<ActionResult> DisableTwoFactor([FromBody] TwoFactorDisableVM twoFactorDisable)
+		public async Task<ActionResult<IEnumerable<string>>> SetEnableTwoFactor([FromBody] TwoFactorSetupVM twoFactorSetup)
 		{
 			try
 			{
-				await accountService.SetTwoFactorEnabled(User, twoFactorDisable.SetupCode, false);
-				return Ok();
+				await accountService.SetTwoFactorEnabled(User, twoFactorSetup.SetupCode, twoFactorSetup.Enabled);
+				if (twoFactorSetup.Enabled)
+				{
+					var backupCodes = await accountService.GenerateTwoFactorBackupCodes(User);
+					return Ok(backupCodes);
+				}
+				else
+				{
+					return Ok();
+				}
 			}
 			catch (InvalidTwoFactorCodeException invEx)
 			{
@@ -255,6 +237,31 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 				return StatusCode(500);
 			}
 		}
+
+		//[Authorize]
+		//[ValidateAntiForgeryToken]
+		//[HttpPost("two-factor-disable", Name = "web-v3-account-twofactor-disable")]
+		//[ApiExplorerSettings(IgnoreApi = true)]
+		//public async Task<ActionResult> DisableTwoFactor([FromBody] TwoFactorDisableVM twoFactorDisable)
+		//{
+		//	try
+		//	{
+		//		await accountService.SetTwoFactorEnabled(User, twoFactorDisable.SetupCode, false);
+		//		return Ok();
+		//	}
+		//	catch (InvalidTwoFactorCodeException invEx)
+		//	{
+		//		return StatusCode(401);
+		//	}
+		//	catch (TwoFactorSetupException twoFactorEx)
+		//	{
+		//		return StatusCode(500);
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return StatusCode(500);
+		//	}
+		//}
 
 		[Authorize]
 		[ValidateAntiForgeryToken]
@@ -285,10 +292,10 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[HttpPost("two-factor-login")]
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<User> TwoFactorLogin([FromBody] TwoFactorLoginVM twoFactorLoginVM)
-        {
+		{
 			var user = await accountService.TwoFactorLogin(twoFactorLoginVM.Code, twoFactorLoginVM.Remember);
 			return user;
-        }
+		}
 
 		// GET: web/Account/providers
 		[AllowAnonymous]
@@ -307,7 +314,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 #if RELEASE
         [Host("external.mintplayer.com")]
 #endif
-		public async Task<ActionResult> ExternalLogin([FromRoute]string medium, [FromRoute]string provider)
+		public async Task<ActionResult> ExternalLogin([FromRoute] string medium, [FromRoute] string provider)
 		{
 			var redirectUrl = Url.RouteUrl("web-v3-account-external-connect-callback", new { medium, provider });
 			var properties = await accountService.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
@@ -320,7 +327,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 #if RELEASE
         [Host("external.mintplayer.com")]
 #endif
-		public async Task<ActionResult> ExternalLoginCallback([FromRoute]string medium, [FromRoute]string provider)
+		public async Task<ActionResult> ExternalLoginCallback([FromRoute] string medium, [FromRoute] string provider)
 		{
 			try
 			{
@@ -382,7 +389,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 #if RELEASE
         [Host("external.mintplayer.com")]
 #endif
-        [HttpGet("two-factor-login-external/{medium}/{provider}", Name = "web-v3-account-external-twofactor")]
+		[HttpGet("two-factor-login-external/{medium}/{provider}", Name = "web-v3-account-external-twofactor")]
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public ActionResult ExternalLoginTwoFactor([FromRoute] string medium, [FromRoute] string provider)
 		{
@@ -396,18 +403,18 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 				StylesheetUrl = angularStylesheet
 			};
 			return View(model);
-        }
+		}
 
 #if RELEASE
         [Host("external.mintplayer.com")]
 #endif
 		[ValidateAntiForgeryToken]
-        [HttpPost("two-factor-login-external/{medium}/{provider}", Name = "web-v3-account-external-twofactor-callback")]
+		[HttpPost("two-factor-login-external/{medium}/{provider}", Name = "web-v3-account-external-twofactor-callback")]
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> ExternalLoginTwoFactorCallback([FromRoute] string medium, [FromRoute] string provider, [FromForm] ExternalLoginTwoFactorVM externalLoginTwoFactorVM)
 		{
-            try
-            {
+			try
+			{
 				var user = await accountService.TwoFactorLogin(externalLoginTwoFactorVM.Code, externalLoginTwoFactorVM.Remember);
 				if (user == null) throw new Exception();
 
@@ -420,10 +427,10 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 				};
 				return View(nameof(ExternalLoginCallback), successModel);
 			}
-            catch (Exception)
-            {
+			catch (Exception)
+			{
 				return RedirectToAction(nameof(ExternalLoginTwoFactor), new { medium, provider });
-            }
+			}
 
 		}
 
@@ -444,7 +451,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 #if RELEASE
 		[Host("external.mintplayer.com")]
 #endif
-		public async Task<ActionResult> AddExternalLogin([FromRoute]string medium, [FromRoute]string provider)
+		public async Task<ActionResult> AddExternalLogin([FromRoute] string medium, [FromRoute] string provider)
 		{
 			var redirectUrl = Url.RouteUrl("web-v3-account-external-add-callback", new { medium, provider });
 			var properties = await accountService.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
@@ -460,7 +467,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[Host("external.mintplayer.com")]
 #endif
 		public async Task<ActionResult> AddExternalLoginCallback([FromRoute] string medium, [FromRoute] string provider)
-        {
+		{
 			try
 			{
 				await accountService.AddExternalLogin(User);
@@ -522,18 +529,18 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[HttpPut("password", Name = "web-v3-account-update-password")]
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> UpdatePassword([FromBody] UpdatePasswordVM updatePassword)
-        {
-            try
+		{
+			try
 			{
 				await accountService.UpdatePassword(User, updatePassword.CurrentPassword, updatePassword.NewPassword, updatePassword.Confirmation);
 				return Ok();
 			}
 			catch (ChangePasswordException passwordEx)
-            {
+			{
 				return StatusCode(500);
-            }
-            catch (Exception ex)
-            {
+			}
+			catch (Exception ex)
+			{
 				return StatusCode(500);
 			}
 		}
@@ -562,12 +569,12 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[HttpPost("csrf-refresh", Name = "web-v3-account-csrf-refresh")]
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult> RefreshCsrfToken()
-        {
+		{
 			// Just an empty method that returns a new cookie with a new CSRF token.
 			// Call this method when the user has signed in/out.
 			await Task.Delay(5);
 
 			return Ok();
-        }
+		}
 	}
 }
