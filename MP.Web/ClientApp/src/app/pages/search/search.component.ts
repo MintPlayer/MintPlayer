@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
@@ -6,7 +6,6 @@ import { API_VERSION, Artist, Person, SearchResults, Song, SubjectService, Subje
 import { HtmlLinkHelper } from '../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { UrlGenerator } from '../../helpers/url-generator.helper';
-import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-search',
