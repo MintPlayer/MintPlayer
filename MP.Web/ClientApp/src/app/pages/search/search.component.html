@@ -7,8 +7,8 @@
   </div>
   <div class="row" *ngIf="searchResults.artists.length + searchResults.people.length + searchResults.songs.length > 0">
     <div class="col-lg-6">
-      <h2 class="text-center">Artists</h2>
-      <span *ngIf="searchResults.artists.length === 0" class="d-block text-center">No artists found</span>
+      <h2 class="text-center">{{ 'artists.artists' | translate }}</h2>
+      <span *ngIf="searchResults.artists.length === 0" class="d-block text-center">{{ 'artists.no_artists_found' | translate }}</span>
       <a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' *ngFor="let artist of searchResults.artists">
         <div class="card">
           <div class="row no-gutters">
@@ -24,7 +24,7 @@
         </div>
       </a>
       <h2 class="text-center mt-4">People</h2>
-      <span *ngIf="searchResults.people.length === 0" class="d-block text-center">No people found</span>
+      <span *ngIf="searchResults.people.length === 0" class="d-block text-center">{{ 'people.no_people_found' | translate }}</span>
       <a [advRouterLink]='["/person",person.id,person.text | slugify]' *ngFor="let person of searchResults.people">
         <div class="card">
           <div class="row no-gutters">
@@ -42,7 +42,7 @@
     </div>
     <div class="col-lg-6">
       <h2 class="text-center">Songs</h2>
-      <span *ngIf="searchResults.songs.length === 0" class="d-block text-center">No songs found</span>
+      <span *ngIf="searchResults.songs.length === 0" class="d-block text-center">{{ 'songs.no_songs_found' | translate }}</span>
       <a [advRouterLink]='["/song",song.id,song.title | slugify]' *ngFor="let song of searchResults.songs">
         <div class="card">
           <div class="row no-gutters">

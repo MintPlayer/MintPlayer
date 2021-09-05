@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { Select2Module } from '@mintplayer/ng-select2';
 
 import { CreateRoutingModule } from './create-routing.module';
@@ -19,6 +20,7 @@ import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/fo
     CommonModule,
     FormsModule,
     Select2Module,
+    TranslateModule,
 
     CardModule,
     PipesModule,

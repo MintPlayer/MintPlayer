@@ -8,11 +8,11 @@
         <span class="float-none d-block pull-sm-right d-sm-inline-block">
           <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/song", song.id, song.title | slugify, "edit"]'>
             <i class="fa fa-edit"></i>
-            Edit
+            {{ 'global.edit' | translate }}
           </a>
           <button class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto" (click)="deleteSong()">
             <i class="fa fa-trash"></i>
-            Remove
+            {{ 'global.remove' | translate }}
           </button>
         </span>
         <br class="d-none d-sm-inline-block" />
@@ -26,13 +26,13 @@
   <card class="d-block mb-3">
     <header>
       <i class="fa fa-info"></i>
-      General information
+      {{ 'global.general_information' | translate }}
     </header>
     <content>
       <div class="container">
         <div class="row mb-2">
           <div class="col-sm-5 col-xl-3">
-            <label class="fw-bold">Title</label>
+            <label class="fw-bold">{{ 'songs.title' | translate }}</label>
           </div>
           <div class="col-sm-7 col-xl-9">
             <label>{{ song.title }}</label>
@@ -40,7 +40,7 @@
         </div>
         <div class="row mb-2">
           <div class="col-sm-5 col-xl-3">
-            <label class="fw-bold">Released</label>
+            <label class="fw-bold">{{ 'songs.released' | translate }}</label>
           </div>
           <div class="col-sm-7 col-xl-9">
             <label>{{ song.released | date:'dd-MM-yyyy' }}</label>
@@ -48,29 +48,29 @@
         </div>
         <div class="row mb-2">
           <div class="col-sm-5 col-xl-3">
-            <label class="fw-bold">Artists</label>
+            <label class="fw-bold">{{ 'artists.artists' | translate }}</label>
           </div>
           <div class="col-sm-7 col-xl-9">
             <span *ngFor="let artist of song.artists; let last = last">
-              <a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' title="Details for {{ artist.name }}">{{ artist.name }}</a>
+              <a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' [title]="'global.details_for' | translate: {name: artist.name}">{{ artist.name }}</a>
               {{ (!last) ? ',&nbsp;' : '' }}
             </span>
           </div>
         </div>
         <div class="row mb-2" *ngIf="song.uncreditedArtists.length > 0">
           <div class="col-sm-5 col-xl-3">
-            <label class="fw-bold">Uncredited artists</label>
+            <label class="fw-bold">{{ 'songs.uncredited_artists' | translate }}</label>
           </div>
           <div class="col-sm-7 col-xl-9">
             <span *ngFor="let artist of song.uncreditedArtists; let last = last">
-              <a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' title="Details for {{ artist.name }}">{{ artist.name }}</a>
+              <a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' [title]="'global.details_for' | translate: {name: artist.name}">{{ artist.name }}</a>
               {{ (!last) ? ',&nbsp;' : '' }}
             </span>
           </div>
         </div>
         <div class="row mb-2">
           <div class="col-sm-5 col-xl-3">
-            <label class="fw-bold">Tags</label>
+            <label class="fw-bold">{{ 'subjects.tags' | translate }}</label>
           </div>
           <div class="col-sm-7 col-xl-9">
             <a *ngFor="let tag of song.tags" class="h4 d-inline-block me-2 mb-0" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id]'>
@@ -94,12 +94,12 @@
   <card class="d-block mb-3" [noPadding]="true" *ngIf="song.lyrics.text">
     <header>
       <i class="fa fa-music"></i>
-      Lyrics
+      {{ 'songs.lyrics' | translate }}
       <span class="btn-group pull-right">
-        <a class="btn btn-secondary" [advRouterLink]='["/song",song.id,song.title | slugify,"sync"]' title="Synchronize song lyrics">
+        <a class="btn btn-secondary" [advRouterLink]='["/song",song.id,song.title | slugify,"sync"]' [title]="'songs.synchronize_lyrics' | translate">
           <i class="fa fa-clock-o"></i>
         </a>
-        <button class="btn btn-secondary" (click)="toggleWrapLyrics()" title="Wrap lyrics">
+        <button class="btn btn-secondary" (click)="toggleWrapLyrics()" [title]="'songs.wrap_lyrics' | translate">
           <span class="fa-layers">
             <i class="fa fa-bars"></i>
             <i class="fa fa-times ne" *ngIf="!wrapLyrics"></i>
@@ -114,7 +114,7 @@
   <card class="d-block" [noPadding]="true">
     <header>
       <i class="fa fa-medium"></i>
-      Media
+      {{ 'subjects.media' | translate }}
     </header>
     <content>
       <media-list [media]="song.media" (playButtonClicked)="doAddToPlaylist($event)" class="d-inline-block m-3 m-md-4"></media-list>

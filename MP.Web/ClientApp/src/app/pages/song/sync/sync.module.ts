@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { SyncRoutingModule } from './sync-routing.module';
 import { SyncComponent } from './sync.component';
@@ -15,6 +16,7 @@ import { ForDirectiveModule } from '../../../directives/for/for-directive.module
   imports: [
     CommonModule,
     FormsModule,
+    TranslateModule,
 
     CardModule,
     PipesModule,

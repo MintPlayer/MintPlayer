@@ -2,11 +2,11 @@
   <form (submit)="updateTimeline()">
     <div class="form-group row mb-3">
       <div class="col-12">
-        <h1 class="d-inline-block">Sync lyrics: {{ song.description }}</h1>
+        <h1 class="d-inline-block">{{ 'songs.sync_lyrics' | translate: {name: song.description} }}</h1>
         <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
-            Update timeline
+            {{ 'songs.update_timeline' | translate }}
           </button>
         </span>
       </div>
@@ -16,7 +16,7 @@
         <card class="d-block mb-3" [overflowX]="true">
           <header>
             <i class="fa fa-clock-o"></i>
-            Timeline
+            {{ 'songs.timeline' | translate }}
           </header>
           <content>
             <div class="container">

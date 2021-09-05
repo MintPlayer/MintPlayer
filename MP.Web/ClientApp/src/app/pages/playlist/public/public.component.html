@@ -1,17 +1,17 @@
 <div class="container-fluid">
   <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">Public playlists</h1>
+      <h1 class="d-inline-block">{{ 'playlists.public_playlists' | translate }}</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
       <datatable [settings]="tableSettings" [data]="playlistData" (onReloadData)="loadPlaylists()">
-        <datatable-column title="Description" name="Description" [sortable]="true"></datatable-column>
+        <datatable-column [title]="'global.description' | translate" name="Description" [sortable]="true"></datatable-column>
 
         <ng-template rowTemplate let-playlist>
           <tr>
-            <td class="text-nowrap"><a [advRouterLink]='["/playlist",playlist.id,playlist.description | slugify]' title="Details for {{ playlist.description }}">{{ playlist.description }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/playlist",playlist.id,playlist.description | slugify]' title="'global.details_for' | translate: { name: playlist.description }">{{ playlist.description }}</a></td>
           </tr>
         </ng-template>
       </datatable>

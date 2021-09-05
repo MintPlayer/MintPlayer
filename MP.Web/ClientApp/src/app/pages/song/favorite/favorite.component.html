@@ -1,14 +1,14 @@
 <div class="container-fluid">
   <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">My favorite songs</h1>
+      <h1 class="d-inline-block">{{ 'songs.my_favorite_songs' | translate }}</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
       <datatable [settings]="tableSettings" [data]="songData" (onReloadData)="loadFavoriteSongs()">
-        <datatable-column title="Title" name="Title" [sortable]="true"></datatable-column>
-        <datatable-column title="Released" name="Released" [sortable]="true"></datatable-column>
+        <datatable-column [title]="'songs.title' | translate" name="Title" [sortable]="true"></datatable-column>
+        <datatable-column [title]="'songs.released' | translate" name="Released" [sortable]="true"></datatable-column>
 
         <ng-template rowTemplate let-song>
           <tr>

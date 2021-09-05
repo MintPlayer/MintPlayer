@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Playlist, PlaylistAccessibility, PlaylistService, Song } from '@mintplayer/ng-client';
+import { API_VERSION, Playlist, PlaylistAccessibility, PlaylistService, Song } from '@mintplayer/ng-client';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
@@ -21,6 +21,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
 
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
     private router: AdvancedRouter,
@@ -30,6 +31,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     private differs: KeyValueDiffers,
     private enumHelper: EnumHelper
   ) {
+    this.apiVersion = apiVersion;
     this.accessibilities = this.enumHelper.getItems(PlaylistAccessibility);
 
     if (serverSide === false) {
@@ -67,6 +69,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     this.playlist.tracks.push(suggestion);
   }
 
+  apiVersion: string = '';
   oldPlaylistDescription: string = '';
   playlist: Playlist = {
     id: 0,

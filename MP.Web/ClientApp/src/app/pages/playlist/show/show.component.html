@@ -6,11 +6,11 @@
         <span class="float-none d-block pull-sm-right d-sm-inline-block">
           <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/playlist", playlist.id, playlist.description | slugify, "edit"]'>
             <i class="fa fa-edit"></i>
-            Edit
+            {{ 'global.edit' | translate }}
           </a>
           <button class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto" (click)="deletePlaylist()">
             <i class="fa fa-trash"></i>
-            Remove
+            {{ 'global.remove' | translate }}
           </button>
         </span>
       </span>
@@ -19,15 +19,15 @@
   <card class="d-block mb-3">
     <header>
       <i class="fa fa-music"></i>
-      Tracks
+      {{ 'playlists.tracks' | translate }}
       <span class="btn-group pull-right">
-        <button class="btn btn-secondary" (click)="onPlaybuttonClicked(playlistPlaybuttons.shuffle)" title="Shuffle">
+        <button class="btn btn-secondary" (click)="onPlaybuttonClicked(playlistPlaybuttons.shuffle)" [title]="'player.shuffle' | translate">
           <i class="fa fa-random"></i>
         </button>
-        <button class="btn btn-secondary" (click)="onPlaybuttonClicked(playlistPlaybuttons.playNow)" title="Play now">
+        <button class="btn btn-secondary" (click)="onPlaybuttonClicked(playlistPlaybuttons.playNow)" [title]="'player.play_now' | translate">
           <i class="fa fa-play"></i>
         </button>
-        <button class="btn btn-secondary" (click)="onPlaybuttonClicked(playlistPlaybuttons.addToQueue)" title="Add to queue">
+        <button class="btn btn-secondary" (click)="onPlaybuttonClicked(playlistPlaybuttons.addToQueue)" [title]="'player.add_to_queue' | translate">
           <i class="fa fa-plus"></i>
         </button>
       </span>

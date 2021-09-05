@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { JsonLdModule } from '@mintplayer/ng-json-ld';
 import { AdvancedRouterModule } from '@mintplayer/ng-router';
 import { ShareButtonsModule } from '@mintplayer/ng-share-buttons';
@@ -19,6 +20,7 @@ import { MediaListModule } from '../../../components/subject/media-list/media-li
   imports: [
     CommonModule,
     JsonLdModule,
+    TranslateModule,
     AdvancedRouterModule,
 
     CardModule,

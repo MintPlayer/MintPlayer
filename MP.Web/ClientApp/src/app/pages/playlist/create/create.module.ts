@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CreateRoutingModule } from './create-routing.module';
 import { PlaylistCreateComponent } from './create.component';
@@ -18,6 +19,7 @@ import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/fo
     CommonModule,
     FormsModule,
     DragDropModule,
+    TranslateModule,
 
     CardModule,
     ForDirectiveModule,

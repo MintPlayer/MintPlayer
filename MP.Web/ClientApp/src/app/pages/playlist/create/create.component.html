@@ -2,11 +2,11 @@
   <form (submit)="savePlaylist()">
     <div class="form-group row mb-3">
       <div class="col-12">
-        <h1 class="d-inline-block">Create new playlist</h1>
+        <h1 class="d-inline-block">{{ 'playlists.create_new_playlist' | translate }}</h1>
         <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
-            Create playlist
+            {{ 'playlists.create_playlist' | translate }}
           </button>
         </span>
       </div>
@@ -14,17 +14,17 @@
     <card class="d-block mb-3">
       <header>
         <i class="fa fa-info"></i>
-        General information
+        {{ 'global.general_information' | translate }}
       </header>
       <content>
         <div class="form-group row mb-3">
-          <label [appFor]="txt_description" class="col-form-label col-md-6 col-lg-4 col-xl-3">Description</label>
+          <label [appFor]="txt_description" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'global.description' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <input type="text" [(ngModel)]="playlist.description" class="form-control" name="description" #txt_description autofocus />
           </div>
         </div>
         <div class="form-group row mb-0">
-          <label [appFor]="cmb_accessibility" class="col-form-label col-md-6 col-lg-4 col-xl-3">Accessibility</label>
+          <label [appFor]="cmb_accessibility" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'playlists.accessibility' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <select class="form-control" name="accessibility" #cmb_accessibility [ngModel]="playlist.accessibility" (ngModelChange)="accessibilitySelected($event)">
               <option *ngFor="let accessibility of accessibilities" [ngValue]="accessibility.id">{{ accessibility.description }}</option>
@@ -36,7 +36,7 @@
     <card class="d-block mb-3" [overflowX]="false">
       <header>
         <i class="fa fa-music"></i>
-        Tracks
+        {{ 'playlists.tracks' | translate }}
       </header>
       <content>
         <ul #trackList="cdkDropList" cdkDropList [cdkDropListData]="playlist.tracks" (cdkDropListDropped)="trackDropped($event)" class="list-group sortable-list">
@@ -48,7 +48,7 @@
             </button>
           </li>
         </ul>
-        <dropdown-search-box (suggestionClicked)="onSuggestionClicked($event)" [url]="'/web/v3/Subject/search/suggest/song'" [method]="'get'" [headers]="songSuggestHttpHeaders" [textPropertyPath]="'description'" [searchPlaceholder]="'Enter a song title'" [searchingCaption]="'Searching songs'" [noResultsCaption]="'No songs found'"></dropdown-search-box>
+        <dropdown-search-box (suggestionClicked)="onSuggestionClicked($event)" [url]="'/web/' + apiVersion + '/Subject/search/suggest/song'" [method]="'get'" [headers]="songSuggestHttpHeaders" [textPropertyPath]="'description'" [searchPlaceholder]="'playlists.enter_song_title' | translate" [searchingCaption]="'playlists.searching_songs' | translate" [noResultsCaption]="'playlists.no_songs_found' | translate"></dropdown-search-box>
       </content>
     </card>
   </form>

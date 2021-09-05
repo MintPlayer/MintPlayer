@@ -1,6 +1,6 @@
-<h1>Not found</h1>
+<h1>{{ 'not_found.not_found' | translate }}</h1>
 <p>
-  Sorry, the page you&#39;re looking for does not exist.
+  {{ 'not_found.description' | translate }}
   <br />
-  <a [advRouterLink]='["/"]' title="Take me to the homepage">Click here to go to the homepage</a>.
+  <a [advRouterLink]='["/"]' [title]="'not_found.go_home' | translate">{{ 'not_found.click_go_home' | translate }}</a>.
 </p>
