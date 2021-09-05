@@ -130,7 +130,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     //#region Viewport resize
     if (!serverSide && ('visualViewport' in window)) {
       visualViewport.addEventListener('resize', () => {
-        document.documentElement.style.setProperty('--viewport-height', `${visualViewport.height}px`);
+        let scaledSize = visualViewport.scale * visualViewport.height;
+        document.documentElement.style.setProperty('--viewport-height', `${scaledSize}px`);
       });
     }
     //#endregion

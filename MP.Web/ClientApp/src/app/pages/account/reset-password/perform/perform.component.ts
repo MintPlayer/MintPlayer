@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BASE_URL } from '@mintplayer/ng-base-url';
 import { API_VERSION } from '@mintplayer/ng-client';
@@ -14,7 +15,15 @@ import { AdvancedRouter } from '@mintplayer/ng-router';
 })
 export class PerformComponent implements OnInit, AfterViewInit {
 
-  constructor(private router: AdvancedRouter, private route: ActivatedRoute, private httpClient: HttpClient, @Inject(BASE_URL) private baseUrl: string, @Inject(API_VERSION) private apiVersion: string) {
+  constructor(
+    private router: AdvancedRouter,
+    private route: ActivatedRoute,
+    private httpClient: HttpClient,
+    private titleService: Title,
+    @Inject(BASE_URL) private baseUrl: string,
+    @Inject(API_VERSION) private apiVersion: string
+  ) {
+    this.titleService.setTitle('Enter a new password');
   }
 
   ngOnInit() {
