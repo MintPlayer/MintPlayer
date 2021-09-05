@@ -460,7 +460,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 		// GET: web/Account/add/{provider}/callback
 		[Authorize]
-		[ValidateAntiForgeryToken]
+		//[ValidateAntiForgeryToken]
 		[HttpGet("add/{medium}/{provider}/callback", Name = "web-v3-account-external-add-callback")]
 		[ApiExplorerSettings(IgnoreApi = true)]
 #if RELEASE

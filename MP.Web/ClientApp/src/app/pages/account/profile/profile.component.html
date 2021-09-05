@@ -163,6 +163,19 @@
           <span *ngIf="userLogins.indexOf('Google') > -1">{{ 'account.google.login_registered' | translate }}</span>
         </div>
       </div>
+      <div class="form-group row mb-3" *ngIf="loginProviders.indexOf('LinkedIn') > -1">
+        <div class="col-md-6 col-lg-4">
+          <app-linkedin-login class="d-block" *ngIf="userLogins.indexOf('LinkedIn') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-linkedin-login>
+          <button *ngIf="userLogins.indexOf('LinkedIn') > -1" (click)="removeSocialLogin('LinkedIn')" class="btn w-100 btn-warning border-dark">
+            <i class="fa fa-trash-o"></i>
+            {{ 'account.linkedin.remove_login' | translate }}
+          </button>
+        </div>
+        <div class="col-md-6 col-lg-8 col-form-label">
+          <span *ngIf="userLogins.indexOf('Google') == -1">{{ 'account.linkedin.add_login' | translate }}</span>
+          <span *ngIf="userLogins.indexOf('Google') > -1">{{ 'account.linkedin.login_registered' | translate }}</span>
+        </div>
+      </div>
       <!--<div class="form-group row mb-3" *ngIf="loginProviders.indexOf('GitHub') > -1">
         <div class="col-md-6 col-lg-4">
           <app-github-login class="d-block" *ngIf="userLogins.indexOf('GitHub') == -1" [action]="'add'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-github-login>

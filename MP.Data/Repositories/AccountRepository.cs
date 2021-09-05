@@ -201,12 +201,13 @@ namespace MintPlayer.Data.Repositories
 
         public async Task<IEnumerable<AuthenticationScheme>> GetExternalLoginProviders()
         {
-            // https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
-            // https://console.developers.google.com
-            // https://developers.facebook.com/apps
-            // http://developer.twitter.com/en/apps
+			// https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
+			// https://console.developers.google.com
+			// https://developers.facebook.com/apps
+			// http://developer.twitter.com/en/apps
+			// https://www.linkedin.com/developers/apps
 
-            var providers = await signin_manager.GetExternalAuthenticationSchemesAsync();
+			var providers = await signin_manager.GetExternalAuthenticationSchemesAsync();
             return providers.ToList();
         }
 

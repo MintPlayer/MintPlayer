@@ -1,4 +1,4 @@
-//#define RebuildSPA
+﻿//#define RebuildSPA
 
 using AspNetCoreOpenSearch.Extensions;
 using AspNetCoreOpenSearch.Options;
@@ -70,7 +70,8 @@ namespace MintPlayer.Web
                 .AddFacebook()
                 .AddMicrosoftAccount()
                 .AddGoogle()
-                .AddTwitter();
+                .AddTwitter()
+				.AddLinkedIn();
 
             services.AddAuthorization(options =>
             {
@@ -319,6 +320,12 @@ namespace MintPlayer.Web
                     options.ConsumerSecret = Configuration["TwitterOptions:ApiSecret"];
                     options.RetrieveUserDetails = true;
                 })
+				.Configure<AspNet.Security.OAuth.LinkedIn.LinkedInAuthenticationOptions>(AspNet.Security.OAuth.LinkedIn.LinkedInAuthenticationDefaults.AuthenticationScheme, options =>
+				{
+					options.ClientId = Configuration["LinkedInOptions:AppId"];
+					options.ClientSecret = Configuration["LinkedInOptions:AppSecret"];
+					options.ReturnUrlParameter = "/signin-linkedin";
+				})
                 .Configure<Data.Options.SmtpOptions>(options =>
                 {
                     options.Host = Configuration["Mail:Host"];

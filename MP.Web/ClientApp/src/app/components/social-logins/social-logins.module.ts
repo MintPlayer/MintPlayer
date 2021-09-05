@@ -5,6 +5,7 @@ import { FacebookLoginComponent } from './facebook-login/facebook-login.componen
 import { MicrosoftLoginComponent } from './microsoft-login/microsoft-login.component';
 import { GoogleLoginComponent } from './google-login/google-login.component';
 import { TwitterLoginComponent } from './twitter-login/twitter-login.component';
+import { LinkedinLoginComponent } from './linkedin-login/linkedin-login.component';
 
 
 
@@ -13,7 +14,8 @@ import { TwitterLoginComponent } from './twitter-login/twitter-login.component';
     FacebookLoginComponent,
     MicrosoftLoginComponent,
     GoogleLoginComponent,
-    TwitterLoginComponent
+    TwitterLoginComponent,
+    LinkedinLoginComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { TwitterLoginComponent } from './twitter-login/twitter-login.component';
     FacebookLoginComponent,
     MicrosoftLoginComponent,
     GoogleLoginComponent,
-    TwitterLoginComponent
+    TwitterLoginComponent,
+    LinkedinLoginComponent
   ]
 })
 export class SocialLoginsModule { }

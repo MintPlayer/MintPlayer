@@ -1,5 +1,5 @@
 import { Input, Output, EventEmitter, Inject, Directive } from '@angular/core';
-import { API_VERSION, LoginResult } from '@mintplayer/ng-client';
+import { LoginResult } from '@mintplayer/ng-client';
 import { PwaHelper } from '../../helpers/pwa.helper';
 
 @Directive()

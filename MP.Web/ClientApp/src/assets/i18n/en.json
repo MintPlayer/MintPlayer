@@ -205,6 +205,12 @@
       "add_login": "Add Google login",
       "remove_login": "Remove Google login",
       "login_registered": "Google account registered"
+    },
+    "linkedin": {
+      "login": "Sign in with LinkedIn",
+      "add_login": "Add LinkedIn login",
+      "remove_login": "Remove LinkedIn login",
+      "login_registered": "LinkedIn account registered"
     }
   },
   "blog": {

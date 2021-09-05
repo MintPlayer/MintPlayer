@@ -205,6 +205,12 @@
       "add_login": "Enregistre compte Google",
       "remove_login": "Déregistre compte Google",
       "login_registered": "Compte Google enregistrée"
+    },
+    "linkedin": {
+      "login": "Connecter par LinkedIn",
+      "add_login": "Enregistre compte LinkedIn",
+      "remove_login": "Déregistre compte LinkedIn",
+      "login_registered": "Compte LinkedIn enregistrée"
     }
   },
   "blog": {

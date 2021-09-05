@@ -204,6 +204,12 @@
       "add_login": "Google login toevoegen",
       "remove_login": "Google login verwijderen",
       "login_registered": "Google account geregistreerd"
+    },
+    "linkedin": {
+      "login": "Login met LinkedIn",
+      "add_login": "LinkedIn login toevoegen",
+      "remove_login": "LinkedIn login verwijderen",
+      "login_registered": "LinkedIn account geregistreerd"
     }
   },
   "blog": {
