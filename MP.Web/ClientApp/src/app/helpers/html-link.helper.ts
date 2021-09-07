@@ -6,7 +6,10 @@ import { BASE_URL } from "@mintplayer/ng-base-url";
   providedIn: 'root'
 })
 export class HtmlLinkHelper {
-  constructor(@Inject(DOCUMENT) private document: HTMLDocument, @Inject(BASE_URL) private baseUrl: string) {
+  constructor(
+    @Inject(DOCUMENT) private document: HTMLDocument,
+    @Inject(BASE_URL) private baseUrl: string,
+  ) {
   }
 
   private linkTags = {};

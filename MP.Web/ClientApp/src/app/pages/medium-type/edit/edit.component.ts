@@ -26,7 +26,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     if (serverSide) {
       this.setMediumType(mediumTypeInj);

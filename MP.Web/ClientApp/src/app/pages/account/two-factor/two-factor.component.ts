@@ -19,7 +19,7 @@ export class TwoFactorComponent implements OnInit {
     private router: AdvancedRouter,
     private route: ActivatedRoute,
     @Inject(BASE_URL) private baseUrl: string,
-    @Inject(API_VERSION) private apiVersion: string
+    @Inject(API_VERSION) private apiVersion: string,
   ) {
   }
 

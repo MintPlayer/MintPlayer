@@ -5,7 +5,9 @@ import { SlugifyHelper } from '../../helpers/slugify.helper';
   name: 'slugify'
 })
 export class SlugifyPipe implements PipeTransform {
-  constructor(private slugifyHelper: SlugifyHelper) {
+  constructor(
+    private slugifyHelper: SlugifyHelper,
+  ) {
   }
 
   transform(value: any) {

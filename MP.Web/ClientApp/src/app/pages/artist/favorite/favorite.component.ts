@@ -4,6 +4,10 @@ import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
 import { Artist, ArtistService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
+import { Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 
 @Component({
   selector: 'app-favorite',
@@ -15,18 +19,38 @@ export class FavoriteComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(SERVER_SIDE) private serverside: boolean,
     private artistService: ArtistService,
-    private htmlLink: HtmlLinkHelper
+    private htmlLink: HtmlLinkHelper,
+    private router: AdvancedRouter,
+    private route: ActivatedRoute,
   ) {
-    if (serverside === false) {
-      this.loadFavoriteArtists();
+    if (serverside === true) {
+    } else {
+      //this.loadFavoriteArtists();
+      this.route.queryParams
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe((queryParams) => {
+          this.tableSettings.perPage.selected = parseInt(queryParams['perpage'] ?? 20);
+          this.tableSettings.page.selected = parseInt(queryParams['page'] ?? 1);
+          this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Name';
+          this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
+
+          this.artistService.pageFavoriteArtists(this.tableSettings.toPagination()).then((response) => {
+            this.setArtistData(response);
+          }).catch((error) => {
+            console.error(error);
+          });
+        });
     }
   }
 
   loadFavoriteArtists() {
-    this.artistService.pageFavoriteArtists(this.tableSettings.toPagination()).then((response) => {
-      this.setArtistData(response);
-    }).catch((error) => {
-      console.error(error);
+    this.router.navigate([], {
+      queryParams: {
+        perpage: this.tableSettings.perPage.selected,
+        page: this.tableSettings.page.selected,
+        sortproperty: this.tableSettings.sortProperty,
+        sortdirection: this.tableSettings.sortDirection,
+      }
     });
   }
 
@@ -54,8 +78,10 @@ export class FavoriteComponent implements OnInit, OnDestroy {
     this.htmlLink.setCanonicalWithoutQuery();
   }
 
+  private destroyed$ = new Subject();
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
+    this.destroyed$.next(true);
   }
 
 }

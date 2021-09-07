@@ -11,7 +11,11 @@ import { BaseLoginComponent } from '../base-login.component';
 })
 export class LinkedinLoginComponent extends BaseLoginComponent implements OnInit, OnDestroy {
 
-  constructor(@Inject(EXTERNAL_URL) externalUrl: string, @Inject(API_VERSION) apiVersion: string, pwaHelper: PwaHelper) {
+  constructor(
+    @Inject(EXTERNAL_URL) externalUrl: string,
+    @Inject(API_VERSION) apiVersion: string,
+    pwaHelper: PwaHelper,
+  ) {
     super(externalUrl, 'LinkedIn', pwaHelper, apiVersion);
   }
 

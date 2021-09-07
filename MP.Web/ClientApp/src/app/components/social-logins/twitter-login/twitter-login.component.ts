@@ -11,7 +11,11 @@ import { EXTERNAL_URL } from '../../../providers/external-url.provider';
 })
 export class TwitterLoginComponent extends BaseLoginComponent implements OnInit, OnDestroy {
 
-  constructor(@Inject(EXTERNAL_URL) externalUrl: string, @Inject(API_VERSION) apiVersion: string, pwaHelper: PwaHelper) {
+  constructor(
+    @Inject(EXTERNAL_URL) externalUrl: string,
+    @Inject(API_VERSION) apiVersion: string,
+    pwaHelper: PwaHelper,
+  ) {
     super(externalUrl, 'Twitter', pwaHelper, apiVersion);
   }
 

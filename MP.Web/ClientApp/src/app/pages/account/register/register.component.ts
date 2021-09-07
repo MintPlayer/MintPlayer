@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private router: AdvancedRouter,
     private accountService: AccountService,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
   }
 

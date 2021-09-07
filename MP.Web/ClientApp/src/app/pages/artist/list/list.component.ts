@@ -26,29 +26,28 @@ export class ListComponent implements OnInit, OnDestroy {
     private urlSerializer: UrlSerializer,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
     this.titleService.setTitle('Artists');
     if (serverSide === true) {
       this.setArtistData(artistsInj);
     } else {
-      this.loadArtists();
-    }
+      //this.loadArtists();
+      this.route.queryParams
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe((queryParams) => {
+          this.tableSettings.perPage.selected = parseInt(queryParams['perpage'] ?? 20);
+          this.tableSettings.page.selected = parseInt(queryParams['page'] ?? 1);
+          this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Name';
+          this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
 
-    this.route.queryParams
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((queryParams) => {
-        this.tableSettings.perPage.selected = parseInt(queryParams['perpage'] ?? 20);
-        this.tableSettings.page.selected = parseInt(queryParams['page'] ?? 1);
-        this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'name';
-        this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
-
-        this.artistService.pageArtists(this.tableSettings.toPagination()).then((response) => {
-          this.setArtistData(response);
-        }).catch((error) => {
-          console.error(error);
+          this.artistService.pageArtists(this.tableSettings.toPagination()).then((response) => {
+            this.setArtistData(response);
+          }).catch((error) => {
+            console.error(error);
+          });
         });
-      })
+    }
   }
 
   ngOnInit() {

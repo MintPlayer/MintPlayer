@@ -11,7 +11,7 @@ export class NotFoundComponent implements OnInit, OnDestroy {
 
   constructor(
     private metaService: Meta,
-    @Inject(BASE_URL) private baseUrl: string
+    @Inject(BASE_URL) private baseUrl: string,
   ) {
   }
 

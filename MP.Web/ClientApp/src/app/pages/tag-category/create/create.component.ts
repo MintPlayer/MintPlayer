@@ -18,7 +18,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     this.titleService.setTitle('Create tag category');
   }

@@ -10,7 +10,7 @@ import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 export class SubjectLikeComponent implements OnInit {
   constructor(
     private subjectService: SubjectService,
-    @Inject(SERVER_SIDE) private serverSide: boolean
+    @Inject(SERVER_SIDE) private serverSide: boolean,
   ) {
   }
 

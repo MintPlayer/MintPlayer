@@ -22,7 +22,7 @@ export class EditComponent implements OnInit, DoCheck, HasChanges {
     private route: ActivatedRoute,
     private titleService: Title,
     private slugifyPipe: SlugifyPipe,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     if (serverSide === false) {
       // Get blogpost

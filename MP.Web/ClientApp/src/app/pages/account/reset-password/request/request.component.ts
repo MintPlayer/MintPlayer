@@ -15,7 +15,7 @@ export class RequestComponent implements OnInit {
     private httpClient: HttpClient,
     private titleService: Title,
     @Inject(BASE_URL) private baseUrl: string,
-    @Inject(API_VERSION) private apiVersion: string
+    @Inject(API_VERSION) private apiVersion: string,
   ) {
     this.titleService.setTitle('Reset your password');
   }

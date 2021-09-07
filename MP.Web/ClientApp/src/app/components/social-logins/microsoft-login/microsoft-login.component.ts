@@ -10,7 +10,11 @@ import { EXTERNAL_URL } from '../../../providers/external-url.provider';
   styleUrls: ['./microsoft-login.component.scss']
 })
 export class MicrosoftLoginComponent extends BaseLoginComponent implements OnInit {
-  constructor(@Inject(EXTERNAL_URL) externalUrl: string, @Inject(API_VERSION) apiVersion: string, pwaHelper: PwaHelper) {
+  constructor(
+    @Inject(EXTERNAL_URL) externalUrl: string,
+    @Inject(API_VERSION) apiVersion: string,
+    pwaHelper: PwaHelper,
+  ) {
     super(externalUrl, 'Microsoft', pwaHelper, apiVersion);
   }
 

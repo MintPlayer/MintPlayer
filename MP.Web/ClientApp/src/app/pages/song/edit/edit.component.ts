@@ -26,7 +26,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     this.apiVersion = apiVersion;
     if (serverSide === false) {

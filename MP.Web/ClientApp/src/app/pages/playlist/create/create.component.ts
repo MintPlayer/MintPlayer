@@ -22,7 +22,7 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
     private router: AdvancedRouter,
     private enumHelper: EnumHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     this.apiVersion = apiVersion;
     this.accessibilities = this.enumHelper.getItems(PlaylistAccessibility);

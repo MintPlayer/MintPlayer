@@ -18,7 +18,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private accountService: AccountService,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
     this.titleService.setTitle('MintPlayer blog');
     if (serverSide === true) {

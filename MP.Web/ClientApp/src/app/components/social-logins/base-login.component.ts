@@ -11,7 +11,12 @@ export class BaseLoginComponent {
   @Input() public action: 'add' | 'connect';
   @Output() public LoginSuccessOrFailed: EventEmitter<LoginResult> = new EventEmitter();
 
-  constructor(private externalUrl: string, private platform: string, private pwaHelper: PwaHelper, private apiVersion: string) {
+  constructor(
+    private externalUrl: string,
+    private platform: string,
+    private pwaHelper: PwaHelper,
+    private apiVersion: string,
+  ) {
     this.listener = this.handleMessage.bind(this);
     if (typeof window !== 'undefined') {
       if (window.addEventListener) {

@@ -23,7 +23,7 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
     private route: ActivatedRoute,
     private titleService: Title,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     if (serverSide === true) {
       this.setSong(songInj);

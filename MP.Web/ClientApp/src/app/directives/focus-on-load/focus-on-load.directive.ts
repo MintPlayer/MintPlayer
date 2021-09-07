@@ -5,7 +5,9 @@ import { Directive, ElementRef, AfterViewInit } from '@angular/core';
 })
 export class FocusOnLoadDirective implements AfterViewInit {
 
-  constructor(private element: ElementRef) {
+  constructor(
+    private element: ElementRef,
+  ) {
   }
 
   ngAfterViewInit() {

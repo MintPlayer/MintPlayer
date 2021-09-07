@@ -18,7 +18,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private blogPostService: BlogPostService,
     private router: AdvancedRouter,
     private slugifyPipe: SlugifyPipe,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     this.titleService.setTitle('Write new blog post');
   }

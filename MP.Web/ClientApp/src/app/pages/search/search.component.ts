@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     private subjectService: SubjectService,
     private htmlLink: HtmlLinkHelper,
     private metaService: Meta,
-    private urlGenerator: UrlGenerator
+    private urlGenerator: UrlGenerator,
   ) {
     this.apiVersion = apiVersion;
     this.route.paramMap.subscribe((params) => {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AdvancedRouter } from '@mintplayer/ng-router';
@@ -6,13 +6,15 @@ import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
 import { Playlist, PlaylistScope, PlaylistService } from '@mintplayer/ng-client';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class PlaylistListComponent implements OnInit {
+export class PlaylistListComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
@@ -20,7 +22,7 @@ export class PlaylistListComponent implements OnInit {
     private playlistService: PlaylistService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
   ) {
     this.titleService.setTitle('My playlists');
     if (serverSide === true) {
@@ -28,15 +30,32 @@ export class PlaylistListComponent implements OnInit {
         this.setPlaylistData(playlistsInj);
       }
     } else {
-      this.loadPlaylists();
+      //this.loadPlaylists();
+      this.route.queryParams
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe((queryParams) => {
+          this.tableSettings.perPage.selected = parseInt(queryParams['perpage'] ?? 20);
+          this.tableSettings.page.selected = parseInt(queryParams['page'] ?? 1);
+          this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Description';
+          this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
+
+          this.playlistService.pagePlaylists(this.tableSettings.toPagination(), PlaylistScope.my).then((playlists) => {
+            this.setPlaylistData(playlists);
+          }).catch((error) => {
+            console.error(error);
+          });
+        });
     }
   }
 
   loadPlaylists() {
-    this.playlistService.pagePlaylists(this.tableSettings.toPagination(), PlaylistScope.my).then((playlists) => {
-      this.setPlaylistData(playlists);
-    }).catch((error) => {
-      console.error(error);
+    this.router.navigate([], {
+      queryParams: {
+        perpage: this.tableSettings.perPage.selected,
+        page: this.tableSettings.page.selected,
+        sortproperty: this.tableSettings.sortProperty,
+        sortdirection: this.tableSettings.sortDirection,
+      }
     });
   }
 
@@ -61,6 +80,11 @@ export class PlaylistListComponent implements OnInit {
   });
 
   ngOnInit() {
+  }
+
+  private destroyed$ = new Subject();
+  ngOnDestroy() {
+    this.destroyed$.next(true);
   }
 
 }

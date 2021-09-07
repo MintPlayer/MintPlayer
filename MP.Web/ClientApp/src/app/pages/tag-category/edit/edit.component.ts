@@ -22,7 +22,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     if (serverSide === false) {
       // Get category

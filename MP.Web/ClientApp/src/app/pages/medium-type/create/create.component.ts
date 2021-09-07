@@ -21,7 +21,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     this.titleService.setTitle('Create medium type');
   }

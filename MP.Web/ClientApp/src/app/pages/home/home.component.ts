@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private metaService: Meta,
     @Inject(BASE_URL) private baseUrl: string,
-    private htmlLink: HtmlLinkHelper
+    private htmlLink: HtmlLinkHelper,
   ) {
   }
 

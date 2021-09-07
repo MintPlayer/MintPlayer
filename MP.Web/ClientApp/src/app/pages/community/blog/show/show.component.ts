@@ -28,7 +28,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     private metaService: Meta,
     private htmlLink: HtmlLinkHelper,
     private urlGenerator: UrlGenerator,
-    private wordCountPipe: WordCountPipe
+    private wordCountPipe: WordCountPipe,
   ) {
     if (serverSide === true) {
       this.setBlogPost(blogPostInj);

@@ -16,7 +16,7 @@ export class ListComponent implements OnInit, OnDestroy {
     private mediumTypeService: MediumTypeService,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
     this.titleService.setTitle('Medium types');
     if (serverSide === true) {

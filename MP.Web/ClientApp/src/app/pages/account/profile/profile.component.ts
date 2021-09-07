@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     private httpClient: HttpClient,
     @Inject(BASE_URL) private baseUrl: string,
-    @Inject(API_VERSION) private apiVersion: string
+    @Inject(API_VERSION) private apiVersion: string,
   ) {
     if (serverSide === true) {
       this.userLogins = loginsInj;

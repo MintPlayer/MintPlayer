@@ -29,7 +29,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     private titleService: Title,
     private slugifyHelper: SlugifyHelper,
     private differs: KeyValueDiffers,
-    private enumHelper: EnumHelper
+    private enumHelper: EnumHelper,
   ) {
     this.apiVersion = apiVersion;
     this.accessibilities = this.enumHelper.getItems(PlaylistAccessibility);

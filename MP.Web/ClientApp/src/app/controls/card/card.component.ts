@@ -12,7 +12,9 @@ export class CardComponent implements OnInit {
   isMouseDown: boolean;
   private dragOffset: Point;
 
-  constructor(private host: ElementRef) {
+  constructor(
+    private host: ElementRef,
+  ) {
     this.isMouseDown = false;
     this.dragOffset = { x: 0, y: 0 };
   }

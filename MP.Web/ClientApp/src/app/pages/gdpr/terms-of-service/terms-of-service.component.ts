@@ -11,7 +11,7 @@ export class TermsOfServiceComponent implements OnInit, OnDestroy {
 
   constructor(
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
   }
 

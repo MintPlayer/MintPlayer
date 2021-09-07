@@ -9,7 +9,9 @@ import { PlayerTypeFinderService } from '@mintplayer/ng-video-player';
 })
 export class MediaListComponent implements OnInit {
 
-  constructor(private playerTypeFinder: PlayerTypeFinderService) {
+  constructor(
+    private playerTypeFinder: PlayerTypeFinderService,
+  ) {
   }
 
   ngOnInit() {

@@ -19,7 +19,7 @@ export class RecoveryComponent implements OnInit {
     @Inject(API_VERSION) private apiVersion: string,
     private accountService: AccountService,
     private router: AdvancedRouter,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
   }
 

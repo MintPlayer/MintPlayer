@@ -7,6 +7,8 @@ import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
 import { Song, SongService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -22,13 +24,27 @@ export class ListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
     this.titleService.setTitle('All songs');
     if (serverSide === true) {
       this.setSongData(songsInj);
     } else {
-      this.loadSongs();
+      //this.loadSongs();
+      this.route.queryParams
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe((queryParams) => {
+          this.tableSettings.perPage.selected = parseInt(queryParams['perpage'] ?? 20);
+          this.tableSettings.page.selected = parseInt(queryParams['page'] ?? 1);
+          this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Title';
+          this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
+
+          this.songService.pageSongs({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
+            this.setSongData(response);
+          }).catch((error) => {
+            console.error('Could not fetch songs', error);
+          });
+        });
     }
   }
 
@@ -40,9 +56,11 @@ export class ListComponent implements OnInit, OnDestroy {
     //});
   }
 
+  private destroyed$ = new Subject();
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
     this.removeMetaTags();
+    this.destroyed$.next(true);
   }
 
   //#region Add meta-tags
@@ -86,10 +104,13 @@ export class ListComponent implements OnInit, OnDestroy {
   //#endregion
 
   loadSongs() {
-    this.songService.pageSongs({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
-      this.setSongData(response);
-    }).catch((error) => {
-      console.error('Could not fetch songs', error);
+    this.router.navigate([], {
+      queryParams: {
+        perpage: this.tableSettings.perPage.selected,
+        page: this.tableSettings.page.selected,
+        sortproperty: this.tableSettings.sortProperty,
+        sortdirection: this.tableSettings.sortDirection,
+      }
     });
   }
 

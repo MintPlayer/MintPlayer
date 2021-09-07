@@ -7,7 +7,10 @@ import { SlugifyHelper } from './slugify.helper';
   providedIn: 'root'
 })
 export class UrlGenerator {
-  constructor(@Inject(BASE_URL) private baseUrl: string, private slugifyHelper: SlugifyHelper) {
+  constructor(
+    @Inject(BASE_URL) private baseUrl: string,
+    private slugifyHelper: SlugifyHelper,
+  ) {
   }
 
   public generateFullUrl(subject: Person | Artist | Song | BlogPost) {

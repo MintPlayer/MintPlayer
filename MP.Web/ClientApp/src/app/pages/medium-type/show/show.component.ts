@@ -20,7 +20,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
-    private htmlLink: HtmlLinkHelper
+    private htmlLink: HtmlLinkHelper,
   ) {
     if (serverSide === true) {
       this.setMediumType(mediumTypeInj);

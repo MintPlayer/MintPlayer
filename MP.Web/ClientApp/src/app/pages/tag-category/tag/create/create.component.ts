@@ -24,7 +24,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     if (serverSide === true) {
       this.tag.category = tagCategoryInj;

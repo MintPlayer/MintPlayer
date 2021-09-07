@@ -23,7 +23,7 @@ export class PlaylistShowComponent implements OnInit {
     private nativeRouter: Router,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
   ) {
     if (serverSide === true) {
       this.setPlaylist(playlistInj);

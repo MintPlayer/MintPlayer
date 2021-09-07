@@ -25,7 +25,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private metaService: Meta,
     private htmlLink: HtmlLinkHelper,
-    private urlGenerator: UrlGenerator
+    private urlGenerator: UrlGenerator,
   ) {
     if (serverSide === true) {
       this.setPerson(personInj);

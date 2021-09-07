@@ -10,7 +10,9 @@ import { Subject } from '@mintplayer/ng-client';
 })
 export class AutocompleteComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+  ) {
   }
 
   @Input() searchterm: string;

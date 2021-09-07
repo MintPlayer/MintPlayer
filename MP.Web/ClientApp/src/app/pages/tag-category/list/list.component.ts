@@ -6,6 +6,9 @@ import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
 import { TagCategory, TagCategoryService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
+import { Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -19,15 +22,30 @@ export class ListComponent implements OnInit, OnDestroy {
     @Inject('TAGCATEGORIES') private tagCategoriesInj: PaginationResponse<TagCategory>,
     private categoryService: TagCategoryService,
     private router: AdvancedRouter,
+    private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
-    private htmlLink: HtmlLinkHelper
+    private htmlLink: HtmlLinkHelper,
   ) {
     this.titleService.setTitle('Tag categories');
     if (serverSide === true) {
       this.setTagCategoryData(tagCategoriesInj);
     } else {
-      this.loadTagCategories();
+      //this.loadTagCategories();
+      this.route.queryParams
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe((queryParams) => {
+          this.tableSettings.perPage.selected = parseInt(queryParams['perpage'] ?? 20);
+          this.tableSettings.page.selected = parseInt(queryParams['page'] ?? 1);
+          this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Description';
+          this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
+
+          this.categoryService.pageTagCategories({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
+            this.setTagCategoryData(response);
+          }).catch((error) => {
+            console.error(error);
+          });
+        });
     }
   }
 
@@ -36,9 +54,11 @@ export class ListComponent implements OnInit, OnDestroy {
     this.addMetaTags();
   }
 
+  private destroyed$ = new Subject();
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
     this.removeMetaTags();
+    this.destroyed$.next(true);
   }
 
   //#region Add meta-tags
@@ -80,10 +100,13 @@ export class ListComponent implements OnInit, OnDestroy {
   //#endregion
 
   loadTagCategories() {
-    this.categoryService.pageTagCategories({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
-      this.setTagCategoryData(response);
-    }).catch((error) => {
-      console.error(error);
+    this.router.navigate([], {
+      queryParams: {
+        perpage: this.tableSettings.perPage.selected,
+        page: this.tableSettings.page.selected,
+        sortproperty: this.tableSettings.sortProperty,
+        sortdirection: this.tableSettings.sortDirection,
+      }
     });
   }
 
