@@ -9,7 +9,7 @@ import { PlaylistCreateComponent } from './create.component';
 import { CardModule } from '../../../controls/card/card.module';
 import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 import { DropdownSearchBoxModule } from '../../../controls/dropdown-search-box/dropdown-search-box.module';
-import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
+import { FocusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
 
 
 
@@ -23,7 +23,7 @@ import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/fo
 
     CardModule,
     ForDirectiveModule,
-    focusOnLoadDirectiveModule,
+    FocusOnLoadDirectiveModule,
     DropdownSearchBoxModule,
     CreateRoutingModule
   ]

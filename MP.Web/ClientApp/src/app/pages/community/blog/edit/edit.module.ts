@@ -7,7 +7,7 @@ import { EditRoutingModule } from './edit-routing.module';
 import { EditComponent } from './edit.component';
 import { CardModule } from '../../../../controls/card/card.module';
 import { ForDirectiveModule } from '../../../../directives/for/for-directive.module';
-import { focusOnLoadDirectiveModule } from '../../../../directives/focus-on-load/focus-on-load.module';
+import { FocusOnLoadDirectiveModule } from '../../../../directives/focus-on-load/focus-on-load.module';
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import { focusOnLoadDirectiveModule } from '../../../../directives/focus-on-load
 
     CardModule,
     ForDirectiveModule,
-    focusOnLoadDirectiveModule,
+    FocusOnLoadDirectiveModule,
     EditRoutingModule
   ]
 })

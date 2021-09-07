@@ -10,7 +10,7 @@ import { CardModule } from '../../../controls/card/card.module';
 import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 import { PipesModule } from '../../../pipes/pipes.module';
 import { MediaManagerModule } from '../../../components/subject/media-manager/media-manager.module';
-import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
+import { FocusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
 
 @NgModule({
   declarations: [CreateComponent],
@@ -23,7 +23,7 @@ import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/fo
     PipesModule,
     MediaManagerModule,
     ForDirectiveModule,
-    focusOnLoadDirectiveModule,
+    FocusOnLoadDirectiveModule,
 
     CreateRoutingModule
   ]

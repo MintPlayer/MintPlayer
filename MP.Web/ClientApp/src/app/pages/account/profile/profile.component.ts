@@ -53,6 +53,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
             this.twoFaRegistrationUrl = urlData.registrationUrl;
             this.twoFaRegistrationUrlSanitized = this.domSanitizer.bypassSecurityTrustUrl(this.twoFaRegistrationUrl);
           });
+        this.httpClient.get<number>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-recovery-remaining-codes`)
+          .subscribe((remainingNumberOfCodes) => {
+            this.numberOfRecoveryCodesLeft = remainingNumberOfCodes;
+          });
       });
     }
 
@@ -80,6 +84,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   twoFaRegistrationUrl: string = null;
   twoFaRegistrationUrlSanitized: SafeUrl = null;
   backupCodes: string[] = null;
+  numberOfRecoveryCodesLeft: number | null = null;
 
   socialLoginDone(result: LoginResult) {
     if (result.status) {
@@ -148,6 +153,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
         console.log('Wrong code');
       });
     return false;
+  }
+
+  generateNewRecoveryCodes() {
+    this.httpClient.post<string[]>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-generate-new-codes`, null)
+      .subscribe((backupCodes) => {
+        this.backupCodes = backupCodes;
+      });
   }
 
   private destroyed$ = new Subject();

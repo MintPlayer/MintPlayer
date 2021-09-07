@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EditRoutingModule } from './edit-routing.module';
 import { EditComponent } from './edit.component';
 import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
-import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
+import { FocusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
 
 
 
@@ -18,7 +18,7 @@ import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/fo
     TranslateModule,
 
     ForDirectiveModule,
-    focusOnLoadDirectiveModule,
+    FocusOnLoadDirectiveModule,
     EditRoutingModule
   ]
 })

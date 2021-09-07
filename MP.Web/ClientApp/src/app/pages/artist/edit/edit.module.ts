@@ -9,7 +9,7 @@ import { EditComponent } from './edit.component';
 import { MediaManagerModule } from '../../../components/subject/media-manager/media-manager.module';
 import { CardModule } from '../../../controls/card/card.module';
 import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
-import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
+import { FocusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/fo
     Select2Module,
     CardModule,
     ForDirectiveModule,
-    focusOnLoadDirectiveModule,
+    FocusOnLoadDirectiveModule,
     MediaManagerModule,
 
     EditRoutingModule

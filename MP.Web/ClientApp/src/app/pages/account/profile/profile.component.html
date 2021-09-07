@@ -94,6 +94,20 @@
             </div>
           </div>
         </div>
+        <div class="row mb-3" *ngIf="(backupCodes === null) && (numberOfRecoveryCodesLeft !== null)">
+          <div class="col-xl-6 py-2">
+            <label>
+              {{ 'account.two_factor.recovery.you_have_x_recovery_codes_left' | translate: { count: numberOfRecoveryCodesLeft } }}
+              {{ 'account.two_factor.recovery.generate_new_recovery_codes_in_time' | translate }}
+            </label>
+          </div>
+          <div class="col-xl-6 text-center text-xl-end">
+            <button (click)="generateNewRecoveryCodes()" class="btn btn-default">
+              <i class="fa fa-refresh"></i>
+              {{ 'account.two_factor.recovery.generate_new_recovery_codes' | translate }}
+            </button>
+          </div>
+        </div>
         <div class="row mb-3" *ngIf="backupCodes !== null">
           <div class="col-md-12">
             <p>{{ 'account.two_factor.write_down_backup_codes' | translate }}</p>
@@ -199,11 +213,6 @@
       <button type="button" (click)="onTwoFactorCodeEntered(null)" class="btn-close" aria-label="Close"></button>
     </header>
     <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          {{ (isNotRequestingVerificationCode$ | async) ? 'false' : 'true' }}
-        </div>
-      </div>
       <div class="row">
         <div class="col-md-12">
           {{ 'account.two_factor.login_instructions' | translate }}

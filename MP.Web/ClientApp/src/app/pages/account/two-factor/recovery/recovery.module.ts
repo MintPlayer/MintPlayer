@@ -3,24 +3,21 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CreateRoutingModule } from './create-routing.module';
-import { CreateComponent } from './create.component';
-import { CardModule } from '../../../../controls/card/card.module';
-import { ForDirectiveModule } from '../../../../directives/for/for-directive.module';
+import { RecoveryRoutingModule } from './recovery-routing.module';
+import { RecoveryComponent } from './recovery.component';
 import { FocusOnLoadDirectiveModule } from '../../../../directives/focus-on-load/focus-on-load.module';
 
 
 @NgModule({
-  declarations: [CreateComponent],
+  declarations: [
+    RecoveryComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
     TranslateModule,
-
-    CardModule,
-    ForDirectiveModule,
     FocusOnLoadDirectiveModule,
-    CreateRoutingModule
+    RecoveryRoutingModule
   ]
 })
-export class CreateModule { }
+export class RecoveryModule { }

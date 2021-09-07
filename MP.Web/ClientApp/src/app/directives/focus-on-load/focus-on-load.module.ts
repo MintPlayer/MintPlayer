@@ -13,5 +13,5 @@ import { FocusOnLoadDirective } from './focus-on-load.directive';
     FocusOnLoadDirective
   ]
 })
-export class focusOnLoadDirectiveModule {
+export class FocusOnLoadDirectiveModule {
 }

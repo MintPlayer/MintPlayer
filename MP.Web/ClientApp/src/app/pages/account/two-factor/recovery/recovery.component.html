@@ -1,0 +1,22 @@
+<form class="container" (submit)="recoverAccount()">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <p>{{ 'account.two_factor.recovery.recovery_instructions' | translate }}</p>
+      <div class="input-group mb-3">
+        <input type="text" autofocus [(ngModel)]="recoveryCode" class="form-control" />
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-unlock"></i>
+          {{ 'account.two_factor.recovery.recover' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="isError" class="alert alert-danger text-center" role="alert">
+      <p>
+        <b>{{ 'account.two_factor.recovery.failed' | translate }}</b>
+      </p>
+      <p>{{ 'account.two_factor.recovery.failed_description' | translate }}</p>
+    </div>
+  </div>
+</form>

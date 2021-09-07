@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { TwoFactorRoutingModule } from './two-factor-routing.module';
 import { TwoFactorComponent } from './two-factor.component';
-import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
+import { FocusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
 
 
 @NgModule({
@@ -18,7 +18,7 @@ import { focusOnLoadDirectiveModule } from '../../../directives/focus-on-load/fo
     FormsModule,
     RouterModule,
     TranslateModule,
-    focusOnLoadDirectiveModule,
+    FocusOnLoadDirectiveModule,
     TwoFactorRoutingModule
   ]
 })

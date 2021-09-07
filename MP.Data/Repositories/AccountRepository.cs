@@ -45,8 +45,10 @@ namespace MintPlayer.Data.Repositories
         Task SetTwoFactorEnabled(ClaimsPrincipal userProperty, string code, bool enable);
         Task SetTwoFactorBypass(ClaimsPrincipal userProperty, bool bypass, string code);
         Task<User> TwoFactorLogin(string authenticatorCode, bool remember);
-    }
-    internal class AccountRepository : IAccountRepository
+		Task TwoFactorRecovery(string backupCode);
+		Task<int> GetRemainingNumberOfRecoveryCodes(ClaimsPrincipal userProperty);
+	}
+	internal class AccountRepository : IAccountRepository
     {
         private MintPlayerContext mintplayer_context;
         private readonly IUserMapper userMapper;
@@ -468,8 +470,24 @@ namespace MintPlayer.Data.Repositories
             }
         }
 
-        #region Helper methods
-        private string CreateToken(Entities.User user)
+		public async Task TwoFactorRecovery(string backupCode)
+		{
+			var result = await signin_manager.TwoFactorRecoveryCodeSignInAsync(backupCode);
+			if (!result.Succeeded)
+			{
+				throw new TwoFactorRecoveryException();
+			}
+		}
+
+		public async Task<int> GetRemainingNumberOfRecoveryCodes(ClaimsPrincipal userProperty)
+		{
+			var user = await user_manager.GetUserAsync(userProperty);
+			var result = await user_manager.CountRecoveryCodesAsync(user);
+			return result;
+		}
+
+		#region Helper methods
+		private string CreateToken(Entities.User user)
         {
             var token_descriptor = new SecurityTokenDescriptor
             {

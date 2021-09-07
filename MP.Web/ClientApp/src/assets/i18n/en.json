@@ -221,8 +221,19 @@
 
       "extra_options": "Extra options",
       "bypass_2fa_for_external_logins": "Bypass 2-factor-authentication for external logins (Microsoft, Google, ...)",
-      "remember_me": "Remember this device"
+      "remember_me": "Remember this device",
 
+      "recovery": {
+        "lost_device": "Lost device/Trouble signing in?",
+        "enter_recovery_code": "Enter a recovery code",
+        "recovery_instructions": "Consult the recovery codes you've written down when activating 2-factor authentication. Enter a recovery code in the box below.",
+        "recover": "Recover account",
+        "you_have_x_recovery_codes_left": "You have {{ count }} recovery codes left.",
+        "generate_new_recovery_codes_in_time": "Generate new recovery codes before you run out of them.",
+        "generate_new_recovery_codes": "Generate new recovery codes",
+        "failed": "Account recovery failed",
+        "failed_description": "Failed to recover your account using the code specified. The code you entered may have already been used before."
+      }
     },
     "confirmation": {
       "resend": "Re-send confirmation email"

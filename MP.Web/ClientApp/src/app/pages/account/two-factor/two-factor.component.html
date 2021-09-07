@@ -1,5 +1,5 @@
 <form class="container" (submit)="verifyCode()">
-  <div class="row">
+  <div class="row mb-5">
     <div class="col-md-12 text-center">
       <p>{{ 'account.two_factor.login_instructions' | translate }}</p>
       <div class="input-group mb-3">
@@ -15,6 +15,18 @@
           {{ 'account.two_factor.remember_me' | translate }}
         </label>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h2>{{ 'account.two_factor.recovery.lost_device' | translate }}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <a [routerLink]='["/account", "two-factor", "recovery"]' [queryParams]="{return: (returnUrl === '/' ? null : returnUrl)}" [title]="'account.two_factor.recovery.regain_access' | translate">
+        {{ 'account.two_factor.recovery.enter_recovery_code' | translate }}
+      </a>
     </div>
   </div>
 </form>

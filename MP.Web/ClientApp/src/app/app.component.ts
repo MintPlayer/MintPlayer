@@ -25,6 +25,7 @@ import { TwoFactorComponent } from './pages/account/two-factor/two-factor.compon
 import { SongWithMedium } from './interfaces/song-with-medium';
 import { PlaylistController } from '@mintplayer/ng-playlist-controller';
 import { Subject } from 'rxjs';
+import { RecoveryComponent } from './pages/account/two-factor/recovery/recovery.component';
 
 @Component({
   selector: 'app-root',
@@ -305,6 +306,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       element.loginComplete.subscribe(this.loginCompleted);
     } else if (element instanceof TwoFactorComponent) {
       element.loginComplete.subscribe(this.loginCompleted);
+    } else if (element instanceof RecoveryComponent) {
+      element.loginComplete.subscribe(this.loginCompleted);
     } else if (element instanceof RegisterComponent) {
       element.loginComplete.subscribe(this.loginCompleted);
     } else if (element instanceof SongShowComponent) {
@@ -335,6 +338,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     if (element instanceof LoginComponent) {
       element.loginComplete.unsubscribe();
     } else if (element instanceof TwoFactorComponent) {
+      element.loginComplete.unsubscribe();
+    } else if (element instanceof RecoveryComponent) {
       element.loginComplete.unsubscribe();
     } else if (element instanceof RegisterComponent) {
       element.loginComplete.unsubscribe();

@@ -238,31 +238,6 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			}
 		}
 
-		//[Authorize]
-		//[ValidateAntiForgeryToken]
-		//[HttpPost("two-factor-disable", Name = "web-v3-account-twofactor-disable")]
-		//[ApiExplorerSettings(IgnoreApi = true)]
-		//public async Task<ActionResult> DisableTwoFactor([FromBody] TwoFactorDisableVM twoFactorDisable)
-		//{
-		//	try
-		//	{
-		//		await accountService.SetTwoFactorEnabled(User, twoFactorDisable.SetupCode, false);
-		//		return Ok();
-		//	}
-		//	catch (InvalidTwoFactorCodeException invEx)
-		//	{
-		//		return StatusCode(401);
-		//	}
-		//	catch (TwoFactorSetupException twoFactorEx)
-		//	{
-		//		return StatusCode(500);
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		return StatusCode(500);
-		//	}
-		//}
-
 		[Authorize]
 		[ValidateAntiForgeryToken]
 		[HttpPut("two-factor-bypass", Name = "web-v3-account-twofactor-bypass")]
@@ -295,6 +270,60 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		{
 			var user = await accountService.TwoFactorLogin(twoFactorLoginVM.Code, twoFactorLoginVM.Remember);
 			return user;
+		}
+
+		[ValidateAntiForgeryToken]
+		[HttpPost("two-factor-recovery")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult> TwoFactorRecovery([FromBody] TwoFactorRecoveryVM twoFactorRecoveryVM)
+		{
+			try
+			{
+				await accountService.TwoFactorRecovery(twoFactorRecoveryVM.Code);
+				return Ok();
+			}
+			catch (TwoFactorRecoveryException)
+			{
+				return Unauthorized();
+			}
+			catch (Exception)
+			{
+				return StatusCode(500);
+			}
+		}
+
+		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPost("two-factor-generate-new-codes")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult<IEnumerable<string>>> TwoFactorGenerateCodes()
+		{
+			try
+			{
+				var backupCodes = await accountService.GenerateTwoFactorBackupCodes(User);
+				return Ok(backupCodes);
+			}
+			catch (Exception)
+			{
+				return StatusCode(500);
+			}
+		}
+
+
+		[Authorize]
+		[HttpGet("two-factor-recovery-remaining-codes")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult<int>> TwoFactorGetRemainingNumberOfCodes()
+		{
+			try
+			{
+				var numberOfBackupCodes = await accountService.GetRemainingNumberOfRecoveryCodes(User);
+				return Ok(numberOfBackupCodes);
+			}
+			catch (Exception)
+			{
+				return StatusCode(500);
+			}
 		}
 
 		// GET: web/Account/providers

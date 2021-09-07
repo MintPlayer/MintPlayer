@@ -221,7 +221,19 @@
 
       "extra_options": "Extra opties",
       "bypass_2fa_for_external_logins": "2-factor authenticatie overslaan voor externe logins (Microsoft, Google, ...)",
-      "remember_me": "Onthoud dit toestel"
+      "remember_me": "Onthoud dit toestel",
+
+      "recovery": {
+        "lost_device": "Toestel verloren/probleem met inloggen?",
+        "enter_recovery_code": "Voer een herstelcode in",
+        "recovery_instructions": "Zoek de herstelcodes die je opgeschreven hebt bij het inschakelen van 2-factor authenticatie. Voer een herstelcode in in het onderstaande tekstvak.",
+        "recover": "Herstel mijn account",
+        "you_have_x_recovery_codes_left": "Je hebt nog {{ count }} herstelcodes over.",
+        "generate_new_recovery_codes_in_time": "Genereer nieuwe herstelcodes voordat ze op zijn.",
+        "generate_new_recovery_codes": "Genereer nieuwe herstelcodes",
+        "failed": "Accountherstel mislukt",
+        "failed_description": "We konden uw account niet herstellen met de opgegeven code. De opgegeven code is mogelijk reeds eerder gebruikt."
+      }
     },
     "confirmation": {
       "resend": "Bevestigingse-mail opnieuw versturen"

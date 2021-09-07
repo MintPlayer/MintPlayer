@@ -221,7 +221,19 @@
 
       "extra_options": "Options supplémentaires",
       "bypass_2fa_for_external_logins": "Contourner authentification à 2 facteurs pour les connexions externes (Microsoft, Google, ...)",
-      "remember_me": "Recollecter cet appareil"
+      "remember_me": "Recollecter cet appareil",
+
+      "recovery": {
+        "lost_device": "Perdu l'appareil/problème de se connecter?",
+        "enter_recovery_code": "Introduire une code de rétablissement",
+        "recovery_instructions": "Consultez les codes de rétablissement qui vous avez notés. Introduissez un code de rétablissement dans la zone de texte ci-dessous.",
+        "recover": "Rétablir mon compte",
+        "you_have_x_recovery_codes_left": "Il vous reste {{ count }} codes de rétablissement.",
+        "generate_new_recovery_codes_in_time": "N'oubliez pas de générez de nouveaux codes de rétablissement avant qu'ils ne s'épuisent.",
+        "generate_new_recovery_codes": "Générez de nouveaux codes de rétablissement",
+        "failed": "Une erreur s'est produite rétablir votre compte",
+        "failed_description": "On ne pourrait pas rétablir votre compte avec le code introduite. Le code pourrait-il utilisé déjà dans le passé."
+      }
     },
     "confirmation": {
       "resend": "Renvoyer email de confirmation"

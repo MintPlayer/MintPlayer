@@ -42,9 +42,11 @@ namespace MintPlayer.Data.Services
         Task SetTwoFactorEnabled(ClaimsPrincipal userProperty, string code, bool enable);
         Task SetTwoFactorBypass(ClaimsPrincipal userProperty, bool bypass, string code);
         Task<User> TwoFactorLogin(string authenticatorCode, bool remember);
-    }
+		Task TwoFactorRecovery(string backupCode);
+		Task<int> GetRemainingNumberOfRecoveryCodes(ClaimsPrincipal userProperty);
+	}
 
-    internal class AccountService : IAccountService
+	internal class AccountService : IAccountService
     {
         private readonly IAccountRepository accountRepository;
         private readonly IMailService mailService;
@@ -209,5 +211,16 @@ namespace MintPlayer.Data.Services
             var result = await accountRepository.TwoFactorLogin(authenticatorCode, remember);
             return result;
         }
-    }
+
+		public async Task TwoFactorRecovery(string backupCode)
+		{
+			await accountRepository.TwoFactorRecovery(backupCode);
+		}
+
+		public async Task<int> GetRemainingNumberOfRecoveryCodes(ClaimsPrincipal userProperty)
+		{
+			var result = await accountRepository.GetRemainingNumberOfRecoveryCodes(userProperty);
+			return result;
+		}
+	}
 }
