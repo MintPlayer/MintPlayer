@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { API_VERSION, MediumType, MediumTypeService, Song, SongService } from '@mintplayer/ng-client';
+import { API_VERSION, Artist, MediumType, MediumTypeService, Song, SongService, SubjectService, SubjectType, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -22,7 +22,9 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject(API_VERSION) apiVersion: string,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private songService: SongService,
+    private subjectService: SubjectService,
     private mediumTypeService: MediumTypeService,
+    private tagService: TagService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
@@ -74,9 +76,24 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     dateUpdate: null
   };
 
-  httpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  artistSuggestions: Artist[] = [];
+  onProvideArtistSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.artist]).then((artists) => {
+      this.artistSuggestions = <Artist[]>artists;
+    });
+  }
+  uncreditedArtistSuggestions: Artist[] = [];
+  onProvideUncreditedArtistSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.artist]).then((artists) => {
+      this.uncreditedArtistSuggestions = <Artist[]>artists;
+    });
+  }
+  tagSuggestions: Tag[] = [];
+  onProvideTagSuggestions(searchText: string) {
+    this.tagService.suggestTags(searchText, true).then((tags) => {
+      this.tagSuggestions = tags;
+    });
+  }
 
   removeBrackets() {
     var rgx = /\[(.*?)\]\n/gm;

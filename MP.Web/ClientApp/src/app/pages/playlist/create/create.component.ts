@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { API_VERSION, Playlist, PlaylistAccessibility, PlaylistService, Song } from '@mintplayer/ng-client';
+import { API_VERSION, Playlist, PlaylistAccessibility, PlaylistService, Song, SubjectService, SubjectType } from '@mintplayer/ng-client';
 import { Component, OnInit, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer, OnDestroy, Inject } from '@angular/core';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -19,6 +19,7 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
   constructor(
     @Inject(API_VERSION) apiVersion: string,
     private playlistService: PlaylistService,
+    private subjectService: SubjectService,
     private router: AdvancedRouter,
     private enumHelper: EnumHelper,
     private slugifyHelper: SlugifyHelper,
@@ -28,9 +29,12 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
     this.accessibilities = this.enumHelper.getItems(PlaylistAccessibility);
   }
 
-  songSuggestHttpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  songSuggestions: Song[] = [];
+  onProvideSongSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.song]).then((songs) => {
+      this.songSuggestions = <Song[]>songs;
+    });
+  }
 
   onSuggestionClicked(suggestion: Song) {
     this.playlist.tracks.push(suggestion);

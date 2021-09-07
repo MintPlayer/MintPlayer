@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { API_VERSION, Playlist, PlaylistAccessibility, PlaylistService, Song } from '@mintplayer/ng-client';
+import { API_VERSION, Playlist, PlaylistAccessibility, PlaylistService, Song, SubjectService, SubjectType } from '@mintplayer/ng-client';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
@@ -24,6 +24,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     @Inject(API_VERSION) apiVersion: string,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
+    private subjectService: SubjectService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
@@ -61,9 +62,12 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
   ngOnInit() {
   }
 
-  songSuggestHttpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  songSuggestions: Song[] = [];
+  onProvideSongSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.song]).then((songs) => {
+      this.songSuggestions = <Song[]>songs;
+    });
+  }
 
   onSuggestionClicked(suggestion: Song) {
     this.playlist.tracks.push(suggestion);

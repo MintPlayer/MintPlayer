@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Title } from '@angular/platform-browser';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { API_VERSION, Artist, ArtistService, MediumType, MediumTypeService } from '@mintplayer/ng-client';
+import { API_VERSION, Artist, ArtistService, MediumType, MediumTypeService, Person, SubjectService, SubjectType, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -21,7 +21,9 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject(API_VERSION) apiVersion: string,
     private artistService: ArtistService,
+    private subjectService: SubjectService,
     private mediumTypeService: MediumTypeService,
+    private tagService: TagService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
@@ -58,9 +60,24 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   };
   concurrentArtist: Artist = null;
 
-  httpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  currentMemberSuggestions: Person[] = [];
+  onProvideCurrentMemberSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
+      this.currentMemberSuggestions = <Person[]>people;
+    });
+  }
+  pastMemberSuggestions: Person[] = [];
+  onProvidePastMemberSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
+      this.pastMemberSuggestions = <Person[]>people;
+    });
+  }
+  tagSuggestions: Tag[] = [];
+  onProvideTagSuggestions(searchText: string) {
+    this.tagService.suggestTags(searchText, true).then((tags) => {
+      this.tagSuggestions = tags;
+    });
+  }
 
   private loadArtist(id: number) {
     this.artistService.getArtist(id, true).then((artist) => {

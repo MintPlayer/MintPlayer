@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { API_VERSION, MediumType, MediumTypeService, Person, PersonService } from '@mintplayer/ng-client';
+import { API_VERSION, MediumType, MediumTypeService, Person, PersonService, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -22,6 +22,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
+    private tagService: TagService,
     private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -56,9 +57,12 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     dateUpdate: null
   };
 
-  public httpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  tagSuggestions: Tag[] = [];
+  onProvideTagSuggestions(searchText: string) {
+    this.tagService.suggestTags(searchText, true).then((tags) => {
+      this.tagSuggestions = tags;
+    });
+  }
 
   savePerson() {
     this.personService.createPerson(this.person).then((person) => {

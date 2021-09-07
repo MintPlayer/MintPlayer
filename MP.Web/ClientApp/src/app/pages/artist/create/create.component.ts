@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { API_VERSION, Artist, ArtistService, MediumType, MediumTypeService } from '@mintplayer/ng-client';
+import { API_VERSION, Artist, ArtistService, MediumType, MediumTypeService, Person, PersonService, SubjectService, SubjectType, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
@@ -20,7 +20,9 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     @Inject(API_VERSION) apiVersion: string,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private artistService: ArtistService,
+    private subjectService: SubjectService,
     private mediumTypeService: MediumTypeService,
+    private tagService: TagService,
     private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
@@ -51,6 +53,25 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     text: '',
     dateUpdate: null
   };
+
+  currentMemberSuggestions: Person[] = [];
+  onProvideCurrentMemberSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
+      this.currentMemberSuggestions = <Person[]>people;
+    });
+  }
+  pastMemberSuggestions: Person[] = [];
+  onProvidePastMemberSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
+      this.pastMemberSuggestions = <Person[]>people;
+    });
+  }
+  tagSuggestions: Tag[] = [];
+  onProvideTagSuggestions(searchText: string) {
+    this.tagService.suggestTags(searchText, true).then((tags) => {
+      this.tagSuggestions = tags;
+    });
+  }
 
   loadMediumTypes() {
     this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {

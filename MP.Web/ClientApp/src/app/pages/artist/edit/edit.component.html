@@ -44,19 +44,19 @@
         <div class="form-group row mb-3">
           <label [appFor]="sel_current_members" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'artists.current_members' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <select2 [url]="'/web/' + apiVersion + '/subject/search/suggest/person'" method="GET" [headers]="httpHeaders" [(selectedItems)]="artist.currentMembers" #sel_current_members></select2>
+            <select2 (provideSuggestions)="onProvideCurrentMemberSuggestions($event)" [suggestions]="currentMemberSuggestions" [selectedItems]="artist.currentMembers" #sel_current_members></select2>
           </div>
         </div>
         <div class="form-group row mb-3">
           <label [appFor]="sel_past_members" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'artists.past_members' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <select2 [url]="'/web/' + apiVersion + '/subject/search/suggest/person'" method="GET" [headers]="httpHeaders" [(selectedItems)]="artist.pastMembers" #sel_past_members></select2>
+            <select2 (provideSuggestions)="onProvidePastMemberSuggestions($event)" [suggestions]="pastMemberSuggestions" [selectedItems]="artist.pastMembers" #sel_past_members></select2>
           </div>
         </div>
         <div class="form-group row mb-3">
           <label [appFor]="sel_tags" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'subjects.tags' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <select2 [url]="'/web/' + apiVersion + '/Tag/suggest'" method="POST" [headers]="httpHeaders" [selectedItems]="artist.tags" #sel_tags>
+            <select2 (provideSuggestions)="onProvideTagSuggestions($event)" [suggestions]="tagSuggestions" [selectedItems]="artist.tags" #sel_tags>
               <ng-template itemTemplate let-item="item" let-select2="select2">
                 <span class="select2-item" [style.background]="item.category.color" [style.color]="item.category.color | fontColor">
                   <span [style.color]="item.category.color | fontColor" (click)="select2.removeItem(item,$event)">×</span>
