@@ -144,7 +144,8 @@
     "pause": "Pause",
     "remove_song": "Supprimer chanson",
     "shuffle": "Mélanger",
-    "repeat": "Répeter"
+    "repeat": "Répeter",
+    "replay": "Rejouer"
   },
   "community": {
     "community": "Communauté",

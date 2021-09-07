@@ -45,6 +45,9 @@ export class PlaylistSidebarComponent implements OnInit {
   public playPauseClicked: EventEmitter<any> = new EventEmitter();
 
   @Output()
+  public replayClicked: EventEmitter<any> = new EventEmitter();
+
+  @Output()
   public songClicked: EventEmitter<SongWithMedium> = new EventEmitter();
 
   onPreviousClicked() {
@@ -55,6 +58,9 @@ export class PlaylistSidebarComponent implements OnInit {
   }
   onPlayPauseClicked() {
     this.playPauseClicked.emit();
+  }
+  onReplay() {
+    this.replayClicked.emit();
   }
   onSongClicked(song: SongWithMedium) {
     this.songClicked.emit(song);

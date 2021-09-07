@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { ShowRoutingModule } from './show-routing.module';
@@ -12,6 +13,7 @@ import { PipesModule } from '../../../../pipes/pipes.module';
   declarations: [ShowComponent],
   imports: [
     CommonModule,
+    TranslateModule,
     AdvancedRouterModule,
 
     CardModule,

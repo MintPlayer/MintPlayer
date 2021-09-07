@@ -108,6 +108,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.isViewInited) {
           if (song === null) {
             this.player.setUrl(null);
+            this.playerState = PlayerState.unstarted;
           } else if (song.medium !== null) {
             this.player.setUrl(song.medium.value);
           } else if (song.song.playerInfos.length > 0) {
@@ -246,9 +247,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   private lyricsTimer: NodeJS.Timer;
   playerState: PlayerState = PlayerState.unstarted;
   playerStateChanged(state: PlayerState) {
-    this.playerState = state;
     switch (state) {
       case PlayerState.playing:
+        this.playerState = state;
         if (this.playlistControl.video$.value.song.lyrics.timeline === null) {
           this.currentLyricsLine = null;
         } else {
@@ -258,11 +259,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         break;
       case PlayerState.paused:
+        this.playerState = state;
         if (this.lyricsTimer !== null) {
           clearInterval(this.lyricsTimer);
         }
         break;
       case PlayerState.ended:
+        this.playerState = state;
         this.playNextSong();
         break;
       default:
@@ -295,6 +298,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.player.playerState = PlayerState.playing;
     }
+  }
+  replayPlayer() {
+    this.playlistControl.next();
   }
   //#endregion
 

@@ -144,7 +144,8 @@
     "pause": "Pause",
     "remove_song": "Remove song",
     "shuffle": "Shuffle",
-    "repeat": "Repeat"
+    "repeat": "Repeat",
+    "replay": "Replay"
   },
   "community": {
     "community": "Community",

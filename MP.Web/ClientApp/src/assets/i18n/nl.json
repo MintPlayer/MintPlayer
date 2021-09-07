@@ -144,7 +144,8 @@
     "pause": "Pauzeren",
     "remove_song": "Song verwijderen",
     "shuffle": "Shuffle",
-    "repeat": "Herhaal"
+    "repeat": "Herhaal",
+    "replay": "Opnieuw afspelen"
   },
   "community": {
     "community": "Community",

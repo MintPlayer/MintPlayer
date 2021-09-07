@@ -13,14 +13,17 @@
       </button>
     </div>
     <div class="d-block text-center">
-      <button (click)="onPreviousClicked()" [title]="'player.previous_song' | translate" class="btn btn-lg btn-default">
+      <button (click)="onPreviousClicked()" [disabled]="playerState === playerStateValues['unstarted']" [title]="'player.previous_song' | translate" class="btn btn-lg btn-default">
         <i class="fa fa-backward"></i>
       </button>
-      <button (click)="onPlayPauseClicked()" [title]="(playerState == playerStateValues.playing ? 'player.pause' : 'player.play') | translate" class="btn btn-lg btn-default">
+      <button (click)="onPlayPauseClicked()" [title]="(playerState == playerStateValues.playing ? 'player.pause' : 'player.play') | translate" *ngIf="playerState !== playerStateValues['unstarted']" class="btn btn-lg btn-default">
         <i class="fa fa-play" *ngIf="playerState != playerStateValues.playing"></i>
         <i class="fa fa-pause" *ngIf="playerState == playerStateValues.playing"></i>
       </button>
-      <button (click)="onNextClicked()" [title]="'player.next_song' | translate" class="btn btn-lg btn-default">
+      <button (click)="onReplay()" [title]="'player.replay' | translate" [disabled]="!songs && (songs.length === 0)" *ngIf="playerState === playerStateValues['unstarted']" class="btn btn-lg btn-default">
+        <i class="fa fa-repeat"></i>
+      </button>
+      <button (click)="onNextClicked()" [disabled]="playerState === playerStateValues['unstarted']" [title]="'player.next_song' | translate" class="btn btn-lg btn-default">
         <i class="fa fa-forward"></i>
       </button>
     </div>
