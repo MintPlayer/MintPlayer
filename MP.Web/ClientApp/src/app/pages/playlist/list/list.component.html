@@ -3,7 +3,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">{{ 'playlists.my_playlists' | translate }}</h1>
       <span class="pull-right">
-        <a [advRouterLink]='["/playlist","create"]' class="btn btn-primary">
+        <a [advRouterLink]='["/playlist","create"]' class="btn btn-primary" [title]="'playlists.create_new_playlist' | translate">
           <i class="fa fa-plus"></i>
           {{ 'playlists.create_playlist' | translate }}
         </a>
@@ -17,7 +17,9 @@
 
         <ng-template rowTemplate let-playlist>
           <tr>
-            <td class="text-nowrap"><a [advRouterLink]='["/playlist",playlist.id,playlist.description | slugify]' [title]="'global.details_for' | translate: { name: playlist.description }">{{ playlist.description }}</a></td>
+            <td class="text-nowrap">
+              <a [advRouterLink]='["/playlist",playlist.id,playlist.description | slugify]' [title]="'global.details_for' | translate: { name: playlist.description }">{{ playlist.description }}</a>
+            </td>
           </tr>
         </ng-template>
       </datatable>

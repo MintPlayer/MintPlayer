@@ -14,7 +14,7 @@
 
         <ng-template rowTemplate let-person>
           <tr>
-            <td class="text-nowrap"><a [advRouterLink]='["/person",person.id,person.text | slugify]' title="Details for {{ person.firstName }} {{ person.lastName }}">{{ person.firstName }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/person",person.id,person.text | slugify]' [title]="'global.details_for' | translate: {name: person.firstName + ' ' + person.lastName">{{ person.firstName }}</a></td>
             <td class="text-nowrap">{{ person.lastName }}</td>
             <td class="text-nowrap">{{ person.born | date:'dd/MM/yyyy' }}</td>
             <td class="text-nowrap">{{ person.died | date:'dd/MM/yyyy' }}</td>

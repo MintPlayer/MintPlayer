@@ -11,7 +11,7 @@
 
         <ng-template rowTemplate let-playlist>
           <tr>
-            <td class="text-nowrap"><a [advRouterLink]='["/playlist",playlist.id,playlist.description | slugify]' title="'global.details_for' | translate: { name: playlist.description }">{{ playlist.description }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/playlist",playlist.id,playlist.description | slugify]' [title]="'global.details_for' | translate: { name: playlist.description }">{{ playlist.description }}</a></td>
           </tr>
         </ng-template>
       </datatable>

@@ -1,9 +1,9 @@
 <h1>{{ 'gdpr.terms_of_service.terms_of_service' | translate }}</h1>
 <p>{{ 'gdpr.terms_of_service.use_of_website' | translate }}</p>
 <ul>
-  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="trademark">{{ 'gdpr.terms_of_service.use_of_trademark.title' | translate }}</a></li>
-  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="linking">{{ 'gdpr.terms_of_service.link_to_website.title' | translate }}</a></li>
-  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="bugs">{{ 'gdpr.terms_of_service.bugs.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="trademark" [title]="'gdpr.terms_of_service.use_of_trademark.title' | translate">{{ 'gdpr.terms_of_service.use_of_trademark.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="linking" [title]="'gdpr.terms_of_service.link_to_website.title' | translate">{{ 'gdpr.terms_of_service.link_to_website.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","terms-of-service"]' fragment="bugs" [title]="'gdpr.terms_of_service.bugs.title' | translate">{{ 'gdpr.terms_of_service.bugs.title' | translate }}</a></li>
 </ul>
 <h2 id="trademark">{{ 'gdpr.terms_of_service.use_of_trademark.title' | translate }}</h2>
 <p>{{ 'gdpr.terms_of_service.use_of_trademark.body' | translate }}</p>
@@ -15,5 +15,5 @@
 <h2 id="bugs">{{ 'gdpr.terms_of_service.bugs.title' | translate }}</h2>
 <p>
   {{ 'gdpr.terms_of_service.bugs.body' | translate }}
-  <a href="mailto:info@mintplayer.com">info@mintplayer.com</a>.
+  <a href="mailto:info@mintplayer.com" [title]="'global.send_us_email' | translate">info@mintplayer.com</a>.
 </p>

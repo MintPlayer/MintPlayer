@@ -10,7 +10,9 @@
     "description": "Description",
     "details_for": "Details for {{ name }}",
     "general_information": "General information",
-    "mintplayer_blog": "MintPlayer blog"
+    "mintplayer_blog": "MintPlayer blog",
+    "send_us_email": "Send us an email",
+    "color": "Color"
   },
   "not_found": {
     "not_found": "Not found",
@@ -89,7 +91,8 @@
     "born": "Born",
     "died": "Died",
     "update_person": "Update person",
-    "member_of": "Member of"
+    "member_of": "Member of",
+    "edit_person": "Edit person: {{ name }}"
   },
   "songs": {
     "song": "song",
@@ -98,6 +101,7 @@
     "create_new_song": "Create new song",
     "all_songs": "All songs",
     "add_song": "Add song",
+    "view_song": "View song",
     "favorite_songs": "Favorite songs",
     "my_favorite_songs": "My favorite songs",
     "no_songs_found": "No songs found",
@@ -169,7 +173,18 @@
       "manage_tags": "Manage tags",
       "manage_categories": "Manage categories",
       "all_categories": "All categories",
-      "add_category": "Add category"
+      "add_category": "Add category",
+      "add_tag": "Add tag",
+      "edit_tag": "Edit tag",
+      "parent_tag": "Parent tag",
+      "categories": {
+        "category": "Category",
+        "all_categories": "All tag categories",
+        "create_new_tag_category": "Create new tag category",
+        "create_category": "Create tag category",
+        "edit_category": "Edit tag category",
+        "remove_category": "Remove tag category"
+      }
     }
   },
   "account": {
@@ -179,6 +194,7 @@
     "create_account": "Create account",
     "profile": "Profile",
     "profile_page": "profile page",
+    "goto_profile_page": "Go to your profile page",
     "sign_out": "Sign out",
     "log_out": "Log out",
     "email_address": "Email address",
@@ -210,6 +226,7 @@
       "scan": "Open your Authenticator app, scan this QR-code.",
       "add_account": "Add account",
       "or_open_app": "Or open authenticator app",
+      "open_authenticator_app": "Open the authenticator app",
       "generate_code": "Generate code",
       "write_down_backup_codes": "These are your backup codes. Write them down and keep them somewhere safe. You'll need them in case you lose your mobile phone. You won't be able to view them again after leaving this page.",
       "login_instructions": "Open the authenticator app on your mobile phone and generate a 6-digit number for MintPlayer. Enter the code in the textbox below:",

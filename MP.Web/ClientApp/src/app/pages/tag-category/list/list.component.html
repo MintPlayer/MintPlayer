@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">All tag categories</h1>
+      <h1 class="d-inline-block">{{ 'management.tags.categories.all_categories' | translate }}</h1>
       <span class="pull-right">
-        <a [advRouterLink]='["/tag","category","create"]' class="btn btn-primary">
+        <a [advRouterLink]='["/tag","category","create"]' [title]="'management.tags.categories.create_new_tag_category' | translate" class="btn btn-primary">
           <i class="fa fa-plus"></i>
-          Create category
+          {{ 'management.tags.categories.create_category' | translate }}
         </a>
       </span>
     </div>
@@ -18,7 +18,7 @@
 
         <ng-template rowTemplate let-category>
           <tr>
-            <td class="text-nowrap"><a [advRouterLink]='["/tag","category",category.id]' title="Details for {{ category.description }}">{{ category.description }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/tag","category",category.id]' [title]="'global.details_for' | translate:{name:category.description}">{{ category.description }}</a></td>
             <td class="text-nowrap">{{ category.color }}</td>
           </tr>
         </ng-template>

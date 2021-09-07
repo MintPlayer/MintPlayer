@@ -3,7 +3,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">{{ 'global.mintplayer_blog' | translate }}</h1>
       <span *ngIf="isBlogger" class="float-none d-block pull-sm-right d-sm-inline-block">
-        <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/community", "blog", "create"]'>
+        <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/community", "blog", "create"]' [title]="'blog.write_blog_post' | translate">
           <!-- to handle -->
           <i class="fa fa-plus"></i>
           {{ 'blog.write_blog_post' | translate }}

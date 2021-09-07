@@ -4,7 +4,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">{{ blogPost.title }}</h1>
       <span *ngIf="isBlogger" class="float-none d-block pull-sm-right d-sm-inline-block">
-        <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/community", "blog", blogPost.id, blogPost.title | slugify, "edit"]'>
+        <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/community", "blog", blogPost.id, blogPost.title | slugify, "edit"]' [title]="'global.edit' | translate">
           <!-- to handle -->
           <i class="fa fa-edit"></i>
           {{ 'global.edit' | translate }}

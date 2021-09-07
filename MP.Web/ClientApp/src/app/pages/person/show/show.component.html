@@ -4,7 +4,7 @@
       <h1 class="d-inline-block">{{ person.firstName + " " + person.lastName }}</h1>
       <span class="float-none d-block pull-sm-right d-sm-inline-block">
         <span class="float-none d-block pull-sm-right d-sm-inline-block">
-          <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/person", person.id, person.text | slugify, "edit"]'>
+          <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/person", person.id, person.text | slugify, "edit"]' [title]="'people.edit_person' | translate: {name: person.text}">
             <i class="fa fa-edit"></i>
             {{ 'global.edit' | translate }}
           </a>
@@ -62,7 +62,7 @@
             <label class="fw-bold">{{ 'subjects.tags' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
-            <a *ngFor="let tag of person.tags" class="h4 d-inline-block me-2 mb-0" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id]'>
+            <a *ngFor="let tag of person.tags" class="h4 d-inline-block me-2 mb-0" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id]' [title]="'global.details_for' | translate: {name: tag.description}">
               <span class="badge float-left" [style.background]="tag.category.color" [style.color]="tag.category.color | fontColor">{{ tag.description }}</span>
             </a>
           </div>

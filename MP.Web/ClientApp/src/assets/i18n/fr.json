@@ -10,7 +10,9 @@
     "description": "Déscription",
     "details_for": "Détails pour {{ name }}",
     "general_information": "Informations générales",
-    "mintplayer_blog": "MintPlayer blog"
+    "mintplayer_blog": "MintPlayer blog",
+    "send_us_email": "Envoyez-nous un e-mail",
+    "color": "Couleur"
   },
   "not_found": {
     "not_found": "Page pas trouvée",
@@ -89,7 +91,8 @@
     "born": "Née",
     "died": "Mort",
     "update_person": "Mettre à jour le personne",
-    "member_of": "Membre de"
+    "member_of": "Membre de",
+    "edit_person": "Modifier personne: {{ name }}"
   },
   "songs": {
     "song": "chanson",
@@ -98,6 +101,7 @@
     "create_new_song": "Créer nouveau chanson",
     "all_songs": "Tous chansons",
     "add_song": "Créer chanson",
+    "view_song": "Montre le chanson",
     "favorite_songs": "Chansons préférées",
     "my_favorite_songs": "Mes chansons préférées",
     "no_songs_found": "Pas de chansons trouvés",
@@ -169,7 +173,18 @@
       "manage_tags": "Gérer tags",
       "manage_categories": "Gérer catégories",
       "all_categories": "Tous catégories",
-      "add_category": "Créer catégorie"
+      "add_category": "Créer catégorie",
+      "add_tag": "Ajouter un tag",
+      "edit_tag": "Modifier tag",
+      "parent_tag": "Tag parental",
+      "categories": {
+        "category": "Catégorie",
+        "all_categories": "Tous catégories",
+        "create_new_tag_category": "Créer nouveau catégorie",
+        "create_category": "Créer catégorie",
+        "edit_category": "Modifier catégorie",
+        "remove_category": "Supprimer catégorie"
+      }
     }
   },
   "account": {
@@ -179,6 +194,7 @@
     "create_account": "Créer compte",
     "profile": "Mon profil",
     "profile_page": "page de profil",
+    "goto_profile_page": "Allez au page de profil",
     "sign_out": "Déconnecter",
     "log_out": "Déconnecter",
     "email_address": "Addresse email",
@@ -210,6 +226,7 @@
       "scan": "Ouvriez votre app Authenticator, scannez ce code QR.",
       "add_account": "Ajouter mon compte",
       "or_open_app": "Ou ouvriez app Authenticator",
+      "open_authenticator_app": "Ouvriez l'app Authenticator",
       "generate_code": "Générez code",
       "write_down_backup_codes": "Voici votre codes de sauvegarde. Ecrivez-lui et conservez-lui dans un endroit sécure. Vous en irez besoin en cas que vous perdriez votre téléphone. Après de quitter cette page-ci, vous ne les pouvez plus voir.",
       "login_instructions": "Ouvriez votre app Authenticator sur ton portable et générez un code de 6 chiffres pour MintPlayer. Introduissez le code dans le zone de texte ci-dessous:",

@@ -4,13 +4,13 @@
       <h1 class="d-inline-block">{{ tag.description }}</h1>
       <span class="float-none d-block pull-sm-right d-sm-inline-block">
         <span class="float-none d-block pull-sm-right d-sm-inline-block">
-          <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id,"edit"]'>
+          <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id,"edit"]' [title]="'management.tags.edit_tag' | translate">
             <i class="fa fa-edit"></i>
-            Edit
+            {{ 'global.edit' | translate }}
           </a>
           <button class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto" (click)="deleteTag()">
             <i class="fa fa-trash"></i>
-            Remove
+            {{ 'global.remove' | translate }}
           </button>
         </span>
       </span>
@@ -19,13 +19,13 @@
   <card class="d-block mb-3">
     <header>
       <i class="fa fa-info"></i>
-      General information
+      {{ 'global.general_information' | translate }}
     </header>
     <content>
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-xl-2">
-            <label class="fw-bold">Description</label>
+            <label class="fw-bold">{{ 'global.description' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ tag.description }}</label>
@@ -33,18 +33,18 @@
         </div>
         <div class="row">
           <div class="col-sm-4 col-xl-2">
-            <label class="fw-bold">Category</label>
+            <label class="fw-bold">{{ 'management.tags.categories.category' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
-            <a [advRouterLink]='["/tag","category",tag.category.id]'>{{ tag.category.description }}</a>
+            <a [advRouterLink]='["/tag","category",tag.category.id]' [title]="'global.details_for' | translate:{name:tag.category.description}">{{ tag.category.description }}</a>
           </div>
         </div>
         <div class="row" *ngIf="tag.parent !== null">
           <div class="col-sm-4 col-xl-2">
-            <label class="fw-bold">Parent tag</label>
+            <label class="fw-bold">{{ 'management.tags.parent_tag' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
-            <a [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.parent.id]'>{{ tag.parent.description }}</a>
+            <a [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.parent.id]' [title]="'global.details_for' | translate:{name:tag.parent.description}">{{ tag.parent.description }}</a>
           </div>
         </div>
       </div>
@@ -53,14 +53,14 @@
   <card class="d-block mb-3" [noPadding]="true">
     <header>
       <i class="fa fa-tags"></i>
-      Tags
+      {{ 'subjects.tags' | translate }}
       <span class="btn-group pull-right">
-        <a [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id,"tags","create"]' class="btn btn-secondary">+</a>
+        <a [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id,"tags","create"]' [title]="'management.tags.add_tag' | translate" class="btn btn-secondary">+</a>
       </span>
     </header>
     <content>
       <div class="list-group">
-        <a [advRouterLink]='["/tag","category",tag.category.id,"tags",child.id]' class="list-group-item list-group-item-action h4 mb-0 py-2" *ngFor="let child of tag.children">
+        <a [advRouterLink]='["/tag","category",tag.category.id,"tags",child.id]' [title]="'global.details_for' | translate: {name:child.description}" class="list-group-item list-group-item-action h4 mb-0 py-2" *ngFor="let child of tag.children">
           <span class="badge float-left" [style.background]="tag.category.color" [style.color]="tag.category.color | fontColor">{{ child.description }}</span>
         </a>
       </div>

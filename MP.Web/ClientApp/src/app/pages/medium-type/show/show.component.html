@@ -3,7 +3,7 @@
     <div class="col-12">
       <h1 class="d-inline-block">{{ mediumType.description }}</h1>
       <span class="pull-right">
-        <a class="btn btn-primary" [advRouterLink]='["/mediumtype", mediumType.id, mediumType.description | slugify, "edit"]'>
+        <a class="btn btn-primary" [advRouterLink]='["/mediumtype", mediumType.id, mediumType.description | slugify, "edit"]' [title]="'medium_type.edit_medium_type' | translate: {name:mediumType.description}">
           <i class="fa fa-edit"></i>
           {{ 'global.edit' | translate }}
         </a>

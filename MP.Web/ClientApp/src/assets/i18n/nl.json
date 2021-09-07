@@ -10,7 +10,9 @@
     "description": "Omschrijving",
     "details_for": "Details van {{ name }}",
     "general_information": "Algemene info",
-    "mintplayer_blog": "MintPlayer blog"
+    "mintplayer_blog": "MintPlayer blog",
+    "send_us_email": "Stuur ons een e-mail",
+    "color": "Kleur"
   },
   "not_found": {
     "not_found": "Pagina niet gevonden",
@@ -89,7 +91,8 @@
     "born": "Geboren",
     "died": "Overleden",
     "update_person": "Persoon updaten",
-    "member_of": "Lid van"
+    "member_of": "Lid van",
+    "edit_person": "Persoon bewerken: {{ name }}"
   },
   "songs": {
     "song": "Song",
@@ -98,6 +101,7 @@
     "create_new_song": "Nieuwe song toevoegen",
     "all_songs": "Alle songs",
     "add_song": "Song toevoegen",
+    "view_song": "Toon song details",
     "favorite_songs": "Favoriete songs",
     "my_favorite_songs": "Mijn favoriete songs",
     "no_songs_found": "Geen songs gevonden",
@@ -169,7 +173,18 @@
       "manage_tags": "Beheer tags",
       "manage_categories": "Beheer categorieën",
       "all_categories": "Alle categorieën",
-      "add_category": "Categorie toevoegen"
+      "add_category": "Categorie toevoegen",
+      "add_tag": "Tag toevoegen",
+      "edit_tag": "Tag bewerken",
+      "parent_tag": "Bovenliggende tag",
+      "categories": {
+        "category": "Categorie",
+        "all_categories": "Alle tagcategorieën",
+        "create_new_tag_category": "Maak een nieuwe categorie aan",
+        "create_category": "Categorie toevoegen",
+        "edit_category": "Categorie bewerken",
+        "remove_category": "Categorie verwijderen"
+      }
     }
   },
   "account": {
@@ -179,6 +194,7 @@
     "create_account": "Account aanmaken",
     "profile": "Profiel",
     "profile_page": "Profielpagina",
+    "goto_profile_page": "Ga naar mijn profielpagina",
     "sign_out": "Uitloggen",
     "log_out": "Uitloggen",
     "email_address": "E-mailadres",
@@ -210,6 +226,7 @@
       "scan": "Open de Authenticator app op uw mobiel toestel, scan volgende QR-code in",
       "add_account": "Account toevoegen",
       "or_open_app": "Of open de authenticator app",
+      "open_authenticator_app": "Open de authenticator app",
       "generate_code": "Genereer code",
       "write_down_backup_codes": "Dit zijn je backup-codes. Schrijf ze ergens op en houd ze bij op een veilige plaats. Je hebt ze nog nodig in het geval dat je je smartphone zou verliezen. Na het verlaten van deze pagina kan je ze niet meer opvragen.",
       "login_instructions": "Open de Authenticator app op uw smartphone genereer een 6-cijferige code voor MintPlayer. Geef deze code hieronder in:",

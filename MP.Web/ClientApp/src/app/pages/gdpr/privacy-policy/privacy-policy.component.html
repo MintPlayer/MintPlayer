@@ -2,16 +2,16 @@
 <p>{{ 'gdpr.privacy_policy.intro' | translate }}</p>
 <p>{{ 'gdpr.privacy_policy.declaration' | translate }}</p>
 <ul>
-  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="data-we-collect">{{ 'gdpr.privacy_policy.data_we_collect.title' | translate }}</a></li>
-  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="handling-of-data">{{ 'gdpr.privacy_policy.handling_of_data.title' | translate }}</a></li>
-  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="cookie-policy">{{ 'gdpr.privacy_policy.cookies.title' | translate }}</a></li>
-  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="information-sharing">{{ 'gdpr.privacy_policy.information_sharing.title' | translate }}</a></li>
-  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="data-removal">{{ 'gdpr.privacy_policy.data_removal.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="data-we-collect" [title]="'gdpr.privacy_policy.data_we_collect.title' | translate">{{ 'gdpr.privacy_policy.data_we_collect.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="handling-of-data" [title]="'gdpr.privacy_policy.handling_of_data.title' | translate">{{ 'gdpr.privacy_policy.handling_of_data.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="cookie-policy" [title]="'gdpr.privacy_policy.cookies.title' | translate">{{ 'gdpr.privacy_policy.cookies.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="information-sharing" [title]="'gdpr.privacy_policy.information_sharing.title' | translate">{{ 'gdpr.privacy_policy.information_sharing.title' | translate }}</a></li>
+  <li><a [advRouterLink]='["/gdpr","privacy-policy"]' fragment="data-removal" [title]="'gdpr.privacy_policy.data_removal.title' | translate">{{ 'gdpr.privacy_policy.data_removal.title' | translate }}</a></li>
 </ul>
 <h2 id="data-we-collect">{{ 'gdpr.privacy_policy.data_we_collect.title' | translate }}</h2>
 <p>
   {{ 'gdpr.privacy_policy.data_we_collect.body' | translate }}
-  <a [advRouterLink]='["/account","profile"]'>{{ 'account.profile_page' | translate }}</a>.
+  <a [advRouterLink]='["/account","profile"]' [title]="'account.goto_profile_page' | translate">{{ 'account.profile_page' | translate }}</a>.
 </p>
 <h2 id="handling-of-data">{{ 'gdpr.privacy_policy.handling_of_data.title' | translate }}</h2>
 <p>{{ 'gdpr.privacy_policy.handling_of_data.body' | translate }}</p>
@@ -23,5 +23,5 @@
 <p>{{ 'gdpr.privacy_policy.data_removal.body1' | translate }}</p>
 <p>
   {{ 'gdpr.privacy_policy.data_removal.body2' | translate }}
-  <a href="mailto:info@mintplayer.com">info@mintplayer.com</a>.
+  <a href="mailto:info@mintplayer.com" [title]="'global.send_us_email' | translate">info@mintplayer.com</a>.
 </p>

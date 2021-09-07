@@ -59,7 +59,7 @@
           <div class="col-xl-6 text-center">
             <qr-code [value]="twoFaRegistrationUrl" size="200" errorCorrectionLevel="M"></qr-code>
             <br />
-            <a [href]="twoFaRegistrationUrlSanitized">{{ 'account.two_factor.or_open_app' | translate }}</a>
+            <a [href]="twoFaRegistrationUrlSanitized" [title]="'account.two_factor.open_authenticator_app' | translate">{{ 'account.two_factor.or_open_app' | translate }}</a>
           </div>
         </div>
         <div class="row">
