@@ -10,23 +10,17 @@ import { Subject } from '@mintplayer/ng-client';
 })
 export class AutocompleteComponent implements OnInit {
 
-  constructor(
-    private httpClient: HttpClient,
-  ) {
+  constructor() {
   }
 
   @Input() searchterm: string;
-  @Input() suggestionUrl: string;
-  @Input() suggestionMethod: string;
 
   dropdownVisible: boolean = false;
   clickedOutside($event: Event) {
     this.dropdownVisible = false;
   }
 
-  provideSuggestions(value: string) {
-    this.dropdownVisible = true;
-
+  onProvideSuggestions(value: string) {
     this.searchterm = value;
     this.searchtermChange.emit(this.searchterm);
 
@@ -34,21 +28,13 @@ export class AutocompleteComponent implements OnInit {
       this.dropdownVisible = false;
       this.suggestions = [];
     } else {
-      switch (this.suggestionMethod.toLowerCase()) {
-        case 'get':
-          this.httpClient.get<Subject[]>(`${this.suggestionUrl}/${this.searchterm}`).subscribe((items) => {
-            this.suggestions = items;
-          });
-          break;
-        case 'post':
-          break;
-        default:
-          throw 'Invalid suggestion method';
-      }
+      this.dropdownVisible = true;
+      this.provideSuggestions.emit(value);
     }
   }
 
-  suggestions: AutocompleteElement[] = [];
+  @Output() public provideSuggestions: EventEmitter<string> = new EventEmitter();
+  @Input() public suggestions: AutocompleteElement[] = [];
   suggestionClicked(suggestion: AutocompleteElement) {
     this.searchterm = suggestion.text;
     this.searchtermChange.emit(this.searchterm);

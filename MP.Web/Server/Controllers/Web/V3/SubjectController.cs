@@ -47,21 +47,19 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			return Ok(result);
 		}
 
-		[HttpGet("search/suggest/{subjects_concat}/{search_term}", Name = "web-v3-subject-suggest")]
+		[HttpPost("search/suggest", Name = "web-v3-subject-suggest")]
 		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<ActionResult<IEnumerable<Subject>>> Suggest([FromRoute]string subjects_concat, [FromRoute]string search_term, [FromHeader]bool include_relations = false)
+		public async Task<ActionResult<IEnumerable<Subject>>> Suggest([FromBody] SearchRequest searchRequest, [FromHeader]bool include_relations = false)
 		{
-			var subjects = subjects_concat.Split('-');
-			var suggestions = await subjectService.Suggest(subjects, search_term, include_relations, false);
+			var suggestions = await subjectService.Suggest(searchRequest.SubjectTypes, searchRequest.SearchTerm, include_relations, false);
 			return Ok(suggestions.ToArray());
 		}
 
-		[HttpGet("search/{subjects_concat}/{search_term}", Name = "web-v3-subject-search")]
+		[HttpPost("search", Name = "web-v3-subject-search")]
 		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<ActionResult<SearchResults>> Search([FromRoute]string subjects_concat, [FromRoute]string search_term)
+		public async Task<ActionResult<SearchResults>> Search([FromBody] SearchRequest searchRequest)
 		{
-			var subjects = subjects_concat.Split('-');
-			var results = await subjectService.Search(subjects, search_term, false, false, false);
+			var results = await subjectService.Search(searchRequest.SubjectTypes, searchRequest.SearchTerm, false, false, false);
 			return Ok(results);
 		}
 	}

@@ -55,28 +55,24 @@ namespace MintPlayer.Web.Server.Controllers.Api
 		}
 
 		/// <summary>Get suggestions for a search term.</summary>
-		/// <param name="subjects_concat">A dash-seperated string containing the subject-types (person, artist, song).</param>
-		/// <param name="search_term">Search term to get suggestions for.</param>
+		/// <param name="searchRequest">Object containing subject types to search for, and the search term.</param>
 		/// <param name="include_relations">Specifies whether the related entities should be included in the response.</param>
 		/// <returns>A list of subjects where the name starts with the specified search term.</returns>
 		[EnableCors(CorsPolicies.AllowDatatables)]
-		[HttpGet("search/suggest/{subjects_concat}/{search_term}", Name = "api-subject-suggest")]
-		public async Task<ActionResult<IEnumerable<Subject>>> Suggest([FromRoute]string subjects_concat, [FromRoute]string search_term, [FromHeader]bool include_relations = false)
+		[HttpPost("search/suggest", Name = "api-subject-suggest")]
+		public async Task<ActionResult<IEnumerable<Subject>>> Suggest([FromBody] SearchRequest searchRequest, [FromHeader]bool include_relations = false)
 		{
-			var subjects = subjects_concat.Split('-');
-			var suggestions = await subjectService.Suggest(subjects, search_term, include_relations, false);
+			var suggestions = await subjectService.Suggest(searchRequest.SubjectTypes, searchRequest.SearchTerm, include_relations, false);
 			return Ok(suggestions.ToArray());
 		}
 
 		/// <summary>Search for subjects using a search term.</summary>
-		/// <param name="subjects_concat">A dash-seperated string containing the subject-types (person, artist, song).</param>
-		/// <param name="search_term">Search term to search for.</param>
+		/// <param name="searchRequest">Object containing subject types to search for, and the search term.</param>
 		/// <returns>A list of subjects matching the search term.</returns>
-		[HttpGet("search/{subjects_concat}/{search_term}", Name = "api-subject-search")]
-		public async Task<ActionResult<SearchResults>> Search([FromRoute]string subjects_concat, [FromRoute]string search_term)
+		[HttpPost("search", Name = "api-subject-search")]
+		public async Task<ActionResult<SearchResults>> Search([FromBody] SearchRequest searchRequest)
 		{
-			var subjects = subjects_concat.Split('-');
-			var results = await subjectService.Search(subjects, search_term, false, false, false);
+			var results = await subjectService.Search(searchRequest.SubjectTypes, searchRequest.SearchTerm, false, false, false);
 			return Ok(results);
 		}
 	}
