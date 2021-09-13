@@ -2,13 +2,16 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AutocompleteElement } from '../autocomplete-element';
 import { Subject } from '@mintplayer/ng-client';
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
+//import { Focusable } from '../../directives/focus-on-load/focusable';
 
 @Component({
   selector: 'autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss']
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent implements OnInit/*, Focusable*/ {
 
   constructor() {
   }
@@ -55,6 +58,11 @@ export class AutocompleteComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  @ViewChild('textbox') textbox!: ElementRef<HTMLInputElement>;
+  public focus() {
+    this.textbox.nativeElement.focus();
   }
 
 }

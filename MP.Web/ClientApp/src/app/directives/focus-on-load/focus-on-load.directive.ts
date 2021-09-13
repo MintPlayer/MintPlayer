@@ -1,16 +1,27 @@
-import { Directive, ElementRef, AfterViewInit } from '@angular/core';
+import { ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, AfterViewInit, ComponentRef } from '@angular/core';
 
 @Directive({
-  selector: 'input[autofocus]'
+  selector: '*[autofocus]'
 })
 export class FocusOnLoadDirective implements AfterViewInit {
 
   constructor(
-    private element: ElementRef,
+    private viewContainer: ViewContainerRef
   ) {
+    const container = this.viewContainer['_lContainer'][0]
+    if (container instanceof HTMLElement) {
+      this.inputBox = <HTMLInputElement>container;
+    } else {
+      this.inputBox = container[8];
+    }
   }
 
+  private readonly inputBox!: any;
+
   ngAfterViewInit() {
-    this.element.nativeElement.focus();
+    setTimeout(() => {
+      this.inputBox.focus();
+    }, 10);
   }
 }

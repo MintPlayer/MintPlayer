@@ -7,6 +7,7 @@ import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
 import { AutocompleteModule } from '../../controls/autocomplete/autocomplete.module';
 import { PipesModule } from '../../pipes/pipes.module';
+import { FocusOnLoadDirectiveModule } from '../../directives/focus-on-load/focus-on-load.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { PipesModule } from '../../pipes/pipes.module';
     AdvancedRouterModule,
 
     PipesModule,
+    FocusOnLoadDirectiveModule,
     AutocompleteModule,
     SearchRoutingModule
   ]

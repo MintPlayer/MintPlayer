@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row mb-3">
     <div class="col-md-12">
-      <autocomplete [(searchterm)]="searchterm" (provideSuggestions)="provideSuggestions($event)" [suggestions]="suggestions" (submit)="doSearch()" (suggestionSelected)="gotoSubject($event)"></autocomplete>
+      <autocomplete [(searchterm)]="searchterm" (provideSuggestions)="provideSuggestions($event)" [suggestions]="suggestions" (submit)="doSearch()" (suggestionSelected)="gotoSubject($event)" autofocus></autocomplete>
     </div>
   </div>
   <div class="row" *ngIf="searchResults.artists.length + searchResults.people.length + searchResults.songs.length > 0">
