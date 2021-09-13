@@ -12,9 +12,6 @@
         </i>
       </button>
     </div>
-    <div class="d-block">
-      {{ playerState }}
-    </div>
     <div class="d-block text-center">
       <button (click)="onPreviousClicked()" [disabled]="playerState === playerStateValues['unstarted']" [title]="'player.previous_song' | translate" class="btn btn-lg btn-default">
         <i class="fa fa-backward"></i>

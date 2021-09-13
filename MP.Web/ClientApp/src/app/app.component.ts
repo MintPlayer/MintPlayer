@@ -71,9 +71,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     private translateService: TranslateService,
     private hreflangTagHelper: HreflangTagHelper,
   ) {
-    setTimeout(() => {
-      this.playerState$.next(7);
-    }, 3000);
     //#region Get user
     if (serverSide === true) {
       this.activeUser = userInj;
@@ -110,13 +107,11 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       .pipe(takeUntil(this.destroyed$))
       .subscribe((song) => {
         if (this.isViewInited) {
-          console.log('video$.next', song);
           if (song === null) {
             this.player.setUrl(null);
             setTimeout(() => {
-              console.log('playerState$.next(6)');
-              this.playerState$.next(6);
-            }, 1000);
+              this.playerState$.next(PlayerState.unstarted);
+            }, 10);
           } else if (typeof song === 'string') {
             this.player.setUrl(song);
           } else if (song.medium !== null) {
@@ -125,12 +120,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
             this.player.setUrl(song.song.playerInfos[0].url);
           }
         }
-      });
-
-    this.playerState$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((playerState) => {
-        console.log('playerStateChange', playerState);
       });
 
     this.playerState$

@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="main-footer px-3">
-        &copy; {{ title }} {{ playerState$ | async }}
+        &copy; {{ title }}
       </div>
     </div>
     <playlist-sidebar [playerState]="playerState$ | async" [songs]="playlistControl.playlist" [current]="playlistControl.video$ | async" [songProgress]="songProgress" (songRemoved)="playlistControl.removeFromPlaylist($event.song)" (previousClicked)="playlistControl.previous()" (nextClicked)="playlistControl.next()" (songClicked)="collapsePlaylistSidebar()" (playPauseClicked)="playPausePlayer()" (replayClicked)="replayPlayer()" [(isRandom)]="playlistControl.shuffle" [(repeatMode)]="playlistControl.repeat" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
