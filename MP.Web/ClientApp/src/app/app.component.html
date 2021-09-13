@@ -18,39 +18,22 @@
         &copy; {{ title }}
       </div>
     </div>
-    <playlist-sidebar [playerState]="playerState" [songs]="playlistControl.playlist" [current]="playlistControl.video$ | async" [songProgress]="songProgress" (songRemoved)="playlistControl.removeFromPlaylist($event.song)" (previousClicked)="playlistControl.previous()" (nextClicked)="playlistControl.next()" (songClicked)="collapsePlaylistSidebar()" (playPauseClicked)="playPausePlayer()" (replayClicked)="replayPlayer()" [(isRandom)]="playlistControl.shuffle" [(repeatMode)]="playlistControl.repeat" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
+    <playlist-sidebar [playerState]="playerState$ | async" [songs]="playlistControl.playlist" [current]="playlistControl.video$ | async" [songProgress]="songProgress" (songRemoved)="playlistControl.removeFromPlaylist($event.song)" (previousClicked)="playlistControl.previous()" (nextClicked)="playlistControl.next()" (songClicked)="collapsePlaylistSidebar()" (playPauseClicked)="playPausePlayer()" (replayClicked)="replayPlayer()" [(isRandom)]="playlistControl.shuffle" [(repeatMode)]="playlistControl.repeat" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
   </div>
   <card class="youtube-card" [ngClass]="{'d-none':(playlistControl.video$ | async) === null}" [noPadding]="true" [isDraggable]="true">
     <header>
       <div class="pull-left">
-        Currently playing
+        {{ 'player.currently_playing' | translate }}
       </div>
     </header>
     <content>
       <div class="d-table caption-bottom">
         <video-player #player (playerStateChange)="playerStateChanged($event)" (progressChange)="playerProgressChange($event)" [width]="playerSize.width" [height]="playerSize.height"></video-player>
         <span class="d-table-caption">
-          <span class="d-block text-center p-2" *ngIf="currentLyricsLine !== null">{{ currentLyricsLine }}</span>
+          <span class="d-block text-center p-2" *ngIf="(currentLyricsLine$ | async) as line">{{ line }}</span>
           <span class="d-block text-center p-2" *ngIf="isSyncComponent">{{ songProgress.currentTime | number: '1.1' }}</span>
         </span>
       </div>
     </content>
   </card>
-  <!--<card class="dailymotion-card" [noPadding]="true" [isDraggable]="true">
-    <header>
-      <div class="pull-left">
-        DailyMotion
-      </div>
-    </header>
-    <content>
-      <div class="d-table caption-bottom">
-        <app-dailymotion-player [width]="playerSize.width" [height]="playerSize.height" #dmplayer></app-dailymotion-player>
-        --><!--<youtube-player #player [domId]="'player'" (stateChange)="playerStateChanged($event)" (progressChange)="updatePlayerProgress($event)" [width]="playerSize.width" [height]="playerSize.height"></youtube-player>
-        --><!--<span class="d-table-caption">
-          <span class="d-block text-center p-2" *ngIf="currentLyricsLine !== null">{{ currentLyricsLine }}</span>
-          <span class="d-block text-center p-2" *ngIf="isSyncComponent">{{ songProgress.currentTime | number: '1.1' }}</span>
-        </span>
-      </div>
-    </content>
-  </card>-->
 </body>

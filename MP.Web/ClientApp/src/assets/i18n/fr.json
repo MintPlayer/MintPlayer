@@ -135,6 +135,7 @@
     "no_songs_found": "Aucune chanson trouvée"
   },
   "player": {
+    "currently_playing": "À ce moment",
     "previous_song": "Chanson précédente",
     "next_song": "Prochaine chanson",
     "play_pause": "Démarre/pause",

@@ -135,6 +135,7 @@
     "no_songs_found": "No songs found"
   },
   "player": {
+    "currently_playing": "Currently playing",
     "previous_song": "Previous song",
     "next_song": "Next song",
     "play_pause": "Play/pause",

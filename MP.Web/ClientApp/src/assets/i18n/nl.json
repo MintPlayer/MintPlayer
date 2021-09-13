@@ -135,6 +135,7 @@
     "no_songs_found": "Geen muziek gevonden"
   },
   "player": {
+    "currently_playing": "Wordt nu afgespeeld",
     "previous_song": "Vorige song",
     "next_song": "Volgende song",
     "play_pause": "Speel af/pauzeer",

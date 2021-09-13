@@ -24,7 +24,7 @@ export class PlaylistSidebarComponent implements OnInit {
   public playerState: PlayerState;
 
   @Input()
-  public songs: SongWithMedium[];
+  public songs: (SongWithMedium | string)[];
 
   @Input()
   public current: SongWithMedium;
@@ -64,6 +64,9 @@ export class PlaylistSidebarComponent implements OnInit {
   }
   onSongClicked(song: SongWithMedium) {
     this.songClicked.emit(song);
+  }
+  isString(song: SongWithMedium | string) {
+    return typeof song === 'string';
   }
 
   //#region isRandom
