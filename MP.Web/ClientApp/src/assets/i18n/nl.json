@@ -146,7 +146,13 @@
     "remove_song": "Song verwijderen",
     "shuffle": "Shuffle",
     "repeat": "Herhaal",
-    "replay": "Opnieuw afspelen"
+    "replay": "Opnieuw afspelen",
+    "add_url": {
+      "add_url": "Video-url toevoegen",
+      "enter_some_url": "Geef een YouTube, DailyMotion, Vimeo of SoundCloud url in",
+      "add_url_to_playlist": "Url aan playlist toevoegen",
+      "url_not_supported": "De opgegeven url wordt niet ondersteund"
+    }
   },
   "community": {
     "community": "Community",

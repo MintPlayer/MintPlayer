@@ -32,18 +32,46 @@
       <progress-bar class="flex-grow-1 m-1" minimum="0" maximum="100" [value]="songProgress.currentTime / songProgress.duration * 100"></progress-bar>
       <label class="m-0">{{ songProgress.duration * 1000 | date:'mm:ss' }}</label>
     </div>
-    <marquee class="mx-2 mb-2" *ngIf="current !== null">{{ current.song.description }}</marquee>
+    <marquee class="mx-2 mb-2" *ngIf="current !== null">{{ isString(current) ? current : current.song.description }}</marquee>
   </div>
-  <ul class="overflow-auto mb-0">
+  <ul class="overflow-auto flex-grow-1 mb-0">
     <li *ngFor="let song of songs">
-      <a [advRouterLink]='["/song",song.song.id,song.song.title | slugify]' (click)="onSongClicked(song)" [title]="song.song.description" *ngIf="!isString(song)">
+      <ng-container *ngIf="!isString(song)">
+        <a [advRouterLink]='["/song",song.song.id,song.song.title | slugify]' (click)="onSongClicked(song)" [title]="song.song.description">
+          <div class="equalizer align-middle" *ngIf="current == song"></div>
+          <label class="align-middle cursor-pointer">{{ song.song.description }}</label>
+        </a>
+      </ng-container>
+      <div class="ytv" *ngIf="!!isString(song)" [title]="song">
         <div class="equalizer align-middle" *ngIf="current == song"></div>
-        <label class="align-middle cursor-pointer">{{ song.song.description }}</label>
-      </a>
-      <span *ngIf="isString(song)">
-        {{ song }}
-      </span>
-      <button class="btn btn-default btn-playlist-remove" [title]="'remove_song' | translate" (click)="removeSong($event,song)"><i class="fa fa-trash"></i></button>
+        <label class="align-middle cursor-pointer">{{ song }}</label>
+      </div>
+      <button class="btn btn-default btn-playlist-remove" [title]="'player.remove_song' | translate" (click)="removeSong($event,song)"><i class="fa fa-trash"></i></button>
     </li>
   </ul>
+  <button class="btn btn-default" (click)="onAddVideoUrl()">
+    <i class="fa fa-plus"></i>
+    {{ 'player.add_url.add_url' | translate }}
+  </button>
 </div>
+<!--<form (submit)="onAddUrl(videoUrlToAdd)" *ngIf="(isRequestingPlaylistUrl$ | async) === true">
+  <modal>
+    <header>
+      <h5 class="modal-title">{{ 'playlist.add_url' | translate }}</h5>
+      <button type="button" (click)="onVideoUrlEntered(null)" class="btn-close" aria-label="Close"></button>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <input type="text" #txt_video_url [(ngModel)]="videoUrlToAdd" class="form-control d-block" />
+        </div>
+      </div>
+    </div>
+    <footer>
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-plus"></i>
+        {{ 'playlist.add_url_to_playlist' | translate }}
+      </button>
+    </footer>
+  </modal>
+</form>-->

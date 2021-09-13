@@ -18,7 +18,7 @@
         &copy; {{ title }}
       </div>
     </div>
-    <playlist-sidebar [playerState]="playerState$ | async" [songs]="playlistControl.playlist" [current]="playlistControl.video$ | async" [songProgress]="songProgress" (songRemoved)="playlistControl.removeFromPlaylist($event.song)" (previousClicked)="playlistControl.previous()" (nextClicked)="playlistControl.next()" (songClicked)="collapsePlaylistSidebar()" (playPauseClicked)="playPausePlayer()" (replayClicked)="replayPlayer()" [(isRandom)]="playlistControl.shuffle" [(repeatMode)]="playlistControl.repeat" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
+    <playlist-sidebar [playerState]="playerState$ | async" [songs]="playlistControl.playlist" [current]="playlistControl.video$ | async" [songProgress]="songProgress" (songRemoved)="playlistControl.removeFromPlaylist($event.song)" (previousClicked)="playlistControl.previous()" (nextClicked)="playlistControl.next()" (songClicked)="collapsePlaylistSidebar()" (playPauseClicked)="playPausePlayer()" (replayClicked)="replayPlayer()" (addVideoUrlClicked)="onAddVideoUrl()" [(isRandom)]="playlistControl.shuffle" [(repeatMode)]="playlistControl.repeat" [ngClass]="playlistToggleButtonState"></playlist-sidebar>
   </div>
   <card class="youtube-card" [ngClass]="{'d-none':(playlistControl.video$ | async) === null}" [noPadding]="true" [isDraggable]="true">
     <header>
@@ -36,4 +36,34 @@
       </div>
     </content>
   </card>
+  <form (submit)="onDoAddVideoUrl(videoUrlToAdd)" *ngIf="(isRequestingPlaylistUrl$ | async) === true">
+    <modal>
+      <header>
+        <h5 class="modal-title">{{ 'player.add_url.add_url' | translate }}</h5>
+        <button type="button" (click)="onDoAddVideoUrl(null)" class="btn-close" aria-label="Close"></button>
+      </header>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <span>{{ 'player.add_url.enter_some_url' | translate }}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <input type="text" #txt_video_url [(ngModel)]="videoUrlToAdd" class="form-control d-block" [class.is-invalid]="!isValidVideoUrl" />
+            <div class="invalid-feedback" *ngIf="!isValidVideoUrl">
+              {{ 'player.add_url.url_not_supported' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-plus"></i>
+          {{ 'player.add_url.add_url_to_playlist' | translate }}
+        </button>
+      </footer>
+    </modal>
+  </form>
+
 </body>

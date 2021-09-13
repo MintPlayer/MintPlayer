@@ -146,7 +146,13 @@
     "remove_song": "Supprimer chanson",
     "shuffle": "Mélanger",
     "repeat": "Répeter",
-    "replay": "Rejouer"
+    "replay": "Rejouer",
+    "add_url": {
+      "add_url": "Ajouter un lien vidéo",
+      "enter_some_url": "Introduissez un lien YouTube, DailyMotion, Vimeo ou SoundCloud",
+      "add_url_to_playlist": "Ajouter ce lien au playlist",
+      "url_not_supported": "Ce lien n'est pas supporté"
+    }
   },
   "community": {
     "community": "Communauté",

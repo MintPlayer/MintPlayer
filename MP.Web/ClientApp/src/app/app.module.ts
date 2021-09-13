@@ -19,6 +19,8 @@ import { PlaylistSidebarModule } from './components/playlist-sidebar/playlist-si
 import { NavbarTogglerModule } from './controls/navbar-toggler/navbar-toggler.module';
 import { PlaylistTogglerModule } from './controls/playlist-toggler/playlist-toggler.module';
 import { CardModule } from './controls/card/card.module';
+import { ModalModule } from './components/modal/modal.module';
+import { FormsModule } from '@angular/forms';
 
 const getExternalUrl = (baseUrl: string) => {
   if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
@@ -48,6 +50,7 @@ const getExternalUrl = (baseUrl: string) => {
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({
@@ -60,6 +63,7 @@ const getExternalUrl = (baseUrl: string) => {
     PlaylistControllerModule,
 
     CardModule,
+    ModalModule,
     SidebarModule,
     VideoPlayerModule,
     NavbarTogglerModule,

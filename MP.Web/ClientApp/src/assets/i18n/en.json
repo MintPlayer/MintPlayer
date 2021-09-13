@@ -146,7 +146,13 @@
     "remove_song": "Remove song",
     "shuffle": "Shuffle",
     "repeat": "Repeat",
-    "replay": "Replay"
+    "replay": "Replay",
+    "add_url": {
+      "add_url": "Add video url",
+      "enter_some_url": "Enter a YouTube, DailyMotion, Vimeo or SoundCloud url",
+      "add_url_to_playlist": "Add url to playlist",
+      "url_not_supported": "The entered url is not supported"
+    }
   },
   "community": {
     "community": "Community",

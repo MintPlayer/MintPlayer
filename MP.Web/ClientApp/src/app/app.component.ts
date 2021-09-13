@@ -6,8 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { User, AccountService } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlayerProgress } from '@mintplayer/ng-player-progress';
-import { PlayerState, VideoPlayerComponent } from '@mintplayer/ng-video-player';
-import { Subject, Observable, BehaviorSubject, combineLatest, interval } from 'rxjs';
+import { PlayerState, PlayerTypeFinderService, VideoPlayerComponent } from '@mintplayer/ng-video-player';
+import { Subject, Observable, BehaviorSubject, combineLatest, interval, of } from 'rxjs';
 import { filter, map, take, takeUntil } from 'rxjs/operators';
 
 import { eToggleButtonState } from './enums/eToggleButtonState';
@@ -63,13 +63,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     @Inject('USER') userInj: User,
     private accountService: AccountService,
     private ref: ChangeDetectorRef,
-    private zone: NgZone,
     private swUpdate: SwUpdate,
     private metaService: Meta,
     private linifyPipe: LinifyPipe,
     private route: ActivatedRoute,
     private translateService: TranslateService,
     private hreflangTagHelper: HreflangTagHelper,
+    private playerTypeFinder: PlayerTypeFinderService,
   ) {
     //#region Get user
     if (serverSide === true) {
@@ -129,35 +129,39 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         this.playNextSong();
       });
 
-    this.currentLyricsLine$ = combineLatest([this.playerState$, this.playlistControl.video$, interval(50)])
-      .pipe(filter(([playerState, video, time]) => {
-        return playerState === PlayerState.playing;
-      }))
-      .pipe(map(([playerState, video, time]) => {
-        if (typeof video === 'string') {
-          return null;
-        } else if (video.song.lyrics.timeline === null) {
-          return null;
-        } else {
-          const linesPassed = this.linifyPipe
-            .transform(video.song.lyrics.text)
-            .map((value, index) => {
-              return {
-                time: video.song.lyrics.timeline[index],
-                line: value
-              };
-            }).filter((value, index) => {
-              return value.time < this.songProgress.currentTime;
-            });
-
-          if (linesPassed.length > 0) {
-            return linesPassed[linesPassed.length - 1].line;
-          } else {
+    if (serverSide) {
+      this.currentLyricsLine$ = of('');
+    } else {
+      this.currentLyricsLine$ = combineLatest([this.playerState$, this.playlistControl.video$, interval(50)])
+        .pipe(filter(([playerState, video, time]) => {
+          return (playerState === PlayerState.playing) && (video !== null);
+        }))
+        .pipe(map(([playerState, video, time]) => {
+          if (typeof video === 'string') {
             return null;
+          } else if (video.song.lyrics.timeline === null) {
+            return null;
+          } else {
+            const linesPassed = this.linifyPipe
+              .transform(video.song.lyrics.text)
+              .map((value, index) => {
+                return {
+                  time: video.song.lyrics.timeline[index],
+                  line: value
+                };
+              }).filter((value, index) => {
+                return value.time < this.songProgress.currentTime;
+              });
+
+            if (linesPassed.length > 0) {
+              return linesPassed[linesPassed.length - 1].line;
+            } else {
+              return null;
+            }
           }
-        }
-      }))
-      .pipe(takeUntil(this.destroyed$));
+        }))
+        .pipe(takeUntil(this.destroyed$));
+    }
     //#endregion
     //#region Translate
     const defaultLang = 'en';
@@ -296,6 +300,34 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   replayPlayer() {
     this.playlistControl.next();
+  }
+  //#endregion
+
+  //#region Add video url
+  videoUrlToAdd: string = '';
+  isValidVideoUrl: boolean = true;
+  isRequestingPlaylistUrl$ = new Subject<boolean>();
+  @ViewChild('txt_video_url') videoUrlTextbox!: ElementRef<HTMLInputElement>;
+  onAddVideoUrl() {
+    this.videoUrlToAdd = '';
+    this.isValidVideoUrl = true;
+    this.isRequestingPlaylistUrl$.next(true);
+    setTimeout(() => {
+      this.videoUrlTextbox.nativeElement.focus();
+    }, 20);
+  }
+  onDoAddVideoUrl(url: string) {
+    if (url !== null) {
+      const playerType = this.playerTypeFinder.getPlatformWithId(url);
+      if (playerType !== null) {
+        this.playlistControl.addToPlaylist(url);
+        this.isRequestingPlaylistUrl$.next(false);
+      } else {
+        this.isValidVideoUrl = false;
+      }
+    } else {
+      this.isValidVideoUrl = false;
+    }
   }
   //#endregion
 

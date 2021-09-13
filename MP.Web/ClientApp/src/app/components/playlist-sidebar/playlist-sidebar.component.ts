@@ -5,6 +5,7 @@ import { SongRemovedEvent } from '../../events/song-removed.event';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { eRepeatMode } from '../../enums/eRepeatMode';
 import { SongWithMedium } from '../../interfaces/song-with-medium';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'playlist-sidebar',
@@ -50,6 +51,9 @@ export class PlaylistSidebarComponent implements OnInit {
   @Output()
   public songClicked: EventEmitter<SongWithMedium> = new EventEmitter();
 
+  @Output()
+  public addVideoUrlClicked: EventEmitter<any> = new EventEmitter();
+
   onPreviousClicked() {
     this.previousClicked.emit();
   }
@@ -65,8 +69,16 @@ export class PlaylistSidebarComponent implements OnInit {
   onSongClicked(song: SongWithMedium) {
     this.songClicked.emit(song);
   }
+  onAddVideoUrl() {
+    //this.videoUrlToAdd = '';
+    //this.isRequestingPlaylistUrl$.next(true);
+    this.addVideoUrlClicked.emit();
+  }
+  //onAddUrl(url: string) {
+  //  this.songs.push(url);
+  //}
   isString(song: SongWithMedium | string) {
-    return typeof song === 'string';
+    return ((typeof song) === 'string');
   }
 
   //#region isRandom
@@ -97,6 +109,8 @@ export class PlaylistSidebarComponent implements OnInit {
     this.songRemoved.emit(new SongRemovedEvent({ index, song }));
   }
 
+  //videoUrlToAdd: string = '';
+  //isRequestingPlaylistUrl$ = new Subject<boolean>();
   ngOnInit() {
   }
 }
