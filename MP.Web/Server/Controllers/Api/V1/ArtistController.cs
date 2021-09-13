@@ -40,7 +40,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
         [HttpGet(Name = "api-artist-list")]
         public async Task<ActionResult<IEnumerable<Artist>>> Get([FromHeader] bool include_relations = false)
         {
-            var artists = await artistService.GetArtists(include_relations, false);
+            var artists = await artistService.GetArtists(include_relations);
             return Ok(artists.ToList());
         }
 
@@ -51,7 +51,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
         [HttpGet("{id}", Name = "api-artist-get", Order = 1)]
         public async Task<ActionResult<Artist>> Get(int id, [FromHeader] bool include_relations = false)
         {
-            var artist = await artistService.GetArtist(id, include_relations, false);
+            var artist = await artistService.GetArtist(id, include_relations);
 
             if (artist == null) return NotFound();
             else return Ok(artist);

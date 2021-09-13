@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let medium of media">
+    <tr *ngFor="let medium of media" [class.invisible-medium]="!medium.type.visible">
       <td class="p-0">
         <button class="btn btn-default" (click)="onPlayButtonClicked(medium)" [title]="'media.play_this_item' | translate" *ngIf="isPlayable(medium.value)">
           <i class="fa fa-play"></i>

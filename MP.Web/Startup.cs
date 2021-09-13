@@ -506,7 +506,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var personService = context.RequestServices.GetRequiredService<Data.Services.IPersonService>();
-                            var person = await personService.GetPerson(id, false, false);
+                            var person = await personService.GetPerson(id, false);
                             if (person == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -526,7 +526,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var artistService = context.RequestServices.GetRequiredService<Data.Services.IArtistService>();
-                            var artist = await artistService.GetArtist(id, false, false);
+                            var artist = await artistService.GetArtist(id, false);
                             if (artist == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -546,7 +546,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var songService = context.RequestServices.GetRequiredService<Data.Services.ISongService>();
-                            var song = await songService.GetSong(id, false, false);
+                            var song = await songService.GetSong(id, false);
                             if (song == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -587,7 +587,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var personService = context.RequestServices.GetRequiredService<Data.Services.IPersonService>();
-                            var person = await personService.GetPerson(id, false, false);
+                            var person = await personService.GetPerson(id, false);
                             if (person == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -612,7 +612,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var artistService = context.RequestServices.GetRequiredService<Data.Services.IArtistService>();
-                            var artist = await artistService.GetArtist(id, false, false);
+                            var artist = await artistService.GetArtist(id, false);
                             if (artist == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -637,7 +637,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var songService = context.RequestServices.GetRequiredService<Data.Services.ISongService>();
-                            var song = await songService.GetSong(id, false, false);
+                            var song = await songService.GetSong(id, false);
                             if (song == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -754,7 +754,7 @@ namespace MintPlayer.Web
                                     break;
                                 case "person-create":
                                     {
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -762,7 +762,7 @@ namespace MintPlayer.Web
                                 case "person-edit":
                                     {
                                         var id = Convert.ToInt32(route.Parameters["id"]);
-                                        var person = personService.GetPerson(id, true, false).Result;
+                                        var person = personService.GetPerson(id, true).Result;
                                         if (person == null)
                                         {
                                             context.Response.OnStarting(() =>
@@ -780,7 +780,7 @@ namespace MintPlayer.Web
                                                 return Task.CompletedTask;
                                             });
                                         }
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -793,7 +793,7 @@ namespace MintPlayer.Web
                                     break;
                                 case "artist-create":
                                     {
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -801,7 +801,7 @@ namespace MintPlayer.Web
                                 case "artist-edit":
                                     {
                                         var id = Convert.ToInt32(route.Parameters["id"]);
-                                        var artist = artistService.GetArtist(id, true, false).Result;
+                                        var artist = artistService.GetArtist(id, true).Result;
                                         if (artist == null)
                                         {
                                             context.Response.OnStarting(() =>
@@ -819,7 +819,7 @@ namespace MintPlayer.Web
                                             return Task.CompletedTask;
                                         });
                                         }
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -832,7 +832,7 @@ namespace MintPlayer.Web
                                     break;
                                 case "song-create":
                                     {
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -840,7 +840,7 @@ namespace MintPlayer.Web
                                 case "song-edit":
                                     {
                                         var id = Convert.ToInt32(route.Parameters["id"]);
-                                        var song = songService.GetSong(id, true, false).Result;
+                                        var song = songService.GetSong(id, true).Result;
                                         if (song == null)
                                         {
                                             context.Response.OnStarting(() =>
@@ -858,13 +858,13 @@ namespace MintPlayer.Web
                                                 return Task.CompletedTask;
                                             });
                                         }
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
                                 case "mediumtype-list":
                                     {
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -874,7 +874,7 @@ namespace MintPlayer.Web
                                 case "mediumtype-edit":
                                     {
                                         var id = Convert.ToInt32(route.Parameters["id"]);
-                                        var mediumtype = mediumTypeService.GetMediumType(id, false, false).Result;
+                                        var mediumtype = mediumTypeService.GetMediumType(id, false).Result;
                                         if (mediumtype == null)
                                         {
                                             context.Response.OnStarting(() =>

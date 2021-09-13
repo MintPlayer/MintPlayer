@@ -24,7 +24,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
 		[HttpGet(Name = "api-mediumtype-list")]
 		public async Task<ActionResult<IEnumerable<MediumType>>> Get([FromHeader]bool include_relations = false)
 		{
-			var medium_types = await mediumTypeService.GetMediumTypes(include_relations, false);
+			var medium_types = await mediumTypeService.GetMediumTypes(include_relations);
 			return Ok(medium_types);
 		}
 
@@ -35,7 +35,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
 		[HttpGet("{id}", Name = "api-mediumtype-get")]
 		public async Task<ActionResult<MediumType>> Get(int id, [FromHeader]bool include_relations = false)
 		{
-			var medium_type = await mediumTypeService.GetMediumType(id, include_relations, false);
+			var medium_type = await mediumTypeService.GetMediumType(id, include_relations);
 
 			if (medium_type == null) return NotFound();
 			else return Ok(medium_type);

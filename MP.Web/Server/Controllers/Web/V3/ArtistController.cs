@@ -35,7 +35,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<IEnumerable<Artist>>> Get([FromHeader]bool include_relations = false)
 		{
-			var artists = await artistService.GetArtists(include_relations, false);
+			var artists = await artistService.GetArtists(include_relations);
 			return Ok(artists);
 		}
 
@@ -44,7 +44,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<Artist>> Get(int id, [FromHeader]bool include_relations = false)
 		{
-			var artist = await artistService.GetArtist(id, include_relations, false);
+			var artist = await artistService.GetArtist(id, include_relations);
 
 			if (artist == null) return NotFound();
 			return Ok(artist);

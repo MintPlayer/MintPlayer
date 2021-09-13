@@ -57,7 +57,8 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   oldMediumTypeDescription: string = '';
   mediumType: MediumType = {
     id: 0,
-    description: ''
+    description: '',
+    visible: true,
   };
 
   public updateMediumType() {

@@ -40,7 +40,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
         [HttpGet(Name = "api-song-list")]
         public async Task<ActionResult<IEnumerable<Song>>> Get([FromHeader] bool include_relations = false)
         {
-            var songs = await songService.GetSongs(include_relations, false);
+            var songs = await songService.GetSongs(include_relations);
             return Ok(songs);
         }
 
@@ -51,7 +51,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
         [HttpGet("{id}", Name = "api-song-get", Order = 1)]
         public async Task<ActionResult<Song>> Get(int id, [FromHeader] bool include_relations = false)
         {
-            var song = await songService.GetSong(id, include_relations, false);
+            var song = await songService.GetSong(id, include_relations);
 
             if (song == null) return NotFound();
             else return Ok(song);
@@ -63,7 +63,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
         [HttpGet("{id}/lyrics", Name = "api-song-lyrics")]
         public async Task<ActionResult<Lyrics>> Lyrics(int id)
         {
-            var song = await songService.GetSong(id, true, false);
+            var song = await songService.GetSong(id, true);
             return Ok(song.Lyrics);
         }
 

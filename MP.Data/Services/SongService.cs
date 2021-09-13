@@ -4,14 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace MintPlayer.Data.Services
 {
 	public interface ISongService
 	{
 		Task<Pagination.PaginationResponse<Song>> PageSongs(Pagination.PaginationRequest<Song> request);
-		Task<IEnumerable<Song>> GetSongs(bool include_relations, bool include_invisible_media);
-		Task<Song> GetSong(int id, bool include_relations, bool include_invisible_media);
+		Task<IEnumerable<Song>> GetSongs(bool include_relations);
+		Task<Song> GetSong(int id, bool include_relations);
 		Task<Pagination.PaginationResponse<Song>> PageLikedSongs(Pagination.PaginationRequest<Song> request);
 		Task<IEnumerable<Song>> GetLikedSongs();
 		Task<Song> InsertSong(Song song);
@@ -22,12 +24,16 @@ namespace MintPlayer.Data.Services
 
 	internal class SongService : ISongService
 	{
-		private ISongRepository songRepository;
-		private IMediumRepository mediumRepository;
-		public SongService(ISongRepository songRepository, IMediumRepository mediumRepository)
+		private readonly ISongRepository songRepository;
+		private readonly IMediumRepository mediumRepository;
+		private readonly UserManager<Entities.User> userManager;
+		private readonly IHttpContextAccessor httpContextAccessor;
+		public SongService(ISongRepository songRepository, IMediumRepository mediumRepository, UserManager<Entities.User> userManager, IHttpContextAccessor httpContextAccessor)
 		{
 			this.songRepository = songRepository;
 			this.mediumRepository = mediumRepository;
+			this.userManager = userManager;
+			this.httpContextAccessor = httpContextAccessor;
 		}
 
 		public async Task<Pagination.PaginationResponse<Song>> PageSongs(Pagination.PaginationRequest<Song> request)
@@ -36,15 +42,19 @@ namespace MintPlayer.Data.Services
 			return songs;
 		}
 
-		public async Task<IEnumerable<Song>> GetSongs(bool include_relations, bool include_invisible_media)
+		public async Task<IEnumerable<Song>> GetSongs(bool include_relations)
 		{
-			var songs = await songRepository.GetSongs(include_relations, include_invisible_media);
+			var user = await userManager.GetUserAsync(httpContextAccessor.HttpContext.User);
+			var isAdmin = user == null ? false : await userManager.IsInRoleAsync(user, "Administrator");
+			var songs = await songRepository.GetSongs(include_relations, isAdmin);
 			return songs;
 		}
 
-		public async Task<Song> GetSong(int id, bool include_relations, bool include_invisible_media)
+		public async Task<Song> GetSong(int id, bool include_relations)
 		{
-			var song = await songRepository.GetSong(id, include_relations, include_invisible_media);
+			var user = await userManager.GetUserAsync(httpContextAccessor.HttpContext.User);
+			var isAdmin = user == null ? false : await userManager.IsInRoleAsync(user, "Administrator");
+			var song = await songRepository.GetSong(id, include_relations, isAdmin);
 			return song;
 		}
 

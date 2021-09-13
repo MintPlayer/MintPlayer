@@ -39,9 +39,9 @@ namespace MintPlayer.Web.Server.Controllers.Web
         {
             const int per_page = 100;
 
-            var people = await personService.GetPeople(false, false);
-            var artists = await artistService.GetArtists(false, false);
-            var songs = await songService.GetSongs(false, false);
+            var people = await personService.GetPeople(false);
+            var artists = await artistService.GetArtists(false);
+            var songs = await songService.GetSongs(false);
 
             var person_urls = sitemapXml.GetSitemapIndex(people, per_page, (perPage, page) => Url.RouteUrl("web-sitemap-sitemap", new { subject = "person", count = perPage, page }, Request.Scheme));
             var artist_urls = sitemapXml.GetSitemapIndex(artists, per_page, (perPage, page) => Url.RouteUrl("web-sitemap-sitemap", new { subject = "artist", count = perPage, page }, Request.Scheme));
@@ -61,15 +61,15 @@ namespace MintPlayer.Web.Server.Controllers.Web
             switch (subject.ToLower())
             {
                 case "person":
-                    var people = await personService.GetPeople(false, false);
+                    var people = await personService.GetPeople(false);
                     subjects = people.Skip((page - 1) * count).Take(count);
                     break;
                 case "artist":
-                    var artists = await artistService.GetArtists(false, false);
+                    var artists = await artistService.GetArtists(false);
                     subjects = artists.Skip((page - 1) * count).Take(count);
                     break;
                 case "song":
-                    var songs = await songService.GetSongs(false, false);
+                    var songs = await songService.GetSongs(false);
                     subjects = songs.Skip((page - 1) * count).Take(count);
                     break;
                 default:

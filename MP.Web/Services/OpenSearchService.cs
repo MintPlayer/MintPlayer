@@ -28,7 +28,7 @@ namespace MintPlayer.Web.Services
             {
                 var subjectRepository = scope.ServiceProvider.GetService<ISubjectService>();
 
-                var exact_matches = await subjectRepository.Search(new[] { "person", "artist", "song" }, searchTerms, true, false, false);
+                var exact_matches = await subjectRepository.Search(new[] { "person", "artist", "song" }, searchTerms, true, false);
                 if (exact_matches.Count == 1)
                 {
                     var subject_type = exact_matches.First().GetType();
@@ -69,7 +69,7 @@ namespace MintPlayer.Web.Services
                 
                 var valid_subjects = new[] { "artist", "person", "song" };
 
-                var results = await subjectService.Suggest(valid_subjects, searchTerms, false, false);
+                var results = await subjectService.Suggest(valid_subjects, searchTerms, false);
                 return results.ToArray().Select(s => s.Text);
             }
         }

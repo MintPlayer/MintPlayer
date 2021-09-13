@@ -28,7 +28,8 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   public mediumType: MediumType = {
     id: 0,
-    description: ''
+    description: '',
+    visible: true,
   };
 
   public saveMediumType() {

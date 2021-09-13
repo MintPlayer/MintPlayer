@@ -34,7 +34,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<IEnumerable<Person>>> Get([FromHeader] bool include_relations = false)
         {
-            var people = await personService.GetPeople(include_relations, false);
+            var people = await personService.GetPeople(include_relations);
             return Ok(people);
         }
 
@@ -43,7 +43,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
         [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult<Person>> Get(int id, [FromHeader] bool include_relations = false)
         {
-            var person = await personService.GetPerson(id, include_relations, false);
+            var person = await personService.GetPerson(id, include_relations);
 
             if (person == null) return NotFound();
             else return Ok(person);

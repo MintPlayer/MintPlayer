@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace MintPlayer.Data.Services
 {
@@ -15,19 +17,23 @@ namespace MintPlayer.Data.Services
         Task<SubjectLikeResult> Like(int subjectId, bool like);
         Task<IEnumerable<Subject>> GetLikedSubjects();
 
-        Task<IEnumerable<Subject>> Suggest(string[] subjects, string search_term, bool include_relations, bool include_invisible_media);
-        Task<SearchResults> Search(string[] subjects, string search_term, bool exact, bool include_relations, bool include_invisible_media);
+        Task<IEnumerable<Subject>> Suggest(string[] subjects, string search_term, bool include_relations);
+        Task<SearchResults> Search(string[] subjects, string search_term, bool exact, bool include_relations);
     }
 
     internal class SubjectService : ISubjectService
     {
-        private ISubjectRepository subjectRepository;
-        public SubjectService(ISubjectRepository subjectRepository)
-        {
-            this.subjectRepository = subjectRepository;
-        }
+        private readonly ISubjectRepository subjectRepository;
+		private readonly UserManager<Entities.User> userManager;
+		private readonly IHttpContextAccessor httpContextAccessor;
+		public SubjectService(ISubjectRepository subjectRepository, UserManager<Entities.User> userManager, IHttpContextAccessor httpContextAccessor)
+		{
+			this.subjectRepository = subjectRepository;
+			this.userManager = userManager;
+			this.httpContextAccessor = httpContextAccessor;
+		}
 
-        public async Task<SubjectLikeResult> GetLikes(int subjectId)
+		public async Task<SubjectLikeResult> GetLikes(int subjectId)
         {
             var likes = await subjectRepository.GetLikes(subjectId);
             bool authenticated; bool? doeslike;
@@ -77,7 +83,7 @@ namespace MintPlayer.Data.Services
             return subjectRepository.GetLikedSubjects();
         }
 
-        public async Task<IEnumerable<Subject>> Suggest(string[] subjects, string search_term, bool include_relations, bool include_invisible_media)
+        public async Task<IEnumerable<Subject>> Suggest(string[] subjects, string search_term, bool include_relations)
         {
             // Still to do:
             // https://devadventures.net/2018/05/03/implementing-autocomplete-and-more-like-this-using-asp-net-core-elasticsearch-and-nest-5-x-part-4-4/
@@ -93,11 +99,13 @@ namespace MintPlayer.Data.Services
             else
                 subjects = subjects.Intersect(valid_subjects).ToArray();
 
-            var results = await subjectRepository.Suggest(subjects, search_term, include_relations, include_invisible_media);
+			var user = await userManager.GetUserAsync(httpContextAccessor.HttpContext.User);
+			var isAdmin = user == null ? false : await userManager.IsInRoleAsync(user, "Administrator");
+			var results = await subjectRepository.Suggest(subjects, search_term, include_relations, isAdmin);
             return results;
         }
 
-        public async Task<SearchResults> Search(string[] subjects, string search_term, bool exact, bool include_relations, bool include_invisible_media)
+        public async Task<SearchResults> Search(string[] subjects, string search_term, bool exact, bool include_relations)
         {
             var valid_subjects = new[] { "artist", "person", "song" };
 
@@ -110,7 +118,9 @@ namespace MintPlayer.Data.Services
             else
                 subjects = subjects.Intersect(valid_subjects).ToArray();
 
-            var results = await subjectRepository.Search(subjects, search_term, exact, include_relations, include_invisible_media);
+			var user = await userManager.GetUserAsync(httpContextAccessor.HttpContext.User);
+			var isAdmin = user == null ? false : await userManager.IsInRoleAsync(user, "Administrator");
+			var results = await subjectRepository.Search(subjects, search_term, exact, include_relations, isAdmin);
             return new SearchResults
             {
                 Artists = results.ToArray().Where(s => s.GetType() == typeof(Artist)).Cast<Artist>().ToList(),

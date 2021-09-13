@@ -22,6 +22,7 @@ export class SidebarComponent implements OnInit {
     } else {
       this.level1menu = menu;
     }
+    this.level2menu = '';
   }
   level2toggle(menu: string) {
     if (this.level2menu === menu) {
