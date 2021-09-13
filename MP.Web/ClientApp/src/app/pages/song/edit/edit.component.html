@@ -1,45 +1,56 @@
 <div class="container">
   <form (submit)="updateSong()">
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12">
-        <h1 class="d-inline-block">Edit song: {{ oldSongTitle }}</h1>
-        <span class="float-right">
+        <h1 class="d-inline-block">{{ 'songs.edit_song' | translate: { name: oldSongTitle } }}</h1>
+        <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
-            Update song
+            {{ 'songs.update_song' | translate }}
           </button>
         </span>
       </div>
     </div>
+    <div class="alert alert-danger" role="alert" *ngIf="!!concurrentSong">
+      {{ 'subjects.changed_while_editing' | translate: {subject: 'songs.song' | translate} }}
+    </div>
     <card class="d-block mb-3" [overflowX]="false">
       <header>
         <i class="fa fa-info"></i>
-        General information
+        {{ 'global.general_information' | translate }}
       </header>
       <content>
-        <div class="form-group row">
-          <label [appFor]="txt_title" class="col-form-label col-sm-4 col-xl-2">Title</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="txt_title" class="col-form-label col-sm-4 col-xl-2">{{ 'songs.title' | translate }}</label>
           <div class="col-sm-8 col-xl-10">
-            <input type="text" [(ngModel)]="song.title" class="form-control" #txt_title name="title" autofocus />
+            <input type="text" [(ngModel)]="song.title" class="form-control" [class.is-invalid]="!!concurrentSong && (song.title !== concurrentSong.title)" #txt_title name="title" autofocus />
+            <div class="invalid-feedback" *ngIf="!!concurrentSong">{{ 'subjects.current_database_value' | translate: {value:concurrentSong.title} }}</div>
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="txt_released" class="col-form-label col-sm-4 col-xl-2">Released</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="txt_released" class="col-form-label col-sm-4 col-xl-2">{{ 'songs.released' | translate }}</label>
           <div class="col-sm-8 col-xl-10">
-            <input type="date" [ngModel]="song.released | date:'yyyy-MM-dd'" (ngModelChange)="song.released = $event" name="released" class="form-control" #txt_released />
+            <input type="date" [ngModel]="song.released | date:'yyyy-MM-dd'" class="form-control" [class.is-invalid]="!!concurrentSong && (song.released !== concurrentSong.released)" (ngModelChange)="song.released = $event" name="released" #txt_released />
+            <div class="invalid-feedback" *ngIf="!!concurrentSong">{{ 'subjects.current_database_value' | translate: {value:(concurrentSong.released | date:'yyyy-MM-dd')} }}</div>
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="sel_artists" class="col-form-label col-sm-4 col-xl-2">Artists</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="sel_artists" class="col-form-label col-sm-4 col-xl-2">{{ 'artists.artists' | translate }}</label>
           <div class="col-sm-8 col-xl-10">
-            <select2 [url]="'/api/subject/search/suggest/artist'" [method]="'get'" [headers]="httpHeaders" [items]="song.artists" #sel_artists></select2>
+            <select2 (provideSuggestions)="onProvideArtistSuggestions($event)" [suggestions]="artistSuggestions" [selectedItems]="song.artists" #sel_artists></select2>
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="sel_tags" class="col-form-label col-sm-4 col-xl-2">Tags</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="sel_uncr_artists" class="col-form-label col-sm-4 col-xl-2">{{ 'songs.uncredited_artists' | translate }}</label>
           <div class="col-sm-8 col-xl-10">
-            <select2 [url]="'/web/v1/Tag/suggest'" [method]="'post'" [headers]="httpHeaders" [items]="song.tags" [itemTemplate]="customTemplate" #sel_tags>
-              <ng-template #customTemplate let-item="item" let-select2="select2">
+            <select2 (provideSuggestions)="onProvideUncreditedArtistSuggestions($event)" [suggestions]="uncreditedArtistSuggestions" [selectedItems]="song.uncreditedArtists" #sel_uncr_artists></select2>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label [appFor]="sel_tags" class="col-form-label col-sm-4 col-xl-2">{{ 'subjects.tags' | translate }}</label>
+          <div class="col-sm-8 col-xl-10">
+            <select2 (provideSuggestions)="onProvideTagSuggestions($event)" [suggestions]="tagSuggestions" [selectedItems]="song.tags" #sel_tags>
+              <ng-template itemTemplate let-item="item" let-select2="select2">
                 <span class="select2-item" [style.background]="item.category.color" [style.color]="item.category.color | fontColor">
                   <span [style.color]="item.category.color | fontColor" (click)="select2.removeItem(item,$event)">×</span>
                   {{ item.text }}
@@ -48,8 +59,8 @@
             </select2>
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="txt_lyrics" class="col-form-label col-sm-4 col-xl-2">Lyrics</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="txt_lyrics" class="col-form-label col-sm-4 col-xl-2">{{ 'songs.lyrics' | translate }}</label>
           <div class="col-sm-8 col-xl-10">
             <textarea [(ngModel)]="song.lyrics.text" class="form-control" rows="15" #txt_lyrics name="lyrics"></textarea>
             <button type="button" (click)="removeBrackets()" class="btn btn-warning w-100">Remove [ and ]</button>
@@ -60,7 +71,7 @@
     <card>
       <header>
         <i class="fa fa-medium"></i>
-        Media
+        {{ 'subjects.media' | translate }}
       </header>
       <content>
         <media-manager [media]="song.media" [mediumTypes]="mediumTypes"></media-manager>

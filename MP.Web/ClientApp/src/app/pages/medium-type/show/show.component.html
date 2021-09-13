@@ -1,15 +1,15 @@
 <div class="container">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ mediumType.description }}</h1>
-      <span class="float-right">
-        <a class="btn btn-primary" [routerLink]='["/mediumtype", mediumType.id, mediumType.description | slugify, "edit"]'>
+      <span class="pull-right">
+        <a class="btn btn-primary" [advRouterLink]='["/mediumtype", mediumType.id, mediumType.description | slugify, "edit"]' [title]="'medium_type.edit_medium_type' | translate: {name:mediumType.description}">
           <i class="fa fa-edit"></i>
-          Edit
+          {{ 'global.edit' | translate }}
         </a>
         <button class="btn btn-secondary" (click)="deleteMediumType()">
           <i class="fa fa-trash"></i>
-          Remove
+          {{ 'global.remove' | translate }}
         </button>
       </span>
     </div>
@@ -17,24 +17,16 @@
   <card class="d-block mb-3">
     <header>
       <i class="fa fa-info"></i>
-      General information
+      {{ 'global.general_information' | translate }}
     </header>
     <content>
       <div class="container">
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-4 col-xl-2">
-            <label class="font-weight-bold">Description</label>
+            <label class="fw-bold">{{ 'global.description' | translate }}</label>
           </div>
           <div class="col-sm-8 col-xl-10">
             <label>{{ mediumType.description }}</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4 col-xl-2">
-            <label class="font-weight-bold">Player type</label>
-          </div>
-          <div class="col-sm-8 col-xl-10">
-            <label>{{ playerTypeEnum[mediumType.playerType] }}</label>
           </div>
         </div>
       </div>

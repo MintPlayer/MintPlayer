@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using MintPlayer.Data.Mappers;
 using MintPlayer.Dtos.Dtos;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,37 +17,20 @@ namespace MintPlayer.Data.Repositories
     {
         private readonly RoleManager<Entities.Role> roleManager;
         private readonly IHttpContextAccessor httpContextAccessor;
-        public RoleRepository(RoleManager<Entities.Role> roleManager, IHttpContextAccessor httpContextAccessor)
+        private readonly IRoleMapper roleMapper;
+        public RoleRepository(
+            RoleManager<Entities.Role> roleManager,
+            IHttpContextAccessor httpContextAccessor,
+            IRoleMapper roleMapper)
         {
             this.roleManager = roleManager;
             this.httpContextAccessor = httpContextAccessor;
+            this.roleMapper = roleMapper;
         }
 
         public Task<IEnumerable<Role>> GetRoles()
         {
-            return Task.FromResult<IEnumerable<Role>>(roleManager.Roles.Select(r => ToDto(r)));
+            return Task.FromResult<IEnumerable<Role>>(roleManager.Roles.Select(r => roleMapper.Entity2Dto(r)));
         }
-
-        #region Conversion Methods
-        internal static Entities.Role ToEntity(Role role)
-        {
-            if (role == null) return null;
-            return new Entities.Role
-            {
-                Id = role.Id,
-                Name = role.Name,
-                NormalizedName = role.Name.Normalize()
-            };
-        }
-        internal static Role ToDto(Entities.Role role)
-        {
-            if (role == null) return null;
-            return new Role
-            {
-                Id = role.Id,
-                Name = role.Name
-            };
-        }
-        #endregion
     }
 }

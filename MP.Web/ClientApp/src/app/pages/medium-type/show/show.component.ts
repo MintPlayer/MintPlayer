@@ -1,13 +1,10 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { MediumType } from '../../../entities/medium-type';
-import { ePlayerType } from '../../../enums/ePlayerType';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
-import { UrlGenerator } from '../../../helpers/url-generator.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -16,14 +13,14 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 })
 export class ShowComponent implements OnInit, OnDestroy {
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
-    private htmlLink: HtmlLinkHelper
+    private htmlLink: HtmlLinkHelper,
   ) {
     if (serverSide === true) {
       this.setMediumType(mediumTypeInj);
@@ -102,16 +99,16 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteMediumType() {
     this.mediumTypeService.deleteMediumType(this.mediumType).then(() => {
-      this.navigation.navigate(['mediumtype']);
+      this.router.navigate(['mediumtype']);
     }).catch((error) => {
       console.error('Could not delete medium type', error);
     });
   }
 
-  public playerTypeEnum = ePlayerType;
+  public playerTypeEnum = PlayerType;
   public mediumType: MediumType = {
     id: 0,
     description: '',
-    playerType: ePlayerType.None
+    visible: true,
   };
 }

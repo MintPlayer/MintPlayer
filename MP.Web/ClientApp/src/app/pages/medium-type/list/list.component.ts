@@ -1,10 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
 import { Title, Meta } from '@angular/platform-browser';
-import { MediumType } from '../../../entities/medium-type';
-import { ePlayerType } from '../../../enums/ePlayerType';
+import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 
 @Component({
   selector: 'app-list',
@@ -13,12 +11,12 @@ import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
 })
 export class ListComponent implements OnInit, OnDestroy {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('MEDIUMTYPES') private mediumtypesInj: MediumType[],
     private mediumTypeService: MediumTypeService,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
     this.titleService.setTitle('Medium types');
     if (serverSide === true) {
@@ -91,6 +89,6 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   public mediumTypes: MediumType[] = [];
-  public playerTypes = ePlayerType;
+  public playerTypes = PlayerType;
 
 }

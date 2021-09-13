@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MintPlayer.Data.Dtos.Jobs;
+using MintPlayer.Data.Mappers;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,22 +15,26 @@ namespace MintPlayer.Data.Repositories.Jobs
     }
     internal class ElasticSearchJobRepository : IElasticSearchJobRepository
     {
-        private MintPlayerContext mintplayer_context;
-        public ElasticSearchJobRepository(MintPlayerContext mintplayer_context)
+        private readonly MintPlayerContext mintplayer_context;
+        private readonly IElasticSearchIndexJobMapper elasticSearchIndexJobMapper;
+        public ElasticSearchJobRepository(
+            MintPlayerContext mintplayer_context,
+            IElasticSearchIndexJobMapper elasticSearchIndexJobMapper)
         {
             this.mintplayer_context = mintplayer_context;
+            this.elasticSearchIndexJobMapper = elasticSearchIndexJobMapper;
         }
 
         public async Task<ElasticSearchIndexJob> InsertElasticSearchIndexJob(ElasticSearchIndexJob job)
         {
             // Convert to entity
-            var entity_job = ToEntity(job, mintplayer_context);
+            var entity_job = elasticSearchIndexJobMapper.Dto2Entity(job, mintplayer_context);
 
             // Add to database
             await mintplayer_context.ElasticSearchIndexJobs.AddAsync(entity_job);
             await mintplayer_context.SaveChangesAsync();
 
-            var new_job = ToDto(entity_job, false, false);
+            var new_job = elasticSearchIndexJobMapper.Entity2Dto(entity_job, false, false);
             return new_job;
         }
 
@@ -44,7 +49,7 @@ namespace MintPlayer.Data.Repositories.Jobs
             // Update
             mintplayer_context.ElasticSearchIndexJobs.Update(entity_job);
 
-            return ToDto(entity_job, false, false);
+            return elasticSearchIndexJobMapper.Entity2Dto(entity_job, false, false);
         }
 
         public async Task<ElasticSearchIndexJob> PopElasticSearchIndexJob()
@@ -52,38 +57,12 @@ namespace MintPlayer.Data.Repositories.Jobs
             var entity_job = await mintplayer_context.ElasticSearchIndexJobs
                 .Include(j => j.Subject)
                 .FirstOrDefaultAsync(j => j.Status == Enums.eJobStatus.Queued);
-            return ToDto(entity_job, false, false);
+            return elasticSearchIndexJobMapper.Entity2Dto(entity_job, false, false);
         }
 
         public async Task SaveChangesAsync()
         {
             await mintplayer_context.SaveChangesAsync();
         }
-
-        #region Conversion methods
-        internal static ElasticSearchIndexJob ToDto(Entities.Jobs.ElasticSearchIndexJob job, bool include_relations, bool include_invisible_media)
-        {
-            if (job == null) return null;
-            return new ElasticSearchIndexJob
-            {
-                Id = job.Id,
-                JobStatus = job.Status,
-                Subject = SubjectRepository.ToDto(job.Subject, include_relations, include_invisible_media),
-                SubjectStatus = job.SubjectStatus
-            };
-        }
-        internal static Entities.Jobs.ElasticSearchIndexJob ToEntity(ElasticSearchIndexJob job, MintPlayerContext mintplayer_context)
-        {
-            if (job == null) return null;
-            var entity_job = new Entities.Jobs.ElasticSearchIndexJob
-            {
-                Id = job.Id,
-                Status = job.JobStatus,
-                Subject = mintplayer_context.Subjects.Find(job.Subject.Id),
-                SubjectStatus = job.SubjectStatus
-            };
-            return entity_job;
-        }
-        #endregion
     }
 }

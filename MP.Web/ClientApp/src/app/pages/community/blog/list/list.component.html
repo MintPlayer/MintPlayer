@@ -1,12 +1,12 @@
 <div class="container">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">MintPlayer blog</h1>
-      <span *ngIf="isBlogger" class="float-none d-block float-sm-right d-sm-inline-block">
-        <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/community", "blog", "create"]'>
+      <h1 class="d-inline-block">{{ 'global.mintplayer_blog' | translate }}</h1>
+      <span *ngIf="isBlogger" class="float-none d-block pull-sm-right d-sm-inline-block">
+        <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/community", "blog", "create"]' [title]="'blog.write_blog_post' | translate">
           <!-- to handle -->
           <i class="fa fa-plus"></i>
-          Create
+          {{ 'blog.write_blog_post' | translate }}
         </a>
       </span>
     </div>
@@ -14,8 +14,8 @@
   <div class="row" *ngFor="let blogPost of blogPosts">
     <div class="col-md-12 my-2">
       <span>{{ blogPost.published | date:'MMM dd, yyyy' }}</span>
-      <h2 class="font-size-xx-large font-weight-normal">
-        <a [routerLink]='["/community", "blog", blogPost.id, blogPost.title | slugify]' [title]="blogPost.headline">{{ blogPost.title }}</a>
+      <h2 class="font-size-xx-large fw-normal">
+        <a [advRouterLink]='["/community", "blog", blogPost.id, blogPost.title | slugify]' [title]="blogPost.headline">{{ blogPost.title }}</a>
       </h2>
       <p>{{ blogPost.headline }}</p>
     </div>

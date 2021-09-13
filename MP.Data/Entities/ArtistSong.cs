@@ -18,5 +18,7 @@
 
 		public int SongId { get; set; }
 		public Song Song { get; set; }
-	}
+
+        public bool Credited { get; set; }
+    }
 }

@@ -18,7 +18,11 @@ namespace MintPlayer.Data.Entities
 		[NotMapped]
 		public abstract string Text { get; }
 
-		public User UserInsert { get; set; }
+		[Timestamp]
+		[ConcurrencyCheck]
+        public byte[] ConcurrencyStamp { get; set; }
+
+        public User UserInsert { get; set; }
 		public User UserUpdate { get; set; }
 		public User UserDelete { get; set; }
 

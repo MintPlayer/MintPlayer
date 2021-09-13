@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 
 import { CreateRoutingModule } from './create-routing.module';
 import { CreateComponent } from './create.component';
-import { ControlsModule } from '../../../../controls/controls.module';
-import { DirectivesModule } from '../../../../directives/directives.module';
-import { QueryParamsHandlingModule } from '../../../../directives/query-params-handling/query-params-handling.module';
+import { ForDirectiveModule } from '../../../../directives/for/for-directive.module';
+import { CardModule } from '../../../../controls/card/card.module';
+import { FocusOnLoadDirectiveModule } from '../../../../directives/focus-on-load/focus-on-load.module';
 
 
 @NgModule({
@@ -14,9 +14,10 @@ import { QueryParamsHandlingModule } from '../../../../directives/query-params-h
   imports: [
     CommonModule,
     FormsModule,
-    ControlsModule,
-    DirectivesModule,
-    QueryParamsHandlingModule,
+
+    CardModule,
+    ForDirectiveModule,
+    FocusOnLoadDirectiveModule,
     CreateRoutingModule
   ]
 })

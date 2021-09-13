@@ -1,4 +1,25 @@
 {
+  "global": {
+    "add": "Add",
+    "edit": "Edit",
+    "remove": "Remove",
+    "close": "Close",
+    "complete": "Complete",
+    "enable": "Enable",
+    "disable": "Disable",
+    "description": "Description",
+    "details_for": "Details for {{ name }}",
+    "general_information": "General information",
+    "mintplayer_blog": "MintPlayer blog",
+    "send_us_email": "Send us an email",
+    "color": "Color"
+  },
+  "not_found": {
+    "not_found": "Not found",
+    "description": "Sorry, the page you're looking for does not exist.",
+    "go_home": "Take me to the homepage",
+    "click_go_home": "Click here to go to the homepage"
+  },
   "home": {
     "home": "Home",
     "title": "Open-source music player",
@@ -9,41 +30,143 @@
     "search": "Search",
     "search_anything": "Search for anything"
   },
-  "fetch": {
-    "fetch_url": "Enter an url to fetch"
+  "subjects": {
+    "tags": "Tags",
+    "media": "Media",
+    "remove_medium": "Remove this medium",
+    "general_information": "General information",
+    "like": "I like this",
+    "dislike": "I don't like this",
+    "changed_while_editing": "The {{ subject }} was changed while you were editing",
+    "current_database_value": "Current database value: {{ value }}"
+  },
+  "media": {
+    "value": "Value",
+    "medium": "Medium",
+    "add_medium": "Add medium",
+    "play_this_item": "Add this url to the queue"
+  },
+  "medium_type": {
+    "create_medium_type": "Create medium type",
+    "create_new_medium_type": "Create new medium type",
+    "player_type": "Player type",
+    "edit_medium_type": "Edit medium type: {{ name }}",
+    "update_medium_type": "Update medium type",
+    "all_medium_types": "All medium types"
   },
   "artists": {
+    "artist": "artist",
     "artists": "Artists",
     "all_artists": "All artists",
     "add_artist": "Add artist",
-    "favorite_artists": "Favorite artists"
+    "create_artist": "Create artist",
+    "create_new_artist": "Create new artist",
+    "favorite_artists": "Favorite artists",
+    "my_favorite_artists": "My favorite artists",
+    "no_artists_found": "No artists found",
+    "name": "Name",
+    "artist_name": "Artist name",
+    "year_started": "Year started",
+    "year_quit": "Year quit",
+    "current_members": "Current members",
+    "past_members": "Past members",
+    "details_for": "Details for {{ name }}",
+    "edit_artist": "Edit artist: {{ name }}",
+    "update_artist": "Update artist",
+    "joined": "Joined",
+    "left": "Left"
   },
   "people": {
+    "person": "person",
     "people": "People",
+    "create_person": "Create person",
+    "create_new_person": "Create new person",
     "all_people": "All people",
     "add_person": "Add person",
-    "favorite_people": "Favorite people"
+    "favorite_people": "Favorite people",
+    "my_favorite_people": "My favorite people",
+    "no_people_found": "No people found",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "born": "Born",
+    "died": "Died",
+    "update_person": "Update person",
+    "member_of": "Member of",
+    "edit_person": "Edit person: {{ name }}"
   },
   "songs": {
+    "song": "song",
     "songs": "Songs",
+    "create_song": "Create song",
+    "create_new_song": "Create new song",
     "all_songs": "All songs",
     "add_song": "Add song",
-    "favorite_songs": "Favorite songs"
+    "view_song": "View song",
+    "favorite_songs": "Favorite songs",
+    "my_favorite_songs": "My favorite songs",
+    "no_songs_found": "No songs found",
+    "title": "Title",
+    "released": "Released",
+    "lyrics": "Lyrics",
+    "wrap_lyrics": "Wrap lyrics",
+    "sync_lyrics": "Synchronize lyrics: {{ name }}",
+    "synchronize_lyrics": "Synchronize lyrics",
+    "timeline": "Timeline",
+    "update_timeline": "Update timeline",
+    "remove_brackets": "Remove [ and ]",
+    "uncredited_artists": "Uncredited artists",
+    "play": "Play",
+    "edit_song": "Edit song: {{ name }}",
+    "update_song": "Update song"
   },
   "playlists": {
     "playlists": "Playlists",
-    "all_playlists": "All playlists",
-    "add_playlist": "Add playlist"
+    "my_playlists": "My playlists",
+    "public_playlists": "Public playlists",
+    "add_playlist": "Add playlist",
+    "create_playlist": "Create playlist",
+    "create_new_playlist": "Create new playlist",
+    "edit_playlist": "Edit playlist: {{ name }}",
+    "update_playlist": "Update playlist",
+    "accessibility": "Accessibility",
+    "tracks": "Tracks",
+    "enter_song_title": "Enter a song title",
+    "searching_songs": "Searching songs",
+    "no_songs_found": "No songs found"
+  },
+  "player": {
+    "currently_playing": "Currently playing",
+    "previous_song": "Previous song",
+    "next_song": "Next song",
+    "play_pause": "Play/pause",
+    "play": "Play",
+    "play_now": "Play now",
+    "add_to_queue": "Add to queue",
+    "pause": "Pause",
+    "remove_song": "Remove song",
+    "shuffle": "Shuffle",
+    "repeat": "Repeat",
+    "replay": "Replay",
+    "add_url": {
+      "add_url": "Add video url",
+      "enter_some_url": "Enter a YouTube, DailyMotion, Vimeo or SoundCloud url",
+      "add_url_to_playlist": "Add url to playlist",
+      "url_not_supported": "The entered url is not supported"
+    }
   },
   "community": {
     "community": "Community",
     "blog": {
       "blog": "Blog",
-      "our_blog": "MintPlayer blog"
+      "our_blog": "MintPlayer blog",
+      "edit_post": "Edit blog post: {{ title }}"
     },
     "github": {
       "github": "GitHub",
       "follow": "Follow us on GitHub"
+    },
+    "swagger": {
+      "swagger": "Swagger"
     }
   },
   "management": {
@@ -58,7 +181,18 @@
       "manage_tags": "Manage tags",
       "manage_categories": "Manage categories",
       "all_categories": "All categories",
-      "add_category": "Add category"
+      "add_category": "Add category",
+      "add_tag": "Add tag",
+      "edit_tag": "Edit tag",
+      "parent_tag": "Parent tag",
+      "categories": {
+        "category": "Category",
+        "all_categories": "All tag categories",
+        "create_new_tag_category": "Create new tag category",
+        "create_category": "Create tag category",
+        "edit_category": "Edit tag category",
+        "remove_category": "Remove tag category"
+      }
     }
   },
   "account": {
@@ -67,45 +201,158 @@
     "register": "Register",
     "create_account": "Create account",
     "profile": "Profile",
+    "profile_page": "profile page",
+    "goto_profile_page": "Go to your profile page",
     "sign_out": "Sign out",
     "log_out": "Log out",
     "email_address": "Email address",
     "username": "Username",
-    "password": "Password",
     "repeat_password": "Repeat password",
     "forgot_password": "Forgot password",
     "use_social_login": "Or use a social login instead",
     "update_profile": "Update profile",
+    "update_password": "Set password",
     "social_logins": "Social logins",
+    "password": {
+      "password": "Password",
+      "current_password": "Current password",
+      "new_password": "New password",
+      "confirm_password": "Confirm password",
+      "send_email": "Send email",
+      "email_sent": "Email sent",
+      "email_sent_message": "An email has been sent containing a link to reset your password. Click the link and follow the instructions.",
+      "reset": "Reset password",
+      "reset_success": "Password reset complete",
+      "reset_success_message": "Your password was successfully reset"
+    },
+    "two_factor": {
+      "two_factor_authentication": "Two-factor authentication",
+      "enabled": "2-factor authentication is enabled",
+      "enable": "Enable 2-factor authentication",
+      "enable_2fa": "Enable 2FA",
+      "enter_code_enable": "Now enter a generated 6-digit number in this box:",
+      "scan": "Open your Authenticator app, scan this QR-code.",
+      "add_account": "Add account",
+      "or_open_app": "Or open authenticator app",
+      "open_authenticator_app": "Open the authenticator app",
+      "generate_code": "Generate code",
+      "write_down_backup_codes": "These are your backup codes. Write them down and keep them somewhere safe. You'll need them in case you lose your mobile phone. You won't be able to view them again after leaving this page.",
+      "login_instructions": "Open the authenticator app on your mobile phone and generate a 6-digit number for MintPlayer. Enter the code in the textbox below:",
+
+      "disabled": "2-factor authentication is disabled",
+      "disable": "Disable 2-factor authentication",
+      "disable_2fa": "Disable 2FA",
+      "enter_code_disable": "Generate a 6-digit number with your authenticator app and enter it in this box:",
+
+      "extra_options": "Extra options",
+      "bypass_2fa_for_external_logins": "Bypass 2-factor-authentication for external logins (Microsoft, Google, ...)",
+      "remember_me": "Remember this device",
+
+      "recovery": {
+        "lost_device": "Lost device/Trouble signing in?",
+        "enter_recovery_code": "Enter a recovery code",
+        "recovery_instructions": "Consult the recovery codes you've written down when activating 2-factor authentication. Enter a recovery code in the box below.",
+        "recover": "Recover account",
+        "you_have_x_recovery_codes_left": "You have {{ count }} recovery codes left.",
+        "generate_new_recovery_codes_in_time": "Generate new recovery codes before you run out of them.",
+        "generate_new_recovery_codes": "Generate new recovery codes",
+        "failed": "Account recovery failed",
+        "failed_description": "Failed to recover your account using the code specified. The code you entered may have already been used before."
+      }
+    },
+    "confirmation": {
+      "resend": "Re-send confirmation email"
+    },
     "microsoft": {
+      "login": "Sign in with Microsoft account",
       "add_login": "Add Microsoft login",
       "remove_login": "Remove Microsoft login",
       "login_registered": "Microsoft account registered"
     },
     "facebook": {
+      "login": "Sign in with Facebook",
       "add_login": "Add Facebook login",
       "remove_login": "Remove Facebook login",
       "login_registered": "Facebook account registered"
     },
     "twitter": {
+      "login": "Sign in with Twitter",
       "add_login": "Add Twitter login",
       "remove_login": "Remove Twitter login",
       "login_registered": "Twitter account registered"
     },
     "google": {
+      "login": "Sign in with Google",
       "add_login": "Add Google login",
       "remove_login": "Remove Google login",
       "login_registered": "Google account registered"
+    },
+    "linkedin": {
+      "login": "Sign in with LinkedIn",
+      "add_login": "Add LinkedIn login",
+      "remove_login": "Remove LinkedIn login",
+      "login_registered": "LinkedIn account registered"
     }
+  },
+  "blog": {
+    "write_blog_post": "Write blog post",
+    "write_new_blog_post": "Write new blog post",
+    "create_blog_post": "Create blog post",
+    "update_blog_post": "Update blog post",
+    "blog_post_information": "Blog post information",
+    "title": "Title",
+    "headline": "Headline",
+    "post": "Post"
   },
   "gdpr": {
     "privacy_policy": {
       "privacy_policy": "Privacy policy",
-      "read": "Read how we handle your information"
+      "read": "Read how we handle your information",
+      "intro": "We try to be as transparent as possible.\r\nTherefor we think it's important for you to know what happens with your data while visiting our website. The General Data Protection Regulation (GDPR), which took effect in Europe from 25 May 2018 motivates us to inform you about what exactly we store, and how we handle your data.",
+      "declaration": "To make this as readable as possible, we've split up the document into following sections:",
+      "data_we_collect": {
+        "title": "What data do we collect",
+        "body": "Our application initially does not collect any of your information or surfing behavior. When you sign in, either by creating an account or by using a social-network login, we store your email address and username. The password is always salted and then hashed immediately, then stored in the database. The hashing algorithm used by our application is a trustworthy version. When you attach a social login to your account, we store only the account identifier for that platform. Our application does not do anything else except from reading your email address and username from your social login. Your email address will never end up on the website. Email addresses should be kept private at any time. Your username will be displayed publicly when participating in our forum, but you can change your username at any time from your"
+      },
+      "handling_of_data": {
+        "title": "How we handle your data",
+        "body": "We keep track of the items you add, edit or remove from the database. We don't share your data with anyone, and at this time nobody is able to see which items you liked/disliked, added/removed/edited from the database. At this point, MintPlayer is a completely anonymous platform, where the focus is to let you keep track of the music you like, build playlists, and discover music."
+      },
+      "cookies": {
+        "title": "Cookie policy",
+        "body": "We don't store any third-party cookies. The only cookie we create is to enable you to login into our platform."
+      },
+      "information_sharing": {
+        "title": "Does MintPlayer share any of your information",
+        "body": "In short: No.\r\nYour information is completely contained to our system. Nobody can access your personal preferences or information. We do not share, sell or trade your personal information with other parties in any way."
+      },
+      "data_removal": {
+        "title": "Request us to delete your data",
+        "body1": "You may at any time request us to delete your information we store in our database. To ensure that this data deletion request is authorized, you must be logged in first. Once your data deletion request is complete, you will not be able to recover the information stored in your account.",
+        "body2": "If you want to remove your data from our platform, please contact us at"
+      }
     },
     "terms_of_service": {
       "terms_of_service": "Terms of service",
-      "read": "Read our terms of service"
+      "read": "Read our terms of service",
+      "use_of_website": "Here are the ways you can or can't use our website.",
+      "use_of_trademark": {
+        "title": "Use of our trademark",
+        "body": "MintPlayer is a registered trademark and cannot be used at any time as part of a business name, trading name or domain name."
+      },
+      "link_to_website": {
+        "title": "Linking to our website",
+        "body": "MintPlayer is an open-source, community-driven project, with the goal of stimulating the music api ecosystem. You may link to our website from other websites, but under strict conditions",
+        "conditions": [
+          "You do not link to our website in a way that would cause damage or trashing of our platform",
+          "Our website must not be framed on any other site",
+          "You may not host our website on another location without changing the name"
+        ]
+      },
+      "bugs": {
+        "title": "Bugs - security vulnerabilities",
+        "body": "If you discover a bug or security vulnerability, you may contact us at"
+      }
     }
   }
 }

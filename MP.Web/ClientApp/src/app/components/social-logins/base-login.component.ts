@@ -1,5 +1,5 @@
 import { Input, Output, EventEmitter, Inject, Directive } from '@angular/core';
-import { LoginResult } from '../../entities/login-result';
+import { LoginResult } from '@mintplayer/ng-client';
 import { PwaHelper } from '../../helpers/pwa.helper';
 
 @Directive()
@@ -11,7 +11,12 @@ export class BaseLoginComponent {
   @Input() public action: 'add' | 'connect';
   @Output() public LoginSuccessOrFailed: EventEmitter<LoginResult> = new EventEmitter();
 
-  constructor(private externalUrl: string, private platform: string, private pwaHelper: PwaHelper) {
+  constructor(
+    private externalUrl: string,
+    private platform: string,
+    private pwaHelper: PwaHelper,
+    private apiVersion: string,
+  ) {
     this.listener = this.handleMessage.bind(this);
     if (typeof window !== 'undefined') {
       if (window.addEventListener) {
@@ -36,7 +41,7 @@ export class BaseLoginComponent {
     if (typeof window !== 'undefined') {
       var medium = this.pwaHelper.isPwa() ? 'pwa' : 'web';
 
-      this.authWindow = window.open(`${this.externalUrl}/web/v2/Account/${this.action}/${medium}/${this.platform}`, '_blank', 'width=600,height=400');
+      this.authWindow = window.open(`${this.externalUrl}/web/${this.apiVersion}/Account/${this.action}/${medium}/${this.platform}?ngsw-bypass=true`, '_blank', 'width=600,height=400');
 
       this.isOpen = true;
       var timer = setInterval(() => {
@@ -50,8 +55,10 @@ export class BaseLoginComponent {
 
   handleMessage(event: Event) {
     const message = event as MessageEvent;
+
     // Only trust messages from the below origin.
-    if (!this.externalUrl.startsWith(message.origin)) return;
+    const messageOrigin = message.origin.replace(/^https?\:/, '');
+    if (!this.externalUrl.startsWith(messageOrigin)) return;
 
     // Filter out Augury
     if (message.data.messageSource != null)

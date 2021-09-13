@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { TagCategory } from '../../../entities/tag-category';
-import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { BASE_URL } from '@mintplayer/ng-base-url';
+import { TagCategory, TagCategoryService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -14,15 +15,15 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class ShowComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('TAGCATEGORY') tagCategoryInj: TagCategory,
-    @Inject('BASE_URL') private baseUrl: string,
+    @Inject(BASE_URL) private baseUrl: string,
     private tagCategoryService: TagCategoryService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
-    private htmlLink: HtmlLinkHelper
+    private htmlLink: HtmlLinkHelper,
   ) {
     if (serverSide === true) {
       this.setTagCategory(tagCategoryInj);
@@ -83,7 +84,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.tagCategoryService.getTagCategory(id, true).then((tagCategory) => {
       this.setTagCategory(tagCategory);
     }).catch((error) => {
-      console.log('Could not get tag category', error);
+      console.error('Could not get tag category', error);
     });
   }
 
@@ -99,7 +100,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   deleteTagCategory() {
     this.tagCategoryService.deleteTagCategory(this.tagCategory).then(() => {
-      this.navigation.navigate(['tag', 'category']);
+      this.router.navigate(['tag', 'category']);
     }).catch((error) => {
       console.error('Could not delete tag category', error);
     });

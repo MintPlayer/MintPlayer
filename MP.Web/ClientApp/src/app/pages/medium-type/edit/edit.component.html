@@ -1,28 +1,20 @@
 <div class="container">
   <form (submit)="updateMediumType()">
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12">
-        <h1 class="d-inline-block">Edit medium type: {{ oldMediumTypeDescription }}</h1>
-        <span class="float-right">
+        <h1 class="d-inline-block">{{ 'medium_type.edit_medium_type' | translate: {name:oldMediumTypeDescription} }}</h1>
+        <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
-            Update
+            {{ 'medium_type.update_medium_type' | translate }}
           </button>
         </span>
       </div>
     </div>
-    <div class="form-group row">
-      <label [appFor]="txt_description" class="col-form-label col-sm-4 col-xl-2">Description</label>
+    <div class="form-group row mb-3">
+      <label [appFor]="txt_description" class="col-form-label col-sm-4 col-xl-2">{{ 'global.description' | translate }}</label>
       <div class="col-sm-8 col-xl-10">
         <input type="text" [(ngModel)]="mediumType.description" class="form-control" #txt_description name="description" autofocus />
-      </div>
-    </div>
-    <div class="form-group row">
-      <label [appFor]="cmb_playertype" class="col-form-label col-sm-4 col-xl-2">Player type</label>
-      <div class="col-sm-8 col-xl-10">
-        <select class="form-control" name="playertype" #cmb_playertype [ngModel]="mediumType.playerType" (ngModelChange)="playerTypeSelected($event)">
-          <option *ngFor="let playerType of playerTypes" [ngValue]="playerType.id">{{ playerType.description }}</option>
-        </select>
       </div>
     </div>
   </form>

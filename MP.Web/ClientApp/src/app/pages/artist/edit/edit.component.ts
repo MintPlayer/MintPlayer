@@ -1,16 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Title } from '@angular/platform-browser';
-import { ArtistService } from '../../../services/artist/artist.service';
-import { Artist } from '../../../entities/artist';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { MediumType } from '../../../entities/medium-type';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { API_VERSION, Artist, ArtistService, MediumType, MediumTypeService, Person, SubjectService, SubjectType, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -20,16 +18,20 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     private artistService: ArtistService,
+    private subjectService: SubjectService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private tagService: TagService,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
+    this.apiVersion = apiVersion;
     if (serverSide === false) {
       // Get artist
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -40,6 +42,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     }
   }
 
+  apiVersion: string = '';
   mediumTypes: MediumType[] = [];
   oldName: string = '';
   artist: Artist = {
@@ -54,11 +57,27 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     tags: [],
     text: '',
     dateUpdate: null
-  }
+  };
+  concurrentArtist: Artist = null;
 
-  httpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  currentMemberSuggestions: Person[] = [];
+  onProvideCurrentMemberSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
+      this.currentMemberSuggestions = <Person[]>people;
+    });
+  }
+  pastMemberSuggestions: Person[] = [];
+  onProvidePastMemberSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
+      this.pastMemberSuggestions = <Person[]>people;
+    });
+  }
+  tagSuggestions: Tag[] = [];
+  onProvideTagSuggestions(searchText: string) {
+    this.tagService.suggestTags(searchText, true).then((tags) => {
+      this.tagSuggestions = tags;
+    });
+  }
 
   private loadArtist(id: number) {
     this.artistService.getArtist(id, true).then((artist) => {
@@ -89,9 +108,17 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public updateArtist() {
     this.artistService.updateArtist(this.artist).then((artist) => {
       this.hasChanges = false;
-      this.navigation.navigate(['artist', this.artist.id, this.slugifyHelper.slugify(artist.name)]);
-    }).catch((error) => {
-      console.error('Could not update artist', error);
+      this.router.navigate(['artist', this.artist.id, this.slugifyHelper.slugify(artist.name)]);
+    }).catch((error: HttpErrorResponse) => {
+      switch (error.status) {
+        case 409: {
+          console.log("Error 409", error);
+          this.concurrentArtist = error.error;
+        } break;
+        default: {
+          console.error('Could not update artist', error);
+        } break;
+      }
     });
   }
 

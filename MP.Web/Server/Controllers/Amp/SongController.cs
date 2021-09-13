@@ -19,9 +19,10 @@ namespace MintPlayer.Web.Server.Controllers.Amp
 
         // GET: amp/Song/5
         [HttpGet("{id}", Name = "amp-song-show", Order = 1)]
+		[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult> Show(int id)
         {
-            var song = await songService.GetSong(id, true, false);
+            var song = await songService.GetSong(id, true);
 
             if (song == null) return NotFound();
             else return View(song);

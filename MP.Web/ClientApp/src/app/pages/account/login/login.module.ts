@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
-import { DirectivesModule } from '../../../directives/directives.module';
 import { SocialLoginsModule } from '../../../components/social-logins/social-logins.module';
-import { QueryParamsHandlingModule } from '../../../directives/query-params-handling/query-params-handling.module';
+import { PipesModule } from '../../../pipes/pipes.module';
+import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
 
 
 @NgModule({
@@ -15,8 +16,9 @@ import { QueryParamsHandlingModule } from '../../../directives/query-params-hand
   imports: [
     CommonModule,
     FormsModule,
-    DirectivesModule,
-    QueryParamsHandlingModule,
+    PipesModule,
+    ForDirectiveModule,
+    AdvancedRouterModule,
     SocialLoginsModule,
     TranslateModule,
     LoginRoutingModule

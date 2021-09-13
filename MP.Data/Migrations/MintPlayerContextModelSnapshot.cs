@@ -15,7 +15,7 @@ namespace MintPlayer.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
+                .HasAnnotation("ProductVersion", "3.1.17")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -150,6 +150,11 @@ namespace MintPlayer.Data.Migrations
                     b.Property<int>("SongId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Credited")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.HasKey("ArtistId", "SongId");
 
                     b.HasIndex("SongId");
@@ -241,6 +246,21 @@ namespace MintPlayer.Data.Migrations
                     b.ToTable("Likes");
                 });
 
+            modelBuilder.Entity("MintPlayer.Data.Entities.Logging.LogEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LogEntries");
+                });
+
             modelBuilder.Entity("MintPlayer.Data.Entities.Lyrics", b =>
                 {
                     b.Property<int>("SongId")
@@ -300,9 +320,6 @@ namespace MintPlayer.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PlayerType")
-                        .HasColumnType("int");
-
                     b.Property<Guid?>("UserDeleteId")
                         .HasColumnType("uniqueidentifier");
 
@@ -332,6 +349,9 @@ namespace MintPlayer.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Accessibility")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -415,6 +435,11 @@ namespace MintPlayer.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<DateTime?>("DateDelete")
                         .HasColumnType("datetime2");
@@ -565,6 +590,9 @@ namespace MintPlayer.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Bypass2faForExternalLogin")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

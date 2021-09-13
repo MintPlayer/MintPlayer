@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { DatatablesModule } from '@mintplayer/ng-datatables';
+import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { ListRoutingModule } from './list-routing.module';
 import { PlaylistListComponent } from './list.component';
-import { ControlsModule } from '../../../controls/controls.module';
 import { PipesModule } from '../../../pipes/pipes.module';
-import { DirectivesModule } from '../../../directives/directives.module';
-import { QueryParamsHandlingModule } from '../../../directives/query-params-handling/query-params-handling.module';
+
 
 
 @NgModule({
   declarations: [PlaylistListComponent],
   imports: [
     CommonModule,
-    ControlsModule,
+    DatatablesModule,
+    TranslateModule,
+    AdvancedRouterModule,
+
     PipesModule,
-    QueryParamsHandlingModule,
     ListRoutingModule
   ]
 })

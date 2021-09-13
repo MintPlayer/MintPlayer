@@ -1,9 +1,9 @@
 <div class="container">
   <form (submit)="updateCategory()">
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12">
         <h1 class="d-inline-block">Edit category: {{ oldDescription }}</h1>
-        <span class="float-right">
+        <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
             Update category
@@ -17,7 +17,7 @@
         General information
       </header>
       <content>
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label [appFor]="txt_description" class="col-form-label col-sm-4 col-xl-3">Description</label>
           <div class="col-sm-8 col-xl-9">
             <input type="text" [(ngModel)]="tagCategory.description" class="form-control" #txt_description name="description" autofocus />
@@ -26,7 +26,7 @@
         <div class="form-group row mb-0">
           <label [appFor]="inp_color" class="col-form-label col-sm-4 col-xl-3">Color</label>
           <div class="col-sm-8 col-xl-9">
-            <input type="color" [(ngModel)]="tagCategory.color" class="form-control p-1" #inp_color name="color" autofocus />
+            <input type="color" [(ngModel)]="tagCategory.color" class="form-control p-1" #inp_color name="color" />
           </div>
         </div>
       </content>

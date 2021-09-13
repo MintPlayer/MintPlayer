@@ -1,12 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
+import { AccountService, User, UserData } from '@mintplayer/ng-client';
+import { LoginStatus } from '@mintplayer/ng-client';
+import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Guid } from 'guid-typescript';
-import { AccountService } from '../../../services/account/account.service';
-import { UserData } from '../../../entities/user-data';
-import { User } from '../../../entities/user';
+import { Subject } from 'rxjs';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-register',
@@ -15,10 +14,10 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private accountService: AccountService,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
   }
 
@@ -77,6 +76,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       id: Guid.createEmpty()['value'],
       userName: '',
       email: '',
+      isTwoFactorEnabled: false,
+      bypass2faForExternalLogin: false,
       pictureUrl: ''
     },
     password: '',
@@ -86,12 +87,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public register() {
     this.accountService.register(this.data).then((result) => {
       this.accountService.login(this.data.user.email, this.data.password).then((login_result) => {
-        if (login_result.status === true) {
-          this.navigation.navigate(['/']);
-          this.loginComplete.emit(login_result.user);
-        } else {
-          debugger;
-        }
+        this.accountService.csrfRefresh().then(() => {
+          if (login_result.status === LoginStatus.success) {
+            this.router.navigate(['/']);
+            this.loginComplete.next(login_result.user);
+          } else {
+            debugger;
+          }
+        });
       }).catch((error) => {
         console.error('Could not register', error);
       });
@@ -100,5 +103,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
   }
 
-  @Output() loginComplete: EventEmitter<User> = new EventEmitter();
+  @Output() loginComplete: Subject<User> = new Subject<User>();
 }

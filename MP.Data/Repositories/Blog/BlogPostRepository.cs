@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MintPlayer.Data.Dtos.Blog;
 using MintPlayer.Data.Entities;
+using MintPlayer.Data.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,18 +27,25 @@ namespace MintPlayer.Data.Repositories.Blog
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly MintPlayerContext mintPlayerContext;
         private readonly UserManager<Entities.User> userManager;
-        public BlogPostRepository(IHttpContextAccessor httpContextAccessor, MintPlayerContext mintPlayerContext, UserManager<Entities.User> userManager)
+        private readonly IBlogPostMapper blogPostMapper;
+        public BlogPostRepository(
+            IHttpContextAccessor httpContextAccessor,
+            MintPlayerContext mintPlayerContext,
+            UserManager<Entities.User> userManager,
+            IBlogPostMapper blogPostMapper)
         {
             this.httpContextAccessor = httpContextAccessor;
             this.mintPlayerContext = mintPlayerContext;
             this.userManager = userManager;
+            this.blogPostMapper = blogPostMapper;
         }
 
         public Task<IEnumerable<BlogPost>> GetBlogPosts()
         {
             var blogposts = mintPlayerContext.BlogPosts
                 .Include(bp => bp.UserInsert)
-                .Select(bp => ToDto(bp));
+                .OrderByDescending(bp => bp.DateInsert)
+                .Select(bp => blogPostMapper.Entity2Dto(bp));
             return Task.FromResult<IEnumerable<BlogPost>>(blogposts);
         }
         public async Task<BlogPost> GetBlogPost(int blogpost_id)
@@ -45,13 +53,13 @@ namespace MintPlayer.Data.Repositories.Blog
             var blogpost = await mintPlayerContext.BlogPosts
                 .Include(bp => bp.UserInsert)
                 .SingleOrDefaultAsync(bp => bp.Id == blogpost_id);
-            var dto = ToDto(blogpost);
+            var dto = blogPostMapper.Entity2Dto(blogpost);
             return dto;
         }
         public async Task<BlogPost> InsertBlogPost(BlogPost blogPost)
         {
             // Convert to entity
-            var entityBlogPost = ToEntity(blogPost, mintPlayerContext);
+            var entityBlogPost = blogPostMapper.Dto2Entity(blogPost, mintPlayerContext);
 
             // Get current user
             var user = await userManager.GetUserAsync(httpContextAccessor.HttpContext.User);
@@ -66,7 +74,7 @@ namespace MintPlayer.Data.Repositories.Blog
             await mintPlayerContext.BlogPosts.AddAsync(entityBlogPost);
             await mintPlayerContext.SaveChangesAsync();
 
-            return ToDto(entityBlogPost);
+            return blogPostMapper.Entity2Dto(entityBlogPost);
         }
         public async Task<BlogPost> UpdateBlogPost(BlogPost blogPost)
         {
@@ -90,7 +98,7 @@ namespace MintPlayer.Data.Repositories.Blog
             // Update in database
             mintPlayerContext.Entry(entityBlogPost).State = EntityState.Modified;
 
-            return ToDto(entityBlogPost);
+            return blogPostMapper.Entity2Dto(entityBlogPost);
         }
         public async Task DeleteBlogPost(int blogpost_id)
         {
@@ -110,32 +118,5 @@ namespace MintPlayer.Data.Repositories.Blog
         {
             await mintPlayerContext.SaveChangesAsync();
         }
-
-        #region Conversion methods
-        internal static BlogPost ToDto(Entities.Blog.BlogPost blogPost)
-        {
-            if (blogPost == null) return null;
-            return new BlogPost
-            {
-                Id = blogPost.Id,
-                Title = blogPost.Title,
-                Headline = blogPost.Headline,
-                Body = blogPost.Body,
-                Author = AccountRepository.ToDto(blogPost.UserInsert),
-                Published = blogPost.DateInsert
-            };
-        }
-        internal static Entities.Blog.BlogPost ToEntity(BlogPost blogPost, MintPlayerContext mintPlayerContext)
-        {
-            if (blogPost == null) return null;
-            return new Entities.Blog.BlogPost
-            {
-                Id = blogPost.Id,
-                Title = blogPost.Title,
-                Headline = blogPost.Headline,
-                Body = blogPost.Body
-            };
-        }
-        #endregion
     }
 }

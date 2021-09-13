@@ -1,80 +1,91 @@
 <div class="container" *ngIf="song != null">
-  <ngx-json-ld [json]="songLd"></ngx-json-ld>
-  <ngx-json-ld *ngIf="videoLd != null" [json]="videoLd"></ngx-json-ld>
-  <div class="form-group row">
+  <json-ld [json]="songLd"></json-ld>
+  <json-ld *ngIf="videoLd != null" [json]="videoLd"></json-ld>
+  <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ song.title }}</h1>
-      <span class="float-none d-block float-sm-right d-sm-inline-block">
-        <span class="float-none d-block float-sm-right d-sm-inline-block">
-          <a class="btn btn-primary d-block d-sm-inline-block" [routerLink]='["/song", song.id, song.title | slugify, "edit"]'>
+      <span class="float-none d-block pull-sm-right d-sm-inline-block">
+        <span class="float-none d-block pull-sm-right d-sm-inline-block">
+          <a class="btn btn-primary d-block d-sm-inline-block" [advRouterLink]='["/song", song.id, song.title | slugify, "edit"]' [title]="'songs.edit_song' | translate:{'name':song.title}">
             <i class="fa fa-edit"></i>
-            Edit
+            {{ 'global.edit' | translate }}
           </a>
           <button class="btn btn-secondary d-block d-sm-inline-block w-100 w-sm-auto" (click)="deleteSong()">
             <i class="fa fa-trash"></i>
-            Remove
+            {{ 'global.remove' | translate }}
           </button>
         </span>
         <br class="d-none d-sm-inline-block" />
-        <subject-like [subject]="song" class="float-none d-block float-sm-right d-sm-inline-block"></subject-like>
+        <subject-like [subject]="song" class="float-none d-block pull-sm-right d-sm-inline-block"></subject-like>
       </span>
     </div>
   </div>
-  <div *ngIf="song.youtubeId != null" class="yt-image mw-100 mx-auto" [ngStyle]="{'width':'480px','height':'360px','background-image':'url(https://i.ytimg.com/vi/' + song.youtubeId + '/hqdefault.jpg)'}">
-    <youtube-play-button (click)="doAddToPlaylist()"></youtube-play-button>
+  <div *ngIf="(!!song) && (!!song.playerInfos) && (song.playerInfos.length > 0)" class="yt-image mw-100 mx-auto" [ngStyle]="{'width':'480px','height':'360px','background-image': 'url(' + song.playerInfos[0].imageUrl + ')'}">
+    <youtube-play-button (click)="doAddToPlaylist(null)"></youtube-play-button>
   </div>
   <card class="d-block mb-3">
     <header>
       <i class="fa fa-info"></i>
-      General information
+      {{ 'global.general_information' | translate }}
     </header>
     <content>
       <div class="container">
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-5 col-xl-3">
-            <label class="font-weight-bold">Title</label>
+            <label class="fw-bold">{{ 'songs.title' | translate }}</label>
           </div>
           <div class="col-sm-7 col-xl-9">
             <label>{{ song.title }}</label>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-5 col-xl-3">
-            <label class="font-weight-bold">Released</label>
+            <label class="fw-bold">{{ 'songs.released' | translate }}</label>
           </div>
           <div class="col-sm-7 col-xl-9">
             <label>{{ song.released | date:'dd-MM-yyyy' }}</label>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-5 col-xl-3">
-            <label class="font-weight-bold">Artists</label>
+            <label class="fw-bold">{{ 'artists.artists' | translate }}</label>
           </div>
           <div class="col-sm-7 col-xl-9">
             <span *ngFor="let artist of song.artists; let last = last">
-              <a [routerLink]='["/artist",artist.id,artist.name | slugify]' title="Details for {{ artist.name }}">{{ artist.name }}</a>
+              <a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' [title]="'global.details_for' | translate: {name: artist.name}">{{ artist.name }}</a>
               {{ (!last) ? ',&nbsp;' : '' }}
             </span>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2" *ngIf="song.uncreditedArtists.length > 0">
           <div class="col-sm-5 col-xl-3">
-            <label class="font-weight-bold">Tags</label>
+            <label class="fw-bold">{{ 'songs.uncredited_artists' | translate }}</label>
           </div>
           <div class="col-sm-7 col-xl-9">
-            <a *ngFor="let tag of song.tags" class="h4 d-inline-block mr-2 mb-0" [routerLink]='["/tag","category",tag.category.id,"tags",tag.id]'>
+            <span *ngFor="let artist of song.uncreditedArtists; let last = last">
+              <a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' [title]="'global.details_for' | translate: {name: artist.name}">{{ artist.name }}</a>
+              {{ (!last) ? ',&nbsp;' : '' }}
+            </span>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-sm-5 col-xl-3">
+            <label class="fw-bold">{{ 'subjects.tags' | translate }}</label>
+          </div>
+          <div class="col-sm-7 col-xl-9">
+            <a *ngFor="let tag of song.tags" class="h4 d-inline-block me-2 mb-0" [advRouterLink]='["/tag","category",tag.category.id,"tags",tag.id]' [title]="'global.details_for' | translate: {name: tag.description}">
               <span class="badge float-left" [style.background]="tag.category.color" [style.color]="tag.category.color | fontColor">{{ tag.description }}</span>
             </a>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-5 col-xl-3">
-            <label class="font-weight-bold">Share</label>
+            <label class="fw-bold">Share</label>
           </div>
           <div class="col-sm-7 col-xl-9">
-            <app-facebook-share [routerLink]='["/song", song.id, song.title | slugify]' class="m-1"></app-facebook-share>
-            <app-twitter-share [routerLink]='["/song", song.id, song.title | slugify]' class="m-1"></app-twitter-share>
-            <app-linkedin-share [routerLink]='["/song", song.id, song.title | slugify]' class="m-1"></app-linkedin-share>
+            <facebook-share [routerLink]='["/song", song.id, song.title | slugify]' [queryParams]="{'lang': null}" class="m-1"></facebook-share>
+            <twitter-share [routerLink]='["/song", song.id, song.title | slugify]' [queryParams]="{'lang': null}" class="mx-1 mt-1"></twitter-share>
+            <linkedin-share [routerLink]='["/song", song.id, song.title | slugify]' [queryParams]="{'lang': null}" class="mx-1 mb-1"></linkedin-share>
           </div>
         </div>
       </div>
@@ -83,24 +94,30 @@
   <card class="d-block mb-3" [noPadding]="true" *ngIf="song.lyrics.text">
     <header>
       <i class="fa fa-music"></i>
-      Lyrics
+      {{ 'songs.lyrics' | translate }}
       <span class="btn-group pull-right">
-        <a class="btn btn-secondary" [routerLink]='["/song",song.id,song.title | slugify,"sync"]' title="Synchronize song lyrics">
+        <a class="btn btn-secondary" [advRouterLink]='["/song",song.id,song.title | slugify,"sync"]' [title]="'songs.synchronize_lyrics' | translate">
           <i class="fa fa-clock-o"></i>
         </a>
+        <button class="btn btn-secondary" (click)="toggleWrapLyrics()" [title]="'songs.wrap_lyrics' | translate">
+          <span class="fa-layers">
+            <i class="fa fa-bars"></i>
+            <i class="fa fa-times ne" *ngIf="!wrapLyrics"></i>
+          </span>
+        </button>
       </span>
     </header>
     <content>
-      <pre class="font-family-inherit font-size-initial mb-0 p-3 p-md-4">{{ song.lyrics.text }}</pre>
+      <pre class="font-family-inherit font-size-initial mb-0 p-3 p-md-4" [class]="{'white-space-pre-wrap':wrapLyrics}">{{ song.lyrics.text }}</pre>
     </content>
   </card>
   <card class="d-block" [noPadding]="true">
     <header>
       <i class="fa fa-medium"></i>
-      Media
+      {{ 'subjects.media' | translate }}
     </header>
     <content>
-      <media-list [media]="song.media" class="d-inline-block m-3 m-md-4"></media-list>
+      <media-list [media]="song.media" (playButtonClicked)="doAddToPlaylist($event)" class="d-inline-block m-3 m-md-4"></media-list>
     </content>
   </card>
 </div>

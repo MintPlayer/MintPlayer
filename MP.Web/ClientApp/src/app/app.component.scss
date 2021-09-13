@@ -10,11 +10,12 @@ h1 {
   z-index: $z-index-main;
   height: $header-height;
   border-bottom: $grey-border;
-  background: $white;
+  background: var(--theme-background-color);
 
   .logo {
     font-size: 2.5rem;
     line-height: 1.15;
+    color: var(--logo-text-color);
   }
 }
 
@@ -44,14 +45,14 @@ playlist-toggler {
   padding: 0;
   line-height: $footer-height;
   transition: left 0.3s, width 0.3s;
-  background: $white;
+  background: var(--theme-background-color);
   bottom: 0;
   left: $sidebar-width-lg;
   right: 0;
 }
 
 .main-content {
-  background: $white;
+  background: var(--theme-background-color);
   margin-bottom: calc(1.5rem + 45px) !important;
 }
 
@@ -63,15 +64,17 @@ playlist-toggler {
   max-width: initial;
 }
 
-app-sidebar {
+main-sidebar {
   position: fixed;
-  height: calc(100% - #{$header-height});
-  transition: all 0.3s;
+  // Doesn't work well on Chrome for Android
+  //height: calc(100% - #{$header-height});
+  height: calc(var(--viewport-height) - #{$header-height});
+  transition: margin-left .3s, width .3s;
   z-index: 200;
 }
 
 @mixin sidebar-hide-lg {
-  app-sidebar {
+  main-sidebar {
     width: $sidebar-width-lg;
     margin-left: -$sidebar-width-lg;
   }
@@ -86,7 +89,7 @@ app-sidebar {
 }
 
 @mixin sidebar-show-lg {
-  app-sidebar {
+  main-sidebar {
     width: $sidebar-width-lg;
     margin-left: 0;
   }
@@ -101,7 +104,7 @@ app-sidebar {
 }
 
 @mixin sidebar-hide-sm {
-  app-sidebar {
+  main-sidebar {
     width: 100%;
     margin-left: -100%;
   }
@@ -116,7 +119,7 @@ app-sidebar {
 }
 
 @mixin sidebar-show-sm {
-  app-sidebar {
+  main-sidebar {
     width: 100%;
     margin-left: 0;
   }

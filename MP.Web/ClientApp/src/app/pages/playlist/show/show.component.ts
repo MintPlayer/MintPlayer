@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { PlaylistService } from '../../../services/playlist/playlist.service';
-import { Playlist } from '../../../entities/playlist';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlayButtonClickedEvent } from '../../../events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { Playlist, PlaylistAccessibility, PlaylistService } from '@mintplayer/ng-client';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-show',
@@ -15,12 +17,13 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class PlaylistShowComponent implements OnInit {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
-    private navigation: NavigationHelper,
+    private nativeRouter: Router,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
   ) {
     if (serverSide === true) {
       this.setPlaylist(playlistInj);
@@ -33,7 +36,20 @@ export class PlaylistShowComponent implements OnInit {
   private loadPlaylist(id: number) {
     this.playlistService.getPlaylist(id, true).then((playlist) => {
       this.setPlaylist(playlist);
-    }).catch((error) => {
+    }).catch((error: HttpErrorResponse) => {
+      switch (error.status) {
+        case 401: // Unauthorized
+          this.router.navigate(['/account', 'login'], {
+            queryParams: {
+              return: this.nativeRouter.url
+            }
+          });
+          break;
+        case 403: // Forbidden
+          break;
+        case 404:
+          break;
+      }
       console.error('Could not get playlist', error);
     });
   }
@@ -47,16 +63,16 @@ export class PlaylistShowComponent implements OnInit {
 
   deletePlaylist() {
     this.playlistService.deletePlaylist(this.playlist).then(() => {
-      this.navigation.navigate(['playlist']);
+      this.router.navigate(['playlist']);
     }).catch((error) => {
       console.error('Could not delete playlist', error);
     });
   }
 
-  public playbuttonClicked: EventEmitter<PlayButtonClickedEvent> = new EventEmitter<PlayButtonClickedEvent>();
+  public playbuttonClicked: Subject<PlayButtonClickedEvent> = new EventEmitter<PlayButtonClickedEvent>();
   playlistPlaybuttons = ePlaylistPlaybutton;
   onPlaybuttonClicked(button: ePlaylistPlaybutton) {
-    this.playbuttonClicked.emit(new PlayButtonClickedEvent({
+    this.playbuttonClicked.next(new PlayButtonClickedEvent({
       button: button,
       songs: this.playlist.tracks
     }));
@@ -69,6 +85,7 @@ export class PlaylistShowComponent implements OnInit {
     id: 0,
     description: '',
     tracks: [],
+    accessibility: PlaylistAccessibility.private,
     user: null
   };
 }

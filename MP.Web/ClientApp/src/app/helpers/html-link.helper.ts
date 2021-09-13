@@ -1,11 +1,15 @@
 import { Injectable, Inject } from "@angular/core";
 import { DOCUMENT } from '@angular/common';
+import { BASE_URL } from "@mintplayer/ng-base-url";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HtmlLinkHelper {
-  constructor(@Inject(DOCUMENT) private document: HTMLDocument, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(
+    @Inject(DOCUMENT) private document: HTMLDocument,
+    @Inject(BASE_URL) private baseUrl: string,
+  ) {
   }
 
   private linkTags = {};
@@ -38,4 +42,33 @@ export class HtmlLinkHelper {
       this.linkTags[key] = undefined;
     }
   }
+
+
+
+
+  public addTags(tags: LinkDefinition[]) {
+    let createdTags = tags.map((tag) => {
+      let link = this.document.createElement('link');
+      link.rel = tag.rel;
+      link.href = tag.href;
+      link.hreflang = tag.hreflang;
+
+      this.document.head.appendChild(link);
+      return link;
+    });
+
+    return createdTags;
+  }
+
+  public removeTags(tags: HTMLLinkElement[]) {
+    tags.forEach((tag) => {
+      tag.parentNode.removeChild(tag);
+    });
+  }
+}
+
+export class LinkDefinition {
+  rel: string;
+  href: string;
+  hreflang: string;
 }

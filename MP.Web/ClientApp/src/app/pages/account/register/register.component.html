@@ -1,35 +1,35 @@
 <div class="container">
   <form (submit)="register()">
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12">
-        <h1 class="d-inline-block">{{ 'create_account' | translate }}</h1>
-        <span class="float-right">
-          <button type="submit" [title]="'create_account' | translate" class="btn btn-primary">
+        <h1 class="d-inline-block">{{ 'account.create_account' | translate }}</h1>
+        <span class="pull-right">
+          <button type="submit" [title]="'account.create_account' | translate" class="btn btn-primary">
             <i class="fa fa-save"></i>
-            {{ 'create_account' | translate }}
+            {{ 'account.create_account' | translate }}
           </button>
         </span>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <label [appFor]="txt_email" class="col-form-label col-sm-4 col-xl-3">{{ 'account.email_address' | translate }}</label>
       <div class="col-sm-8 col-xl-9">
         <input type="email" [title]="'account.email_address' | translate" [(ngModel)]="data.user.email" class="form-control" name="username" #txt_email />
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <label [appFor]="txt_display_name" class="col-form-label col-sm-4 col-xl-3">{{ 'account.username' | translate }}</label>
       <div class="col-sm-8 col-xl-9">
         <input type="text" [title]="'account.username' | translate" [(ngModel)]="data.user.userName" class="form-control" name="display" #txt_display_name />
       </div>
     </div>
-    <div class="form-group row">
-      <label [appFor]="txt_password" class="col-form-label col-sm-4 col-xl-3">{{ 'account.password' | translate }}</label>
+    <div class="form-group row mb-3">
+      <label [appFor]="txt_password" class="col-form-label col-sm-4 col-xl-3">{{ 'account.password.password' | translate }}</label>
       <div class="col-sm-8 col-xl-9">
-        <input type="password" [title]="'account.password' | translate" [(ngModel)]="data.password" class="form-control" name="password" #txt_password />
+        <input type="password" [title]="'account.password.password' | translate" [(ngModel)]="data.password" class="form-control" name="password" #txt_password />
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <label [appFor]="txt_password_confirmation" class="col-form-label col-sm-4 col-xl-3">{{ 'account.repeat_password' | translate }}</label>
       <div class="col-sm-8 col-xl-9">
         <input type="password" [title]="'account.repeat_password' | translate" [(ngModel)]="data.passwordConfirmation" class="form-control" name="password_confirmation" #txt_password_confirmation />

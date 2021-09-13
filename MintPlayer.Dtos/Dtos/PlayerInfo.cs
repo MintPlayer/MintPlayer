@@ -15,6 +15,14 @@ namespace MintPlayer.Dtos.Dtos
 
 		[DataMember]
 		[XmlElement(Namespace = "https://mintplayer.com/music")]
-        public string Id { get; set; }
-    }
+		public string Id { get; set; }
+
+		[DataMember]
+		[XmlElement(Namespace = "https://mintplayer.com/music")]
+		public string Url { get; set; }
+
+		[DataMember]
+		[XmlElement(Namespace = "https://mintplayer.com/music")]
+		public string ImageUrl { get; set; }
+	}
 }

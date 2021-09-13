@@ -1,16 +1,16 @@
-import { Subject } from '../entities/subject';
-import { Person } from '../entities/person';
-import { Artist } from '../entities/artist';
 import { Inject, Injectable } from '@angular/core';
-import { Song } from '../entities/song';
+import { BASE_URL } from '@mintplayer/ng-base-url';
+import { Artist, BlogPost, Person, Song } from '@mintplayer/ng-client';
 import { SlugifyHelper } from './slugify.helper';
-import { BlogPost } from '../entities/blog-post';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UrlGenerator {
-  constructor(@Inject('BASE_URL') private baseUrl: string, private slugifyHelper: SlugifyHelper) {
+  constructor(
+    @Inject(BASE_URL) private baseUrl: string,
+    private slugifyHelper: SlugifyHelper,
+  ) {
   }
 
   public generateFullUrl(subject: Person | Artist | Song | BlogPost) {

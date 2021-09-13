@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SubjectLikeComponent } from './subject-like.component';
 
@@ -6,7 +6,7 @@ describe('SubjectLikeComponent', () => {
   let component: SubjectLikeComponent;
   let fixture: ComponentFixture<SubjectLikeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SubjectLikeComponent ]
     })

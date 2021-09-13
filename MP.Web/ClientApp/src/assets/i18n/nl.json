@@ -1,4 +1,25 @@
 {
+  "global": {
+    "add": "Toevoegen",
+    "edit": "Aanpassen",
+    "remove": "Verwijderen",
+    "close": "Sluiten",
+    "complete": "Voltooien",
+    "enable": "Inschakelen",
+    "disable": "Uitschakelen",
+    "description": "Omschrijving",
+    "details_for": "Details van {{ name }}",
+    "general_information": "Algemene info",
+    "mintplayer_blog": "MintPlayer blog",
+    "send_us_email": "Stuur ons een e-mail",
+    "color": "Kleur"
+  },
+  "not_found": {
+    "not_found": "Pagina niet gevonden",
+    "description": "Het spijt ons. De pagina die u probeert te bezoeken bestaat niet.",
+    "go_home": "Ga naar de startpagina",
+    "click_go_home": "Klik hier om naar de startpagina te gaan'"
+  },
   "home": {
     "home": "Startpagina",
     "title": "Open-source muziekspeler",
@@ -9,41 +30,143 @@
     "search": "Zoeken",
     "search_anything": "Geef een zoekterm in"
   },
-  "fetch": {
-    "fetch_url": "Vul hier een url in om op te halen"
+  "subjects": {
+    "tags": "Tags",
+    "media": "Media",
+    "remove_medium": "Dit medium verwijderen",
+    "general_information": "Algemene info",
+    "like": "Vind ik leuk",
+    "dislike": "Vind ik niet leuk",
+    "changed_while_editing": "De {{ subject }} is veranderd terwijl u deze aan het bewerken was",
+    "current_database_value": "Huidige database waarde: {{ value }}"
+  },
+  "media": {
+    "value": "Waarde",
+    "medium": "Medium",
+    "add_medium": "Medium toevoegen",
+    "play_this_item": "Deze url aan de wachtrij toevoegen"
+  },
+  "medium_type": {
+    "create_medium_type": "Mediumtype toevoegen",
+    "create_new_medium_type": "Nieuw mediumtype toevoegen",
+    "player_type": "Spelertype",
+    "edit_medium_type": "Mediumtype aanpassen: {{ name }}",
+    "update_medium_type": "Mediumtype updaten",
+    "all_medium_types": "Alle mediumtypes"
   },
   "artists": {
+    "artist": "Artiest",
     "artists": "Artiesten",
     "all_artists": "Alle artiesten",
     "add_artist": "Artiest toevoegen",
-    "favorite_artists": "Favoriete artiesten"
+    "create_artist": "Artiest aanmaken",
+    "create_new_artist": "Nieuwe artiest toevoegen",
+    "favorite_artists": "Favoriete artiesten",
+    "my_favorite_artists": "Mijn favoriete artiesten",
+    "no_artists_found": "Geen artiesten gevonden",
+    "name": "Naam",
+    "artist_name": "Artiestennaam",
+    "year_started": "Beginjaar",
+    "year_quit": "Eindjaar",
+    "current_members": "Huidige leden",
+    "past_members": "Vroegere leden",
+    "details_for": "Details voor {{ name }}",
+    "edit_artist": "Artiest bewerken: {{ name }}",
+    "update_artist": "Artiest updaten",
+    "joined": "Intro",
+    "left": "Exit"
   },
   "people": {
+    "person": "Persoon",
     "people": "Personen",
+    "create_person": "Persoon toevoegen",
+    "create_new_person": "Nieuwe persoon toevoegen",
     "all_people": "Alle personen",
     "add_person": "Persoon toevoegen",
-    "favorite_people": "Favoriete personen"
+    "favorite_people": "Favoriete personen",
+    "my_favorite_people": "Mijn favoriete personen",
+    "no_people_found": "Geen personen gevonden",
+    "first_name": "Voornaam",
+    "last_name": "Achternaam",
+    "born": "Geboren",
+    "died": "Overleden",
+    "update_person": "Persoon updaten",
+    "member_of": "Lid van",
+    "edit_person": "Persoon bewerken: {{ name }}"
   },
   "songs": {
+    "song": "Song",
     "songs": "Songs",
+    "create_song": "Song toevoegen",
+    "create_new_song": "Nieuwe song toevoegen",
     "all_songs": "Alle songs",
     "add_song": "Song toevoegen",
-    "favorite_songs": "Favoriete songs"
+    "view_song": "Toon song details",
+    "favorite_songs": "Favoriete songs",
+    "my_favorite_songs": "Mijn favoriete songs",
+    "no_songs_found": "Geen songs gevonden",
+    "title": "Titel",
+    "released": "Uitgebracht",
+    "lyrics": "Songteksten",
+    "wrap_lyrics": "Terugloop songteksten",
+    "sync_lyrics": "Synchroniseer songteksten: {{ name }}",
+    "synchronize_lyrics": "Synchroniseer songteksten",
+    "update_timeline": "Tijdlijn bijwerken",
+    "timeline": "Tijdlijn",
+    "remove_brackets": "[ en ] wissen",
+    "uncredited_artists": "Niet-vermelde artiesten",
+    "play": "Afspelen",
+    "edit_song": "Song bewerken: {{ name }}",
+    "update_song": "Song updaten"
   },
   "playlists": {
     "playlists": "Afspeellijsten",
-    "all_playlists": "Alle afspeellijsten",
-    "add_playlist": "Afspeellijst toevoegen"
+    "my_playlists": "Mijn afspeellijsten",
+    "public_playlists": "Openbare afspeellijsten",
+    "add_playlist": "Afspeellijst toevoegen",
+    "create_playlist": "Afspeellijst maken",
+    "create_new_playlist": "Nieuwe afspeellijst maken",
+    "edit_playlist": "Afspeellijst bewerken: {{ name }}",
+    "update_playlist": "Afspeellijst updaten",
+    "accessibility": "Toegang",
+    "tracks": "Nummers",
+    "enter_song_title": "Voer een songtitel in",
+    "searching_songs": "Zoeken naar muziek",
+    "no_songs_found": "Geen muziek gevonden"
+  },
+  "player": {
+    "currently_playing": "Wordt nu afgespeeld",
+    "previous_song": "Vorige song",
+    "next_song": "Volgende song",
+    "play_pause": "Speel af/pauzeer",
+    "play": "Afspelen",
+    "play_now": "Nu afspelen",
+    "add_to_queue": "Aan wachtrij toevoegen",
+    "pause": "Pauzeren",
+    "remove_song": "Song verwijderen",
+    "shuffle": "Shuffle",
+    "repeat": "Herhaal",
+    "replay": "Opnieuw afspelen",
+    "add_url": {
+      "add_url": "Video-url toevoegen",
+      "enter_some_url": "Geef een YouTube, DailyMotion, Vimeo of SoundCloud url in",
+      "add_url_to_playlist": "Url aan playlist toevoegen",
+      "url_not_supported": "De opgegeven url wordt niet ondersteund"
+    }
   },
   "community": {
     "community": "Community",
     "blog": {
       "blog": "Blog",
-      "our_blog": "MintPlayer blog"
+      "our_blog": "MintPlayer blog",
+      "edit_post": "Blogpost aanpassen: {{ title }}"
     },
     "github": {
       "github": "GitHub",
       "follow": "Volg ons op GitHub"
+    },
+    "swagger": {
+      "swagger": "Swagger"
     }
   },
   "management": {
@@ -58,7 +181,18 @@
       "manage_tags": "Beheer tags",
       "manage_categories": "Beheer categorieën",
       "all_categories": "Alle categorieën",
-      "add_category": "Categorie toevoegen"
+      "add_category": "Categorie toevoegen",
+      "add_tag": "Tag toevoegen",
+      "edit_tag": "Tag bewerken",
+      "parent_tag": "Bovenliggende tag",
+      "categories": {
+        "category": "Categorie",
+        "all_categories": "Alle tagcategorieën",
+        "create_new_tag_category": "Maak een nieuwe categorie aan",
+        "create_category": "Categorie toevoegen",
+        "edit_category": "Categorie bewerken",
+        "remove_category": "Categorie verwijderen"
+      }
     }
   },
   "account": {
@@ -67,45 +201,158 @@
     "register": "Registreren",
     "create_account": "Account aanmaken",
     "profile": "Profiel",
+    "profile_page": "Profielpagina",
+    "goto_profile_page": "Ga naar mijn profielpagina",
     "sign_out": "Uitloggen",
     "log_out": "Uitloggen",
     "email_address": "E-mailadres",
     "username": "Gebruikersnaam",
-    "password": "Wachtwoord",
+    "password": {
+      "password": "Wachtwoord",
+      "current_password": "Huidig wachtwoord",
+      "new_password": "Nieuw wachtwoord",
+      "confirm_password": "Bevestig wachtwoord",
+      "send_email": "E-mail versturen",
+      "email_sent": "E-mail verzonden",
+      "email_sent_message": "Er is een e-mail verzonden met een link om uw wachtwoord opnieuw in te stellen. Klik op de link in de e-mail en volg de instructies.",
+      "reset": "Wachtwoord opnieuw instellen",
+      "reset_success": "Wachtwoord resetten voltooid",
+      "reset_success_message": "Uw wachtwoord werd met succes opnieuw ingesteld"
+    },
     "repeat_password": "Herhaal wachtwoord",
     "forgot_password": "Wachtwoord vergeten",
     "use_social_login": "Gebruik een social login",
     "update_profile": "Profiel bijwerken",
+    "update_password": "Wachtwoord instellen",
     "social_logins": "Sociale logins",
+    "two_factor": {
+      "two_factor_authentication": "Tweestaps-verificatie",
+      "enabled": "Tweestaps-verificatie is ingeschakeld",
+      "enable": "Tweestaps-verificatie inschakelen",
+      "enable_2fa": "2FA inschakelen",
+      "enter_code_enable": "Genereer vervolgens een 6-cijfercode met de authenticator app en voer deze in in het volgende tekstvak",
+      "scan": "Open de Authenticator app op uw mobiel toestel, scan volgende QR-code in",
+      "add_account": "Account toevoegen",
+      "or_open_app": "Of open de authenticator app",
+      "open_authenticator_app": "Open de authenticator app",
+      "generate_code": "Genereer code",
+      "write_down_backup_codes": "Dit zijn je backup-codes. Schrijf ze ergens op en houd ze bij op een veilige plaats. Je hebt ze nog nodig in het geval dat je je smartphone zou verliezen. Na het verlaten van deze pagina kan je ze niet meer opvragen.",
+      "login_instructions": "Open de Authenticator app op uw smartphone genereer een 6-cijferige code voor MintPlayer. Geef deze code hieronder in:",
+
+      "disabled": "Tweestaps-verificatie is uitgeschakeld",
+      "disable": "Tweestaps-verificatie uitschakelen",
+      "disable_2fa": "2FA uitschakelen",
+      "enter_code_disable": "Genereer een 6-cijfercode met de authenticator app en voer deze in in het volgende tekstvak",
+
+      "extra_options": "Extra opties",
+      "bypass_2fa_for_external_logins": "2-factor authenticatie overslaan voor externe logins (Microsoft, Google, ...)",
+      "remember_me": "Onthoud dit toestel",
+
+      "recovery": {
+        "lost_device": "Toestel verloren/probleem met inloggen?",
+        "enter_recovery_code": "Voer een herstelcode in",
+        "recovery_instructions": "Zoek de herstelcodes die je opgeschreven hebt bij het inschakelen van 2-factor authenticatie. Voer een herstelcode in in het onderstaande tekstvak.",
+        "recover": "Herstel mijn account",
+        "you_have_x_recovery_codes_left": "Je hebt nog {{ count }} herstelcodes over.",
+        "generate_new_recovery_codes_in_time": "Genereer nieuwe herstelcodes voordat ze op zijn.",
+        "generate_new_recovery_codes": "Genereer nieuwe herstelcodes",
+        "failed": "Accountherstel mislukt",
+        "failed_description": "We konden uw account niet herstellen met de opgegeven code. De opgegeven code is mogelijk reeds eerder gebruikt."
+      }
+    },
+    "confirmation": {
+      "resend": "Bevestigingse-mail opnieuw versturen"
+    },
     "microsoft": {
+      "login": "Login met Microsoft account",
       "add_login": "Microsoft login toevoegen",
       "remove_login": "Microsoft login verwijderen",
       "login_registered": "Microsoft account geregistreerd"
     },
     "facebook": {
+      "login": "Login met Facebook",
       "add_login": "Facebook login toevoegen",
       "remove_login": "Facebook login verwijderen",
       "login_registered": "Facebook account geregistreerd"
     },
     "twitter": {
+      "login": "Login met Twitter",
       "add_login": "Twitter login toevoegen",
       "remove_login": "Twitter login verwijderen",
       "login_registered": "Twitter account geregistreerd"
     },
     "google": {
+      "login": "Login met Google",
       "add_login": "Google login toevoegen",
       "remove_login": "Google login verwijderen",
       "login_registered": "Google account geregistreerd"
+    },
+    "linkedin": {
+      "login": "Login met LinkedIn",
+      "add_login": "LinkedIn login toevoegen",
+      "remove_login": "LinkedIn login verwijderen",
+      "login_registered": "LinkedIn account geregistreerd"
     }
+  },
+  "blog": {
+    "write_blog_post": "Blogpost schrijven",
+    "write_new_blog_post": "Nieuwe blogpost schrijven",
+    "create_blog_post": "Blogpost aanmaken",
+    "update_blog_post": "Blogpost aanpassen",
+    "blog_post_information": "Blogpost informatie",
+    "title": "Titel",
+    "headline": "Headline",
+    "post": "Inhoud"
   },
   "gdpr": {
     "privacy_policy": {
       "privacy_policy": "Privacybeleid",
-      "read": "Lees hier wat we doen met je informatie"
+      "read": "Lees hier wat we doen met je informatie",
+      "intro": "We proberen zo transparant mogelijk te zijn.\r\nDaarom vinden we het belangrijk dat u weet wat er gebeurt met uw data terwijl u onze website bezoekt. De General Data Protection Regulation (GDPR), die in Europa ingegaan is op 25 mei 2018 motiveert ons om u te informeren wat er precies wordt opgeslagen, en hoe uw data verder gebruikt wordt.",
+      "declaration": "Om dit zo leesbaar mogelijk te maken, hebben we dit document opgesplits in volgende delen:",
+      "data_we_collect": {
+        "title": "Welke gegevens verzamelen we",
+        "body": "In eerste instantie verzamelt onze applicatie geen informatie of surfgedrag. Wanneer u inlogt, ofwel door een account aan te maken, ofwel door met een social networkaccount in te loggen, worden uw e-mailadres en uw wachtwoord opgeslagen. Het wachtwoord wordt altijd ge-salt en onmiddellijk gehasht, om vervolgens op te slaan in de database. Het hashingalgoritme dat hierbij gebruikt wordt is betrouwbaar en sterk. Wanneer u een social networkaccount koppelt aan uw MintPlayer account, wordt enkel de account identifier voor dit platform bijgehouden. Onze applicatie doet niets anders dan uw e-mailadres en gebruikersnaam lezen uit uw extern profiel. Uw e-mailadres zal nooit op de website terechtkomen. E-mailadresse horen steeds privé gehouden te worden. Uw gebruikersnaam zal worden weergegeven wanneer u deelneemt op ons forum, maar u kan deze op ieder ogenblik aanpassen"
+      },
+      "handling_of_data": {
+        "title": "Wat er met uw data gebeurt",
+        "body": "We houden bij welke items u toevoegt, wijzigt of verwijdert uit onze database. We delen uw data met niemand, en op dit ogenblik kan niemand zien welke items je wel/niet leuk vind, toegevoegd/verwijderd/aangepast hebt in de database. Op dit ogenblik is MintPlayer een volledig anoniem platform, waarbij de focus vooral ligt op het bijhouden van uw favoriete muziek, bouwen van playlists, en het ontdekken van nieuwe muziek."
+      },
+      "cookies": {
+        "title": "Cookiebeleid",
+        "body": "Zelf slaan we geen cookies van derde partijen op. De enige cookie die onze applicatie zelf aanmaakt zorgt ervoor dat je kan inloggen op ons platform."
+      },
+      "information_sharing": {
+        "title": "Gaat MintPlayer uw informatie delen",
+        "body": "Kortweg: Neen.\r\nUw informatie is volledig begrensd tot ons systeem. Niemand heeft toegang tot uw persoonlijke voorkeuren of informatie. Uw persoonlijke gegevens worden niet gedeeld, verkocht of verruild met andere partijen, op geen enkele manier."
+      },
+      "data_removal": {
+        "title": "Vraag om uw gegevens te verwijderen",
+        "body1": "U kan ons op ieder moment vragen om de persoonlijke informatie die wij bijhouden (e-mailadres, gebruikersnaam, playlists) te laten verwijderen. Om zeker te zijn dat dit verzoek terecht is, moet u eerst ingelogd zijn. Eens uw verzoek afgerond is, is er geen mogelijkheid meer om de data te herstellen.",
+        "body2": "Indien u uw gegevens wil laten verwijderen, contacteer ons dan op"
+      }
     },
     "terms_of_service": {
       "terms_of_service": "Gebruiksvoorwaarden",
-      "read": "Lees hier onze gebruiksvoorwaarden"
+      "read": "Lees hier onze gebruiksvoorwaarden",
+      "use_of_website": "Here are the ways you can or can't use our website.",
+      "use_of_trademark": {
+        "title": "Use of our trademark",
+        "body": "MintPlayer is a registered trademark and cannot be used at any time as part of a business name, trading name or domain name."
+      },
+      "link_to_website": {
+        "title": "Linking to our website",
+        "body": "MintPlayer is an open-source, community-driven project, with the goal of stimulating the music api ecosystem. You may link to our website from other websites, but under strict conditions",
+        "conditions": [
+          "You do not link to our website in a way that would cause damage or trashing of our platform",
+          "Our website must not be framed on any other site",
+          "You may not host our website on another location without changing the name"
+        ]
+      },
+      "bugs": {
+        "title": "Bugs - security vulnerabilities",
+        "body": "If you discover a bug or security vulnerability, you may contact us at"
+      }
     }
   }
 }

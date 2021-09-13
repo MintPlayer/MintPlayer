@@ -1,14 +1,12 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { TagService } from '../../../../services/tag/tag.service';
-import { TagCategoryService } from '../../../../services/tag-category/tag-category.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Tag } from '../../../../entities/tag';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { Tag, TagCategory, TagCategoryService, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
-import { TagCategory } from '../../../../entities/tag-category';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -18,15 +16,15 @@ import { NavigationHelper } from '../../../../helpers/navigation.helper';
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('TAGCATEGORY') tagCategoryInj: TagCategory,
     private tagCategoryService: TagCategoryService,
     private tagService: TagService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     if (serverSide === true) {
       this.tag.category = tagCategoryInj;
@@ -48,7 +46,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     this.tagCategoryService.getTagCategory(categoryId, false).then((category) => {
       this.tag.category = category;
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -78,9 +76,9 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     this.tagService.createTag(this.tag).then((tag) => {
       this.hasChanges = false;
       var categoryId = parseInt(this.route.snapshot.paramMap.get('category_id'));
-      this.navigation.navigate(['/tag', 'category', categoryId, 'tags', tag.id]);
+      this.router.navigate(['/tag', 'category', categoryId, 'tags', tag.id]);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 

@@ -4,33 +4,43 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace MintPlayer.Data.Services
 {
 	public interface IMediumTypeService
 	{
-		Task<IEnumerable<MediumType>> GetMediumTypes(bool include_relations, bool include_invisible_types);
-		Task<MediumType> GetMediumType(int id, bool include_relations, bool include_invisible_types);
+		Task<IEnumerable<MediumType>> GetMediumTypes(bool include_relations);
+		Task<MediumType> GetMediumType(int id, bool include_relations);
 		Task<MediumType> InsertMediumType(MediumType mediumType);
 		Task<MediumType> UpdateMediumType(MediumType mediumType);
 		Task DeleteMediumType(int medium_type_id);
 	}
 	internal class MediumTypeService : IMediumTypeService
 	{
-		private IMediumTypeRepository mediumTypeRepository;
-		public MediumTypeService(IMediumTypeRepository mediumTypeRepository)
+		private readonly IMediumTypeRepository mediumTypeRepository;
+		private readonly UserManager<Entities.User> userManager;
+		private readonly IHttpContextAccessor httpContextAccessor;
+		public MediumTypeService(IMediumTypeRepository mediumTypeRepository, UserManager<Entities.User> userManager, IHttpContextAccessor httpContextAccessor)
 		{
 			this.mediumTypeRepository = mediumTypeRepository;
+			this.userManager = userManager;
+			this.httpContextAccessor = httpContextAccessor;
 		}
 
-		public async Task<IEnumerable<MediumType>> GetMediumTypes(bool include_relations, bool include_invisible_types)
+		public async Task<IEnumerable<MediumType>> GetMediumTypes(bool include_relations)
 		{
-			var medium_types = await mediumTypeRepository.GetMediumTypes(include_relations, include_invisible_types);
+			var user = await userManager.GetUserAsync(httpContextAccessor.HttpContext.User);
+			var isAdmin = user == null ? false : await userManager.IsInRoleAsync(user, "Administrator");
+			var medium_types = await mediumTypeRepository.GetMediumTypes(include_relations, isAdmin);
 			return medium_types;
 		}
-		public async Task<MediumType> GetMediumType(int id, bool include_relations, bool include_invisible_types)
+		public async Task<MediumType> GetMediumType(int id, bool include_relations)
 		{
-			var medium_type = await mediumTypeRepository.GetMediumType(id, include_relations, include_invisible_types);
+			var user = await userManager.GetUserAsync(httpContextAccessor.HttpContext.User);
+			var isAdmin = user == null ? false : await userManager.IsInRoleAsync(user, "Administrator");
+			var medium_type = await mediumTypeRepository.GetMediumType(id, include_relations, isAdmin);
 			return medium_type;
 		}
 

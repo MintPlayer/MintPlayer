@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
-  "version": 327,
+  "version": 607,
   "assetGroups": [
     {
       "name": "app",
@@ -13,7 +13,7 @@
           "/*.css",
           "/*.js",
           "/manifest.webmanifest"
-        ]
+        ] 
       }
     },
     {
@@ -33,9 +33,7 @@
       "name": "web",
       "urls": [
         "/web/**",
-        "!/web/Account/**",
-        "!/web/v1/Account/**",
-        "!/web/v2/Account/**",
+        "!/web/v3/Account/**",
         "!/api/**"
       ],
       "cacheConfig": {
@@ -58,9 +56,7 @@
     {
       "name": "account",
       "urls": [
-        "/web/Account/**",
-        "/web/v1/Account/**",
-        "/web/v2/Account/**"
+        "/web/v3/Account/**"
       ],
       "cacheConfig": {
         "maxSize": 0,
@@ -95,9 +91,11 @@
     "!/**/*.*",
     "!/**/*__*",
     "!/**/*__*/**",
-    "!/web/v2/Account/connect/**/**",
-    "!/web/v2/Account/add/**/**",
-    "!/api/**"
+    "!/web/v3/Account/connect/**",
+    "!/web/v3/Account/add/**",
+    "!/api/**",
+    "!/swagger",
+    "!/swagger/**"
   ],
   "cacheConfig": {
     "strategy": "freshness"

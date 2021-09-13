@@ -1,3 +1,19 @@
-.sortable-list-remove {
-  margin: -7px -12px -7px -7px;
+.sortable-item {
+  position: relative;
+
+  *[cdkdraghandle] {
+    width: 20px;
+    min-width: 20px;
+    cursor: move;
+    margin: -.5rem 1rem -.5rem -1rem;
+  }
+
+  .track-item-remove {
+    margin: -7px -12px -7px -7px;
+  }
+}
+
+.list-group-item {
+  background-color: var(--card-body-background-color);
+  color: var(--card-body-text-color);
 }

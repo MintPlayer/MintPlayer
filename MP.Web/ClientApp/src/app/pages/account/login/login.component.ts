@@ -1,12 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
-import { AccountService } from '../../../services/account/account.service';
-import { LoginResult } from '../../../entities/login-result';
-import { User } from '../../../entities/user';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { Observable, of, Subject } from 'rxjs';
+import { AccountService, LoginResult, User } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { LoginStatus } from '@mintplayer/ng-client';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +16,10 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private accountService: AccountService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
   }
 
@@ -34,17 +34,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
     this.removeMetaTags();
-    this.navigation.navigate([], {
-      queryParams: {
-        return: null
-      }
-    });
   }
 
   //#region Add meta-tags
   private basicMetaTags: HTMLMetaElement[] = [];
   private ogMetaTags: HTMLMetaElement[] = [];
   private twitterMetaTags: HTMLMetaElement[] = [];
+  private hreflangTags: HTMLLinkElement[] = [];
   private addMetaTags() {
     this.addBasicMetaTags();
     this.addOpenGraphTags();
@@ -78,64 +74,109 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.metaService.removeTagElement(tag);
       });
     }
+    if (this.hreflangTags !== null) {
+      this.hreflangTags.forEach((tag) => {
+        tag.parentNode.removeChild(tag);
+      });
+    }
   }
   //#endregion
 
   email: string;
   password: string;
+  unconfirmedEmail: boolean;
   private returnUrl: string = '';
+  loginStatuses = LoginStatus;
   loginResult: LoginResult = {
-    status: true,
+    status: LoginStatus.success,
     medium: '',
     platform: 'local',
     user: null,
     error: null,
-    errorDescription: null
+    errorDescription: null,
   };
 
   login() {
-    this.accountService.login(this.email, this.password).then((result) => {
-      if (result.status === true) {
-        this.navigation.navigateByUrl(this.returnUrl, {
-          queryParamsHandling: '',
-          queryParams: {
-            'lang': this.route.snapshot.queryParamMap.get('lang')
-          }
-        });
-        this.loginComplete.emit(result.user);
-      } else {
-        this.loginResult = result;
-      }
+    this.accountService.login(this.email, this.password).then((loginResult) => {
+      this.accountService.csrfRefresh().then(() => {
+        switch (loginResult.status) {
+          case LoginStatus.success: {
+            this.router.navigateByUrl(this.returnUrl);
+            this.loginComplete.next(loginResult.user);
+          } break;
+          case LoginStatus.requiresTwoFactor: {
+            this.router.navigate(['/account', 'two-factor'], { queryParams: { return: this.returnUrl } });
+          } break;
+          default: {
+            this.loginResult = loginResult;
+          } break;
+        }
+      });
     }).catch((error: HttpErrorResponse) => {
-      this.loginResult = {
-        status: false,
-        medium: '',
-        platform: 'local',
-        user: null,
-        error: 'Login attempt failed',
-        errorDescription: 'Check your connection'
-      };
+      switch (error.status) {
+        case 403: {
+          this.loginResult = {
+            status: LoginStatus.failed,
+            medium: '',
+            platform: 'local',
+            user: null,
+            error: 'Confirm email address',
+            errorDescription: 'Your email address is not confirmed. If you don\'t have a confirmation email, click the button below to re-send one.'
+          };
+          this.unconfirmedEmail = true;
+        } break;
+        default: {
+          this.loginResult = {
+            status: LoginStatus.failed,
+            medium: '',
+            platform: 'local',
+            user: null,
+            error: 'Login attempt failed',
+            errorDescription: 'Check your connection'
+          };
+          this.unconfirmedEmail = false;
+        } break;
+      }
     });
   }
 
+  resendConfirmationEmail() {
+    this.accountService.resendConfirmationEmail(this.email).then(() => {
+      this.unconfirmedEmail = false;
+    }).catch((error) => {
+      this.loginResult = {
+        status: LoginStatus.success,
+        medium: '',
+        platform: 'local',
+        user: null,
+        error: 'Could not send confirmation email',
+        errorDescription: 'Something went wrong while sending the confirmation email'
+      };
+    });
+    return false;
+  }
+
   socialLoginDone(result: LoginResult) {
-    if (result.status) {
-      this.accountService.currentUser().then((user) => {
-        this.loginComplete.emit(user);
-        this.navigation.navigateByUrl(this.returnUrl, {
-          queryParamsHandling: '',
-          queryParams: {
-            'lang': this.route.snapshot.queryParamMap.get('lang')
-          }
+    switch (result.status) {
+      case LoginStatus.success: {
+        this.accountService.csrfRefresh().then(() => {
+          this.accountService.currentUser().then((user) => {
+            this.loginComplete.next(user);
+            this.router.navigateByUrl(this.returnUrl);
+          });
         });
-      });
-    } else {
-      this.loginResult = result;
+        break;
+      }
+      case LoginStatus.requiresTwoFactor: {
+        this.router.navigate(['/account', 'two-factor'], { queryParams: { return: this.returnUrl } });
+        break;
+      }
+      default: {
+        this.loginResult = result;
+        break;
+      }
     }
   }
 
-  forgotPassword() {
-  }
-
-  @Output() loginComplete: EventEmitter<User> = new EventEmitter();
+  loginComplete: Subject<User> = new Subject<User>();
 }

@@ -1,0 +1,254 @@
+<div class="sidebar">
+  <nav class="d-flex flex-column">
+    <div class="p-1 text-center">
+      <facebook-share [routerLink]='["/"]' [queryParams]="{'lang': null}" class="m-1"></facebook-share>
+      <twitter-share [routerLink]='["/"]' [queryParams]="{'lang': null}" [text]="'home.title' | translate" class="mx-1 mt-1"></twitter-share>
+      <linkedin-share [routerLink]='["/"]' [queryParams]="{'lang': null}" [text]="'home.title' | translate" class="mx-1 mb-1"></linkedin-share>
+    </div>
+    <div class="p-1 text-center">
+      <a [advRouterLink]='[]' [queryParams]="{'lang':null}" class="mx-2" title="English">
+        <app-flag [country]="'en'" [appHoverClass]="'brightness-250'"></app-flag>
+      </a>
+      <a [advRouterLink]='[]' [queryParams]="{'lang':'nl'}" class="mx-2" title="Nederlands">
+        <app-flag [country]="'nl'" [appHoverClass]="'brightness-250'"></app-flag>
+      </a>
+      <a [advRouterLink]='[]' [queryParams]="{'lang':'fr'}" class="mx-2" title="Fran&ccedil;ais">
+        <app-flag [country]="'fr'" [appHoverClass]="'brightness-250'"></app-flag>
+      </a>
+    </div>
+    <ul>
+      <li>
+        <a [advRouterLink]='["/"]' [title]="'home.homepage' | translate" (click)="onItemSelected()">
+          <i class="fa fa-home"></i>
+          {{ 'home.home' | translate }}
+        </a>
+      </li>
+      <li>
+        <a [advRouterLink]='["/search"]' [title]="'search.search' | translate" (click)="onItemSelected()">
+          <i class="fa fa-search"></i>
+          {{ 'search.search' | translate }}
+        </a>
+      </li>
+      <li>
+        <span [title]="'artists.artists' | translate" [ngClass]="{'open':level1menu === 'artists'}" (click)="level1toggle('artists')">
+          <i class="fa fa-user-circle"></i>
+          {{ 'artists.artists' | translate }}
+        </span>
+        <ul [@slideUpDown]="level1menu == 'artists' ? 'in' : 'out'">
+          <li>
+            <a [advRouterLink]='["/artist"]' [title]="'artists.all_artists' | translate" (click)="onItemSelected()">
+              <i class="fa fa-list"></i>
+              {{ 'artists.all_artists' | translate }}
+            </a>
+          </li>
+          <li>
+            <a [advRouterLink]='["/artist/create"]' [title]="'artists.add_artist' | translate" (click)="onItemSelected()">
+              <i class="fa fa-plus"></i>
+              {{ 'artists.add_artist' | translate }}
+            </a>
+          </li>
+          <li>
+            <a [advRouterLink]='["/artist", "favorite"]' [title]="'artists.favorite_artists' | translate" (click)="onItemSelected()">
+              <i class="fa fa-star"></i>
+              {{ 'artists.favorite_artists' | translate }}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span [title]="'people.people' | translate" [ngClass]="{'open':level1menu === 'people'}" (click)="level1toggle('people')">
+          <i class="fa fa-user-o"></i>
+          {{ 'people.people' | translate }}
+        </span>
+        <ul [@slideUpDown]="level1menu == 'people' ? 'in' : 'out'">
+          <li>
+            <a [advRouterLink]='["/person"]' [title]="'people.all_people' | translate" (click)="onItemSelected()">
+              <i class="fa fa-list"></i>
+              {{ 'people.all_people' | translate }}
+            </a>
+          </li>
+          <li>
+            <a [advRouterLink]='["/person", "create"]' [title]="'people.add_person' | translate" (click)="onItemSelected()">
+              <i class="fa fa-plus"></i>
+              {{ 'people.add_person' | translate }}
+            </a>
+          </li>
+          <li>
+            <a [advRouterLink]='["/person", "favorite"]' [title]="'people.favorite_people' | translate" (click)="onItemSelected()">
+              <i class="fa fa-star"></i>
+              {{ 'people.favorite_people' | translate }}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span [title]="'songs.songs' | translate" [ngClass]="{'open':level1menu === 'songs'}" (click)="level1toggle('songs')">
+          <i class="fa fa-music"></i>
+          {{ 'songs.songs' | translate }}
+        </span>
+        <ul [@slideUpDown]="level1menu == 'songs' ? 'in' : 'out'">
+          <li>
+            <a [advRouterLink]='["/song"]' [title]="'songs.all_songs' | translate" (click)="onItemSelected()">
+              <i class="fa fa-list"></i>
+              {{ 'songs.all_songs' | translate }}
+            </a>
+          </li>
+          <li>
+            <a [advRouterLink]='["/song", "create"]' [title]="'songs.add_song' | translate" (click)="onItemSelected()">
+              <i class="fa fa-plus"></i>
+              {{ 'songs.add_song' | translate }}
+            </a>
+          </li>
+          <li>
+            <a [advRouterLink]='["/song", "favorite"]' [title]="'songs.favorite_songs' | translate" (click)="onItemSelected()">
+              <i class="fa fa-star"></i>
+              {{ 'songs.favorite_songs' | translate }}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span [title]="'playlists.playlists' | translate" [ngClass]="{'open':level1menu === 'playlists'}" (click)="level1toggle('playlists')">
+          <i class="fa fa-play-circle"></i>
+          {{ 'playlists.playlists' | translate }}
+        </span>
+        <ul [@slideUpDown]="level1menu == 'playlists' ? 'in' : 'out'">
+          <li>
+            <a [advRouterLink]='["/playlist"]' [title]="'playlists.my_playlists' | translate" (click)="onItemSelected()">
+              <i class="fa fa-list"></i>
+              {{ 'playlists.my_playlists' | translate }}
+            </a>
+          </li>
+          <li>
+            <a [advRouterLink]='["/playlist","public"]' [title]="'playlists.public_playlists' | translate" (click)="onItemSelected()">
+              <i class="fa fa-users"></i>
+              {{ 'playlists.public_playlists' | translate }}
+            </a>
+          </li>
+          <li>
+            <a [advRouterLink]='["/playlist","create"]' [title]="'playlists.add_playlist' | translate" (click)="onItemSelected()">
+              <i class="fa fa-plus"></i>
+              {{ 'playlists.add_playlist' | translate }}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span [title]="'community.community' | translate" [ngClass]="{'open':level1menu === 'community'}" (click)="level1toggle('community')">
+          <i class="fa fa-users"></i>
+          {{ 'community.community' | translate }}
+        </span>
+        <ul [@slideUpDown]="level1menu == 'community' ? 'in' : 'out'">
+          <li>
+            <a [advRouterLink]='["/community","blog"]' [title]="'community.blog.our_blog' | translate" (click)="onItemSelected()">
+              <i class="fa fa-rss"></i>
+              {{ 'community.blog.blog' | translate }}
+            </a>
+          </li>
+          <li>
+            <a [advRouterLink]="'/swagger'" rel="noopener noreferrer" [title]="'community.github.follow' | translate" target="_blank" (click)="onItemSelected()">
+              <i class="fa fa-code"></i>
+              {{ 'community.swagger.swagger' | translate }}
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/MintPlayer/MintPlayer" rel="noopener noreferrer" [title]="'community.github.follow' | translate" target="_blank" (click)="onItemSelected()">
+              <i class="fa fa-github"></i>
+              {{ 'community.github.github' | translate }}
+            </a>
+          </li>
+          <!--<li>
+          <a [advRouterLink]='["/community","forum"]' title="MintPlayer forum" (click)="onItemSelected()">
+            <i class="fa fa-comments"></i>
+            Forum
+          </a>
+        </li>-->
+        </ul>
+      </li>
+      <li>
+        <span [title]="'management.management' | translate" [ngClass]="{'open':level1menu === 'management'}" (click)="level1toggle('management')">
+          <i class="fa fa-cogs"></i>
+          {{ 'management.management' | translate }}
+        </span>
+        <ul [@slideUpDown]="level1menu == 'management' ? 'in' : 'out'">
+          <li>
+            <span [title]="'management.media.manage_media' | translate" [ngClass]="{'open':level2menu === 'media'}" (click)="level2toggle('media')">
+              <i class="fa fa-medium"></i>
+              {{ 'management.media.manage_media' | translate }}
+            </span>
+            <ul [@slideUpDown]="level2menu == 'media' ? 'in' : 'out'">
+              <li>
+                <a [advRouterLink]='["/mediumtype"]' [title]="'management.media.all_media' | translate" (click)="onItemSelected()">
+                  <i class="fa fa-list"></i>
+                  {{ 'management.media.all_media' | translate }}
+                </a>
+              </li>
+              <li>
+                <a [advRouterLink]='["/mediumtype/create"]' [title]="'management.media.add_medium' | translate" (click)="onItemSelected()">
+                  <i class="fa fa-plus"></i>
+                  {{ 'management.media.add_medium' | translate }}
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span [title]="'management.tags.manage' | translate" [ngClass]="{'open':level2menu === 'tags'}" (click)="level2toggle('tags')">
+              <i class="fa fa-tag"></i>
+              {{ 'management.tags.manage_tags' | translate }}
+            </span>
+            <ul [@slideUpDown]="level2menu == 'tags' ? 'in' : 'out'">
+              <li>
+                <a [advRouterLink]='["/tag","category"]' [title]="'management.tags.manage_categories' | translate" (click)="onItemSelected()">
+                  <i class="fa fa-list"></i>
+                  {{ 'management.tags.all_categories' | translate }}
+                </a>
+              </li>
+              <li>
+                <a [advRouterLink]='["/tag","category","create"]' [title]="'management.tags.add_category' | translate" (click)="onItemSelected()">
+                  <i class="fa fa-plus"></i>
+                  {{ 'management.tags.add_category' | translate }}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span [title]="'account.account' | translate" [ngClass]="{'open':level1menu === 'account'}" (click)="level1toggle('account')">
+          <i class="fa fa-user"></i>
+          {{ 'account.account' | translate }}
+        </span>
+        <ul [@slideUpDown]="level1menu == 'account' ? 'in' : 'out'">
+          <li *ngIf="activeUser === null">
+            <a [advRouterLink]='["/account","login"]' [title]="'account.login' | translate" (click)="onItemSelected()">
+              <i class="fa fa-sign-in"></i>
+              {{ 'account.login' | translate }}
+            </a>
+          </li>
+          <li *ngIf="activeUser === null">
+            <a [advRouterLink]='["/account","register"]' [title]="'account.create_account' | translate" (click)="onItemSelected()">
+              <i class="fa fa-user-plus"></i>
+              {{ 'account.register' | translate }}
+            </a>
+          </li>
+          <li *ngIf="activeUser !== null">
+            <a [advRouterLink]='["/account","profile"]' [title]="'account.profile' | translate" (click)="onItemSelected()">
+              <i class="fa fa-user-o"></i>
+              {{ 'account.profile' | translate }}
+            </a>
+          </li>
+          <li *ngIf="activeUser !== null">
+            <a [title]="'account.log_out' | translate" (click)="onLogout()">
+              <i class="fa fa-sign-out"></i>
+              {{ 'account.sign_out' | translate }}
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div class="mt-auto text-center">
+      <a class="d-inline-block p-2 text-white" [advRouterLink]='["/gdpr","privacy-policy"]' (click)="onItemSelected()" [title]="'gdpr.privacy_policy.read' | translate">{{ 'gdpr.privacy_policy.privacy_policy' | translate }}</a>
+      <a class="d-inline-block p-2 text-white" [advRouterLink]='["/gdpr","terms-of-service"]' (click)="onItemSelected()" [title]="'gdpr.terms_of_service.read' | translate">{{ 'gdpr.terms_of_service.terms_of_service' | translate }}</a>
+    </div>
+  </nav>
+</div>

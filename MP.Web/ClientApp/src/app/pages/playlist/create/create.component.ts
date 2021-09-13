@@ -1,13 +1,13 @@
-import { Component, OnInit, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer, OnDestroy } from '@angular/core';
-import { Playlist } from '../../../entities/playlist';
-import { Song } from '../../../entities/song';
 import { HttpHeaders } from '@angular/common/http';
-import { PlaylistService } from '../../../services/playlist/playlist.service';
-import { Router } from '@angular/router';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { API_VERSION, Playlist, PlaylistAccessibility, PlaylistService, Song, SubjectService, SubjectType } from '@mintplayer/ng-client';
+import { Component, OnInit, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer, OnDestroy, Inject } from '@angular/core';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { EnumHelper } from '../../../helpers/enum.helper';
+import { EnumItem } from '../../../entities/enum-item';
 
 @Component({
   selector: 'app-create',
@@ -17,37 +17,67 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
+    @Inject(API_VERSION) apiVersion: string,
     private playlistService: PlaylistService,
-    private navigation: NavigationHelper,
+    private subjectService: SubjectService,
+    private router: AdvancedRouter,
+    private enumHelper: EnumHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
+    this.apiVersion = apiVersion;
+    this.accessibilities = this.enumHelper.getItems(PlaylistAccessibility);
   }
 
-  songSuggestHttpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  songSuggestions: Song[] = [];
+  onProvideSongSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.song]).then((songs) => {
+      this.songSuggestions = <Song[]>songs;
+    });
+  }
 
   onSuggestionClicked(suggestion: Song) {
     this.playlist.tracks.push(suggestion);
   }
 
+  apiVersion: string = '';
   playlist: Playlist = {
     id: 0,
     description: '',
     tracks: [],
+    accessibility: PlaylistAccessibility.private,
     user: null
   };
+
+  public accessibilities: EnumItem[] = [];
+  public accessibilitySelected(accessibility: number) {
+    this.playlist.accessibility = PlaylistAccessibility[PlaylistAccessibility[accessibility]];
+  }
 
   removeTrack(track: Song) {
     this.playlist.tracks.splice(this.playlist.tracks.indexOf(track), 1);
     return false;
   }
 
+  trackDropped(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+  }
+
   savePlaylist() {
     this.playlistService.createPlaylist(this.playlist).then((playlist) => {
       this.hasChanges = false;
-      this.navigation.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
+      this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
     }).catch((error) => {
       debugger;
     });

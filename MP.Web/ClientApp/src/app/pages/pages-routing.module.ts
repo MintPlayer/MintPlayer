@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'person', loadChildren: () => import('./person/person.module').then(m => m.PersonModule) },
   { path: 'artist', loadChildren: () => import('./artist/artist.module').then(m => m.ArtistModule) },
   { path: 'song', loadChildren: () => import('./song/song.module').then(m => m.SongModule) },
-  { path: 'playlist', loadChildren: () => import('./playlist/playlist.module').then(m => m.PlaylistModule), canActivate: [IsLoggedInGuard] },
+  { path: 'playlist', loadChildren: () => import('./playlist/playlist.module').then(m => m.PlaylistModule) },
   { path: 'mediumtype', loadChildren: () => import('./medium-type/medium-type.module').then(m => m.MediumTypeModule) },
   { path: 'tag/category', loadChildren: () => import('./tag-category/tag-category.module').then(m => m.TagCategoryModule) },
   { path: 'community', loadChildren: () => import('./community/community.module').then(m => m.CommunityModule) },

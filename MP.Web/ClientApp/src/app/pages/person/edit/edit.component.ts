@@ -1,17 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { PersonService } from '../../../services/person/person.service';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Person } from '../../../entities/person';
-import { MediumType } from '../../../entities/medium-type';
-import { Tag } from '../../../entities/tag';
 import { HttpHeaders } from '@angular/common/http';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { API_VERSION, MediumType, MediumTypeService, Person, PersonService, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -20,16 +17,19 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private tagService: TagService,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
+    this.apiVersion = apiVersion;
     if (serverSide === false) {
       // Get person
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -66,6 +66,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     });
   }
 
+  apiVersion: string = '';
   oldPersonName: string = '';
   mediumTypes: MediumType[] = [];
   person: Person = {
@@ -80,17 +81,29 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     text: '',
     dateUpdate: null
   };
+  concurrentPerson: Person = null;
 
-  public httpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  tagSuggestions: Tag[] = [];
+  onProvideTagSuggestions(searchText: string) {
+    this.tagService.suggestTags(searchText, true).then((tags) => {
+      this.tagSuggestions = tags;
+    });
+  }
 
   updatePerson() {
     this.personService.updatePerson(this.person).then((person) => {
       this.hasChanges = false;
-      this.navigation.navigate(['person', this.person.id, this.slugifyHelper.slugify(person.text)]);
+      this.router.navigate(['person', this.person.id, this.slugifyHelper.slugify(person.text)]);
     }).catch((error) => {
-      console.error('Could not update person', error);
+      switch (error.status) {
+        case 409: {
+          console.log("Error 409", error);
+          this.concurrentPerson = error.error;
+        } break;
+        default: {
+          console.error('Could not update person', error);
+        } break;
+      }
     });
   }
 

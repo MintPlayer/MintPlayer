@@ -1,27 +1,28 @@
 <div class="container-fluid">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">All tag categories</h1>
-      <span class="float-right">
-        <a [routerLink]='["/tag","category","create"]' class="btn btn-primary">
+      <h1 class="d-inline-block">{{ 'management.tags.categories.all_categories' | translate }}</h1>
+      <span class="pull-right">
+        <a [advRouterLink]='["/tag","category","create"]' [title]="'management.tags.categories.create_new_tag_category' | translate" class="btn btn-primary">
           <i class="fa fa-plus"></i>
-          Create category
+          {{ 'management.tags.categories.create_category' | translate }}
         </a>
       </span>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <datatable [settings]="tableSettings" [data]="tagCategoryData" [rowTemplate]="rowTemplate" (onReloadData)="loadTagCategories()">
-        <ng-template #rowTemplate let-category>
+      <datatable [settings]="tableSettings" [data]="tagCategoryData" (onReloadData)="loadTagCategories()">
+        <datatable-column title="Description" name="Description" [sortable]="true"></datatable-column>
+        <datatable-column title="Color" name="Color" [sortable]="true"></datatable-column>
+
+        <ng-template rowTemplate let-category>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/tag","category",category.id]' title="Details for {{ category.description }}">{{ category.description }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/tag","category",category.id]' [title]="'global.details_for' | translate:{name:category.description}">{{ category.description }}</a></td>
             <td class="text-nowrap">{{ category.color }}</td>
           </tr>
         </ng-template>
       </datatable>
-      <pagination class="pull-left" [numbers]="tableSettings.perPages.values" [(selectedNumber)]="tableSettings.perPages.selected" (selectedNumberChange)="loadTagCategories()" [showArrows]="false"></pagination>
-      <pagination class="pull-right" [numbers]="tableSettings.pages.values" [(selectedNumber)]="tableSettings.pages.selected" (selectedNumberChange)="loadTagCategories()" [showArrows]="true"></pagination>
     </div>
   </div>
 </div>

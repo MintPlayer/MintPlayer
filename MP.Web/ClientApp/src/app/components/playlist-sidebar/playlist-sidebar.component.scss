@@ -2,12 +2,15 @@
 
 :host {
   position: fixed;
-  top: $header-height;
-  width: $playlist-width-lg;
-  height: calc(100% - #{$header-height} - #{$footer-height} + 1px);
-  background: white;
-  border: $grey-border;
+  top: calc(#{$header-height} - 1px);
+  // Doesn't work well on Chrome for Android
+  //height: calc(100% - #{$header-height} - #{$footer-height} + 1px);
+  height: calc(var(--viewport-height) - #{$header-height} - #{$footer-height} + 1px);
   margin-top: -1px;
+
+  width: $playlist-width-lg;
+  background: var(--theme-background-color);
+  border: $grey-border;
   transition: right 0.3s;
 
   &.open {
@@ -58,9 +61,10 @@
     > li {
       border-bottom: $grey-border;
       transition: background 0.3s;
+      background: var(--li-background-color);
 
       &:hover {
-        background: #DCDCDC;
+        background: var(--li-hover-background-color);
       }
 
       > a {
@@ -76,7 +80,12 @@
           overflow: hidden;
           text-overflow: ellipsis;
           margin-bottom: 0;
+          color: var(--theme-text-color);
         }
+      }
+
+      > a.ytv > label {
+        direction: rtl;
       }
     }
   }

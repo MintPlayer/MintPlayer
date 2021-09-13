@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using MintPlayer.Dtos.Dtos;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace MintPlayer.Data.Repositories
 {
@@ -11,16 +13,32 @@ namespace MintPlayer.Data.Repositories
 	}
 	internal class MediumRepository : IMediumRepository
 	{
-		private MintPlayerContext mintplayer_context;
-		public MediumRepository(MintPlayerContext mintplayer_context)
+		private readonly MintPlayerContext mintplayer_context;
+		private readonly IHttpContextAccessor http_context;
+		private readonly UserManager<Entities.User> user_manager;
+		public MediumRepository(
+			MintPlayerContext mintplayer_context,
+			IHttpContextAccessor http_context,
+			UserManager<Entities.User> user_manager)
 		{
 			this.mintplayer_context = mintplayer_context;
+			this.http_context = http_context;
+			this.user_manager = user_manager;
 		}
 
 		public async Task StoreMedia(Subject subject, IEnumerable<Medium> media)
 		{
+			var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
+			var isAdmin = await user_manager.IsInRoleAsync(user, "Administrator");
+			
+			var query = mintplayer_context.Media.Where(m => m.Subject.Id == subject.Id);
+			if (!isAdmin)
+			{
+				query = query.Where(m => m.Type.Visible);
+			}
+
 			// Remove the old media
-			foreach (var medium in mintplayer_context.Media.Where(m => m.Subject.Id == subject.Id).Where(m => m.Type.Visible))
+			foreach (var medium in query)
 				mintplayer_context.Media.Remove(medium);
 
 			// Get entity from database
@@ -38,38 +56,6 @@ namespace MintPlayer.Data.Repositories
 					await mintplayer_context.AddAsync(entity_medium);
 				}
 			}
-		}
-
-		internal static Medium ToDto(Entities.Medium medium, bool include_relations = false)
-		{
-			if (medium == null) return null;
-			if (include_relations)
-			{
-				return new Medium
-				{
-					Id = medium.Id,
-					Type = MediumTypeRepository.ToDto(medium.Type),
-					Value = medium.Value
-				};
-			}
-			else
-			{
-				return new Medium
-				{
-					Id = medium.Id,
-					Value = medium.Value
-				};
-			}
-		}
-		internal static Entities.Medium ToEntity(Medium medium, MintPlayerContext mintplayer_context)
-		{
-			if (medium == null) return null;
-			return new Entities.Medium
-			{
-				Id = medium.Id,
-				Type = mintplayer_context.MediumTypes.Find(medium.Type.Id),
-				Value = medium.Value
-			};
 		}
 	}
 }

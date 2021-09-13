@@ -1,18 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
-import { SongService } from '../../../services/song/song.service';
-import { Song } from '../../../entities/song';
-import { Artist } from '../../../entities/artist';
-import { MediumType } from '../../../entities/medium-type';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { Tag } from '../../../entities/tag';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { API_VERSION, Artist, MediumType, MediumTypeService, Song, SongService, SubjectService, SubjectType, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -21,16 +17,20 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     private songService: SongService,
+    private subjectService: SubjectService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private tagService: TagService,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
+    this.apiVersion = apiVersion;
     if (serverSide === false) {
       // Get song
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -41,6 +41,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     }
   }
 
+  apiVersion: string = '';
   mediumTypes: MediumType[] = [];
   oldSongTitle: string = '';
   public song: Song = {
@@ -48,6 +49,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     title: '',
     released: null,
     artists: [],
+    uncreditedArtists: [],
     media: [],
     tags: [],
     lyrics: {
@@ -57,14 +59,32 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     text: '',
     youtubeId: '',
     dailymotionId: '',
-    playerInfo: null,
+    vimeoId: '',
+    soundCloudUrl: '',
+    playerInfos: [],
     description: '',
     dateUpdate: null
   };
+  concurrentSong: Song = null;
 
-  public httpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  artistSuggestions: Artist[] = [];
+  onProvideArtistSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.artist]).then((artists) => {
+      this.artistSuggestions = <Artist[]>artists;
+    });
+  }
+  uncreditedArtistSuggestions: Artist[] = [];
+  onProvideUncreditedArtistSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.artist]).then((artists) => {
+      this.uncreditedArtistSuggestions = <Artist[]>artists;
+    });
+  }
+  tagSuggestions: Tag[] = [];
+  onProvideTagSuggestions(searchText: string) {
+    this.tagService.suggestTags(searchText, true).then((tags) => {
+      this.tagSuggestions = tags;
+    });
+  }
 
   private loadSong(id: number) {
     this.songService.getSong(id, true).then((song) => {
@@ -100,9 +120,17 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   public updateSong() {
     this.songService.updateSong(this.song).then((song) => {
       this.hasChanges = false;
-      this.navigation.navigate(['song', this.song.id, this.slugifyHelper.slugify(song.title)]);
+      this.router.navigate(['song', this.song.id, this.slugifyHelper.slugify(song.title)]);
     }).catch((error) => {
-      console.error('Could not update song', error);
+      switch (error.status) {
+        case 409: {
+          console.log("Error 409", error);
+          this.concurrentSong = error.error;
+        } break;
+        default: {
+          console.error('Could not update song', error);
+        } break;
+      }
     });
   }
 

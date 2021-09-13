@@ -1,50 +1,49 @@
-import { Component, ElementRef, ViewChild, ChangeDetectorRef, Inject, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, ElementRef, ViewChild, ChangeDetectorRef, Inject, OnInit, OnDestroy, AfterViewInit, HostListener, NgZone } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
+import { SwUpdate } from '@angular/service-worker';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { User, AccountService } from '@mintplayer/ng-client';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { PlayerProgress } from '@mintplayer/ng-player-progress';
+import { PlayerState, PlayerTypeFinderService, VideoPlayerComponent } from '@mintplayer/ng-video-player';
+import { Subject, Observable, BehaviorSubject, combineLatest, interval, of } from 'rxjs';
+import { filter, map, take, takeUntil } from 'rxjs/operators';
+
 import { eToggleButtonState } from './enums/eToggleButtonState';
 import { eSidebarState } from './enums/eSidebarState';
-import { User } from './entities/user';
 import { LoginComponent } from './pages/account/login/login.component';
 import { RegisterComponent } from './pages/account/register/register.component';
-import { AccountService } from './services/account/account.service';
-import { YoutubeHelper } from './helpers/youtube-api.helper';
 import { ShowComponent as SongShowComponent } from './pages/song/show/show.component';
-import { Song } from './entities/song';
-import { YoutubePlayerComponent } from './components/youtube-player/youtube-player.component';
-import { SongRemovedEvent } from './events/song-removed.event';
-import { PlayedSong } from './entities/played-song';
-import { SongProgress } from './entities/song-progress';
-import { SwUpdate } from '@angular/service-worker';
-import { Meta } from '@angular/platform-browser';
 import { Size } from './entities/size';
-import { eRepeatMode } from './enums/eRepeatMode';
 import { PlaylistShowComponent } from './pages/playlist/show/show.component';
 import { PlayButtonClickedEvent } from './events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from './enums/ePlaylistPlayButton';
 import { LinifyPipe } from './pipes/linify/linify.pipe';
-import { PlaylistControl } from './helpers/playlist-control.helper';
 import { SyncComponent } from './pages/song/sync/sync.component';
-import { DailyMotionHelper } from './helpers/dailymotion-api.helper';
-import { DailymotionPlayerComponent } from './components/dailymotion-player/dailymotion-player.component';
-import { FacebookSdkHelper } from './helpers/facebook-sdk.helper';
-import { TwitterSdkHelper } from './helpers/twitter-sdk.helper';
-import { LinkedinSdkHelper } from './helpers/linkedin-sdk.helper';
-import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
-import { ePlayerType } from './enums/ePlayerType';
+import { HreflangTagHelper } from './helpers/hreflang-tag.helper';
+import { TwoFactorComponent } from './pages/account/two-factor/two-factor.component';
+import { SongWithMedium } from './interfaces/song-with-medium';
+import { PlaylistController } from '@mintplayer/ng-playlist-controller';
+import { RecoveryComponent } from './pages/account/two-factor/recovery/recovery.component';
+import { VideoUrl } from './interfaces/video-url';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   title = 'MintPlayer';
   activeUser: User = null;
   fullWidth: boolean = false;
+  isViewInited: boolean = false;
   toggleButtonState: eToggleButtonState = eToggleButtonState.auto;
   sidebarState: eSidebarState = eSidebarState.auto;
   playlistToggleButtonState: eToggleButtonState = eToggleButtonState.closed;
 
-  playlistControl: PlaylistControl<Song>;
+  playlistControl: PlaylistController<SongWithMedium | VideoUrl>;
+  private destroyed$ = new Subject();
 
   //#region Player card size
   playerSize: Size = { width: 200, height: 150 };
@@ -60,8 +59,19 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   //#endregion
 
-  @ViewChild('dmplayer') dmplayer: DailymotionPlayerComponent;
-  constructor(@Inject('SERVERSIDE') serverSide: boolean, @Inject('USER') userInj: User, private accountService: AccountService, private youtubeHelper: YoutubeHelper, private dailyMotionHelper: DailyMotionHelper, private facebookSdkHelper: FacebookSdkHelper, private twitterSdkHelper: TwitterSdkHelper, private linkedinSdkHelper: LinkedinSdkHelper, private ref: ChangeDetectorRef, private swUpdate: SwUpdate, private metaService: Meta, private linifyPipe: LinifyPipe, private route: ActivatedRoute, private translateService: TranslateService) {
+  constructor(
+    @Inject(SERVER_SIDE) serverSide: boolean,
+    @Inject('USER') userInj: User,
+    private accountService: AccountService,
+    private ref: ChangeDetectorRef,
+    private swUpdate: SwUpdate,
+    private metaService: Meta,
+    private linifyPipe: LinifyPipe,
+    private route: ActivatedRoute,
+    private translateService: TranslateService,
+    private hreflangTagHelper: HreflangTagHelper,
+    private playerTypeFinder: PlayerTypeFinderService,
+  ) {
     //#region Get user
     if (serverSide === true) {
       this.activeUser = userInj;
@@ -73,35 +83,19 @@ export class AppComponent implements OnInit, OnDestroy {
       });
     }
     //#endregion
-    //#region Load youtube API
-    //this.dailyMotionHelper.loadApi().then(() => {
-    //  console.log('play video x2yhuhb');
-    //  this.dmplayer.playSong('x2yhuhb');
-    //});
-    //#endregion
-    this.facebookSdkHelper.loadSdk();
-    this.twitterSdkHelper.loadSdk();
-    this.linkedinSdkHelper.loadSdk();
     //#region Check for updates
     if (this.swUpdate.isEnabled) {
-      console.log('Updates enabled');
       this.swUpdate.activated.subscribe((upd) => {
-        console.log('Update activated');
         window.location.reload();
       });
       this.swUpdate.available.subscribe((upd) => {
-        console.log('Update available');
-        if (confirm('Do you want to install the new version of the app?')) {
-          console.log('Activating update');
-          this.swUpdate.activateUpdate();
-        }
+        this.swUpdate.activateUpdate();
       }, (error) => {
-          console.log(error);
+        console.error(error);
       });
       this.swUpdate.checkForUpdate().then(() => {
-        console.log('Checking for updates');
       }).catch((error) => {
-        console.log('Could not check for app updates', error);
+        console.error('Could not check for app updates', error);
       });
     }
     //#endregion
@@ -109,38 +103,86 @@ export class AppComponent implements OnInit, OnDestroy {
     this.onWindowResize();
     //#endregion
     //#region Initialize PlaylistController
-    this.playlistControl = new PlaylistControl<Song>({
-      onGetCurrentPosition: () => this.player.position,
-      onPlayVideo: (song) => {
-        console.log('player info', song.playerInfo);
-        switch (song.playerInfo.type) {
-          case ePlayerType.Youtube: {
-            this.youtubeHelper.loadApi().then((isLoaded) => {
-              this.player.playSong(song.playerInfo.id);
-            });
-          } break;
-          case ePlayerType.DailyMotion: {
-
-          } break;
+    this.playlistControl = new PlaylistController<SongWithMedium>();
+    this.playlistControl.video$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((song) => {
+        if (this.isViewInited) {
+          if (song === null) {
+            this.player.setUrl(null);
+            setTimeout(() => {
+              this.playerState$.next(PlayerState.unstarted);
+            }, 10);
+          } else if ('url' in song) {
+            this.player.setUrl(song.url);
+          } else if (song.medium !== null) {
+            this.player.setUrl(song.medium.value);
+          } else if (song.song.playerInfos.length > 0) {
+            this.player.setUrl(song.song.playerInfos[0].url);
+          }
         }
-      },
-      onStopVideo: () => {
-        this.player.stop();
-      }
-    });
+      });
+
+    this.playerState$
+      .pipe(filter((playerState) => playerState === PlayerState.ended))
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((playerState) => {
+        this.playNextSong();
+      });
+
+    if (serverSide) {
+      this.currentLyricsLine$ = of('');
+    } else {
+      this.currentLyricsLine$ = combineLatest([this.playerState$, this.playlistControl.video$, interval(50)])
+        .pipe(filter(([playerState, video, time]) => {
+          return (playerState === PlayerState.playing) && (video !== null);
+        }))
+        .pipe(map(([playerState, video, time]) => {
+          if ('url' in video) {
+            return null;
+          } else if (video.song.lyrics.timeline === null) {
+            return null;
+          } else {
+            const linesPassed = this.linifyPipe
+              .transform(video.song.lyrics.text)
+              .map((value, index) => {
+                return {
+                  time: video.song.lyrics.timeline[index],
+                  line: value
+                };
+              }).filter((value, index) => {
+                return value.time < this.songProgress.currentTime;
+              });
+
+            if (linesPassed.length > 0) {
+              return linesPassed[linesPassed.length - 1].line;
+            } else {
+              return null;
+            }
+          }
+        }))
+        .pipe(takeUntil(this.destroyed$));
+    }
     //#endregion
     //#region Translate
     const defaultLang = 'en';
     this.translateService.setDefaultLang(defaultLang);
     this.route.queryParamMap.subscribe((params) => {
       let lang = params.get('lang');
-      console.log('language', lang);
       if (lang === null) {
         this.translateService.use(defaultLang);
       } else {
         this.translateService.use(lang);
       }
     });
+    //#endregion
+    //#region Viewport resize
+    if (!serverSide && ('visualViewport' in window)) {
+      visualViewport.addEventListener('resize', () => {
+        let scaledSize = visualViewport.scale * visualViewport.height;
+        document.documentElement.style.setProperty('--viewport-height', `${scaledSize}px`);
+      });
+    }
     //#endregion
   }
 
@@ -156,6 +198,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.ogMetaTags.forEach((tag) => {
       this.metaService.removeTagElement(tag);
     });
+    this.destroyed$.next(true);
+  }
+  ngAfterViewInit() {
+    this.isViewInited = true;
   }
   //#endregion
 
@@ -186,7 +232,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   logoutClicked() {
     this.accountService.logout().then(() => {
-      this.activeUser = null;
+      this.accountService.csrfRefresh().then(() => {
+        this.activeUser = null;
+      });
     }).catch((error) => {
       console.error('Could not logout', error);
     });
@@ -194,26 +242,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   //#region Lyrics display
   isSyncComponent: boolean = false;
-  currentLyricsLine: string = null;
-
-  private computeCurrentLyricsLine() {
-    let linesPassed = this.linifyPipe
-      .transform(this.playlistControl.currentVideo.lyrics.text)
-      .map((value, index) => {
-        return {
-          time: this.playlistControl.currentVideo.lyrics.timeline[index],
-          line: value
-        };
-      }).filter((value, index) => {
-        return value.time < this.songProgress.currentTime;
-      });
-
-    if (linesPassed.length > 0) {
-      this.currentLyricsLine = linesPassed[linesPassed.length - 1].line;
-    } else {
-      this.currentLyricsLine = null;
-    }
-  }
+  currentLyricsLine$: Observable<string>;
   //#endregion
 
   //#region Playlist
@@ -227,53 +256,30 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   // Current position of the current song (percentage)
-  songProgress: SongProgress = {
+  songProgress: PlayerProgress = {
     currentTime: 0,
-    total: 0
+    duration: 0
   };
 
   /** Add this song to the User playlist, and start playing if necessary */
-  addToPlaylist = (song: Song) => {
+  addToPlaylist = (song: SongWithMedium) => {
     this.playlistControl.addToPlaylist(song);
   }
 
-  @ViewChild('player') player: YoutubePlayerComponent;
+  @ViewChild('player') player: VideoPlayerComponent;
 
-  private lyricsTimer: NodeJS.Timer;
-  playerState: YT.PlayerState = YT.PlayerState.UNSTARTED;
-  playerStateChanged(state: YT.PlayerState) {
-    this.playerState = state;
-    switch (state) {
-      case YT.PlayerState.PLAYING:
-        if (this.playlistControl.currentVideo.lyrics.timeline === null) {
-          this.currentLyricsLine = null;
-        } else {
-          this.lyricsTimer = setInterval(() => {
-            this.computeCurrentLyricsLine();
-          }, 100);
-        }
-        break;
-      case YT.PlayerState.PAUSED:
-        if (this.lyricsTimer !== null) {
-          clearInterval(this.lyricsTimer);
-        }
-        break;
-      case YT.PlayerState.ENDED:
-        this.playNextSong();
-        break;
-      default:
-        clearInterval(this.lyricsTimer);
-        break;
-    }
-    this.ref.detectChanges();
+  playerState$ = new BehaviorSubject<PlayerState>(PlayerState.unstarted);
+  playerStateChanged(state: PlayerState) {
+    this.playerState$.next(state);
   }
 
   /**
    * Updates the value of the progress bar on the SidebarComponent.
    * @param progress Current percentage of the YoutubePlayer.
    */
-  updatePlayerProgress(progress: SongProgress) {
+  playerProgressChange(progress: PlayerProgress) {
     this.songProgress = progress;
+    this.playlistControl.currentVideoPosition = progress.currentTime;
     this.ref.detectChanges();
   }
 
@@ -282,21 +288,61 @@ export class AppComponent implements OnInit, OnDestroy {
     this.playlistControl.previous();
   }
   playNextSong() {
-    this.playlistControl.next(false);
+    this.playlistControl.playerEnded();
     this.ref.detectChanges();
   }
   playPausePlayer() {
-    if (this.playerState === YT.PlayerState.PLAYING) {
-      this.player.pause();
+    this.playerState$.pipe(take(1)).subscribe((playerState) => {
+      if (playerState === PlayerState.playing) {
+        this.player.playerState = PlayerState.paused;
+      } else {
+        this.player.playerState = PlayerState.playing;
+      }
+    });
+  }
+  replayPlayer() {
+    this.playlistControl.next();
+  }
+  //#endregion
+
+  //#region Add video url
+  videoUrlToAdd: string = '';
+  isValidVideoUrl: boolean = true;
+  isRequestingPlaylistUrl$ = new Subject<boolean>();
+  @ViewChild('txt_video_url') videoUrlTextbox!: ElementRef<HTMLInputElement>;
+  onAddVideoUrl() {
+    this.videoUrlToAdd = '';
+    this.isValidVideoUrl = true;
+    this.isRequestingPlaylistUrl$.next(true);
+    setTimeout(() => {
+      this.videoUrlTextbox.nativeElement.focus();
+    }, 20);
+  }
+  onDoAddVideoUrl(url: string) {
+    if (url !== null) {
+      const playerType = this.playerTypeFinder.getPlatformWithId(url);
+      if (playerType !== null) {
+        this.playlistControl.addToPlaylist({ url });
+        this.isRequestingPlaylistUrl$.next(false);
+      } else {
+        this.isValidVideoUrl = false;
+      }
     } else {
-      this.player.play();
+      this.isValidVideoUrl = false;
+      this.isRequestingPlaylistUrl$.next(false);
     }
   }
   //#endregion
 
   routingActivated(element: ElementRef) {
+    this.hreflangTagHelper.setHreflangTags();
+
     // Login complete
     if (element instanceof LoginComponent) {
+      element.loginComplete.subscribe(this.loginCompleted);
+    } else if (element instanceof TwoFactorComponent) {
+      element.loginComplete.subscribe(this.loginCompleted);
+    } else if (element instanceof RecoveryComponent) {
       element.loginComplete.subscribe(this.loginCompleted);
     } else if (element instanceof RegisterComponent) {
       element.loginComplete.subscribe(this.loginCompleted);
@@ -306,15 +352,15 @@ export class AppComponent implements OnInit, OnDestroy {
       element.playbuttonClicked.subscribe((event: PlayButtonClickedEvent) => {
         switch (event.button) {
           case ePlaylistPlaybutton.addToQueue: {
-            this.playlistControl.addToPlaylist(...event.songs);
+            this.playlistControl.addToPlaylist(...event.songs.map(s => <SongWithMedium>{ song: s, medium: null }));
           } break;
           case ePlaylistPlaybutton.playNow: {
             this.playlistControl.shuffle = false;
-            this.playlistControl.setPlaylist(event.songs);
+            this.playlistControl.setPlaylist(event.songs.map(s => <SongWithMedium>{ song: s, medium: null }));
           } break;
           case ePlaylistPlaybutton.shuffle: {
             this.playlistControl.shuffle = true;
-            this.playlistControl.setPlaylist(event.songs);
+            this.playlistControl.setPlaylist(event.songs.map(s => <SongWithMedium>{ song: s, medium: null }));
           } break;
         }
       });
@@ -326,6 +372,10 @@ export class AppComponent implements OnInit, OnDestroy {
   routingDeactivated(element: ElementRef) {
     // Login complete
     if (element instanceof LoginComponent) {
+      element.loginComplete.unsubscribe();
+    } else if (element instanceof TwoFactorComponent) {
+      element.loginComplete.unsubscribe();
+    } else if (element instanceof RecoveryComponent) {
       element.loginComplete.unsubscribe();
     } else if (element instanceof RegisterComponent) {
       element.loginComplete.unsubscribe();

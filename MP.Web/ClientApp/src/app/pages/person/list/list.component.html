@@ -1,29 +1,32 @@
 <div class="container-fluid">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">All people</h1>
-      <span class="float-right">
-        <a [routerLink]='["/person/create"]' class="btn btn-primary">
+      <h1 class="d-inline-block">{{ 'people.all_people' | translate }}</h1>
+      <span class="pull-right">
+        <a [advRouterLink]='["/person/create"]' [title]="'people.create_new_person' | translate" class="btn btn-primary">
           <i class="fa fa-plus"></i>
-          Create person
+          {{ 'people.create_person' | translate }}
         </a>
       </span>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <datatable [settings]="tableSettings" [data]="personData" [rowTemplate]="rowTemplate" (onReloadData)="loadPeople()">
-        <ng-template #rowTemplate let-person>
+      <datatable [settings]="tableSettings" [data]="personData" (onReloadData)="loadPeople()">
+        <datatable-column [title]="'people.first_name' | translate" name="FirstName" [sortable]="true"></datatable-column>
+        <datatable-column [title]="'people.last_name' | translate" name="LastName" [sortable]="true"></datatable-column>
+        <datatable-column [title]="'people.born' | translate" name="Born" [sortable]="true"></datatable-column>
+        <datatable-column [title]="'people.died' | translate" name="Died" [sortable]="true"></datatable-column>
+
+        <ng-template rowTemplate let-person>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/person",person.id,person.text | slugify]' title="Details for {{ person.firstName }} {{ person.lastName }}">{{ person.firstName }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/person",person.id,person.text | slugify]' [title]="'global.details_for' | translate : {name:person.firstName+' '+person.lastName}">{{ person.firstName }}</a></td>
             <td class="text-nowrap">{{ person.lastName }}</td>
             <td class="text-nowrap">{{ person.born | date:'dd/MM/yyyy' }}</td>
             <td class="text-nowrap">{{ person.died | date:'dd/MM/yyyy' }}</td>
           </tr>
         </ng-template>
       </datatable>
-      <pagination class="pull-left" [numbers]="tableSettings.perPages.values" [(selectedNumber)]="tableSettings.perPages.selected" (selectedNumberChange)="loadPeople()" [showArrows]="false"></pagination>
-      <pagination class="pull-right" [numbers]="tableSettings.pages.values" [(selectedNumber)]="tableSettings.pages.selected" (selectedNumberChange)="loadPeople()" [showArrows]="true"></pagination>
     </div>
   </div>
 </div>

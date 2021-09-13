@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
-import { Song } from '../../entities/song';
+import { PlayerProgress } from '@mintplayer/ng-player-progress';
+import { PlayerState } from '@mintplayer/ng-video-player';
 import { SongRemovedEvent } from '../../events/song-removed.event';
-import { SongProgress } from '../../entities/song-progress';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { eRepeatMode } from '../../enums/eRepeatMode';
-import { NavigationHelper } from '../../helpers/navigation.helper';
+import { SongWithMedium } from '../../interfaces/song-with-medium';
+import { Subject } from 'rxjs';
+import { VideoUrl } from '../../interfaces/video-url';
 
 @Component({
   selector: 'playlist-sidebar',
@@ -16,22 +17,36 @@ import { NavigationHelper } from '../../helpers/navigation.helper';
   ]
 })
 export class PlaylistSidebarComponent implements OnInit {
-  constructor(
-    private navigation: NavigationHelper,
-  ) {
+  constructor() {
   }
 
-  @Input()
-  public playerState: YT.PlayerState;
+  playerStateValues = PlayerState;
 
   @Input()
-  public songs: Song[];
+  public playerState: PlayerState;
 
   @Input()
-  public current: Song;
+  public songs: (SongWithMedium | VideoUrl)[];
+
+  //#region Current
+  private _current: SongWithMedium | VideoUrl;
+  public get current() {
+    return this._current;
+  }
+  @Input() public set current(value: SongWithMedium | VideoUrl) {
+    this._current = value;
+    if (value === null) {
+      this.currentVideoText = null;
+    } else if ('url' in value) {
+      this.currentVideoText = value.url;
+    } else {
+      this.currentVideoText = value.song.description;
+    }
+  }
+  //#endregion
 
   @Input()
-  public songProgress: SongProgress;
+  public songProgress: PlayerProgress;
 
   @Output()
   public songRemoved: EventEmitter<SongRemovedEvent> = new EventEmitter();
@@ -46,7 +61,13 @@ export class PlaylistSidebarComponent implements OnInit {
   public playPauseClicked: EventEmitter<any> = new EventEmitter();
 
   @Output()
-  public songClicked: EventEmitter<Song> = new EventEmitter();
+  public replayClicked: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  public songClicked: EventEmitter<SongWithMedium> = new EventEmitter();
+
+  @Output()
+  public addVideoUrlClicked: EventEmitter<any> = new EventEmitter();
 
   onPreviousClicked() {
     this.previousClicked.emit();
@@ -57,9 +78,24 @@ export class PlaylistSidebarComponent implements OnInit {
   onPlayPauseClicked() {
     this.playPauseClicked.emit();
   }
-  onSongClicked(song: Song) {
+  onReplay() {
+    this.replayClicked.emit();
+  }
+  onSongClicked(song: SongWithMedium) {
     this.songClicked.emit(song);
   }
+  onAddVideoUrl() {
+    this.addVideoUrlClicked.emit();
+  }
+
+  isVideoUrl(song: SongWithMedium | VideoUrl) {
+    if ('url' in song) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  currentVideoText: string = null;
 
   //#region isRandom
   @Input() isRandom: boolean;
@@ -82,13 +118,15 @@ export class PlaylistSidebarComponent implements OnInit {
   }
   //#endregion
 
-  public removeSong($event: MouseEvent, song: Song) {
+  public removeSong($event: MouseEvent, song: SongWithMedium | VideoUrl) {
     var index = this.songs.indexOf(song);
     //this.songs.splice(index, 1);
     $event.stopPropagation();
     this.songRemoved.emit(new SongRemovedEvent({ index, song }));
   }
 
+  //videoUrlToAdd: string = '';
+  //isRequestingPlaylistUrl$ = new Subject<boolean>();
   ngOnInit() {
   }
 }

@@ -12,7 +12,7 @@ namespace MintPlayer.Data.Entities
 		public int Id { get; set; }
 
 		public string Description { get; set; }
-		public ePlayerType PlayerType { get; set; }
+		//public ePlayerType PlayerType { get; set; }
 		public bool Visible { get; set; }
 
 		public User UserInsert { get; set; }

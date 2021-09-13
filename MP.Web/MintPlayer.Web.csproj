@@ -10,34 +10,41 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>true</BuildServerSideRenderer>
+    <UserSecretsId>21fecde5-53de-4525-b2c3-a4fe7f01a7fd</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.3">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.17" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.17">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.3" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
-    <PackageReference Include="MintPlayer.AspNetCore.OpenSearch" Version="1.0.5" />
-    <PackageReference Include="MintPlayer.AspNetCore.SitemapXml" Version="1.2.0" />
-    <PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="1.1.4" />
-    <PackageReference Include="WebMarkupMin.AspNetCore3" Version="2.8.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.17" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="MintPlayer.AspNetCore.OpenSearch" Version="1.1.1" />
+    <PackageReference Include="MintPlayer.AspNetCore.SitemapXml" Version="2.0.2" />
+    <PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="1.1.5" />
+    <PackageReference Include="MintPlayer.AspNetCore.XsrfForSpas" Version="1.0.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+    <PackageReference Include="WebMarkupMin.AspNetCore3" Version="2.10.0" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="ClientApp\src\app\pages\tagging\**" />
+    <Compile Remove="ClientApp\types\**" />
     <Compile Remove="Dtos\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\pages\tagging\**" />
+    <Content Remove="ClientApp\types\**" />
     <Content Remove="Dtos\**" />
     <EmbeddedResource Remove="ClientApp\src\app\pages\tagging\**" />
+    <EmbeddedResource Remove="ClientApp\types\**" />
     <EmbeddedResource Remove="Dtos\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="ClientApp\src\app\pages\tagging\**" />
+    <None Remove="ClientApp\types\**" />
     <None Remove="Dtos\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
@@ -55,52 +62,24 @@
     <None Remove="ClientApp\src\app\app.browser.module.ts" />
     <None Remove="ClientApp\src\app\components\social-logins\base-login.component.ts" />
     <None Remove="ClientApp\src\app\controls\autocomplete\IAutocompleteElement.ts" />
-    <None Remove="ClientApp\src\app\directives\query-params-handling\query-params-handling.module.ts" />
-    <None Remove="ClientApp\src\app\entities\artist.ts" />
-    <None Remove="ClientApp\src\app\entities\blog-post.ts" />
-    <None Remove="ClientApp\src\app\entities\login-result.ts" />
-    <None Remove="ClientApp\src\app\entities\lyrics.ts" />
-    <None Remove="ClientApp\src\app\entities\medium-type.ts" />
-    <None Remove="ClientApp\src\app\entities\medium.ts" />
-    <None Remove="ClientApp\src\app\entities\person.ts" />
+    <None Remove="ClientApp\src\app\entities\enum-item.ts" />
     <None Remove="ClientApp\src\app\entities\played-song.ts" />
-    <None Remove="ClientApp\src\app\entities\player-info.ts" />
-    <None Remove="ClientApp\src\app\entities\player-type.ts" />
-    <None Remove="ClientApp\src\app\entities\playlist.ts" />
     <None Remove="ClientApp\src\app\entities\point.ts" />
-    <None Remove="ClientApp\src\app\entities\search-results.ts" />
     <None Remove="ClientApp\src\app\entities\size.ts" />
-    <None Remove="ClientApp\src\app\entities\song-progress.ts" />
-    <None Remove="ClientApp\src\app\entities\song.ts" />
-    <None Remove="ClientApp\src\app\entities\subject-like-response.ts" />
-    <None Remove="ClientApp\src\app\entities\subject.ts" />
-    <None Remove="ClientApp\src\app\entities\tag-category.ts" />
-    <None Remove="ClientApp\src\app\entities\tag.ts" />
-    <None Remove="ClientApp\src\app\entities\user-data.ts" />
-    <None Remove="ClientApp\src\app\entities\user.ts" />
-    <None Remove="ClientApp\src\app\enums\ePlayerType.ts" />
     <None Remove="ClientApp\src\app\enums\ePlaylistPlayButton.ts" />
     <None Remove="ClientApp\src\app\enums\eRepeatMode.ts" />
     <None Remove="ClientApp\src\app\enums\eSidebarState.ts" />
-    <None Remove="ClientApp\src\app\enums\eSubjectType.ts" />
     <None Remove="ClientApp\src\app\enums\eToggleButtonState.ts" />
     <None Remove="ClientApp\src\app\events\my-before-unload.event.ts" />
     <None Remove="ClientApp\src\app\events\play-button-clicked.event.ts" />
-    <None Remove="ClientApp\src\app\helpers\dailymotion-api.helper.ts" />
-    <None Remove="ClientApp\src\app\helpers\facebook-sdk.helper.ts" />
+    <None Remove="ClientApp\src\app\helpers\enum.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\html-link.helper.ts" />
-    <None Remove="ClientApp\src\app\helpers\linkedin-sdk.helper.ts" />
-    <None Remove="ClientApp\src\app\helpers\navigation.helper.ts" />
-    <None Remove="ClientApp\src\app\helpers\pagination-request.ts" />
-    <None Remove="ClientApp\src\app\helpers\pagination-response.ts" />
-    <None Remove="ClientApp\src\app\helpers\player-type.helper.ts" />
-    <None Remove="ClientApp\src\app\helpers\playlist-control.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\pwa.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\slugify.helper.ts" />
-    <None Remove="ClientApp\src\app\helpers\twitter-sdk.helper.ts" />
     <None Remove="ClientApp\src\app\helpers\url-generator.helper.ts" />
-    <None Remove="ClientApp\src\app\helpers\youtube-api.helper.ts" />
     <None Remove="ClientApp\src\app\interfaces\has-changes.ts" />
+    <None Remove="ClientApp\src\app\interfaces\song-with-medium.ts" />
+    <None Remove="ClientApp\src\app\interfaces\two-factor-registration-url.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\category-routing.module.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\category.module.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\category\create\create.component.html" />
@@ -140,13 +119,12 @@
     <None Remove="ClientApp\src\app\pages\tagging\tag\tag-routing.module.ts" />
     <None Remove="ClientApp\src\app\pages\tagging\tag\tag.module.ts" />
     <None Remove="ClientApp\src\app\translate-loaders\translate-json-loader.ts" />
-    <None Remove="ClientApp\src\styles\animations\slide-up-down - Copy.animation.ts" />
+    <None Remove="ClientApp\src\styles\animations\color-transition.animation.ts" />
     <None Remove="ClientApp\src\styles\animations\slide-up-down.animation.ts" />
     <None Remove="ClientApp\tsconfig.app.json" />
     <None Remove="ClientApp\tsconfig.json" />
     <None Remove="ClientApp\tsconfig.server.json" />
     <None Remove="ClientApp\tsconfig.spec.json" />
-    <None Remove="ClientApp\types\dailymotion\index.d.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -173,56 +151,27 @@
     <TypeScriptCompile Include="ClientApp\src\app\app.browser.module.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\components\social-logins\base-login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\controls\autocomplete-element.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\directives\query-params-handling\query-params-handling.module.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\artist.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\blog-post.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\login-result.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\lyrics.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\medium-type.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\medium.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\person.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\played-song.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\player-info.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\player-type.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\playlist.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\entities\enum-item.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\point.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\search-results.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\entities\size.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\song-progress.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\song.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\subject-like-response.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\subject.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\tag-category.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\tag.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\user-data.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\entities\user.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\enums\ePlayerType.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\ePlaylistPlaybutton.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eRepeatMode.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eSidebarState.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\enums\eSubjectType.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\enums\eToggleButtonState.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\events\my-before-unload.event.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\events\play-button-clicked.event.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\dailymotion-api.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\facebook-sdk.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\html-link.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\linkedin-sdk.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\navigation.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\pagination-request.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\pagination-response.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\player-type.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\playlist-control.helper.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\helpers\enum.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\pwa.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\slugify.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\twitter-sdk.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\helpers\url-generator.helper.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\helpers\youtube-api.helper.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\interfaces\has-changes.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\interfaces\song-with-medium.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\interfaces\two-factor-registration-url.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\translate-loaders\translate-json-loader.ts" />
-    <TypeScriptCompile Include="ClientApp\src\styles\animations\slide-up-down - Copy.animation.ts" />
+    <TypeScriptCompile Include="ClientApp\src\styles\animations\color-transition.animation.ts" />
     <TypeScriptCompile Include="ClientApp\src\styles\animations\slide-up-down.animation.ts" />
-    <TypeScriptCompile Include="ClientApp\types\dailymotion\index.d.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -230,9 +179,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\providers\" />
     <Folder Include="ClientApp\src\assets\splash\" />
   </ItemGroup>
-
+  
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

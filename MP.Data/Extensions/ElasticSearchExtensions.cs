@@ -32,6 +32,7 @@ namespace MintPlayer.Data.Extensions
 					.DefaultMappingFor<Song>(s_desc => s_desc
 						.IndexName("song")
 						.Ignore(s => s.Artists)
+						.Ignore(s => s.UncreditedArtists)
 						.Ignore(s => s.Lyrics)
 					);
 				

@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 html {
   height: 100%;
   font-display: swap;
@@ -5,6 +7,17 @@ html {
 
 body {
   min-height: 100%;
+  background-color: var(--theme-background-color);
+  color: var(--theme-text-color);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: initial;
+}
+
+.table th {
+  border-bottom-color: #dee2e6 !important;
 }
 
 .dropdown-item {
@@ -20,11 +33,34 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  font-size: 1rem;
+  font-size: 1.2rem;
+}
+
+h3, .h3 {
+  font-size: .9rem;
 }
 
 .btn, .form-control {
   border-radius: 0 !important;
+}
+
+.btn-default {
+  color: var(--theme-text-color);
+
+  &:hover {
+    color: var(--theme-text-color-hover);
+  }
+}
+
+.card {
+  .card-header {
+    background: var(--card-header-background-color);
+    border-bottom: 1px solid var(--card-border-color);
+  }
+
+  .card-body {
+    background: var(--card-body-background-color);
+  }
 }
 
 .card-header .input-group {
@@ -32,11 +68,11 @@ h2, .h2 {
 }
 
 .youtube-card, .dailymotion-card {
-    height: 0;
+  height: 0;
 
-    > .card {
-        margin-top: -290px;
-    }
+  > .card {
+    margin-top: -290px;
+  }
 }
 
 .card > .card-body > content {
@@ -45,10 +81,104 @@ h2, .h2 {
 }
 
 .card > .card-body > content > media-list {
-    margin-bottom: 10px !important;
+  margin-bottom: 10px !important;
 }
 
 .btn-caret-center {
-    position: relative;
-    top: 3px;
+  position: relative;
+  top: 3px;
+}
+
+.form-control {
+  background-color: transparent;
+  color: var(--theme-text-color);
+
+  &:focus {
+    background-color: var(--focus-background-color) !important;
+    color: var(--focus-text-color);
+  }
+}
+
+select2 {
+  background-color: transparent;
+
+  &.form-control-focus {
+    background-color: var(--focus-background-color) !important;
+  }
+
+  > input {
+    color: var(--theme-text-color)
+  }
+}
+
+.dropdown-menu {
+  background-color: var(--theme-background-color);
+  border-color: var(--border-color);
+
+  li a {
+    color: var(--theme-text-color);
+  }
+}
+
+select option {
+  background: var(--select-option-background);
+}
+
+.pagination .page-item {
+  .page-link {
+    color: var(--link-color);
+    background-color: var(--page-link-background-color);
+  }
+
+  &.disabled .page-link {
+    color: var(--page-link-text-color--disabled);
+    background-color: var(--page-link-background-color--disabled);
+  }
+
+  &.active .page-link {
+    color: var(--page-link-text-color--active);
+    background-color: var(--page-link-background-color--active);
+  }
+}
+
+.modal {
+  .modal-header {
+    border-bottom-color: var(--modal-border-color);
+
+    header {
+      display: contents;
+    }
+  }
+
+  .modal-content {
+    background: var(--modal-background-color);
+    border-color: var(--modal-border-color);
+  }
+
+  .modal-footer {
+    border-top-color: var(--modal-border-color);
+  }
+}
+
+.btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.checkerboard {
+  background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
+  background-size: 10px 10px;
+  background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+}
+
+/*
+html, body, main-sidebar {
+  min-height: -webkit-fill-available;
+}
+*/
+
+twitter-share {
+    margin-bottom: -2px !important;
+}
+linkedin-share {
+    margin-top: -3px !important;
 }

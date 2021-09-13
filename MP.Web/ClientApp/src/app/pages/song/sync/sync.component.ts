@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { Song } from '../../../entities/song';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SongService } from '../../../services/song/song.service';
+import { ActivatedRoute } from '@angular/router';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { Song, SongService } from '@mintplayer/ng-client';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-sync',
@@ -16,14 +16,14 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class SyncComponent implements OnInit, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('SONG') private songInj: Song,
     private songService: SongService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     if (serverSide === true) {
       this.setSong(songInj);
@@ -56,7 +56,7 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
   updateTimeline() {
     this.songService.updateTimeline(this.song).then(() => {
       this.hasChanges = false;
-      this.navigation.navigate(['/song', this.song.id, this.slugifyHelper.slugify(this.song.text)]);
+      this.router.navigate(['/song', this.song.id, this.slugifyHelper.slugify(this.song.text)]);
     }).catch((error) => {
       console.error(error);
     });
@@ -67,6 +67,7 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
     title: '',
     released: null,
     artists: [],
+    uncreditedArtists: [],
     media: [],
     tags: [],
     lyrics: {
@@ -76,7 +77,9 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
     text: '',
     youtubeId: '',
     dailymotionId: '',
-    playerInfo: null,
+    vimeoId: '',
+    soundCloudUrl: '',
+    playerInfos: [],
     description: '',
     dateUpdate: null
   };

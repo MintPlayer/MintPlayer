@@ -1,13 +1,15 @@
 import { Component, OnInit, EventEmitter, Output, Inject, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { SongService } from '../../../services/song/song.service';
-import { Song } from '../../../entities/song';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { BASE_URL } from '@mintplayer/ng-base-url';
+import { Medium, Song, SongService } from '@mintplayer/ng-client';
+import { Subject, Subscription } from 'rxjs';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { Subscription } from 'rxjs';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
 import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { SongWithMedium } from '../../../interfaces/song-with-medium';
 
 @Component({
   selector: 'app-show',
@@ -19,16 +21,16 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 })
 export class ShowComponent implements OnInit, OnDestroy {
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('SONG') private songInj: Song,
-    @Inject('BASE_URL') private baseUrl: string,
+    @Inject(BASE_URL) private baseUrl: string,
     private songService: SongService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
     private htmlLink: HtmlLinkHelper,
-    private urlGenerator: UrlGenerator
+    private urlGenerator: UrlGenerator,
   ) {
     if (serverSide === true) {
       this.setSong(songInj);
@@ -45,6 +47,15 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.routeParamsSubscription = this.route.params.subscribe((routeParams) => {
       this.loadSong(routeParams.id);
     });
+
+    if (typeof window !== 'undefined') {
+      let wrapLyrics = localStorage.getItem('wrapLyrics');
+      if (wrapLyrics === null) {
+        this.wrapLyrics = true;
+      } else {
+        this.wrapLyrics = wrapLyrics !== 'false';
+      }
+    }
   }
 
   ngOnDestroy() {
@@ -262,22 +273,29 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteSong() {
     this.songService.deleteSong(this.song).then(() => {
-      this.navigation.navigate(['song']);
+      this.router.navigate(['song']);
     }).catch((error) => {
       console.error('Could not delete song', error);
     });
   }
 
-  @Output() addToPlaylist: EventEmitter<Song> = new EventEmitter();
-  public doAddToPlaylist() {
-    this.addToPlaylist.emit(this.song);
+  addToPlaylist: Subject<SongWithMedium> = new Subject<SongWithMedium>();
+  public doAddToPlaylist(medium: Medium) {
+    this.addToPlaylist.next({ song: this.song, medium });
   }
 
+  toggleWrapLyrics() {
+    this.wrapLyrics = !this.wrapLyrics;
+    localStorage.setItem('wrapLyrics', String(this.wrapLyrics));
+  }
+
+  wrapLyrics: boolean;
   song: Song = {
     id: 0,
     title: '',
     released: null,
     artists: [],
+    uncreditedArtists: [],
     media: [],
     tags: [],
     lyrics: {
@@ -287,7 +305,9 @@ export class ShowComponent implements OnInit, OnDestroy {
     text: '',
     youtubeId: '',
     dailymotionId: '',
-    playerInfo: null,
+    vimeoId: '',
+    soundCloudUrl: '',
+    playerInfos: [],
     description: '',
     dateUpdate: null
   };

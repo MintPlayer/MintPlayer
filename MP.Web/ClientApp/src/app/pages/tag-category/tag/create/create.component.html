@@ -1,10 +1,10 @@
 <div class="container">
   <form (submit)="saveTag()">
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12">
         <h1 class="d-inline-block" *ngIf="tag.parent === null">Create new tag: Category {{ tag.category.description }}</h1>
         <h1 class="d-inline-block" *ngIf="tag.parent !== null">Create new tag: Tag {{ tag.parent.description }}</h1>
-        <span class="float-right">
+        <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
             Create tag

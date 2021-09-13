@@ -1,17 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { PersonService } from '../../../services/person/person.service';
-import { Person } from '../../../entities/person';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { MediumType } from '../../../entities/medium-type';
-import { Tag } from '../../../entities/tag';
 import { HttpHeaders } from '@angular/common/http';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { API_VERSION, MediumType, MediumTypeService, Person, PersonService, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -21,16 +17,19 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private tagService: TagService,
+    private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
+    this.apiVersion = apiVersion;
     this.titleService.setTitle('Create person');
     if (serverSide === false) {
       this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
@@ -43,6 +42,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     }
   }
 
+  apiVersion: string = '';
   mediumTypes: MediumType[] = [];
   person: Person = {
     id: 0,
@@ -57,14 +57,17 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     dateUpdate: null
   };
 
-  public httpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  tagSuggestions: Tag[] = [];
+  onProvideTagSuggestions(searchText: string) {
+    this.tagService.suggestTags(searchText, true).then((tags) => {
+      this.tagSuggestions = tags;
+    });
+  }
 
   savePerson() {
     this.personService.createPerson(this.person).then((person) => {
       this.hasChanges = false;
-      this.navigation.navigate(['person', person.id, this.slugifyHelper.slugify(person.text)]);
+      this.router.navigate(['person', person.id, this.slugifyHelper.slugify(person.text)]);
     }).catch((error) => {
       console.error('Could not create person', error);
     });

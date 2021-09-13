@@ -1,16 +1,15 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { PlayerTypeHelper } from '../../../helpers/player-type.helper';
-import { MediumType } from '../../../entities/medium-type';
-import { PlayerType } from '../../../entities/player-type';
-import { ePlayerType } from '../../../enums/ePlayerType';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { EnumHelper } from '../../../helpers/enum.helper';
+import { EnumItem } from '../../../entities/enum-item';
 
 @Component({
   selector: 'app-edit',
@@ -19,19 +18,16 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 })
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('MEDIUMTYPE') private mediumTypeInj: MediumType,
     private mediumTypeService: MediumTypeService,
-    private playerTypeHelper: PlayerTypeHelper,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
-    this.playerTypes = this.playerTypeHelper.getPlayerTypes();
-
     if (serverSide) {
       this.setMediumType(mediumTypeInj);
     } else {
@@ -62,18 +58,13 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   mediumType: MediumType = {
     id: 0,
     description: '',
-    playerType: ePlayerType.None
+    visible: true,
   };
-
-  public playerTypes: PlayerType[] = [];
-  public playerTypeSelected(playerType: number) {
-    this.mediumType.playerType = ePlayerType[ePlayerType[playerType]];
-  }
 
   public updateMediumType() {
     this.mediumTypeService.updateMediumType(this.mediumType).then((mediumType) => {
       this.hasChanges = false;
-      this.navigation.navigate(['mediumtype', this.mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
+      this.router.navigate(['mediumtype', this.mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
     }).catch((error) => {
       console.error('Could not update medium type', error);
     });

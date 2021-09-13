@@ -1,9 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-import { BlogPost } from '../../../../entities/blog-post';
-import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
+import { AccountService, BlogPost, BlogPostService } from '@mintplayer/ng-client';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
-import { AccountService } from '../../../../services/account/account.service';
 
 @Component({
   selector: 'app-list',
@@ -13,13 +12,13 @@ import { AccountService } from '../../../../services/account/account.service';
 export class ListComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('BLOGPOSTS') private blogPostsInj: BlogPost[],
     private blogPostService: BlogPostService,
     private accountService: AccountService,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
     this.titleService.setTitle('MintPlayer blog');
     if (serverSide === true) {
@@ -86,7 +85,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.blogPostService.getBlogPosts().then((blogPosts) => {
       this.setBlogPosts(blogPosts);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 

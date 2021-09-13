@@ -4,14 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace MintPlayer.Data.Services
 {
 	public interface IPersonService
 	{
 		Task<Pagination.PaginationResponse<Person>> PagePeople(Pagination.PaginationRequest<Person> request);
-		Task<IEnumerable<Person>> GetPeople(bool include_relations, bool include_invisible_media);
-		Task<Person> GetPerson(int id, bool include_relations, bool include_invisible_media);
+		Task<IEnumerable<Person>> GetPeople(bool include_relations);
+		Task<Person> GetPerson(int id, bool include_relations);
 		Task<Pagination.PaginationResponse<Person>> PageLikedPeople(Pagination.PaginationRequest<Person> request);
 		Task<IEnumerable<Person>> GetLikedPeople();
 		Task<Person> InsertPerson(Person person);
@@ -22,10 +24,14 @@ namespace MintPlayer.Data.Services
 	{
 		private IPersonRepository personRepository;
 		private IMediumRepository mediumRepository;
-		public PersonService(IPersonRepository personRepository, IMediumRepository mediumRepository)
+		private readonly UserManager<Entities.User> userManager;
+		private readonly IHttpContextAccessor httpContextAccessor;
+		public PersonService(IPersonRepository personRepository, IMediumRepository mediumRepository, UserManager<Entities.User> userManager, IHttpContextAccessor httpContextAccessor)
 		{
 			this.personRepository = personRepository;
 			this.mediumRepository = mediumRepository;
+			this.userManager = userManager;
+			this.httpContextAccessor = httpContextAccessor;
 		}
 
 		public async Task<Pagination.PaginationResponse<Person>> PagePeople(Pagination.PaginationRequest<Person> request)
@@ -34,15 +40,19 @@ namespace MintPlayer.Data.Services
 			return people;
 		}
 
-		public async Task<IEnumerable<Person>> GetPeople(bool include_relations, bool include_invisible_media)
+		public async Task<IEnumerable<Person>> GetPeople(bool include_relations)
 		{
-			var people = await personRepository.GetPeople(include_relations, include_invisible_media);
+			var user = await userManager.GetUserAsync(httpContextAccessor.HttpContext.User);
+			var isAdmin = user == null ? false : await userManager.IsInRoleAsync(user, "Administrator");
+			var people = await personRepository.GetPeople(include_relations, isAdmin);
 			return people;
 		}
 
-		public async Task<Person> GetPerson(int id, bool include_relations, bool include_invisible_media)
+		public async Task<Person> GetPerson(int id, bool include_relations)
 		{
-			var person = await personRepository.GetPerson(id, include_relations, include_invisible_media);
+			var user = await userManager.GetUserAsync(httpContextAccessor.HttpContext.User);
+			var isAdmin = user == null ? false : await userManager.IsInRoleAsync(user, "Administrator");
+			var person = await personRepository.GetPerson(id, include_relations, isAdmin);
 			return person;
 		}
 

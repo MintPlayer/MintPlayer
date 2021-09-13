@@ -7,7 +7,8 @@ const routes: Routes = [
   { path: '', loadChildren: () => import('./list/list.module').then(m => m.ListModule), canActivate: [IsLoggedInGuard]},
   { path: 'create', loadChildren: () => import('./create/create.module').then(m => m.CreateModule), canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard]  },
   { path: ':id/:name/edit', loadChildren: () => import('./edit/edit.module').then(m => m.EditModule), canActivate: [IsLoggedInGuard], canDeactivate: [HasChangesGuard] },
-  { path: ':id/:name', loadChildren: () => import('./show/show.module').then(m => m.ShowModule), canActivate: [IsLoggedInGuard] },
+  { path: ':id/:name', loadChildren: () => import('./show/show.module').then(m => m.ShowModule) },
+  { path: 'public', loadChildren: () => import('./public/public.module').then(m => m.PublicModule) },
 ];
 
 @NgModule({

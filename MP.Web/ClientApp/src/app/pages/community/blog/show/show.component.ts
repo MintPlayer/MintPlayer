@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { BlogPost } from '../../../../entities/blog-post';
-import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { BASE_URL } from '@mintplayer/ng-base-url';
+import { AccountService, BlogPost, BlogPostService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../../helpers/url-generator.helper';
 import { WordCountPipe } from '../../../../pipes/word-count/word-count.pipe';
-import { AccountService } from '../../../../services/account/account.service';
-import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -17,21 +17,20 @@ import { NavigationHelper } from '../../../../helpers/navigation.helper';
 export class ShowComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('BLOGPOST') private blogPostInj: BlogPost,
-    @Inject('BASE_URL') private baseUrl: string,
+    @Inject(BASE_URL) private baseUrl: string,
     private blogPostService: BlogPostService,
     private accountService: AccountService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
     private htmlLink: HtmlLinkHelper,
     private urlGenerator: UrlGenerator,
-    private wordCountPipe: WordCountPipe
+    private wordCountPipe: WordCountPipe,
   ) {
     if (serverSide === true) {
-      console.log('Got blogpost from server');
       this.setBlogPost(blogPostInj);
     } else {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -130,6 +129,8 @@ export class ShowComponent implements OnInit, OnDestroy {
       id: null,
       email: '',
       userName: '',
+      isTwoFactorEnabled: false,
+      bypass2faForExternalLogin: false,
       pictureUrl: ''
     },
     published: null
@@ -208,7 +209,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteBlogPost() {
     this.blogPostService.deleteBlogPost(this.blogPost).then(() => {
-      this.navigation.navigate(['/community', 'blog']);
+      this.router.navigate(['/community', 'blog']);
     }).catch((error) => {
       console.error('Could not delete blog post', error);
     });

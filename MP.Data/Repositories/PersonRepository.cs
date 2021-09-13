@@ -8,6 +8,7 @@ using MintPlayer.Dtos.Dtos;
 using System;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Data.Helpers;
+using MintPlayer.Data.Mappers;
 
 namespace MintPlayer.Data.Repositories
 {
@@ -29,14 +30,22 @@ namespace MintPlayer.Data.Repositories
 		private readonly MintPlayerContext mintplayer_context;
 		private readonly UserManager<Entities.User> user_manager;
 		private readonly SubjectHelper subject_helper;
-		private readonly Jobs.IElasticSearchJobRepository elasticSearchJobRepository;
-		public PersonRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager, SubjectHelper subject_helper, Jobs.IElasticSearchJobRepository elasticSearchJobRepository)
+        private readonly IPersonMapper personMapper;
+        private readonly Jobs.IElasticSearchJobRepository elasticSearchJobRepository;
+		public PersonRepository(
+			IHttpContextAccessor http_context,
+			MintPlayerContext mintplayer_context,
+			UserManager<Entities.User> user_manager,
+			SubjectHelper subject_helper,
+			IPersonMapper personMapper,
+			Jobs.IElasticSearchJobRepository elasticSearchJobRepository)
 		{
 			this.http_context = http_context;
 			this.mintplayer_context = mintplayer_context;
 			this.user_manager = user_manager;
             this.subject_helper = subject_helper;
-			this.elasticSearchJobRepository = elasticSearchJobRepository;
+            this.personMapper = personMapper;
+            this.elasticSearchJobRepository = elasticSearchJobRepository;
 		}
 
 		public async Task<Pagination.PaginationResponse<Person>> PagePeople(Pagination.PaginationRequest<Person> request)
@@ -54,7 +63,7 @@ namespace MintPlayer.Data.Repositories
 				.Take(request.PerPage);
 
 			// 3) Convert to DTO
-			var dto_people = await paged_people.Select(person => ToDto(person, false, false)).ToListAsync();
+			var dto_people = await paged_people.Select(person => personMapper.Entity2Dto(person, false, false)).ToListAsync();
 
 			var count_people = await people.CountAsync();
 			return new Pagination.PaginationResponse<Person>(request, count_people, dto_people);
@@ -71,13 +80,13 @@ namespace MintPlayer.Data.Repositories
 						.ThenInclude(m => m.Type)
 					.Include(person => person.Tags)
 						.ThenInclude(st => st.Tag)
-					.Select(person => ToDto(person, include_relations, include_invisible_media));
+					.Select(person => personMapper.Entity2Dto(person, include_invisible_media, include_relations));
 				return Task.FromResult<IEnumerable<Person>>(people);
 			}
 			else
 			{
 				var people = mintplayer_context.People
-					.Select(person => ToDto(person, include_relations, include_invisible_media));
+					.Select(person => personMapper.Entity2Dto(person, include_invisible_media, include_relations));
 				return Task.FromResult<IEnumerable<Person>>(people);
 			}
 		}
@@ -95,13 +104,13 @@ namespace MintPlayer.Data.Repositories
 						.ThenInclude(st => st.Tag)
 							.ThenInclude(t => t.Category)
 					.SingleOrDefaultAsync(p => p.Id == id);
-				return ToDto(person, include_relations, include_invisible_media);
+				return personMapper.Entity2Dto(person, include_invisible_media, include_relations);
 			}
 			else
 			{
 				var person = await mintplayer_context.People
 					.SingleOrDefaultAsync(p => p.Id == id);
-				return ToDto(person, include_relations, include_invisible_media);
+				return personMapper.Entity2Dto(person, include_invisible_media, include_relations);
 			}
 		}
 
@@ -127,7 +136,7 @@ namespace MintPlayer.Data.Repositories
 				.Take(request.PerPage);
 
 			// 4) Convert to DTO
-			var dto_people = paged_people.Select(person => ToDto(person, false, false));
+			var dto_people = paged_people.Select(person => personMapper.Entity2Dto(person, false, false));
 
 			var count_people = await filtered_people.CountAsync();
 			return new Pagination.PaginationResponse<Person>(request, count_people, dto_people);
@@ -140,7 +149,7 @@ namespace MintPlayer.Data.Repositories
 
 			var people = mintplayer_context.People
 				.Where(s => s.Likes.Any(l => l.User == user && l.DoesLike))
-				.Select(s => ToDto(s, false, false));
+				.Select(s => personMapper.Entity2Dto(s, false, false));
 
 			return people;
 		}
@@ -148,7 +157,7 @@ namespace MintPlayer.Data.Repositories
 		public async Task<Person> InsertPerson(Person person)
 		{
 			// Convert to entity
-			var entity_person = ToEntity(person, mintplayer_context);
+			var entity_person = personMapper.Dto2Entity(person, mintplayer_context);
 
 			// Get current user
 			var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
@@ -159,7 +168,7 @@ namespace MintPlayer.Data.Repositories
 			await mintplayer_context.People.AddAsync(entity_person);
 			await mintplayer_context.SaveChangesAsync();
 
-			var new_person = ToDto(entity_person, false, false);
+			var new_person = personMapper.Entity2Dto(entity_person, false, false);
 			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
 			{
 				Subject = new_person,
@@ -176,6 +185,17 @@ namespace MintPlayer.Data.Repositories
 			var entity_person = await mintplayer_context.People
 				.Include(p => p.Tags)
 				.SingleOrDefaultAsync(p => p.Id == person.Id);
+
+			if (entity_person == null)
+			{
+				throw new Exceptions.NotFoundException();
+			}
+
+			if (Convert.ToBase64String(entity_person.ConcurrencyStamp) != person.ConcurrencyStamp)
+			{
+				var databaseValue = personMapper.Entity2Dto(entity_person, false, true);
+				throw Exceptions.ConcurrencyException.Create(databaseValue);
+			}
 
 			// Set new properties
 			entity_person.FirstName = person.FirstName;
@@ -198,7 +218,7 @@ namespace MintPlayer.Data.Repositories
 			// Update in database
 			mintplayer_context.Entry(entity_person).State = EntityState.Modified;
 			
-			var updated_person = ToDto(entity_person, false, false);
+			var updated_person = personMapper.Entity2Dto(entity_person, false, false);
 			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
 			{
 				Subject = updated_person,
@@ -214,12 +234,17 @@ namespace MintPlayer.Data.Repositories
 			// Find existing person
 			var person = await mintplayer_context.People.FindAsync(person_id);
 
+			if (person == null)
+			{
+				throw new Exceptions.NotFoundException();
+			}
+
 			// Get current user
 			var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
 			person.UserDelete = user;
 			person.DateDelete = DateTime.Now;
 
-			var deleted_person = ToDto(person, false, false);
+			var deleted_person = personMapper.Entity2Dto(person, false, false);
 			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
 			{
 				Subject = deleted_person,
@@ -232,85 +257,5 @@ namespace MintPlayer.Data.Repositories
 		{
 			await mintplayer_context.SaveChangesAsync();
 		}
-
-		#region Conversion methods
-		internal static Person ToDto(Entities.Person person, bool include_relations, bool include_invisible_media)
-		{
-			if (person == null) return null;
-			if (include_relations)
-			{
-				return new Person
-				{
-					Id = person.Id,
-					FirstName = person.FirstName,
-					LastName = person.LastName,
-					Born = person.Born,
-					Died = person.Died,
-
-					Text = person.Text,
-					DateUpdate = person.DateUpdate ?? person.DateInsert,
-
-					Artists = person.Artists
-						.Select(ap => ArtistRepository.ToDto(ap.Artist, false, include_invisible_media))
-						.ToList(),
-					Media = person.Media == null ? null : person.Media
-						.Where(medium => medium.Type.Visible | include_invisible_media)
-						.Select(medium => MediumRepository.ToDto(medium, true))
-						.ToList(),
-					Tags = person.Tags == null ? null : person.Tags
-						.Select(st => TagRepository.ToDto(st.Tag))
-						.ToList()
-				};
-			}
-			else
-			{
-				return new Person
-				{
-					Id = person.Id,
-					FirstName = person.FirstName,
-					LastName = person.LastName,
-					Born = person.Born,
-					Died = person.Died,
-					
-					Text = person.Text,
-					DateUpdate = person.DateUpdate ?? person.DateInsert
-				};
-			}
-		}
-		internal static Entities.Person ToEntity(Person person, MintPlayerContext mintplayer_context)
-		{
-			if (person == null) return null;
-			var entity_person = new Entities.Person
-			{
-				Id = person.Id,
-				FirstName = person.FirstName,
-				LastName = person.LastName,
-				Born = person.Born,
-				Died = person.Died
-			};
-			#region Media
-			if (person.Media != null)
-			{
-				entity_person.Media = person.Media.Select(m =>
-				{
-					var medium = MediumRepository.ToEntity(m, mintplayer_context);
-					medium.Subject = entity_person;
-					return medium;
-				}).ToList();
-			}
-			#endregion
-			#region Tags
-			if (person.Tags != null)
-			{
-				entity_person.Tags = person.Tags.Select(t =>
-				{
-					var tag = mintplayer_context.Tags.Find(t.Id);
-					return new Entities.SubjectTag(entity_person, tag);
-				}).ToList();
-			}
-			#endregion
-			return entity_person;
-		}
-		#endregion
 	}
 }

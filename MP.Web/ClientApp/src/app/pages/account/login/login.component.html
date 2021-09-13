@@ -5,46 +5,53 @@
         <h1 class="text-center">{{ 'account.login' | translate }}</h1>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <label [appFor]="txt_email" class="col-form-label col-sm-4 col-xl-3">{{ 'account.email_address' | translate }}</label>
       <div class="col-sm-8 col-xl-9">
         <input type="text" [(ngModel)]="email" name="email" class="form-control" #txt_email />
       </div>
     </div>
-    <div class="form-group row">
-      <label [appFor]="txt_password" class="col-form-label col-sm-4 col-xl-3">{{ 'account.password' | translate }}</label>
+    <div class="form-group row mb-3">
+      <label [appFor]="txt_password" class="col-form-label col-sm-4 col-xl-3">{{ 'account.password.password' | translate }}</label>
       <div class="col-sm-8 col-xl-9">
         <input type="password" [(ngModel)]="password" name="password" class="form-control" #txt_password />
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12 text-center">
         <button type="submit" [title]="'account.login' | translate" class="btn btn-primary">
           <i class="fa fa-sign-in"></i>
           {{ 'account.login' | translate }}
         </button>
-        <button (click)="forgotPassword()" [title]="'account.forgot_password' | translate" class="btn btn-default background-none">
+        <a [advRouterLink]='["/account", "password", "reset", "request"]' [title]="'account.forgot_password' | translate" class="btn btn-default background-none">
           <i class="fa fa-question-circle-o"></i>
           {{ 'account.forgot_password' | translate }}
-        </button>
+        </a>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <h2>{{ 'use_social_login' | translate }}</h2>
+        <h2>{{ 'account.use_social_login' | translate }}</h2>
         <app-facebook-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-facebook-login>
         <app-microsoft-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-microsoft-login>
         <app-google-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-google-login>
         <app-twitter-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-twitter-login>
+        <app-linkedin-login [action]="'connect'" (LoginSuccessOrFailed)="socialLoginDone($event)"></app-linkedin-login>
       </div>
     </div>
     <div class="row">
       <div class="col-12 text-center">
-        <div *ngIf="loginResult.status == false" class="alert alert-danger" role="alert">
+        <div *ngIf="loginResult.status == loginStatuses.failed" class="alert alert-danger" role="alert">
           <p>
             <b>{{ loginResult.error }}</b>
           </p>
           <p>{{ loginResult.errorDescription }}</p>
+          <div class="d-block text-center">
+            <button (click)="resendConfirmationEmail()" *ngIf="unconfirmedEmail" class="btn">
+              <i class="fa fa-send"></i>
+              {{ 'account.confirmation.resend' | translate }}
+            </button>
+          </div>
         </div>
       </div>
     </div>

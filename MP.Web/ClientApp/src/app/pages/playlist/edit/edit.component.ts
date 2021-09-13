@@ -1,14 +1,16 @@
 import { Component, OnInit, Inject, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
-import { PlaylistService } from '../../../services/playlist/playlist.service';
-import { Song } from '../../../entities/song';
-import { Playlist } from '../../../entities/playlist';
 import { Title } from '@angular/platform-browser';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { API_VERSION, Playlist, PlaylistAccessibility, PlaylistService, Song, SubjectService, SubjectType } from '@mintplayer/ng-client';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { EnumHelper } from '../../../helpers/enum.helper';
+import { EnumItem } from '../../../entities/enum-item';
 
 @Component({
   selector: 'app-edit',
@@ -18,15 +20,21 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
-    private navigation: NavigationHelper,
+    private subjectService: SubjectService,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
+    private enumHelper: EnumHelper,
   ) {
+    this.apiVersion = apiVersion;
+    this.accessibilities = this.enumHelper.getItems(PlaylistAccessibility);
+
     if (serverSide === false) {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
       this.loadPlaylist(id);
@@ -54,21 +62,46 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
   ngOnInit() {
   }
 
-  songSuggestHttpHeaders: HttpHeaders = new HttpHeaders({
-    'include_relations': String(true)
-  });
+  songSuggestions: Song[] = [];
+  onProvideSongSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.song]).then((songs) => {
+      this.songSuggestions = <Song[]>songs;
+    });
+  }
 
   onSuggestionClicked(suggestion: Song) {
     this.playlist.tracks.push(suggestion);
   }
 
+  apiVersion: string = '';
   oldPlaylistDescription: string = '';
   playlist: Playlist = {
     id: 0,
     description: '',
     tracks: [],
+    accessibility: PlaylistAccessibility.private,
     user: null
   };
+
+  public accessibilities: EnumItem[] = [];
+  public accessibilitySelected(accessibility: number) {
+    this.playlist.accessibility = PlaylistAccessibility[PlaylistAccessibility[accessibility]];
+  }
+
+  trackDropped(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+  }
 
   removeTrack(track: Song) {
     this.playlist.tracks.splice(this.playlist.tracks.indexOf(track), 1);
@@ -78,7 +111,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
   savePlaylist() {
     this.playlistService.updatePlaylist(this.playlist).then((playlist) => {
       this.hasChanges = false;
-      this.navigation.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
+      this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
     }).catch((error) => {
       debugger;
     });

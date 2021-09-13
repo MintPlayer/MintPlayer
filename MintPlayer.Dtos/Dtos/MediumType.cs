@@ -17,9 +17,9 @@ namespace MintPlayer.Dtos.Dtos
 		[XmlElement(Namespace = "https://mintplayer.com/music")]
 		public string Description { get; set; }
 		
-		[DataMember]
-		[XmlElement(Namespace = "https://mintplayer.com/music")]
-		public ePlayerType PlayerType { get; set; }
+		//[DataMember]
+		//[XmlElement(Namespace = "https://mintplayer.com/music")]
+		//public ePlayerType PlayerType { get; set; }
 		
 		[DataMember]
 		[XmlElement(Namespace = "https://mintplayer.com/music")]

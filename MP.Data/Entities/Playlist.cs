@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MintPlayer.Dtos.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,6 +14,7 @@ namespace MintPlayer.Data.Entities
         public User User { get; set; }
         public string Description { get; set; }
         public List<PlaylistSong> Tracks { get; set; }
+        public ePlaylistAccessibility Accessibility { get; set; }
 
         public bool IsDeleted { get; set; }
     }

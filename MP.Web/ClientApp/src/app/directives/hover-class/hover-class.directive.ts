@@ -5,7 +5,10 @@ import { Directive, ElementRef, Input, HostListener } from '@angular/core';
 })
 export class HoverClassDirective {
 
-  constructor(public elementRef: ElementRef) { }
+  constructor(
+    public elementRef: ElementRef,
+  ) { }
+
   @Input() appHoverClass: any;
 
   @HostListener('mouseenter') onMouseEnter() {

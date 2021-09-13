@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
+import { BASE_URL } from '@mintplayer/ng-base-url';
 
 @Component({
   selector: 'app-not-found',
@@ -10,7 +11,7 @@ export class NotFoundComponent implements OnInit, OnDestroy {
 
   constructor(
     private metaService: Meta,
-    @Inject('BASE_URL') private baseUrl: string
+    @Inject(BASE_URL) private baseUrl: string,
   ) {
   }
 

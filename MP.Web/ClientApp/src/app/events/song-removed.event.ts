@@ -1,4 +1,5 @@
-import { Song } from '../entities/song';
+import { SongWithMedium } from "../interfaces/song-with-medium";
+import { VideoUrl } from "../interfaces/video-url";
 
 export class SongRemovedEvent {
   constructor(data?: Partial<SongRemovedEvent>) {
@@ -9,5 +10,5 @@ export class SongRemovedEvent {
   }
 
   public index: number;
-  public song: Song;
+  public song: SongWithMedium | VideoUrl;
 }

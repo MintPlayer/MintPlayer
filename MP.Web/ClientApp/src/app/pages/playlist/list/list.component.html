@@ -1,26 +1,28 @@
 <div class="container-fluid">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">My playlists</h1>
-      <span class="float-right">
-        <a [routerLink]='["/playlist","create"]' class="btn btn-primary">
+      <h1 class="d-inline-block">{{ 'playlists.my_playlists' | translate }}</h1>
+      <span class="pull-right">
+        <a [advRouterLink]='["/playlist","create"]' class="btn btn-primary" [title]="'playlists.create_new_playlist' | translate">
           <i class="fa fa-plus"></i>
-          Create playlist
+          {{ 'playlists.create_playlist' | translate }}
         </a>
       </span>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <datatable [settings]="tableSettings" [data]="playlistData" [rowTemplate]="rowTemplate" (onReloadData)="loadPlaylists()">
-        <ng-template #rowTemplate let-playlist>
+      <datatable [settings]="tableSettings" [data]="playlistData" (onReloadData)="loadPlaylists()">
+        <datatable-column [title]="'global.description' | translate" name="Description" [sortable]="true"></datatable-column>
+
+        <ng-template rowTemplate let-playlist>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/playlist",playlist.id,playlist.description | slugify]' title="Details for {{ playlist.description }}">{{ playlist.description }}</a></td>
+            <td class="text-nowrap">
+              <a [advRouterLink]='["/playlist",playlist.id,playlist.description | slugify]' [title]="'global.details_for' | translate: { name: playlist.description }">{{ playlist.description }}</a>
+            </td>
           </tr>
         </ng-template>
       </datatable>
-      <pagination class="pull-left" [numbers]="tableSettings.perPages.values" [(selectedNumber)]="tableSettings.perPages.selected" (selectedNumberChange)="loadPlaylists()" [showArrows]="false"></pagination>
-      <pagination class="pull-right" [numbers]="tableSettings.pages.values" [(selectedNumber)]="tableSettings.pages.selected" (selectedNumberChange)="loadPlaylists()" [showArrows]="true"></pagination>
     </div>
   </div>
 </div>

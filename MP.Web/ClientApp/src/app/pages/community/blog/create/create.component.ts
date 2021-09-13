@@ -1,12 +1,10 @@
 import { Component, OnInit, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { BlogPost } from '../../../../entities/blog-post';
-import { BlogPostService } from '../../../../services/blog-post/blog-post.service';
-import { Router } from '@angular/router';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { BlogPost, BlogPostService } from '@mintplayer/ng-client';
 import { SlugifyPipe } from '../../../../pipes/slugify/slugify.pipe';
 import { HasChanges } from '../../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -18,9 +16,9 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
     private titleService: Title,
     private blogPostService: BlogPostService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private slugifyPipe: SlugifyPipe,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     this.titleService.setTitle('Write new blog post');
   }
@@ -37,9 +35,9 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   saveBlogPost() {
     this.blogPostService.createBlogPost(this.blogPost).then((blogPost) => {
       this.hasChanges = false;
-      this.navigation.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
+      this.router.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }
 
@@ -72,7 +70,6 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   ngOnDestroy() {
-
   }
 
 }

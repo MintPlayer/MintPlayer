@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { AccountService } from '../../services/account/account.service';
-import { NavigationHelper } from '../../helpers/navigation.helper';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { AccountService } from '@mintplayer/ng-client';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { NavigationHelper } from '../../helpers/navigation.helper';
 export class IsLoggedInGuard implements CanActivate {
   constructor(
     private accountService: AccountService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
   ) {
   }
 
@@ -18,7 +18,7 @@ export class IsLoggedInGuard implements CanActivate {
     return this.accountService.currentUser().then((user) => {
       return true;
     }).catch((error: HttpErrorResponse) => {
-      this.navigation.navigate(['/account','login'], {
+      this.router.navigate(['/account','login'], {
         queryParams: {
           return: state.url
         }

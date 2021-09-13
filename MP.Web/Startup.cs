@@ -1,7 +1,8 @@
-#define RebuildSPA
+﻿//#define RebuildSPA
 
 using AspNetCoreOpenSearch.Extensions;
 using AspNetCoreOpenSearch.Options;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,27 +12,23 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SpaServices.Routing;
-using MintPlayer.Data;
+using MintPlayer.AspNetCore.XsrfForSpas;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Fetcher.DependencyInjection;
 using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
 using MintPlayer.Web.Services;
-using Spa.SpaRoutes;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -74,11 +71,15 @@ namespace MintPlayer.Web
                 .AddFacebook()
                 .AddMicrosoftAccount()
                 .AddGoogle()
-                .AddTwitter();
+                .AddTwitter()
+				.AddLinkedIn();
 
             services.AddAuthorization(options =>
             {
             });
+
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
+
             services
                 .AddDataProtection()
                 .PersistKeysToFileSystem(new System.IO.DirectoryInfo(Configuration["DataProtection:KeysLocation"]))
@@ -98,6 +99,18 @@ namespace MintPlayer.Web
 
             services.AddHttpContextAccessor();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(CorsPolicies.AllowDatatables, policy =>
+                {
+                    policy
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .WithMethods(HttpMethods.Post)
+                        .SetIsOriginAllowed((origin) => Regex.IsMatch(origin, @"http[s]{0,1}\:\/\/localhost\:[0-9]+"));
+                });
+            });
+
             services
                 .AddControllersWithViews(options =>
                 {
@@ -108,10 +121,29 @@ namespace MintPlayer.Web
                 {
                     options.StylesheetUrl = "/assets/stitemap.xsl";
                 })
+                .AddMvcOptions(options =>
+                {
+                    options.OutputFormatters.OfType<Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter>().FirstOrDefault().SupportedMediaTypes.Add("text/plain");
+                    options.OutputFormatters.Remove(options.OutputFormatters.OfType<Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter>().FirstOrDefault());
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Latest)
                 .AddNewtonsoftJson();
 
             services.AddWebMarkupMin().AddHttpCompression();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "MintPlayer API",
+                    Version = "v1",
+                    Description = "API that allows access to the data of MintPlayer. "
+                });
+
+                // Set the comments path for the Swagger JSON and UI.**
+                var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+            });
             services.AddRouting();
 
             // In production, the Angular files will be served from this directory
@@ -129,6 +161,10 @@ namespace MintPlayer.Web
                     .Route("login", "login")
                     .Route("register", "register")
                     .Route("profile", "profile")
+                    .Group("password/reset", "passwordreset", password_routes => password_routes
+                        .Route("request", "request")
+                        .Route("perform", "perform")
+                    )
                 )
                 .Group("person", "person", person_routes => person_routes
                     .Route("", "list")
@@ -297,6 +333,20 @@ namespace MintPlayer.Web
                     options.ConsumerSecret = Configuration["TwitterOptions:ApiSecret"];
                     options.RetrieveUserDetails = true;
                 })
+				.Configure<AspNet.Security.OAuth.LinkedIn.LinkedInAuthenticationOptions>(AspNet.Security.OAuth.LinkedIn.LinkedInAuthenticationDefaults.AuthenticationScheme, options =>
+				{
+					options.ClientId = Configuration["LinkedInOptions:AppId"];
+					options.ClientSecret = Configuration["LinkedInOptions:AppSecret"];
+					options.ReturnUrlParameter = "/signin-linkedin";
+				})
+                .Configure<Data.Options.SmtpOptions>(options =>
+                {
+                    options.Host = Configuration["Mail:Host"];
+                    options.Port = Configuration.GetValue<int>("Mail:Port");
+                    options.UseTLS = Configuration.GetValue<bool>("Mail:Tls");
+                    options.User = Configuration["Mail:User"];
+                    options.Password = Configuration["Mail:Password"];
+                })
                 .Configure<RazorViewEngineOptions>(options =>
                 {
                     var new_locations = options.ViewLocationFormats.Select(vlf => $"/Server{vlf}").ToList();
@@ -362,7 +412,8 @@ namespace MintPlayer.Web
                     options.SlidingExpiration = true;
                     options.ExpireTimeSpan = TimeSpan.FromDays(3);
 #if RELEASE
-                    options.Cookie.Domain = ".mintplayer.com";
+                    //options.Cookie.Domain = ".mintplayer.com";
+                    options.Cookie.Domain = "mintplayer.com";
 #endif
                     options.Events.OnRedirectToLogin = (context) =>
                     {
@@ -375,10 +426,12 @@ namespace MintPlayer.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISpaRouteService spaRouteService)
         {
-            app.Use(async (context, next) =>
-            {
-                await next();
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    var logEntryService = context.RequestServices.GetRequiredService<Data.Services.ILogEntryService>();
+            //    await logEntryService.Log($"Processing request. BaseDirectory: {AppDomain.CurrentDomain.BaseDirectory}");
+            //    await next();
+            //});
 
             if (env.IsDevelopment())
             {
@@ -392,11 +445,15 @@ namespace MintPlayer.Web
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
             app.UseHttpsRedirection();
-            app.UseOpenSearch();
-            app.UseDefaultSitemapXmlStylesheet(options =>
+            app.UseSwagger(options =>
             {
-                options.StylesheetUrl = "/assets/stitemap.xsl";
             });
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "MintPlayer API V1");
+            });
+            app.UseAntiforgery();
+            app.UseOpenSearch();
 
             app.UseAuthentication();
 
@@ -408,28 +465,31 @@ namespace MintPlayer.Web
                 }
             );
             app.UseRouting();
+            app.UseCors();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}")
+                .RequireCors("AllowPage");
+
+                endpoints.MapDefaultSitemapXmlStylesheet(options =>
+                {
+                    options.StylesheetUrl = "/assets/stitemap.xsl";
+                });
             });
 
-            app.UseResponseCaching();
+            //app.UseResponseCaching();
             app.Use(async (context, next) =>
             {
                 context.Response.OnStarting(() =>
                 {
                     if (!context.Response.Headers.ContainsKey("cache-control"))
-                        context.Response.Headers.Add("cache-control", "no-cache");
+                        context.Response.Headers.Add("cache-control", "no-cache, no-store, must-revalidate");
+
                     return Task.CompletedTask;
                 });
-                //if (context.Request.Path == "/index.html")
-                //{
-                //    context.Response.Headers.Add("Cache-control", "no-cache, no-store, must-revalidate");
-                //    context.Response.Headers.Add("Pragma", "no-cache");
-                //}
                 await next();
             });
 
@@ -459,7 +519,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var personService = context.RequestServices.GetRequiredService<Data.Services.IPersonService>();
-                            var person = await personService.GetPerson(id, false, false);
+                            var person = await personService.GetPerson(id, false);
                             if (person == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -479,7 +539,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var artistService = context.RequestServices.GetRequiredService<Data.Services.IArtistService>();
-                            var artist = await artistService.GetArtist(id, false, false);
+                            var artist = await artistService.GetArtist(id, false);
                             if (artist == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -499,7 +559,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var songService = context.RequestServices.GetRequiredService<Data.Services.ISongService>();
-                            var song = await songService.GetSong(id, false, false);
+                            var song = await songService.GetSong(id, false);
                             if (song == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -540,7 +600,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var personService = context.RequestServices.GetRequiredService<Data.Services.IPersonService>();
-                            var person = await personService.GetPerson(id, false, false);
+                            var person = await personService.GetPerson(id, false);
                             if (person == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -565,7 +625,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var artistService = context.RequestServices.GetRequiredService<Data.Services.IArtistService>();
-                            var artist = await artistService.GetArtist(id, false, false);
+                            var artist = await artistService.GetArtist(id, false);
                             if (artist == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -590,7 +650,7 @@ namespace MintPlayer.Web
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
                             var songService = context.RequestServices.GetRequiredService<Data.Services.ISongService>();
-                            var song = await songService.GetSong(id, false, false);
+                            var song = await songService.GetSong(id, false);
                             if (song == null)
                             {
                                 context.Response.OnStarting(() =>
@@ -683,7 +743,7 @@ namespace MintPlayer.Web
                             var tagService = context.RequestServices.GetService<Data.Services.ITagService>();
                             var playlistService = context.RequestServices.GetService<Data.Services.IPlaylistService>();
                             var blogPostService = context.RequestServices.GetService<Data.Services.IBlogPostService>();
-                            
+
                             var user = accountService.GetCurrentUser(context.User).Result;
                             data["user"] = user;
 
@@ -707,7 +767,7 @@ namespace MintPlayer.Web
                                     break;
                                 case "person-create":
                                     {
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -715,7 +775,7 @@ namespace MintPlayer.Web
                                 case "person-edit":
                                     {
                                         var id = Convert.ToInt32(route.Parameters["id"]);
-                                        var person = personService.GetPerson(id, true, false).Result;
+                                        var person = personService.GetPerson(id, true).Result;
                                         if (person == null)
                                         {
                                             context.Response.OnStarting(() =>
@@ -733,7 +793,7 @@ namespace MintPlayer.Web
                                                 return Task.CompletedTask;
                                             });
                                         }
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -746,7 +806,7 @@ namespace MintPlayer.Web
                                     break;
                                 case "artist-create":
                                     {
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -754,7 +814,7 @@ namespace MintPlayer.Web
                                 case "artist-edit":
                                     {
                                         var id = Convert.ToInt32(route.Parameters["id"]);
-                                        var artist = artistService.GetArtist(id, true, false).Result;
+                                        var artist = artistService.GetArtist(id, true).Result;
                                         if (artist == null)
                                         {
                                             context.Response.OnStarting(() =>
@@ -767,12 +827,12 @@ namespace MintPlayer.Web
                                         {
                                             data["artist"] = artist;
                                             context.Response.OnStarting(() =>
-                                            {
-                                                context.Response.Headers["last-modified"] = artist.DateUpdate.ToISOString();
-                                                return Task.CompletedTask;
-                                            });
+                                        {
+                                            context.Response.Headers["last-modified"] = artist.DateUpdate.ToISOString();
+                                            return Task.CompletedTask;
+                                        });
                                         }
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -785,7 +845,7 @@ namespace MintPlayer.Web
                                     break;
                                 case "song-create":
                                     {
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -793,7 +853,7 @@ namespace MintPlayer.Web
                                 case "song-edit":
                                     {
                                         var id = Convert.ToInt32(route.Parameters["id"]);
-                                        var song = songService.GetSong(id, true, false).Result;
+                                        var song = songService.GetSong(id, true).Result;
                                         if (song == null)
                                         {
                                             context.Response.OnStarting(() =>
@@ -811,13 +871,13 @@ namespace MintPlayer.Web
                                                 return Task.CompletedTask;
                                             });
                                         }
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
                                 case "mediumtype-list":
                                     {
-                                        var mediumtypes = mediumTypeService.GetMediumTypes(false, false).Result;
+                                        var mediumtypes = mediumTypeService.GetMediumTypes(false).Result;
                                         data["mediumtypes"] = mediumtypes.ToArray();
                                     }
                                     break;
@@ -827,15 +887,19 @@ namespace MintPlayer.Web
                                 case "mediumtype-edit":
                                     {
                                         var id = Convert.ToInt32(route.Parameters["id"]);
-                                        var mediumtype = mediumTypeService.GetMediumType(id, false, false).Result;
+                                        var mediumtype = mediumTypeService.GetMediumType(id, false).Result;
                                         if (mediumtype == null)
+                                        {
                                             context.Response.OnStarting(() =>
                                             {
                                                 context.Response.StatusCode = 404;
                                                 return Task.CompletedTask;
                                             });
+                                        }
                                         else
+                                        {
                                             data["mediumtype"] = mediumtype;
+                                        }
                                     }
                                     break;
                                 case "account-profile":
@@ -858,10 +922,10 @@ namespace MintPlayer.Web
                                         var category = tagCategoryService.GetTagCategory(id, true).Result;
                                         if (category == null)
                                             context.Response.OnStarting(() =>
-                                            {
-                                                context.Response.StatusCode = 404;
-                                                return Task.CompletedTask;
-                                            });
+                                {
+                                    context.Response.StatusCode = 404;
+                                    return Task.CompletedTask;
+                                });
                                         else
                                             data["tagcategory"] = category;
                                     }
@@ -873,10 +937,10 @@ namespace MintPlayer.Web
                                         var category = tagCategoryService.GetTagCategory(id).Result;
                                         if (category == null)
                                             context.Response.OnStarting(() =>
-                                            {
-                                                context.Response.StatusCode = 404;
-                                                return Task.CompletedTask;
-                                            });
+                                {
+                                    context.Response.StatusCode = 404;
+                                    return Task.CompletedTask;
+                                });
                                         else
                                             data["tagcategory"] = category;
                                     }
@@ -887,10 +951,10 @@ namespace MintPlayer.Web
                                         var tag = tagService.GetTag(tagId, true).Result;
                                         if (tag == null)
                                             context.Response.OnStarting(() =>
-                                            {
-                                                context.Response.StatusCode = 404;
-                                                return Task.CompletedTask;
-                                            });
+                                {
+                                    context.Response.StatusCode = 404;
+                                    return Task.CompletedTask;
+                                });
                                         else
                                             data["tag"] = tag;
                                     }
@@ -901,10 +965,10 @@ namespace MintPlayer.Web
                                         var tag = tagService.GetTag(tagId, false).Result;
                                         if (tag == null)
                                             context.Response.OnStarting(() =>
-                                            {
-                                                context.Response.StatusCode = 404;
-                                                return Task.CompletedTask;
-                                            });
+                                {
+                                    context.Response.StatusCode = 404;
+                                    return Task.CompletedTask;
+                                });
                                         else
                                             data["tag"] = tag;
                                     }
@@ -922,10 +986,10 @@ namespace MintPlayer.Web
                                         var blogPost = blogPostService.GetBlogPost(blogPostId).Result;
                                         if (blogPost == null)
                                             context.Response.OnStarting(() =>
-                                            {
-                                                context.Response.StatusCode = 404;
-                                                return Task.CompletedTask;
-                                            });
+                                {
+                                    context.Response.StatusCode = 404;
+                                    return Task.CompletedTask;
+                                });
                                         else
                                             data["blogpost"] = blogPost;
 
@@ -979,7 +1043,7 @@ namespace MintPlayer.Web
                     });
 #pragma warning restore CS0618 // Type or member is obsolete
 
-                    app2.UseWebMarkupMin();
+                    //app2.UseWebMarkupMin();
 
                     if (env.IsDevelopment())
                     {

@@ -1,30 +1,22 @@
-import { enableProdMode, StaticProvider, Inject, InjectionToken } from '@angular/core';
+import { enableProdMode, StaticProvider } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 
 import { environment } from './environments/environment';
 import { AppBrowserModule } from './app/app.browser.module';
+import { BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
 
-const getBaseUrl = () => {
-  return document.getElementsByTagName('base')[0].href.slice(0, -1);
+
+if (!environment.production) {
+  console.log('Development');
 }
-const getExternalUrl = (baseUrl: string) => {
-  if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
-    return baseUrl;
-  } else {
-    let match = new RegExp("^(http[s]{0,1})\\:\\/\\/(.*)$").exec(baseUrl);
-
-    let protocol = match[1];
-    let url = match[2];
-
-    return `${protocol}://external.${url}`;
-  }
-}
-
 
 const providers: StaticProvider[] = [
-  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
-  { provide: 'EXTERNAL_URL', useFactory: getExternalUrl, deps: ['BASE_URL'] },
-  { provide: 'SERVERSIDE', useValue: false },
+  { provide: 'API_VERSION', useValue: 'v3' },
+
+  { provide: SERVER_SIDE, useValue: false },
+  { provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>null },
+
   { provide: 'PEOPLE', useValue: null },
   { provide: 'PERSON', useValue: null },
   { provide: 'ARTISTS', useValue: null },
@@ -44,7 +36,7 @@ const providers: StaticProvider[] = [
   { provide: 'PROVIDERS', useValue: null },
   { provide: 'USER', useValue: null },
   { provide: 'PATH', useValue: null },
-  { provide: 'URL', useValue: null }
+  { provide: 'URL', useValue: null },
 ];
 
 if (environment.production) {

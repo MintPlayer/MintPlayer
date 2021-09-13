@@ -1,16 +1,12 @@
 <div class="container">
   <form (submit)="saveArtist()">
-    <div class="form-group row">
+    <div class="form-group row mb-3">
       <div class="col-12">
-        <h1 class="d-inline-block">Create new artist</h1>
-        <span class="float-right">
-          <a [routerLink]='["/fetch"]' class="btn btn-secondary" title="Fetch from url">
-            <i class="fa fa-download"></i>
-            Fetch
-          </a>
+        <h1 class="d-inline-block">{{ 'artists.create_new_artist' | translate }}</h1>
+        <span class="pull-right">
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
-            Create artist
+            {{ 'artists.create_artist' | translate }}
           </button>
         </span>
       </div>
@@ -18,44 +14,44 @@
     <card class="d-block mb-3" [overflowX]="false">
       <header>
         <i class="fa fa-info"></i>
-        General information
+        {{ 'subjects.general_information' | translate }}
       </header>
       <content>
-        <div class="form-group row">
-          <label [appFor]="txt_name" class="col-form-label col-md-6 col-lg-4 col-xl-3">Name</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="txt_name" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'artists.name' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
             <input type="text" [(ngModel)]="artist.name" class="form-control" name="name" #txt_name autofocus />
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="txt_year_started" class="col-form-label col-md-6 col-lg-4 col-xl-3">Year started</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="txt_year_started" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'artists.year_started' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <input type="number" [(ngModel)]="artist.yearStarted" class="form-control" name="year_started" #txt_year_started autofocus />
+            <input type="number" [(ngModel)]="artist.yearStarted" class="form-control" name="year_started" #txt_year_started />
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="txt_year_quit" class="col-form-label col-md-6 col-lg-4 col-xl-3">Year quit</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="txt_year_quit" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'artists.year_quit' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <input type="number" [(ngModel)]="artist.yearQuit" class="form-control" name="year_quit" #txt_year_quit autofocus />
+            <input type="number" [(ngModel)]="artist.yearQuit" class="form-control" name="year_quit" #txt_year_quit />
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="sel_current_members" class="col-form-label col-md-6 col-lg-4 col-xl-3">Current members</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="sel_current_members" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'artists.current_members' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <select2 [url]="'/api/subject/search/suggest/person'" [method]="'get'" [headers]="httpHeaders" [items]="artist.currentMembers" #sel_current_members></select2>
+            <select2 (provideSuggestions)="onProvideCurrentMemberSuggestions($event)" [suggestions]="currentMemberSuggestions" [selectedItems]="artist.currentMembers" #sel_current_members></select2>
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="sel_past_members" class="col-form-label col-md-6 col-lg-4 col-xl-3">Past members</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="sel_past_members" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'artists.past_members' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <select2 [url]="'/api/subject/search/suggest/person'" [method]="'get'" [headers]="httpHeaders" [items]="artist.pastMembers" #sel_past_members></select2>
+            <select2 (provideSuggestions)="onProvidePastMemberSuggestions($event)" [suggestions]="pastMemberSuggestions" [selectedItems]="artist.pastMembers" #sel_past_members></select2>
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="sel_tags" class="col-form-label col-md-6 col-lg-4 col-xl-3">Tags</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="sel_tags" class="col-form-label col-md-6 col-lg-4 col-xl-3">{{ 'subjects.tags' | translate }}</label>
           <div class="col-md-6 col-lg-8 col-xl-9">
-            <select2 [url]="'/web/v1/Tag/suggest'" [method]="'post'" [headers]="httpHeaders" [items]="artist.tags" [itemTemplate]="customTemplate" #sel_tags>
-              <ng-template #customTemplate let-item="item" let-select2="select2">
+            <select2 (provideSuggestions)="onProvideTagSuggestions($event)" [suggestions]="tagSuggestions" [selectedItems]="artist.tags" #sel_tags>
+              <ng-template itemTemplate let-item="item" let-select2="select2">
                 <span class="select2-item" [style.background]="item.category.color" [style.color]="item.category.color | fontColor">
                   <span [style.color]="item.category.color | fontColor" (click)="select2.removeItem(item,$event)">×</span>
                   {{ item.text }}
@@ -69,7 +65,7 @@
     <card>
       <header>
         <i class="fa fa-medium"></i>
-        Media
+        {{ 'subjects.media' | translate }}
       </header>
       <content>
         <media-manager [media]="artist.media" [mediumTypes]="mediumTypes"></media-manager>

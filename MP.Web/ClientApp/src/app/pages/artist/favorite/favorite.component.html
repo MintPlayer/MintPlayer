@@ -1,22 +1,24 @@
 <div class="container-fluid">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">My favorite artists</h1>
+      <h1 class="d-inline-block">{{ 'artists.my_favorite_artists' | translate }}</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <datatable [settings]="tableSettings" [data]="artistData" [rowTemplate]="rowTemplate" (onReloadData)="loadFavoriteArtists()">
-        <ng-template #rowTemplate let-artist>
+      <datatable [settings]="tableSettings" [data]="artistData" (onReloadData)="loadFavoriteArtists()">
+        <datatable-column [title]="'artists.name' | translate" name="Name" [sortable]="true"></datatable-column>
+        <datatable-column [title]="'artists.year_started' | translate" name="YearStarted" [sortable]="true"></datatable-column>
+        <datatable-column [title]="'artists.year_quit' | translate" name="YearQuit" [sortable]="true"></datatable-column>
+
+        <ng-template rowTemplate let-artist>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/artist",artist.id,artist.name | slugify]' title="Details for {{ artist.name }}">{{ artist.name }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/artist",artist.id,artist.name | slugify]' [title]="'global.details_for' | translate: {name:artist.name}">{{ artist.name }}</a></td>
             <td class="text-nowrap">{{ artist.yearStarted }}</td>
             <td class="text-nowrap">{{ artist.yearQuit }}</td>
           </tr>
         </ng-template>
       </datatable>
-      <pagination class="pull-left" [numbers]="tableSettings.perPages.values" [(selectedNumber)]="tableSettings.perPages.selected" (selectedNumberChange)="loadFavoriteArtists()" [showArrows]="false"></pagination>
-      <pagination class="pull-right" [numbers]="tableSettings.pages.values" [(selectedNumber)]="tableSettings.pages.selected" (selectedNumberChange)="loadFavoriteArtists()" [showArrows]="true"></pagination>
     </div>
   </div>
 </div>

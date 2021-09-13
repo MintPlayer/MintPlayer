@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MintPlayer.Dtos.Enums;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -24,5 +25,9 @@ namespace MintPlayer.Dtos.Dtos
 		[DataMember]
 		[XmlElement(Namespace = "https://mintplayer.com/music")]
         public List<Song> Tracks { get; set; }
-    }
+
+		[DataMember]
+		[XmlElement(Namespace = "https://mintplayer.com/music")]
+		public ePlaylistAccessibility Accessibility { get; set; }
+	}
 }

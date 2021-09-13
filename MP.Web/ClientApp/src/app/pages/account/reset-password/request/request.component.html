@@ -1,0 +1,31 @@
+<div class="container">
+  <form (submit)="sendPasswordResetEmail()">
+    <div class="form-group row mb-3">
+      <div class="col-12">
+        <h1 class="d-inline-block">{{ 'account.password.reset' | translate }}</h1>
+      </div>
+    </div>
+    <div class="form-group row mb-3">
+      <label [appFor]="txt_email" class="col-form-label col-sm-4 col-xl-3">{{ 'account.email_address' | translate }}</label>
+      <div class="col-sm-8 col-xl-9">
+        <input type="email" [title]="'account.email_address' | translate" [(ngModel)]="email" class="form-control" name="username" #txt_email />
+      </div>
+    </div>
+    <div class="form-group row mb-3">
+      <div class="col-md-12 text-center">
+        <button type="submit" *ngIf="!emailSent" [title]="'account.password.send_email' | translate" class="btn btn-primary">
+          <i class="fa fa-save"></i>
+          {{ 'account.password.send_email' | translate }}
+        </button>
+      </div>
+    </div>
+    <div class="alert-success p-4" *ngIf="emailSent">
+      <div class="d-block mb-2">
+        <b>{{ 'account.password.email_sent' | translate }}</b>
+      </div>
+      <div class="d-block">
+        {{ 'account.password.email_sent_message' | translate }}
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,16 +1,13 @@
 import { Component, OnInit, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { ePlayerType } from '../../../enums/ePlayerType';
-import { MediumType } from '../../../entities/medium-type';
-import { PlayerType } from '../../../entities/player-type';
-import { PlayerTypeHelper } from '../../../helpers/player-type.helper';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { EnumHelper } from '../../../helpers/enum.helper';
+import { EnumItem } from '../../../entities/enum-item';
 
 @Component({
   selector: 'app-create',
@@ -20,32 +17,25 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
     private mediumTypeService: MediumTypeService,
-    private playerTypeHelper: PlayerTypeHelper,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     this.titleService.setTitle('Create medium type');
-    this.playerTypes = this.playerTypeHelper.getPlayerTypes();
   }
 
   public mediumType: MediumType = {
     id: 0,
     description: '',
-    playerType: ePlayerType.None
+    visible: true,
   };
-
-  public playerTypes: PlayerType[] = [];
-  public playerTypeSelected(playerType: number) {
-    this.mediumType.playerType = ePlayerType[ePlayerType[playerType]];
-  }
 
   public saveMediumType() {
     this.mediumTypeService.createMediumType(this.mediumType).then((mediumType) => {
       this.hasChanges = false;
-      this.navigation.navigate(['mediumtype', mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
+      this.router.navigate(['mediumtype', mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
     }).catch((error) => {
       console.error('Could not create medium type', error);
     });

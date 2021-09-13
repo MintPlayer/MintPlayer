@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { Select2Module } from '@mintplayer/ng-select2';
 
 import { EditRoutingModule } from './edit-routing.module';
 import { EditComponent } from './edit.component';
-import { ComponentsModule } from '../../../components/components.module';
-import { ControlsModule } from '../../../controls/controls.module';
-import { DirectivesModule } from '../../../directives/directives.module';
+import { CardModule } from '../../../controls/card/card.module';
 import { PipesModule } from '../../../pipes/pipes.module';
-import { QueryParamsHandlingModule } from '../../../directives/query-params-handling/query-params-handling.module';
+import { ForDirectiveModule } from '../../../directives/for/for-directive.module';
+import { MediaManagerModule } from '../../../components/subject/media-manager/media-manager.module';
+import { FocusOnLoadDirectiveModule } from '../../../directives/focus-on-load/focus-on-load.module';
+
 
 
 @NgModule({
@@ -16,11 +19,15 @@ import { QueryParamsHandlingModule } from '../../../directives/query-params-hand
   imports: [
     CommonModule,
     FormsModule,
-    ControlsModule,
-    ComponentsModule,
-    DirectivesModule,
-    QueryParamsHandlingModule,
+    TranslateModule,
+    Select2Module,
+
+    CardModule,
     PipesModule,
+    ForDirectiveModule,
+    FocusOnLoadDirectiveModule,
+    MediaManagerModule,
+
     EditRoutingModule
   ]
 })

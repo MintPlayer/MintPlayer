@@ -1,23 +1,26 @@
 <div class="container-fluid">
-  <div class="form-group row">
+  <div class="form-group row mb-3">
     <div class="col-12">
-      <h1 class="d-inline-block">My favorite people</h1>
+      <h1 class="d-inline-block">{{ 'people.favorite_people' | translate }}</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <datatable [settings]="tableSettings" [data]="personData" [rowTemplate]="rowTemplate" (onReloadData)="loadFavoritePeople()">
-        <ng-template #rowTemplate let-person>
+      <datatable [settings]="tableSettings" [data]="personData" (onReloadData)="loadFavoritePeople()">
+        <datatable-column title="'people.first_name' | translate" name="FirstName" [sortable]="true"></datatable-column>
+        <datatable-column title="'people.last_name' | translate" name="LastName" [sortable]="true"></datatable-column>
+        <datatable-column title="'people.born' | translate" name="Born" [sortable]="true"></datatable-column>
+        <datatable-column title="'people.died' | translate" name="Died" [sortable]="true"></datatable-column>
+
+        <ng-template rowTemplate let-person>
           <tr>
-            <td class="text-nowrap"><a [routerLink]='["/person",person.id,person.text | slugify]' title="Details for {{ person.firstName }} {{ person.lastName }}">{{ person.firstName }}</a></td>
+            <td class="text-nowrap"><a [advRouterLink]='["/person",person.id,person.text | slugify]' [title]="'global.details_for' | translate: {name: person.firstName + ' ' + person.lastName}">{{ person.firstName }}</a></td>
             <td class="text-nowrap">{{ person.lastName }}</td>
             <td class="text-nowrap">{{ person.born | date:'dd/MM/yyyy' }}</td>
             <td class="text-nowrap">{{ person.died | date:'dd/MM/yyyy' }}</td>
           </tr>
         </ng-template>
       </datatable>
-      <pagination class="pull-left" [numbers]="tableSettings.perPages.values" [(selectedNumber)]="tableSettings.perPages.selected" (selectedNumberChange)="loadFavoritePeople()" [showArrows]="false"></pagination>
-      <pagination class="pull-right" [numbers]="tableSettings.pages.values" [(selectedNumber)]="tableSettings.pages.selected" (selectedNumberChange)="loadFavoritePeople()" [showArrows]="true"></pagination>
     </div>
   </div>
 </div>

@@ -1,12 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { Router, UrlSerializer } from '@angular/router';
+import { ActivatedRoute, UrlSerializer } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { ArtistService } from '../../../services/artist/artist.service';
-import { Artist } from '../../../entities/artist';
-import { PaginationResponse } from '../../../helpers/pagination-response';
-import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { DatatableSettings } from '@mintplayer/ng-datatables';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { PaginationResponse } from '@mintplayer/ng-pagination';
+import { Artist, ArtistService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -16,20 +18,35 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class ListComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('ARTISTS') private artistsInj: PaginationResponse<Artist>,
     private artistService: ArtistService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
+    private route: ActivatedRoute,
     private urlSerializer: UrlSerializer,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
     this.titleService.setTitle('Artists');
     if (serverSide === true) {
       this.setArtistData(artistsInj);
     } else {
-      this.loadArtists();
+      //this.loadArtists();
+      this.route.queryParams
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe((queryParams) => {
+          this.tableSettings.perPage.selected = parseInt(queryParams['perpage'] ?? 20);
+          this.tableSettings.page.selected = parseInt(queryParams['page'] ?? 1);
+          this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Name';
+          this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
+
+          this.artistService.pageArtists(this.tableSettings.toPagination()).then((response) => {
+            this.setArtistData(response);
+          }).catch((error) => {
+            console.error(error);
+          });
+        });
     }
   }
 
@@ -38,9 +55,11 @@ export class ListComponent implements OnInit, OnDestroy {
     this.addMetaTags();
   }
 
+  private destroyed$ = new Subject();
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
     this.removeMetaTags();
+    this.destroyed$.next(true);
   }
 
   //#region Add meta-tags
@@ -84,43 +103,29 @@ export class ListComponent implements OnInit, OnDestroy {
   //#endregion
 
   loadArtists() {
-    this.artistService.pageArtists(this.tableSettings.toPaginationRequest()).then((response) => {
-      this.setArtistData(response);
-    }).catch((error) => {
-      console.log(error);
+    this.router.navigate([], {
+      queryParams: {
+        perpage: this.tableSettings.perPage.selected,
+        page: this.tableSettings.page.selected,
+        sortproperty: this.tableSettings.sortProperty,
+        sortdirection: this.tableSettings.sortDirection,
+      }
     });
   }
 
   private setArtistData(data: PaginationResponse<Artist>) {
-    console.log('artist data', data);
     this.artistData = data;
-    this.tableSettings.pages.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
+    this.tableSettings.page.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }
 
   artistData: PaginationResponse<Artist> = new PaginationResponse();
 
   tableSettings: DatatableSettings = new DatatableSettings({
-    columns: [{
-      name: 'Name',
-      data: 'name',
-      title: 'Name',
-      sortable: true
-    }, {
-      name: 'YearStarted',
-      data: 'yearStarted',
-      title: 'Year started',
-      sortable: true
-    }, {
-      name: 'YearQuit',
-      data: 'yearQuit',
-      title: 'Year quit',
-      sortable: true
-    }],
-    perPages: {
+    perPage: {
       values: [10, 20, 50, 100],
       selected: 20
     },
-    pages: {
+    page: {
       values: [],
       selected: 1
     },

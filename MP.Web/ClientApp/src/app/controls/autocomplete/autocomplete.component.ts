@@ -1,30 +1,29 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from '../../entities/subject';
 import { AutocompleteElement } from '../autocomplete-element';
+import { Subject } from '@mintplayer/ng-client';
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
+//import { Focusable } from '../../directives/focus-on-load/focusable';
 
 @Component({
   selector: 'autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss']
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent implements OnInit/*, Focusable*/ {
 
-  constructor(private httpClient: HttpClient) {
+  constructor() {
   }
 
   @Input() searchterm: string;
-  @Input() suggestionUrl: string;
-  @Input() suggestionMethod: string;
 
   dropdownVisible: boolean = false;
   clickedOutside($event: Event) {
     this.dropdownVisible = false;
   }
 
-  provideSuggestions(value: string) {
-    this.dropdownVisible = true;
-
+  onProvideSuggestions(value: string) {
     this.searchterm = value;
     this.searchtermChange.emit(this.searchterm);
 
@@ -32,21 +31,13 @@ export class AutocompleteComponent implements OnInit {
       this.dropdownVisible = false;
       this.suggestions = [];
     } else {
-      switch (this.suggestionMethod.toLowerCase()) {
-        case 'get':
-          this.httpClient.get<Subject[]>(`${this.suggestionUrl}/${this.searchterm}`).subscribe((items) => {
-            this.suggestions = items;
-          });
-          break;
-        case 'post':
-          break;
-        default:
-          throw 'Invalid suggestion method';
-      }
+      this.dropdownVisible = true;
+      this.provideSuggestions.emit(value);
     }
   }
 
-  suggestions: AutocompleteElement[] = [];
+  @Output() public provideSuggestions: EventEmitter<string> = new EventEmitter();
+  @Input() public suggestions: AutocompleteElement[] = [];
   suggestionClicked(suggestion: AutocompleteElement) {
     this.searchterm = suggestion.text;
     this.searchtermChange.emit(this.searchterm);
@@ -67,6 +58,11 @@ export class AutocompleteComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  @ViewChild('textbox') textbox!: ElementRef<HTMLInputElement>;
+  public focus() {
+    this.textbox.nativeElement.focus();
   }
 
 }

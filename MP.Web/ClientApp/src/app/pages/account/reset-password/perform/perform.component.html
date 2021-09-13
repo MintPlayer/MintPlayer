@@ -1,0 +1,35 @@
+<div class="container">
+  <form (submit)="performPasswordReset()">
+    <div class="form-group row mb-3">
+      <div class="col-12">
+        <h1 class="d-inline-block">{{ 'account.password.reset' | translate }}</h1>
+        <span class="pull-right">
+          <button type="submit" *ngIf="!success" [title]="'account.password.reset' | translate" class="btn btn-primary">
+            <i class="fa fa-save"></i>
+            {{ 'account.password.reset' | translate }}
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="form-group row mb-3">
+      <label [appFor]="txt_password" class="col-form-label col-sm-4 col-xl-3">{{ 'account.password.password' | translate }}</label>
+      <div class="col-sm-8 col-xl-9">
+        <input type="password" [title]="'account.password.password' | translate" [(ngModel)]="password" class="form-control" name="password" #txt_password />
+      </div>
+    </div>
+    <div class="form-group row mb-3">
+      <label [appFor]="txt_password_confirmation" class="col-form-label col-sm-4 col-xl-3">{{ 'account.repeat_password' | translate }}</label>
+      <div class="col-sm-8 col-xl-9">
+        <input type="password" [title]="'account.repeat_password' | translate" [(ngModel)]="passwordConfirmation" class="form-control" name="password_confirmation" #txt_password_confirmation />
+      </div>
+    </div>
+    <div class="alert-success p-4" *ngIf="success">
+      <div class="d-block mb-2">
+        <b>{{ 'account.password.reset_success' | translate }}</b>
+      </div>
+      <div class="d-block">
+        {{ 'account.password.reset_success_message' | translate }}
+      </div>
+    </div>
+  </form>
+</div>

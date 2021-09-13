@@ -1,16 +1,36 @@
 <div class="container">
-  <form (submit)="saveSong()">
-    <div class="form-group row">
-      <div class="col-12">
-        <h1 class="d-inline-block">Create new song</h1>
-        <span class="float-right">
-          <a [routerLink]='["/fetch"]' class="btn btn-secondary" title="Fetch from url">
+  <!--<app-popup [dialogVisible]="fetchDialogVisible">
+    <form class="container">
+      <div class="row">
+        <label [appFor]="txt_fetch_url" class="col-md-12">URL</label>
+      </div>
+      <div class="form-group row mb-3">
+        <div class="col-md-12">
+          <input type="text" [(ngModel)]="fetchUrl" class="form-control" name="fetch_url" #txt_fetch_url />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <button type="submit" class="btn btn-primary">
             <i class="fa fa-download"></i>
             Fetch
-          </a>
+          </button>
+        </div>
+      </div>
+    </form>
+  </app-popup>-->
+  <form (submit)="saveSong()">
+    <div class="form-group row mb-3">
+      <div class="col-12">
+        <h1 class="d-inline-block">{{ 'songs.create_new_song' | translate }}</h1>
+        <span class="pull-right">
+          <!--<button class="btn btn-secondary" (click)="fetchDialogVisible = 'in'" style="z-index:50000">
+            <i class="fa fa-download"></i>
+            Fetch
+          </button>-->
           <button type="submit" class="btn btn-primary">
             <i class="fa fa-save"></i>
-            Create song
+            {{ 'songs.create_song' | translate }}
           </button>
         </span>
       </div>
@@ -18,32 +38,41 @@
     <card class="d-block mb-3" [overflowX]="false">
       <header>
         <i class="fa fa-info"></i>
-        General information
+        {{ 'global.general_information' | translate }}
       </header>
       <content>
-        <div class="form-group row">
-          <label [appFor]="txt_title" class="col-form-label col-md-4 col-xl-2">Title</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="txt_title" class="col-form-label col-md-4 col-xl-2">{{ 'songs.title' | translate }}</label>
           <div class="col-md-8 col-xl-10">
             <input type="text" [(ngModel)]="song.title" class="form-control" #txt_title name="title" autofocus />
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="txt_released" class="col-form-label col-md-4 col-xl-2">Released</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="txt_released" class="col-form-label col-md-4 col-xl-2">{{ 'songs.released' | translate }}</label>
           <div class="col-md-8 col-xl-10">
-            <input type="date" [ngModel]="song.released | date:'yyyy-MM-dd'" (ngModelChange)="updateReleaseDate($event)" name="released" class="form-control" #txt_released autofocus />
+            <input type="date" [ngModel]="song.released | date:'yyyy-MM-dd'" (ngModelChange)="updateReleaseDate($event)" name="released" class="form-control" #txt_released />
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="sel_artists" class="col-form-label col-md-4 col-xl-2">Artists</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="sel_artists" class="col-form-label col-md-4 col-xl-2">{{ 'artists.artists' | translate }}</label>
           <div class="col-md-8 col-xl-10">
-            <select2 [url]="'/api/subject/search/suggest/artist'" [method]="'get'" [headers]="httpHeaders" [items]="song.artists" #sel_artists></select2>
+            <!--<select2 [url]="'/web/' + apiVersion + '/subject/search/suggest/artist'" method="GET" [headers]="httpHeaders" [selectedItems]="song.artists" #sel_artists></select2>-->
+            <select2 (provideSuggestions)="onProvideArtistSuggestions($event)" [suggestions]="artistSuggestions" [selectedItems]="song.artists" #sel_artists></select2>
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="sel_tags" class="col-form-label col-md-4 col-xl-2">Tags</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="sel_uncr_artists" class="col-form-label col-md-4 col-xl-2">{{ 'songs.uncredited_artists' | translate }}</label>
           <div class="col-md-8 col-xl-10">
-            <select2 [url]="'/web/v1/Tag/suggest'" [method]="'post'" [headers]="httpHeaders" [items]="song.tags" [itemTemplate]="customTemplate" #sel_tags>
-              <ng-template #customTemplate let-item="item" let-select2="select2">
+            <!--<select2 [url]="'/web/' + apiVersion + '/subject/search/suggest/artist'" method="GET" [headers]="httpHeaders" [selectedItems]="song.uncreditedArtists" #sel_uncr_artists></select2>-->
+            <select2 (provideSuggestions)="onProvideUncreditedArtistSuggestions($event)" [suggestions]="uncreditedArtistSuggestions" [selectedItems]="song.uncreditedArtists" #sel_uncr_artists></select2>
+          </div>
+        </div>
+        <div class="form-group row mb-3">
+          <label [appFor]="sel_tags" class="col-form-label col-md-4 col-xl-2">{{ 'subjects.tags' | translate }}</label>
+          <div class="col-md-8 col-xl-10">
+            <!--<select2 [url]="'/web/' + apiVersion + '/Tag/suggest'" method="POST" [headers]="httpHeaders" [selectedItems]="song.tags" #sel_tags>-->
+            <select2 (provideSuggestions)="onProvideTagSuggestions($event)" [suggestions]="tagSuggestions" [selectedItems]="song.tags" #sel_tags>
+              <ng-template itemTemplate let-item="item" let-select2="select2">
                 <span class="select2-item" [style.background]="item.category.color" [style.color]="item.category.color | fontColor">
                   <span [style.color]="item.category.color | fontColor" (click)="select2.removeItem(item,$event)">×</span>
                   {{ item.text }}
@@ -52,11 +81,11 @@
             </select2>
           </div>
         </div>
-        <div class="form-group row">
-          <label [appFor]="txt_lyrics" class="col-form-label col-md-4 col-xl-2">Lyrics</label>
+        <div class="form-group row mb-3">
+          <label [appFor]="txt_lyrics" class="col-form-label col-md-4 col-xl-2">{{ 'songs.lyrics' | translate }}</label>
           <div class="col-md-8 col-xl-10">
             <textarea [(ngModel)]="song.lyrics.text" class="form-control" rows="15" #txt_lyrics name="lyrics"></textarea>
-            <button type="button" (click)="removeBrackets()" class="btn btn-warning w-100">Remove [ and ]</button>
+            <button type="button" (click)="removeBrackets()" class="btn btn-warning w-100">{{ 'songs.remove_brackets' | translate }}</button>
           </div>
         </div>
       </content>
@@ -64,7 +93,7 @@
     <card>
       <header>
         <i class="fa fa-medium"></i>
-        Media
+        {{ 'subjects.media' | translate }}
       </header>
       <content>
         <media-manager [media]="song.media" [mediumTypes]="mediumTypes"></media-manager>

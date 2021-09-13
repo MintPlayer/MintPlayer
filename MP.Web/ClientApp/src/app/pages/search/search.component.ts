@@ -1,16 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
-import { SubjectService } from '../../services/subject/subject.service';
-import { SearchResults } from '../../entities/search-results';
-import { eSubjectType } from '../../enums/eSubjectType';
-import { Person } from '../../entities/person';
-import { Artist } from '../../entities/artist';
-import { Song } from '../../entities/song';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { API_VERSION, Artist, Person, SearchResults, Song, Subject, SubjectService, SubjectType } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { UrlGenerator } from '../../helpers/url-generator.helper';
-import { NavigationHelper } from '../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-search',
@@ -23,12 +18,13 @@ import { NavigationHelper } from '../../helpers/navigation.helper';
 export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
-    private navigation: NavigationHelper,
+    @Inject(API_VERSION) apiVersion: string,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private subjectService: SubjectService,
     private htmlLink: HtmlLinkHelper,
     private metaService: Meta,
-    private urlGenerator: UrlGenerator
+    private urlGenerator: UrlGenerator,
   ) {
     this.route.paramMap.subscribe((params) => {
       if (params.has('searchTerm')) {
@@ -93,12 +89,21 @@ export class SearchComponent implements OnInit, OnDestroy {
     songs: []
   }
 
+  suggestions: Subject[] = [];
+  provideSuggestions(searchTerm: string) {
+    this.subjectService.suggest(searchTerm, [SubjectType.person, SubjectType.artist, SubjectType.song]).then((suggestions) => {
+      this.suggestions = suggestions;
+    }).catch((error) => {
+      console.error('Could not perform search query', error);
+    });
+  }
+
   doSearch() {
-    this.navigation.navigate(['/search', this.searchterm]);
+    this.router.navigate(['/search', this.searchterm]);
   }
 
   private performSearch() {
-    this.subjectService.search(this.searchterm, [eSubjectType.person, eSubjectType.artist, eSubjectType.song]).then((results) => {
+    this.subjectService.search(this.searchterm, [SubjectType.person, SubjectType.artist, SubjectType.song]).then((results) => {
       this.searchResults = results;
     }).catch((error) => {
       console.error('Could not perform search query', error);
@@ -106,7 +111,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   gotoSubject(subject: Person | Artist | Song) {
-    this.navigation.navigate(this.urlGenerator.generateCommands(subject));
+    this.router.navigate(this.urlGenerator.generateCommands(subject));
   }
 
 }

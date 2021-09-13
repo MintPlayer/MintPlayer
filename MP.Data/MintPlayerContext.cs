@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MintPlayer.Data.Entities;
 using MintPlayer.Data.Entities.Blog;
+using MintPlayer.Data.Entities.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,7 @@ namespace MintPlayer.Data
         internal DbSet<Tag> Tags { get; set; }
         internal DbSet<Playlist> Playlists { get; set; }
         internal DbSet<BlogPost> BlogPosts { get; set; }
+        internal DbSet<LogEntry> LogEntries { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -105,6 +107,9 @@ namespace MintPlayer.Data
                 .HasValue<Person>("person")
                 .HasValue<Artist>("artist")
                 .HasValue<Song>("song");
+
+            // Artist.Credited default true
+            modelBuilder.Entity<ArtistSong>().Property(@as => @as.Credited).HasDefaultValue(true);
 
             // Many-to-many Subject-User (Like)
             modelBuilder.Entity<Like>().HasKey(like => new { like.SubjectId, like.UserId });

@@ -1,4 +1,25 @@
 {
+  "global": {
+    "add": "Ajouter",
+    "edit": "Ajuster",
+    "remove": "Supprimer",
+    "close": "Fermer",
+    "complete": "Compléter",
+    "enable": "Activer",
+    "disable": "Déactiver",
+    "description": "Déscription",
+    "details_for": "Détails pour {{ name }}",
+    "general_information": "Informations générales",
+    "mintplayer_blog": "MintPlayer blog",
+    "send_us_email": "Envoyez-nous un e-mail",
+    "color": "Couleur"
+  },
+  "not_found": {
+    "not_found": "Page pas trouvée",
+    "description": "Désolé, le page qui vous visitais n'existe pas.",
+    "go_home": "Allez au page d'acceuil",
+    "click_go_home": "Cliquez ici pour aller au page d'acceuil'"
+  },
   "home": {
     "home": "Accueil",
     "title": "Lecteur de musique open-source",
@@ -9,41 +30,143 @@
     "search": "Chercher",
     "search_anything": "Cherche quelque chose"
   },
-  "fetch": {
-    "fetch_url": "Remplir une URL pour retrouver"
+  "subjects": {
+    "tags": "Mots clés",
+    "media": "Médias",
+    "remove_medium": "Supprimer ce medium",
+    "general_information": "Informations générales",
+    "like": "J'aime",
+    "dislike": "Je déteste",
+    "changed_while_editing": "Le {{ subject }} was changed while you were editing",
+    "current_database_value": "Valeur dans base de dattes à ce moment: {{ value }}"
+  },
+  "media": {
+    "value": "Valeur",
+    "medium": "Médium",
+    "add_medium": "Créer médium",
+    "play_this_item": "Ajouter cet url au playlist"
+  },
+  "medium_type": {
+    "create_medium_type": "Créer type de médium",
+    "create_new_medium_type": "Créer nouvelle type de médium",
+    "player_type": "Type de lecteur",
+    "edit_medium_type": "Modifier type de médium: {{ name }}",
+    "update_medium_type": "Mettre à jour le type de médium",
+    "all_medium_types": "Tous types de médium"
   },
   "artists": {
+    "artist": "artiste",
     "artists": "Artistes",
     "all_artists": "Tous artistes",
     "add_artist": "Créer artiste",
-    "favorite_artists": "Artistes préférés"
+    "create_artist": "Créer artiste",
+    "create_new_artist": "Créer nouvel artiste",
+    "favorite_artists": "Artistes préférés",
+    "my_favorite_artists": "Mes artistes préférés",
+    "no_artists_found": "Pas d'artistes trouvés",
+    "name": "Nom",
+    "artist_name": "Nom d'artiste'",
+    "year_started": "Année de début",
+    "year_quit": "Année d'arrêt",
+    "current_members": "Membres actuels",
+    "past_members": "Anciens membres",
+    "details_for": "Détails pour {{ name }}",
+    "edit_artist": "Modifier artiste: {{ name }}",
+    "update_artist": "Mettre à jour l'artiste",
+    "joined": "Rejoint",
+    "left": "Partais"
   },
   "people": {
+    "person": "personne",
     "people": "Personnes",
+    "create_person": "Créer personne",
+    "create_new_person": "Créer nouvel personne",
     "all_people": "Tous personnes",
     "add_person": "Créer personne",
-    "favorite_people": "Personnes préférées"
+    "favorite_people": "Personnes préférées",
+    "my_favorite_people": "Mes personnes préférés",
+    "no_people_found": "Pas de personnes trouvés",
+    "first_name": "Prénom",
+    "last_name": "Nom de famille",
+    "born": "Née",
+    "died": "Mort",
+    "update_person": "Mettre à jour le personne",
+    "member_of": "Membre de",
+    "edit_person": "Modifier personne: {{ name }}"
   },
   "songs": {
+    "song": "chanson",
     "songs": "Chansons",
+    "create_song": "Créer chanson",
+    "create_new_song": "Créer nouveau chanson",
     "all_songs": "Tous chansons",
     "add_song": "Créer chanson",
-    "favorite_songs": "Chansons préférées"
+    "view_song": "Montre le chanson",
+    "favorite_songs": "Chansons préférées",
+    "my_favorite_songs": "Mes chansons préférées",
+    "no_songs_found": "Pas de chansons trouvés",
+    "title": "Titre",
+    "released": "Sortie",
+    "lyrics": "Paroles",
+    "wrap_lyrics": "Enrouler paroles",
+    "sync_lyrics": "Synchroniser paroles: {{ name }}",
+    "synchronize_lyrics": "Synchroniser paroles",
+    "timeline": "Ligne du temps",
+    "update_timeline": "Mettre à jour ligne du temps",
+    "remove_brackets": "Effacer [ et ]",
+    "uncredited_artists": "Artistes non crédités",
+    "play": "Jouer",
+    "edit_song": "Modifier chanson: {{ name }}",
+    "update_song": "Mettre à jour le chanson"
   },
   "playlists": {
     "playlists": "Playlists",
-    "all_playlists": "Tous playlists",
-    "add_playlist": "Créer playlist"
+    "my_playlists": "Mes playlists",
+    "public_playlists": "Playlists publiques",
+    "add_playlist": "Créer playlist",
+    "create_playlist": "Créer playlist",
+    "create_new_playlist": "Créer nouveau playlist",
+    "edit_playlist": "Modifier le playlist: {{ name }}",
+    "update_playlist": "Mettre à jour le playlist",
+    "accessibility": "Accessibilité",
+    "tracks": "Chansons",
+    "enter_song_title": "Entrez un titre de chanson",
+    "searching_songs": "Rechercher des chansons",
+    "no_songs_found": "Aucune chanson trouvée"
+  },
+  "player": {
+    "currently_playing": "À ce moment",
+    "previous_song": "Chanson précédente",
+    "next_song": "Prochaine chanson",
+    "play_pause": "Démarre/pause",
+    "play": "Démarre",
+    "play_now": "Démarrer directement",
+    "add_to_queue": "Ajouter a la liste",
+    "pause": "Pause",
+    "remove_song": "Supprimer chanson",
+    "shuffle": "Mélanger",
+    "repeat": "Répeter",
+    "replay": "Rejouer",
+    "add_url": {
+      "add_url": "Ajouter un lien vidéo",
+      "enter_some_url": "Introduissez un lien YouTube, DailyMotion, Vimeo ou SoundCloud",
+      "add_url_to_playlist": "Ajouter ce lien au playlist",
+      "url_not_supported": "Ce lien n'est pas supporté"
+    }
   },
   "community": {
     "community": "Communauté",
     "blog": {
       "blog": "Blog",
-      "our_blog": "MintPlayer blog"
+      "our_blog": "MintPlayer blog",
+      "edit_post": "Modifier article de blog: {{ title }}"
     },
     "github": {
       "github": "GitHub",
       "follow": "Suivez-nous sur GitHub"
+    },
+    "swagger": {
+      "swagger": "Swagger"
     }
   },
   "management": {
@@ -58,7 +181,18 @@
       "manage_tags": "Gérer tags",
       "manage_categories": "Gérer catégories",
       "all_categories": "Tous catégories",
-      "add_category": "Créer catégorie"
+      "add_category": "Créer catégorie",
+      "add_tag": "Ajouter un tag",
+      "edit_tag": "Modifier tag",
+      "parent_tag": "Tag parental",
+      "categories": {
+        "category": "Catégorie",
+        "all_categories": "Tous catégories",
+        "create_new_tag_category": "Créer nouveau catégorie",
+        "create_category": "Créer catégorie",
+        "edit_category": "Modifier catégorie",
+        "remove_category": "Supprimer catégorie"
+      }
     }
   },
   "account": {
@@ -67,45 +201,158 @@
     "register": "Inscrire",
     "create_account": "Créer compte",
     "profile": "Mon profil",
+    "profile_page": "page de profil",
+    "goto_profile_page": "Allez au page de profil",
     "sign_out": "Déconnecter",
     "log_out": "Déconnecter",
     "email_address": "Addresse email",
     "username": "Nom d'utilisateur",
-    "password": "Mot de passe",
+    "password": {
+      "password": "Mot de passe",
+      "current_password": "Mot de passe à ce moment",
+      "new_password": "Nouveau mot de passe",
+      "confirm_password": "Confirmer mot de passe",
+      "send_email": "Envoyer e-mail",
+      "email_sent": "E-mail envoyé",
+      "email_sent_message": "Nous avons envoyé un e-mail avec un lien qui permet de remettre votre mot de passe. Cliquez-lui et suivez les instructions.",
+      "reset": "Remettre mot de passe",
+      "reset_success": "Réinitialisation du mot de passe complète",
+      "reset_success_message": "Votre mot de passe a été remis avec succès"
+    },
     "repeat_password": "Répète mot de passe",
     "forgot_password": "Mot de passe oubliée",
     "use_social_login": "Utilise connexion sociale",
     "update_profile": "Mettre à jour",
+    "update_password": "Change mon mot de passe",
     "social_logins": "Connexions sociales",
+    "two_factor": {
+      "two_factor_authentication": "Authentification à 2 facteurs",
+      "enabled": "Authentification à 2 facteurs est actif",
+      "enable": "Activer authentification à 2 facteurs",
+      "enable_2fa": "Activer 2FA",
+      "enter_code_enable": "Alors générez une code de 6 chiffres avec votre app Authenticator et entrez-le dans ce zone de texte:",
+      "scan": "Ouvriez votre app Authenticator, scannez ce code QR.",
+      "add_account": "Ajouter mon compte",
+      "or_open_app": "Ou ouvriez app Authenticator",
+      "open_authenticator_app": "Ouvriez l'app Authenticator",
+      "generate_code": "Générez code",
+      "write_down_backup_codes": "Voici votre codes de sauvegarde. Ecrivez-lui et conservez-lui dans un endroit sécure. Vous en irez besoin en cas que vous perdriez votre téléphone. Après de quitter cette page-ci, vous ne les pouvez plus voir.",
+      "login_instructions": "Ouvriez votre app Authenticator sur ton portable et générez un code de 6 chiffres pour MintPlayer. Introduissez le code dans le zone de texte ci-dessous:",
+
+      "disabled": "Authentification à 2 facteurs est inactif",
+      "disable": "Déactiver authentification à 2 facteurs",
+      "disable_2fa": "Déactiver 2FA",
+      "enter_code_disable": "Générez une code de 6 chiffres avec votre app Authenticator et entrez-le dans ce zone de texte:",
+
+      "extra_options": "Options supplémentaires",
+      "bypass_2fa_for_external_logins": "Contourner authentification à 2 facteurs pour les connexions externes (Microsoft, Google, ...)",
+      "remember_me": "Recollecter cet appareil",
+
+      "recovery": {
+        "lost_device": "Perdu l'appareil/problème de se connecter?",
+        "enter_recovery_code": "Introduire une code de rétablissement",
+        "recovery_instructions": "Consultez les codes de rétablissement qui vous avez notés. Introduissez un code de rétablissement dans la zone de texte ci-dessous.",
+        "recover": "Rétablir mon compte",
+        "you_have_x_recovery_codes_left": "Il vous reste {{ count }} codes de rétablissement.",
+        "generate_new_recovery_codes_in_time": "N'oubliez pas de générez de nouveaux codes de rétablissement avant qu'ils ne s'épuisent.",
+        "generate_new_recovery_codes": "Générez de nouveaux codes de rétablissement",
+        "failed": "Une erreur s'est produite rétablir votre compte",
+        "failed_description": "On ne pourrait pas rétablir votre compte avec le code introduite. Le code pourrait-il utilisé déjà dans le passé."
+      }
+    },
+    "confirmation": {
+      "resend": "Renvoyer email de confirmation"
+    },
     "microsoft": {
+      "login": "Connecter par Microsoft",
       "add_login": "Enregistre compte Microsoft",
       "remove_login": "Déregistre compte Microsoft",
       "login_registered": "Compte Microsoft enregistrée"
     },
     "facebook": {
+      "login": "Connecter par Facebook",
       "add_login": "Enregistre compte Facebook",
       "remove_login": "Déregistre compte Facebook",
       "login_registered": "Compte Facebook enregistrée"
     },
     "twitter": {
+      "login": "Connecter par Twitter",
       "add_login": "Enregistre compte Twitter",
       "remove_login": "Déregistre compte Twitter",
       "login_registered": "Compte Twitter enregistrée"
     },
     "google": {
+      "login": "Connecter par Google",
       "add_login": "Enregistre compte Google",
       "remove_login": "Déregistre compte Google",
       "login_registered": "Compte Google enregistrée"
+    },
+    "linkedin": {
+      "login": "Connecter par LinkedIn",
+      "add_login": "Enregistre compte LinkedIn",
+      "remove_login": "Déregistre compte LinkedIn",
+      "login_registered": "Compte LinkedIn enregistrée"
     }
+  },
+  "blog": {
+    "write_blog_post": "Rédiger un article de blog",
+    "write_new_blog_post": "Rédiger un nouveau article de blog",
+    "create_blog_post": "Créer article de blog",
+    "update_blog_post": "Mettre à jour l'article de blog",
+    "blog_post_information": "Informations de l'article de blog",
+    "title": "Titre",
+    "headline": "Gros titre",
+    "post": "Poste"
   },
   "gdpr": {
     "privacy_policy": {
       "privacy_policy": "Politique de confidentialité",
-      "read": "Lisez ce qu'on fait avec tes dattes"
+      "read": "Lisez ce qu'on fait avec tes dattes",
+      "intro": "Nous essayons d'être le plus transparent que possible.\r\nPar conséquent, nous pensons qu'il est important que vous sachiez ce qui se passe avec vos données lorsque vous visitez notre site web. Le règlement général sur la protection des données (RGPD), entré en vigueur en Europe le 25 mai 2018, nous motive à vous informer sur ce que nous stockons exactement et comment nous traitons vos données.",
+      "declaration": "Pour rendre cela aussi lisible que possible, nous avons divisé le document en sections suivantes:",
+      "data_we_collect": {
+        "title": "Quelles données collectons-nous",
+        "body": "Notre application ne collecte initialement aucune de vos informations ou de votre comportement de navigation. Lorsque vous vous connectez, soit en créant un compte, soit en utilisant un identifiant de réseau social, nous stockons votre adresse e-mail et votre nom d'utilisateur. Le mot de passe est toujours salé puis haché immédiatement, puis stocké dans la base de données. L'algorithme de hachage utilisé par notre application est une version digne de confiance. Lorsque vous attachez une connexion sociale à votre compte, nous stockons uniquement l'identifiant de compte pour cette plate-forme. Notre application ne fait rien d'autre que de la lecture de votre adresse e-mail et nom d'utilisateur de votre connexion sociale. Votre adresse e-mail ne se retrouvera jamais sur le site Web. Les adresses e-mail doivent rester confidentielles à tout moment. Votre nom d'utilisateur sera affiché publiquement lorsque vous participerez à notre forum, mais vous pouvez modifier votre nom d'utilisateur à tout moment dans votre"
+      },
+      "handling_of_data": {
+        "title": "Comment nous traitons vos données",
+        "body": "Nous gardons une trace des éléments que vous ajoutez, modifiez ou supprimez de la base de données. Nous ne partageons pas vos données avec tout le monde, et à ce moment personne ne peut voir quels articles vous avez aimé / pas aimé, a ajouté / supprimé / modifié à partir de la base de données. À ce stade, MintPlayer est une plate-forme complètement anonyme, où l'objectif est de vous permettre de suivre la musique que vous aimez, de créer des listes de lecture et de découvrir de la musique."
+      },
+      "cookies": {
+        "title": "Politique de cookies",
+        "body": "Nous ne stockons aucun cookie tiers. Le seul cookie que nous créons est pour vous permettre de vous connecter à notre plateforme."
+      },
+      "information_sharing": {
+        "title": "MintPlayer partage-t-il certaines de vos informations",
+        "body": "En bref : Non.\r\nVos informations sont entièrement contenues dans notre système. Personne ne peut accéder à vos préférences ou informations personnelles. Nous ne partageons, ne vendons ni n'échangeons vos informations personnelles avec d'autres parties de quelque manière que ce soit."
+      },
+      "data_removal": {
+        "title": "Nous demander de supprimer vos données",
+        "body1": "Vous pouvez à tout moment nous demander de supprimer vos informations que nous stockons dans notre base de données. Pour vous assurer que cette demande de suppression de données est autorisée, vous devez d'abord être connecté. A partir du moment où votre demande de suppression de données est terminée, vous ne pourrez plus récupérer les informations stockées dans votre compte.",
+        "body2": "Si vous souhaitez supprimer vos données de notre plateforme, veuillez nous contacter à"
+      }
     },
     "terms_of_service": {
       "terms_of_service": "Conditions d'utilisation",
-      "read": "Lisez notre conditions d'utilisation"
+      "read": "Lisez notre conditions d'utilisation",
+      "use_of_website": "Voici les façons dont vous pouvez ou ne pouvez pas utiliser notre site web.",
+      "use_of_trademark": {
+        "title": "Utilisation de notre marque",
+        "body": "MintPlayer est une marque déposée et ne peut être utilisée à aucun moment dans le cadre d'un nom commercial ou d'un nom de domaine."
+      },
+      "link_to_website": {
+        "title": "Lien vers notre site Web",
+        "body": "MintPlayer est un projet open source, piloté par la communauté, dans le but de stimuler l'écosystème de l'API musicale. Vous pouvez créer un lien vers notre site Web à partir d'autres sites Web, mais dans des conditions strictes",
+        "conditions": [
+          "Vous ne créez pas de lien vers notre site web d'une manière qui pourrait endommager ou détruire notre plate-forme",
+          "Notre site web ne doit pas être encadré sur un autre site web",
+          "Vous ne pouvez pas héberger notre site web à un autre endroit sans changer le nom"
+        ]
+      },
+      "bugs": {
+        "title": "Bugs - vulnérabilités de sécurité",
+        "body": "Si vous découvrez un bogue ou une faille de sécurité, vous pouvez nous contacter à"
+      }
     }
   }
 }

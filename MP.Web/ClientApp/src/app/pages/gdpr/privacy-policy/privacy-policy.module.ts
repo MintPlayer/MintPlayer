@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { AdvancedRouterModule } from '@mintplayer/ng-router';
 
 import { PrivacyPolicyRoutingModule } from './privacy-policy-routing.module';
 import { PrivacyPolicyComponent } from './privacy-policy.component';
-import { DirectivesModule } from '../../../directives/directives.module';
-import { QueryParamsHandlingModule } from '../../../directives/query-params-handling/query-params-handling.module';
+
 
 
 @NgModule({
   declarations: [PrivacyPolicyComponent],
   imports: [
     CommonModule,
-    QueryParamsHandlingModule,
+    TranslateModule,
+    AdvancedRouterModule,
     PrivacyPolicyRoutingModule
   ]
 })

@@ -1,21 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxJsonLdModule } from '@ngx-lite/json-ld';
+import { JsonLdModule } from '@mintplayer/ng-json-ld';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { DirectivesModule } from '../../directives/directives.module';
-import { QueryParamsHandlingModule } from '../../directives/query-params-handling/query-params-handling.module';
 
 
 @NgModule({
   declarations: [HomeComponent],
   imports: [
     CommonModule,
-    NgxJsonLdModule,
+    JsonLdModule,
     TranslateModule,
-    QueryParamsHandlingModule,
     HomeRoutingModule
   ]
 })

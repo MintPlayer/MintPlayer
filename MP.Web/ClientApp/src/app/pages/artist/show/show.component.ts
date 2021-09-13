@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { ArtistService } from '../../../services/artist/artist.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { Artist } from '../../../entities/artist';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { BASE_URL } from '@mintplayer/ng-base-url';
+import { Artist, ArtistService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -15,16 +16,16 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class ShowComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('ARTIST') private artistInj: Artist,
-    @Inject('BASE_URL') private baseUrl: string,
+    @Inject(BASE_URL) private baseUrl: string,
     private artistService: ArtistService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
     private htmlLink: HtmlLinkHelper,
-    private urlGenerator: UrlGenerator
+    private urlGenerator: UrlGenerator,
   ) {
     if (serverSide === true) {
       this.setArtist(artistInj);
@@ -177,7 +178,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deleteArtist() {
     this.artistService.deleteArtist(this.artist).then(() => {
-      this.navigation.navigate(['artist']);
+      this.router.navigate(['artist']);
     }).catch((error) => {
       console.error('Could not delete artist', error);
     });

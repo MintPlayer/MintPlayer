@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { PersonService } from '../../../services/person/person.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { Person } from '../../../entities/person';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { BASE_URL } from '@mintplayer/ng-base-url';
+import { Person, PersonService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-show',
@@ -15,16 +16,16 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class ShowComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject('SERVERSIDE') serverSide: boolean,
+    @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('PERSON') personInj: Person,
-    @Inject('BASE_URL') private baseUrl: string,
+    @Inject(BASE_URL) private baseUrl: string,
     private personService: PersonService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private metaService: Meta,
     private htmlLink: HtmlLinkHelper,
-    private urlGenerator: UrlGenerator
+    private urlGenerator: UrlGenerator,
   ) {
     if (serverSide === true) {
       this.setPerson(personInj);
@@ -139,7 +140,7 @@ export class ShowComponent implements OnInit, OnDestroy {
 
   public deletePerson() {
     this.personService.deletePerson(this.person).then(() => {
-      this.navigation.navigate(['person']);
+      this.router.navigate(['person']);
     }).catch((error) => {
       console.error('Could not delete person', error);
     });

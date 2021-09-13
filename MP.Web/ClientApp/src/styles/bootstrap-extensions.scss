@@ -12,6 +12,10 @@
   .w-sm-auto {
     width: auto !important;
   }
+
+  .pull-sm-right {
+    float: right !important;
+  }
 }
 
 @media (min-width: 768px) {
@@ -21,6 +25,10 @@
 
   .w-md-auto {
     width: auto !important;
+  }
+
+  .pull-md-right {
+    float: right !important;
   }
 }
 
@@ -32,6 +40,10 @@
   .w-lg-auto {
     width: auto !important;
   }
+
+  .pull-lg-right {
+    float: right !important;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -41,6 +53,10 @@
 
   .w-xl-auto {
     width: auto !important;
+  }
+
+  .pull-xl-right {
+    float: right !important;
   }
 }
 
@@ -83,7 +99,7 @@
     position: absolute;
     display: block;
     opacity: 0.3;
-    bottom: 0.8em;
+    bottom: 0.5em;
   }
 
   &:before {
@@ -159,4 +175,16 @@
 
 .brightness-250 {
     filter: brightness(2.5);
+}
+
+.flex-shrink-inherit {
+    flex-shrink: inherit;
+}
+
+.modal {
+    background: rgba(0, 0, 0, 0.4);
+
+    &.show {
+        display: block;
+    }
 }

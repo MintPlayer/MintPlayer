@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MintPlayer.Data.Mappers;
 using MintPlayer.Dtos.Dtos;
 using Nest;
 using System;
@@ -26,19 +27,28 @@ namespace MintPlayer.Data.Repositories
     }
 	internal class SubjectRepository : ISubjectRepository
 	{
-		private IHttpContextAccessor http_context;
-		private MintPlayerContext mintplayer_context;
-		private UserManager<Entities.User> user_manager;
-		private IElasticClient elastic_client;
-		private IConfiguration configuration;
-		public SubjectRepository(IHttpContextAccessor http_context, MintPlayerContext mintplayer_context, UserManager<Entities.User> user_manager, IElasticClient elastic_client, IConfiguration configuration)
+		private readonly IHttpContextAccessor http_context;
+		private readonly MintPlayerContext mintplayer_context;
+		private readonly UserManager<Entities.User> user_manager;
+		private readonly IElasticClient elastic_client;
+		private readonly IConfiguration configuration;
+        private readonly ISubjectMapper subjectMapper;
+
+        public SubjectRepository(
+			IHttpContextAccessor http_context,
+			MintPlayerContext mintplayer_context,
+			UserManager<Entities.User> user_manager,
+			IElasticClient elastic_client,
+			IConfiguration configuration,
+			ISubjectMapper subjectMapper)
 		{
 			this.http_context = http_context;
 			this.mintplayer_context = mintplayer_context;
 			this.user_manager = user_manager;
 			this.elastic_client = elastic_client;
 			this.configuration = configuration;
-		}
+            this.subjectMapper = subjectMapper;
+        }
 
 		public async Task<Tuple<int, int>> GetLikes(int subjectId)
 		{
@@ -99,7 +109,7 @@ namespace MintPlayer.Data.Repositories
 
 			var subjects = mintplayer_context.Subjects
 				.Where(s => s.Likes.Any(l => l.User == user && l.DoesLike))
-				.Select(s => ToDto(s, false, false));
+				.Select(s => subjectMapper.Entity2Dto(s, false, false));
 
 			return subjects;
 		}
@@ -192,13 +202,13 @@ namespace MintPlayer.Data.Repositories
 							.Include(p => p.Artists)
 								.ThenInclude(ap => ap.Artist)
 							.Where(p => (p.FirstName + " " + p.LastName).Contains(search_term))
-							.Select(p => ToDto(p, include_relations, include_invisible_media));
+							.Select(p => subjectMapper.Entity2Dto(p, include_relations, include_invisible_media));
 					}
 					else
 					{
 						person_options = mintplayer_context.People
 							.Where(p => (p.FirstName + " " + p.LastName).Contains(search_term))
-							.Select(p => ToDto(p, include_relations, include_invisible_media));
+							.Select(p => subjectMapper.Entity2Dto(p, include_relations, include_invisible_media));
 					}
 				}
 				#endregion
@@ -213,13 +223,13 @@ namespace MintPlayer.Data.Repositories
 							.Include(a => a.Songs)
 								.ThenInclude(@as => @as.Song)
 							.Where(a => a.Name.Contains(search_term))
-							.Select(a => ToDto(a, include_relations, include_invisible_media));
+							.Select(a => subjectMapper.Entity2Dto(a, include_relations, include_invisible_media));
 					}
 					else
 					{
 						artist_options = mintplayer_context.Artists
 							.Where(a => a.Name.Contains(search_term))
-							.Select(a => ToDto(a, include_relations, include_invisible_media));
+							.Select(a => subjectMapper.Entity2Dto(a, include_relations, include_invisible_media));
 					}
 				}
 				#endregion
@@ -232,13 +242,13 @@ namespace MintPlayer.Data.Repositories
 							.Include(s => s.Artists)
 								.ThenInclude(@as => @as.Artist)
 							.Where(s => s.Title.Contains(search_term))
-							.Select(s => ToDto(s, include_relations, include_invisible_media));
+							.Select(s => subjectMapper.Entity2Dto(s, include_relations, include_invisible_media));
 					}
 					else
 					{
 						song_options = mintplayer_context.Songs
 							.Where(s => s.Title.Contains(search_term))
-							.Select(s => ToDto(s, include_relations, include_invisible_media));
+							.Select(s => subjectMapper.Entity2Dto(s, include_relations, include_invisible_media));
 					}
 				}
 				#endregion
@@ -293,13 +303,13 @@ namespace MintPlayer.Data.Repositories
 							.Include(p => p.Artists)
 								.ThenInclude(ap => ap.Artist)
 							.Where(p => (p.FirstName + " " + p.LastName) == search_term)
-							.Select(p => ToDto(p, include_relations, include_invisible_media));
+							.Select(p => subjectMapper.Entity2Dto(p, include_relations, include_invisible_media));
 					}
 					else
 					{
 						person_results = mintplayer_context.People
 							.Where(p => (p.FirstName + " " + p.LastName) == search_term)
-							.Select(p => ToDto(p, include_relations, include_invisible_media));
+							.Select(p => subjectMapper.Entity2Dto(p, include_relations, include_invisible_media));
 					}
 				}
 				#endregion
@@ -314,13 +324,13 @@ namespace MintPlayer.Data.Repositories
 							.Include(a => a.Songs)
 								.ThenInclude(@as => @as.Song)
 							.Where(a => a.Name == search_term)
-							.Select(a => ToDto(a, include_relations, include_invisible_media));
+							.Select(a => subjectMapper.Entity2Dto(a, include_relations, include_invisible_media));
 					}
 					else
 					{
 						artist_results = mintplayer_context.Artists
 							.Where(a => a.Name == search_term)
-							.Select(a => ToDto(a, include_relations, include_invisible_media));
+							.Select(a => subjectMapper.Entity2Dto(a, include_relations, include_invisible_media));
 					}
 				}
 				#endregion
@@ -333,13 +343,13 @@ namespace MintPlayer.Data.Repositories
 							.Include(s => s.Artists)
 								.ThenInclude(@as => @as.Artist)
 							.Where(s => s.Title == search_term)
-							.Select(s => ToDto(s, include_relations, include_invisible_media));
+							.Select(s => subjectMapper.Entity2Dto(s, include_relations, include_invisible_media));
 					}
 					else
 					{
 						song_results = mintplayer_context.Songs
 							.Where(s => s.Title == search_term)
-							.Select(s => ToDto(s, include_relations, include_invisible_media));
+							.Select(s => subjectMapper.Entity2Dto(s, include_relations, include_invisible_media));
 					}
 				}
 				#endregion
@@ -353,30 +363,5 @@ namespace MintPlayer.Data.Repositories
 		{
 			await mintplayer_context.SaveChangesAsync();
 		}
-
-		#region Conversion methods
-		internal static Subject ToDto(Entities.Subject subject, bool include_relations, bool include_invisible_media)
-		{
-			if (subject == null) return null;
-
-			var subject_type = subject.GetType();
-			if (subject_type == typeof(Entities.Person))
-			{
-				return PersonRepository.ToDto((Entities.Person)subject, include_relations, include_invisible_media);
-			}
-			else if (subject_type == typeof(Entities.Artist))
-			{
-				return ArtistRepository.ToDto((Entities.Artist)subject, include_relations, include_invisible_media);
-			}
-			else if (subject_type == typeof(Entities.Song))
-			{
-				return SongRepository.ToDto((Entities.Song)subject, include_relations, include_invisible_media);
-			}
-			else
-			{
-				throw new ArgumentException("The subject type was not recognized", nameof(subject));
-			}
-		}
-		#endregion
 	}
 }

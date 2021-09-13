@@ -1,13 +1,14 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { PersonService } from '../../../services/person/person.service';
-import { Person } from '../../../entities/person';
+import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
-import { PaginationResponse } from '../../../helpers/pagination-response';
-import { DatatableSettings } from '../../../controls/datatable/datatable-settings';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { DatatableSettings } from '@mintplayer/ng-datatables';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { PaginationResponse } from '@mintplayer/ng-pagination';
+import { Person, PersonService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
-import { SlugifyPipe } from '../../../pipes/slugify/slugify.pipe';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -16,20 +17,34 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 })
 export class ListComponent implements OnInit, OnDestroy {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     @Inject('PEOPLE') private peopleInj: PaginationResponse<Person>,
     private personService: PersonService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private metaService: Meta
+    private metaService: Meta,
   ) {
     this.titleService.setTitle('People');
-    if (serverSide === false) {
-      this.loadPeople();
-    } else {
+    if (serverSide === true) {
       this.setPersonData(peopleInj);
+    } else {
+      //this.loadPeople();
+      this.route.queryParams
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe((queryParams) => {
+          this.tableSettings.perPage.selected = parseInt(queryParams['perpage'] ?? 20);
+          this.tableSettings.page.selected = parseInt(queryParams['page'] ?? 1);
+          this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'FirstName';
+          this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
+
+          this.personService.pagePeople(this.tableSettings.toPagination()).then((response) => {
+            this.setPersonData(response);
+          }).catch((error) => {
+            console.error('Could not fetch people', error);
+          });
+        });
     }
   }
 
@@ -38,9 +53,11 @@ export class ListComponent implements OnInit, OnDestroy {
     this.addMetaTags();
   }
 
+  private destroyed$ = new Subject();
   ngOnDestroy() {
     this.htmlLink.unset('canonical');
     this.removeMetaTags();
+    this.destroyed$.next(true);
   }
 
   //#region Add meta-tags
@@ -84,47 +101,29 @@ export class ListComponent implements OnInit, OnDestroy {
   //#endregion
 
   loadPeople() {
-    this.personService.pagePeople(this.tableSettings.toPaginationRequest()).then((response) => {
-      this.setPersonData(response);
-    }).catch((error) => {
-      console.error('Could not fetch people', error);
+    this.router.navigate([], {
+      queryParams: {
+        perpage: this.tableSettings.perPage.selected,
+        page: this.tableSettings.page.selected,
+        sortproperty: this.tableSettings.sortProperty,
+        sortdirection: this.tableSettings.sortDirection,
+      }
     });
   }
 
   private setPersonData(data: PaginationResponse<Person>) {
     this.personData = data;
-    this.tableSettings.pages.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
+    this.tableSettings.page.values = Array.from(Array(data.totalPages).keys()).map((p) => p + 1);
   }
 
   personData: PaginationResponse<Person> = new PaginationResponse();
 
   tableSettings: DatatableSettings = new DatatableSettings({
-    columns: [{
-      name: 'FirstName',
-      data: 'firstName',
-      title: 'First Name',
-      sortable: true
-    }, {
-      name: 'LastName',
-      data: 'lastName',
-      title: 'Last Name',
-      sortable: true
-    }, {
-      name: 'Born',
-      data: 'born',
-      title: 'Born',
-      sortable: true
-    }, {
-      name: 'Died',
-      data: 'died',
-      title: 'Died',
-      sortable: true
-    }],
-    perPages: {
+    perPage: {
       values: [10, 20, 50, 100],
       selected: 20
     },
-    pages: {
+    page: {
       values: [],
       selected: 1
     },

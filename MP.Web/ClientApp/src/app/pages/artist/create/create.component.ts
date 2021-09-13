@@ -1,16 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy, HostListener, KeyValueDiffers, KeyValueDiffer, DoCheck } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpHeaders } from '@angular/common/http';
-import { Artist } from '../../../entities/artist';
-import { ArtistService } from '../../../services/artist/artist.service';
-import { MediumTypeService } from '../../../services/medium-type/medium-type.service';
-import { MediumType } from '../../../entities/medium-type';
 import { Title } from '@angular/platform-browser';
+import { HttpHeaders } from '@angular/common/http';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { API_VERSION, Artist, ArtistService, MediumType, MediumTypeService, Person, PersonService, SubjectService, SubjectType, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 import { HasChanges } from '../../../interfaces/has-changes';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-create',
@@ -19,16 +16,20 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 })
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
+    @Inject(API_VERSION) apiVersion: string,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private artistService: ArtistService,
+    private subjectService: SubjectService,
     private mediumTypeService: MediumTypeService,
-    private navigation: NavigationHelper,
+    private tagService: TagService,
+    private router: AdvancedRouter,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
     private slugifyHelper: SlugifyHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
+    this.apiVersion = apiVersion;
     this.titleService.setTitle('Create artist');
     if (serverSide === true) {
       this.mediumTypes = mediumTypesInj;
@@ -37,6 +38,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     }
   }
 
+  apiVersion: string = '';
   mediumTypes: MediumType[] = [];
   artist: Artist = {
     id: 0,
@@ -52,6 +54,25 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     dateUpdate: null
   };
 
+  currentMemberSuggestions: Person[] = [];
+  onProvideCurrentMemberSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
+      this.currentMemberSuggestions = <Person[]>people;
+    });
+  }
+  pastMemberSuggestions: Person[] = [];
+  onProvidePastMemberSuggestions(searchText: string) {
+    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
+      this.pastMemberSuggestions = <Person[]>people;
+    });
+  }
+  tagSuggestions: Tag[] = [];
+  onProvideTagSuggestions(searchText: string) {
+    this.tagService.suggestTags(searchText, true).then((tags) => {
+      this.tagSuggestions = tags;
+    });
+  }
+
   loadMediumTypes() {
     this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
       this.mediumTypes = mediumTypes;
@@ -63,7 +84,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   saveArtist() {
     this.artistService.createArtist(this.artist).then((artist) => {
       this.hasChanges = false;
-      this.navigation.navigate(['/artist', artist.id, this.slugifyHelper.slugify(artist.name)]);
+      this.router.navigate(['/artist', artist.id, this.slugifyHelper.slugify(artist.name)]);
     }).catch((error) => {
       console.error('Could not create artist', error);
     });

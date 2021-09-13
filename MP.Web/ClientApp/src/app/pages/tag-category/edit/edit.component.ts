@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, Inject, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { TagCategoryService } from '../../../services/tag-category/tag-category.service';
-import { TagCategory } from '../../../entities/tag-category';
+import { AdvancedRouter } from '@mintplayer/ng-router';
+import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { TagCategory, TagCategoryService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
-import { NavigationHelper } from '../../../helpers/navigation.helper';
 
 @Component({
   selector: 'app-edit',
@@ -16,13 +16,13 @@ import { NavigationHelper } from '../../../helpers/navigation.helper';
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
-    @Inject('SERVERSIDE') private serverSide: boolean,
+    @Inject(SERVER_SIDE) private serverSide: boolean,
     private tagCategoryService: TagCategoryService,
-    private navigation: NavigationHelper,
+    private router: AdvancedRouter,
     private route: ActivatedRoute,
     private titleService: Title,
     private htmlLink: HtmlLinkHelper,
-    private differs: KeyValueDiffers
+    private differs: KeyValueDiffers,
   ) {
     if (serverSide === false) {
       // Get category
@@ -36,7 +36,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     this.tagCategoryService.getTagCategory(id, true).then((tagCategory) => {
       this.setTagCategory(tagCategory);
     }).catch((error) => {
-      console.log('Could not fetch tag category', error);
+      console.error('Could not fetch tag category', error);
     });
   }
 
@@ -61,9 +61,9 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   updateCategory() {
     this.tagCategoryService.updateTagCategory(this.tagCategory).then((category) => {
       this.hasChanges = false;
-      this.navigation.navigate(['tag', 'category', category.id]);
+      this.router.navigate(['tag', 'category', category.id]);
     }).catch((error) => {
-      console.log('Could not create tag category', error);
+      console.error('Could not create tag category', error);
     });
   }
 

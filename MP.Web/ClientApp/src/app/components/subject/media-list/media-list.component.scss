@@ -1,3 +1,9 @@
-td {
+tr {
+  &.invisible-medium {
+    background-color: var(--bs-table-hover-bg);
+  }
+
+  td {
     white-space: nowrap;
+  }
 }
