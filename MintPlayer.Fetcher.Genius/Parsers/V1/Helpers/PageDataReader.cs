@@ -20,7 +20,8 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Helpers
             var rawPageData =
                 pageDataRegex.Match(html).Groups["data"].Value
                 .Replace(@"\""", @"""")
-                .Replace(@"\\", @"\");
+                .Replace(@"\\", @"\")
+				.Replace(@"\$", @"$");
 
             var decodedPageData = HttpUtility.HtmlDecode(rawPageData);
 

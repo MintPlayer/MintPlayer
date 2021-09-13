@@ -1,11 +1,11 @@
-﻿//#define SongMeanings
+﻿#define SongMeanings
 #define Genius
-//#define Musixmatch
-//#define LyricsCom
-//#define SongtekstenNet
-//#define AZLyrics
-//#define SongLyrics
-//#define LoloLyrics
+#define Musixmatch
+#define LyricsCom
+#define SongtekstenNet
+#define AZLyrics
+#define SongLyrics
+#define LoloLyrics
 
 using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.DependencyInjection;
