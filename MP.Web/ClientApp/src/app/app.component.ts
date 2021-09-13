@@ -329,6 +329,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     } else {
       this.isValidVideoUrl = false;
+      this.isRequestingPlaylistUrl$.next(false);
     }
   }
   //#endregion
