@@ -67,7 +67,7 @@
         background: var(--li-hover-background-color);
       }
 
-      > a, > div.ytv {
+      > a {
         padding: 10px;
         display: inline-block;
         width: calc(100% - 40px);
@@ -84,7 +84,7 @@
         }
       }
 
-      > div.ytv > label {
+      > a.ytv > label {
         direction: rtl;
       }
     }

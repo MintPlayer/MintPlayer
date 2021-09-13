@@ -6,6 +6,7 @@ import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { eRepeatMode } from '../../enums/eRepeatMode';
 import { SongWithMedium } from '../../interfaces/song-with-medium';
 import { Subject } from 'rxjs';
+import { VideoUrl } from '../../interfaces/video-url';
 
 @Component({
   selector: 'playlist-sidebar',
@@ -25,10 +26,24 @@ export class PlaylistSidebarComponent implements OnInit {
   public playerState: PlayerState;
 
   @Input()
-  public songs: (SongWithMedium | string)[];
+  public songs: (SongWithMedium | VideoUrl)[];
 
-  @Input()
-  public current: SongWithMedium;
+  //#region Current
+  private _current: SongWithMedium | VideoUrl;
+  public get current() {
+    return this._current;
+  }
+  @Input() public set current(value: SongWithMedium | VideoUrl) {
+    this._current = value;
+    if (value === null) {
+      this.currentVideoText = null;
+    } else if ('url' in value) {
+      this.currentVideoText = value.url;
+    } else {
+      this.currentVideoText = value.song.description;
+    }
+  }
+  //#endregion
 
   @Input()
   public songProgress: PlayerProgress;
@@ -70,16 +85,17 @@ export class PlaylistSidebarComponent implements OnInit {
     this.songClicked.emit(song);
   }
   onAddVideoUrl() {
-    //this.videoUrlToAdd = '';
-    //this.isRequestingPlaylistUrl$.next(true);
     this.addVideoUrlClicked.emit();
   }
-  //onAddUrl(url: string) {
-  //  this.songs.push(url);
-  //}
-  isString(song: SongWithMedium | string) {
-    return ((typeof song) === 'string');
+
+  isVideoUrl(song: SongWithMedium | VideoUrl) {
+    if ('url' in song) {
+      return true;
+    } else {
+      return false;
+    }
   }
+  currentVideoText: string = null;
 
   //#region isRandom
   @Input() isRandom: boolean;
@@ -102,7 +118,7 @@ export class PlaylistSidebarComponent implements OnInit {
   }
   //#endregion
 
-  public removeSong($event: MouseEvent, song: SongWithMedium) {
+  public removeSong($event: MouseEvent, song: SongWithMedium | VideoUrl) {
     var index = this.songs.indexOf(song);
     //this.songs.splice(index, 1);
     $event.stopPropagation();

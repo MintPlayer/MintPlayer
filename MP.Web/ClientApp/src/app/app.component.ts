@@ -26,6 +26,7 @@ import { TwoFactorComponent } from './pages/account/two-factor/two-factor.compon
 import { SongWithMedium } from './interfaces/song-with-medium';
 import { PlaylistController } from '@mintplayer/ng-playlist-controller';
 import { RecoveryComponent } from './pages/account/two-factor/recovery/recovery.component';
+import { VideoUrl } from './interfaces/video-url';
 
 @Component({
   selector: 'app-root',
@@ -41,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   sidebarState: eSidebarState = eSidebarState.auto;
   playlistToggleButtonState: eToggleButtonState = eToggleButtonState.closed;
 
-  playlistControl: PlaylistController<SongWithMedium | string>;
+  playlistControl: PlaylistController<SongWithMedium | VideoUrl>;
   private destroyed$ = new Subject();
 
   //#region Player card size
@@ -112,8 +113,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
             setTimeout(() => {
               this.playerState$.next(PlayerState.unstarted);
             }, 10);
-          } else if (typeof song === 'string') {
-            this.player.setUrl(song);
+          } else if ('url' in song) {
+            this.player.setUrl(song.url);
           } else if (song.medium !== null) {
             this.player.setUrl(song.medium.value);
           } else if (song.song.playerInfos.length > 0) {
@@ -137,7 +138,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           return (playerState === PlayerState.playing) && (video !== null);
         }))
         .pipe(map(([playerState, video, time]) => {
-          if (typeof video === 'string') {
+          if ('url' in video) {
             return null;
           } else if (video.song.lyrics.timeline === null) {
             return null;
@@ -278,6 +279,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   playerProgressChange(progress: PlayerProgress) {
     this.songProgress = progress;
+    this.playlistControl.currentVideoPosition = progress.currentTime;
     this.ref.detectChanges();
   }
 
@@ -320,7 +322,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     if (url !== null) {
       const playerType = this.playerTypeFinder.getPlatformWithId(url);
       if (playerType !== null) {
-        this.playlistControl.addToPlaylist(url);
+        this.playlistControl.addToPlaylist({ url });
         this.isRequestingPlaylistUrl$.next(false);
       } else {
         this.isValidVideoUrl = false;
