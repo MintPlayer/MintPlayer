@@ -1,15 +1,22 @@
-﻿using MintPlayer.Fetcher.Dtos;
+﻿using MintPlayer.Fetcher.Abstractions.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("MintPlayer.Fetcher.LoloLyrics.Test")]
 namespace MintPlayer.Fetcher.LoloLyrics
 {
-    public class LoloLyricsFetcher : Fetcher
-    {
+	public interface ILoloLyricsFetcher
+	{
+		Task<Subject> Fetch(string url, bool trimTrash);
+	}
+
+	internal class LoloLyricsFetcher : Fetcher, ILoloLyricsFetcher
+	{
         private readonly HttpClient httpClient;
         public LoloLyricsFetcher(HttpClient httpClient)
         {
@@ -60,7 +67,7 @@ namespace MintPlayer.Fetcher.LoloLyrics
             {
                 media.Add(new Medium
                 {
-                    Type = Enums.eMediumType.YouTube,
+                    Type = MintPlayer.Fetcher.Abstractions.Enums.eMediumType.YouTube,
                     Value = $"https://www.youtube.com/watch?v={youtube}"
                 });
             }

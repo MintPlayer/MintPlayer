@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Net.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MintPlayer.Fetcher.Musixmatch.Test
 {
     class Program
     {
         static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
+		{
+			var services = new ServiceCollection()
+				.AddSingleton<HttpClient>()
+				.AddFetcherContainer()
+				.AddMusixmatchFetcher()
+				.BuildServiceProvider();
+		}
     }
 }

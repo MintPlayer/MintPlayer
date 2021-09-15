@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using MintPlayer.Fetcher.Dtos;
+using MintPlayer.Fetcher.Abstractions.Dtos;
 using Newtonsoft.Json;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V2

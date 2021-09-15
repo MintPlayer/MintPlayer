@@ -6,9 +6,9 @@
         public string Title { get; set; }
         public string Url { get; set; }
 
-        public Dtos.Song ToDto()
+        public MintPlayer.Fetcher.Abstractions.Dtos.Song ToDto()
         {
-            return new Dtos.Song
+            return new MintPlayer.Fetcher.Abstractions.Dtos.Song
             {
                 Id = Id,
                 Title = Title,

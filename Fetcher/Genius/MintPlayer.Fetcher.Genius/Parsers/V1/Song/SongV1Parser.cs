@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using MintPlayer.Fetcher.Dtos;
+using MintPlayer.Fetcher.Abstractions.Dtos;
 using Newtonsoft.Json;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Song
@@ -17,7 +17,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Song
 		{
 			var songPageData = JsonConvert.DeserializeObject<Common.SongPageData>(pageData);
 
-			return new Dtos.Song
+			return new MintPlayer.Fetcher.Abstractions.Dtos.Song
 			{
 				Lyrics = await ParseLyrics(songPageData.LyricsData.Body.Html, trimTrash)
 			};

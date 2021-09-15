@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using MintPlayer.Fetcher.Dtos;
+using MintPlayer.Fetcher.Abstractions.Dtos;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Artist
 {

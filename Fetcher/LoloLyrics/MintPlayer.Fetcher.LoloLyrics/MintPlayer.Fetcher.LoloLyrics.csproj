@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Fetcher\MintPlayer.Fetcher\MintPlayer.Fetcher.csproj" />
+    <ProjectReference Include="..\MintPlayer.Fetcher.LoloLyrics.Abstractions\MintPlayer.Fetcher.LoloLyrics.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

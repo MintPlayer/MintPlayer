@@ -10,9 +10,9 @@ namespace MintPlayer.Fetcher.SongtekstenNet.Data
         public string Name { get; set; }
         public string Url { get; set; }
 
-        public Dtos.Artist ToDto()
+        public MintPlayer.Fetcher.Abstractions.Dtos.Artist ToDto()
         {
-            return new Dtos.Artist
+            return new MintPlayer.Fetcher.Abstractions.Dtos.Artist
             {
                 Id = Id,
                 Name = Name,

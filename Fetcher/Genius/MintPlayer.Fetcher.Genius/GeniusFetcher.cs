@@ -1,17 +1,24 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MintPlayer.Fetcher.Dtos;
+using MintPlayer.Fetcher.Abstractions.Dtos;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("MintPlayer.Fetcher.Genius.Test")]
 namespace MintPlayer.Fetcher.Genius
 {
-    public class GeniusFetcher : Fetcher
-    {
+	public interface IGeniusFetcher
+	{
+		Task<Subject> Fetch(string url, bool trimTrash);
+	}
+
+	internal class GeniusFetcher : Fetcher, IGeniusFetcher
+	{
         private readonly HttpClient httpClient;
 		private readonly IServiceProvider serviceProvider;
 		public GeniusFetcher(HttpClient httpClient, IServiceProvider serviceProvider)

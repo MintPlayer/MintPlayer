@@ -1,4 +1,4 @@
-﻿using MintPlayer.Fetcher.Dtos;
+﻿using MintPlayer.Fetcher.Abstractions.Dtos;
 using System.Collections.Generic;
 
 namespace MintPlayer.Crawler.Events.EventArgs

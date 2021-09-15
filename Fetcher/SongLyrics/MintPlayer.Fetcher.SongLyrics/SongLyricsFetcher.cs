@@ -1,15 +1,22 @@
-﻿using MintPlayer.Fetcher.Dtos;
+﻿using MintPlayer.Fetcher.Abstractions.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("MintPlayer.Fetcher.SongLyrics.Test")]
 namespace MintPlayer.Fetcher.SongLyrics
 {
-    public class SongLyricsFetcher : Fetcher
-    {
+	public interface ISongLyricsFetcher
+	{
+		Task<Subject> Fetch(string url, bool trimTrash);
+	}
+
+	public class SongLyricsFetcher : Fetcher, ISongLyricsFetcher
+	{
         private readonly HttpClient httpClient;
         public SongLyricsFetcher(HttpClient httpClient)
         {

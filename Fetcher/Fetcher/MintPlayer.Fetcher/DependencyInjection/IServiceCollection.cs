@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MintPlayer.Fetcher;
+using MintPlayer.Fetcher.Abstractions;
 
-namespace MintPlayer.Fetcher.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class IServiceCollectionExtensions
     {

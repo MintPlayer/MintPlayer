@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.Exceptions;
 
+[assembly: InternalsVisibleTo("MintPlayer.Fetcher.Test")]
 namespace MintPlayer.Fetcher
 {
-    public interface IFetcherContainer
-    {
-        IFetcher GetFetcher(string url);
-        Task<Dtos.Subject> Fetch(string url, bool trimTrash);
-    }
-
-    internal class FetcherContainer : IFetcherContainer
-    {
+    internal class FetcherContainer : Abstractions.IFetcherContainer
+	{
         public FetcherContainer(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
@@ -21,9 +17,9 @@ namespace MintPlayer.Fetcher
 
         private IServiceProvider serviceProvider;
 
-        public IFetcher GetFetcher(string url)
+        public Abstractions.IFetcher GetFetcher(string url)
         {
-            var fetchers = serviceProvider.GetServices<IFetcher>();
+            var fetchers = serviceProvider.GetServices<Abstractions.IFetcher>();
             var fetcher = fetchers.FirstOrDefault((f) => f.UrlRegex.Any(rgx => rgx.IsMatch(url)));
 
             if (fetcher == null)
@@ -32,7 +28,7 @@ namespace MintPlayer.Fetcher
             return fetcher;
         }
 
-        public async Task<Dtos.Subject> Fetch(string url, bool trimTrash)
+        public async Task<Abstractions.Dtos.Subject> Fetch(string url, bool trimTrash)
         {
             var subject = await GetFetcher(url).Fetch(url, trimTrash);
             return subject;

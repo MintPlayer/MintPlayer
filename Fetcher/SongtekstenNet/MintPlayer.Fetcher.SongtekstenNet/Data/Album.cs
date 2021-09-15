@@ -11,9 +11,9 @@ namespace MintPlayer.Fetcher.SongtekstenNet.Data
         public string Name { get; set; }
         public DateTime Released { get; set; }
 
-        public Dtos.Album ToDto()
+        public MintPlayer.Fetcher.Abstractions.Dtos.Album ToDto()
         {
-            return new Dtos.Album
+            return new MintPlayer.Fetcher.Abstractions.Dtos.Album
             {
                 Id = Id,
                 Name = Name,

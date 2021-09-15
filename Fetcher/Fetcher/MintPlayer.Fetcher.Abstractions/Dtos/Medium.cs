@@ -1,6 +1,6 @@
-﻿using MintPlayer.Fetcher.Enums;
+﻿using MintPlayer.Fetcher.Abstractions.Enums;
 
-namespace MintPlayer.Fetcher.Dtos
+namespace MintPlayer.Fetcher.Abstractions.Dtos
 {
     public class Medium
     {

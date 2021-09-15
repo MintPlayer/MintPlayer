@@ -1,20 +1,24 @@
-﻿using MintPlayer.Fetcher.Dtos;
+﻿using MintPlayer.Fetcher.Abstractions.Dtos;
+using MintPlayer.Fetcher.AZLyrics.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("MintPlayer.Fetcher.AZLyrics.Test")]
 namespace MintPlayer.Fetcher.AZLyrics
 {
-    public class AZLyricsFetcher : Fetcher
-    {
+	internal class AZLyricsFetcher : Fetcher, IAZLyricsFetcher
+	{
         private readonly HttpClient httpClient;
         public AZLyricsFetcher(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
+
         public override IEnumerable<Regex> UrlRegex
         {
             get

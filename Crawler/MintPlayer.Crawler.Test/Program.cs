@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Crawler.DependencyInjection;
-using MintPlayer.Fetcher.DependencyInjection;
-using MintPlayer.Fetcher.Dtos;
+using MintPlayer.Fetcher.Abstractions.Dtos;
 using System.Collections.Generic;
 using System.Net.Http;
 

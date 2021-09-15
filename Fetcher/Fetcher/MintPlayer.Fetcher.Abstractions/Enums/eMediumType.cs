@@ -1,4 +1,4 @@
-﻿namespace MintPlayer.Fetcher.Enums
+﻿namespace MintPlayer.Fetcher.Abstractions.Enums
 {
     public enum eMediumType
     {

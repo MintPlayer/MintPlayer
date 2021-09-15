@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MintPlayer.Fetcher.Dtos
+namespace MintPlayer.Fetcher.Abstractions.Dtos
 {
     public class Song : Subject
     {

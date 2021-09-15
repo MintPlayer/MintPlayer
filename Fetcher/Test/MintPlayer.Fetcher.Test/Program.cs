@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using MintPlayer.Fetcher.DependencyInjection;
-using System;
-using System.Net.Http;
+﻿using System.Net.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MintPlayer.Fetcher.Test
 {
@@ -15,7 +13,8 @@ namespace MintPlayer.Fetcher.Test
                 .AddFetcherContainer()
                 .AddGeniusFetcher()
                 .AddMusixmatchFetcher()
-                .AddLyricsComFetcher()
+				.AddMuzikumFetcher()
+				.AddLyricsComFetcher()
                 .AddSongtekstenNetFetcher()
                 .AddSongMeaningsFetcher()
                 .AddAZLyricsFetcher()
@@ -24,7 +23,7 @@ namespace MintPlayer.Fetcher.Test
 
             var provider = services.BuildServiceProvider();
 
-            var fetcherContainer = provider.GetService<IFetcherContainer>();
+            var fetcherContainer = provider.GetService<Abstractions.IFetcherContainer>();
 
             #region SongMeanings
 

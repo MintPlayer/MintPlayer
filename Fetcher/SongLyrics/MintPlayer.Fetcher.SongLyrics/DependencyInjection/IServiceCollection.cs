@@ -1,14 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MintPlayer.Fetcher;
+using MintPlayer.Fetcher.Abstractions;
 using MintPlayer.Fetcher.SongLyrics;
 
-namespace MintPlayer.Fetcher.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class IServiceCollectionExtensions
+	public static class IServiceCollectionExtensions
     {
         public static IServiceCollection AddSongLyricsFetcher(this IServiceCollection services)
         {
             return services
-                .AddSingleton<SongLyricsFetcher>()
+                .AddSingleton<ISongLyricsFetcher, SongLyricsFetcher>()
                 .AddSingleton<IFetcher, SongLyricsFetcher>();
         }
     }

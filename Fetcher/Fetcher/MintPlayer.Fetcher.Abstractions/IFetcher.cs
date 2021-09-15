@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MintPlayer.Fetcher
+namespace MintPlayer.Fetcher.Abstractions
 {
     public interface IFetcher
     {

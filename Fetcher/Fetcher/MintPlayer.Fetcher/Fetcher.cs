@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace MintPlayer.Fetcher
 {
-    public abstract class Fetcher : IFetcher
+    public abstract class Fetcher : Abstractions.IFetcher
     {
         public abstract IEnumerable<Regex> UrlRegex { get; }
-        public abstract Task<Dtos.Subject> Fetch(string url, bool trimTrash);
+        public abstract Task<Abstractions.Dtos.Subject> Fetch(string url, bool trimTrash);
 
         protected async Task<string> SendRequest(HttpClient httpClient, string url)
         {

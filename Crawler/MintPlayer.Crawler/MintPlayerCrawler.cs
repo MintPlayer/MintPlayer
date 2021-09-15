@@ -1,6 +1,7 @@
 ﻿using MintPlayer.Crawler.Events.EventArgs;
 using MintPlayer.Crawler.Events.EventHandlers;
 using MintPlayer.Fetcher;
+using MintPlayer.Fetcher.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,11 +13,11 @@ namespace MintPlayer.Crawler
     public class MintPlayerCrawler
     {
         private readonly IFetcherContainer fetcherContainer;
-        private readonly List<CrawlJob<Fetcher.Dtos.Subject>> crawlJobs;
+        private readonly List<CrawlJob<Fetcher.Abstractions.Dtos.Subject>> crawlJobs;
         public MintPlayerCrawler(IFetcherContainer fetcherContainer)
         {
             this.fetcherContainer = fetcherContainer;
-            crawlJobs = new List<CrawlJob<Fetcher.Dtos.Subject>>();
+            crawlJobs = new List<CrawlJob<Fetcher.Abstractions.Dtos.Subject>>();
         }
 
         #region SubjectsDiscovered
@@ -27,13 +28,6 @@ namespace MintPlayer.Crawler
                 SubjectsDiscovered(this, e);
         }
         #endregion
-
-        //public MintPlayerCrawler AddFetcher<T>() where T : Fetcher.Fetcher
-        //{
-        //    if (fetcherContainer == null) Debugger.Break();
-        //    fetcherContainer.RegisterFetcher<T>();
-        //    return this;
-        //}
 
         public async Task Start()
         {
@@ -58,7 +52,7 @@ namespace MintPlayer.Crawler
                 "https://songteksten.net/artist/lyrics/235/red-hot-chili-peppers.html"
             };
 
-            crawlJobs.AddRange(start_urls.Select(u => new CrawlJob<Fetcher.Dtos.Subject> { Url = u }));
+            crawlJobs.AddRange(start_urls.Select(u => new CrawlJob<Fetcher.Abstractions.Dtos.Subject> { Url = u }));
             while (true)
             {
                 // Fetch maximum 20 subjects currently in the list
@@ -89,11 +83,11 @@ namespace MintPlayer.Crawler
                         if (j == null) Debugger.Break();
                         return j.Url;
                     }))
-                    .Select(url => new CrawlJob<Fetcher.Dtos.Subject> { Url = url }));
+                    .Select(url => new CrawlJob<Fetcher.Abstractions.Dtos.Subject> { Url = url }));
             }
         }
 
-        private async Task<Fetcher.Dtos.Subject> RunJob(CrawlJob<Fetcher.Dtos.Subject> job)
+        private async Task<Fetcher.Abstractions.Dtos.Subject> RunJob(CrawlJob<Fetcher.Abstractions.Dtos.Subject> job)
         {
             try
             {

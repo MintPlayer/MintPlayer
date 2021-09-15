@@ -7,10 +7,10 @@ namespace MintPlayer.Fetcher.Musixmatch.Data
         [JsonProperty("name")]
         public string Title { get; set; }
 
-        public Dtos.Song ToDto()
+        public MintPlayer.Fetcher.Abstractions.Dtos.Song ToDto()
         {
-            return new Dtos.Song
-            {
+            return new MintPlayer.Fetcher.Abstractions.Dtos.Song
+			{
                 Title = Title
             };
         }

@@ -1,14 +1,21 @@
-﻿using MintPlayer.Fetcher.Dtos;
+﻿using MintPlayer.Fetcher.Abstractions.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("MintPlayer.Fetcher.Muzikum.Test")]
 namespace MintPlayer.Fetcher.Muzikum
 {
-    public class MuzikumFetcher : Fetcher
-    {
+	public interface IMuzikumFetcher
+	{
+		Task<Subject> Fetch(string url, bool trimTrash);
+	}
+
+	internal class MuzikumFetcher : Fetcher, IMuzikumFetcher
+	{
         private readonly HttpClient httpClient;
         public MuzikumFetcher(HttpClient httpClient)
         {

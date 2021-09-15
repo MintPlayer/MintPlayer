@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MintPlayer.Fetcher.Genius.Test
 {
@@ -6,7 +8,11 @@ namespace MintPlayer.Fetcher.Genius.Test
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+			var services = new ServiceCollection()
+				.AddSingleton<HttpClient>()
+				.AddFetcherContainer()
+				.AddGeniusFetcher()
+				.BuildServiceProvider();
         }
     }
 }

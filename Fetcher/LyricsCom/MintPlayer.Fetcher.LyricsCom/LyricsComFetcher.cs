@@ -1,17 +1,24 @@
-﻿using MintPlayer.Fetcher.Dtos;
+﻿using MintPlayer.Fetcher.Abstractions.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
+[assembly: InternalsVisibleTo("MintPlayer.Fetcher.LyricsCom.Test")]
 namespace MintPlayer.Fetcher.LyricsCom
 {
-    public class LyricsComFetcher : Fetcher
-    {
+	public interface ILyricsComFetcher
+	{
+		Task<Subject> Fetch(string url, bool trimTrash);
+	}
+
+	internal class LyricsComFetcher : Fetcher, ILyricsComFetcher
+	{
         private readonly HttpClient httpClient;
         public LyricsComFetcher(HttpClient httpClient)
         {
@@ -73,7 +80,7 @@ namespace MintPlayer.Fetcher.LyricsCom
 
             var youtube = ExtractSongYoutubeUrl(html);
             if (youtube != null)
-                result.Media.Add(new Medium { Type = Enums.eMediumType.YouTube, Value = youtube });
+                result.Media.Add(new Medium { Type = MintPlayer.Fetcher.Abstractions.Enums.eMediumType.YouTube, Value = youtube });
 
             return Task.FromResult<Subject>(result);
         }

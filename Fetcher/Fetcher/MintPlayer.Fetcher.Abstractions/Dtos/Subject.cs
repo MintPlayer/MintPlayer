@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MintPlayer.Fetcher.Dtos
+namespace MintPlayer.Fetcher.Abstractions.Dtos
 {
     public abstract class Subject
     {

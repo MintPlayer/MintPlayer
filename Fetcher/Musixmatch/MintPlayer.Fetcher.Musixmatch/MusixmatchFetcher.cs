@@ -1,17 +1,24 @@
-﻿using MintPlayer.Fetcher.Dtos;
+﻿using MintPlayer.Fetcher.Abstractions.Dtos;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("MintPlayer.Fetcher.Musixmatch.Test")]
 namespace MintPlayer.Fetcher.Musixmatch
 {
-    public class MusixmatchFetcher : Fetcher
-    {
+	public interface IMusixmatchFetcher
+	{
+		Task<Subject> Fetch(string url, bool trimTrash);
+	}
+
+	internal class MusixmatchFetcher : Fetcher, IMusixmatchFetcher
+	{
         private readonly HttpClient httpClient;
         public MusixmatchFetcher(HttpClient httpClient)
         {
