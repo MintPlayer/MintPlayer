@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Fetcher\Genius\MintPlayer.Fetcher.Genius\MintPlayer.Fetcher.Genius.csproj" />
+    <ProjectReference Include="..\..\Fetcher\LyricsCom\MintPlayer.Fetcher.LyricsCom\MintPlayer.Fetcher.LyricsCom.csproj" />
+    <ProjectReference Include="..\..\Fetcher\Musixmatch\MintPlayer.Fetcher.Musixmatch\MintPlayer.Fetcher.Musixmatch.csproj" />
+    <ProjectReference Include="..\..\Fetcher\SongtekstenNet\MintPlayer.Fetcher.SongtekstenNet\MintPlayer.Fetcher.SongtekstenNet.csproj" />
+    <ProjectReference Include="..\..\Fetcher\Fetcher\MintPlayer.Fetcher\MintPlayer.Fetcher.csproj" />
+  </ItemGroup>
+
+</Project>

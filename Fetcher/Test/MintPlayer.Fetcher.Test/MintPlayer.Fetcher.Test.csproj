@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AZLyrics\MintPlayer.Fetcher.AZLyrics\MintPlayer.Fetcher.AZLyrics.csproj" />
+    <ProjectReference Include="..\..\Fetcher\MintPlayer.Fetcher\MintPlayer.Fetcher.csproj" />
+    <ProjectReference Include="..\..\Genius\MintPlayer.Fetcher.Genius\MintPlayer.Fetcher.Genius.csproj" />
+    <ProjectReference Include="..\..\LoloLyrics\MintPlayer.Fetcher.LoloLyrics\MintPlayer.Fetcher.LoloLyrics.csproj" />
+    <ProjectReference Include="..\..\LyricsCom\MintPlayer.Fetcher.LyricsCom\MintPlayer.Fetcher.LyricsCom.csproj" />
+    <ProjectReference Include="..\..\Musixmatch\MintPlayer.Fetcher.Musixmatch\MintPlayer.Fetcher.Musixmatch.csproj" />
+    <ProjectReference Include="..\..\Muzikum\MintPlayer.Fetcher.Muzikum\MintPlayer.Fetcher.Muzikum.csproj" />
+    <ProjectReference Include="..\..\SongLyrics\MintPlayer.Fetcher.SongLyrics\MintPlayer.Fetcher.SongLyrics.csproj" />
+    <ProjectReference Include="..\..\SongMeanings\MintPlayer.Fetcher.SongMeanings\MintPlayer.Fetcher.SongMeanings.csproj" />
+    <ProjectReference Include="..\..\SongtekstenNet\MintPlayer.Fetcher.SongtekstenNet\MintPlayer.Fetcher.SongtekstenNet.csproj" />
+  </ItemGroup>
+
+</Project>
