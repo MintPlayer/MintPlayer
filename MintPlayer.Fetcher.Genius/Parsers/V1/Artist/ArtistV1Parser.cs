@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
+using MintPlayer.Fetcher.Dtos;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Artist
 {
-	class ArtistV1Parser
+	internal interface IArtistV1Parser
 	{
+		Task<Subject> Parse(string html);
+	}
+
+	internal class ArtistV1Parser : IArtistV1Parser
+	{
+		public Task<Subject> Parse(string html)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

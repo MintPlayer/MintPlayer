@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
+using MintPlayer.Fetcher.Dtos;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Album
 {
-	class AlbumV1Parser
-	{
-	}
+    internal interface IAlbumV1Parser
+    {
+        Task<Subject> Parse(string html);
+    }
+    internal class AlbumV1Parser : IAlbumV1Parser
+    {
+        public Task<Subject> Parse(string html)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }
