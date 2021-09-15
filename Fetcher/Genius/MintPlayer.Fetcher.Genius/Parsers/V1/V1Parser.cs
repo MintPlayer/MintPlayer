@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MintPlayer.Fetcher.Abstractions.Dtos;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Album;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Artist;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Song;
 using Newtonsoft.Json;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1
@@ -8,10 +11,10 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1
 	internal class V1Parser : IGeniusParser
 	{
 		private readonly Services.IPageDataReader pageDataReader;
-		private readonly Artist.IArtistV1Parser aristParser;
-		private readonly Album.IAlbumV1Parser albumParser;
-		private readonly Song.ISongV1Parser songParser;
-		public V1Parser(Services.IPageDataReader pageDataReader, Artist.IArtistV1Parser aristParser, Album.IAlbumV1Parser albumParser, Song.ISongV1Parser songParser)
+		private readonly IArtistV1Parser aristParser;
+		private readonly IAlbumV1Parser albumParser;
+		private readonly ISongV1Parser songParser;
+		public V1Parser(Services.IPageDataReader pageDataReader, IArtistV1Parser aristParser, IAlbumV1Parser albumParser, ISongV1Parser songParser)
 		{
 			this.pageDataReader = pageDataReader;
 			this.aristParser = aristParser;

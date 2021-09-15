@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using MintPlayer.Fetcher.Abstractions.Dtos;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Song;
 using Newtonsoft.Json;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Song
 {
-	internal interface ISongV1Parser
-	{
-		Task<Subject> Parse(string html, string pageData, bool trimTrash);
-	}
-
 	internal class SongV1Parser : ISongV1Parser
 	{
-		public async Task<Subject> Parse(string html, string pageData, bool trimTrash)
+		public async Task<MintPlayer.Fetcher.Abstractions.Dtos.Song> Parse(string html, string pageData, bool trimTrash)
 		{
 			var songPageData = JsonConvert.DeserializeObject<Common.SongPageData>(pageData);
 
@@ -30,6 +25,12 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Song
 				.Replace("\r", string.Empty)
 				.Replace("\n", string.Empty)
 				.Replace("<br>", Environment.NewLine);
+
+			if (trimTrash)
+			{
+				var rgxBrackets = new Regex(@"\[.*?\]\r\n", RegexOptions.Multiline);
+				stripped = rgxBrackets.Replace(stripped, string.Empty);
+			}
 
 			return Task.FromResult(stripped);
 		}

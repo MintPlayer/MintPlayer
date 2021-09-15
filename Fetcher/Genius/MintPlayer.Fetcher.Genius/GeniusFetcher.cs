@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.Abstractions.Dtos;
+using MintPlayer.Fetcher.Genius.Abstractions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,6 @@ using System.Threading.Tasks;
 [assembly: InternalsVisibleTo("MintPlayer.Fetcher.Genius.Test")]
 namespace MintPlayer.Fetcher.Genius
 {
-	public interface IGeniusFetcher
-	{
-		Task<Subject> Fetch(string url, bool trimTrash);
-	}
-
 	internal class GeniusFetcher : Fetcher, IGeniusFetcher
 	{
         private readonly HttpClient httpClient;

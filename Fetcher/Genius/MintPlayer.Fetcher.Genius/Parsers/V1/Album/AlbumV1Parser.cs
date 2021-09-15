@@ -3,13 +3,9 @@ using MintPlayer.Fetcher.Abstractions.Dtos;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Album
 {
-    internal interface IAlbumV1Parser
+    internal class AlbumV1Parser : Abstractions.Parsers.V1.Album.IAlbumV1Parser
     {
-        Task<Subject> Parse(string html, string pageData);
-    }
-    internal class AlbumV1Parser : IAlbumV1Parser
-    {
-        public Task<Subject> Parse(string html, string pageData)
+        public Task<MintPlayer.Fetcher.Abstractions.Dtos.Album> Parse(string html, string pageData)
         {
             throw new System.NotImplementedException();
         }

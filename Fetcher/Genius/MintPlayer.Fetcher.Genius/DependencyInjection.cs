@@ -1,6 +1,7 @@
 ﻿using MintPlayer.Fetcher;
 using MintPlayer.Fetcher.Abstractions;
 using MintPlayer.Fetcher.Genius;
+using MintPlayer.Fetcher.Genius.Abstractions;
 using MintPlayer.Fetcher.Genius.Parsers;
 
 namespace Microsoft.Extensions.DependencyInjection
