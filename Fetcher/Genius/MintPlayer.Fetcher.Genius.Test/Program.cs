@@ -22,7 +22,7 @@ namespace MintPlayer.Fetcher.Genius.Test
 			//var genius_song = await fetcherContainer.Fetch(url_genius_song, true);
 
 			var songV1Parser = services.GetService<Abstractions.Parsers.V1.Song.ISongV1Parser>();
-			var pageDataReader = services.GetService<Parsers.V1.Services.IPageDataReader>();
+			var pageDataReader = services.GetService<Abstractions.Parsers.V1.Services.IPageDataReader>();
 			using (var fs = new FileStream("Templates/V1/Song/i-feel-it-coming.html", FileMode.Open, FileAccess.Read))
 			using (var reader = new StreamReader(fs))
 			{

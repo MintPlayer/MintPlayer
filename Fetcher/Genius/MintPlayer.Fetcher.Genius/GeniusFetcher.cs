@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("MintPlayer.Fetcher.Genius.Test")]
+[assembly: InternalsVisibleTo("MintPlayer.Fetcher.Genius.Tests")]
 namespace MintPlayer.Fetcher.Genius
 {
 	internal class GeniusFetcher : Fetcher, IGeniusFetcher

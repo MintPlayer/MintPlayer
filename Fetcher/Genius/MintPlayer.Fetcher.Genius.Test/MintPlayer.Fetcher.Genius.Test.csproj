@@ -13,19 +13,4 @@
     <ProjectReference Include="..\MintPlayer.Fetcher.Genius\MintPlayer.Fetcher.Genius.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Templates\V1\Song\i-feel-it-coming.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Templates\V1\Song\i-feel-it-coming.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Templates\V2\Song\Templates\i-feel-it-coming.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Templates\V3\Song\Templates\i-feel-it-coming.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

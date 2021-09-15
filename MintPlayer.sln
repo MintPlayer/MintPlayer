@@ -114,6 +114,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.SongMean
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.SongtekstenNet.Abstractions", "Fetcher\SongtekstenNet\MintPlayer.Fetcher.SongtekstenNet.Abstractions\MintPlayer.Fetcher.SongtekstenNet.Abstractions.csproj", "{1203ECAD-8D92-44ED-B38E-A480EDF17E41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Genius.Tests", "Fetcher\Genius\MintPlayer.Fetcher.Genius.Tests\MintPlayer.Fetcher.Genius.Tests.csproj", "{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -276,6 +278,10 @@ Global
 		{1203ECAD-8D92-44ED-B38E-A480EDF17E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1203ECAD-8D92-44ED-B38E-A480EDF17E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1203ECAD-8D92-44ED-B38E-A480EDF17E41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -328,6 +334,7 @@ Global
 		{C3574F62-EB82-44A9-9A30-066286252BA4} = {647587FC-0F60-472E-8A9D-FB230BDD2011}
 		{A4EBCADD-5E9A-4E8F-B27C-9CBCB4FD7A97} = {84DD8DE9-AD87-4F3A-AD21-38202C5C5141}
 		{1203ECAD-8D92-44ED-B38E-A480EDF17E41} = {3FCDD1EA-58F2-4F05-BF97-5CA3876BEB02}
+		{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2} = {667C0E0B-0E86-4BEC-AA00-5688AFF85129}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E212556-4D7B-4A49-A150-1E2293727B26}

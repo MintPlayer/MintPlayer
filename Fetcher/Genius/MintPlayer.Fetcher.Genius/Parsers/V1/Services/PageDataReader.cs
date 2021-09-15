@@ -1,15 +1,11 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Services;
 
 [assembly: InternalsVisibleTo("MintPlayer.Fetcher.Test")]
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Services
 {
-	internal interface IPageDataReader
-	{
-		Task<string> ReadPageData(string html);
-	}
-
 	internal class PageDataReader : IPageDataReader
 	{
 		public Task<string> ReadPageData(string html)
