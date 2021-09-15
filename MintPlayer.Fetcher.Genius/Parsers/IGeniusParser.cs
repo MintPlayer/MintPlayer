@@ -4,6 +4,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers
 {
 	internal interface IGeniusParser
 	{
-		Task<bool> IsMatch(string html);
+		bool IsMatch(string url, string html);
+		Task<Dtos.Subject> Parse(string url, string html, bool trimTrash);
 	}
 }

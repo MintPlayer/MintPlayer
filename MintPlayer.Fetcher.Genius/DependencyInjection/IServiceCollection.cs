@@ -15,7 +15,9 @@ namespace MintPlayer.Fetcher.DependencyInjection
 				.AddScoped<IGeniusParser, Genius.Parsers.V1.V1Parser>()
 				.AddScoped<Genius.Parsers.V1.Album.IAlbumV1Parser, Genius.Parsers.V1.Album.AlbumV1Parser>()
 				.AddScoped<Genius.Parsers.V1.Artist.IArtistV1Parser, Genius.Parsers.V1.Artist.ArtistV1Parser>()
-				.AddScoped<Genius.Parsers.V1.Song.ISongV1Parser, Genius.Parsers.V1.Song.SongV1Parser>();
+				.AddScoped<Genius.Parsers.V1.Song.ISongV1Parser, Genius.Parsers.V1.Song.SongV1Parser>()
+				
+				.AddScoped<Genius.Services.IPageDataReader, Genius.Services.PageDataReader>();
         }
     }
 }
