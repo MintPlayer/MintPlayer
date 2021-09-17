@@ -25,6 +25,7 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V1.Song
 				.AddSingleton<Abstractions.Parsers.V1.Services.IPageDataReader, Genius.Parsers.V1.Services.PageDataReader>()
 				.AddSingleton<Genius.Parsers.V1.Mappers.SongMapper>()
 				.AddSingleton<Genius.Parsers.V1.Mappers.ArtistMapper>()
+				.AddSingleton<Genius.Parsers.V1.Mappers.MediumMapper>()
 
 				.BuildServiceProvider();
 		}

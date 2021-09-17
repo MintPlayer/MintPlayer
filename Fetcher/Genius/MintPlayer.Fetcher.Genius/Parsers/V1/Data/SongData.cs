@@ -23,5 +23,8 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Data
 
 		[JsonProperty("featured_artists")]
 		public List<ArtistData> FeaturedArtists { get; set; }
+
+		[JsonProperty("media")]
+		public List<MediumData> Media { get; set; }
 	}
 }

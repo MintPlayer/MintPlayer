@@ -11,9 +11,11 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Mappers
 	internal class SongMapper
 	{
 		private readonly ArtistMapper artistMapper;
-		public SongMapper(ArtistMapper artistMapper)
+		private readonly MediumMapper mediumMapper;
+		public SongMapper(ArtistMapper artistMapper, MediumMapper mediumMapper)
 		{
 			this.artistMapper = artistMapper;
+			this.mediumMapper = mediumMapper;
 		}
 
 		public async Task<Song> ToDto(Data.SongData song)
@@ -36,6 +38,12 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Mappers
 			{
 				var artists = await Task.WhenAll(song.FeaturedArtists.Select(a => artistMapper.ToDto(a)));
 				result.FeaturedArtists = artists.ToList();
+			}
+
+			if (song.Media != null)
+			{
+				var media = await Task.WhenAll(song.Media.Select(m => mediumMapper.ToDto(m)));
+				result.Media = media.ToList();
 			}
 
 			return result;

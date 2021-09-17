@@ -8,7 +8,8 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Mappers
 		{
 			return services
 				.AddScoped<ArtistMapper>()
-				.AddScoped<SongMapper>();
+				.AddScoped<SongMapper>()
+				.AddScoped<MediumMapper>();
 		}
 	}
 }
