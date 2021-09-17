@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V2;
-using MintPlayer.Fetcher.Genius.Parsers.V2.Song;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V2.Parsers;
+using MintPlayer.Fetcher.Genius.Parsers.V2.Parsers;
 
 namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V2.Song
 {
@@ -20,8 +19,9 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V2.Song
 			services = new ServiceCollection()
 				// Unit to test
 				.AddSingleton<ISongV2Parser, SongV2Parser>()
-				// Don't mock the pageDataReader
-				.AddSingleton<Abstractions.Parsers.V1.Services.IPageDataReader, Genius.Parsers.V1.Services.PageDataReader>()
+				// Don't mock the preloadedStateReader
+				.AddSingleton<Abstractions.Parsers.V2.Services.IPreloadedStateReader, Genius.Parsers.V2.Services.PreloadedStateReader>()
+				.AddSingleton<Genius.Parsers.V2.Mappers.SongV2Mapper>()
 				.BuildServiceProvider();
 		}
 
@@ -29,15 +29,14 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V2.Song
 		public async Task Parse()
 		{
 			var songV2Parser = services.GetService<ISongV2Parser>();
+			var preloadedStateReader = services.GetService<Abstractions.Parsers.V2.Services.IPreloadedStateReader>();
 
-			var pageDataReader = services.GetService<Abstractions.Parsers.V1.Services.IPageDataReader>();
-
-			using (var fs = new FileStream("Templates/V1/Song/i-feel-it-coming.html", FileMode.Open, FileAccess.Read))
+			using (var fs = new FileStream("Templates/V2/Song/Templates/sunset-jesus.html", FileMode.Open, FileAccess.Read))
 			using (var reader = new StreamReader(fs))
 			{
 				var html = await reader.ReadToEndAsync();
-				var pageData = await pageDataReader.ReadPageData(html);
-				var song = await songV2Parser.Parse(html, pageData);
+				var preloadedState = await preloadedStateReader.ReadPreloadedState(html);
+				var song = await songV2Parser.Parse(html, preloadedState);
 
 				Assert.IsNotNull(song.Lyrics);
 			}

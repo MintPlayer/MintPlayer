@@ -1,0 +1,2677 @@
+﻿{
+	"currentPage": "songPage",
+	"deviceType": "desktop",
+	"session": {
+		"cmpEnabled": true,
+		"ccpaEnabled": true,
+		"showAds": true,
+		"logClientMetrics": false,
+		"fringeEnabled": true,
+		"taboolaEnabled": false,
+		"features": [
+			"bagon_song_page",
+			"song_stories_public_launch"
+		]
+	},
+	"songPage": {
+		"variant": true,
+		"song": 2316000,
+		"pinnedQuestions": [
+
+		],
+		"lyricsData": {
+			"numInreadAdSlots": 1,
+			"body": {
+				"html": "\"<p>[Verse 1: Sandro Cavazza]<br>\\\\nTry\\'na set myself up for the win<br>\\\\nSome people got a dream that\\'s so much bigger than the town they\\'re in<br>\\\\nSo give me love, give me love, give me peace, give me peace of mind<br>\\\\nI know that there\\'s an ought to a start and I need a little help with mine<br>\\\\n<br>\\\\n[Pre-Chorus: Sandro Cavazza]<br>\\\\n<a href=\\\\\"/7911302/Avicii-sunset-jesus/California-dont-let-me-down-seems-so-golden-but-theres-struggle-all-around\\\\\" data-id=\\\\\"7911302\\\\\" data-editorial-state=\\\\\"accepted\\\\\" data-classification=\\\\\"accepted\\\\\">California, don\\'t let me down<br>\\\\nSeems so golden, but there\\'s struggle all around<\\/a><br>\\\\n<a href=\\\\\"/7911308/Avicii-sunset-jesus/Sunset-jesus-came-to-me-he-once-was-a-waiter-now-hes-a-savior-making-money-on-the-street\\\\\" data-id=\\\\\"7911308\\\\\" data-editorial-state=\\\\\"accepted\\\\\" data-classification=\\\\\"accepted\\\\\">Sunset Jesus, came to me<br>\\\\nHe once was a waiter, now he\\'s a savior making money on the street<\\/a><br>\\\\n<br>\\\\n[Chorus: Sandro Cavazza]<br>\\\\n<a href=\\\\\"/7911323/Avicii-sunset-jesus/My-dreams-are-made-of-gold-my-hearts-been-broken-and-im-down-along-the-road-but-i-know-my-dreams-keep-fading-till-i-get-old-breathe-for-a-minute-breathe-for-a-minute-ill-be-okay\\\\\" data-id=\\\\\"7911323\\\\\" data-editorial-state=\\\\\"accepted\\\\\" data-classification=\\\\\"accepted\\\\\">My dreams are made of gold<br>\\\\nMy heart\\'s been broken and I\\'m down along the road<br>\\\\nBut I know, my dreams keep fading till I get old<br>\\\\nBreathe for a minute, breathe for a minute, I\\'ll be okay<\\/a><br>\\\\n<br>\\\\n[Verse 2: Sandro Cavazza]<br>\\\\n<a href=\\\\\"/7911338/Avicii-sunset-jesus/Staring-at-the-billboard-from-the-bus-looking-at-the-faces-thinking-that-could-be-anyone-of-us-so-give-me-hope-give-me-hope-give-me-hope-on-this-lonely-ride\\\\\" data-id=\\\\\"7911338\\\\\" data-editorial-state=\\\\\"accepted\\\\\" data-classification=\\\\\"accepted\\\\\">Staring at the billboard from the bus<br>\\\\nLooking at the faces, thinking that could be anyone of us<br>\\\\nSo give me hope, give me hope, give me hope on this lonely ride<\\/a><br>\\\\n<a href=\\\\\"/7911339/Avicii-sunset-jesus/Cause-i-know-one-day-i-will-be-the-one-in-the-sky\\\\\" data-id=\\\\\"7911339\\\\\" data-editorial-state=\\\\\"accepted\\\\\" data-classification=\\\\\"accepted\\\\\">Cause I know one day, I will be the one in the sky<\\/a><br>\\\\n<br>\\\\n[Pre-Chorus: Sandro Cavazza]<br>\\\\nCalifornia, don\\'t let me down<br>\\\\nSeems so golden, but there\\'s struggle all around<br>\\\\nSunset Jesus, came to me<br>\\\\nHe once was a waiter, now he\\'s a savior making money on the street<br>\\\\n<br>\\\\n[Bridge: Sandro Cavazza]<br>\\\\nMy dreams are made of gold<br>\\\\nMy heart\\'s been broken and I\\'m down along the road<br>\\\\nBut I know, my dreams keep fading till I get old<br>\\\\n<a href=\\\\\"/7911346/Avicii-sunset-jesus/Breathe-for-a-minute-breathe-for-a-minute-sunset-jesus\\\\\" data-id=\\\\\"7911346\\\\\" data-editorial-state=\\\\\"accepted\\\\\" data-classification=\\\\\"accepted\\\\\">Breathe for a minute, breathe for a minute<br>\\\\nSunset Jesus<\\/a><br>\\\\n<br>\\\\n[Outro: Sandro Cavazza]<br>\\\\nMy dreams are made of gold<br>\\\\nMy heart\\'s been broken and I\\'m down along the road<br>\\\\nBut I know, my dreams keep fading till I get old<br>\\\\nBreathe for a minute, breathe for a minute, I\\'ll be okay<br>\\\\nMy dreams are made of gold<br>\\\\nMy heart\\'s been broken and I\\'m down along the road<br>\\\\nBut I know, my dreams keep fading till I get old<br>\\\\nBreathe for a minute, breathe for a minute, I\\'ll be okay<\\/p>\\\\n\\\\n\"",
+				"children": [
+					{
+						"children": [
+							"[Verse 1: Sandro Cavazza]",
+							{
+								"tag": "br"
+							},
+							"Try\\'na set myself up for the win",
+							{
+								"tag": "br"
+							},
+							"Some people got a dream that\\'s so much bigger than the town they\\'re in",
+							{
+								"tag": "br"
+							},
+							"So give me love, give me love, give me peace, give me peace of mind",
+							{
+								"tag": "br"
+							},
+							"I know that there\\'s an ought to a start and I need a little help with mine",
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"tag": "br"
+							},
+							"[Pre-Chorus: Sandro Cavazza]",
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"children": [
+									"California, don\\'t let me down",
+									{
+										"tag": "br"
+									},
+									"Seems so golden, but there\\'s struggle all around"
+								],
+								"data": {
+									"classification": "accepted",
+									"editorialState": "accepted",
+									"id": "7911302"
+								},
+								"attributes": {
+									"href": "/7911302/Avicii-sunset-jesus/California-dont-let-me-down-seems-so-golden-but-theres-struggle-all-around"
+								},
+								"tag": "a"
+							},
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"children": [
+									"Sunset Jesus, came to me",
+									{
+										"tag": "br"
+									},
+									"He once was a waiter, now he\\'s a savior making money on the street"
+								],
+								"data": {
+									"classification": "accepted",
+									"editorialState": "accepted",
+									"id": "7911308"
+								},
+								"attributes": {
+									"href": "/7911308/Avicii-sunset-jesus/Sunset-jesus-came-to-me-he-once-was-a-waiter-now-hes-a-savior-making-money-on-the-street"
+								},
+								"tag": "a"
+							},
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"tag": "br"
+							},
+							"[Chorus: Sandro Cavazza]",
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"children": [
+									"My dreams are made of gold",
+									{
+										"tag": "br"
+									},
+									"My heart\\'s been broken and I\\'m down along the road",
+									{
+										"tag": "br"
+									},
+									"But I know, my dreams keep fading till I get old",
+									{
+										"tag": "br"
+									},
+									"Breathe for a minute, breathe for a minute, I\\'ll be okay"
+								],
+								"data": {
+									"classification": "accepted",
+									"editorialState": "accepted",
+									"id": "7911323"
+								},
+								"attributes": {
+									"href": "/7911323/Avicii-sunset-jesus/My-dreams-are-made-of-gold-my-hearts-been-broken-and-im-down-along-the-road-but-i-know-my-dreams-keep-fading-till-i-get-old-breathe-for-a-minute-breathe-for-a-minute-ill-be-okay"
+								},
+								"tag": "a"
+							},
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"tag": "br"
+							},
+							"[Verse 2: Sandro Cavazza]",
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"children": [
+									"Staring at the billboard from the bus",
+									{
+										"tag": "br"
+									},
+									"Looking at the faces, thinking that could be anyone of us",
+									{
+										"tag": "br"
+									},
+									"So give me hope, give me hope, give me hope on this lonely ride"
+								],
+								"data": {
+									"classification": "accepted",
+									"editorialState": "accepted",
+									"id": "7911338"
+								},
+								"attributes": {
+									"href": "/7911338/Avicii-sunset-jesus/Staring-at-the-billboard-from-the-bus-looking-at-the-faces-thinking-that-could-be-anyone-of-us-so-give-me-hope-give-me-hope-give-me-hope-on-this-lonely-ride"
+								},
+								"tag": "a"
+							},
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"children": [
+									"Cause I know one day, I will be the one in the sky"
+								],
+								"data": {
+									"classification": "accepted",
+									"editorialState": "accepted",
+									"id": "7911339"
+								},
+								"attributes": {
+									"href": "/7911339/Avicii-sunset-jesus/Cause-i-know-one-day-i-will-be-the-one-in-the-sky"
+								},
+								"tag": "a"
+							},
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"tag": "br"
+							},
+							"[Pre-Chorus: Sandro Cavazza]",
+							{
+								"tag": "br"
+							},
+							"California, don\\'t let me down",
+							{
+								"tag": "br"
+							},
+							"Seems so golden, but there\\'s struggle all around",
+							{
+								"tag": "br"
+							},
+							"Sunset Jesus, came to me",
+							{
+								"tag": "br"
+							},
+							"He once was a waiter, now he\\'s a savior making money on the street",
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"data": {
+									"name": "desktop_song_lyrics_inread"
+								},
+								"tag": "inread-ad"
+							},
+							"[Bridge: Sandro Cavazza]",
+							{
+								"tag": "br"
+							},
+							"My dreams are made of gold",
+							{
+								"tag": "br"
+							},
+							"My heart\\'s been broken and I\\'m down along the road",
+							{
+								"tag": "br"
+							},
+							"But I know, my dreams keep fading till I get old",
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"children": [
+									"Breathe for a minute, breathe for a minute",
+									{
+										"tag": "br"
+									},
+									"Sunset Jesus"
+								],
+								"data": {
+									"classification": "accepted",
+									"editorialState": "accepted",
+									"id": "7911346"
+								},
+								"attributes": {
+									"href": "/7911346/Avicii-sunset-jesus/Breathe-for-a-minute-breathe-for-a-minute-sunset-jesus"
+								},
+								"tag": "a"
+							},
+							{
+								"tag": "br"
+							},
+							"",
+							{
+								"tag": "br"
+							},
+							"[Outro: Sandro Cavazza]",
+							{
+								"tag": "br"
+							},
+							"My dreams are made of gold",
+							{
+								"tag": "br"
+							},
+							"My heart\\'s been broken and I\\'m down along the road",
+							{
+								"tag": "br"
+							},
+							"But I know, my dreams keep fading till I get old",
+							{
+								"tag": "br"
+							},
+							"Breathe for a minute, breathe for a minute, I\\'ll be okay",
+							{
+								"tag": "br"
+							},
+							"My dreams are made of gold",
+							{
+								"tag": "br"
+							},
+							"My heart\\'s been broken and I\\'m down along the road",
+							{
+								"tag": "br"
+							},
+							"But I know, my dreams keep fading till I get old",
+							{
+								"tag": "br"
+							},
+							"Breathe for a minute, breathe for a minute, I\\'ll be okay"
+						],
+						"tag": "p"
+					},
+					""
+				],
+				"tag": "root"
+			},
+			"clientTimestamps": {
+				"updatedByHumanAt": 1615395702,
+				"lyricsUpdatedAt": 1549057293
+			}
+		},
+		"featuredQuestion": null,
+		"showFeaturedQuestion": false,
+		"pendingQuestionCount": 0,
+		"dfpKv": [
+			{
+				"values": [
+					"2316000"
+				],
+				"name": "song_id"
+			},
+			{
+				"values": [
+					"Sunset Jesus"
+				],
+				"name": "song_title"
+			},
+			{
+				"values": [
+					"17491"
+				],
+				"name": "artist_id"
+			},
+			{
+				"values": [
+					"Avicii"
+				],
+				"name": "artist_name"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "is_explicit"
+			},
+			{
+				"values": [
+					"43442"
+				],
+				"name": "pageviews"
+			},
+			{
+				"values": [
+					"16"
+				],
+				"name": "primary_tag_id"
+			},
+			{
+				"values": [
+					"pop"
+				],
+				"name": "primary_tag"
+			},
+			{
+				"values": [
+					"1532",
+					"16"
+				],
+				"name": "tag_id"
+			},
+			{
+				"values": [
+					"E"
+				],
+				"name": "song_tier"
+			},
+			{
+				"values": [
+
+				],
+				"name": "topic"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "has_song_story"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "in_top_10"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "artist_in_top_10"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "album_in_top_10"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "new_release"
+			},
+			{
+				"values": [
+					"201510"
+				],
+				"name": "release_month"
+			},
+			{
+				"values": [
+					"2015"
+				],
+				"name": "release_year"
+			},
+			{
+				"values": [
+					"2010"
+				],
+				"name": "release_decade"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "in_top_10_rap"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "in_top_10_rock"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "in_top_10_country"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "in_top_10_r_and_b"
+			},
+			{
+				"values": [
+					"false"
+				],
+				"name": "in_top_10_pop"
+			},
+			{
+				"values": [
+					"production"
+				],
+				"name": "environment"
+			},
+			{
+				"values": [
+					"web"
+				],
+				"name": "platform"
+			},
+			{
+				"values": [
+					"desktop_react_2_column"
+				],
+				"name": "platform_variant"
+			},
+			{
+				"values": [
+					"song"
+				],
+				"name": "ad_page_type"
+			}
+		],
+		"trackingData": [
+			{
+				"value": 2316000,
+				"key": "Song ID"
+			},
+			{
+				"value": "Sunset Jesus",
+				"key": "Title"
+			},
+			{
+				"value": "Avicii",
+				"key": "Primary Artist"
+			},
+			{
+				"value": 17491,
+				"key": "Primary Artist ID"
+			},
+			{
+				"value": "Stories",
+				"key": "Primary Album"
+			},
+			{
+				"value": 113035,
+				"key": "Primary Album ID"
+			},
+			{
+				"value": "pop",
+				"key": "Tag"
+			},
+			{
+				"value": "pop",
+				"key": "Primary Tag"
+			},
+			{
+				"value": 16,
+				"key": "Primary Tag ID"
+			},
+			{
+				"value": true,
+				"key": "Music?"
+			},
+			{
+				"value": "Song",
+				"key": "Annotatable Type"
+			},
+			{
+				"value": 2316000,
+				"key": "Annotatable ID"
+			},
+			{
+				"value": false,
+				"key": "featured_video"
+			},
+			{
+				"value": [
+
+				],
+				"key": "cohort_ids"
+			},
+			{
+				"value": false,
+				"key": "has_verified_callout"
+			},
+			{
+				"value": true,
+				"key": "has_featured_annotation"
+			},
+			{
+				"value": "2015-09-25T12:30:12Z",
+				"key": "created_at"
+			},
+			{
+				"value": "2015-09-01",
+				"key": "created_month"
+			},
+			{
+				"value": 2015,
+				"key": "created_year"
+			},
+			{
+				"value": "E",
+				"key": "song_tier"
+			},
+			{
+				"value": false,
+				"key": "Has Recirculated Articles"
+			},
+			{
+				"value": "en",
+				"key": "Lyrics Language"
+			},
+			{
+				"value": true,
+				"key": "Has Apple Match"
+			},
+			{
+				"value": "2015-10-02",
+				"key": "Release Date"
+			},
+			{
+				"value": null,
+				"key": "NRM Tier"
+			},
+			{
+				"value": null,
+				"key": "NRM Target Date"
+			},
+			{
+				"value": true,
+				"key": "Has Description"
+			},
+			{
+				"value": true,
+				"key": "Has Youtube URL"
+			},
+			{
+				"value": false,
+				"key": "Has Translation Q&A"
+			},
+			{
+				"value": 4,
+				"key": "Comment Count"
+			},
+			{
+				"value": false,
+				"key": "two_column_song_page"
+			}
+		],
+		"title": "Avicii – Sunset Jesus Lyrics | Genius Lyrics",
+		"path": "/Avicii-sunset-jesus-lyrics",
+		"pageType": "song",
+		"initialAdUnits": [
+			"desktop_song_inread",
+			"desktop_song_inread2",
+			"desktop_song_inread3",
+			"desktop_song_leaderboard",
+			"desktop_song_lyrics_footer",
+			"desktop_song_marquee",
+			"desktop_song_medium1",
+			"desktop_song_sidebar_top"
+		],
+		"headerBidPlacements": [
+
+		],
+		"dmpDataLayer": {
+			"page": {
+				"type": "song"
+			}
+		},
+		"controllerAndAction": "songs#show",
+		"chartbeat": {
+			"title": "Avicii – Sunset Jesus Lyrics | Genius Lyrics",
+			"sections": "songs,tag:pop",
+			"authors": "Avicii"
+		}
+	},
+	"entities": {
+		"artists": {
+			"17491": {
+				"iq": 675,
+				"url": "https://genius.com/artists/Avicii",
+				"slug": "Avicii",
+				"name": "Avicii",
+				"isVerified": true,
+				"isMemeVerified": true,
+				"indexCharacter": "a",
+				"imageUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.1000x1000x1.jpg",
+				"id": 17491,
+				"headerImageUrl": "https://images.genius.com/4bf9a84e560db90a8bbfba4ff7899917.1000x370x1.jpg",
+				"apiPath": "/artists/17491",
+				"type": "artist"
+			}
+		},
+		"songs": {
+			"521662": {
+				"url": "https://genius.com/Avicii-the-nights-lyrics",
+				"title": "The Nights",
+				"path": "/Avicii-the-nights-lyrics",
+				"lyricsState": "complete",
+				"id": 521662,
+				"apiPath": "/songs/521662",
+				"type": "song"
+			},
+			"530707": {
+				"url": "https://genius.com/Avicii-the-days-lyrics",
+				"title": "The Days",
+				"path": "/Avicii-the-days-lyrics",
+				"lyricsState": "complete",
+				"id": 530707,
+				"apiPath": "/songs/530707",
+				"type": "song"
+			},
+			"734667": {
+				"url": "https://genius.com/Avicii-waiting-for-love-lyrics",
+				"title": "Waiting for Love",
+				"path": "/Avicii-waiting-for-love-lyrics",
+				"lyricsState": "complete",
+				"id": 734667,
+				"apiPath": "/songs/734667",
+				"type": "song"
+			},
+			"2159609": {
+				"url": "https://genius.com/Avicii-broken-arrows-lyrics",
+				"title": "Broken Arrows",
+				"path": "/Avicii-broken-arrows-lyrics",
+				"lyricsState": "complete",
+				"id": 2159609,
+				"apiPath": "/songs/2159609",
+				"type": "song"
+			},
+			"2159612": {
+				"url": "https://genius.com/Avicii-cant-catch-me-lyrics",
+				"title": "Can’t Catch Me",
+				"path": "/Avicii-cant-catch-me-lyrics",
+				"lyricsState": "complete",
+				"id": 2159612,
+				"apiPath": "/songs/2159612",
+				"type": "song"
+			},
+			"2291703": {
+				"url": "https://genius.com/Avicii-for-a-better-day-lyrics",
+				"title": "For a Better Day",
+				"path": "/Avicii-for-a-better-day-lyrics",
+				"lyricsState": "complete",
+				"id": 2291703,
+				"apiPath": "/songs/2291703",
+				"type": "song"
+			},
+			"2291705": {
+				"url": "https://genius.com/Avicii-pure-grinding-lyrics",
+				"title": "Pure Grinding",
+				"path": "/Avicii-pure-grinding-lyrics",
+				"lyricsState": "complete",
+				"id": 2291705,
+				"apiPath": "/songs/2291705",
+				"type": "song"
+			},
+			"2315993": {
+				"url": "https://genius.com/Avicii-talk-to-myself-lyrics",
+				"title": "Talk to Myself",
+				"path": "/Avicii-talk-to-myself-lyrics",
+				"lyricsState": "complete",
+				"id": 2315993,
+				"apiPath": "/songs/2315993",
+				"type": "song"
+			},
+			"2315995": {
+				"url": "https://genius.com/Avicii-touch-me-lyrics",
+				"title": "Touch Me",
+				"path": "/Avicii-touch-me-lyrics",
+				"lyricsState": "complete",
+				"id": 2315995,
+				"apiPath": "/songs/2315995",
+				"type": "song"
+			},
+			"2315996": {
+				"url": "https://genius.com/Avicii-ten-more-days-lyrics",
+				"title": "Ten More Days",
+				"path": "/Avicii-ten-more-days-lyrics",
+				"lyricsState": "complete",
+				"id": 2315996,
+				"apiPath": "/songs/2315996",
+				"type": "song"
+			},
+			"2315998": {
+				"url": "https://genius.com/Avicii-true-believer-lyrics",
+				"title": "True Believer",
+				"path": "/Avicii-true-believer-lyrics",
+				"lyricsState": "complete",
+				"id": 2315998,
+				"apiPath": "/songs/2315998",
+				"type": "song"
+			},
+			"2315999": {
+				"url": "https://genius.com/Avicii-city-lights-lyrics",
+				"title": "City Lights",
+				"path": "/Avicii-city-lights-lyrics",
+				"lyricsState": "complete",
+				"id": 2315999,
+				"apiPath": "/songs/2315999",
+				"type": "song"
+			},
+			"2316000": {
+				"url": "https://genius.com/Avicii-sunset-jesus-lyrics",
+				"title": "Sunset Jesus",
+				"path": "/Avicii-sunset-jesus-lyrics",
+				"lyricsState": "complete",
+				"id": 2316000,
+				"apiPath": "/songs/2316000",
+				"type": "song",
+				"writerArtists": [
+					{
+						"url": "https://genius.com/artists/Rami",
+						"slug": "Rami",
+						"name": "Rami",
+						"isVerified": false,
+						"isMemeVerified": false,
+						"indexCharacter": "r",
+						"imageUrl": "https://images.genius.com/da24507187313883cb96aadcdaac9c51.706x706x1.jpg",
+						"id": 27713,
+						"headerImageUrl": "https://images.genius.com/2f57685565331cae0d70819a84571402.1000x324x1.png",
+						"apiPath": "/artists/27713",
+						"type": "artist"
+					},
+					{
+						"iq": 16126,
+						"url": "https://genius.com/artists/Mike-posner",
+						"slug": "Mike-posner",
+						"name": "Mike Posner",
+						"isVerified": true,
+						"isMemeVerified": true,
+						"indexCharacter": "m",
+						"imageUrl": "https://images.genius.com/8ebcf66b91d3eb9b02276c7e97807b73.916x916x1.jpg",
+						"id": 654,
+						"headerImageUrl": "https://images.genius.com/5d138a9d7ad89701e7a0183550dfe2e6.1000x333x1.jpg",
+						"apiPath": "/artists/654",
+						"type": "artist"
+					},
+					{
+						"url": "https://genius.com/artists/Dhani-lennevald",
+						"slug": "Dhani-lennevald",
+						"name": "Dhani Lennevald",
+						"isVerified": false,
+						"isMemeVerified": false,
+						"indexCharacter": "d",
+						"imageUrl": "https://images.genius.com/365ab298d8172e734107a5a019f6b1ef.449x449x1.jpg",
+						"id": 195376,
+						"headerImageUrl": "https://images.genius.com/365ab298d8172e734107a5a019f6b1ef.449x449x1.jpg",
+						"apiPath": "/artists/195376",
+						"type": "artist"
+					},
+					{
+						"url": "https://genius.com/artists/Savan-kotecha",
+						"slug": "Savan-kotecha",
+						"name": "Savan Kotecha",
+						"isVerified": false,
+						"isMemeVerified": false,
+						"indexCharacter": "s",
+						"imageUrl": "https://images.genius.com/4bc4f41a26a9ddccb4016b909f0c2ca0.438x344x1.jpg",
+						"id": 179206,
+						"headerImageUrl": "https://images.genius.com/4bc4f41a26a9ddccb4016b909f0c2ca0.438x344x1.jpg",
+						"apiPath": "/artists/179206",
+						"type": "artist"
+					},
+					{
+						"url": "https://genius.com/artists/Carl-falk",
+						"slug": "Carl-falk",
+						"name": "Carl Falk",
+						"isVerified": false,
+						"isMemeVerified": false,
+						"indexCharacter": "c",
+						"imageUrl": "https://images.genius.com/11fdba48342f49987acdded51dea7185.450x450x1.jpg",
+						"id": 43555,
+						"headerImageUrl": "https://images.genius.com/2bae73305a6c3fe2ecd57899a3557a60.800x450x1.jpg",
+						"apiPath": "/artists/43555",
+						"type": "artist"
+					},
+					{
+						"url": "https://genius.com/artists/Gavin-degraw",
+						"slug": "Gavin-degraw",
+						"name": "Gavin DeGraw",
+						"isVerified": false,
+						"isMemeVerified": false,
+						"indexCharacter": "g",
+						"imageUrl": "https://images.genius.com/fa08067be31330c2ff62b9c5a3eb76ef.1000x1000x1.jpg",
+						"id": 17412,
+						"headerImageUrl": "https://images.genius.com/7b3c7158cc6f448ba7dccd5d83808077.1000x333x1.jpg",
+						"apiPath": "/artists/17412",
+						"type": "artist"
+					},
+					{
+						"url": "https://genius.com/artists/Sandro-cavazza",
+						"slug": "Sandro-cavazza",
+						"name": "Sandro Cavazza",
+						"isVerified": false,
+						"isMemeVerified": false,
+						"indexCharacter": "s",
+						"imageUrl": "https://images.genius.com/50e08bfecf5175f7191b202fbc9dacb9.714x714x1.jpg",
+						"id": 571425,
+						"headerImageUrl": "https://images.genius.com/2357157e1072a98f0b43a4eea684246e.1000x370x1.jpg",
+						"apiPath": "/artists/571425",
+						"type": "artist"
+					},
+					{
+						"iq": 675,
+						"url": "https://genius.com/artists/Avicii",
+						"slug": "Avicii",
+						"name": "Avicii",
+						"isVerified": true,
+						"isMemeVerified": true,
+						"indexCharacter": "a",
+						"imageUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.1000x1000x1.jpg",
+						"id": 17491,
+						"headerImageUrl": "https://images.genius.com/4bf9a84e560db90a8bbfba4ff7899917.1000x370x1.jpg",
+						"apiPath": "/artists/17491",
+						"type": "artist"
+					}
+				],
+				"verifiedLyricsBy": [
+
+				],
+				"verifiedContributors": [
+
+				],
+				"verifiedAnnotationsBy": [
+
+				],
+				"topScholar": {
+					"user": {
+						"currentUserMetadata": {
+							"interactions": {
+								"following": false
+							},
+							"excludedPermissions": [
+								"follow"
+							],
+							"permissions": [
+
+							]
+						},
+						"url": "https://genius.com/Avicii181",
+						"roleForDisplay": null,
+						"name": "Avicii181",
+						"login": "Avicii181",
+						"isVerified": false,
+						"isMemeVerified": false,
+						"iq": 251,
+						"id": 2308097,
+						"humanReadableRoleForDisplay": null,
+						"headerImageUrl": "https://assets.genius.com/images/default_avatar_300.png?1631807796",
+						"avatar": {
+							"medium": {
+								"boundingBox": {
+									"height": 400,
+									"width": 300
+								},
+								"url": "https://assets.genius.com/images/default_avatar_300.png?1631807796"
+							},
+							"small": {
+								"boundingBox": {
+									"height": 100,
+									"width": 100
+								},
+								"url": "https://assets.genius.com/images/default_avatar_100.png?1631807796"
+							},
+							"thumb": {
+								"boundingBox": {
+									"height": 32,
+									"width": 32
+								},
+								"url": "https://assets.genius.com/images/default_avatar_32.png?1631807796"
+							},
+							"tiny": {
+								"boundingBox": {
+									"height": 16,
+									"width": 16
+								},
+								"url": "https://assets.genius.com/images/default_avatar_16.png?1631807796"
+							}
+						},
+						"apiPath": "/users/2308097",
+						"aboutMeSummary": "",
+						"type": "user"
+					},
+					"pinnedRole": null,
+					"attributionValue": 251.2,
+					"type": "user_attribution"
+				},
+				"tags": [
+					{
+						"url": "https://genius.com/tags/dance",
+						"primary": false,
+						"name": "Dance",
+						"id": 1532,
+						"type": "tag"
+					},
+					{
+						"url": "https://genius.com/tags/pop",
+						"primary": true,
+						"name": "Pop",
+						"id": 16,
+						"type": "tag"
+					}
+				],
+				"songRelationships": [
+					{
+						"songs": [
+							{
+								"primaryArtist": {
+									"iq": 675,
+									"url": "https://genius.com/artists/Avicii",
+									"slug": "Avicii",
+									"name": "Avicii",
+									"isVerified": true,
+									"isMemeVerified": true,
+									"indexCharacter": "a",
+									"imageUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.1000x1000x1.jpg",
+									"id": 17491,
+									"headerImageUrl": "https://images.genius.com/4bf9a84e560db90a8bbfba4ff7899917.1000x370x1.jpg",
+									"apiPath": "/artists/17491",
+									"type": "artist"
+								},
+								"url": "https://genius.com/Avicii-dear-boy-avicii-by-avicii-lyrics",
+								"updatedByHumanAt": 1601482135,
+								"titleWithFeatured": "Dear Boy (Avicii by Avicii)",
+								"title": "Dear Boy (Avicii by Avicii)",
+								"stats": {
+									"hot": false,
+									"unreviewedAnnotations": 0
+								},
+								"songArtImageUrl": "https://images.genius.com/46c7264b281af2655e4aaa27166107ba.1000x1000x1.png",
+								"songArtImageThumbnailUrl": "https://images.genius.com/46c7264b281af2655e4aaa27166107ba.300x300x1.png",
+								"pyongsCount": null,
+								"path": "/Avicii-dear-boy-avicii-by-avicii-lyrics",
+								"lyricsUpdatedAt": 1429813351,
+								"lyricsState": "complete",
+								"lyricsOwnerId": 1549345,
+								"instrumental": false,
+								"id": 1391029,
+								"headerImageUrl": "https://images.genius.com/46c7264b281af2655e4aaa27166107ba.1000x1000x1.png",
+								"headerImageThumbnailUrl": "https://images.genius.com/46c7264b281af2655e4aaa27166107ba.300x300x1.png",
+								"fullTitle": "Dear Boy (Avicii by Avicii) by Avicii",
+								"apiPath": "/songs/1391029",
+								"annotationCount": 1,
+								"type": "song"
+							}
+						],
+						"type": "song_relationship",
+						"relationshipType": "samples"
+					},
+					{
+						"songs": [
+							{
+								"primaryArtist": {
+									"url": "https://genius.com/artists/The-high-sangre",
+									"slug": "The-high-sangre",
+									"name": "The High, Sangré",
+									"isVerified": false,
+									"isMemeVerified": false,
+									"indexCharacter": "h",
+									"imageUrl": "https://assets.genius.com/images/default_avatar_300.png?1631807796",
+									"id": 2561157,
+									"headerImageUrl": "https://assets.genius.com/images/default_avatar_300.png?1631807796",
+									"apiPath": "/artists/2561157",
+									"type": "artist"
+								},
+								"url": "https://genius.com/The-high-sangre-burn-lyrics",
+								"updatedByHumanAt": 1610655042,
+								"titleWithFeatured": "Burn (Ft. The High)",
+								"title": "Burn",
+								"stats": {
+									"hot": false,
+									"unreviewedAnnotations": 1
+								},
+								"songArtImageUrl": "https://images.genius.com/14919084f8f748dc80ed67976dee1d97.800x800x1.jpg",
+								"songArtImageThumbnailUrl": "https://images.genius.com/14919084f8f748dc80ed67976dee1d97.300x300x1.jpg",
+								"pyongsCount": null,
+								"path": "/The-high-sangre-burn-lyrics",
+								"lyricsUpdatedAt": 1610638123,
+								"lyricsState": "complete",
+								"lyricsOwnerId": 9265005,
+								"instrumental": false,
+								"id": 6378632,
+								"headerImageUrl": "https://images.genius.com/14919084f8f748dc80ed67976dee1d97.800x800x1.jpg",
+								"headerImageThumbnailUrl": "https://images.genius.com/14919084f8f748dc80ed67976dee1d97.300x300x1.jpg",
+								"fullTitle": "Burn by The High, Sangré (Ft. The High)",
+								"apiPath": "/songs/6378632",
+								"annotationCount": 1,
+								"type": "song"
+							}
+						],
+						"type": "song_relationship",
+						"relationshipType": "sampled_in"
+					},
+					{
+						"songs": [
+							{
+								"primaryArtist": {
+									"iq": 675,
+									"url": "https://genius.com/artists/Avicii",
+									"slug": "Avicii",
+									"name": "Avicii",
+									"isVerified": true,
+									"isMemeVerified": true,
+									"indexCharacter": "a",
+									"imageUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.1000x1000x1.jpg",
+									"id": 17491,
+									"headerImageUrl": "https://images.genius.com/4bf9a84e560db90a8bbfba4ff7899917.1000x370x1.jpg",
+									"apiPath": "/artists/17491",
+									"type": "artist"
+								},
+								"url": "https://genius.com/Avicii-raqattack-lyrics",
+								"updatedByHumanAt": 1602286150,
+								"titleWithFeatured": "RaqAttack",
+								"title": "RaqAttack",
+								"stats": {
+									"hot": false,
+									"unreviewedAnnotations": 1
+								},
+								"songArtImageUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.1000x1000x1.jpg",
+								"songArtImageThumbnailUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.300x300x1.jpg",
+								"pyongsCount": null,
+								"path": "/Avicii-raqattack-lyrics",
+								"lyricsUpdatedAt": 1586912870,
+								"lyricsState": "complete",
+								"lyricsOwnerId": 9561399,
+								"instrumental": true,
+								"id": 5462206,
+								"headerImageUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.1000x1000x1.jpg",
+								"headerImageThumbnailUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.300x300x1.jpg",
+								"fullTitle": "RaqAttack by Avicii",
+								"apiPath": "/songs/5462206",
+								"annotationCount": 1,
+								"type": "song"
+							}
+						],
+						"type": "song_relationship",
+						"relationshipType": "interpolates"
+					},
+					{
+						"songs": [
+							{
+								"primaryArtist": {
+									"iq": 675,
+									"url": "https://genius.com/artists/Avicii",
+									"slug": "Avicii",
+									"name": "Avicii",
+									"isVerified": true,
+									"isMemeVerified": true,
+									"indexCharacter": "a",
+									"imageUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.1000x1000x1.jpg",
+									"id": 17491,
+									"headerImageUrl": "https://images.genius.com/4bf9a84e560db90a8bbfba4ff7899917.1000x370x1.jpg",
+									"apiPath": "/artists/17491",
+									"type": "artist"
+								},
+								"url": "https://genius.com/Avicii-never-leave-me-lyrics",
+								"updatedByHumanAt": 1575575792,
+								"titleWithFeatured": "Never Leave Me (Ft. Joe Janiak)",
+								"title": "Never Leave Me",
+								"stats": {
+									"pageviews": 25389,
+									"hot": false,
+									"unreviewedAnnotations": 0
+								},
+								"songArtImageUrl": "https://images.genius.com/f3dceb7cc42e711603e3cc47f54e89b7.1000x1000x1.jpg",
+								"songArtImageThumbnailUrl": "https://images.genius.com/f3dceb7cc42e711603e3cc47f54e89b7.300x300x1.jpg",
+								"pyongsCount": 4,
+								"path": "/Avicii-never-leave-me-lyrics",
+								"lyricsUpdatedAt": 1575575792,
+								"lyricsState": "complete",
+								"lyricsOwnerId": 3483518,
+								"instrumental": false,
+								"id": 4542170,
+								"headerImageUrl": "https://images.genius.com/f3dceb7cc42e711603e3cc47f54e89b7.1000x1000x1.jpg",
+								"headerImageThumbnailUrl": "https://images.genius.com/f3dceb7cc42e711603e3cc47f54e89b7.300x300x1.jpg",
+								"fullTitle": "Never Leave Me by Avicii (Ft. Joe Janiak)",
+								"apiPath": "/songs/4542170",
+								"annotationCount": 1,
+								"type": "song"
+							}
+						],
+						"type": "song_relationship",
+						"relationshipType": "interpolated_by"
+					},
+					{
+						"songs": [
+
+						],
+						"type": "song_relationship",
+						"relationshipType": "cover_of"
+					},
+					{
+						"songs": [
+
+						],
+						"type": "song_relationship",
+						"relationshipType": "covered_by"
+					},
+					{
+						"songs": [
+
+						],
+						"type": "song_relationship",
+						"relationshipType": "remix_of"
+					},
+					{
+						"songs": [
+
+						],
+						"type": "song_relationship",
+						"relationshipType": "remixed_by"
+					},
+					{
+						"songs": [
+
+						],
+						"type": "song_relationship",
+						"relationshipType": "live_version_of"
+					},
+					{
+						"songs": [
+
+						],
+						"type": "song_relationship",
+						"relationshipType": "performed_live_as"
+					}
+				],
+				"producerArtists": [
+					{
+						"url": "https://genius.com/artists/Dhani-lennevald",
+						"slug": "Dhani-lennevald",
+						"name": "Dhani Lennevald",
+						"isVerified": false,
+						"isMemeVerified": false,
+						"indexCharacter": "d",
+						"imageUrl": "https://images.genius.com/365ab298d8172e734107a5a019f6b1ef.449x449x1.jpg",
+						"id": 195376,
+						"headerImageUrl": "https://images.genius.com/365ab298d8172e734107a5a019f6b1ef.449x449x1.jpg",
+						"apiPath": "/artists/195376",
+						"type": "artist"
+					},
+					{
+						"iq": 675,
+						"url": "https://genius.com/artists/Avicii",
+						"slug": "Avicii",
+						"name": "Avicii",
+						"isVerified": true,
+						"isMemeVerified": true,
+						"indexCharacter": "a",
+						"imageUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.1000x1000x1.jpg",
+						"id": 17491,
+						"headerImageUrl": "https://images.genius.com/4bf9a84e560db90a8bbfba4ff7899917.1000x370x1.jpg",
+						"apiPath": "/artists/17491",
+						"type": "artist"
+					}
+				],
+				"primaryTag": {
+					"url": "https://genius.com/tags/pop",
+					"primary": true,
+					"name": "Pop",
+					"id": 16,
+					"type": "tag"
+				},
+				"primaryArtist": 17491,
+				"media": [
+					{
+						"url": "https://open.spotify.com/track/3Q95VQL8yWRO8mkF6VoDzi",
+						"type": "audio",
+						"provider": "spotify",
+						"nativeUri": "spotify:track:3Q95VQL8yWRO8mkF6VoDzi"
+					},
+					{
+						"url": "https://soundcloud.com/aviciiofficial/sunset-jesus",
+						"type": "audio",
+						"provider": "soundcloud",
+						"attribution": "aviciiofficial"
+					},
+					{
+						"url": "http://www.youtube.com/watch?v=9bljFUfIshM",
+						"type": "video",
+						"start": 0,
+						"provider": "youtube"
+					}
+				],
+				"lyricsMarkedCompleteBy": null,
+				"featuredArtists": [
+
+				],
+				"descriptionAnnotation": 7863835,
+				"customPerformances": [
+					{
+						"artists": [
+							{
+								"url": "https://genius.com/artists/Avicii-true-stories",
+								"slug": "Avicii-true-stories",
+								"name": "Avicii: True Stories",
+								"isVerified": false,
+								"isMemeVerified": false,
+								"indexCharacter": "a",
+								"imageUrl": "https://images.genius.com/c59c47df89f12ac56573e177f1e804f0.1000x1000x1.jpg",
+								"id": 1994823,
+								"headerImageUrl": "https://images.genius.com/2203ca13ac6fe58174f22e7c83c56d50.640x360x1.jpg",
+								"apiPath": "/artists/1994823",
+								"type": "artist"
+							}
+						],
+						"label": "Appeared In"
+					},
+					{
+						"artists": [
+							{
+								"url": "https://genius.com/artists/Tom-coyne",
+								"slug": "Tom-coyne",
+								"name": "Tom Coyne",
+								"isVerified": false,
+								"isMemeVerified": false,
+								"indexCharacter": "t",
+								"imageUrl": "https://images.genius.com/6dcc9ef17462337ef8cc4069a8a036f6.312x312x1.jpg",
+								"id": 396012,
+								"headerImageUrl": "https://images.genius.com/af14099731b377463d798965fef794cf.1000x536x1.jpg",
+								"apiPath": "/artists/396012",
+								"type": "artist"
+							}
+						],
+						"label": "Mastering Engineer"
+					},
+					{
+						"artists": [
+							{
+								"url": "https://genius.com/artists/Island-records",
+								"slug": "Island-records",
+								"name": "Island Records",
+								"isVerified": false,
+								"isMemeVerified": false,
+								"indexCharacter": "i",
+								"imageUrl": "https://images.genius.com/e3edd59fd14e725d4323cb5d0e4acc52.370x370x1.jpg",
+								"id": 41673,
+								"headerImageUrl": "https://images.genius.com/e1566a9a7ffa0898e4b332bafd2199b9.734x324x1.jpg",
+								"apiPath": "/artists/41673",
+								"type": "artist"
+							},
+							{
+								"url": "https://genius.com/artists/Prmd-records",
+								"slug": "Prmd-records",
+								"name": "PRMD Records",
+								"isVerified": false,
+								"isMemeVerified": false,
+								"indexCharacter": "p",
+								"imageUrl": "https://images.genius.com/5c0bdfd7ca39e3ae31afa728ff867cbf.1000x1000x1.jpg",
+								"id": 995205,
+								"headerImageUrl": "https://images.genius.com/5c0bdfd7ca39e3ae31afa728ff867cbf.1000x1000x1.jpg",
+								"apiPath": "/artists/995205",
+								"type": "artist"
+							}
+						],
+						"label": "Label"
+					},
+					{
+						"artists": [
+							{
+								"url": "https://genius.com/artists/Sandro-cavazza",
+								"slug": "Sandro-cavazza",
+								"name": "Sandro Cavazza",
+								"isVerified": false,
+								"isMemeVerified": false,
+								"indexCharacter": "s",
+								"imageUrl": "https://images.genius.com/50e08bfecf5175f7191b202fbc9dacb9.714x714x1.jpg",
+								"id": 571425,
+								"headerImageUrl": "https://images.genius.com/2357157e1072a98f0b43a4eea684246e.1000x370x1.jpg",
+								"apiPath": "/artists/571425",
+								"type": "artist"
+							}
+						],
+						"label": "Vocals"
+					}
+				],
+				"albums": [
+					{
+						"tracklist": [
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-waiting-for-love-lyrics",
+									"title": "Waiting for Love",
+									"path": "/Avicii-waiting-for-love-lyrics",
+									"lyricsState": "complete",
+									"id": 734667,
+									"apiPath": "/songs/734667",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 1,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-talk-to-myself-lyrics",
+									"title": "Talk to Myself",
+									"path": "/Avicii-talk-to-myself-lyrics",
+									"lyricsState": "complete",
+									"id": 2315993,
+									"apiPath": "/songs/2315993",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 2,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-touch-me-lyrics",
+									"title": "Touch Me",
+									"path": "/Avicii-touch-me-lyrics",
+									"lyricsState": "complete",
+									"id": 2315995,
+									"apiPath": "/songs/2315995",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 3,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-ten-more-days-lyrics",
+									"title": "Ten More Days",
+									"path": "/Avicii-ten-more-days-lyrics",
+									"lyricsState": "complete",
+									"id": 2315996,
+									"apiPath": "/songs/2315996",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 4,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-for-a-better-day-lyrics",
+									"title": "For a Better Day",
+									"path": "/Avicii-for-a-better-day-lyrics",
+									"lyricsState": "complete",
+									"id": 2291703,
+									"apiPath": "/songs/2291703",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 5,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-broken-arrows-lyrics",
+									"title": "Broken Arrows",
+									"path": "/Avicii-broken-arrows-lyrics",
+									"lyricsState": "complete",
+									"id": 2159609,
+									"apiPath": "/songs/2159609",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 6,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-true-believer-lyrics",
+									"title": "True Believer",
+									"path": "/Avicii-true-believer-lyrics",
+									"lyricsState": "complete",
+									"id": 2315998,
+									"apiPath": "/songs/2315998",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 7,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-city-lights-lyrics",
+									"title": "City Lights",
+									"path": "/Avicii-city-lights-lyrics",
+									"lyricsState": "complete",
+									"id": 2315999,
+									"apiPath": "/songs/2315999",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 8,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-pure-grinding-lyrics",
+									"title": "Pure Grinding",
+									"path": "/Avicii-pure-grinding-lyrics",
+									"lyricsState": "complete",
+									"id": 2291705,
+									"apiPath": "/songs/2291705",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 9,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-sunset-jesus-lyrics",
+									"title": "Sunset Jesus",
+									"path": "/Avicii-sunset-jesus-lyrics",
+									"lyricsState": "complete",
+									"id": 2316000,
+									"apiPath": "/songs/2316000",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 10,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-cant-catch-me-lyrics",
+									"title": "Can’t Catch Me",
+									"path": "/Avicii-cant-catch-me-lyrics",
+									"lyricsState": "complete",
+									"id": 2159612,
+									"apiPath": "/songs/2159612",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 11,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-somewhere-in-stockholm-lyrics",
+									"title": "Somewhere In Stockholm",
+									"path": "/Avicii-somewhere-in-stockholm-lyrics",
+									"lyricsState": "complete",
+									"id": 2316001,
+									"apiPath": "/songs/2316001",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 12,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-trouble-lyrics",
+									"title": "Trouble",
+									"path": "/Avicii-trouble-lyrics",
+									"lyricsState": "complete",
+									"id": 2316002,
+									"apiPath": "/songs/2316002",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 13,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-gonna-love-ya-lyrics",
+									"title": "Gonna Love Ya",
+									"path": "/Avicii-gonna-love-ya-lyrics",
+									"lyricsState": "complete",
+									"id": 2316003,
+									"apiPath": "/songs/2316003",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 14,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-the-days-lyrics",
+									"title": "The Days",
+									"path": "/Avicii-the-days-lyrics",
+									"lyricsState": "complete",
+									"id": 530707,
+									"apiPath": "/songs/530707",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 15,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-the-nights-lyrics",
+									"title": "The Nights",
+									"path": "/Avicii-the-nights-lyrics",
+									"lyricsState": "complete",
+									"id": 521662,
+									"apiPath": "/songs/521662",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 16,
+								"type": "album_appearance"
+							},
+							{
+								"song": {
+									"url": "https://genius.com/Avicii-waiting-for-love-sam-feldt-remix-lyrics",
+									"title": "Waiting for Love (Sam Feldt Remix)",
+									"path": "/Avicii-waiting-for-love-sam-feldt-remix-lyrics",
+									"lyricsState": "complete",
+									"id": 3405363,
+									"apiPath": "/songs/3405363",
+									"type": "song"
+								},
+								"currentUserMetadata": {
+									"excludedPermissions": [
+
+									],
+									"permissions": [
+										"view_song"
+									]
+								},
+								"number": 17,
+								"type": "album_appearance"
+							}
+						],
+						"artist": {
+							"iq": 675,
+							"url": "https://genius.com/artists/Avicii",
+							"slug": "Avicii",
+							"name": "Avicii",
+							"isVerified": true,
+							"isMemeVerified": true,
+							"indexCharacter": "a",
+							"imageUrl": "https://images.genius.com/fc4d076d368a2dc637f7a44cb8feb132.1000x1000x1.jpg",
+							"id": 17491,
+							"headerImageUrl": "https://images.genius.com/4bf9a84e560db90a8bbfba4ff7899917.1000x370x1.jpg",
+							"apiPath": "/artists/17491",
+							"type": "artist"
+						},
+						"url": "https://genius.com/albums/Avicii/Stories",
+						"releaseDateComponents": {
+							"day": 2,
+							"month": 10,
+							"year": 2015
+						},
+						"nameWithArtist": "Stories (artist: Avicii)",
+						"name": "Stories",
+						"id": 113035,
+						"fullTitle": "Stories by Avicii",
+						"coverArtUrl": "https://images.genius.com/2a23487b6fa9b49fa6f5df1e7e093fdf.1000x1000x1.jpg",
+						"coverArtThumbnailUrl": "https://images.genius.com/2a23487b6fa9b49fa6f5df1e7e093fdf.300x300x1.jpg",
+						"apiPath": "/albums/113035",
+						"type": "album"
+					}
+				],
+				"album": 113035,
+				"songArtTextColor": "#fff",
+				"songArtSecondaryColor": "#113291",
+				"songArtPrimaryColor": "#dd3163",
+				"currentUserMetadata": {
+					"iqByAction": {
+
+					},
+					"relationships": {
+
+					},
+					"interactions": {
+						"following": false,
+						"pyong": false
+					},
+					"excludedPermissions": [
+						"follow",
+						"award_transcription_iq",
+						"remove_transcription_iq",
+						"pyong",
+						"edit_lyrics",
+						"view_annotation_engagement_data",
+						"publish",
+						"unpublish",
+						"edit_spotify_details",
+						"hide",
+						"unhide",
+						"toggle_featured_video",
+						"add_pinned_annotation_to",
+						"add_community_annotation_to",
+						"destroy",
+						"mark_as_not_spam",
+						"edit_spotify_annotations_for",
+						"verify_lyrics",
+						"unverify_lyrics",
+						"edit_anything",
+						"edit_any_media",
+						"edit",
+						"rename",
+						"edit_tags",
+						"watch_fact_track",
+						"reindex",
+						"view_lyrics_synchronization",
+						"enable_media",
+						"disable_media",
+						"edit_lyrics_or_annotation_brackets",
+						"see_editorial_indicators",
+						"view_attribution_visualization",
+						"edit_annotation_brackets",
+						"preview_lyrics_for_export",
+						"hide_apple_player",
+						"unhide_apple_player",
+						"trigger_apple_match",
+						"mark_lyrics_evaluation_as_approved",
+						"mark_lyrics_evaluation_as_staff_approved",
+						"mark_lyrics_evaluation_as_unapproved",
+						"mark_lyrics_evaluation_as_un_staff_approved",
+						"view_transcriber_media_player",
+						"override_apple_match",
+						"set_song_color_gradient",
+						"edit_youtube_url",
+						"edit_soundcloud_url",
+						"edit_spotify_uuid",
+						"edit_vevo_url",
+						"moderate_annotations",
+						"create_annotation",
+						"see_short_id",
+						"manage_chart_item",
+						"create_tag",
+						"propose_lyrics_edit",
+						"moderate_lyrics_edit_proposals",
+						"preview_react_song_page"
+					],
+					"permissions": [
+						"see_pageviews",
+						"view_apple_music_player",
+						"create_comment",
+						"view_song_story_gallery"
+					]
+				},
+				"youtubeUrl": "http://www.youtube.com/watch?v=9bljFUfIshM",
+				"youtubeStart": "0",
+				"vttpId": null,
+				"viewableByRoles": [
+
+				],
+				"updatedByHumanAt": 1615395702,
+				"twitterShareMessageWithoutUrl": "Avicii – Sunset Jesus @Avicii",
+				"twitterShareMessage": "Avicii – Sunset Jesus @Avicii https://genius.com/Avicii-sunset-jesus-lyrics",
+				"trackingPaths": {
+					"concurrent": "/Avicii-sunset-jesus-lyrics",
+					"aggregate": "/Avicii-sunset-jesus-lyrics"
+				},
+				"trackingData": [
+					{
+						"value": 2316000,
+						"key": "Song ID"
+					},
+					{
+						"value": "Sunset Jesus",
+						"key": "Title"
+					},
+					{
+						"value": "Avicii",
+						"key": "Primary Artist"
+					},
+					{
+						"value": 17491,
+						"key": "Primary Artist ID"
+					},
+					{
+						"value": "Stories",
+						"key": "Primary Album"
+					},
+					{
+						"value": 113035,
+						"key": "Primary Album ID"
+					},
+					{
+						"value": "pop",
+						"key": "Tag"
+					},
+					{
+						"value": "pop",
+						"key": "Primary Tag"
+					},
+					{
+						"value": 16,
+						"key": "Primary Tag ID"
+					},
+					{
+						"value": true,
+						"key": "Music?"
+					},
+					{
+						"value": "Song",
+						"key": "Annotatable Type"
+					},
+					{
+						"value": 2316000,
+						"key": "Annotatable ID"
+					},
+					{
+						"value": false,
+						"key": "featured_video"
+					},
+					{
+						"value": [
+
+						],
+						"key": "cohort_ids"
+					},
+					{
+						"value": false,
+						"key": "has_verified_callout"
+					},
+					{
+						"value": true,
+						"key": "has_featured_annotation"
+					},
+					{
+						"value": "2015-09-25T12:30:12Z",
+						"key": "created_at"
+					},
+					{
+						"value": "2015-09-01",
+						"key": "created_month"
+					},
+					{
+						"value": 2015,
+						"key": "created_year"
+					},
+					{
+						"value": "E",
+						"key": "song_tier"
+					},
+					{
+						"value": false,
+						"key": "Has Recirculated Articles"
+					},
+					{
+						"value": "en",
+						"key": "Lyrics Language"
+					},
+					{
+						"value": true,
+						"key": "Has Apple Match"
+					},
+					{
+						"value": "2015-10-02",
+						"key": "Release Date"
+					},
+					{
+						"value": null,
+						"key": "NRM Tier"
+					},
+					{
+						"value": null,
+						"key": "NRM Target Date"
+					},
+					{
+						"value": true,
+						"key": "Has Description"
+					},
+					{
+						"value": true,
+						"key": "Has Youtube URL"
+					},
+					{
+						"value": false,
+						"key": "Has Translation Q&A"
+					},
+					{
+						"value": 4,
+						"key": "Comment Count"
+					},
+					{
+						"value": false,
+						"key": "two_column_song_page"
+					}
+				],
+				"titleWithFeatured": "Sunset Jesus",
+				"stats": {
+					"pageviews": 43443,
+					"hot": false,
+					"verifiedAnnotations": 0,
+					"unreviewedAnnotations": 0,
+					"transcribers": 2,
+					"iqEarners": 15,
+					"contributors": 16,
+					"acceptedAnnotations": 6
+				},
+				"spotifyUuid": "3Q95VQL8yWRO8mkF6VoDzi",
+				"soundcloudUrl": "https://soundcloud.com/aviciiofficial/sunset-jesus",
+				"songArtImageUrl": "https://images.genius.com/2a23487b6fa9b49fa6f5df1e7e093fdf.1000x1000x1.jpg",
+				"songArtImageThumbnailUrl": "https://images.genius.com/2a23487b6fa9b49fa6f5df1e7e093fdf.300x300x1.jpg",
+				"shareUrl": "https://genius.com/Avicii-sunset-jesus-lyrics",
+				"releaseDateForDisplay": "October 2, 2015",
+				"releaseDateComponents": {
+					"day": 2,
+					"month": 10,
+					"year": 2015
+				},
+				"releaseDate": "2015-10-02",
+				"recordingLocation": null,
+				"pyongsCount": 4,
+				"pusherChannel": "song-2316000",
+				"published": false,
+				"pendingLyricsEditsCount": 0,
+				"lyricsUpdatedAt": 1549057293,
+				"lyricsPlaceholderReason": null,
+				"lyricsOwnerId": 1717255,
+				"isMusic": true,
+				"instrumental": false,
+				"hidden": false,
+				"headerImageUrl": "https://images.genius.com/2a23487b6fa9b49fa6f5df1e7e093fdf.1000x1000x1.jpg",
+				"headerImageThumbnailUrl": "https://images.genius.com/2a23487b6fa9b49fa6f5df1e7e093fdf.300x300x1.jpg",
+				"hasInstagramReelAnnotations": null,
+				"fullTitle": "Sunset Jesus by Avicii",
+				"featuredVideo": false,
+				"facebookShareMessageWithoutUrl": "Avicii – Sunset Jesus",
+				"embedContent": "<div id=\\'rg_embed_link_2316000\\' class=\\'rg_embed_link\\' data-song-id=\\'2316000\\'>Read <a href=\\'https://genius.com/Avicii-sunset-jesus-lyrics\\'>“Sunset Jesus” by Avicii<\\/a> on Genius<\\/div> <script crossorigin src=\\'//genius.com/songs/2316000/embed.js\\'><\\/script>",
+				"descriptionPreview": "“Sunset Jesus” is a melodic, uplifting track released on Avicii’s second studio album Stories. The track features Avicii collaborator and vocalist Sandro Cavazza for the first time. Sandro would later go on to work with Tim on tracks such as “Without You” and “Forever Yours”.\\n\\nSunset Jesus has Cavazza talking about the golden skies of sunny California and his dreams for his lifetime.",
+				"description": {
+					"markdown": "\\"
+					"Sunset",
+					"Jesus\\\\\" is a melodic, uplifting track released on Avicii\\'s second studio album *Stories*. The track features Avicii collaborator and vocalist [Sandro Cavazza](https://genius.com/artists/Sandro-cavazza) for the first time. Sandro would later go on to work with Tim on tracks such as [\\\\\"Without",
+					"You\\\\\"](https://genius.com/Avicii-without-you-lyrics) and [\\\\\"Forever" "Yours\\\\\"](https://genius.com/Kygo-avicii-and-sandro-cavazza-forever-yours-avicii-tribute-lyrics).\\\\n\\\\nSunset Jesus has Cavazza talking about the golden skies of sunny California and his dreams for his lifetime.\"",
+					"html": "<p>“Sunset Jesus” is a melodic, uplifting track released on Avicii’s second studio album <em>Stories<\/em>. The track features Avicii collaborator and vocalist <a href=\\"
+					"https",
+					: //genius.com/artists/Sandro-cavazza\\" rel=\\"noopener\\" data-api_path=\\"/artists/571425\\">Sandro Cavazza<\/a> for the first time. Sandro would later go on to work with Tim on tracks such as <a href=\\"https://genius.com/Avicii-without-you-lyrics\\" rel=\\"noopener\\" data-api_path=\\"/songs/2450960\\">“Without You”<\/a> and <a href=\\"https://genius.com/Kygo-avicii-and-sandro-cavazza-forever-yours-avicii-tribute-lyrics\\" rel=\\"noopener\\" data-api_path=\\"/songs/2458469\\">“Forever Yours”<\/a>.<\/p>\\n\\n<p>Sunset Jesus has Cavazza talking about the golden skies of sunny California and his dreams for his lifetime.<\/p>"
+				},
+				"customSongArtImageUrl": "",
+				"customHeaderImageUrl": "",
+				"commentCount": 4,
+				"appleMusicPlayerUrl": "https://genius.com/songs/2316000/apple_music_player",
+				"appleMusicId": "1033711789",
+				"annotationCount": 7
+			},
+			"2316001": {
+				"url": "https://genius.com/Avicii-somewhere-in-stockholm-lyrics",
+				"title": "Somewhere In Stockholm",
+				"path": "/Avicii-somewhere-in-stockholm-lyrics",
+				"lyricsState": "complete",
+				"id": 2316001,
+				"apiPath": "/songs/2316001",
+				"type": "song"
+			},
+			"2316002": {
+				"url": "https://genius.com/Avicii-trouble-lyrics",
+				"title": "Trouble",
+				"path": "/Avicii-trouble-lyrics",
+				"lyricsState": "complete",
+				"id": 2316002,
+				"apiPath": "/songs/2316002",
+				"type": "song"
+			},
+			"2316003": {
+				"url": "https://genius.com/Avicii-gonna-love-ya-lyrics",
+				"title": "Gonna Love Ya",
+				"path": "/Avicii-gonna-love-ya-lyrics",
+				"lyricsState": "complete",
+				"id": 2316003,
+				"apiPath": "/songs/2316003",
+				"type": "song"
+			},
+			"3405363": {
+				"url": "https://genius.com/Avicii-waiting-for-love-sam-feldt-remix-lyrics",
+				"title": "Waiting for Love (Sam Feldt Remix)",
+				"path": "/Avicii-waiting-for-love-sam-feldt-remix-lyrics",
+				"lyricsState": "complete",
+				"id": 3405363,
+				"apiPath": "/songs/3405363",
+				"type": "song"
+			}
+		},
+		"albumAppearances": {
+			"521662": {
+				"song": 521662,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 16,
+				"type": "album_appearance"
+			},
+			"530707": {
+				"song": 530707,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 15,
+				"type": "album_appearance"
+			},
+			"734667": {
+				"song": 734667,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 1,
+				"type": "album_appearance"
+			},
+			"2159609": {
+				"song": 2159609,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 6,
+				"type": "album_appearance"
+			},
+			"2159612": {
+				"song": 2159612,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 11,
+				"type": "album_appearance"
+			},
+			"2291703": {
+				"song": 2291703,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 5,
+				"type": "album_appearance"
+			},
+			"2291705": {
+				"song": 2291705,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 9,
+				"type": "album_appearance"
+			},
+			"2315993": {
+				"song": 2315993,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 2,
+				"type": "album_appearance"
+			},
+			"2315995": {
+				"song": 2315995,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 3,
+				"type": "album_appearance"
+			},
+			"2315996": {
+				"song": 2315996,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 4,
+				"type": "album_appearance"
+			},
+			"2315998": {
+				"song": 2315998,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 7,
+				"type": "album_appearance"
+			},
+			"2315999": {
+				"song": 2315999,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 8,
+				"type": "album_appearance"
+			},
+			"2316000": {
+				"song": 2316000,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 10,
+				"type": "album_appearance"
+			},
+			"2316001": {
+				"song": 2316001,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 12,
+				"type": "album_appearance"
+			},
+			"2316002": {
+				"song": 2316002,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 13,
+				"type": "album_appearance"
+			},
+			"2316003": {
+				"song": 2316003,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 14,
+				"type": "album_appearance"
+			},
+			"3405363": {
+				"song": 3405363,
+				"currentUserMetadata": {
+					"excludedPermissions": [
+
+					],
+					"permissions": [
+						"view_song"
+					]
+				},
+				"number": 17,
+				"type": "album_appearance"
+			}
+		},
+		"albums": {
+			"113035": {
+				"tracklist": [
+					734667,
+					2315993,
+					2315995,
+					2315996,
+					2291703,
+					2159609,
+					2315998,
+					2315999,
+					2291705,
+					2316000,
+					2159612,
+					2316001,
+					2316002,
+					2316003,
+					530707,
+					521662,
+					3405363
+				],
+				"artist": 17491,
+				"url": "https://genius.com/albums/Avicii/Stories",
+				"releaseDateComponents": {
+					"day": 2,
+					"month": 10,
+					"year": 2015
+				},
+				"nameWithArtist": "Stories (artist: Avicii)",
+				"name": "Stories",
+				"id": 113035,
+				"fullTitle": "Stories by Avicii",
+				"coverArtUrl": "https://images.genius.com/2a23487b6fa9b49fa6f5df1e7e093fdf.1000x1000x1.jpg",
+				"coverArtThumbnailUrl": "https://images.genius.com/2a23487b6fa9b49fa6f5df1e7e093fdf.300x300x1.jpg",
+				"apiPath": "/albums/113035",
+				"type": "album"
+			}
+		},
+		"users": {
+			"1717255": {
+				"currentUserMetadata": {
+					"interactions": {
+						"following": false
+					},
+					"excludedPermissions": [
+						"follow"
+					],
+					"permissions": [
+
+					]
+				},
+				"url": "https://genius.com/TeuntjeVDW",
+				"roleForDisplay": "editor",
+				"name": "TeuntjeVDW",
+				"login": "TeuntjeVDW",
+				"isVerified": false,
+				"isMemeVerified": false,
+				"iq": 306621,
+				"id": 1717255,
+				"humanReadableRoleForDisplay": "Editor",
+				"headerImageUrl": "https://images.genius.com/avatars/medium/4c3bfe34cace4572d35b111985c915b2",
+				"avatar": {
+					"medium": {
+						"boundingBox": {
+							"height": 400,
+							"width": 300
+						},
+						"url": "https://images.genius.com/avatars/medium/4c3bfe34cace4572d35b111985c915b2"
+					},
+					"small": {
+						"boundingBox": {
+							"height": 100,
+							"width": 100
+						},
+						"url": "https://images.genius.com/avatars/small/4c3bfe34cace4572d35b111985c915b2"
+					},
+					"thumb": {
+						"boundingBox": {
+							"height": 32,
+							"width": 32
+						},
+						"url": "https://images.genius.com/avatars/thumb/4c3bfe34cace4572d35b111985c915b2"
+					},
+					"tiny": {
+						"boundingBox": {
+							"height": 16,
+							"width": 16
+						},
+						"url": "https://images.genius.com/avatars/tiny/4c3bfe34cace4572d35b111985c915b2"
+					}
+				},
+				"apiPath": "/users/1717255",
+				"aboutMeSummary": "Don’t touch my soul\\nWhen it’s the rhythm I know",
+				"type": "user"
+			},
+			"5419310": {
+				"currentUserMetadata": {
+					"interactions": {
+						"following": false
+					},
+					"excludedPermissions": [
+						"follow"
+					],
+					"permissions": [
+
+					]
+				},
+				"url": "https://genius.com/EMadden",
+				"roleForDisplay": "editor",
+				"name": "EMadden",
+				"login": "EMadden",
+				"isVerified": false,
+				"isMemeVerified": false,
+				"iq": 65620,
+				"id": 5419310,
+				"humanReadableRoleForDisplay": "Editor",
+				"headerImageUrl": "https://images.genius.com/5b119822fe293602059c44c466a0becc.1000x1000x1.png",
+				"avatar": {
+					"medium": {
+						"boundingBox": {
+							"height": 400,
+							"width": 300
+						},
+						"url": "https://images.genius.com/avatars/medium/df1711eb22d8ac1195fcf99da7738f74"
+					},
+					"small": {
+						"boundingBox": {
+							"height": 100,
+							"width": 100
+						},
+						"url": "https://images.genius.com/avatars/small/df1711eb22d8ac1195fcf99da7738f74"
+					},
+					"thumb": {
+						"boundingBox": {
+							"height": 32,
+							"width": 32
+						},
+						"url": "https://images.genius.com/avatars/thumb/df1711eb22d8ac1195fcf99da7738f74"
+					},
+					"tiny": {
+						"boundingBox": {
+							"height": 16,
+							"width": 16
+						},
+						"url": "https://images.genius.com/avatars/tiny/df1711eb22d8ac1195fcf99da7738f74"
+					}
+				},
+				"apiPath": "/users/5419310",
+				"aboutMeSummary": "Hey, everyone, I’m Ethan an extremely active Genius editor. I work on all aspects of the site. Feel free to shoot me a message if you have any questions or just want to talk. I’m always happy to help people with annotations, transcriptions, needing a mentor for editorship, or anything else they might need!\\n\\nIf I reject something send me a message I’ll be happy to tell you why I did. However manners go a long way, don’t just send hateful messages or I won’t respond. Also, include the line/song/annotation that I deleted/rejected as this will better help me explain why it was that I deleted/rejected it. I’m always happy to explain myself!\\n\\nFavorite artists include: Lecrae, NF, KB, GAWVI, Tedashii, Trip Lee, Aaron Cole, Canon, Derek Minor, 1K Phew, Beacon Light, KJ-52, Ty Brasel, Aklesso, TROSSTHEGIANT, Jodie Jermaine, Alan Walker, Kygo, Social Club Misfits, nobigdyl, WHATUPRG, Martin Garrix, Avicii, Cash Cash, Drake, Kevin Gates, Macklemore, Pitbull, Eminem, and many others.\\n\\nContacts include:\\n\\nethan.madden@me.com (email)\\n\\nemadden1521 (Instagram)\\n\\nPM’s on here!\\n\\nMilestones:\\nArticle published May 29, 2020\\n\\nArticle published on January 24, 2020\\n\\nAnnotation featured in article 5/17/18: https://genius.com/a/kevin-gates-addresses-his-incarceration-legal-troubles-on-change-lanes\\n\\nMade editor 12/13/18 special thanks to @SitzPinkler, @CalebMac116, @BenRodz, and @Unbarred\\n\\nUsers I have mentored into editorship:\\n\\nNico123o\\n\\nBeeen0001\\n\\nredsunsets (account deleted)\\n\\nCould Be You!",
+				"type": "user"
+			}
+		},
+		"annotations": {
+			"7863835": {
+				"verifiedBy": null,
+				"topComment": null,
+				"rejectionComment": null,
+				"createdBy": {
+					"currentUserMetadata": {
+						"interactions": {
+							"following": false
+						},
+						"excludedPermissions": [
+							"follow"
+						],
+						"permissions": [
+
+						]
+					},
+					"url": "https://genius.com/TeuntjeVDW",
+					"roleForDisplay": "editor",
+					"name": "TeuntjeVDW",
+					"login": "TeuntjeVDW",
+					"isVerified": false,
+					"isMemeVerified": false,
+					"iq": 306621,
+					"id": 1717255,
+					"humanReadableRoleForDisplay": "Editor",
+					"headerImageUrl": "https://images.genius.com/avatars/medium/4c3bfe34cace4572d35b111985c915b2",
+					"avatar": {
+						"medium": {
+							"boundingBox": {
+								"height": 400,
+								"width": 300
+							},
+							"url": "https://images.genius.com/avatars/medium/4c3bfe34cace4572d35b111985c915b2"
+						},
+						"small": {
+							"boundingBox": {
+								"height": 100,
+								"width": 100
+							},
+							"url": "https://images.genius.com/avatars/small/4c3bfe34cace4572d35b111985c915b2"
+						},
+						"thumb": {
+							"boundingBox": {
+								"height": 32,
+								"width": 32
+							},
+							"url": "https://images.genius.com/avatars/thumb/4c3bfe34cace4572d35b111985c915b2"
+						},
+						"tiny": {
+							"boundingBox": {
+								"height": 16,
+								"width": 16
+							},
+							"url": "https://images.genius.com/avatars/tiny/4c3bfe34cace4572d35b111985c915b2"
+						}
+					},
+					"apiPath": "/users/1717255",
+					"aboutMeSummary": "Don’t touch my soul\\nWhen it’s the rhythm I know",
+					"type": "user"
+				},
+				"cosignedBy": [
+
+				],
+				"authors": [
+					{
+						"user": 5419310,
+						"pinnedRole": null,
+						"attribution": 0.8253968253968255,
+						"type": "user_attribution"
+					},
+					{
+						"user": 1717255,
+						"pinnedRole": null,
+						"attribution": 0.1746031746031746,
+						"type": "user_attribution"
+					}
+				],
+				"acceptedBy": {
+					"currentUserMetadata": {
+						"interactions": {
+							"following": false
+						},
+						"excludedPermissions": [
+							"follow"
+						],
+						"permissions": [
+
+						]
+					},
+					"url": "https://genius.com/TeuntjeVDW",
+					"roleForDisplay": "editor",
+					"name": "TeuntjeVDW",
+					"login": "TeuntjeVDW",
+					"isVerified": false,
+					"isMemeVerified": false,
+					"iq": 306621,
+					"id": 1717255,
+					"humanReadableRoleForDisplay": "Editor",
+					"headerImageUrl": "https://images.genius.com/avatars/medium/4c3bfe34cace4572d35b111985c915b2",
+					"avatar": {
+						"medium": {
+							"boundingBox": {
+								"height": 400,
+								"width": 300
+							},
+							"url": "https://images.genius.com/avatars/medium/4c3bfe34cace4572d35b111985c915b2"
+						},
+						"small": {
+							"boundingBox": {
+								"height": 100,
+								"width": 100
+							},
+							"url": "https://images.genius.com/avatars/small/4c3bfe34cace4572d35b111985c915b2"
+						},
+						"thumb": {
+							"boundingBox": {
+								"height": 32,
+								"width": 32
+							},
+							"url": "https://images.genius.com/avatars/thumb/4c3bfe34cace4572d35b111985c915b2"
+						},
+						"tiny": {
+							"boundingBox": {
+								"height": 16,
+								"width": 16
+							},
+							"url": "https://images.genius.com/avatars/tiny/4c3bfe34cace4572d35b111985c915b2"
+						}
+					},
+					"apiPath": "/users/1717255",
+					"aboutMeSummary": "Don’t touch my soul\\nWhen it’s the rhythm I know",
+					"type": "user"
+				},
+				"currentUserMetadata": {
+					"iqByAction": {
+
+					},
+					"interactions": {
+						"vote": null,
+						"pyong": false,
+						"cosign": false
+					},
+					"excludedPermissions": [
+						"vote",
+						"edit",
+						"cosign",
+						"uncosign",
+						"destroy",
+						"accept",
+						"reject",
+						"see_unreviewed",
+						"clear_votes",
+						"propose_edit_to",
+						"pin_to_profile",
+						"unpin_from_profile",
+						"update_source",
+						"edit_custom_preview"
+					],
+					"permissions": [
+						"create_comment"
+					]
+				},
+				"votesTotal": 24,
+				"verified": false,
+				"url": "https://genius.com/7863835/Avicii-sunset-jesus/Sunset-jesus",
+				"twitterShareMessage": "““Sunset Jesus” is a melodic, uplifting track released on Avicii’s second studio album Stories. The track…” —@Genius",
+				"state": "accepted",
+				"source": null,
+				"shareUrl": "https://genius.com/7863835",
+				"referentId": 7863835,
+				"pyongsCount": 1,
+				"proposedEditCount": 0,
+				"pinned": false,
+				"needsExegesis": false,
+				"id": 7863835,
+				"hasVoters": true,
+				"embedContent": "<blockquote class=\\'rg_standalone_container\\' data-src=\\'//genius.com/annotations/7863835/standalone_embed\\'><a href=\\'https://genius.com/7863835/Avicii-sunset-jesus/Sunset-jesus\\'>Sunset Jesus<\\/a><br><a href=\\'https://genius.com/Avicii-sunset-jesus-lyrics\\'>&#8213; Avicii – Sunset Jesus<\\/a><\\/blockquote><script async crossorigin src=\\'//genius.com/annotations/load_standalone_embeds.js\\'><\\/script>",
+				"deleted": false,
+				"customPreview": null,
+				"createdAt": 1443184228,
+				"community": true,
+				"commentCount": 0,
+				"body": {
+					"markdown": "\\"
+					"Sunset",
+					"Jesus\\\\\" is a melodic, uplifting track released on Avicii\\'s second studio album *Stories*. The track features Avicii collaborator and vocalist [Sandro Cavazza](https://genius.com/artists/Sandro-cavazza) for the first time. Sandro would later go on to work with Tim on tracks such as [\\\\\"Without",
+					"You\\\\\"](https://genius.com/Avicii-without-you-lyrics) and [\\\\\"Forever" "Yours\\\\\"](https://genius.com/Kygo-avicii-and-sandro-cavazza-forever-yours-avicii-tribute-lyrics).\\\\n\\\\nSunset Jesus has Cavazza talking about the golden skies of sunny California and his dreams for his lifetime.\"",
+					"html": "<p>“Sunset Jesus” is a melodic, uplifting track released on Avicii’s second studio album <em>Stories<\/em>. The track features Avicii collaborator and vocalist <a href=\\"
+					"https",
+					: //genius.com/artists/Sandro-cavazza\\" rel=\\"noopener\\" data-api_path=\\"/artists/571425\\">Sandro Cavazza<\/a> for the first time. Sandro would later go on to work with Tim on tracks such as <a href=\\"https://genius.com/Avicii-without-you-lyrics\\" rel=\\"noopener\\" data-api_path=\\"/songs/2450960\\">“Without You”<\/a> and <a href=\\"https://genius.com/Kygo-avicii-and-sandro-cavazza-forever-yours-avicii-tribute-lyrics\\" rel=\\"noopener\\" data-api_path=\\"/songs/2458469\\">“Forever Yours”<\/a>.<\/p>\\n\\n<p>Sunset Jesus has Cavazza talking about the golden skies of sunny California and his dreams for his lifetime.<\/p>"
+				},
+				"beingCreated": false,
+				"apiPath": "/annotations/7863835",
+				"type": "annotation"
+			}
+		},
+		"referents": {
+			"7863835": {
+				"annotations": [
+					7863835
+				],
+				"annotatable": {
+					"url": "https://genius.com/Avicii-sunset-jesus-lyrics",
+					"type": "song",
+					"title": "Sunset Jesus",
+					"linkTitle": "Sunset Jesus by Avicii",
+					"imageUrl": "https://images.genius.com/2a23487b6fa9b49fa6f5df1e7e093fdf.1000x1000x1.jpg",
+					"id": 2316000,
+					"context": "Avicii",
+					"clientTimestamps": {
+						"lyricsUpdatedAt": 1549057293,
+						"updatedByHumanAt": 1615395702
+					},
+					"apiPath": "/songs/2316000"
+				},
+				"twitterShareMessage": "““Sunset Jesus” is a melodic, uplifting track released on Avicii’s second studio album Stories. T…” —@Genius",
+				"trackingPaths": {
+					"concurrent": "/Avicii-sunset-jesus-lyrics",
+					"aggregate": "/7863835/Avicii-sunset-jesus/Sunset-jesus"
+				},
+				"currentUserMetadata": {
+					"relationships": {
+
+					},
+					"excludedPermissions": [
+						"add_pinned_annotation_to",
+						"add_community_annotation_to"
+					],
+					"permissions": [
+
+					]
+				},
+				"verifiedAnnotatorIds": [
+
+				],
+				"url": "https://genius.com/7863835/Avicii-sunset-jesus/Sunset-jesus",
+				"songId": 2316000,
+				"range": {
+					"content": "Sunset Jesus"
+				},
+				"path": "/7863835/Avicii-sunset-jesus/Sunset-jesus",
+				"isImage": false,
+				"isDescription": true,
+				"iosAppUrl": "genius://referents/7863835",
+				"id": 7863835,
+				"fragment": "Sunset Jesus",
+				"classification": "accepted",
+				"apiPath": "/referents/7863835",
+				"annotatorLogin": "TeuntjeVDW",
+				"annotatorId": 1717255,
+				"type": "referent"
+			}
+		}
+	}
+}

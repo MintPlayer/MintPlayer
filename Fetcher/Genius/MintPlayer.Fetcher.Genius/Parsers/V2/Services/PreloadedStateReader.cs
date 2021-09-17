@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V2.Services;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V2.Services
 {
-	internal interface IPreloadedStateReader
-	{
-		Task<string> ReadPreloadedState(string html);
-	}
-
 	internal class PreloadedStateReader : IPreloadedStateReader
 	{
 		public Task<string> ReadPreloadedState(string html)
 		{
-			var rgx = new Regex(@"window\.__PRELOADED_STATE__ \= JSON\.parse\(\'(?<preloadedstate>.*)\'\)\;$");
+			var rgx = new Regex(@"window\.__PRELOADED_STATE__ \= JSON\.parse\(\'(?<preloadedstate>.*)\'\)\;", RegexOptions.Multiline);
 			var match = rgx.Match(html);
 			if (match.Success)
 			{

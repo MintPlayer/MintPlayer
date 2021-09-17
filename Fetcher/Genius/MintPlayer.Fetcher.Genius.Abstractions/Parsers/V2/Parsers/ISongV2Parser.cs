@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MintPlayer.Fetcher.Abstractions.Dtos;
 
-namespace MintPlayer.Fetcher.Genius.Abstractions.Parsers.V2
+namespace MintPlayer.Fetcher.Genius.Abstractions.Parsers.V2.Parsers
 {
 	public interface ISongV2Parser
 	{
