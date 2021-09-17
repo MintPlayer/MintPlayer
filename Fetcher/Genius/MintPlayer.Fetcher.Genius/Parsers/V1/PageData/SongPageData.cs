@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace MintPlayer.Fetcher.Genius.Parsers.V1.Common
+namespace MintPlayer.Fetcher.Genius.Parsers.V1.PageData
 {
 	internal class SongPageData
 	{

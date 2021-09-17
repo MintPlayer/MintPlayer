@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Song;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Parsers;
 using Newtonsoft.Json;
 
-namespace MintPlayer.Fetcher.Genius.Parsers.V1.Song
+namespace MintPlayer.Fetcher.Genius.Parsers.V1.Parsers
 {
 	internal class SongV1Parser : ISongV1Parser
 	{
 		public async Task<MintPlayer.Fetcher.Abstractions.Dtos.Song> Parse(string html, string pageData, bool trimTrash)
 		{
-			var songPageData = JsonConvert.DeserializeObject<Common.SongPageData>(pageData);
+			var songPageData = JsonConvert.DeserializeObject<PageData.SongPageData>(pageData);
 
 			return new MintPlayer.Fetcher.Abstractions.Dtos.Song
 			{

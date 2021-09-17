@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MintPlayer.Fetcher.Abstractions.Dtos;
-using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Album;
-using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Artist;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Parsers;
 using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Services;
-using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Song;
 using Newtonsoft.Json;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1
@@ -38,7 +36,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1
 		public async Task<Subject> Parse(string url, string html, bool trimTrash)
 		{
 			var pageDataText = await pageDataReader.ReadPageData(html);
-			var pageData = JsonConvert.DeserializeObject<Common.SubjectPageData>(pageDataText);
+			var pageData = JsonConvert.DeserializeObject<PageData.SubjectPageData>(pageDataText);
 			switch (pageData.PageType)
 			{
 				case "song":

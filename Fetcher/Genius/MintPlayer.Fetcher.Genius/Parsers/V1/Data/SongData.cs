@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace MintPlayer.Fetcher.Genius.Parsers.V1.Common.Data
+namespace MintPlayer.Fetcher.Genius.Parsers.V1.Data
 {
 	internal class SongData
 	{

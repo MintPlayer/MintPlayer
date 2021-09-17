@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Artist;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Parsers;
 
-namespace MintPlayer.Fetcher.Genius.Parsers.V1.Artist
+namespace MintPlayer.Fetcher.Genius.Parsers.V1.Parsers
 {
 	internal class ArtistV1Parser : IArtistV1Parser
 	{

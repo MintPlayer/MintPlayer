@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Song;
-using MintPlayer.Fetcher.Genius.Parsers.V1.Song;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Parsers;
+using MintPlayer.Fetcher.Genius.Parsers.V1.Parsers;
 
 namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V1.Song
 {
