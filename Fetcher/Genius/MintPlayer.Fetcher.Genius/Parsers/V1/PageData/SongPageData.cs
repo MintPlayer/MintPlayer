@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.PageData
@@ -10,9 +11,6 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.PageData
 
 		[JsonProperty("lyrics_data")]
 		public LyricsData LyricsData { get; set; }
-
-		[JsonProperty("primary_artist")]
-		public int MyProperty { get; set; }
 	}
 
 	internal class LyricsData

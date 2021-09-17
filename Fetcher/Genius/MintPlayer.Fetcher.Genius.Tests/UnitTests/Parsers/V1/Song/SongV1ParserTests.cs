@@ -20,8 +20,12 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V1.Song
 			services = new ServiceCollection()
 				// Unit to test
 				.AddSingleton<ISongV1Parser, SongV1Parser>()
-				// Don't mock the pageDataReader
+
+				// Don't mock
 				.AddSingleton<Abstractions.Parsers.V1.Services.IPageDataReader, Genius.Parsers.V1.Services.PageDataReader>()
+				.AddSingleton<Genius.Parsers.V1.Mappers.SongMapper>()
+				.AddSingleton<Genius.Parsers.V1.Mappers.ArtistMapper>()
+
 				.BuildServiceProvider();
 		}
 
@@ -42,6 +46,9 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V1.Song
 				Assert.AreEqual("I Feel It Coming", song.Title);
 				Assert.AreEqual(new DateTime(2016, 11, 18), song.ReleaseDate);
 				Assert.IsNotNull(song.Lyrics);
+				Assert.IsNotNull(song.PrimaryArtist);
+				Assert.IsNotNull(song.FeaturedArtists);
+				Assert.AreEqual(1, song.FeaturedArtists.Count);
 			}
 		}
 

@@ -5,7 +5,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Parsers
 {
 	internal static class DependencyInjection
 	{
-		public static IServiceCollection AddParsers(this IServiceCollection services)
+		public static IServiceCollection AddV1Parsers(this IServiceCollection services)
 		{
 			return services
 				.AddScoped<IArtistV1Parser, ArtistV1Parser>()

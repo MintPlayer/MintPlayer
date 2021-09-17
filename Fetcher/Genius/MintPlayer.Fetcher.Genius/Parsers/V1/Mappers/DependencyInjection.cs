@@ -7,7 +7,8 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Mappers
 		public static IServiceCollection AddV1Mappers(this IServiceCollection services)
 		{
 			return services
-				.AddScoped<Abstractions.Parsers.V1.Mappers.IArtistMapper, ArtistMapper>();
+				.AddScoped<ArtistMapper>()
+				.AddScoped<SongMapper>();
 		}
 	}
 }

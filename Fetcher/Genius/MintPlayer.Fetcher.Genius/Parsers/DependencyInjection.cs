@@ -9,8 +9,8 @@ namespace MintPlayer.Fetcher.Genius.Parsers
 		internal static IServiceCollection AddParsers(this IServiceCollection services)
 		{
 			return services
-				.AddV1Parsers()
-				.AddV2Parsers();
+				.AddV1Parser()
+				.AddV2Parser();
 		}
 	}
 }

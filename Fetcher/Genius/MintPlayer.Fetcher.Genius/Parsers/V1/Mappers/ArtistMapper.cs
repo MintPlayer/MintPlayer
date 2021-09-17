@@ -1,11 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Mappers;
+﻿using System.Threading.Tasks;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Mappers
 {
-	internal class ArtistMapper : IArtistMapper
+	internal class ArtistMapper
 	{
-	}
+		public async Task<MintPlayer.Fetcher.Abstractions.Dtos.Artist> ToDto(Data.ArtistData artist)
+		{
+			if (artist == null)
+			{
+				return null;
+			}
+
+			var result = new MintPlayer.Fetcher.Abstractions.Dtos.Artist
+			{
+				Id = artist.Id,
+				Url = artist.Url,
+				Name = artist.Name,
+			};
+
+			return result;
+		}
+}
 }
