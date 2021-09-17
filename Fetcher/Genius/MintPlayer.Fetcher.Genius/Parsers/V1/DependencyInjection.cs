@@ -3,6 +3,7 @@ using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Album;
 using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Artist;
 using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Services;
 using MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Song;
+using MintPlayer.Fetcher.Genius.Parsers.V1.Common.Mappers;
 using MintPlayer.Fetcher.Genius.Parsers.V1.Services;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1
@@ -16,7 +17,8 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1
 				.AddScoped<IArtistV1Parser, Artist.ArtistV1Parser>()
 				.AddScoped<ISongV1Parser, Song.SongV1Parser>()
 				.AddScoped<IAlbumV1Parser, Album.AlbumV1Parser>()
-				.AddScoped<IPageDataReader, PageDataReader>();
+				.AddScoped<IPageDataReader, PageDataReader>()
+				.AddV1Mappers();
 		}
 	}
 }

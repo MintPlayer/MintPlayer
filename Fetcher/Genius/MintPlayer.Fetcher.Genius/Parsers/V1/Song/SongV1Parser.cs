@@ -14,7 +14,11 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Song
 
 			return new MintPlayer.Fetcher.Abstractions.Dtos.Song
 			{
-				Lyrics = await ParseLyrics(songPageData.LyricsData.Body.Html, trimTrash)
+				Id = songPageData.Song.Id,
+				Title = songPageData.Song.Title,
+				ReleaseDate = songPageData.Song.ReleaseDate,
+				Lyrics = await ParseLyrics(songPageData.LyricsData.Body.Html, trimTrash),
+				//PrimaryArtist = 
 			};
 		}
 

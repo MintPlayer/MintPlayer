@@ -12,9 +12,9 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2
 		private readonly Services.IPreloadedStateReader preloadedStateReader;
 		private readonly Artist.IArtistV2Parser artistV2Parser;
 		private readonly Album.IAlbumV2Parser albumV2Parser;
-		private readonly Song.ISongV2Parser songV2Parser;
+		private readonly Abstractions.Parsers.V2.ISongV2Parser songV2Parser;
 
-		public V2Parser(Services.IPreloadedStateReader preloadedStateReader, Artist.IArtistV2Parser artistV2Parser, Album.IAlbumV2Parser albumV2Parser, Song.ISongV2Parser songV2Parser)
+		public V2Parser(Services.IPreloadedStateReader preloadedStateReader, Artist.IArtistV2Parser artistV2Parser, Album.IAlbumV2Parser albumV2Parser, Abstractions.Parsers.V2.ISongV2Parser songV2Parser)
 		{
 			this.preloadedStateReader = preloadedStateReader;
 			this.artistV2Parser = artistV2Parser;

@@ -43,12 +43,15 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1
 			{
 				case "song":
 					var song = await songParser.Parse(html, pageDataText, trimTrash);
+					song.Url = url;
 					return song;
 				case "profile":
 					var artist = await aristParser.Parse(html, pageDataText);
+					artist.Url = url;
 					return artist;
 				case "album":
 					var album = await albumParser.Parse(html, pageDataText);
+					album.Url = url;
 					return album;
 				default:
 					throw new Exception("Invalid page_type");

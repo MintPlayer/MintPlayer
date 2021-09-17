@@ -9,7 +9,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2
 			return services
 				.AddScoped<IGeniusParser, V2Parser>()
 				.AddScoped<Artist.IArtistV2Parser, Artist.ArtistV2Parser>()
-				.AddScoped<Song.ISongV2Parser, Song.SongV2Parser>()
+				.AddScoped<Abstractions.Parsers.V2.ISongV2Parser, Song.SongV2Parser>()
 				.AddScoped<Album.IAlbumV2Parser, Album.AlbumV2Parser>()
 				.AddScoped<Services.IPreloadedStateReader, Services.PreloadedStateReader>();
 		}

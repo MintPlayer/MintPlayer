@@ -1,11 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Common
 {
 	internal class SongPageData
 	{
+		[JsonProperty("song")]
+		public Data.SongData Song { get; set; }
+
 		[JsonProperty("lyrics_data")]
 		public LyricsData LyricsData { get; set; }
+
+		[JsonProperty("primary_artist")]
+		public int MyProperty { get; set; }
 	}
 
 	internal class LyricsData
