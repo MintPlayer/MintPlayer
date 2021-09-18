@@ -2,7 +2,7 @@
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Mappers
 {
-	internal class ArtistMapper
+	internal class ArtistV1Mapper
 	{
 		public async Task<MintPlayer.Fetcher.Abstractions.Dtos.Artist> ToDto(Data.ArtistData artist)
 		{

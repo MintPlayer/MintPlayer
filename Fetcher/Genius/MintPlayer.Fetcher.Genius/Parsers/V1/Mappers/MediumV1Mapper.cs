@@ -6,9 +6,9 @@ using MintPlayer.Fetcher.Abstractions.Dtos;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V1.Mappers
 {
-	internal class MediumMapper
+	internal class MediumV1Mapper
 	{
-		public MediumMapper()
+		public MediumV1Mapper()
 		{
 		}
 

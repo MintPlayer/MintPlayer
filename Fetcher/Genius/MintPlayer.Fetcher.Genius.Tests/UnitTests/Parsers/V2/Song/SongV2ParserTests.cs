@@ -22,6 +22,7 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V2.Song
 				// Don't mock the preloadedStateReader
 				.AddSingleton<Abstractions.Parsers.V2.Services.IPreloadedStateReader, Genius.Parsers.V2.Services.PreloadedStateReader>()
 				.AddSingleton<Genius.Parsers.V2.Mappers.SongV2Mapper>()
+				.AddSingleton<Abstractions.Parsers.Helpers.ILyricsParser, Genius.Parsers.Helpers.LyricsParser>()
 				.BuildServiceProvider();
 		}
 
@@ -36,7 +37,7 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V2.Song
 			{
 				var html = await reader.ReadToEndAsync();
 				var preloadedState = await preloadedStateReader.ReadPreloadedState(html);
-				var song = await songV2Parser.Parse(html, preloadedState);
+				var song = await songV2Parser.Parse(html, preloadedState, true);
 
 				Assert.IsNotNull(song.Lyrics);
 			}

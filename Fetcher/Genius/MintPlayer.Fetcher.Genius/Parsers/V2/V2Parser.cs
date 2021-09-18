@@ -43,7 +43,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2
 			switch (preloadedState.CurrentPage)
 			{
 				case "songPage":
-					var song = await songV2Parser.Parse(html, preloadedStateText);
+					var song = await songV2Parser.Parse(html, preloadedStateText, trimTrash);
 					return song;
 				default:
 					throw new NotImplementedException();

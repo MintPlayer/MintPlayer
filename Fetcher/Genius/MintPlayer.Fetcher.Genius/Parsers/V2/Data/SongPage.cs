@@ -15,5 +15,8 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2.Data
 
 		[JsonProperty("trackingData")]
 		public List<KeyValuePair> TrackingData { get; set; }
+
+		[JsonProperty("lyricsData")]
+		public LyricsData LyricsData { get; set; }
 	}
 }

@@ -4,12 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MintPlayer.Fetcher.Abstractions.Dtos;
+using MintPlayer.Fetcher.Genius.Abstractions.Parsers.Helpers;
 
 namespace MintPlayer.Fetcher.Genius.Parsers.V2.Mappers
 {
 	internal class SongV2Mapper
 	{
-		public Task<Song> ToDto(Common.SongPreloadedState songData)
+		private readonly ILyricsParser lyricsParser;
+		public SongV2Mapper(Abstractions.Parsers.Helpers.ILyricsParser lyricsParser)
+		{
+			this.lyricsParser = lyricsParser;
+		}
+
+		public async Task<Song> ToDto(Common.SongPreloadedState songData, bool trimTrash)
 		{
 			if (songData == null)
 			{
@@ -46,10 +53,11 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2.Mappers
 					Name = (string)songData.Entities.SelectToken($"artists.{primaryArtistId}.name"),
 					Url = (string)songData.Entities.SelectToken($"artists.{primaryArtistId}.url"),
 				},
-				Media = media.ToList()
+				Media = media.ToList(),
+				Lyrics = await lyricsParser.ParseLyrics(songData.SongPage.LyricsData.Body.Html, trimTrash),
 			};
 
-			return Task.FromResult(result);
+			return result;
 		}
 	}
 }

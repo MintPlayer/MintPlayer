@@ -14,12 +14,12 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2.Parsers
 			this.songV2Mapper = songV2Mapper;
 		}
 
-		public async Task<Song> Parse(string html, string preloadedState)
+		public async Task<Song> Parse(string html, string preloadedState, bool trimTrash)
 		{
 			try
 			{
 				var songPreloadedState = JsonConvert.DeserializeObject<Common.SongPreloadedState>(preloadedState);
-				var song = await songV2Mapper.ToDto(songPreloadedState);
+				var song = await songV2Mapper.ToDto(songPreloadedState, trimTrash);
 				return song;
 			}
 			catch (System.Exception ex)

@@ -10,7 +10,8 @@ namespace MintPlayer.Fetcher.Genius.Parsers
 		{
 			return services
 				.AddV1Parser()
-				.AddV2Parser();
+				.AddV2Parser()
+				.AddScoped<Abstractions.Parsers.Helpers.ILyricsParser, Helpers.LyricsParser>();
 		}
 	}
 }

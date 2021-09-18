@@ -23,9 +23,9 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V1.Song
 
 				// Don't mock
 				.AddSingleton<Abstractions.Parsers.V1.Services.IPageDataReader, Genius.Parsers.V1.Services.PageDataReader>()
-				.AddSingleton<Genius.Parsers.V1.Mappers.SongMapper>()
-				.AddSingleton<Genius.Parsers.V1.Mappers.ArtistMapper>()
-				.AddSingleton<Genius.Parsers.V1.Mappers.MediumMapper>()
+				.AddSingleton<Genius.Parsers.V1.Mappers.SongV1Mapper>()
+				.AddSingleton<Genius.Parsers.V1.Mappers.ArtistV1Mapper>()
+				.AddSingleton<Genius.Parsers.V1.Mappers.MediumV1Mapper>()
 
 				.BuildServiceProvider();
 		}

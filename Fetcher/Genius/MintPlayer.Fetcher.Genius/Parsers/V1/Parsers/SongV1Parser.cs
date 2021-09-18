@@ -9,8 +9,8 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Parsers
 {
 	internal class SongV1Parser : ISongV1Parser
 	{
-		private readonly Mappers.SongMapper songMapper;
-		public SongV1Parser(Mappers.SongMapper songMapper)
+		private readonly Mappers.SongV1Mapper songMapper;
+		public SongV1Parser(Mappers.SongV1Mapper songMapper)
 		{
 			this.songMapper = songMapper;
 		}
