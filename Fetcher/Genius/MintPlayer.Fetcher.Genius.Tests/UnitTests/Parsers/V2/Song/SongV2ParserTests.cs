@@ -32,7 +32,8 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V2.Song
 			var songV2Parser = services.GetService<ISongV2Parser>();
 			var preloadedStateReader = services.GetService<Abstractions.Parsers.V2.Services.IPreloadedStateReader>();
 
-			using (var fs = new FileStream("Templates/V2/Song/Templates/sunset-jesus.html", FileMode.Open, FileAccess.Read))
+			//using (var fs = new FileStream("Templates/V2/Song/Templates/sunset-jesus.html", FileMode.Open, FileAccess.Read))
+			using (var fs = new FileStream("Templates/V2/Song/Templates/i-feel-it-coming.html", FileMode.Open, FileAccess.Read))
 			using (var reader = new StreamReader(fs))
 			{
 				var html = await reader.ReadToEndAsync();

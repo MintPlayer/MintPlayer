@@ -55,6 +55,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2.Mappers
 				},
 				Media = media.ToList(),
 				Lyrics = await lyricsParser.ParseLyrics(songData.SongPage.LyricsData.Body.Html, trimTrash),
+				
 			};
 
 			return result;
