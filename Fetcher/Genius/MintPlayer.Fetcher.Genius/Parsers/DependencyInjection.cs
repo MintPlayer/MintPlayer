@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Net.Http;
+using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.Fetcher.Genius.Parsers.V1;
 using MintPlayer.Fetcher.Genius.Parsers.V2;
 
@@ -11,7 +12,9 @@ namespace MintPlayer.Fetcher.Genius.Parsers
 			return services
 				.AddV1Parser()
 				.AddV2Parser()
-				.AddScoped<Abstractions.Parsers.Helpers.ILyricsParser, Helpers.LyricsParser>();
+				.AddScoped<Abstractions.Parsers.Helpers.ILdJsonReader, Parsers.Helpers.LdJsonReader>()
+				.AddScoped<Abstractions.Parsers.Helpers.ILyricsParser, Helpers.LyricsParser>()
+				.AddScoped<HttpClient>();
 		}
 	}
 }

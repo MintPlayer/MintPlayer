@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Templates\V1\Artist\the-weeknd.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Templates\V1\Song\i-feel-it-coming.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

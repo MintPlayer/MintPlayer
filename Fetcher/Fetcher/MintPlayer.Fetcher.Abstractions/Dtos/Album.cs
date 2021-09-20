@@ -6,7 +6,7 @@ namespace MintPlayer.Fetcher.Abstractions.Dtos
 {
     public class Album : Subject
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public DateTime? ReleaseDate { get; set; }
         public Artist Artist { get; set; }

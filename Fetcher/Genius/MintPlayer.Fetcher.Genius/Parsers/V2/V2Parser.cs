@@ -47,7 +47,6 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2
 					return song;
 				default:
 					throw new NotImplementedException();
-					break;
 			}
 		}
 	}
