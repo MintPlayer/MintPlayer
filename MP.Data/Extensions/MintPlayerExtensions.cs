@@ -64,6 +64,7 @@ namespace MintPlayer.Data.Extensions
                 .AddScoped<ITagService, TagService>()
                 .AddScoped<IBlogPostService, BlogPostService>()
                 .AddScoped<ILogEntryService, LogEntryService>()
+				.AddScoped<IFetcherService, FetcherService>()
                 // Mappers
                 .AddScoped<IArtistMapper, ArtistMapper>()
                 .AddScoped<IMediumMapper, MediumMapper>()

@@ -236,6 +236,10 @@ namespace MintPlayer.Web
                 )
             );
 
+			services
+				.AddFetcherContainer()
+				.AddGeniusFetcher();
+
             services
                 .Configure<ForwardedHeadersOptions>(options =>
                 {
