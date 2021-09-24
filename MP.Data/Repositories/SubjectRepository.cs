@@ -15,7 +15,7 @@ namespace MintPlayer.Data.Repositories
 {
 	internal interface ISubjectRepository
 	{
-		Task<IDictionary<string, Subject[]>> GetByMedium(params string[] mediumValues);
+		Task<IDictionary<string, Subject[]>> GetByMedium(IEnumerable<string> mediumValues);
 
 		Task<Tuple<int, int>> GetLikes(int subjectId);
 		Task<bool?> DoesLike(int subjectId);
@@ -52,7 +52,7 @@ namespace MintPlayer.Data.Repositories
 			this.subjectMapper = subjectMapper;
 		}
 
-		public Task<IDictionary<string, Subject[]>> GetByMedium(params string[] mediumValues)
+		public Task<IDictionary<string, Subject[]>> GetByMedium(IEnumerable<string> mediumValues)
 		{
 			var media = mintplayer_context.Media
 				.Where(m => mediumValues.Contains(m.Value))
@@ -60,8 +60,7 @@ namespace MintPlayer.Data.Repositories
 				{
 					MediumValue = m.Value,
 					Subject = subjectMapper.Entity2Dto(m.Subject, false, false),
-				})
-				.ToArray();
+				});
 
 			//var result = mediumValues.Select(m => media.Where(ms => ms.MediumValue == m));
 			var result = mediumValues.ToDictionary(

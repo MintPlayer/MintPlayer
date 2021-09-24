@@ -6,7 +6,7 @@ namespace MintPlayer.Data.Abstractions.Services
 {
 	public interface ISubjectService
 	{
-		Task<IDictionary<string, Subject[]>> GetByMedium(params string[] mediumValues);
+		Task<IDictionary<string, Subject[]>> GetByMedium(IEnumerable<string> mediumValues);
 		
 		Task<SubjectLikeResult> GetLikes(int subjectId);
 		Task<bool?> DoesLike(int subjectId);

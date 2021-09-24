@@ -11,6 +11,6 @@ namespace MintPlayer.Fetcher.Integration.Dtos
 	public class FetchResult<TSubject> : FetchResult where TSubject : FetchedSubject
 	{
 		public TSubject FetchedSubject { get; set; }
-		public List<SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject>> Candidates { get; set; }
+		public IEnumerable<SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject>> Candidates { get; set; }
 	}
 }
