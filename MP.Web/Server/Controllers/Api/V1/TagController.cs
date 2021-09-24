@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
-using MintPlayer.Data.Repositories;
-using MintPlayer.Data.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MintPlayer.Data.Abstractions.Services;
 
 namespace MintPlayer.Web.Server.Controllers.Api.Unversioned
 {
-    [ApiController]
+	[ApiController]
     [Route("api/v1/[controller]")]
     public class TagController : Controller
     {

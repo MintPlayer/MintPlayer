@@ -1,7 +1,7 @@
 ﻿using MintPlayer.Dtos.Dtos;
 using System;
 
-namespace MintPlayer.Data.Dtos.Blog
+namespace MintPlayer.Data.Abstractions.Dtos.Blog
 {
     public class BlogPost
     {

@@ -1,6 +1,6 @@
 ﻿namespace MintPlayer.Data.Enums
 {
-    public enum eSongIncludes
+    public enum ESongIncludes
     {
         None,
         ArtistsOnly,

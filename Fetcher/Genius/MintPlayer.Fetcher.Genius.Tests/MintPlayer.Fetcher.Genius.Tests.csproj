@@ -34,6 +34,9 @@
     <None Update="Templates\V2\Song\Templates\i-feel-it-coming.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Templates\V2\Song\Templates\whatever.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Templates\V3\Song\Templates\i-feel-it-coming.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

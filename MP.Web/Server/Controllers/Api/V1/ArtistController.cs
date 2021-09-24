@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
-using MintPlayer.Data.Repositories;
-using MintPlayer.Data.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Data;
+using MintPlayer.Data.Abstractions.Services;
 
 namespace MintPlayer.Web.Server.Controllers.Api
 {
-    [ApiController]
+	[ApiController]
     [Route("api/v1/[controller]")]
     public class ArtistController : Controller
     {

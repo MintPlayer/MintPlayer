@@ -1,4 +1,5 @@
-﻿using MintPlayer.Data.Dtos.Blog;
+﻿using MintPlayer.Data.Abstractions.Dtos.Blog;
+using MintPlayer.Data.Abstractions.Services;
 using MintPlayer.Data.Repositories.Blog;
 using System;
 using System.Collections.Generic;
@@ -7,14 +8,6 @@ using System.Threading.Tasks;
 
 namespace MintPlayer.Data.Services
 {
-    public interface IBlogPostService
-    {
-        Task<IEnumerable<BlogPost>> GetBlogPosts();
-        Task<BlogPost> GetBlogPost(int blogpost_id);
-        Task<BlogPost> InsertBlogPost(BlogPost blogPost);
-        Task<BlogPost> UpdateBlogPost(BlogPost blogPost);
-        Task DeleteBlogPost(int blogpost_id);
-    }
     internal class BlogPostService : IBlogPostService
     {
         private readonly IBlogPostRepository blogPostRepository;

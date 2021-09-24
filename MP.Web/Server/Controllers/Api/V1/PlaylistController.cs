@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
-using MintPlayer.Data.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MintPlayer.Data.Exceptions;
+using MintPlayer.Data.Abstractions.Services;
 
 namespace MintPlayer.Web.Server.Controllers.Api
 {
-    [Controller]
+	[Controller]
     [Route("api/v1/[controller]")]
     public class PlaylistController : Controller
     {
@@ -28,7 +27,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PageMyPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
         {
-            var playlists = await playlistService.PagePlaylists(request, Data.Enums.ePlaylistScope.My);
+            var playlists = await playlistService.PagePlaylists(request, Data.Abstractions.Enums.EPlaylistScope.My);
             return Ok(playlists);
         }
 
@@ -38,7 +37,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
         [HttpPost("public/page", Name = "api-playlist-public-page")]
         public async Task<ActionResult<Pagination.PaginationResponse<Playlist>>> PagePublicPlaylists([FromBody] Pagination.PaginationRequest<Playlist> request)
         {
-            var playlists = await playlistService.PagePlaylists(request, Data.Enums.ePlaylistScope.Public);
+            var playlists = await playlistService.PagePlaylists(request, Data.Abstractions.Enums.EPlaylistScope.Public);
             return Ok(playlists);
         }
 
@@ -49,7 +48,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<Playlist>>> GetMyPlaylists([FromHeader] bool include_relations = false)
         {
-            var playlists = await playlistService.GetPlaylists(Data.Enums.ePlaylistScope.My, include_relations);
+            var playlists = await playlistService.GetPlaylists(Data.Abstractions.Enums.EPlaylistScope.My, include_relations);
             return Ok(playlists);
         }
 
@@ -59,7 +58,7 @@ namespace MintPlayer.Web.Server.Controllers.Api
         [HttpGet("public", Name = "api-playlist-public-list")]
         public async Task<ActionResult<IEnumerable<Playlist>>> GetPublicPlaylists([FromHeader] bool include_relations = false)
         {
-            var playlists = await playlistService.GetPlaylists(Data.Enums.ePlaylistScope.Public, include_relations);
+            var playlists = await playlistService.GetPlaylists(Data.Abstractions.Enums.EPlaylistScope.Public, include_relations);
             return Ok(playlists);
         }
 

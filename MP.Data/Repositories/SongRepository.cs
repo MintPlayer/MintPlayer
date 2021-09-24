@@ -196,11 +196,11 @@ namespace MintPlayer.Data.Repositories
 			await mintplayer_context.SaveChangesAsync();
 
 			var new_song = songMapper.Entity2Dto(entity_song, false, false);
-			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
+			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Abstractions.Dtos.Jobs.ElasticSearchIndexJob
 			{
 				Subject = new_song,
 				SubjectStatus = MintPlayer.Dtos.Enums.eSubjectAction.Added,
-				JobStatus = Data.Enums.eJobStatus.Queued
+				JobStatus = Abstractions.Enums.EJobStatus.Queued
 			});
 
 			return new_song;
@@ -277,11 +277,11 @@ namespace MintPlayer.Data.Repositories
 			mintplayer_context.Entry(song_entity).State = EntityState.Modified;
 
 			var updated_song = songMapper.Entity2Dto(song_entity, false, false);
-			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
+			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Abstractions.Dtos.Jobs.ElasticSearchIndexJob
 			{
 				Subject = updated_song,
 				SubjectStatus = MintPlayer.Dtos.Enums.eSubjectAction.Added,
-				JobStatus = Data.Enums.eJobStatus.Queued
+				JobStatus = Abstractions.Enums.EJobStatus.Queued
 			});
 
 			return updated_song;
@@ -330,11 +330,11 @@ namespace MintPlayer.Data.Repositories
 			song.DateDelete = DateTime.Now;
 
 			var deleted_song = songMapper.Entity2Dto(song, false, false);
-			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
+			var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Abstractions.Dtos.Jobs.ElasticSearchIndexJob
 			{
 				Subject = deleted_song,
 				SubjectStatus = MintPlayer.Dtos.Enums.eSubjectAction.Deleted,
-				JobStatus = Data.Enums.eJobStatus.Queued
+				JobStatus = Abstractions.Enums.EJobStatus.Queued
 			});
 		}
 

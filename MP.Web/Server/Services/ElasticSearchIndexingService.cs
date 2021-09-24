@@ -80,13 +80,13 @@ namespace MintPlayer.Web.Server.Services
                         }
 
                         // Mark job as completed
-                        job.JobStatus = Data.Enums.eJobStatus.Completed;
+                        job.JobStatus = Data.Abstractions.Enums.EJobStatus.Completed;
                         await elasticSearchJobRepository.UpdateElasticSearchIndexJob(job);
                         await elasticSearchJobRepository.SaveChangesAsync();
                     }
                     catch (Exception ex)
                     {
-                        job.JobStatus = Data.Enums.eJobStatus.Error;
+                        job.JobStatus = Data.Abstractions.Enums.EJobStatus.Error;
                         await elasticSearchJobRepository.UpdateElasticSearchIndexJob(job);
                         await elasticSearchJobRepository.SaveChangesAsync();
                     }

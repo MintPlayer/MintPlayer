@@ -2,8 +2,8 @@
 {
     internal interface IElasticSearchIndexJobMapper
     {
-        Dtos.Jobs.ElasticSearchIndexJob Entity2Dto(Entities.Jobs.ElasticSearchIndexJob job, bool include_invisible_media, bool include_relations = false);
-        Entities.Jobs.ElasticSearchIndexJob Dto2Entity(Dtos.Jobs.ElasticSearchIndexJob job, MintPlayerContext mintplayer_context);
+		Abstractions.Dtos.Jobs.ElasticSearchIndexJob Entity2Dto(Entities.Jobs.ElasticSearchIndexJob job, bool include_invisible_media, bool include_relations = false);
+        Entities.Jobs.ElasticSearchIndexJob Dto2Entity(Abstractions.Dtos.Jobs.ElasticSearchIndexJob job, MintPlayerContext mintplayer_context);
     }
 
     internal class ElasticSearchIndexJobMapper : IElasticSearchIndexJobMapper
@@ -14,15 +14,15 @@
             this.subjectMapper = subjectMapper;
         }
 
-        public Dtos.Jobs.ElasticSearchIndexJob Entity2Dto(Entities.Jobs.ElasticSearchIndexJob job, bool include_invisible_media, bool include_relations = false)
+        public Abstractions.Dtos.Jobs.ElasticSearchIndexJob Entity2Dto(Entities.Jobs.ElasticSearchIndexJob job, bool include_invisible_media, bool include_relations = false)
         {
             if (job == null)
             {
                 return null;
             }
 
-            return new Dtos.Jobs.ElasticSearchIndexJob
-            {
+            return new Abstractions.Dtos.Jobs.ElasticSearchIndexJob
+			{
                 Id = job.Id,
                 JobStatus = job.Status,
                 Subject = subjectMapper.Entity2Dto(job.Subject, include_invisible_media),
@@ -30,7 +30,7 @@
             };
         }
 
-        public Entities.Jobs.ElasticSearchIndexJob Dto2Entity(Dtos.Jobs.ElasticSearchIndexJob job, MintPlayerContext mintplayer_context)
+        public Entities.Jobs.ElasticSearchIndexJob Dto2Entity(Abstractions.Dtos.Jobs.ElasticSearchIndexJob job, MintPlayerContext mintplayer_context)
         {
             if (job == null)
             {

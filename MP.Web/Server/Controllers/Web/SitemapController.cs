@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MintPlayer.Data.Repositories;
 using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SitemapXml.DependencyInjection.Interfaces;
-using MintPlayer.Data.Services;
 using MintPlayer.Web.Extensions;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.AspNetCore.SpaServices.Routing;
+using MintPlayer.Data.Abstractions.Services;
 
 namespace MintPlayer.Web.Server.Controllers.Web
 {
-    [Controller]
+	[Controller]
     [Route("[controller]")]
     public class SitemapController : Controller
     {

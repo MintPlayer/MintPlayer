@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
-using MintPlayer.Data.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MintPlayer.Data.Abstractions.Services;
 
 namespace MintPlayer.Web.Server.Controllers.Api
 {

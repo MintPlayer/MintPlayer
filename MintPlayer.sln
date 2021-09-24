@@ -58,63 +58,67 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AZLyrics", "AZLyrics", "{8D44AA75-CB7D-4D1C-9FD2-7F8FAF9235EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.AZLyrics.Test", "Fetcher\AZLyrics\MintPlayer.Fetcher.AZLyrics.Test\MintPlayer.Fetcher.AZLyrics.Test.csproj", "{6EB220F0-A377-409F-93F5-A0164F95262E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.AZLyrics.Test", "Fetcher\AZLyrics\MintPlayer.Fetcher.AZLyrics.Test\MintPlayer.Fetcher.AZLyrics.Test.csproj", "{6EB220F0-A377-409F-93F5-A0164F95262E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Genius", "Genius", "{667C0E0B-0E86-4BEC-AA00-5688AFF85129}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Genius.Test", "Fetcher\Genius\MintPlayer.Fetcher.Genius.Test\MintPlayer.Fetcher.Genius.Test.csproj", "{F156724E-E673-4780-AB19-33C8E2BE585B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Genius.Test", "Fetcher\Genius\MintPlayer.Fetcher.Genius.Test\MintPlayer.Fetcher.Genius.Test.csproj", "{F156724E-E673-4780-AB19-33C8E2BE585B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoloLyrics", "LoloLyrics", "{B53CFC5C-BEE7-4314-B0C5-FDA6C87B989E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.LoloLyrics.Test", "Fetcher\LoloLyrics\MintPlayer.Fetcher.LoloLyrics.Test\MintPlayer.Fetcher.LoloLyrics.Test.csproj", "{28ACAC83-020F-41A4-B78F-3D1BEBC8F61F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.LoloLyrics.Test", "Fetcher\LoloLyrics\MintPlayer.Fetcher.LoloLyrics.Test\MintPlayer.Fetcher.LoloLyrics.Test.csproj", "{28ACAC83-020F-41A4-B78F-3D1BEBC8F61F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LyricsCom", "LyricsCom", "{381CE367-3C41-47B4-B13D-BDF2AFC93EE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.LyricsCom.Test", "Fetcher\LyricsCom\MintPlayer.Fetcher.LyricsCom.Test\MintPlayer.Fetcher.LyricsCom.Test.csproj", "{D978637F-974E-4E45-9E56-48ADAB6AEA52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.LyricsCom.Test", "Fetcher\LyricsCom\MintPlayer.Fetcher.LyricsCom.Test\MintPlayer.Fetcher.LyricsCom.Test.csproj", "{D978637F-974E-4E45-9E56-48ADAB6AEA52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Musixmatch", "Musixmatch", "{351E9DDD-68CE-4FF6-A105-61E74FB9B69C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Musixmatch.Test", "Fetcher\Musixmatch\MintPlayer.Fetcher.Musixmatch.Test\MintPlayer.Fetcher.Musixmatch.Test.csproj", "{2EB52227-4275-421F-8C81-E6CA55642532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Musixmatch.Test", "Fetcher\Musixmatch\MintPlayer.Fetcher.Musixmatch.Test\MintPlayer.Fetcher.Musixmatch.Test.csproj", "{2EB52227-4275-421F-8C81-E6CA55642532}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Muzikum", "Muzikum", "{9ECD52A6-392E-49A3-B6FF-459E828CB0E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Muzikum.Test", "Fetcher\Muzikum\MintPlayer.Fetcher.Muzikum.Test\MintPlayer.Fetcher.Muzikum.Test.csproj", "{8B6B390F-35BE-4113-9352-2E67FC7AC936}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Muzikum.Test", "Fetcher\Muzikum\MintPlayer.Fetcher.Muzikum.Test\MintPlayer.Fetcher.Muzikum.Test.csproj", "{8B6B390F-35BE-4113-9352-2E67FC7AC936}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SongLyrics", "SongLyrics", "{647587FC-0F60-472E-8A9D-FB230BDD2011}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.SongLyrics.Test", "Fetcher\SongLyrics\MintPlayer.Fetcher.SongLyrics.Test\MintPlayer.Fetcher.SongLyrics.Test.csproj", "{8171DDB4-A12F-4CC0-8838-0564AFA3D0D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.SongLyrics.Test", "Fetcher\SongLyrics\MintPlayer.Fetcher.SongLyrics.Test\MintPlayer.Fetcher.SongLyrics.Test.csproj", "{8171DDB4-A12F-4CC0-8838-0564AFA3D0D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SongMeanings", "SongMeanings", "{84DD8DE9-AD87-4F3A-AD21-38202C5C5141}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.SongMeanings.Test", "Fetcher\SongMeanings\MintPlayer.Fetcher.SongMeanings.Test\MintPlayer.Fetcher.SongMeanings.Test.csproj", "{0F70ADC9-FE32-4314-AC03-2F6D692D07F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.SongMeanings.Test", "Fetcher\SongMeanings\MintPlayer.Fetcher.SongMeanings.Test\MintPlayer.Fetcher.SongMeanings.Test.csproj", "{0F70ADC9-FE32-4314-AC03-2F6D692D07F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SongtekstenNet", "SongtekstenNet", "{3FCDD1EA-58F2-4F05-BF97-5CA3876BEB02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.SongtekstenNet.Test", "Fetcher\SongtekstenNet\MintPlayer.Fetcher.SongtekstenNet.Test\MintPlayer.Fetcher.SongtekstenNet.Test.csproj", "{E812018B-5058-4904-A6FE-BB54A7244B9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.SongtekstenNet.Test", "Fetcher\SongtekstenNet\MintPlayer.Fetcher.SongtekstenNet.Test\MintPlayer.Fetcher.SongtekstenNet.Test.csproj", "{E812018B-5058-4904-A6FE-BB54A7244B9A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fetcher", "Fetcher", "{0CA6AF6B-CF83-404F-AA96-17A3F21B2B35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.AZLyrics.Abstractions", "Fetcher\AZLyrics\MintPlayer.Fetcher.AZLyrics.Abstractions\MintPlayer.Fetcher.AZLyrics.Abstractions.csproj", "{6B276B6D-BF5A-4690-933D-6FF34E46A3B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.AZLyrics.Abstractions", "Fetcher\AZLyrics\MintPlayer.Fetcher.AZLyrics.Abstractions\MintPlayer.Fetcher.AZLyrics.Abstractions.csproj", "{6B276B6D-BF5A-4690-933D-6FF34E46A3B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Abstractions", "Fetcher\Fetcher\MintPlayer.Fetcher.Abstractions\MintPlayer.Fetcher.Abstractions.csproj", "{F2040FF8-1228-4BEE-A0BB-3E0669615058}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Abstractions", "Fetcher\Fetcher\MintPlayer.Fetcher.Abstractions\MintPlayer.Fetcher.Abstractions.csproj", "{F2040FF8-1228-4BEE-A0BB-3E0669615058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Genius.Abstractions", "Fetcher\Genius\MintPlayer.Fetcher.Genius.Abstractions\MintPlayer.Fetcher.Genius.Abstractions.csproj", "{C32C962A-63E3-4296-9173-FFA8D983B3B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Genius.Abstractions", "Fetcher\Genius\MintPlayer.Fetcher.Genius.Abstractions\MintPlayer.Fetcher.Genius.Abstractions.csproj", "{C32C962A-63E3-4296-9173-FFA8D983B3B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.LoloLyrics.Abstractions", "Fetcher\LoloLyrics\MintPlayer.Fetcher.LoloLyrics.Abstractions\MintPlayer.Fetcher.LoloLyrics.Abstractions.csproj", "{EF3C3FD4-FE02-4456-8493-88E5B151A4EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.LoloLyrics.Abstractions", "Fetcher\LoloLyrics\MintPlayer.Fetcher.LoloLyrics.Abstractions\MintPlayer.Fetcher.LoloLyrics.Abstractions.csproj", "{EF3C3FD4-FE02-4456-8493-88E5B151A4EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.LyricsCom.Abstractions", "Fetcher\LyricsCom\MintPlayer.Fetcher.LyricsCom.Abstractions\MintPlayer.Fetcher.LyricsCom.Abstractions.csproj", "{B30EF8EA-B1C5-4909-9A93-DE0676A59830}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.LyricsCom.Abstractions", "Fetcher\LyricsCom\MintPlayer.Fetcher.LyricsCom.Abstractions\MintPlayer.Fetcher.LyricsCom.Abstractions.csproj", "{B30EF8EA-B1C5-4909-9A93-DE0676A59830}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Musixmatch.Abstractions", "Fetcher\Musixmatch\MintPlayer.Fetcher.Musixmatch.Abstractions\MintPlayer.Fetcher.Musixmatch.Abstractions.csproj", "{85369E90-3712-4EF5-91AC-AFFEE0216A18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Musixmatch.Abstractions", "Fetcher\Musixmatch\MintPlayer.Fetcher.Musixmatch.Abstractions\MintPlayer.Fetcher.Musixmatch.Abstractions.csproj", "{85369E90-3712-4EF5-91AC-AFFEE0216A18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Muzikum.Abstractions", "Fetcher\Muzikum\MintPlayer.Fetcher.Muzikum.Abstractions\MintPlayer.Fetcher.Muzikum.Abstractions.csproj", "{8E908B35-7F19-48E5-B019-986B067B30D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Muzikum.Abstractions", "Fetcher\Muzikum\MintPlayer.Fetcher.Muzikum.Abstractions\MintPlayer.Fetcher.Muzikum.Abstractions.csproj", "{8E908B35-7F19-48E5-B019-986B067B30D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.SongLyrics.Abstractions", "Fetcher\SongLyrics\MintPlayer.Fetcher.SongLyrics.Abstractions\MintPlayer.Fetcher.SongLyrics.Abstractions.csproj", "{C3574F62-EB82-44A9-9A30-066286252BA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.SongLyrics.Abstractions", "Fetcher\SongLyrics\MintPlayer.Fetcher.SongLyrics.Abstractions\MintPlayer.Fetcher.SongLyrics.Abstractions.csproj", "{C3574F62-EB82-44A9-9A30-066286252BA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.SongMeanings.Abstractions", "Fetcher\SongMeanings\MintPlayer.Fetcher.SongMeanings.Abstractions\MintPlayer.Fetcher.SongMeanings.Abstractions.csproj", "{A4EBCADD-5E9A-4E8F-B27C-9CBCB4FD7A97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.SongMeanings.Abstractions", "Fetcher\SongMeanings\MintPlayer.Fetcher.SongMeanings.Abstractions\MintPlayer.Fetcher.SongMeanings.Abstractions.csproj", "{A4EBCADD-5E9A-4E8F-B27C-9CBCB4FD7A97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.SongtekstenNet.Abstractions", "Fetcher\SongtekstenNet\MintPlayer.Fetcher.SongtekstenNet.Abstractions\MintPlayer.Fetcher.SongtekstenNet.Abstractions.csproj", "{1203ECAD-8D92-44ED-B38E-A480EDF17E41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.SongtekstenNet.Abstractions", "Fetcher\SongtekstenNet\MintPlayer.Fetcher.SongtekstenNet.Abstractions\MintPlayer.Fetcher.SongtekstenNet.Abstractions.csproj", "{1203ECAD-8D92-44ED-B38E-A480EDF17E41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Genius.Tests", "Fetcher\Genius\MintPlayer.Fetcher.Genius.Tests\MintPlayer.Fetcher.Genius.Tests.csproj", "{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Genius.Tests", "Fetcher\Genius\MintPlayer.Fetcher.Genius.Tests\MintPlayer.Fetcher.Genius.Tests.csproj", "{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Integration", "MP.Fetcher.Integration\MintPlayer.Fetcher.Integration.csproj", "{C10DDD01-ED36-4337-A319-5CA663F43EE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Data.Abstractions", "MintPlayer.Data.Abstractions\MintPlayer.Data.Abstractions.csproj", "{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -282,6 +286,14 @@ Global
 		{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C10DDD01-ED36-4337-A319-5CA663F43EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C10DDD01-ED36-4337-A319-5CA663F43EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C10DDD01-ED36-4337-A319-5CA663F43EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C10DDD01-ED36-4337-A319-5CA663F43EE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -335,6 +347,8 @@ Global
 		{A4EBCADD-5E9A-4E8F-B27C-9CBCB4FD7A97} = {84DD8DE9-AD87-4F3A-AD21-38202C5C5141}
 		{1203ECAD-8D92-44ED-B38E-A480EDF17E41} = {3FCDD1EA-58F2-4F05-BF97-5CA3876BEB02}
 		{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2} = {667C0E0B-0E86-4BEC-AA00-5688AFF85129}
+		{C10DDD01-ED36-4337-A319-5CA663F43EE9} = {0F06F26D-ABA3-48CB-87A9-66A63D20CE10}
+		{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9} = {0F06F26D-ABA3-48CB-87A9-66A63D20CE10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E212556-4D7B-4A49-A150-1E2293727B26}

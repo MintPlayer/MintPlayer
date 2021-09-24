@@ -31,11 +31,11 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2.Mappers
 					switch (m.Provider)
 					{
 						case "spotify":
-							return new Medium { Type = MintPlayer.Fetcher.Abstractions.Enums.eMediumType.Spotify, Value = m.Url };
+							return new Medium { Type = MintPlayer.Fetcher.Abstractions.Enums.EMediumType.Spotify, Value = m.Url };
 						case "soundcloud":
-							return new Medium { Type = MintPlayer.Fetcher.Abstractions.Enums.eMediumType.SoundCloud, Value = m.Url };
+							return new Medium { Type = MintPlayer.Fetcher.Abstractions.Enums.EMediumType.SoundCloud, Value = m.Url };
 						case "youtube":
-							return new Medium { Type = MintPlayer.Fetcher.Abstractions.Enums.eMediumType.YouTube, Value = m.Url };
+							return new Medium { Type = MintPlayer.Fetcher.Abstractions.Enums.EMediumType.YouTube, Value = m.Url };
 						default:
 							return null;
 					}

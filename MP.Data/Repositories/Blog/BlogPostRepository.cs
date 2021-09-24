@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MintPlayer.Data.Dtos.Blog;
+using MintPlayer.Data.Abstractions.Dtos.Blog;
 using MintPlayer.Data.Entities;
 using MintPlayer.Data.Mappers;
 using System;

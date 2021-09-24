@@ -177,11 +177,11 @@ namespace MintPlayer.Data.Repositories
             await mintplayer_context.SaveChangesAsync();
 
             var new_artist = artistMapper.Entity2Dto(entity_artist, false, false);
-            var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
-            {
+            var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Abstractions.Dtos.Jobs.ElasticSearchIndexJob
+			{
                 Subject = new_artist,
                 SubjectStatus = MintPlayer.Dtos.Enums.eSubjectAction.Added,
-                JobStatus = Enums.eJobStatus.Queued
+                JobStatus = Abstractions.Enums.EJobStatus.Queued
             });
 
             return new_artist;
@@ -234,11 +234,11 @@ namespace MintPlayer.Data.Repositories
             artist_entity.DateUpdate = DateTime.Now;
 
             var updated_artist = artistMapper.Entity2Dto(artist_entity, false, false);
-            var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Data.Dtos.Jobs.ElasticSearchIndexJob
+            var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Abstractions.Dtos.Jobs.ElasticSearchIndexJob
             {
                 Subject = updated_artist,
                 SubjectStatus = MintPlayer.Dtos.Enums.eSubjectAction.Added,
-                JobStatus = Data.Enums.eJobStatus.Queued
+                JobStatus = Abstractions.Enums.EJobStatus.Queued
             });
 
             return updated_artist;
@@ -260,11 +260,11 @@ namespace MintPlayer.Data.Repositories
             artist.DateDelete = DateTime.Now;
 
             var deleted_artist = artistMapper.Entity2Dto(artist, false, false);
-            var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Dtos.Jobs.ElasticSearchIndexJob
+            var job = await elasticSearchJobRepository.InsertElasticSearchIndexJob(new Abstractions.Dtos.Jobs.ElasticSearchIndexJob
             {
                 Subject = deleted_artist,
                 SubjectStatus = MintPlayer.Dtos.Enums.eSubjectAction.Deleted,
-                JobStatus = Data.Enums.eJobStatus.Queued
+                JobStatus = Abstractions.Enums.EJobStatus.Queued
             });
         }
 

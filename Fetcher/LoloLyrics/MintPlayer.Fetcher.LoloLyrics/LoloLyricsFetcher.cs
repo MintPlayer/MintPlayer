@@ -67,7 +67,7 @@ namespace MintPlayer.Fetcher.LoloLyrics
             {
                 media.Add(new Medium
                 {
-                    Type = MintPlayer.Fetcher.Abstractions.Enums.eMediumType.YouTube,
+                    Type = MintPlayer.Fetcher.Abstractions.Enums.EMediumType.YouTube,
                     Value = $"https://www.youtube.com/watch?v={youtube}"
                 });
             }

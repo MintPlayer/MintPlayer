@@ -13,7 +13,7 @@ namespace MintPlayer.Fetcher.Abstractions.Dtos
         public List<Song> Songs { get; set; }
         public List<Album> Albums { get; set; }
 
-        public override IEnumerable<string> RelatedUrls
+        public override string[] RelatedUrls
         {
             get
             {
@@ -22,7 +22,7 @@ namespace MintPlayer.Fetcher.Abstractions.Dtos
                     result.AddRange(Songs.Select(s => s.Url));
                 if (Albums != null)
                     result.AddRange(Albums.Select(t => t.Url));
-                return result;
+                return result.ToArray();
             }
         }
     }

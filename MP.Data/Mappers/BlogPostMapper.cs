@@ -5,8 +5,8 @@ namespace MintPlayer.Data.Mappers
 {
     internal interface IBlogPostMapper
     {
-        Dtos.Blog.BlogPost Entity2Dto(Entities.Blog.BlogPost blogPost);
-        Entities.Blog.BlogPost Dto2Entity(Dtos.Blog.BlogPost blogPost, MintPlayerContext mintPlayerContext);
+		Abstractions.Dtos.Blog.BlogPost Entity2Dto(Entities.Blog.BlogPost blogPost);
+        Entities.Blog.BlogPost Dto2Entity(Abstractions.Dtos.Blog.BlogPost blogPost, MintPlayerContext mintPlayerContext);
     }
 
     internal class BlogPostMapper : IBlogPostMapper
@@ -17,7 +17,7 @@ namespace MintPlayer.Data.Mappers
             this.serviceProvider = serviceProvider;
         }
 
-        public Dtos.Blog.BlogPost Entity2Dto(Entities.Blog.BlogPost blogPost)
+        public Abstractions.Dtos.Blog.BlogPost Entity2Dto(Entities.Blog.BlogPost blogPost)
         {
             if (blogPost == null)
             {
@@ -26,8 +26,8 @@ namespace MintPlayer.Data.Mappers
 
             var userMapper = serviceProvider.GetRequiredService<IUserMapper>();
 
-            var result = new Dtos.Blog.BlogPost
-            {
+            var result = new Abstractions.Dtos.Blog.BlogPost
+			{
                 Id = blogPost.Id,
                 Title = blogPost.Title,
                 Headline = blogPost.Headline,
@@ -42,7 +42,7 @@ namespace MintPlayer.Data.Mappers
 
             return result;
         }
-        public Entities.Blog.BlogPost Dto2Entity(Dtos.Blog.BlogPost blogPost, MintPlayerContext mintPlayerContext)
+        public Entities.Blog.BlogPost Dto2Entity(Abstractions.Dtos.Blog.BlogPost blogPost, MintPlayerContext mintPlayerContext)
         {
             if (blogPost == null)
             {

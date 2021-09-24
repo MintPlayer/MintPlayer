@@ -13,13 +13,14 @@ using MintPlayer.Data.Helpers;
 using MintPlayer.Data.Enums;
 using MintPlayer.Data.Exceptions;
 using MintPlayer.Data.Mappers;
+using MintPlayer.Data.Abstractions.Enums;
 
 namespace MintPlayer.Data.Repositories
 {
     internal interface IPlaylistRepository
     {
-        Task<Pagination.PaginationResponse<Playlist>> PagePlaylists(Pagination.PaginationRequest<Playlist> request, ePlaylistScope playlistScope);
-        Task<IEnumerable<Playlist>> GetPlaylists(ePlaylistScope playlistScope, bool include_relations = false);
+        Task<Pagination.PaginationResponse<Playlist>> PagePlaylists(Pagination.PaginationRequest<Playlist> request, EPlaylistScope playlistScope);
+        Task<IEnumerable<Playlist>> GetPlaylists(EPlaylistScope playlistScope, bool include_relations = false);
         Task<Playlist> GetPlaylist(int id, bool include_relations = false);
         Task<Playlist> InsertPlaylist(Playlist playlist);
         Task<Playlist> UpdatePlaylist(Playlist playlist);
@@ -48,18 +49,18 @@ namespace MintPlayer.Data.Repositories
             this.playlistMapper = playlistMapper;
         }
 
-        public async Task<Pagination.PaginationResponse<Playlist>> PagePlaylists(Pagination.PaginationRequest<Playlist> request, ePlaylistScope playlistScope)
+        public async Task<Pagination.PaginationResponse<Playlist>> PagePlaylists(Pagination.PaginationRequest<Playlist> request, EPlaylistScope playlistScope)
         {
             var user = await user_manager.GetUserAsync(http_context.HttpContext.User);
 
             IQueryable<Entities.Playlist> playlists;
             switch (playlistScope)
             {
-                case ePlaylistScope.My:
+                case EPlaylistScope.My:
                     playlists = mintplayer_context.Playlists
                         .Where(p => p.User == user);
                     break;
-                case ePlaylistScope.Public:
+                case EPlaylistScope.Public:
                     playlists = mintplayer_context.Playlists
                         .Where(p => p.Accessibility == MintPlayer.Dtos.Enums.ePlaylistAccessibility.Public);
                     break;
@@ -85,7 +86,7 @@ namespace MintPlayer.Data.Repositories
             return new Pagination.PaginationResponse<Playlist>(request, count_playlists, dto_playlists);
         }
 
-        public async Task<IEnumerable<Playlist>> GetPlaylists(ePlaylistScope playlistScope, bool include_relations = false)
+        public async Task<IEnumerable<Playlist>> GetPlaylists(EPlaylistScope playlistScope, bool include_relations = false)
         {
             // Get current user
             var current_user = await user_manager.GetUserAsync(http_context.HttpContext.User);
@@ -108,11 +109,11 @@ namespace MintPlayer.Data.Repositories
             IQueryable<Entities.Playlist> scopedQuery;
             switch (playlistScope)
             {
-                case ePlaylistScope.My:
+                case EPlaylistScope.My:
                     scopedQuery = includeQuery
                         .Where(p => p.User == current_user);
                     break;
-                case ePlaylistScope.Public:
+                case EPlaylistScope.Public:
                     scopedQuery = includeQuery
                         .Where(p => p.Accessibility == MintPlayer.Dtos.Enums.ePlaylistAccessibility.Public);
                     break;

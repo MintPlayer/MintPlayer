@@ -24,6 +24,7 @@ using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SpaServices.Routing;
 using MintPlayer.AspNetCore.XsrfForSpas;
 using MintPlayer.Data.Extensions;
+using MintPlayer.Fetcher.Integration.Extensions;
 using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
 using MintPlayer.Web.Services;
@@ -55,7 +56,8 @@ namespace MintPlayer.Web
                 {
                     options.ConnectionString = Configuration.GetConnectionString("MintPlayer");
                 })
-                .AddElasticSearch(options =>
+				.AddFetcherIntegration()
+				.AddElasticSearch(options =>
                 {
                     options.Url = Configuration["ElasticSearch:Url"];
                     options.DefaultIndex = Configuration["ElasticSearch:Index"];
@@ -509,7 +511,7 @@ namespace MintPlayer.Web
                     case "person-show":
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
-                            var personService = context.RequestServices.GetRequiredService<Data.Services.IPersonService>();
+                            var personService = context.RequestServices.GetRequiredService<Data.Abstractions.Services.IPersonService>();
                             var person = await personService.GetPerson(id, false);
                             if (person == null)
                             {
@@ -529,7 +531,7 @@ namespace MintPlayer.Web
                     case "artist-show":
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
-                            var artistService = context.RequestServices.GetRequiredService<Data.Services.IArtistService>();
+                            var artistService = context.RequestServices.GetRequiredService<Data.Abstractions.Services.IArtistService>();
                             var artist = await artistService.GetArtist(id, false);
                             if (artist == null)
                             {
@@ -549,7 +551,7 @@ namespace MintPlayer.Web
                     case "song-show":
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
-                            var songService = context.RequestServices.GetRequiredService<Data.Services.ISongService>();
+                            var songService = context.RequestServices.GetRequiredService<Data.Abstractions.Services.ISongService>();
                             var song = await songService.GetSong(id, false);
                             if (song == null)
                             {
@@ -569,7 +571,7 @@ namespace MintPlayer.Web
                     case "playlist-show":
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
-                            var playlistService = context.RequestServices.GetRequiredService<Data.Services.IPlaylistService>();
+                            var playlistService = context.RequestServices.GetRequiredService<Data.Abstractions.Services.IPlaylistService>();
                             var playlist = await playlistService.GetPlaylist(id);
                             if (playlist == null)
                             {
@@ -590,7 +592,7 @@ namespace MintPlayer.Web
                     case "person-edit-name":
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
-                            var personService = context.RequestServices.GetRequiredService<Data.Services.IPersonService>();
+                            var personService = context.RequestServices.GetRequiredService<Data.Abstractions.Services.IPersonService>();
                             var person = await personService.GetPerson(id, false);
                             if (person == null)
                             {
@@ -615,7 +617,7 @@ namespace MintPlayer.Web
                     case "artist-edit-name":
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
-                            var artistService = context.RequestServices.GetRequiredService<Data.Services.IArtistService>();
+                            var artistService = context.RequestServices.GetRequiredService<Data.Abstractions.Services.IArtistService>();
                             var artist = await artistService.GetArtist(id, false);
                             if (artist == null)
                             {
@@ -640,7 +642,7 @@ namespace MintPlayer.Web
                     case "song-edit-title":
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
-                            var songService = context.RequestServices.GetRequiredService<Data.Services.ISongService>();
+                            var songService = context.RequestServices.GetRequiredService<Data.Abstractions.Services.ISongService>();
                             var song = await songService.GetSong(id, false);
                             if (song == null)
                             {
@@ -665,7 +667,7 @@ namespace MintPlayer.Web
                     case "playlist-edit-description":
                         {
                             var id = Convert.ToInt32(route.Parameters["id"]);
-                            var playlistService = context.RequestServices.GetRequiredService<Data.Services.IPlaylistService>();
+                            var playlistService = context.RequestServices.GetRequiredService<Data.Abstractions.Services.IPlaylistService>();
                             var playlist = await playlistService.GetPlaylist(id);
                             if (playlist == null)
                             {
@@ -725,15 +727,15 @@ namespace MintPlayer.Web
                         options.SupplyData = (context, data) =>
                         {
                             var route = spaRouteService.GetCurrentRoute(context);
-                            var personService = context.RequestServices.GetService<Data.Services.IPersonService>();
-                            var artistService = context.RequestServices.GetService<Data.Services.IArtistService>();
-                            var songService = context.RequestServices.GetService<Data.Services.ISongService>();
-                            var mediumTypeService = context.RequestServices.GetService<Data.Services.IMediumTypeService>();
+                            var personService = context.RequestServices.GetService<Data.Abstractions.Services.IPersonService>();
+                            var artistService = context.RequestServices.GetService<Data.Abstractions.Services.IArtistService>();
+                            var songService = context.RequestServices.GetService<Data.Abstractions.Services.ISongService>();
+                            var mediumTypeService = context.RequestServices.GetService<Data.Abstractions.Services.IMediumTypeService>();
                             var accountService = context.RequestServices.GetService<Data.Services.IAccountService>();
-                            var tagCategoryService = context.RequestServices.GetService<Data.Services.ITagCategoryService>();
-                            var tagService = context.RequestServices.GetService<Data.Services.ITagService>();
-                            var playlistService = context.RequestServices.GetService<Data.Services.IPlaylistService>();
-                            var blogPostService = context.RequestServices.GetService<Data.Services.IBlogPostService>();
+                            var tagCategoryService = context.RequestServices.GetService<Data.Abstractions.Services.ITagCategoryService>();
+                            var tagService = context.RequestServices.GetService<Data.Abstractions.Services.ITagService>();
+                            var playlistService = context.RequestServices.GetService<Data.Abstractions.Services.IPlaylistService>();
+                            var blogPostService = context.RequestServices.GetService<Data.Abstractions.Services.IBlogPostService>();
 
                             var user = accountService.GetCurrentUser(context.User).Result;
                             data["user"] = user;

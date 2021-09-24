@@ -6,17 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using MintPlayer.Data.Abstractions.Services;
 
 namespace MintPlayer.Data.Services
 {
-	public interface IMediumTypeService
-	{
-		Task<IEnumerable<MediumType>> GetMediumTypes(bool include_relations);
-		Task<MediumType> GetMediumType(int id, bool include_relations);
-		Task<MediumType> InsertMediumType(MediumType mediumType);
-		Task<MediumType> UpdateMediumType(MediumType mediumType);
-		Task DeleteMediumType(int medium_type_id);
-	}
 	internal class MediumTypeService : IMediumTypeService
 	{
 		private readonly IMediumTypeRepository mediumTypeRepository;

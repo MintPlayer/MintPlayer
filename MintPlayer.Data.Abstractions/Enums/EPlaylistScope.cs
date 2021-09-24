@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MintPlayer.Data.Enums
+namespace MintPlayer.Data.Abstractions.Enums
 {
-    public enum ePlaylistScope
+    public enum EPlaylistScope
     {
         My,
         Public

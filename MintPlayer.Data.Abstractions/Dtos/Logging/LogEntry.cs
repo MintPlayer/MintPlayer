@@ -1,4 +1,4 @@
-﻿namespace MintPlayer.Data.Dtos.Logging
+﻿namespace MintPlayer.Data.Abstractions.Dtos.Logging
 {
     public class LogEntry
     {

@@ -1,6 +1,6 @@
 ﻿namespace MintPlayer.Fetcher.Abstractions.Enums
 {
-    public enum eMediumType
+    public enum EMediumType
     {
         YouTube,
         Apple,

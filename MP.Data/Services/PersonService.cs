@@ -6,20 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using MintPlayer.Data.Abstractions.Services;
 
 namespace MintPlayer.Data.Services
 {
-	public interface IPersonService
-	{
-		Task<Pagination.PaginationResponse<Person>> PagePeople(Pagination.PaginationRequest<Person> request);
-		Task<IEnumerable<Person>> GetPeople(bool include_relations);
-		Task<Person> GetPerson(int id, bool include_relations);
-		Task<Pagination.PaginationResponse<Person>> PageLikedPeople(Pagination.PaginationRequest<Person> request);
-		Task<IEnumerable<Person>> GetLikedPeople();
-		Task<Person> InsertPerson(Person person);
-		Task<Person> UpdatePerson(Person person);
-		Task DeletePerson(int person_id);
-	}
 	internal class PersonService : IPersonService
 	{
 		private IPersonRepository personRepository;

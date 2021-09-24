@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
-using MintPlayer.Data.Repositories;
-using MintPlayer.Data.Services;
+using MintPlayer.Data.Abstractions.Services;
 
 namespace MintPlayer.Web.Server.Controllers.Web.V3
 {
-    [Controller]
+	[Controller]
     [Route("web/v3/[controller]")]
     public class SongController : Controller
     {

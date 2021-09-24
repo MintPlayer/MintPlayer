@@ -81,7 +81,7 @@ namespace MintPlayer.Fetcher.LyricsCom
             var youtube = ExtractSongYoutubeUrl(html);
             if (youtube != null)
 			{
-				result.Media.Add(new Medium { Type = MintPlayer.Fetcher.Abstractions.Enums.eMediumType.YouTube, Value = youtube });
+				result.Media.Add(new Medium { Type = MintPlayer.Fetcher.Abstractions.Enums.EMediumType.YouTube, Value = youtube });
 			}
 
 			return Task.FromResult<Subject>(result);

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MintPlayer.Data.Dtos.Jobs;
+using MintPlayer.Data.Abstractions.Dtos.Jobs;
 using MintPlayer.Data.Mappers;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,7 +56,7 @@ namespace MintPlayer.Data.Repositories.Jobs
         {
             var entity_job = await mintplayer_context.ElasticSearchIndexJobs
                 .Include(j => j.Subject)
-                .FirstOrDefaultAsync(j => j.Status == Enums.eJobStatus.Queued);
+                .FirstOrDefaultAsync(j => j.Status == Abstractions.Enums.EJobStatus.Queued);
             return elasticSearchIndexJobMapper.Entity2Dto(entity_job, false, false);
         }
 

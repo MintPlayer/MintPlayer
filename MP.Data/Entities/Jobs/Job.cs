@@ -1,4 +1,5 @@
-﻿using MintPlayer.Data.Enums;
+﻿using MintPlayer.Data.Abstractions.Enums;
+using MintPlayer.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,6 +11,6 @@ namespace MintPlayer.Data.Entities.Jobs
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public eJobStatus Status { get; set; }
+        public EJobStatus Status { get; set; }
     }
 }

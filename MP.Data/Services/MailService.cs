@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MintPlayer.Data.Abstractions.Services;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Data.Options;
 using System;
@@ -9,11 +10,6 @@ using System.Threading.Tasks;
 
 namespace MintPlayer.Data.Services
 {
-    public interface IMailService
-    {
-        Task<SmtpClient> CreateSmtpClient();
-    }
-
     internal class MailService : IMailService
     {
         private readonly IOptions<SmtpOptions> smtpOptions;

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using MintPlayer.Data.Abstractions.Services;
 using MintPlayer.Data.Helpers;
 using MintPlayer.Data.Mappers;
 using MintPlayer.Data.Options;
@@ -64,7 +65,6 @@ namespace MintPlayer.Data.Extensions
                 .AddScoped<ITagService, TagService>()
                 .AddScoped<IBlogPostService, BlogPostService>()
                 .AddScoped<ILogEntryService, LogEntryService>()
-				.AddScoped<IFetcherService, FetcherService>()
                 // Mappers
                 .AddScoped<IArtistMapper, ArtistMapper>()
                 .AddScoped<IMediumMapper, MediumMapper>()

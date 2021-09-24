@@ -27,13 +27,13 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Mappers
 			switch (medium.Provider)
 			{
 				case "youtube":
-					result.Type = MintPlayer.Fetcher.Abstractions.Enums.eMediumType.YouTube;
+					result.Type = MintPlayer.Fetcher.Abstractions.Enums.EMediumType.YouTube;
 					break;
 				case "soundcloud":
-					result.Type = MintPlayer.Fetcher.Abstractions.Enums.eMediumType.SoundCloud;
+					result.Type = MintPlayer.Fetcher.Abstractions.Enums.EMediumType.SoundCloud;
 					break;
 				case "spotify":
-					result.Type = MintPlayer.Fetcher.Abstractions.Enums.eMediumType.Spotify;
+					result.Type = MintPlayer.Fetcher.Abstractions.Enums.EMediumType.Spotify;
 					break;
 			}
 

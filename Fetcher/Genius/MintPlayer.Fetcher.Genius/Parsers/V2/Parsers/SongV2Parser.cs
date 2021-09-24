@@ -19,17 +19,12 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2.Parsers
 
 		public async Task<Song> Parse(string html, string preloadedState, bool trimTrash)
 		{
-			try
-			{
-				var songPreloadedState = JsonConvert.DeserializeObject<Common.SongPreloadedState>(preloadedState);
-				var song = await songV2Mapper.ToDto(songPreloadedState, trimTrash);
-				song.FeaturedArtists = ExtractFeaturedArtists(html).ToList();
-				return song;
-			}
-			catch (System.Exception ex)
-			{
-				throw;
-			}
+			var songPreloadedState = JsonConvert.DeserializeObject<Common.SongPreloadedState>(preloadedState);
+			var song = await songV2Mapper.ToDto(songPreloadedState, trimTrash);
+			try { song.FeaturedArtists = ExtractFeaturedArtists(html).ToList(); }
+			catch (Exceptions.NoFeaturingArtistsFoundException) { }
+
+			return song;
 		}
 
 		private IEnumerable<Artist> ExtractFeaturedArtists(string html)
@@ -38,7 +33,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V2.Parsers
 			var m = rgx.Match(html);
 			if (!m.Success)
 			{
-				throw new System.Exception("Could not find a Featuring tag");
+				throw new Exceptions.NoFeaturingArtistsFoundException("Could not find a Featuring tag");
 			}
 
 			var rgxArtists = new Regex(@"\<a href\=\""(?<url>.*?)\"" .*?\>(?<name>.*?)\<\/a\>");

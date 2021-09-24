@@ -14,17 +14,19 @@ using System.Threading.Tasks;
 namespace MintPlayer.Data.Repositories
 {
 	internal interface ISubjectRepository
-    {
-        Task<Tuple<int, int>> GetLikes(int subjectId);
-        Task<bool?> DoesLike(int subjectId);
-        Task Like(int subjectId, bool like);
+	{
+		Task<IDictionary<string, Subject[]>> GetByMedium(params string[] mediumValues);
+
+		Task<Tuple<int, int>> GetLikes(int subjectId);
+		Task<bool?> DoesLike(int subjectId);
+		Task Like(int subjectId, bool like);
 		Task<IEnumerable<Subject>> GetLikedSubjects();
 
 		Task<IEnumerable<Subject>> Suggest(string[] subjects, string search_term, bool include_relations, bool include_invisible_media);
 		Task<IEnumerable<Subject>> Search(string[] subjects, string search_term, bool exact, bool include_relations, bool include_invisible_media);
 
 		Task SaveChangesAsync();
-    }
+	}
 	internal class SubjectRepository : ISubjectRepository
 	{
 		private readonly IHttpContextAccessor http_context;
@@ -32,9 +34,9 @@ namespace MintPlayer.Data.Repositories
 		private readonly UserManager<Entities.User> user_manager;
 		private readonly IElasticClient elastic_client;
 		private readonly IConfiguration configuration;
-        private readonly ISubjectMapper subjectMapper;
+		private readonly ISubjectMapper subjectMapper;
 
-        public SubjectRepository(
+		public SubjectRepository(
 			IHttpContextAccessor http_context,
 			MintPlayerContext mintplayer_context,
 			UserManager<Entities.User> user_manager,
@@ -47,8 +49,32 @@ namespace MintPlayer.Data.Repositories
 			this.user_manager = user_manager;
 			this.elastic_client = elastic_client;
 			this.configuration = configuration;
-            this.subjectMapper = subjectMapper;
-        }
+			this.subjectMapper = subjectMapper;
+		}
+
+		public Task<IDictionary<string, Subject[]>> GetByMedium(params string[] mediumValues)
+		{
+			var media = mintplayer_context.Media
+				.Where(m => mediumValues.Contains(m.Value))
+				.Select(m => new
+				{
+					MediumValue = m.Value,
+					Subject = subjectMapper.Entity2Dto(m.Subject, false, false),
+				})
+				.ToArray();
+
+			//var result = mediumValues.Select(m => media.Where(ms => ms.MediumValue == m));
+			var result = mediumValues.ToDictionary(
+				m => m,
+				m => media.Where(ms => ms.MediumValue == m).Select(m => m.Subject).ToArray()
+			);
+
+			return Task.FromResult<IDictionary<string, Subject[]>>(result);
+		}
+
+
+
+
 
 		public async Task<Tuple<int, int>> GetLikes(int subjectId)
 		{
@@ -354,7 +380,7 @@ namespace MintPlayer.Data.Repositories
 				}
 				#endregion
 			}
-			
+
 			var result = person_results.Union(artist_results).Union(song_results);
 			return result;
 		}

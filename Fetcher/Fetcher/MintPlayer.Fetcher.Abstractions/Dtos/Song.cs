@@ -15,7 +15,7 @@ namespace MintPlayer.Fetcher.Abstractions.Dtos
         public string Lyrics { get; set; }
         public List<Medium> Media { get; set; }
 
-        public override IEnumerable<string> RelatedUrls
+        public override string[] RelatedUrls
         {
             get
             {
@@ -24,7 +24,7 @@ namespace MintPlayer.Fetcher.Abstractions.Dtos
                     result.Add(PrimaryArtist.Url);
                 if (FeaturedArtists != null)
                     result.AddRange(FeaturedArtists.Select(t => t.Url));
-                return result;
+                return result.ToArray();
             }
         }
     }

@@ -6,19 +6,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using MintPlayer.Data.Enums;
+using MintPlayer.Data.Abstractions.Services;
+using MintPlayer.Data.Abstractions.Enums;
 
 namespace MintPlayer.Data.Services
 {
-    public interface IPlaylistService
-    {
-        Task<Pagination.PaginationResponse<Playlist>> PagePlaylists(Pagination.PaginationRequest<Playlist> request, ePlaylistScope playlistScope);
-        Task<IEnumerable<Playlist>> GetPlaylists(ePlaylistScope playlistScope, bool include_relations = false);
-        Task<Playlist> GetPlaylist(int id, bool include_relations = false);
-        Task<Playlist> InsertPlaylist(Playlist playlist);
-        Task<Playlist> UpdatePlaylist(Playlist playlist);
-        Task DeletePlaylist(int playlistId);
-        Task SaveChangesAsync();
-    }
     internal class PlaylistService : IPlaylistService
     {
         private readonly IPlaylistRepository playlistRepository;
@@ -27,13 +19,13 @@ namespace MintPlayer.Data.Services
             this.playlistRepository = playlistRepository;
         }
 
-        public async Task<PaginationResponse<Playlist>> PagePlaylists(PaginationRequest<Playlist> request, ePlaylistScope playlistScope)
+        public async Task<PaginationResponse<Playlist>> PagePlaylists(PaginationRequest<Playlist> request, EPlaylistScope playlistScope)
         {
             var playlists = await playlistRepository.PagePlaylists(request, playlistScope);
             return playlists;
         }
 
-        public async Task<IEnumerable<Playlist>> GetPlaylists(ePlaylistScope playlistScope, bool include_relations = false)
+        public async Task<IEnumerable<Playlist>> GetPlaylists(EPlaylistScope playlistScope, bool include_relations = false)
         {
             var playlists = await playlistRepository.GetPlaylists(playlistScope, include_relations);
             return playlists;
