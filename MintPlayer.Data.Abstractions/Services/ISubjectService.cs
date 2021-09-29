@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MintPlayer.Dtos.Dtos;
+using MintPlayer.Fetcher.Abstractions;
 
 namespace MintPlayer.Data.Abstractions.Services
 {
 	public interface ISubjectService
 	{
-		Task<IDictionary<string, Subject[]>> GetByMedium(IEnumerable<string> mediumValues);
+		Task<IDictionary<SubjectLookup, Subject[]>> LookupSubject(IEnumerable<SubjectLookup> mediumValues);
 		
 		Task<SubjectLikeResult> GetLikes(int subjectId);
 		Task<bool?> DoesLike(int subjectId);

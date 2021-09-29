@@ -15,7 +15,7 @@ namespace MintPlayer.Data.Repositories
 {
 	internal interface ISubjectRepository
 	{
-		Task<IDictionary<string, Subject[]>> GetByMedium(IEnumerable<string> mediumValues);
+		Task<IDictionary<Fetcher.Abstractions.SubjectLookup, Subject[]>> LookupSubject(IEnumerable<Fetcher.Abstractions.SubjectLookup> mediumValues);
 
 		Task<Tuple<int, int>> GetLikes(int subjectId);
 		Task<bool?> DoesLike(int subjectId);
@@ -52,23 +52,63 @@ namespace MintPlayer.Data.Repositories
 			this.subjectMapper = subjectMapper;
 		}
 
-		public Task<IDictionary<string, Subject[]>> GetByMedium(IEnumerable<string> mediumValues)
+		public Task<IDictionary<Fetcher.Abstractions.SubjectLookup, Subject[]>> LookupSubject(IEnumerable<Fetcher.Abstractions.SubjectLookup> mediumValues)
 		{
-			var media = mintplayer_context.Media
-				.Where(m => mediumValues.Contains(m.Value))
-				.Select(m => new
+			var result = mediumValues.Select<Fetcher.Abstractions.SubjectLookup, KeyValuePair<Fetcher.Abstractions.SubjectLookup, IQueryable<Entities.Subject>>>(mv =>
+			{
+				if (mv.Url == null)
 				{
-					MediumValue = m.Value,
-					Subject = subjectMapper.Entity2Dto(m.Subject, false, false),
-				});
+					var res = mv.SubjectTypes.Select<string, KeyValuePair<Fetcher.Abstractions.SubjectLookup, IQueryable<Entities.Subject>>>(st =>
+					{
+						switch (st)
+						{
+							case "artist":
+								return new KeyValuePair<Fetcher.Abstractions.SubjectLookup, IQueryable<Entities.Subject>>(
+									mv,
+									mintplayer_context.Artists.Where(a => a.Name == mv.Keyword)
+								);
+							case "song":
+								return new KeyValuePair<Fetcher.Abstractions.SubjectLookup, IQueryable<Entities.Subject>>(
+									mv,
+									mintplayer_context.Songs.Where(s => s.Title == mv.Keyword)
+								);
+							default:
+								return new KeyValuePair<Fetcher.Abstractions.SubjectLookup, IQueryable<Entities.Subject>>(
+									mv,
+									new Entities.Subject[0].AsQueryable()
+								);
+						}
+					});
+					//res.SelectMany(st => new KeyValuePair<Fetcher.Abstractions.SubjectLookup, IQueryable<Entities.Subject>>(st.Key, )
+					return res.SelectMany<KeyValuePair<Fetcher.Abstractions.SubjectLookup, Entities.Subject>, IQueryable<Entities.Subject>>(st => st.Value);
+				}
+				else
+				{
+					return new KeyValuePair<Fetcher.Abstractions.SubjectLookup, IQueryable<Entities.Subject>>(
+						mv,
+						mintplayer_context.Subjects
+							.Where(s => s.Media.Any(m => (m.Value == mv.Url) && !m.Type.Visible))
+					);
+				}
+			}).SelectMany(s => s);
 
-			//var result = mediumValues.Select(m => media.Where(ms => ms.MediumValue == m));
-			var result = mediumValues.ToDictionary(
-				m => m,
-				m => media.Where(ms => ms.MediumValue == m).Select(m => m.Subject).ToArray()
-			);
+			throw new NotImplementedException();
 
-			return Task.FromResult<IDictionary<string, Subject[]>>(result);
+			//var media = mintplayer_context.Media
+			//	.Where(m => mediumValues.Contains(m.Value))
+			//	.Select(m => new
+			//	{
+			//		MediumValue = m.Value,
+			//		Subject = subjectMapper.Entity2Dto(m.Subject, false, false),
+			//	});
+
+			////var result = mediumValues.Select(m => media.Where(ms => ms.MediumValue == m));
+			//var result = mediumValues.ToDictionary(
+			//	m => m,
+			//	m => media.Where(ms => ms.MediumValue == m).Select(m => m.Subject).ToArray()
+			//);
+
+			//return Task.FromResult<IDictionary<Fetcher.Abstractions.SubjectLookup, Subject[]>>(result);
 		}
 
 

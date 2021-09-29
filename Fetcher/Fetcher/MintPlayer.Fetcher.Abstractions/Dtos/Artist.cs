@@ -13,15 +13,15 @@ namespace MintPlayer.Fetcher.Abstractions.Dtos
         public List<Song> Songs { get; set; }
         public List<Album> Albums { get; set; }
 
-        public override string[] RelatedUrls
+        public override SubjectLookup[] RelatedUrls
         {
             get
             {
-                var result = new List<string>();
+                var result = new List<SubjectLookup>();
                 if (Songs != null)
-                    result.AddRange(Songs.Select(s => s.Url));
+                    result.AddRange(Songs.Select(t => new SubjectLookup { Url = t.Url, Keyword = t.Title, SubjectTypes = new string[] { "song" } }));
                 if (Albums != null)
-                    result.AddRange(Albums.Select(t => t.Url));
+                    result.AddRange(Albums.Select(t => new SubjectLookup { Url = t.Url, Keyword = t.Name, SubjectTypes = new string[] { "album" } }));
                 return result.ToArray();
             }
         }

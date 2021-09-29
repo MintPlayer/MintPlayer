@@ -23,9 +23,9 @@ namespace MintPlayer.Data.Services
 			this.httpContextAccessor = httpContextAccessor;
 		}
 
-		public async Task<IDictionary<string, Subject[]>> GetByMedium(IEnumerable<string> mediumValues)
+		public async Task<IDictionary<Fetcher.Abstractions.SubjectLookup, Subject[]>> LookupSubject(IEnumerable<Fetcher.Abstractions.SubjectLookup> mediumValues)
 		{
-			var subjects = await subjectRepository.GetByMedium(mediumValues);
+			var subjects = await subjectRepository.LookupSubject(mediumValues);
 			return subjects;
 		}
 

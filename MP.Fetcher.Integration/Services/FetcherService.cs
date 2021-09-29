@@ -25,8 +25,8 @@ namespace MintPlayer.Fetcher.Integration.Services
 		public async Task<Dtos.FetchResult> Fetch(string url, bool trimTrash)
 		{
 			var fetchedSubject = await fetcherContainer.Fetch(url, trimTrash);
-			var allUrls = fetchedSubject.RelatedUrls.Union(new[] { url });
-			var related = await subjectService.GetByMedium(allUrls);
+			var allUrls = fetchedSubject.RelatedUrls.Union(new[] { new SubjectLookup { Url = url } });
+			var related = await subjectService.LookupSubject(allUrls);
 
 			switch (fetchedSubject)
 			{
@@ -59,7 +59,10 @@ namespace MintPlayer.Fetcher.Integration.Services
 								}
 							}).ToList(),
 						},
-						Candidates = related[url].Select(s => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject> { Subject = s, Certainty = Enums.ECertainty.Certain })
+						Candidates = related
+							.FirstOrDefault(r => r.Key.Url == url)
+							.Value
+							.Select(s => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject> { Subject = s, Certainty = Enums.ECertainty.Certain })
 					};
 				case Fetcher.Abstractions.Dtos.Album fetchedAlbum:
 					throw new NotImplementedException();
@@ -67,7 +70,12 @@ namespace MintPlayer.Fetcher.Integration.Services
 					var allArtists = new List<Abstractions.Dtos.Artist>() { fetchedSong.PrimaryArtist };
 					if (fetchedSong.FeaturedArtists != null) allArtists.AddRange(fetchedSong.FeaturedArtists);
 
-					var mediaLookup = await subjectService.GetByMedium(allArtists.Select(a => a.Url));
+					var mediaLookup = await subjectService.LookupSubject(allArtists.Select(a => new SubjectLookup
+					{
+						Url = a.Url,
+						Keyword = a.Name,
+						SubjectTypes = new[] { "artist" },
+					}));
 					return new Dtos.FetchResult<Dtos.FetchedSong>
 					{
 						FetchedSubject = new Dtos.FetchedSong
@@ -86,7 +94,9 @@ namespace MintPlayer.Fetcher.Integration.Services
 										Name = a.Name,
 										ImageUrl = a.ImageUrl,
 									},
-									Candidates = mediaLookup[a.Url]
+									Candidates = mediaLookup
+										.FirstOrDefault(r => r.Key.Url == url)
+										.Value
 										.Select(a => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject>
 										{
 											Subject = a,
@@ -95,7 +105,10 @@ namespace MintPlayer.Fetcher.Integration.Services
 								};
 							}).ToList()
 						},
-						Candidates = related[url].Select(s => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject> { Subject = s, Certainty = Enums.ECertainty.Certain })
+						Candidates = related
+							.FirstOrDefault(r => r.Key.Url == url)
+							.Value
+							.Select(s => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject> { Subject = s, Certainty = Enums.ECertainty.Certain })
 					};
 				default:
 					throw new NotImplementedException();

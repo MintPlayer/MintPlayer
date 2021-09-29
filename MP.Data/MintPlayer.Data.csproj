@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fetcher\Fetcher\MintPlayer.Fetcher.Abstractions\MintPlayer.Fetcher.Abstractions.csproj" />
     <ProjectReference Include="..\MintPlayer.Data.Abstractions\MintPlayer.Data.Abstractions.csproj" />
     <ProjectReference Include="..\MintPlayer.Dtos\MintPlayer.Dtos.csproj" />
   </ItemGroup>
