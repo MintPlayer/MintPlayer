@@ -23,11 +23,10 @@ namespace MintPlayer.Data.Extensions
             var opt = new MintPlayerOptions();
             options(opt);
 
-            services
-                .AddDbContext<MintPlayerContext>(options =>
-                {
-                    options.UseSqlServer(opt.ConnectionString);
-                });
+            services.AddDbContext<MintPlayerContext>(options =>
+            {
+                options.UseSqlServer(opt.ConnectionString);
+            });
 
             services.AddIdentity<Entities.User, Entities.Role>(options =>
             {
