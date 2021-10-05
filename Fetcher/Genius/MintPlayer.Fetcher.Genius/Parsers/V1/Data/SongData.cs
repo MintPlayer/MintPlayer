@@ -16,7 +16,7 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Data
 		public string Title { get; set; }
 
 		[JsonProperty("release_date")]
-		public DateTime ReleaseDate { get; set; }
+		public DateTime? ReleaseDate { get; set; }
 
 		[JsonProperty("primary_artist")]
 		public ArtistData PrimaryArtist { get; set; }

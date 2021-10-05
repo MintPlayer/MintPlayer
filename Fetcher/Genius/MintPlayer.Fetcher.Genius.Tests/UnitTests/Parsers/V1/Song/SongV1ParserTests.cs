@@ -32,7 +32,7 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V1.Song
 		}
 
 		[TestMethod]
-		public async Task Parse()
+		public async Task IFeelItComing()
 		{
 			var songV1Parser = services.GetService<ISongV1Parser>();
 
@@ -51,6 +51,29 @@ namespace MintPlayer.Fetcher.Genius.Tests.UnitTests.Parsers.V1.Song
 				Assert.IsNotNull(song.PrimaryArtist);
 				Assert.IsNotNull(song.FeaturedArtists);
 				Assert.AreEqual(1, song.FeaturedArtists.Count);
+			}
+		}
+		
+		[TestMethod]
+		public async Task Mia()
+		{
+			var songV1Parser = services.GetService<ISongV1Parser>();
+
+			var pageDataReader = services.GetService<Abstractions.Parsers.V1.Services.IPageDataReader>();
+
+			using (var fs = new FileStream("Templates/V1/Song/mia.html", FileMode.Open, FileAccess.Read))
+			using (var reader = new StreamReader(fs))
+			{
+				var html = await reader.ReadToEndAsync();
+				var pageData = await pageDataReader.ReadPageData(html);
+				var song = await songV1Parser.Parse(html, pageData, true);
+
+				Assert.AreEqual("Mia", song.Title);
+				Assert.AreEqual(null, song.ReleaseDate);
+				Assert.IsNotNull(song.Lyrics);
+				Assert.IsNotNull(song.PrimaryArtist);
+				Assert.IsNotNull(song.FeaturedArtists);
+				Assert.AreEqual(0, song.FeaturedArtists.Count);
 			}
 		}
 
