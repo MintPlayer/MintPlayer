@@ -66,6 +66,12 @@ namespace MintPlayer.Fetcher.Genius.Parsers.V1.Mappers
 				result.Lyrics = await lyricsParser.ParseLyrics(lyrics.Body.Html, trimTrash);
 			}
 
+			if (song.Media != null)
+			{
+				var media = await Task.WhenAll(song.Media.Select(m => mediumMapper.ToDto(m)));
+				result.Media = media.ToList();
+			}
+
 			return result;
 		}
 	}

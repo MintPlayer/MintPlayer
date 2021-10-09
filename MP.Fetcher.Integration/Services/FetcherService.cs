@@ -76,6 +76,7 @@ namespace MintPlayer.Fetcher.Integration.Services
 							Title = fetchedSong.Title,
 							Lyrics = fetchedSong.Lyrics,
 							Released = fetchedSong.ReleaseDate,
+							//Media = ,
 							Artists = allArtists.Select(a =>
 							{
 								return new Dtos.FetchResult<Dtos.FetchedArtist>
