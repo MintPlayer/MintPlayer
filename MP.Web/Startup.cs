@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -19,6 +20,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SpaServices.Routing;
@@ -352,18 +354,27 @@ namespace MintPlayer.Web
                     options.OnPrepareResponse = (context) =>
                     {
                         if (context.File.Name == "index.html")
-                        {
-                            context.Context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue
-                            {
-                                // Cache-Control:private,no-store,max-age=0,no-cache,must-revalidate
-                                Private = true,
-                                NoStore = true,
-                                MaxAge = TimeSpan.Zero,
-                                NoCache = true,
-                                MustRevalidate = true
-                            };
-                        }
-                    };
+						{
+							context.Context.Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue
+							{
+								// Cache-Control:private,no-store,max-age=0,no-cache,must-revalidate
+								Private = true,
+								NoStore = true,
+								MaxAge = TimeSpan.Zero,
+								NoCache = true,
+								MustRevalidate = true
+							};
+
+							//const int duration = 60 * 60 * 24;
+							//var expires = DateTime.UtcNow.AddSeconds(duration).ToString("ddd, dd MMM yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+
+							////context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
+							//context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
+
+							//context.Context.Response.Headers.Add("Strict-Transport-Security", $"max-age={TimeSpan.FromDays(730).TotalMilliseconds}; preload; includeSubDomains");
+
+						}
+					};
                 })
                 .Configure<OpenSearchOptions>(options =>
                 {
@@ -474,32 +485,34 @@ namespace MintPlayer.Web
             });
 
             //app.UseResponseCaching();
-            app.Use(async (context, next) =>
-            {
-                context.Response.OnStarting(() =>
-                {
-                    if (!context.Response.Headers.ContainsKey("cache-control"))
-                        context.Response.Headers.Add("cache-control", "no-cache, no-store, must-revalidate");
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.OnStarting(() =>
+            //    {
+            //        if (!context.Response.Headers.ContainsKey("cache-control"))
+            //            context.Response.Headers.Add("cache-control", "no-cache, no-store, must-revalidate");
 
-                    return Task.CompletedTask;
-                });
-                await next();
-            });
+            //        return Task.CompletedTask;
+            //    });
+            //    await next();
+            //});
 
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles(new StaticFileOptions
-                {
-                    //OnPrepareResponse = (context) =>
-                    //{
-                    //    const int duration = 7 * 60 * 60 * 24;
-                    //    var expires = DateTime.UtcNow.AddSeconds(duration).ToString("ddd, dd MMM yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+				{
+					//OnPrepareResponse = (context) =>
+					//{
+					//	const int duration = 7 * 60 * 60 * 24;
+					//	var expires = DateTime.UtcNow.AddSeconds(duration).ToString("ddd, dd MMM yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
 
-                    //    context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
-                    //    context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
-                    //}
-                });
+					//	context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
+					//	context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
+
+					//	context.Context.Response.Headers.Add("Strict-Transport-Security", $"max-age={hstsOptions.Value.MaxAge.TotalMilliseconds}; preload; includeSubDomains");
+					//}
+				});
             }
 
             // Redirect subject urls
@@ -700,20 +713,22 @@ namespace MintPlayer.Web
                 {
                     spa.Options.SourcePath = "ClientApp";
 
-                    //spa.Options.DefaultPageStaticFileOptions = new StaticFileOptions
-                    //{
-                    //    OnPrepareResponse = (context) =>
-                    //    {
-                    //        const int duration = 60 * 60 * 24;
-                    //        var expires = DateTime.UtcNow.AddSeconds(duration).ToString("ddd, dd MMM yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+					//spa.Options.DefaultPageStaticFileOptions = new StaticFileOptions
+					//{
+					//	OnPrepareResponse = (context) =>
+					//	{
+					//		const int duration = 60 * 60 * 24;
+					//		var expires = DateTime.UtcNow.AddSeconds(duration).ToString("ddd, dd MMM yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
 
-                    //        context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
-                    //        context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
-                    //    }
-                    //};
+					//		context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
+					//		context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
+
+					//		context.Context.Response.Headers.Add("Strict-Transport-Security", $"max-age=63072000; preload; includeSubDomains");
+					//	}
+					//};
 
 #pragma warning disable CS0618 // Type or member is obsolete
-                    spa.UseSpaPrerenderingService(options =>
+					spa.UseSpaPrerenderingService(options =>
                     {
 #if RebuildSPA
                         options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
