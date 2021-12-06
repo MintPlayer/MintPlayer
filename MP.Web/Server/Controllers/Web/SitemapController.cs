@@ -75,103 +75,124 @@ namespace MintPlayer.Web.Server.Controllers.Web
                     return NotFound();
             }
 
-            return Ok(new UrlSet(subjects.Select(s =>
-            {
-                switch (subject)
-                {
-                    case "person":
-                        {
-                            return new Url
-                            {
-                                Loc = spaRouteService.GenerateUrl($"person-show-name", new { id = s.Id, name = s.Text.Slugify() }, HttpContext),
-                                ChangeFreq = AspNetCore.SitemapXml.Enums.ChangeFreq.Monthly,
-                                LastMod = s.DateUpdate,
-                                Links = languages.Select(lang =>
-                                    new Link
-                                    {
-                                        Rel = "alternate",
-                                        HrefLang = lang,
-                                        Href = spaRouteService.GenerateUrl($"person-show-name", new { id = s.Id, name = s.Text.Slugify(), lang }, HttpContext)
-                                    }).ToList()
-                            };
-                        }
-                    case "artist":
-                        {
-                            return new Url
-                            {
-                                Loc = spaRouteService.GenerateUrl($"artist-show-name", new { id = s.Id, name = s.Text.Slugify() }, HttpContext),
-                                ChangeFreq = AspNetCore.SitemapXml.Enums.ChangeFreq.Monthly,
-                                LastMod = s.DateUpdate,
-                                Links = languages.Select(lang =>
-                                    new Link
-                                    {
-                                        Rel = "alternate",
-                                        HrefLang = lang,
-                                        Href = spaRouteService.GenerateUrl($"artist-show-name", new { id = s.Id, name = s.Text.Slugify(), lang }, HttpContext)
-                                    }).ToList()
-                            };
-                        }
-                    case "song":
-                        {
-                            Func<Song, List<Video>> parseSongVideos = (song) => {
-                                if (string.IsNullOrEmpty(song.YoutubeId))
-                                {
-                                    return new List<Video>();
-                                }
-                                else
-                                {
-                                    return new List<Video>
-                                    {
-                                        new Video
-                                        {
-                                            Title = song.Title,
-                                            Description = song.Description,
-                                            ContentLocation = $"https://www.youtube.com/watch?v={song.YoutubeId}",
-                                            PlayerLocation = $"https://www.youtube.com/embed/{song.YoutubeId}",
-                                            ThumbnailLocation = $"http://i.ytimg.com/vi/{song.YoutubeId}/hqdefault.jpg"
-                                        }
-                                    };
-                                }
-                            };
-                            Func<Song, List<Image>> parseSongImages = (song) => {
-                                if (string.IsNullOrEmpty(song.YoutubeId))
-                                {
-                                    return new List<Image>();
-                                }
-                                else
-                                {
-                                    return new List<Image>
-                                    {
-                                        new Image
-                                        {
-                                            Title = song.Description,
-                                            Caption = song.Title,
-                                            Location = $"http://i.ytimg.com/vi/{song.YoutubeId}/default.jpg"
-                                        }
-                                    };
-                                }
-                            };
+			Func<Subject, Task<Url>> subject2url = async (s) =>
+			{
+				switch (subject)
+				{
+					case "person":
+						{
+							Func<string, Task<Link>> func = async (lang) =>
+							{
+								return new Link
+								{
+									Rel = "alternate",
+									HrefLang = lang,
+									Href = await spaRouteService.GenerateUrl($"person-show-name", new { id = s.Id, name = s.Text.Slugify(), lang }, HttpContext),
+								};
+							};
+							var links = await Task.WhenAll(languages.Select(lang => func(lang)));
 
-                            return new Url
-                            {
-                                Loc = spaRouteService.GenerateUrl($"song-show-title", new { id = s.Id, title = s.Text.Slugify() }, HttpContext),
-                                ChangeFreq = AspNetCore.SitemapXml.Enums.ChangeFreq.Monthly,
-                                LastMod = s.DateUpdate,
-                                Links = languages.Select(lang =>
-                                    new Link
-                                    {
-                                        Rel = "alternate",
-                                        HrefLang = lang,
-                                        Href = spaRouteService.GenerateUrl($"song-show-title", new { id = s.Id, title = s.Text.Slugify(), lang }, HttpContext)
-                                    }).ToList(),
-                                Videos = parseSongVideos((Song)s),
-                                Images = parseSongImages((Song)s)
-                            };
-                        }
-                    default:
-                        throw new Exception("Unexpected subject type");
-                }
-            })));
+							return new Url
+							{
+								Loc = await spaRouteService.GenerateUrl($"person-show-name", new { id = s.Id, name = s.Text.Slugify() }, HttpContext),
+								ChangeFreq = AspNetCore.SitemapXml.Enums.ChangeFreq.Monthly,
+								LastMod = s.DateUpdate,
+								Links = links.ToList(),
+							};
+						}
+					case "artist":
+						{
+							Func<string, Task<Link>> func = async (lang) =>
+							{
+								return new Link
+								{
+									Rel = "alternate",
+									HrefLang = lang,
+									Href = await spaRouteService.GenerateUrl($"artist-show-name", new { id = s.Id, name = s.Text.Slugify(), lang }, HttpContext),
+								};
+							};
+							var links = await Task.WhenAll(languages.Select(lang => func(lang)));
+
+							return new Url
+							{
+								Loc = await spaRouteService.GenerateUrl($"artist-show-name", new { id = s.Id, name = s.Text.Slugify() }, HttpContext),
+								ChangeFreq = AspNetCore.SitemapXml.Enums.ChangeFreq.Monthly,
+								LastMod = s.DateUpdate,
+								Links = links.ToList()
+							};
+						}
+					case "song":
+						{
+							Func<Song, List<Video>> parseSongVideos = (song) =>
+							{
+								if (string.IsNullOrEmpty(song.YoutubeId))
+								{
+									return new List<Video>();
+								}
+								else
+								{
+									return new List<Video>
+									{
+										new Video
+										{
+											Title = song.Title,
+											Description = song.Description,
+											ContentLocation = $"https://www.youtube.com/watch?v={song.YoutubeId}",
+											PlayerLocation = $"https://www.youtube.com/embed/{song.YoutubeId}",
+											ThumbnailLocation = $"http://i.ytimg.com/vi/{song.YoutubeId}/hqdefault.jpg"
+										}
+									};
+								}
+							};
+							Func<Song, List<Image>> parseSongImages = (song) =>
+							{
+								if (string.IsNullOrEmpty(song.YoutubeId))
+								{
+									return new List<Image>();
+								}
+								else
+								{
+									return new List<Image>
+									{
+										new Image
+										{
+											Title = song.Description,
+											Caption = song.Title,
+											Location = $"http://i.ytimg.com/vi/{song.YoutubeId}/default.jpg"
+										}
+									};
+								}
+							};
+
+							Func<string, Task<Link>> func = async (lang) =>
+							{
+								return new Link
+								{
+									Rel = "alternate",
+									HrefLang = lang,
+									Href = await spaRouteService.GenerateUrl($"song-show-title", new { id = s.Id, title = s.Text.Slugify(), lang }, HttpContext),
+								};
+							};
+							var links = await Task.WhenAll(languages.Select(lang => func(lang)));
+
+							return new Url
+							{
+								Loc = await spaRouteService.GenerateUrl($"song-show-title", new { id = s.Id, title = s.Text.Slugify() }, HttpContext),
+								ChangeFreq = AspNetCore.SitemapXml.Enums.ChangeFreq.Monthly,
+								LastMod = s.DateUpdate,
+								Links = links.ToList(),
+								Videos = parseSongVideos((Song)s),
+								Images = parseSongImages((Song)s)
+							};
+						}
+					default:
+						throw new Exception("Unexpected subject type");
+				}
+			};
+
+			var subjectUrls = await Task.WhenAll(subjects.Select(s => subject2url(s)));
+
+			return Ok(new UrlSet(subjectUrls));
         }
     }
 }

@@ -62,7 +62,7 @@ namespace MintPlayer.Data
 			}
 			else
 			{
-				optionsBuilder.UseSqlServer(configuration.GetConnectionString("MintPlayer"));
+				optionsBuilder.UseSqlServer(configuration.GetConnectionString("mintplayer"));
 			}
 		}
 

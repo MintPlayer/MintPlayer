@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.AspNetCore.SpaServices.Routing;
+using MintPlayer.Data.Abstractions.Services;
 using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
 
@@ -12,24 +13,135 @@ namespace MintPlayer.Web.Services
 {
 	public class SpaRouteService : ISpaPrerenderingService
 	{
+		#region Constructor
 		private readonly ISpaRouteService spaRouteService;
-		public SpaRouteService(ISpaRouteService spaRouteService)
+		private readonly IPersonService personService;
+		private readonly IArtistService artistService;
+		private readonly ISongService songService;
+		private readonly IMediumTypeService mediumTypeService;
+		private readonly IAccountService accountService;
+		private readonly ITagCategoryService tagCategoryService;
+		private readonly ITagService tagService;
+		private readonly IPlaylistService playlistService;
+		private readonly IBlogPostService blogPostService;
+		public SpaRouteService(
+			ISpaRouteService spaRouteService,
+			IPersonService personService,
+			IArtistService artistService,
+			ISongService songService,
+			IMediumTypeService mediumTypeService,
+			IAccountService accountService,
+			ITagCategoryService tagCategoryService,
+			ITagService tagService,
+			IPlaylistService playlistService,
+			IBlogPostService blogPostService)
 		{
 			this.spaRouteService = spaRouteService;
+			this.personService = personService;
+			this.artistService = artistService;
+			this.songService = songService;
+			this.mediumTypeService = mediumTypeService;
+			this.accountService = accountService;
+			this.tagCategoryService = tagCategoryService;
+			this.tagService = tagService;
+			this.playlistService = playlistService;
+			this.blogPostService = blogPostService;
+		}
+		#endregion
+
+		public Task BuildRoutes(ISpaRouteBuilder routeBuilder)
+		{
+			routeBuilder
+				.Route("", "home")
+				.Group("search", "search", search_routes => search_routes
+					.Route("", "search")
+					.Route("{searchterm}", "results")
+				)
+				.Group("account", "account", account_routes => account_routes
+					.Route("login", "login")
+					.Route("register", "register")
+					.Route("profile", "profile")
+					.Group("password/reset", "passwordreset", password_routes => password_routes
+						.Route("request", "request")
+						.Route("perform", "perform")
+					)
+				)
+				.Group("person", "person", person_routes => person_routes
+					.Route("", "list")
+					.Route("create", "create")
+					.Route("favorite", "favorite")
+					.Route("{id}", "show")
+					.Route("{id}/{name}", "show-name")
+					.Route("{id}/edit", "edit")
+					.Route("{id}/{name}/edit", "edit-name")
+				)
+				.Group("artist", "artist", artist_routes => artist_routes
+					.Route("", "list")
+					.Route("create", "create")
+					.Route("favorite", "favorite")
+					.Route("{id}", "show")
+					.Route("{id}/{name}", "show-name")
+					.Route("{id}/edit", "edit")
+					.Route("{id}/{name}/edit", "edit-name")
+				)
+				.Group("song", "song", song_routes => song_routes
+					.Route("", "list")
+					.Route("create", "create")
+					.Route("favorite", "favorite")
+					.Route("{id}", "show")
+					.Route("{id}/{title}", "show-title")
+					.Route("{id}/edit", "edit")
+					.Route("{id}/{title}/edit", "edit-title")
+				)
+				.Group("playlist", "playlist", playlist_routes => playlist_routes
+					.Route("", "list")
+					.Route("create", "create")
+					.Route("{id}", "show")
+					.Route("{id}/{description}", "show-description")
+					.Route("{id}/edit", "edit")
+					.Route("{id}/{description}/edit", "edit-description")
+				)
+				.Group("mediumtype", "mediumtype", mediumtype_routes => mediumtype_routes
+					.Route("", "list")
+					.Route("create", "create")
+					.Route("{id}", "show")
+					.Route("{id}/{name}", "show-name")
+					.Route("{id}/edit", "edit")
+					.Route("{id}/{name}/edit", "edit-name")
+				)
+				.Group("tag", "tag", tag_routes => tag_routes
+					.Group("category", "category", category_routes => category_routes
+						.Route("", "list")
+						.Route("create", "create")
+						.Route("{categoryid}", "show")
+						.Route("{categoryid}/edit", "edit")
+
+						.Group("{categoryid}/tags", "tags", category_tag_routes => category_tag_routes
+							.Route("create", "create")
+							.Route("{tagid}", "show")
+							.Route("{tagid}/edit", "edit")
+						)
+					)
+				)
+				.Group("community", "community", community_routes => community_routes
+					.Group("blog", "blog", blog_routes => blog_routes
+						.Route("", "list")
+						.Route("create", "create")
+						.Route("{blogpostid}/{blogpost_title}", "show")
+						.Route("{blogpostid}/{blogpost_title}/edit", "edit")
+					)
+				)
+				.Group("gdpr", "gdpr", gdpr_routes => gdpr_routes
+					.Route("privacy-policy", "privacypolicy")
+					.Route("terms-of-service", "termsofservice")
+				);
+
+			return Task.CompletedTask;
 		}
 
 		public async Task OnSupplyData(HttpContext context, IDictionary<string, object> data)
 		{
-			var route = spaRouteService.GetCurrentRoute(context);
-			var personService = context.RequestServices.GetService<Data.Abstractions.Services.IPersonService>();
-			var artistService = context.RequestServices.GetService<Data.Abstractions.Services.IArtistService>();
-			var songService = context.RequestServices.GetService<Data.Abstractions.Services.ISongService>();
-			var mediumTypeService = context.RequestServices.GetService<Data.Abstractions.Services.IMediumTypeService>();
-			var accountService = context.RequestServices.GetService<Data.Services.IAccountService>();
-			var tagCategoryService = context.RequestServices.GetService<Data.Abstractions.Services.ITagCategoryService>();
-			var tagService = context.RequestServices.GetService<Data.Abstractions.Services.ITagService>();
-			var playlistService = context.RequestServices.GetService<Data.Abstractions.Services.IPlaylistService>();
-			var blogPostService = context.RequestServices.GetService<Data.Abstractions.Services.IBlogPostService>();
+			var route = await spaRouteService.GetCurrentRoute(context);
 
 			var user = await accountService.GetCurrentUser(context.User);
 			data["user"] = user;

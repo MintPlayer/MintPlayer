@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.Data.Exceptions.Account;
 using MintPlayer.Data.Exceptions.Account.ExternalLogin;
-using MintPlayer.Data.Repositories;
-using MintPlayer.Data.Services;
 using MintPlayer.Web.Server.ViewModels.Account;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Authentication;
@@ -16,6 +14,7 @@ using MintPlayer.AspNetCore.SpaServices.Routing;
 using System.Text.Encodings.Web;
 using MintPlayer.Data.Exceptions.Account.TwoFactor;
 using Microsoft.AspNetCore.Hosting;
+using MintPlayer.Data.Abstractions.Services;
 
 namespace MintPlayer.Web.Server.Controllers.Web.V3
 {
@@ -89,7 +88,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			{
 				var decodedCode = System.Text.Encoding.UTF8.GetString(Base64UrlTextEncoder.Decode(code));
 				await accountService.VerifyEmailConfirmationToken(email, decodedCode);
-				var loginUrl = spaRouteService.GenerateUrl("account-login", new { });
+				var loginUrl = await spaRouteService.GenerateUrl("account-login", new { });
 				return Redirect(loginUrl);
 			}
 			catch (VerifyEmailException verifyEx)
@@ -111,7 +110,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			{
 				var token = await accountService.GeneratePasswordResetToken(model.Email);
 				var encodedToken = Base64UrlTextEncoder.Encode(System.Text.Encoding.UTF8.GetBytes(token));
-				var resetUrl = spaRouteService.GenerateUrl("account-passwordreset-perform", new { email = model.Email, token = encodedToken }, HttpContext);
+				var resetUrl = await spaRouteService.GenerateUrl("account-passwordreset-perform", new { email = model.Email, token = encodedToken }, HttpContext);
 				await accountService.SendPasswordResetEmail(model.Email, resetUrl);
 				return Ok();
 			}

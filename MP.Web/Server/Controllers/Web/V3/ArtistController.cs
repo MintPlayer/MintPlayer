@@ -30,7 +30,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Artist
 		[HttpGet(Name = "web-v3-artist-list")]
 		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<ActionResult<IEnumerable<Artist>>> Get([FromHeader]bool include_relations = false)
+		public async Task<ActionResult<IEnumerable<Artist>>> Get([FromHeader] bool include_relations = false)
 		{
 			var artists = await artistService.GetArtists(include_relations);
 			return Ok(artists);
@@ -39,7 +39,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		// GET: web/Artist/5
 		[HttpGet("{id}", Name = "web-v3-artist-get", Order = 1)]
 		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<ActionResult<Artist>> Get(int id, [FromHeader]bool include_relations = false)
+		public async Task<ActionResult<Artist>> Get(int id, [FromHeader] bool include_relations = false)
 		{
 			var artist = await artistService.GetArtist(id, include_relations);
 
@@ -86,7 +86,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 		[ApiExplorerSettings(IgnoreApi = true)]
 		public async Task<ActionResult<Artist>> Put(int id, [FromBody] Artist artist)
 		{
-            try
+			try
 			{
 				var updated_artist = await artistService.UpdateArtist(artist);
 				return Ok(updated_artist);
