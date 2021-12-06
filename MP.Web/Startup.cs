@@ -473,6 +473,13 @@ namespace MintPlayer.Web
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+				endpoints.MapGet("/.well-known/change-password", (context) =>
+				{
+					var changePasswordUrl = spaRouteService.GenerateUrl("account-profile", new { });
+					context.Response.Redirect(changePasswordUrl);
+					return Task.CompletedTask;
+				}).RequireAuthorization();
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}")
