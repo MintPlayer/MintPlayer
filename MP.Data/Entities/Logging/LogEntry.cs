@@ -6,7 +6,8 @@ using System.Text;
 
 namespace MintPlayer.Data.Entities.Logging
 {
-    internal class LogEntry
+	[Table("LogEntries", Schema = "mintplay")]
+	internal class LogEntry
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

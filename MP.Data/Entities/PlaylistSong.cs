@@ -1,7 +1,10 @@
-﻿namespace MintPlayer.Data.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MintPlayer.Data.Entities
 {
+	[Table("PlaylistSong", Schema = "mintplay")]
     internal class PlaylistSong
-    {
+	{
         public PlaylistSong()
         {
         }

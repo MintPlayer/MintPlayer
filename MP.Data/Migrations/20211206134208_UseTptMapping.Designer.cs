@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MintPlayer.Data;
 
@@ -11,9 +12,10 @@ using MintPlayer.Data;
 namespace MintPlayer.Data.Migrations
 {
     [DbContext(typeof(MintPlayerContext))]
-    partial class MintPlayerContextModelSnapshot : ModelSnapshot
+    [Migration("20211206134208_UseTptMapping")]
+    partial class UseTptMapping
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,7 +146,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("ArtistPerson", "mintplay");
+                    b.ToTable("ArtistPerson");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.ArtistSong", b =>
@@ -164,7 +166,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("ArtistSong", "mintplay");
+                    b.ToTable("ArtistSong");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Blog.BlogPost", b =>
@@ -210,7 +212,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("UserUpdateId");
 
-                    b.ToTable("BlogPosts", "mintplay");
+                    b.ToTable("BlogPosts");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Jobs.Job", b =>
@@ -230,7 +232,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Jobs", "mintplay");
+                    b.ToTable("Jobs", (string)null);
 
                     b.HasDiscriminator<string>("JobType").HasValue("Job");
                 });
@@ -250,7 +252,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Likes", "mintplay");
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Logging.LogEntry", b =>
@@ -266,7 +268,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LogEntries", "mintplay");
+                    b.ToTable("LogEntries");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Lyrics", b =>
@@ -290,7 +292,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Lyrics", "mintplay");
+                    b.ToTable("Lyrics");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Medium", b =>
@@ -316,7 +318,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Media", "mintplay");
+                    b.ToTable("Media");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.MediumType", b =>
@@ -350,7 +352,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("UserUpdateId");
 
-                    b.ToTable("MediumTypes", "mintplay");
+                    b.ToTable("MediumTypes");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Playlist", b =>
@@ -377,7 +379,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Playlists", "mintplay");
+                    b.ToTable("Playlists");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.PlaylistSong", b =>
@@ -395,7 +397,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("PlaylistSong", "mintplay");
+                    b.ToTable("PlaylistSong");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Role", b =>
@@ -479,7 +481,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("UserUpdateId");
 
-                    b.ToTable("Subjects", "mintplay");
+                    b.ToTable("Subjects", (string)null);
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.SubjectTag", b =>
@@ -494,7 +496,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("SubjectTag", "mintplay");
+                    b.ToTable("SubjectTag");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Tag", b =>
@@ -544,7 +546,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("UserUpdateId");
 
-                    b.ToTable("Tags", "mintplay");
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.TagCategory", b =>
@@ -587,7 +589,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("UserUpdateId");
 
-                    b.ToTable("TagCategories", "mintplay");
+                    b.ToTable("TagCategories");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.User", b =>
@@ -675,7 +677,7 @@ namespace MintPlayer.Data.Migrations
                     b.Property<int?>("YearStarted")
                         .HasColumnType("int");
 
-                    b.ToTable("Artists", "mintplay");
+                    b.ToTable("Artists", (string)null);
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Jobs.ElasticSearchIndexJob", b =>
@@ -689,8 +691,6 @@ namespace MintPlayer.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasIndex("SubjectId");
-
-                    b.ToTable("Jobs", "mintplay");
 
                     b.HasDiscriminator().HasValue("elasticsearch");
                 });
@@ -711,7 +711,7 @@ namespace MintPlayer.Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("People", "mintplay");
+                    b.ToTable("People", (string)null);
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Song", b =>
@@ -724,7 +724,7 @@ namespace MintPlayer.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Songs", "mintplay");
+                    b.ToTable("Songs", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

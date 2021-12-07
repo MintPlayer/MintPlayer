@@ -5,7 +5,8 @@ using MintPlayer.Data.Entities.Interfaces;
 
 namespace MintPlayer.Data.Entities.Blog
 {
-    internal class BlogPost: ISoftDelete
+	[Table("BlogPosts", Schema = "mintplay")]
+    internal class BlogPost : ISoftDelete
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

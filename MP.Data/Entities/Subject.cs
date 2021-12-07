@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MintPlayer.Data.Entities
 {
+	[Table("Subjects", Schema = "mintplay")]
 	internal abstract class Subject
 	{
 		[Key]
@@ -23,8 +24,8 @@ namespace MintPlayer.Data.Entities
         public byte[] ConcurrencyStamp { get; set; }
 
         public User UserInsert { get; set; }
-		public User UserUpdate { get; set; }
-		public User UserDelete { get; set; }
+		public User? UserUpdate { get; set; }
+		public User? UserDelete { get; set; }
 
 		public DateTime DateInsert { get; set; }
 		public DateTime? DateUpdate { get; set; }

@@ -65,9 +65,12 @@ namespace MintPlayer.Data.Repositories
             var paged_artists = ordered_artists
                 .Skip((request.Page - 1) * request.PerPage)
                 .Take(request.PerPage);
+			
+			var query = paged_artists.Select(artist => artistMapper.Entity2Dto(artist, false, false)).ToQueryString();
+			//return null;
 
-            // 3) Convert to DTO
-            var dto_artists = await paged_artists.Select(artist => artistMapper.Entity2Dto(artist, false, false)).ToListAsync();
+			// 3) Convert to DTO
+			var dto_artists = await paged_artists.Select(artist => artistMapper.Entity2Dto(artist, false, false)).ToListAsync();
 
             var count_artists = await mintplayer_context.Artists.CountAsync();
             return new Pagination.PaginationResponse<Artist>(request, count_artists, dto_artists);

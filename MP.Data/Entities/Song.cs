@@ -6,6 +6,7 @@ using MintPlayer.Data.Entities.Interfaces;
 
 namespace MintPlayer.Data.Entities
 {
+	[Table("Songs", Schema = "mintplay")]
     internal class Song : Subject, ISoftDelete
 	{
 		public string Title { get; set; }

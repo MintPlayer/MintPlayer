@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace MintPlayer.Data.Entities
 {
+	[Table("AspNetUsers", Schema = "mintplay")]
 	internal class User : IdentityUser<Guid>
 	{
 		public string PictureUrl { get; set; }

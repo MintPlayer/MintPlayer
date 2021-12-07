@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MintPlayer.Data.Entities
 {
+	[Table("Tags", Schema = "mintplay")]
     internal class Tag
     {
         [Key]

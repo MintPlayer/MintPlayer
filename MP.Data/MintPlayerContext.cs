@@ -42,13 +42,13 @@ namespace MintPlayer.Data
 		internal DbSet<LogEntry> LogEntries { get; set; }
 
 		private readonly IConfiguration configuration;
-		public MintPlayerContext(IConfiguration configuration)
-		{
-			this.configuration = configuration;
-		}
 		public MintPlayerContext()
 		{
 			this.configuration = null;
+		}
+		public MintPlayerContext(IConfiguration configuration)
+		{
+			this.configuration = configuration;
 		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -57,7 +57,8 @@ namespace MintPlayer.Data
 			if (configuration == null)
 			{
 				// Only used when generating migrations
-				var migrationsConnectionString = @"Server=(localdb)\mssqllocaldb;Database=MintPlayer;Trusted_Connection=True;ConnectRetryCount=0";
+				//var migrationsConnectionString = @"Server=(localdb)\mssqllocaldb;Database=MintPlayer;Trusted_Connection=True;ConnectRetryCount=0";
+				var migrationsConnectionString = @"Server=.;Database=MintPlayer;Trusted_Connection=True;ConnectRetryCount=0";
 				optionsBuilder.UseSqlServer(migrationsConnectionString, options => options.MigrationsAssembly("MintPlayer.Data"));
 			}
 			else
@@ -88,8 +89,11 @@ namespace MintPlayer.Data
 			var roles = GetRoles();
 			modelBuilder.Entity<Role>().HasData(roles);
 
-			// Subjects
-			modelBuilder.Entity<Subject>().ToTable("Subjects");
+			//// Subjects
+			//modelBuilder.Entity<Subject>().ToTable("Subjects");
+			//modelBuilder.Entity<Person>().ToTable("People");
+			//modelBuilder.Entity<Artist>().ToTable("Artists");
+			//modelBuilder.Entity<Song>().ToTable("Songs");
 
 			// Many-to-many Artist-Person
 			modelBuilder.Entity<ArtistPerson>().HasKey(ap => new { ap.ArtistId, ap.PersonId });
@@ -113,10 +117,6 @@ namespace MintPlayer.Data
 			// Discriminator Subject
 			modelBuilder.Entity<Subject>().Property(s => s.Id).ValueGeneratedOnAdd();
 			modelBuilder.Entity<Subject>().HasQueryFilter(s => s.UserDelete == null);
-			modelBuilder.Entity<Subject>().HasDiscriminator<string>("SubjectType")
-				.HasValue<Person>("person")
-				.HasValue<Artist>("artist")
-				.HasValue<Song>("song");
 
 			// Artist.Credited default true
 			modelBuilder.Entity<ArtistSong>().Property(@as => @as.Credited).HasDefaultValue(true);
@@ -142,7 +142,7 @@ namespace MintPlayer.Data
 			modelBuilder.Entity<MediumType>().HasQueryFilter(mt => mt.UserDelete == null);
 
 			// Jobs
-			modelBuilder.Entity<Entities.Jobs.Job>().ToTable("Jobs");
+			//modelBuilder.Entity<Entities.Jobs.Job>().ToTable("Jobs");
 
 			// Discriminator Job
 			modelBuilder.Entity<Entities.Jobs.Job>().Property(j => j.Id).ValueGeneratedOnAdd();

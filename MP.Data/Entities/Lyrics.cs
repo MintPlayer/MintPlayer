@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MintPlayer.Data.Entities
 {
+	[Table("Lyrics", Schema = "mintplay")]
 	internal class Lyrics
 	{
 		public Lyrics()
