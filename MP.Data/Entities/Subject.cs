@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MintPlayer.Data.Entities
 {
-	[Table("Subjects", Schema = "mintplay")]
+	[Table("Subjects")]
 	internal abstract class Subject
 	{
 		[Key]

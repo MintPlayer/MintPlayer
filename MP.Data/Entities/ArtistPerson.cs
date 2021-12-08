@@ -2,7 +2,6 @@
 
 namespace MintPlayer.Data.Entities
 {
-	[Table("ArtistPerson", Schema = "mintplay")]
 	internal class ArtistPerson
 	{
 		public ArtistPerson()

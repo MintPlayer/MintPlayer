@@ -12,13 +12,14 @@ using MintPlayer.Data;
 namespace MintPlayer.Data.Migrations
 {
     [DbContext(typeof(MintPlayerContext))]
-    [Migration("20211207081719_NullableUserDelete")]
-    partial class NullableUserDelete
+    [Migration("20211208083420_SetDefaultScheme")]
+    partial class SetDefaultScheme
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("mintplay")
                 .HasAnnotation("ProductVersion", "6.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -45,7 +46,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("AspNetRoleClaims", "mintplay");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
@@ -69,7 +70,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("AspNetUserClaims", "mintplay");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
@@ -92,7 +93,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("AspNetUserLogins", "mintplay");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
@@ -107,7 +108,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("AspNetUserRoles", "mintplay");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -128,7 +129,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("AspNetUserTokens", "mintplay");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.ArtistPerson", b =>
@@ -223,18 +224,12 @@ namespace MintPlayer.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("JobType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Jobs", "mintplay");
-
-                    b.HasDiscriminator<string>("JobType").HasValue("Job");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Like", b =>
@@ -425,7 +420,7 @@ namespace MintPlayer.Data.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("AspNetRoles", "mintplay");
 
                     b.HasData(
                         new
@@ -661,7 +656,7 @@ namespace MintPlayer.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("AspNetUsers", "mintplay");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Artist", b =>
@@ -692,9 +687,7 @@ namespace MintPlayer.Data.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("Jobs", "mintplay");
-
-                    b.HasDiscriminator().HasValue("elasticsearch");
+                    b.ToTable("ElasticSearchIndexJobs", "mintplay");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Person", b =>
@@ -1046,6 +1039,12 @@ namespace MintPlayer.Data.Migrations
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Jobs.ElasticSearchIndexJob", b =>
                 {
+                    b.HasOne("MintPlayer.Data.Entities.Jobs.Job", null)
+                        .WithOne()
+                        .HasForeignKey("MintPlayer.Data.Entities.Jobs.ElasticSearchIndexJob", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
                     b.HasOne("MintPlayer.Data.Entities.Subject", "Subject")
                         .WithMany()
                         .HasForeignKey("SubjectId");

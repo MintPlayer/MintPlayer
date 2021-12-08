@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MintPlayer.Data.Entities
 {
-	[Table("MediumTypes", Schema = "mintplay")]
 	internal class MediumType : ISoftDelete
 	{
 		[Key]

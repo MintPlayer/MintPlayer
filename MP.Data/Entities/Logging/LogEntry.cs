@@ -6,7 +6,6 @@ using System.Text;
 
 namespace MintPlayer.Data.Entities.Logging
 {
-	[Table("LogEntries", Schema = "mintplay")]
 	internal class LogEntry
     {
         [Key]

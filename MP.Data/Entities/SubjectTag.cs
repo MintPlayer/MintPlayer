@@ -2,7 +2,6 @@
 
 namespace MintPlayer.Data.Entities
 {
-	[Table("SubjectTag", Schema = "mintplay")]
     internal class SubjectTag
     {
         public SubjectTag()

@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MintPlayer.Data.Entities
 {
-	[Table("AspNetUsers", Schema = "mintplay")]
 	internal class User : IdentityUser<Guid>
 	{
 		public string PictureUrl { get; set; }

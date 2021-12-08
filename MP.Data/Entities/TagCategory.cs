@@ -6,7 +6,6 @@ using System;
 
 namespace MintPlayer.Data.Entities
 {
-	[Table("TagCategories", Schema = "mintplay")]
     internal class TagCategory
     {
         [Key]

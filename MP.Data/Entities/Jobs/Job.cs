@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MintPlayer.Data.Entities.Jobs
 {
-	[Table("Jobs", Schema = "mintplay")]
+	[Table("Jobs")]
     internal class Job
     {
         [Key]

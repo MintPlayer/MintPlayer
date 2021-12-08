@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MintPlayer.Data.Entities
 {
-	[Table("Likes", Schema = "mintplay")]
 	internal class Like
 	{
 		public Like()

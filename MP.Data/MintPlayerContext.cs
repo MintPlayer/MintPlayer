@@ -70,6 +70,7 @@ namespace MintPlayer.Data
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
+			modelBuilder.HasDefaultSchema("mintplay");
 
 			modelBuilder.Entity<IdentityUserLogin<Guid>>()
 				.Property(ut => ut.LoginProvider)
@@ -146,8 +147,6 @@ namespace MintPlayer.Data
 
 			// Discriminator Job
 			modelBuilder.Entity<Entities.Jobs.Job>().Property(j => j.Id).ValueGeneratedOnAdd();
-			modelBuilder.Entity<Entities.Jobs.Job>().HasDiscriminator<string>("JobType")
-				.HasValue<Entities.Jobs.ElasticSearchIndexJob>("elasticsearch");
 
 			// Playlist
 			modelBuilder.Entity<Playlist>().HasQueryFilter(p => !p.IsDeleted);
