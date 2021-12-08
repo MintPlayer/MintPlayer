@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
-  "version": 615,
+  "version": 616,
   "assetGroups": [
     {
       "name": "app",
@@ -34,7 +34,8 @@
       "urls": [
         "/web/**",
         "!/web/v3/Account/**",
-        "!/api/**"
+        "!/api/**",
+        "/.well-known/change-password"
       ],
       "cacheConfig": {
         "maxSize": 20,
@@ -84,6 +85,17 @@
         "maxAge": "0u",
         "strategy": "freshness"
       }
+    },
+    {
+      "name": "well-known",
+      "urls": [
+        "/.well-known/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 0,
+        "maxAge": "0u",
+        "strategy": "freshness"
+      }
     }
   ],
   "navigationUrls": [
@@ -95,7 +107,8 @@
     "!/web/v3/Account/add/**",
     "!/api/**",
     "!/swagger",
-    "!/swagger/**"
+    "!/swagger/**",
+    "!/.well-known/**"
   ],
   "cacheConfig": {
     "strategy": "freshness"
