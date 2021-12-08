@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.Data.Exceptions.Account;
 using MintPlayer.Data.Exceptions.Account.ExternalLogin;
-using MintPlayer.Data.Repositories;
-using MintPlayer.Data.Services;
 using MintPlayer.Web.Server.ViewModels.Account;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Authentication;
@@ -16,6 +14,7 @@ using MintPlayer.AspNetCore.SpaServices.Routing;
 using System.Text.Encodings.Web;
 using MintPlayer.Data.Exceptions.Account.TwoFactor;
 using Microsoft.AspNetCore.Hosting;
+using MintPlayer.Data.Abstractions.Services;
 
 namespace MintPlayer.Web.Server.Controllers.Web.V3
 {

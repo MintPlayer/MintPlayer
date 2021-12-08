@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using MintPlayer.AspNetCore.SpaServices.Prerendering.Services;
 using MintPlayer.AspNetCore.SpaServices.Routing;
+using MintPlayer.Data.Abstractions.Services;
 using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
 
@@ -16,9 +17,37 @@ namespace MintPlayer.Web.Services
 	{
 		#region Constructor
 		private readonly ISpaRouteService spaRouteService;
-		public SpaRouteService(ISpaRouteService spaRouteService)
+		private readonly IPersonService personService;
+		private readonly IArtistService artistService;
+		private readonly ISongService songService;
+		private readonly IMediumTypeService mediumTypeService;
+		private readonly IAccountService accountService;
+		private readonly ITagCategoryService tagCategoryService;
+		private readonly ITagService tagService;
+		private readonly IPlaylistService playlistService;
+		private readonly IBlogPostService blogPostService;
+		public SpaRouteService(
+			ISpaRouteService spaRouteService,
+			IPersonService personService,
+			IArtistService artistService,
+			ISongService songService,
+			IMediumTypeService mediumTypeService,
+			IAccountService accountService,
+			ITagCategoryService tagCategoryService,
+			ITagService tagService,
+			IPlaylistService playlistService,
+			IBlogPostService blogPostService)
 		{
 			this.spaRouteService = spaRouteService;
+			this.personService = personService;
+			this.artistService = artistService;
+			this.songService = songService;
+			this.mediumTypeService = mediumTypeService;
+			this.accountService = accountService;
+			this.tagCategoryService = tagCategoryService;
+			this.tagService = tagService;
+			this.playlistService = playlistService;
+			this.blogPostService = blogPostService;
 		}
 		#endregion
 
@@ -114,16 +143,6 @@ namespace MintPlayer.Web.Services
 		public async Task OnSupplyData(HttpContext context, IDictionary<string, object> data)
 		{
 			var route = await spaRouteService.GetCurrentRoute(context);
-			var personService = context.RequestServices.GetService<Data.Abstractions.Services.IPersonService>();
-			var artistService = context.RequestServices.GetService<Data.Abstractions.Services.IArtistService>();
-			var songService = context.RequestServices.GetService<Data.Abstractions.Services.ISongService>();
-			var mediumTypeService = context.RequestServices.GetService<Data.Abstractions.Services.IMediumTypeService>();
-			var accountService = context.RequestServices.GetService<Data.Services.IAccountService>();
-			var tagCategoryService = context.RequestServices.GetService<Data.Abstractions.Services.ITagCategoryService>();
-			var tagService = context.RequestServices.GetService<Data.Abstractions.Services.ITagService>();
-			var playlistService = context.RequestServices.GetService<Data.Abstractions.Services.IPlaylistService>();
-			var blogPostService = context.RequestServices.GetService<Data.Abstractions.Services.IBlogPostService>();
-
 			var user = await accountService.GetCurrentUser(context.User);
 			data["user"] = user;
 
