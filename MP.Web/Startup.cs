@@ -337,7 +337,7 @@ namespace MintPlayer.Web
                     //options.Cookie.Domain = ".mintplayer.com";
                     options.Cookie.Domain = "mintplayer.com";
 #endif
-                    options.Events.OnRedirectToLogin = (context) =>
+					options.Events.OnRedirectToLogin = (context) =>
                     {
                         context.Response.StatusCode = 401;
                         return Task.CompletedTask;
