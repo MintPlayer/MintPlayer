@@ -89,7 +89,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			{
 				var decodedCode = System.Text.Encoding.UTF8.GetString(Base64UrlTextEncoder.Decode(code));
 				await accountService.VerifyEmailConfirmationToken(email, decodedCode);
-				var loginUrl = spaRouteService.GenerateUrl("account-login", new { });
+				var loginUrl = await spaRouteService.GenerateUrl("account-login", new { });
 				return Redirect(loginUrl);
 			}
 			catch (VerifyEmailException verifyEx)
@@ -111,7 +111,7 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 			{
 				var token = await accountService.GeneratePasswordResetToken(model.Email);
 				var encodedToken = Base64UrlTextEncoder.Encode(System.Text.Encoding.UTF8.GetBytes(token));
-				var resetUrl = spaRouteService.GenerateUrl("account-passwordreset-perform", new { email = model.Email, token = encodedToken }, HttpContext);
+				var resetUrl = await spaRouteService.GenerateUrl("account-passwordreset-perform", new { email = model.Email, token = encodedToken }, HttpContext);
 				await accountService.SendPasswordResetEmail(model.Email, resetUrl);
 				return Ok();
 			}

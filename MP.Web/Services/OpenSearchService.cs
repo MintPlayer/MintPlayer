@@ -37,17 +37,17 @@ namespace MintPlayer.Web.Services
                     if (subject_type == typeof(Dtos.Dtos.Person))
                     {
                         var person = exact_matches.First();
-                        subject_url = spaRouteService.GenerateUrl("person-show-name", new { id = person.Id, name = person.Text.Slugify() });
+                        subject_url = await spaRouteService.GenerateUrl("person-show-name", new { id = person.Id, name = person.Text.Slugify() });
                     }
                     else if (subject_type == typeof(Dtos.Dtos.Artist))
                     {
                         var artist = exact_matches.First();
-                        subject_url = spaRouteService.GenerateUrl("artist-show-name", new { id = artist.Id, name = artist.Text.Slugify() });
+                        subject_url = await spaRouteService.GenerateUrl("artist-show-name", new { id = artist.Id, name = artist.Text.Slugify() });
                     }
                     else if (subject_type == typeof(Dtos.Dtos.Song))
                     {
                         var song = exact_matches.First();
-                        subject_url = spaRouteService.GenerateUrl("song-show-title", new { id = song.Id, title = song.Text.Slugify() });
+                        subject_url = await spaRouteService.GenerateUrl("song-show-title", new { id = song.Id, title = song.Text.Slugify() });
                     }
                     else
                         throw new Exception("The specified type is not a Subject");

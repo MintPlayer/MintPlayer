@@ -154,91 +154,8 @@ namespace MintPlayer.Web
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddSpaPrerenderingService<Services.SpaRouteService>(routes => routes
-                .Route("", "home")
-                .Group("search", "search", search_routes => search_routes
-                    .Route("", "search")
-                    .Route("{searchterm}", "results")
-                )
-                .Group("account", "account", account_routes => account_routes
-                    .Route("login", "login")
-                    .Route("register", "register")
-                    .Route("profile", "profile")
-                    .Group("password/reset", "passwordreset", password_routes => password_routes
-                        .Route("request", "request")
-                        .Route("perform", "perform")
-                    )
-                )
-                .Group("person", "person", person_routes => person_routes
-                    .Route("", "list")
-                    .Route("create", "create")
-                    .Route("favorite", "favorite")
-                    .Route("{id}", "show")
-                    .Route("{id}/{name}", "show-name")
-                    .Route("{id}/edit", "edit")
-                    .Route("{id}/{name}/edit", "edit-name")
-                )
-                .Group("artist", "artist", artist_routes => artist_routes
-                    .Route("", "list")
-                    .Route("create", "create")
-                    .Route("favorite", "favorite")
-                    .Route("{id}", "show")
-                    .Route("{id}/{name}", "show-name")
-                    .Route("{id}/edit", "edit")
-                    .Route("{id}/{name}/edit", "edit-name")
-                )
-                .Group("song", "song", song_routes => song_routes
-                    .Route("", "list")
-                    .Route("create", "create")
-                    .Route("favorite", "favorite")
-                    .Route("{id}", "show")
-                    .Route("{id}/{title}", "show-title")
-                    .Route("{id}/edit", "edit")
-                    .Route("{id}/{title}/edit", "edit-title")
-                )
-                .Group("playlist", "playlist", playlist_routes => playlist_routes
-                    .Route("", "list")
-                    .Route("create", "create")
-                    .Route("{id}", "show")
-                    .Route("{id}/{description}", "show-description")
-                    .Route("{id}/edit", "edit")
-                    .Route("{id}/{description}/edit", "edit-description")
-                )
-                .Group("mediumtype", "mediumtype", mediumtype_routes => mediumtype_routes
-                    .Route("", "list")
-                    .Route("create", "create")
-                    .Route("{id}", "show")
-                    .Route("{id}/{name}", "show-name")
-                    .Route("{id}/edit", "edit")
-                    .Route("{id}/{name}/edit", "edit-name")
-                )
-                .Group("tag", "tag", tag_routes => tag_routes
-                    .Group("category", "category", category_routes => category_routes
-                        .Route("", "list")
-                        .Route("create", "create")
-                        .Route("{categoryid}", "show")
-                        .Route("{categoryid}/edit", "edit")
 
-                        .Group("{categoryid}/tags", "tags", category_tag_routes => category_tag_routes
-                            .Route("create", "create")
-                            .Route("{tagid}", "show")
-                            .Route("{tagid}/edit", "edit")
-                        )
-                    )
-                )
-                .Group("community", "community", community_routes => community_routes
-                    .Group("blog", "blog", blog_routes => blog_routes
-                        .Route("", "list")
-                        .Route("create", "create")
-                        .Route("{blogpostid}/{blogpost_title}", "show")
-                        .Route("{blogpostid}/{blogpost_title}/edit", "edit")
-                    )
-                )
-                .Group("gdpr", "gdpr", gdpr_routes => gdpr_routes
-                    .Route("privacy-policy", "privacypolicy")
-                    .Route("terms-of-service", "termsofservice")
-                )
-            );
+            services.AddSpaPrerenderingService<SpaRouteService>();
 
 			services
 				.AddFetcherContainer()
@@ -473,11 +390,10 @@ namespace MintPlayer.Web
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-				endpoints.MapGet("/.well-known/change-password", (context) =>
+				endpoints.MapGet("/.well-known/change-password", async (context) =>
 				{
-					var changePasswordUrl = spaRouteService.GenerateUrl("account-profile", new { });
+					var changePasswordUrl = await spaRouteService.GenerateUrl("account-profile", new { });
 					context.Response.Redirect(changePasswordUrl);
-					return Task.CompletedTask;
 				}).RequireAuthorization();
 
                 endpoints.MapControllerRoute(
@@ -525,7 +441,7 @@ namespace MintPlayer.Web
             // Redirect subject urls
             app.Use(async (context, next) =>
             {
-                var route = spaRouteService.GetCurrentRoute(context);
+                var route = await spaRouteService.GetCurrentRoute(context);
                 switch (route?.Name)
                 {
                     case "person-show":
@@ -544,7 +460,8 @@ namespace MintPlayer.Web
                             }
                             else
                             {
-                                context.Response.Redirect(spaRouteService.GenerateUrl("person-show-name", new { id = id, name = person.Text.Slugify() }));
+								var url = await spaRouteService.GenerateUrl("person-show-name", new { id = id, name = person.Text.Slugify() });
+								context.Response.Redirect(url);
                             }
                         }
                         break;
@@ -564,7 +481,8 @@ namespace MintPlayer.Web
                             }
                             else
                             {
-                                context.Response.Redirect(spaRouteService.GenerateUrl("artist-show-name", new { id = id, name = artist.Name.Slugify() }));
+								var url = await spaRouteService.GenerateUrl("artist-show-name", new { id = id, name = artist.Name.Slugify() });
+								context.Response.Redirect(url);
                             }
                         }
                         break;
@@ -584,7 +502,8 @@ namespace MintPlayer.Web
                             }
                             else
                             {
-                                context.Response.Redirect(spaRouteService.GenerateUrl("song-show-title", new { id = id, title = song.Title.Slugify() }));
+								var url = await spaRouteService.GenerateUrl("song-show-title", new { id = id, title = song.Title.Slugify() });
+								context.Response.Redirect(url);
                             }
                         }
                         break;
@@ -604,7 +523,8 @@ namespace MintPlayer.Web
                             }
                             else
                             {
-                                context.Response.Redirect(spaRouteService.GenerateUrl("playlist-show-description", new { id = id, description = playlist.Description.Slugify() }));
+								var url = await spaRouteService.GenerateUrl("playlist-show-description", new { id = id, description = playlist.Description.Slugify() });
+								context.Response.Redirect(url);
                             }
                         }
                         break;
@@ -629,7 +549,8 @@ namespace MintPlayer.Web
                             }
                             else
                             {
-                                context.Response.Redirect(spaRouteService.GenerateUrl(route.Name, new { id = id, name = person.Text.Slugify() }));
+								var url = await spaRouteService.GenerateUrl(route.Name, new { id = id, name = person.Text.Slugify() });
+								context.Response.Redirect(url);
                             }
                         }
                         break;
@@ -654,7 +575,8 @@ namespace MintPlayer.Web
                             }
                             else
                             {
-                                context.Response.Redirect(spaRouteService.GenerateUrl(route.Name, new { id = id, name = artist.Text.Slugify() }));
+								var url = await spaRouteService.GenerateUrl(route.Name, new { id = id, name = artist.Text.Slugify() });
+								context.Response.Redirect(url);
                             }
                         }
                         break;
@@ -679,7 +601,8 @@ namespace MintPlayer.Web
                             }
                             else
                             {
-                                context.Response.Redirect(spaRouteService.GenerateUrl(route.Name, new { id = id, title = song.Text.Slugify() }));
+								var url = await spaRouteService.GenerateUrl(route.Name, new { id = id, title = song.Text.Slugify() });
+								context.Response.Redirect(url);
                             }
                         }
                         break;
@@ -704,7 +627,8 @@ namespace MintPlayer.Web
                             }
                             else
                             {
-                                context.Response.Redirect(spaRouteService.GenerateUrl(route.Name, new { id = id, description = playlist.Description.Slugify() }));
+								var url = await spaRouteService.GenerateUrl(route.Name, new { id = id, description = playlist.Description.Slugify() });
+								context.Response.Redirect(url);
                             }
                         }
                         break;
