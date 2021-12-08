@@ -24,7 +24,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
     <PackageReference Include="MintPlayer.AspNetCore.OpenSearch" Version="1.1.1" />
     <PackageReference Include="MintPlayer.AspNetCore.SitemapXml" Version="2.0.2" />
-    <PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="6.0.2" />
+    <PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="6.0.3" />
     <PackageReference Include="MintPlayer.AspNetCore.XsrfForSpas" Version="1.0.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="WebMarkupMin.AspNetCore3" Version="2.11.0" />

@@ -23,6 +23,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using MintPlayer.AspNetCore.SitemapXml;
+using MintPlayer.AspNetCore.SpaServices.Prerendering;
 using MintPlayer.AspNetCore.SpaServices.Routing;
 using MintPlayer.AspNetCore.XsrfForSpas;
 using MintPlayer.Data.Extensions;
@@ -659,7 +660,7 @@ namespace MintPlayer.Web
 					//};
 
 #pragma warning disable CS0618 // Type or member is obsolete
-					spa.UseSpaPrerenderingService(options =>
+					spa.UseSpaPrerendering(options =>
                     {
 #if RebuildSPA
                         options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
