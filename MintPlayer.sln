@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{0F06F26D-ABA3-48CB-87A9-66A63D20CE10}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Web", "MP.Web\MintPlayer.Web.csproj", "{7B031640-46DA-4EAC-B60C-740BD3659FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Web", "MintPlayer.Web\MintPlayer.Web.csproj", "{7B031640-46DA-4EAC-B60C-740BD3659FCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Data", "MP.Data\MintPlayer.Data.csproj", "{1387C4D2-9136-4F58-83B1-DD689742279D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Data", "MintPlayer.Data\MintPlayer.Data.csproj", "{1387C4D2-9136-4F58-83B1-DD689742279D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crawler", "Crawler", "{A5DB56DA-ADE0-4049-AE02-45A04F5D90B4}"
 EndProject
@@ -116,7 +116,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Songteks
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Genius.Tests", "Fetcher\Genius\MintPlayer.Fetcher.Genius.Tests\MintPlayer.Fetcher.Genius.Tests.csproj", "{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Integration", "MP.Fetcher.Integration\MintPlayer.Fetcher.Integration.csproj", "{C10DDD01-ED36-4337-A319-5CA663F43EE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Integration", "MintPlayer.Fetcher.Integration\MintPlayer.Fetcher.Integration.csproj", "{C10DDD01-ED36-4337-A319-5CA663F43EE9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Data.Abstractions", "MintPlayer.Data.Abstractions\MintPlayer.Data.Abstractions.csproj", "{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}"
 EndProject

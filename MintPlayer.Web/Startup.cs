@@ -22,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
+using MintPlayer.AspNetCore.ChangePassword;
 using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SpaServices.Prerendering;
 using MintPlayer.AspNetCore.SpaServices.Routing;
@@ -116,10 +117,7 @@ namespace MintPlayer.Web
             });
 
             services
-                .AddControllersWithViews(options =>
-                {
-                    options.RespectBrowserAcceptHeader = true;
-                })
+                .AddControllersWithViews()
                 .AddXmlDataContractSerializerFormatters()
                 .AddSitemapXmlFormatters(options =>
                 {
@@ -127,6 +125,7 @@ namespace MintPlayer.Web
                 })
                 .AddMvcOptions(options =>
                 {
+                    options.RespectBrowserAcceptHeader = true;
                     options.OutputFormatters.OfType<Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter>().FirstOrDefault().SupportedMediaTypes.Add("text/plain");
                     options.OutputFormatters.Remove(options.OutputFormatters.OfType<Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter>().FirstOrDefault());
                 })
@@ -185,15 +184,6 @@ namespace MintPlayer.Web
                     // User settings
                     options.User.RequireUniqueEmail = true;
                     options.User.AllowedUserNameCharacters = string.Empty;
-                })
-                //.Configure<MvcOptions>("mvc", options =>
-                //{
-                //    options.RespectBrowserAcceptHeader = true;
-                //    options.OutputFormatters.Insert(0, new Microsoft.AspNetCore.Mvc.Formatters.XmlSerializerOutputFormatter());
-                //})
-                .Configure<Microsoft.AspNetCore.Routing.RouteOptions>(options =>
-                {
-                    //options.LowercaseUrls = true;
                 })
                 .Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
@@ -304,12 +294,6 @@ namespace MintPlayer.Web
                     options.Description = "Search music on MintPlayer";
                     options.Contact = "info@mintplayer.com";
                 })
-                //.Configure<HstsOptions>(options =>
-                //{
-                //    options.IncludeSubDomains = true;
-                //    options.Preload = true;
-                //    options.MaxAge = TimeSpan.FromDays(730);
-                //})
                 .Configure<WebMarkupMinOptions>(options =>
                 {
                     options.DisablePoweredByHttpHeaders = true;
@@ -334,7 +318,6 @@ namespace MintPlayer.Web
                     options.SlidingExpiration = true;
                     options.ExpireTimeSpan = TimeSpan.FromDays(3);
 #if RELEASE
-                    //options.Cookie.Domain = ".mintplayer.com";
                     options.Cookie.Domain = "mintplayer.com";
 #endif
 					options.Events.OnRedirectToLogin = (context) =>
@@ -391,11 +374,7 @@ namespace MintPlayer.Web
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-				endpoints.MapGet("/.well-known/change-password", async (context) =>
-				{
-					var changePasswordUrl = await spaRouteService.GenerateUrl("account-profile", new { });
-					context.Response.Redirect(changePasswordUrl);
-				}).RequireAuthorization();
+				endpoints.MapChangePassword(() => spaRouteService.GenerateUrl("account-profile", new { }));
 
                 endpoints.MapControllerRoute(
                     name: "default",
@@ -639,46 +618,57 @@ namespace MintPlayer.Web
                 }
             });
 
+			//app.Use(async (context, next) =>
+			//{
+			//	context.Response.OnStarting(() =>
+			//	{
+			//		context.Response.Headers.Add("Hi", "There");
+			//		return Task.CompletedTask;
+			//	});
+			//	await next();
+			//});
+
             app.UseWhen(
                 context => ShouldUseSpa(context),
-                app2 => app2.UseSpa(spa =>
-                {
-                    spa.Options.SourcePath = "ClientApp";
+                app2 => app2
+					//.UseHsts()
+					.UseSpa(spa =>
+					{
+						spa.Options.SourcePath = "ClientApp";
 
-					//spa.Options.DefaultPageStaticFileOptions = new StaticFileOptions
-					//{
-					//	OnPrepareResponse = (context) =>
-					//	{
-					//		const int duration = 60 * 60 * 24;
-					//		var expires = DateTime.UtcNow.AddSeconds(duration).ToString("ddd, dd MMM yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+						//spa.Options.DefaultPageStaticFileOptions = new StaticFileOptions
+						//{
+						//	OnPrepareResponse = (context) =>
+						//	{
+						//		const int duration = 60 * 60 * 24;
+						//		var expires = DateTime.UtcNow.AddSeconds(duration).ToString("ddd, dd MMM yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
 
-					//		context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
-					//		context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
+						//		context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
+						//		context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
 
-					//		context.Context.Response.Headers.Add("Strict-Transport-Security", $"max-age=63072000; preload; includeSubDomains");
-					//	}
-					//};
+						//		context.Context.Response.Headers.Add("Strict-Transport-Security", $"max-age=63072000; preload; includeSubDomains");
+						//		context.Context.Response.Headers.Add("Hello", "World");
+						//	}
+						//};
 
-#pragma warning disable CS0618 // Type or member is obsolete
-					spa.UseSpaPrerendering(options =>
-                    {
+						spa.UseSpaPrerendering(options =>
+						{
 #if RebuildSPA
-                        options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
+							options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
 #else
-                        options.BootModuleBuilder = null;
+							options.BootModuleBuilder = null;
 #endif
-                        options.BootModulePath = $"{spa.Options.SourcePath}/dist/server/main.js";
-                        options.ExcludeUrls = new[] { "/sockjs-node" };
-                    });
-#pragma warning restore CS0618 // Type or member is obsolete
+							options.BootModulePath = $"{spa.Options.SourcePath}/dist/server/main.js";
+							options.ExcludeUrls = new[] { "/sockjs-node" };
+						});
 
-                    //app2.UseWebMarkupMin();
+						//app2.UseWebMarkupMin();
 
-                    if (env.IsDevelopment())
-                    {
-                        spa.UseAngularCliServer(npmScript: "start");
-                    }
-                })
+						if (env.IsDevelopment())
+						{
+							spa.UseAngularCliServer(npmScript: "start");
+						}
+					})
             );
         }
 
