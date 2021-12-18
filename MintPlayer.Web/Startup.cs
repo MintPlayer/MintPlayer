@@ -32,6 +32,7 @@ using MintPlayer.Data.Extensions;
 using MintPlayer.Fetcher.Integration.Extensions;
 using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
+using MintPlayer.Web.Server.Middleware;
 using MintPlayer.Web.Services;
 using System;
 using System.Linq;
@@ -347,7 +348,8 @@ namespace MintPlayer.Web
 			}
 
 			// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-			app.UseHsts();
+			//app.UseHsts();
+			app.UseMyHsts();
 			app.UseHttpsRedirection();
 			app.UseNoSniff();
 			app.UseSwagger();
