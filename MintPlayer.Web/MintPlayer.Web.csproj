@@ -37,24 +37,20 @@
     <Compile Remove="ClientApp\src\app\pages\tagging\**" />
     <Compile Remove="ClientApp\types\**" />
     <Compile Remove="Dtos\**" />
-    <Compile Remove="Server\Middleware\**" />
     <Compile Remove="Server\ViewModels\Subject\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\pages\tagging\**" />
     <Content Remove="ClientApp\types\**" />
     <Content Remove="Dtos\**" />
-    <Content Remove="Server\Middleware\**" />
     <Content Remove="Server\ViewModels\Subject\**" />
     <EmbeddedResource Remove="ClientApp\src\app\pages\tagging\**" />
     <EmbeddedResource Remove="ClientApp\types\**" />
     <EmbeddedResource Remove="Dtos\**" />
-    <EmbeddedResource Remove="Server\Middleware\**" />
     <EmbeddedResource Remove="Server\ViewModels\Subject\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="ClientApp\src\app\pages\tagging\**" />
     <None Remove="ClientApp\types\**" />
     <None Remove="Dtos\**" />
-    <None Remove="Server\Middleware\**" />
     <None Remove="Server\ViewModels\Subject\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
