@@ -2,7 +2,6 @@
 
 using AspNetCoreOpenSearch.Extensions;
 using AspNetCoreOpenSearch.Options;
-using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,13 +13,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using MintPlayer.AspNetCore.ChangePassword;
 using MintPlayer.AspNetCore.NoSniff;
@@ -30,9 +27,7 @@ using MintPlayer.AspNetCore.SpaServices.Routing;
 using MintPlayer.AspNetCore.XsrfForSpas;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Fetcher.Integration.Extensions;
-using MintPlayer.Pagination;
 using MintPlayer.Web.Extensions;
-using MintPlayer.Web.Server.Middleware;
 using MintPlayer.Web.Services;
 using System;
 using System.Linq;
@@ -102,6 +97,9 @@ namespace MintPlayer.Web
 				options.IncludeSubDomains = true;
 				options.Preload = true;
 				options.MaxAge = TimeSpan.FromDays(730);
+#if RELEASE
+				options.ExcludedHosts.Remove("127.0.0.1");
+#endif
 			});
 
 			services.AddHttpContextAccessor();
@@ -348,8 +346,7 @@ namespace MintPlayer.Web
 			}
 
 			// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-			//app.UseHsts();
-			app.UseMyHsts();
+			app.UseHsts();
 			app.UseHttpsRedirection();
 			app.UseNoSniff();
 			app.UseSwagger();
