@@ -371,17 +371,22 @@ namespace MintPlayer.Web
 			app.UseAuthorization();
 			app.Use(async (context, next) =>
 			{
-				var lang = "en";
-				if (context.Request.Query.ContainsKey("lang"))
+				context.Response.OnStarting((state) =>
 				{
-					var allowedLangs = new[] { "en", "fr", "nl" };
-					var queryLang = context.Request.Query["lang"].FirstOrDefault();
-					if (allowedLangs.Contains(queryLang))
+					var lang = "en";
+					var ctx = (HttpContext)state;
+					if (ctx.Request.Query.ContainsKey("lang"))
 					{
-						lang = queryLang;
+						var allowedLangs = new[] { "en", "fr", "nl" };
+						var queryLang = ctx.Request.Query["lang"].FirstOrDefault();
+						if (allowedLangs.Contains(queryLang))
+						{
+							lang = queryLang;
+						}
 					}
-				}
-				context.Response.Headers.ContentLanguage = lang;
+					ctx.Response.Headers.ContentLanguage = lang;
+					return Task.CompletedTask;
+				}, context);
 
 				await next();
 			});
