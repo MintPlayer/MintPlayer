@@ -274,14 +274,13 @@ namespace MintPlayer.Web
 								MustRevalidate = true
 							};
 
-							//const int duration = 60 * 60 * 24;
-							//var expires = DateTime.UtcNow.AddSeconds(duration).ToString("ddd, dd MMM yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+							const int duration = 60 * 60 * 24;
+							var expires = DateTime.UtcNow.AddSeconds(duration).ToString("ddd, dd MMM yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
 
-							////context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
-							//context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
+							context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
+							context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
 
-							//context.Context.Response.Headers.Add("Strict-Transport-Security", $"max-age={TimeSpan.FromDays(730).TotalMilliseconds}; preload; includeSubDomains");
-
+							context.Context.Response.Headers.Add("Strict-Transport-Security", $"max-age={TimeSpan.FromDays(730).TotalMilliseconds}; preload; includeSubDomains");
 						}
 					};
 				})
@@ -406,7 +405,7 @@ namespace MintPlayer.Web
 				});
 			});
 
-			//app.UseResponseCaching();
+			app.UseResponseCaching();
 			//app.Use(async (context, next) =>
 			//{
 			//    context.Response.OnStarting(() =>

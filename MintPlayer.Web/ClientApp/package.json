@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --subresource-integrity",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -14,7 +14,7 @@
     "compile:server_bak": "webpack --config webpack.server.config.js --progress --colors",
     "dev:ssr": "ng run ClientApp:serve-ssr",
     "serve:ssr": "node dist/server/main.js",
-    "build:ssr": "ng build --configuration production && ng run ClientApp:server:production",
+    "build:ssr": "ng build --configuration production --subresource-integrity && ng run ClientApp:server:production",
     "prerender": "ng run ClientApp:prerender"
   },
   "private": true,
