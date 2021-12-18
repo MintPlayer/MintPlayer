@@ -98,7 +98,8 @@ namespace MintPlayer.Web
 				options.Preload = true;
 				options.MaxAge = TimeSpan.FromDays(730);
 #if RELEASE
-				options.ExcludedHosts.Remove("127.0.0.1");
+				//options.ExcludedHosts.Remove("127.0.0.1");
+				options.ExcludedHosts.Clear();
 #endif
 			});
 
