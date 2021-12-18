@@ -23,6 +23,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
     <PackageReference Include="MintPlayer.AspNetCore.ChangePassword" Version="6.0.0" />
+    <PackageReference Include="MintPlayer.AspNetCore.NoSniff" Version="6.0.2" />
     <PackageReference Include="MintPlayer.AspNetCore.OpenSearch" Version="1.1.1" />
     <PackageReference Include="MintPlayer.AspNetCore.SitemapXml" Version="2.0.2" />
     <PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="6.0.3" />

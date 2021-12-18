@@ -1,5 +1,9 @@
 @import 'variables.scss';
 
+@font-face {
+    font-display: swap;
+}
+
 html {
   height: 100%;
   font-display: swap;

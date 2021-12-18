@@ -2,8 +2,32 @@
 
 User-agent: Googlebot
 Allow: /
+Disallow: /person/create
+Disallow: /person/**/**/edit
+Disallow: /artist/create
+Disallow: /artist/**/**/edit
+Disallow: /song/create
+Disallow: /song/**/**/edit
+Disallow: /mediumtype/create
+Disallow: /mediumtype/**/**/edit
+Disallow: /tag/category/create
+Disallow: /tag/category/**/edit
+Disallow: /tag/category/**/tags/create
+Disallow: /tag/category/**/tags/**/edit
 
 User-agent: *
 Allow: /
+Disallow: /person/create
+Disallow: /person/**/**/edit
+Disallow: /artist/create
+Disallow: /artist/**/**/edit
+Disallow: /song/create
+Disallow: /song/**/**/edit
+Disallow: /mediumtype/create
+Disallow: /mediumtype/**/**/edit
+Disallow: /tag/category/create
+Disallow: /tag/category/**/edit
+Disallow: /tag/category/**/tags/create
+Disallow: /tag/category/**/tags/**/edit
 
 Sitemap: @Model.SitemapUrl
