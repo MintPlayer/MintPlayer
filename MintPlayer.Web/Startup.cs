@@ -647,7 +647,6 @@ namespace MintPlayer.Web
 			app.UseWhen(
 				context => ShouldUseSpa(context),
 				app2 => app2
-					//.UseHsts()
 					.UseSpa(spa =>
 					{
 						spa.Options.SourcePath = "ClientApp";
