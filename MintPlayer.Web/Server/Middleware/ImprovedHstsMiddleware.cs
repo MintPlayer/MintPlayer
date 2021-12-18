@@ -13,12 +13,12 @@ using Microsoft.Extensions.Primitives;
 namespace MintPlayer.Web.Server.Middleware
 {
 	// You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-	public class MyHstsMiddleware
+	public class ImprovedHstsMiddleware
 	{
 		private const string IncludeSubDomains = "; includeSubDomains";
 		private const string Preload = "; preload";
 
-		private readonly RequestDelegate _next;
+		private readonly RequestDelegate next;
 		private readonly StringValues _strictTransportSecurityValue;
 		private readonly IList<string> _excludedHosts;
 
@@ -28,14 +28,14 @@ namespace MintPlayer.Web.Server.Middleware
 		/// <param name="next"></param>
 		/// <param name="options"></param>
 		/// <param name="loggerFactory"></param>
-		public MyHstsMiddleware(RequestDelegate next, IOptions<HstsOptions> options, ILoggerFactory loggerFactory)
+		public ImprovedHstsMiddleware(RequestDelegate next, IOptions<HstsOptions> options, ILoggerFactory loggerFactory)
 		{
 			if (options == null)
 			{
 				throw new ArgumentNullException(nameof(options));
 			}
 
-			_next = next ?? throw new ArgumentNullException(nameof(next));
+			this.next = next ?? throw new ArgumentNullException(nameof(next));
 
 			var hstsOptions = options.Value;
 			var maxAge = Convert.ToInt64(Math.Floor(hstsOptions.MaxAge.TotalSeconds))
@@ -51,7 +51,7 @@ namespace MintPlayer.Web.Server.Middleware
 		/// </summary>
 		/// <param name="next"></param>
 		/// <param name="options"></param>
-		public MyHstsMiddleware(RequestDelegate next, IOptions<HstsOptions> options)
+		public ImprovedHstsMiddleware(RequestDelegate next, IOptions<HstsOptions> options)
 			: this(next, options, NullLoggerFactory.Instance) { }
 
 		/// <summary>
@@ -61,15 +61,17 @@ namespace MintPlayer.Web.Server.Middleware
 		/// <returns></returns>
 		public async Task Invoke(HttpContext context)
 		{
-			//if (!context.Request.IsHttps)
-			//{
-			//	return _next(context);
-			//}
+			if (!context.Request.IsHttps)
+			{
+				await next(context);
+				return;
+			}
 
-			//if (IsHostExcluded(context.Request.Host.Host))
-			//{
-			//	return _next(context);
-			//}
+			if (IsHostExcluded(context.Request.Host.Host))
+			{
+				await next(context);
+				return;
+			}
 
 			context.Response.OnStarting((state) =>
 			{
@@ -78,29 +80,29 @@ namespace MintPlayer.Web.Server.Middleware
 				return Task.CompletedTask;
 			}, context);
 
-			await _next(context);
+			await next(context);
 		}
 
-		//private bool IsHostExcluded(string host)
-		//{
-		//	for (var i = 0; i < _excludedHosts.Count; i++)
-		//	{
-		//		if (string.Equals(host, _excludedHosts[i], StringComparison.OrdinalIgnoreCase))
-		//		{
-		//			return true;
-		//		}
-		//	}
+		private bool IsHostExcluded(string host)
+		{
+			for (var i = 0; i < _excludedHosts.Count; i++)
+			{
+				if (string.Equals(host, _excludedHosts[i], StringComparison.OrdinalIgnoreCase))
+				{
+					return true;
+				}
+			}
 
-		//	return false;
-		//}
+			return false;
+		}
 	}
 
 	// Extension method used to add the middleware to the HTTP request pipeline.
-	public static class MyHstsMiddlewareExtensions
+	public static class ImprovedHstsMiddlewareExtensions
 	{
-		public static IApplicationBuilder UseMyHsts(this IApplicationBuilder builder)
+		public static IApplicationBuilder UseImprovedHsts(this IApplicationBuilder builder)
 		{
-			return builder.UseMiddleware<MyHstsMiddleware>();
+			return builder.UseMiddleware<ImprovedHstsMiddleware>();
 		}
 	}
 }
