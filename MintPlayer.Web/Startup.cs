@@ -130,7 +130,6 @@ namespace MintPlayer.Web
 					options.OutputFormatters.OfType<Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter>().FirstOrDefault().SupportedMediaTypes.Add("text/plain");
 					options.OutputFormatters.Remove(options.OutputFormatters.OfType<Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter>().FirstOrDefault());
 				})
-				.SetCompatibilityVersion(CompatibilityVersion.Latest)
 				.AddNewtonsoftJson();
 
 			services.AddWebMarkupMin().AddHttpCompression();
