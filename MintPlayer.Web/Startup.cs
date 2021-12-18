@@ -133,7 +133,7 @@ namespace MintPlayer.Web
 				})
 				.AddNewtonsoftJson();
 
-			services.AddWebMarkupMin().AddHttpCompression();
+			services.AddWebMarkupMin().AddHttpCompression().AddHtmlMinification();
 			services.AddSwaggerGen(options =>
 			{
 				options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -430,8 +430,6 @@ namespace MintPlayer.Web
 
 					//	context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
 					//	context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
-
-					//	context.Context.Response.Headers.Add("Strict-Transport-Security", $"max-age={hstsOptions.Value.MaxAge.TotalMilliseconds}; preload; includeSubDomains");
 					//}
 				});
 			}
@@ -662,9 +660,6 @@ namespace MintPlayer.Web
 
 						//		context.Context.Response.Headers[HeaderNames.CacheControl] = $"public,max-age={duration}";
 						//		context.Context.Response.Headers[HeaderNames.Expires] = expires + " GMT";
-
-						//		context.Context.Response.Headers.Add("Strict-Transport-Security", $"max-age=63072000; preload; includeSubDomains");
-						//		context.Context.Response.Headers.Add("Hello", "World");
 						//	}
 						//};
 
@@ -679,7 +674,7 @@ namespace MintPlayer.Web
 							options.ExcludeUrls = new[] { "/sockjs-node" };
 						});
 
-						//app2.UseWebMarkupMin();
+						app2.UseWebMarkupMin();
 
 						if (env.IsDevelopment())
 						{
