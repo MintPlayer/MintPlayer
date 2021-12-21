@@ -49,7 +49,7 @@
     "@mintplayer/ng-youtube-api": "^13.1.0",
     "@mintplayer/ng-click-outside": "^13.1.0",
     "@nguniversal/express-engine": "^13.0.1",
-    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@types/youtube": "0.0.46",
     "aspnet-prerendering": "^3.0.1",
