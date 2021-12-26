@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.1" />
     <PackageReference Include="MintPlayer.Pagination" Version="1.0.3" />
   </ItemGroup>
 

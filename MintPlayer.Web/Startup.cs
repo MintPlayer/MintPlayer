@@ -1,7 +1,5 @@
 ﻿//#define RebuildSPA
 
-using AspNetCoreOpenSearch.Extensions;
-using AspNetCoreOpenSearch.Options;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -21,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using MintPlayer.AspNetCore.ChangePassword;
 using MintPlayer.AspNetCore.NoSniff;
+using MintPlayer.AspNetCore.OpenSearch;
 using MintPlayer.AspNetCore.SitemapXml;
 using MintPlayer.AspNetCore.SpaServices.Prerendering;
 using MintPlayer.AspNetCore.SpaServices.Routing;
@@ -66,7 +65,7 @@ namespace MintPlayer.Web
 					options.Active = Configuration.GetValue<bool>("ElasticSearch:Active");
 				})
 				.AddOpenSearch<OpenSearchService>()
-				.AddSitemapXml();
+				.AddSitemapXml(options => options.StylesheetUrl = "/assets/stitemap.xsl");
 
 			services
 				.AddAuthentication()
@@ -121,10 +120,6 @@ namespace MintPlayer.Web
 			services
 				.AddControllersWithViews()
 				.AddXmlDataContractSerializerFormatters()
-				.AddSitemapXmlFormatters(options =>
-				{
-					options.StylesheetUrl = "/assets/stitemap.xsl";
-				})
 				.AddMvcOptions(options =>
 				{
 					options.RespectBrowserAcceptHeader = true;

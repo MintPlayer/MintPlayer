@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MintPlayer.Timestamps" Version="1.0.2" />
+    <PackageReference Include="MintPlayer.Timestamps" Version="2.0.0" />
     <PackageReference Include="NEST" Version="7.16.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />

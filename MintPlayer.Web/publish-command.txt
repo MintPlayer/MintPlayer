@@ -1,1 +1,1 @@
-﻿...\repos\MintPlayer>dotnet msbuild MP.Web\MintPlayer.Web.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=xxxxxxxx /p:Username=xxxxxxxx /p:Password=xxxxxxxx
+﻿...\repos\MintPlayer>dotnet msbuild MintPlayer.Web\MintPlayer.Web.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=xxxxxxxx /p:Username=xxxxxxxx /p:Password=xxxxxxxx
