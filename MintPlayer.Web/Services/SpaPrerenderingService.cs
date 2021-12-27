@@ -152,7 +152,7 @@ namespace MintPlayer.Web.Services
 					{
 						context.Response.OnStarting(() =>
 						{
-							context.Response.StatusCode = 404;
+							context.Response.StatusCode = StatusCodes.Status404NotFound;
 							return Task.CompletedTask;
 						});
 					}
@@ -170,8 +170,28 @@ namespace MintPlayer.Web.Services
 						data["mediumtypes"] = mediumtypes.ToArray();
 					}
 					break;
-				case "person-show-name":
+				case "person-show":
 				case "person-edit":
+					{
+						var id = Convert.ToInt32(route.Parameters["id"]);
+						var person = await personService.GetPerson(id, false);
+						if (person == null)
+						{
+							context.Response.OnStarting(() =>
+							{
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
+								return Task.CompletedTask;
+							});
+						}
+						else
+						{
+							var url = await spaRouteService.GenerateUrl($"{route.Name}-name", new { id = id, name = person.Text.Slugify() });
+							context.Response.Redirect(url);
+						}
+					}
+					break;
+				case "person-show-name":
+				case "person-edit-name":
 					{
 						var id = Convert.ToInt32(route.Parameters["id"]);
 						var person = await personService.GetPerson(id, true);
@@ -179,11 +199,11 @@ namespace MintPlayer.Web.Services
 						{
 							context.Response.OnStarting(() =>
 							{
-								context.Response.StatusCode = 404;
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
 								return Task.CompletedTask;
 							});
 						}
-						else
+						else if (route.Parameters["name"] == person.Text.Slugify())
 						{
 							data["person"] = person;
 							context.Response.OnStarting(() =>
@@ -191,6 +211,11 @@ namespace MintPlayer.Web.Services
 								context.Response.Headers["last-modified"] = person.DateUpdate.ToISOString();
 								return Task.CompletedTask;
 							});
+						}
+						else
+						{
+							var url = await spaRouteService.GenerateUrl(route.Name, new { id = id, name = person.Text.Slugify() });
+							context.Response.Redirect(url);
 						}
 						var mediumtypes = await mediumTypeService.GetMediumTypes(false);
 						data["mediumtypes"] = mediumtypes.ToArray();
@@ -209,8 +234,28 @@ namespace MintPlayer.Web.Services
 						data["mediumtypes"] = mediumtypes.ToArray();
 					}
 					break;
-				case "artist-show-name":
+				case "artist-show":
 				case "artist-edit":
+					{
+						var id = Convert.ToInt32(route.Parameters["id"]);
+						var artist = await artistService.GetArtist(id, false);
+						if (artist == null)
+						{
+							context.Response.OnStarting(() =>
+							{
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
+								return Task.CompletedTask;
+							});
+						}
+						else
+						{
+							var url = await spaRouteService.GenerateUrl($"{route.Name}-name", new { id = id, name = artist.Name.Slugify() });
+							context.Response.Redirect(url);
+						}
+					}
+					break;
+				case "artist-show-name":
+				case "artist-edit-name":
 					{
 						var id = Convert.ToInt32(route.Parameters["id"]);
 						var artist = await artistService.GetArtist(id, true);
@@ -218,11 +263,11 @@ namespace MintPlayer.Web.Services
 						{
 							context.Response.OnStarting(() =>
 							{
-								context.Response.StatusCode = 404;
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
 								return Task.CompletedTask;
 							});
 						}
-						else
+						else if (route.Parameters["name"] == artist.Text.Slugify())
 						{
 							data["artist"] = artist;
 							context.Response.OnStarting(() =>
@@ -230,6 +275,11 @@ namespace MintPlayer.Web.Services
 								context.Response.Headers["last-modified"] = artist.DateUpdate.ToISOString();
 								return Task.CompletedTask;
 							});
+						}
+						else
+						{
+							var url = await spaRouteService.GenerateUrl(route.Name, new { id = id, name = artist.Text.Slugify() });
+							context.Response.Redirect(url);
 						}
 						var mediumtypes = await mediumTypeService.GetMediumTypes(false);
 						data["mediumtypes"] = mediumtypes.ToArray();
@@ -248,8 +298,31 @@ namespace MintPlayer.Web.Services
 						data["mediumtypes"] = mediumtypes.ToArray();
 					}
 					break;
-				case "song-show-title":
+				case "song-show":
 				case "song-edit":
+					{
+						var id = Convert.ToInt32(route.Parameters["id"]);
+						var song = await songService.GetSong(id, false);
+						if (song == null)
+						{
+							context.Response.OnStarting(() =>
+							{
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
+								return Task.CompletedTask;
+							});
+						}
+						else
+						{
+							context.Response.OnStarting(async () =>
+							{
+								var url = await spaRouteService.GenerateUrl($"{route.Name}-title", new { id = id, title = song.Title.Slugify() });
+								context.Response.Redirect(url);
+							});
+						}
+					}
+					break;
+				case "song-show-title":
+				case "song-edit-title":
 					{
 						var id = Convert.ToInt32(route.Parameters["id"]);
 						var song = await songService.GetSong(id, true);
@@ -257,11 +330,11 @@ namespace MintPlayer.Web.Services
 						{
 							context.Response.OnStarting(() =>
 							{
-								context.Response.StatusCode = 404;
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
 								return Task.CompletedTask;
 							});
 						}
-						else
+						else if (route.Parameters["title"] == song.Text.Slugify())
 						{
 							data["song"] = song;
 							context.Response.OnStarting(() =>
@@ -270,6 +343,12 @@ namespace MintPlayer.Web.Services
 								return Task.CompletedTask;
 							});
 						}
+						else
+						{
+							var url = await spaRouteService.GenerateUrl(route.Name, new { id = id, title = song.Text.Slugify() });
+							context.Response.Redirect(url);
+						}
+
 						var mediumtypes = await mediumTypeService.GetMediumTypes(false);
 						data["mediumtypes"] = mediumtypes.ToArray();
 					}
@@ -286,18 +365,43 @@ namespace MintPlayer.Web.Services
 				case "mediumtype-edit":
 					{
 						var id = Convert.ToInt32(route.Parameters["id"]);
-						var mediumtype = await mediumTypeService.GetMediumType(id, false);
-						if (mediumtype == null)
+						var mediumType = await mediumTypeService.GetMediumType(id, false);
+						if (mediumType == null)
 						{
 							context.Response.OnStarting(() =>
 							{
-								context.Response.StatusCode = 404;
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
 								return Task.CompletedTask;
 							});
 						}
 						else
 						{
+							var url = await spaRouteService.GenerateUrl($"{route.Name}-name", new { id = id, name = mediumType.Description.Slugify() });
+							context.Response.Redirect(url);
+						}
+					}
+					break;
+				case "mediumtype-show-name":
+				case "mediumtype-edit-name":
+					{
+						var id = Convert.ToInt32(route.Parameters["id"]);
+						var mediumtype = await mediumTypeService.GetMediumType(id, false);
+						if (mediumtype == null)
+						{
+							context.Response.OnStarting(() =>
+							{
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
+								return Task.CompletedTask;
+							});
+						}
+						else if (route.Parameters["name"] == mediumtype.Description.Slugify())
+						{
 							data["mediumtype"] = mediumtype;
+						}
+						else
+						{
+							var url = await spaRouteService.GenerateUrl(route.Name, new { id = id, name = mediumtype.Description.Slugify() });
+							context.Response.Redirect(url);
 						}
 					}
 					break;
@@ -322,7 +426,7 @@ namespace MintPlayer.Web.Services
 						if (category == null)
 							context.Response.OnStarting(() =>
 							{
-								context.Response.StatusCode = 404;
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
 								return Task.CompletedTask;
 							});
 						else
@@ -337,7 +441,7 @@ namespace MintPlayer.Web.Services
 						if (category == null)
 							context.Response.OnStarting(() =>
 							{
-								context.Response.StatusCode = 404;
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
 								return Task.CompletedTask;
 							});
 						else
@@ -351,7 +455,7 @@ namespace MintPlayer.Web.Services
 						if (tag == null)
 							context.Response.OnStarting(() =>
 							{
-								context.Response.StatusCode = 404;
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
 								return Task.CompletedTask;
 							});
 						else
@@ -365,7 +469,7 @@ namespace MintPlayer.Web.Services
 						if (tag == null)
 							context.Response.OnStarting(() =>
 							{
-								context.Response.StatusCode = 404;
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
 								return Task.CompletedTask;
 							});
 						else
@@ -386,27 +490,11 @@ namespace MintPlayer.Web.Services
 						if (blogPost == null)
 							context.Response.OnStarting(() =>
 							{
-								context.Response.StatusCode = 404;
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
 								return Task.CompletedTask;
 							});
 						else
 							data["blogpost"] = blogPost;
-
-						//data["blogpost"] = new Data.Dtos.Blog.BlogPost
-						//{
-						//    Id = 2,
-						//    Title = "Test",
-						//    Headline = "This is a test",
-						//    Body = "This is a test",
-						//    Author = new Dtos.Dtos.User
-						//    {
-						//        Id = Guid.Empty,
-						//        Email = "pieterjandeclippel@msn.com",
-						//        UserName = "PieterjanDC",
-						//        PictureUrl = "https://mintplayer.com/profile/5"
-						//    },
-						//    Published = DateTime.Now
-						//};
 					}
 					break;
 				//case "playlist-list":
@@ -416,25 +504,66 @@ namespace MintPlayer.Web.Services
 				//        data["playlists"] = playlists;
 				//    }
 				//    break;
-				//case "playlist-show":
-				//case "playlist-edit":
-				//    {
-				//        var id = System.Convert.ToInt32(route.Parameters["id"]);
-				//        var playlist = playlistService.GetPlaylist(id, true);
-				//        if (playlist == null)
-				//        {
-				//            context.Response.OnStarting(() =>
-				//            {
-				//                context.Response.StatusCode = 404;
-				//                return Task.CompletedTask;
-				//            });
-				//        }
-				//        else
-				//        {
-				//            data["playlist"] = playlist;
-				//        }
-				//    }
-				//    break;
+				case "playlist-show":
+				case "playlist-edit":
+					{
+						var id = Convert.ToInt32(route.Parameters["id"]);
+						var playlist = await playlistService.GetPlaylist(id, true);
+						if (playlist == null)
+						{
+							context.Response.OnStarting(() =>
+							{
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
+								return Task.CompletedTask;
+							});
+						}
+						else if ((playlist.User.Id != user?.Id) && (playlist.Accessibility == Dtos.Enums.ePlaylistAccessibility.Private))
+						{
+							context.Response.OnStarting(() =>
+							{
+								context.Response.StatusCode = StatusCodes.Status403Forbidden;
+								return Task.CompletedTask;
+							});
+						}
+						else
+						{
+							var url = await spaRouteService.GenerateUrl($"{route.Name}-description", new { id = id, description = playlist.Description.Slugify() });
+							context.Response.Redirect(url);
+						}
+					}
+					break;
+				case "playlist-show-description":
+				case "playlist-edit-description":
+					{
+						var id = Convert.ToInt32(route.Parameters["id"]);
+						var playlist = await playlistService.GetPlaylist(id);
+						if (playlist == null)
+						{
+							context.Response.OnStarting(() =>
+							{
+								context.Response.StatusCode = StatusCodes.Status404NotFound;
+								return Task.CompletedTask;
+							});
+						}
+						else if ((playlist.User.Id != user?.Id) && (playlist.Accessibility == Dtos.Enums.ePlaylistAccessibility.Private))
+						{
+							context.Response.OnStarting(() =>
+							{
+								context.Response.StatusCode = StatusCodes.Status403Forbidden;
+								return Task.CompletedTask;
+							});
+						}
+						else if (route.Parameters["description"] == playlist.Description.Slugify())
+						{
+							data["playlist"] = playlist;
+						}
+						else
+						{
+							var url = await spaRouteService.GenerateUrl(route.Name, new { id = id, description = playlist.Description.Slugify() });
+							context.Response.Redirect(url);
+						}
+					}
+					break;
 				default:
 					break;
 			}
