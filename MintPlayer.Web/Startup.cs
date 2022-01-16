@@ -361,7 +361,7 @@ namespace MintPlayer.Web
 				}
 			);
 			app.UseRouting();
-			app.UseCors();
+			app.UseCors(CorsPolicies.AllowDatatables);
 			app.UseAuthorization();
 			app.Use(async (context, next) =>
 			{
@@ -392,7 +392,7 @@ namespace MintPlayer.Web
 				endpoints.MapControllerRoute(
 					name: "default",
 					pattern: "{controller}/{action=Index}/{id?}")
-				.RequireCors("AllowPage");
+				.RequireCors(CorsPolicies.AllowDatatables);
 
 				endpoints.MapDefaultSitemapXmlStylesheet(options =>
 				{
