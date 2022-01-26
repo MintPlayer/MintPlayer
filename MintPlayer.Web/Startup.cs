@@ -113,7 +113,7 @@ namespace MintPlayer.Web
 						.AllowAnyHeader()
 						.AllowCredentials()
 						.WithMethods(HttpMethods.Post)
-						.SetIsOriginAllowed((origin) => Regex.IsMatch(origin, @"http[s]{0,1}\:\/\/localhost\:[0-9]+"));
+						.SetIsOriginAllowed((origin) => Regex.IsMatch(origin, @"(http[s]{0,1}\:\/\/localhost\:[0-9]+)|(https\:\/\/[a-z]+\.mintplayer\.com)"));
 				});
 			});
 
