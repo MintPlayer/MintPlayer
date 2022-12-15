@@ -55,7 +55,7 @@
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^5.0.2",
     "caniuse-lite": "^1.0.30001023",
-    "express": "^4.15.2",
+    "express": "^4.17.3",
     "font-awesome": "^4.7.0",
     "guid-typescript": "^1.0.9",
     "ng-qrcode": "^6.0.0",
