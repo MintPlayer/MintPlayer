@@ -57,7 +57,6 @@ const getExternalUrl = (baseUrl: string) => {
       cookieName: 'XSRF-TOKEN',
       headerName: 'X-XSRF-TOKEN'
     }),
-    TranslateModule.forChild(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     AdvancedRouterModule,
     PlaylistControllerModule,
