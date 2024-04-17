@@ -1,15 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using MintPlayer.AspNetCore.OpenSearch;
+using MintPlayer.AspNetCore.OpenSearch.Abstractions;
 using MintPlayer.AspNetCore.SpaServices.Routing;
 using MintPlayer.Data.Abstractions.Services;
-using MintPlayer.Data.Repositories;
-using MintPlayer.Data.Services;
 using MintPlayer.Web.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MintPlayer.Web.Services
 {

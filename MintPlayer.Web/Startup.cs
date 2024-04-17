@@ -1,39 +1,28 @@
 ﻿//#define RebuildSPA
 
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.MicrosoftAccount;
 using Microsoft.AspNetCore.Authentication.Twitter;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using MintPlayer.AspNetCore.ChangePassword;
 using MintPlayer.AspNetCore.NoSniff;
 using MintPlayer.AspNetCore.OpenSearch;
 using MintPlayer.AspNetCore.SitemapXml;
+using MintPlayer.AspNetCore.SitemapXml.Options;
+using MintPlayer.AspNetCore.SpaServices.Extensions;
 using MintPlayer.AspNetCore.SpaServices.Prerendering;
 using MintPlayer.AspNetCore.SpaServices.Routing;
-using MintPlayer.AspNetCore.XsrfForSpas;
+using MintPlayer.AspNetCore.SpaServices.Xsrf;
 using MintPlayer.Data.Extensions;
-using MintPlayer.Fetcher.Integration.Extensions;
-using MintPlayer.Web.Extensions;
 using MintPlayer.Web.Server.Middleware;
-using MintPlayer.Web.Services;
-using System;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using WebMarkupMin.AspNetCore3;
+using WebMarkupMin.AspNetCore8;
+using MintPlayer.Fetcher.Integration.Extensions;
 
 namespace MintPlayer.Web
 {
@@ -64,7 +53,7 @@ namespace MintPlayer.Web
 					options.DefaultIndex = Configuration["ElasticSearch:Index"];
 					options.Active = Configuration.GetValue<bool>("ElasticSearch:Active");
 				})
-				.AddOpenSearch<OpenSearchService>()
+				.AddOpenSearch<Services.OpenSearchService>()
 				.AddSitemapXml(options => options.StylesheetUrl = "/assets/stitemap.xsl");
 
 			services
@@ -146,12 +135,12 @@ namespace MintPlayer.Web
 			services.AddRouting();
 
 			// In production, the Angular files will be served from this directory
-			services.AddSpaStaticFiles(configuration =>
+			services.AddSpaStaticFilesImproved(configuration =>
 			{
 				configuration.RootPath = "ClientApp/dist";
 			});
 
-			services.AddSpaPrerenderingService<SpaRouteService>();
+			services.AddSpaPrerenderingService<Services.SpaRouteService>();
 
 			services
 				.AddFetcherContainer()
@@ -307,6 +296,10 @@ namespace MintPlayer.Web
 					options.MinificationSettings.MinifyEmbeddedJsonData = true;
 					options.MinificationSettings.WhitespaceMinificationMode = WebMarkupMin.Core.WhitespaceMinificationMode.Aggressive;
 				})
+				.Configure<SitemapXmlOptions>(options =>
+				{
+					options.StylesheetUrl = "/assets/stitemap.xsl";
+				})
 				.ConfigureApplicationCookie(options =>
 				{
 					options.Cookie.HttpOnly = true;
@@ -348,7 +341,7 @@ namespace MintPlayer.Web
 			app.UseNoSniff();
 			app.UseSwagger();
 			app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "MintPlayer API V1"));
-			app.UseAntiforgery();
+			AntiforgeryExtensions.UseAntiforgery(app);
 			app.UseOpenSearch();
 
 			app.UseAuthentication();
@@ -394,10 +387,7 @@ namespace MintPlayer.Web
 					pattern: "{controller}/{action=Index}/{id?}")
 				.RequireCors(CorsPolicies.AllowDatatables);
 
-				endpoints.MapDefaultSitemapXmlStylesheet(options =>
-				{
-					options.StylesheetUrl = "/assets/stitemap.xsl";
-				});
+				endpoints.MapDefaultSitemapXmlStylesheet();
 			});
 
 			app.UseResponseCaching();
@@ -432,7 +422,7 @@ namespace MintPlayer.Web
 			app.UseWhen(
 				context => ShouldUseSpa(context),
 				app2 => app2
-					.UseSpa(spa =>
+					.UseSpaImproved(spa =>
 					{
 						spa.Options.SourcePath = "ClientApp";
 
