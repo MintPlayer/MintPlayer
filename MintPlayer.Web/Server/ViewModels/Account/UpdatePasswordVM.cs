@@ -1,9 +1,8 @@
-﻿namespace MintPlayer.Web.Server.ViewModels.Account
+﻿namespace MintPlayer.Web.Server.ViewModels.Account;
+
+public class UpdatePasswordVM
 {
-    public class UpdatePasswordVM
-    {
-        public string CurrentPassword { get; set; }
-        public string NewPassword { get; set; }
-        public string Confirmation { get; set; }
-    }
+	public string CurrentPassword { get; set; }
+	public string NewPassword { get; set; }
+	public string Confirmation { get; set; }
 }

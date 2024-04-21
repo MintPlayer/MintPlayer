@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace MintPlayer.Fetcher.Genius.Parsers.V2.Data
+namespace MintPlayer.Fetcher.Genius.Parsers.V2.Data;
+
+internal class SongPage
 {
-	internal class SongPage
-	{
-		[JsonProperty("song")]
-		public long Id { get; set; }
+	[JsonProperty("song")]
+	public long Id { get; set; }
 
-		[JsonProperty("path")]
-		public string Url { get; set; }
+	[JsonProperty("path")]
+	public string Url { get; set; }
 
-		[JsonProperty("trackingData")]
-		public List<KeyValuePair> TrackingData { get; set; }
+	[JsonProperty("trackingData")]
+	public List<KeyValuePair> TrackingData { get; set; }
 
-		[JsonProperty("lyricsData")]
-		public LyricsData LyricsData { get; set; }
-	}
+	[JsonProperty("lyricsData")]
+	public LyricsData LyricsData { get; set; }
 }

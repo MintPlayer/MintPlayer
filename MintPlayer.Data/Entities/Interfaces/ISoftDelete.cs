@@ -1,9 +1,8 @@
-﻿namespace MintPlayer.Data.Entities.Interfaces
+﻿namespace MintPlayer.Data.Entities.Interfaces;
+
+internal interface ISoftDelete
 {
-	internal interface ISoftDelete
-	{
-		User UserInsert { get; set; }
-		User UserUpdate { get; set; }
-		User UserDelete { get; set; }
-	}
+	User UserInsert { get; set; }
+	User UserUpdate { get; set; }
+	User UserDelete { get; set; }
 }

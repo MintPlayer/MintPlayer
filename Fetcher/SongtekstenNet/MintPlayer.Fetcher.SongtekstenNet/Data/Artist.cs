@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace MintPlayer.Fetcher.SongtekstenNet.Data;
 
-namespace MintPlayer.Fetcher.SongtekstenNet.Data
+internal class Artist
 {
-    internal class Artist
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Url { get; set; }
+	public int Id { get; init; }
+	public string Name { get; init; }
+	public string Url { get; init; }
 
-        public MintPlayer.Fetcher.Abstractions.Dtos.Artist ToDto()
-        {
-            return new MintPlayer.Fetcher.Abstractions.Dtos.Artist
-            {
-                Id = Id,
-                Name = Name,
-                Url = Url
-            };
-        }
-    }
+	public MintPlayer.Fetcher.Abstractions.Dtos.Artist ToDto()
+	{
+		return new MintPlayer.Fetcher.Abstractions.Dtos.Artist
+		{
+			Id = Id,
+			Name = Name,
+			Url = Url
+		};
+	}
 }

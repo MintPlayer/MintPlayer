@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace MintPlayer.Data.Abstractions.Services;
 
-namespace MintPlayer.Data.Abstractions.Services
+public interface ILogEntryService
 {
-	public interface ILogEntryService
-	{
-		Task Log(string text);
-	}
+	Task Log(string text);
 }

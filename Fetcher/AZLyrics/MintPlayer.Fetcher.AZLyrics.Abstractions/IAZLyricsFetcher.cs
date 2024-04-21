@@ -1,10 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿namespace MintPlayer.Fetcher.AZLyrics.Abstractions;
 
-namespace MintPlayer.Fetcher.AZLyrics.Abstractions
+public interface IAZLyricsFetcher
 {
-	public interface IAZLyricsFetcher
-	{
-		Task<Fetcher.Abstractions.Dtos.Subject> Fetch(string url, bool trimTrash);
-	}
+	Task<Fetcher.Abstractions.Dtos.Subject> Fetch(string url, bool trimTrash);
 }

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Net.Http;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace MintPlayer.Fetcher.Muzikum.Test
+namespace MintPlayer.Fetcher.Muzikum.Test;
+
+class Program
 {
-    class Program
-    {
-        static void Main(string[] args)
-		{
-			var services = new ServiceCollection()
-				.AddSingleton<HttpClient>()
-				.AddFetcherContainer()
-				.BuildServiceProvider();
-		}
-    }
+	static void Main(string[] args)
+	{
+		var services = new ServiceCollection()
+			.AddSingleton<HttpClient>()
+			.AddFetcherContainer()
+			.BuildServiceProvider();
+	}
 }

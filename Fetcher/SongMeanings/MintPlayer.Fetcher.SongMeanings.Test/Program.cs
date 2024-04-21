@@ -1,18 +1,15 @@
-﻿using System;
-using System.Net.Http;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace MintPlayer.Fetcher.SongMeanings.Test
+namespace MintPlayer.Fetcher.SongMeanings.Test;
+
+class Program
 {
-    class Program
-    {
-        static void Main(string[] args)
-		{
-			var services = new ServiceCollection()
-				.AddSingleton<HttpClient>()
-				.AddFetcherContainer()
-				.AddSongMeaningsFetcher()
-				.BuildServiceProvider();
-		}
-    }
+	static void Main(string[] args)
+	{
+		var services = new ServiceCollection()
+			.AddSingleton<HttpClient>()
+			.AddFetcherContainer()
+			.AddSongMeaningsFetcher()
+			.BuildServiceProvider();
+	}
 }

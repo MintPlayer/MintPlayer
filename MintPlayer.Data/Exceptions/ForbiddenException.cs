@@ -1,8 +1,3 @@
-using System;
+﻿namespace MintPlayer.Data.Exceptions;
 
-namespace MintPlayer.Data.Exceptions
-{
-    public class ForbiddenException : Exception
-    {
-    }
-}
+public class ForbiddenException : Exception { }

@@ -1,8 +1,7 @@
-﻿namespace MintPlayer.Web.Server.ViewModels.Account
+﻿namespace MintPlayer.Web.Server.ViewModels.Account;
+
+public class TwoFactorBypassVM
 {
-    public class TwoFactorBypassVM
-    {
-        public string SetupCode { get; set; }
-        public bool Bypass2faForExternalLogins { get; set; }
-    }
+	public string SetupCode { get; set; }
+	public bool Bypass2faForExternalLogins { get; set; }
 }

@@ -1,22 +1,16 @@
-﻿using System;
+﻿namespace MintPlayer.Data.Exceptions;
 
-namespace MintPlayer.Data.Exceptions
+public class ConcurrencyException<TDto> : Exception
 {
-    public class ConcurrencyException<TDto> : Exception
-    {
-        internal ConcurrencyException(TDto databaseValue) : base("The entity was updated during the edit operation")
-        {
-            DatabaseValue = databaseValue;
-        }
+	internal ConcurrencyException() : base("The entity was updated during the edit operation") { }
 
-        public TDto DatabaseValue { get; }
-    }
+	public TDto DatabaseValue { get; init; }
+}
 
-    public static class ConcurrencyException
-    {
-        public static ConcurrencyException<T> Create<T>(T dto)
-        {
-            return new ConcurrencyException<T>(dto);
-        }
-    }
+public static class ConcurrencyException
+{
+	public static ConcurrencyException<T> Create<T>(T dto)
+	{
+		return new ConcurrencyException<T> { DatabaseValue = dto };
+	}
 }

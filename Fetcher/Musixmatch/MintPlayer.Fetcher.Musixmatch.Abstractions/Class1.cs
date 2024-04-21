@@ -1,8 +1,5 @@
-﻿using System;
+﻿namespace MintPlayer.Fetcher.Musixmatch.Abstractions;
 
-namespace MintPlayer.Fetcher.Musixmatch.Abstractions
+public class Class1
 {
-    public class Class1
-    {
-    }
 }

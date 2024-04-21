@@ -1,7 +1,6 @@
-﻿namespace MintPlayer.Web.Server.ViewModels.Account
+﻿namespace MintPlayer.Web.Server.ViewModels.Account;
+
+public class RequestResetPasswordVM
 {
-    public class RequestResetPasswordVM
-    {
-        public string Email { get; set; }
-    }
+	public string Email { get; set; }
 }

@@ -1,8 +1,7 @@
-﻿namespace MintPlayer.Web.Server.ViewModels.Account
+﻿namespace MintPlayer.Web.Server.ViewModels.Account;
+
+public class TwoFactorLoginVM
 {
-    public class TwoFactorLoginVM
-    {
-        public string Code { get; set; }
-        public bool Remember { get; set; }
-    }
+	public string Code { get; set; }
+	public bool Remember { get; set; }
 }

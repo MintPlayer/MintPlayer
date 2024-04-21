@@ -1,10 +1,9 @@
 ﻿using MintPlayer.Fetcher.Abstractions.Enums;
 
-namespace MintPlayer.Fetcher.Abstractions.Dtos
+namespace MintPlayer.Fetcher.Abstractions.Dtos;
+
+public class Medium
 {
-    public class Medium
-    {
-        public EMediumType Type { get; set; }
-        public string Value { get; set; }
-    }
+	public EMediumType Type { get; set; }
+	public string Value { get; set; }
 }

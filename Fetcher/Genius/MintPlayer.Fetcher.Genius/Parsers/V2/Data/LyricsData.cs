@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace MintPlayer.Fetcher.Genius.Parsers.V2.Data
+namespace MintPlayer.Fetcher.Genius.Parsers.V2.Data;
+
+internal class LyricsData
 {
-	internal class LyricsData
-	{
-		[JsonProperty("body")]
-		public LyricsBody Body { get; set; }
-	}
+	[JsonProperty("body")]
+	public LyricsBody Body { get; set; }
 }

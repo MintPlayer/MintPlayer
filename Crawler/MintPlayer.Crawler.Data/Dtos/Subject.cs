@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace MintPlayer.Crawler.Data.Dtos;
 
-namespace MintPlayer.Crawler.Data.Dtos
+class Subject
 {
-    class Subject
-    {
-    }
 }

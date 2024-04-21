@@ -1,12 +1,8 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using MintPlayer.Fetcher.Abstractions.Dtos;
+﻿using MintPlayer.Fetcher.Abstractions.Dtos;
 
-namespace MintPlayer.Fetcher.Genius.Abstractions
+namespace MintPlayer.Fetcher.Genius.Abstractions;
+
+public interface IGeniusFetcher
 {
-	public interface IGeniusFetcher
-	{
-		Task<Subject> Fetch(string url, bool trimTrash);
-	}
+	Task<Subject> Fetch(string url, bool trimTrash);
 }

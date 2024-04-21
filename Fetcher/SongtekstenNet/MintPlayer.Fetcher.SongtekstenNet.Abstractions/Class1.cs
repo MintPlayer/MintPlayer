@@ -1,8 +1,5 @@
-﻿using System;
+﻿namespace MintPlayer.Fetcher.SongtekstenNet.Abstractions;
 
-namespace MintPlayer.Fetcher.SongtekstenNet.Abstractions
+public class Class1
 {
-    public class Class1
-    {
-    }
 }

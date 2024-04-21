@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace MintPlayer.Data.Abstractions.Enums;
 
-namespace MintPlayer.Data.Abstractions.Enums
+public enum EPlaylistScope
 {
-    public enum EPlaylistScope
-    {
-        My,
-        Public
-    }
+	My,
+	Public
 }

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
-namespace MintPlayer.Web.Extensions
+namespace MintPlayer.Web.Extensions;
+
+public static class DateTimeExtensions
 {
-    public static class DateTimeExtensions
-    {
-        public static string ToISOString(this DateTime dateTime)
-        {
-            return dateTime.ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'", CultureInfo.InvariantCulture);
-        }
-    }
+	public static string ToISOString(this DateTime dateTime)
+		=> dateTime.ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'", CultureInfo.InvariantCulture);
 }

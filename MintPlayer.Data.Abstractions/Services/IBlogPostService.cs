@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using MintPlayer.Data.Abstractions.Dtos.Blog;
+﻿using MintPlayer.Data.Abstractions.Dtos.Blog;
 
-namespace MintPlayer.Data.Abstractions.Services
+namespace MintPlayer.Data.Abstractions.Services;
+
+public interface IBlogPostService
 {
-	public interface IBlogPostService
-	{
-		Task<IEnumerable<BlogPost>> GetBlogPosts();
-		Task<BlogPost> GetBlogPost(int blogpost_id);
-		Task<BlogPost> InsertBlogPost(BlogPost blogPost);
-		Task<BlogPost> UpdateBlogPost(BlogPost blogPost);
-		Task DeleteBlogPost(int blogpost_id);
-	}
+	Task<IEnumerable<BlogPost>> GetBlogPosts();
+	Task<BlogPost> GetBlogPost(int blogpost_id);
+	Task<BlogPost> InsertBlogPost(BlogPost blogPost);
+	Task<BlogPost> UpdateBlogPost(BlogPost blogPost);
+	Task DeleteBlogPost(int blogpost_id);
 }

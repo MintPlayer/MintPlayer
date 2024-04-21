@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace MintPlayer.Data.Exceptions.Account.TwoFactor;
 
-namespace MintPlayer.Data.Exceptions.Account.TwoFactor
+public class InvalidTwoFactorCodeException : Exception
 {
-    public class InvalidTwoFactorCodeException : Exception
-    {
-        public InvalidTwoFactorCodeException() : base("The specified two-factor code is invalid")
-        {
-        }
-    }
+	public InvalidTwoFactorCodeException() : base("The specified two-factor code is invalid")
+	{
+	}
 }

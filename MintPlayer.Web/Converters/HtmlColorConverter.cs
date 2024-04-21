@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace MintPlayer.Web.Converters;
 
-namespace MintPlayer.Web.Converters
+public class HtmlColorConverter
 {
-    public class HtmlColorConverter
-    {
 
-    }
 }

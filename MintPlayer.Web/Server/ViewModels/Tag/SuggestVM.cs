@@ -1,7 +1,6 @@
-﻿namespace MintPlayer.Web.Server.ViewModels.Tag
+﻿namespace MintPlayer.Web.Server.ViewModels.Tag;
+
+public class SuggestVM
 {
-    public class SuggestVM
-    {
-        public string SearchTerm { get; set; }
-    }
+	public string SearchTerm { get; set; }
 }

@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace MintPlayer.Fetcher.Genius.Abstractions.Parsers.Helpers;
 
-namespace MintPlayer.Fetcher.Genius.Abstractions.Parsers.Helpers
+public interface ILyricsParser
 {
-	public interface ILyricsParser
-	{
-		Task<string> ParseLyrics(string lyricsHtml, bool trimTrash);
-	}
+	Task<string> ParseLyrics(string lyricsHtml, bool trimTrash);
 }

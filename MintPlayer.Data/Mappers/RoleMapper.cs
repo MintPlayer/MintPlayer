@@ -1,48 +1,45 @@
-﻿using System;
+﻿namespace MintPlayer.Data.Mappers;
 
-namespace MintPlayer.Data.Mappers
+internal interface IRoleMapper
 {
-    internal interface IRoleMapper
-    {
-        MintPlayer.Dtos.Dtos.Role Entity2Dto(Entities.Role role);
-        Entities.Role Dto2Entity(MintPlayer.Dtos.Dtos.Role role);
-    }
+	MintPlayer.Dtos.Dtos.Role? Entity2Dto(Entities.Role? role);
+	Entities.Role? Dto2Entity(MintPlayer.Dtos.Dtos.Role? role);
+}
 
-    internal class RoleMapper : IRoleMapper
-    {
-        private readonly IServiceProvider serviceProvider;
-        public RoleMapper(IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider;
-        }
+internal class RoleMapper : IRoleMapper
+{
+	private readonly IServiceProvider serviceProvider;
+	public RoleMapper(IServiceProvider serviceProvider)
+	{
+		this.serviceProvider = serviceProvider;
+	}
 
-        public MintPlayer.Dtos.Dtos.Role Entity2Dto(Entities.Role role)
-        {
-            if (role == null)
-            {
-                return null;
-            }
+	public MintPlayer.Dtos.Dtos.Role? Entity2Dto(Entities.Role? role)
+	{
+		if (role == null)
+		{
+			return null;
+		}
 
-            return new MintPlayer.Dtos.Dtos.Role
-            {
-                Id = role.Id,
-                Name = role.Name
-            };
-        }
+		return new MintPlayer.Dtos.Dtos.Role
+		{
+			Id = role.Id,
+			Name = role.Name
+		};
+	}
 
-        public Entities.Role Dto2Entity(MintPlayer.Dtos.Dtos.Role role)
-        {
-            if (role == null)
-            {
-                return null;
-            }
+	public Entities.Role? Dto2Entity(MintPlayer.Dtos.Dtos.Role? role)
+	{
+		if (role == null)
+		{
+			return null;
+		}
 
-            return new Entities.Role
-            {
-                Id = role.Id,
-                Name = role.Name,
-                NormalizedName = role.Name.Normalize()
-            };
-        }
-    }
+		return new Entities.Role
+		{
+			Id = role.Id,
+			Name = role.Name,
+			NormalizedName = role.Name.Normalize()
+		};
+	}
 }

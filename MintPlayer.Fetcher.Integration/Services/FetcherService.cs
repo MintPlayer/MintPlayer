@@ -1,106 +1,100 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MintPlayer.Data.Abstractions.Services;
+﻿using MintPlayer.Data.Abstractions.Services;
 using MintPlayer.Fetcher.Abstractions;
 
-namespace MintPlayer.Fetcher.Integration.Services
+namespace MintPlayer.Fetcher.Integration.Services;
+
+public interface IFetcherService
 {
-	public interface IFetcherService
+	Task<Dtos.FetchResult> Fetch(string url, bool trimTrash);
+}
+internal class FetcherService : IFetcherService
+{
+	private readonly IFetcherContainer fetcherContainer;
+	private readonly ISubjectService subjectService;
+	public FetcherService(IFetcherContainer fetcherContainer, ISubjectService subjectService)
 	{
-		Task<Dtos.FetchResult> Fetch(string url, bool trimTrash);
+		this.fetcherContainer = fetcherContainer;
+		this.subjectService = subjectService;
 	}
-	internal class FetcherService : IFetcherService
+
+	public async Task<Dtos.FetchResult> Fetch(string url, bool trimTrash)
 	{
-		private readonly IFetcherContainer fetcherContainer;
-		private readonly ISubjectService subjectService;
-		public FetcherService(IFetcherContainer fetcherContainer, ISubjectService subjectService)
-		{
-			this.fetcherContainer = fetcherContainer;
-			this.subjectService = subjectService;
-		}
+		var fetchedSubject = await fetcherContainer.Fetch(url, trimTrash);
+		var allUrls = fetchedSubject.RelatedUrls.Union(new[] { url });
+		var related = await subjectService.GetByMedium(allUrls);
 
-		public async Task<Dtos.FetchResult> Fetch(string url, bool trimTrash)
+		switch (fetchedSubject)
 		{
-			var fetchedSubject = await fetcherContainer.Fetch(url, trimTrash);
-			var allUrls = fetchedSubject.RelatedUrls.Union(new[] { url });
-			var related = await subjectService.GetByMedium(allUrls);
-
-			switch (fetchedSubject)
-			{
-				case Abstractions.Dtos.Artist fetchedArtist:
-					return new Dtos.FetchResult<Dtos.FetchedArtist>
+			case Abstractions.Dtos.Artist fetchedArtist:
+				return new Dtos.FetchResult<Dtos.FetchedArtist>
+				{
+					FetchedSubject = new Dtos.FetchedArtist
 					{
-						FetchedSubject = new Dtos.FetchedArtist
+						Url = fetchedArtist.Url,
+						Name = fetchedArtist.Name,
+						ImageUrl = fetchedArtist.ImageUrl,
+						Songs = fetchedArtist.Songs.Select(s => new Dtos.FetchResult<Dtos.FetchedSong>
 						{
-							Url = fetchedArtist.Url,
-							Name = fetchedArtist.Name,
-							ImageUrl = fetchedArtist.ImageUrl,
-							Songs = fetchedArtist.Songs.Select(s => new Dtos.FetchResult<Dtos.FetchedSong>
+							FetchedSubject = new Dtos.FetchedSong
 							{
-								FetchedSubject = new Dtos.FetchedSong
-								{
-									Url = s.Url,
-									Title = s.Title,
-									Released = s.ReleaseDate,
-									Lyrics = s.Lyrics,
-								}
-							}).ToList(),
-							Albums = fetchedArtist.Albums.Select(a => new Dtos.FetchResult<Dtos.FetchedAlbum>
+								Url = s.Url,
+								Title = s.Title,
+								Released = s.ReleaseDate,
+								Lyrics = s.Lyrics,
+							}
+						}).ToList(),
+						Albums = fetchedArtist.Albums.Select(a => new Dtos.FetchResult<Dtos.FetchedAlbum>
+						{
+							FetchedSubject = new Dtos.FetchedAlbum
 							{
-								FetchedSubject = new Dtos.FetchedAlbum
+								Url = a.Url,
+								Name = a.Name,
+								ReleaseDate = a.ReleaseDate,
+								CoverArtUrl = a.CoverArtUrl,
+							}
+						}).ToList(),
+					},
+					Candidates = related[url].Select(s => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject> { Subject = s, Certainty = Enums.ECertainty.Certain })
+				};
+			case Fetcher.Abstractions.Dtos.Album fetchedAlbum:
+				throw new NotImplementedException();
+			case Fetcher.Abstractions.Dtos.Song fetchedSong:
+				var allArtists = new List<Abstractions.Dtos.Artist>() { fetchedSong.PrimaryArtist };
+				if (fetchedSong.FeaturedArtists != null) allArtists.AddRange(fetchedSong.FeaturedArtists);
+
+				var mediaLookup = await subjectService.GetByMedium(allArtists.Select(a => a.Url));
+				return new Dtos.FetchResult<Dtos.FetchedSong>
+				{
+					FetchedSubject = new Dtos.FetchedSong
+					{
+						Url = fetchedSong.Url,
+						Title = fetchedSong.Title,
+						Lyrics = fetchedSong.Lyrics,
+						Released = fetchedSong.ReleaseDate,
+						//Media = ,
+						Artists = allArtists.Select(a =>
+						{
+							return new Dtos.FetchResult<Dtos.FetchedArtist>
+							{
+								FetchedSubject = new Dtos.FetchedArtist
 								{
 									Url = a.Url,
 									Name = a.Name,
-									ReleaseDate = a.ReleaseDate,
-									CoverArtUrl = a.CoverArtUrl,
-								}
-							}).ToList(),
-						},
-						Candidates = related[url].Select(s => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject> { Subject = s, Certainty = Enums.ECertainty.Certain })
-					};
-				case Fetcher.Abstractions.Dtos.Album fetchedAlbum:
-					throw new NotImplementedException();
-				case Fetcher.Abstractions.Dtos.Song fetchedSong:
-					var allArtists = new List<Abstractions.Dtos.Artist>() { fetchedSong.PrimaryArtist };
-					if (fetchedSong.FeaturedArtists != null) allArtists.AddRange(fetchedSong.FeaturedArtists);
-
-					var mediaLookup = await subjectService.GetByMedium(allArtists.Select(a => a.Url));
-					return new Dtos.FetchResult<Dtos.FetchedSong>
-					{
-						FetchedSubject = new Dtos.FetchedSong
-						{
-							Url = fetchedSong.Url,
-							Title = fetchedSong.Title,
-							Lyrics = fetchedSong.Lyrics,
-							Released = fetchedSong.ReleaseDate,
-							//Media = ,
-							Artists = allArtists.Select(a =>
-							{
-								return new Dtos.FetchResult<Dtos.FetchedArtist>
-								{
-									FetchedSubject = new Dtos.FetchedArtist
+									ImageUrl = a.ImageUrl,
+								},
+								Candidates = mediaLookup[a.Url]
+									.Select(a => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject>
 									{
-										Url = a.Url,
-										Name = a.Name,
-										ImageUrl = a.ImageUrl,
-									},
-									Candidates = mediaLookup[a.Url]
-										.Select(a => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject>
-										{
-											Subject = a,
-											Certainty = Enums.ECertainty.Certain,
-										})
-								};
-							}).ToList()
-						},
-						Candidates = related[url].Select(s => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject> { Subject = s, Certainty = Enums.ECertainty.Certain })
-					};
-				default:
-					throw new NotImplementedException();
-			}
+										Subject = a,
+										Certainty = Enums.ECertainty.Certain,
+									})
+							};
+						}).ToList()
+					},
+					Candidates = related[url].Select(s => new Dtos.SubjectWithCertainty<MintPlayer.Dtos.Dtos.Subject> { Subject = s, Certainty = Enums.ECertainty.Certain })
+				};
+			default:
+				throw new NotImplementedException();
 		}
 	}
 }

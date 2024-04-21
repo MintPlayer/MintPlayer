@@ -1,8 +1,7 @@
-﻿namespace MintPlayer.Data.Abstractions.Dtos.Logging
+﻿namespace MintPlayer.Data.Abstractions.Dtos.Logging;
+
+public class LogEntry
 {
-    public class LogEntry
-    {
-        public int Id { get; set; }
-        public string Text { get; set; }
-    }
+	public int Id { get; set; }
+	public string Text { get; set; }
 }

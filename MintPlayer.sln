@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{0F06F26D-ABA3-48CB-87A9-66A63D20CE10}"
 EndProject
@@ -41,15 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.LoloLyri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Muzikum", "Fetcher\Muzikum\MintPlayer.Fetcher.Muzikum\MintPlayer.Fetcher.Muzikum.csproj", "{1207A08F-9D50-4871-97FA-0F7D11AC1DAF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{576021EB-46E6-4ACF-8EC6-E24472F8EDF6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Client", "MintPlayer.Client\MintPlayer.Client.csproj", "{773C92D2-B0C8-4825-9A3B-C68C68A6781D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Dtos", "MintPlayer.Dtos\MintPlayer.Dtos.csproj", "{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.RestClient", "MintPlayer.RestClient\MintPlayer.RestClient.csproj", "{93DEF304-DE20-45FB-9B1B-A39BE532CF4E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.RestClient.Test", "MintPlayer.RestClient.Test\MintPlayer.RestClient.Test.csproj", "{30AA5193-7656-4522-B32B-7053232C83A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D54F0C37-E279-49A4-8941-0B4FACDC6D6D}"
 	ProjectSection(SolutionItems) = preProject
@@ -116,9 +108,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Songteks
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Genius.Tests", "Fetcher\Genius\MintPlayer.Fetcher.Genius.Tests\MintPlayer.Fetcher.Genius.Tests.csproj", "{A9DCC58C-FA81-47B1-AAB0-F3DBB82DC5F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Fetcher.Integration", "MintPlayer.Fetcher.Integration\MintPlayer.Fetcher.Integration.csproj", "{C10DDD01-ED36-4337-A319-5CA663F43EE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Fetcher.Integration", "MintPlayer.Fetcher.Integration\MintPlayer.Fetcher.Integration.csproj", "{C10DDD01-ED36-4337-A319-5CA663F43EE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Data.Abstractions", "MintPlayer.Data.Abstractions\MintPlayer.Data.Abstractions.csproj", "{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Data.Abstractions", "MintPlayer.Data.Abstractions\MintPlayer.Data.Abstractions.csproj", "{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -190,22 +182,10 @@ Global
 		{1207A08F-9D50-4871-97FA-0F7D11AC1DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1207A08F-9D50-4871-97FA-0F7D11AC1DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1207A08F-9D50-4871-97FA-0F7D11AC1DAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{773C92D2-B0C8-4825-9A3B-C68C68A6781D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{773C92D2-B0C8-4825-9A3B-C68C68A6781D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{773C92D2-B0C8-4825-9A3B-C68C68A6781D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{773C92D2-B0C8-4825-9A3B-C68C68A6781D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93DEF304-DE20-45FB-9B1B-A39BE532CF4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93DEF304-DE20-45FB-9B1B-A39BE532CF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93DEF304-DE20-45FB-9B1B-A39BE532CF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93DEF304-DE20-45FB-9B1B-A39BE532CF4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30AA5193-7656-4522-B32B-7053232C83A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30AA5193-7656-4522-B32B-7053232C83A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30AA5193-7656-4522-B32B-7053232C83A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30AA5193-7656-4522-B32B-7053232C83A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6EB220F0-A377-409F-93F5-A0164F95262E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6EB220F0-A377-409F-93F5-A0164F95262E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EB220F0-A377-409F-93F5-A0164F95262E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -315,7 +295,6 @@ Global
 		{AF9432B6-9F5C-4D22-A66E-CEEB6BDE78D7} = {647587FC-0F60-472E-8A9D-FB230BDD2011}
 		{5FB5D561-018A-41AD-8C92-C507C597C0CC} = {B53CFC5C-BEE7-4314-B0C5-FDA6C87B989E}
 		{1207A08F-9D50-4871-97FA-0F7D11AC1DAF} = {9ECD52A6-392E-49A3-B6FF-459E828CB0E8}
-		{773C92D2-B0C8-4825-9A3B-C68C68A6781D} = {576021EB-46E6-4ACF-8EC6-E24472F8EDF6}
 		{F508DF66-A2A3-4F1B-8534-0AB16E9128FB} = {0F06F26D-ABA3-48CB-87A9-66A63D20CE10}
 		{8D44AA75-CB7D-4D1C-9FD2-7F8FAF9235EB} = {825B6E61-1EA5-4881-9D5C-97EF93E2CEB9}
 		{6EB220F0-A377-409F-93F5-A0164F95262E} = {8D44AA75-CB7D-4D1C-9FD2-7F8FAF9235EB}

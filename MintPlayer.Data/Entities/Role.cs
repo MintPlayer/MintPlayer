@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace MintPlayer.Data.Entities
+namespace MintPlayer.Data.Entities;
+
+internal class Role : IdentityRole<Guid>
 {
-    internal class Role : IdentityRole<Guid>
-    {
-    }
 }

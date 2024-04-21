@@ -1,35 +1,34 @@
-﻿namespace MintPlayer.Data.Mappers
+﻿namespace MintPlayer.Data.Mappers;
+
+internal interface IMediumTypeMapper
 {
-    internal interface IMediumTypeMapper
-    {
-		MintPlayer.Dtos.Dtos.MediumType Entity2Dto(Entities.MediumType mediumType);
-		Entities.MediumType Dto2Entity(MintPlayer.Dtos.Dtos.MediumType mediumType, MintPlayerContext mintplayer_context);
+	MintPlayer.Dtos.Dtos.MediumType? Entity2Dto(Entities.MediumType? mediumType);
+	Entities.MediumType? Dto2Entity(MintPlayer.Dtos.Dtos.MediumType? mediumType, MintPlayerContext mintplayer_context);
+}
+
+internal class MediumTypeMapper : IMediumTypeMapper
+{
+	public MintPlayer.Dtos.Dtos.MediumType? Entity2Dto(Entities.MediumType? mediumType)
+	{
+		if (mediumType == null) return null;
+
+		return new MintPlayer.Dtos.Dtos.MediumType
+		{
+			Id = mediumType.Id,
+			Description = mediumType.Description,
+			Visible = mediumType.Visible
+		};
 	}
 
-	internal class MediumTypeMapper : IMediumTypeMapper
+	public Entities.MediumType? Dto2Entity(MintPlayer.Dtos.Dtos.MediumType? mediumType, MintPlayerContext mintplayer_context)
 	{
-		public MintPlayer.Dtos.Dtos.MediumType Entity2Dto(Entities.MediumType mediumType)
+		if (mediumType == null) return null;
+
+		return new Entities.MediumType
 		{
-			if (mediumType == null) return null;
-
-			return new MintPlayer.Dtos.Dtos.MediumType
-			{
-				Id = mediumType.Id,
-				Description = mediumType.Description,
-				Visible = mediumType.Visible
-			};
-		}
-
-		public Entities.MediumType Dto2Entity(MintPlayer.Dtos.Dtos.MediumType mediumType, MintPlayerContext mintplayer_context)
-		{
-			if (mediumType == null) return null;
-
-			return new Entities.MediumType
-			{
-				Id = mediumType.Id,
-				Description = mediumType.Description,
-                Visible = mediumType.Visible
-			};
-		}
+			Id = mediumType.Id,
+			Description = mediumType.Description,
+			Visible = mediumType.Visible
+		};
 	}
 }

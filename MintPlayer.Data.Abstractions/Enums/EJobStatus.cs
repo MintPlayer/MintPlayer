@@ -1,9 +1,8 @@
-﻿namespace MintPlayer.Data.Abstractions.Enums
+﻿namespace MintPlayer.Data.Abstractions.Enums;
+
+public enum EJobStatus
 {
-    public enum EJobStatus
-    {
-        Queued,
-        Completed,
-        Error
-    }
+	Queued,
+	Completed,
+	Error
 }

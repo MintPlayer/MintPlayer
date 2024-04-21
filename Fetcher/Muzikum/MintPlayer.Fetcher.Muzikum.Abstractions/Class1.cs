@@ -1,8 +1,5 @@
-﻿using System;
+﻿namespace MintPlayer.Fetcher.Muzikum.Abstractions;
 
-namespace MintPlayer.Fetcher.Muzikum.Abstractions
+public class Class1
 {
-    public class Class1
-    {
-    }
 }

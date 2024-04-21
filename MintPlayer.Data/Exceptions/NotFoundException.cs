@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace MintPlayer.Data.Exceptions;
 
-namespace MintPlayer.Data.Exceptions
+public class NotFoundException : Exception
 {
-    public class NotFoundException : Exception
-    {
-        public NotFoundException() : base("The item was not found")
-        {
-        }
-    }
+	public NotFoundException() : base("The item was not found")
+	{
+	}
 }

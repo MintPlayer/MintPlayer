@@ -1,38 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using MintPlayer.Data.Entities.Interfaces;
 
-namespace MintPlayer.Data.Entities
+namespace MintPlayer.Data.Entities;
+
+internal class Song : Subject, ISoftDelete
 {
-    internal class Song : Subject, ISoftDelete
+	public string Title { get; set; }
+	public DateTime Released { get; set; }
+
+	#region Text
+	[NotMapped]
+	public override string Text => Title;
+	#endregion
+	#region Description
+	[NotMapped]
+	public string Description
 	{
-		public string Title { get; set; }
-		public DateTime Released { get; set; }
-
-		#region Text
-		[NotMapped]
-		public override string Text => Title;
-		#endregion
-        #region Description
-        [NotMapped]
-		public string Description
+		get
 		{
-			get
-			{
-				var hasArtists = Artists == null ? false : Artists.Any();
-				if (hasArtists)
-					return $"{Title} - {string.Join(" & ", Artists.Select(@as => @as.Artist.Name))}";
-				else
-					return Title;
-			}
+			var hasArtists = Artists == null ? false : Artists.Any();
+			if (hasArtists)
+				return $"{Title} - {string.Join(" & ", Artists.Select(@as => @as.Artist.Name))}";
+			else
+				return Title;
 		}
-		#endregion
-
-
-		public List<ArtistSong> Artists { get; set; }
-		public List<Lyrics> Lyrics { get; set; }
-		public List<PlaylistSong> Tracks { get; set; }
 	}
+	#endregion
+
+
+	public List<ArtistSong> Artists { get; set; }
+	public List<Lyrics> Lyrics { get; set; }
+	public List<PlaylistSong> Tracks { get; set; }
 }

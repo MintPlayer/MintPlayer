@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
-namespace MintPlayer.Fetcher.Abstractions
+namespace MintPlayer.Fetcher.Abstractions;
+
+public interface IFetcher
 {
-    public interface IFetcher
-    {
-        IEnumerable<Regex> UrlRegex { get; }
-        Task<Dtos.Subject> Fetch(string url, bool trimTrash);
-    }
+	IEnumerable<Regex> UrlRegex { get; }
+	Task<Dtos.Subject> Fetch(string url, bool trimTrash);
 }

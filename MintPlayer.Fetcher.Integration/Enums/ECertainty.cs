@@ -1,8 +1,7 @@
-﻿namespace MintPlayer.Fetcher.Integration.Enums
+﻿namespace MintPlayer.Fetcher.Integration.Enums;
+
+public enum ECertainty
 {
-	public enum ECertainty
-	{
-		Certain,
-		Perhaps
-	}
+	Certain,
+	Perhaps
 }

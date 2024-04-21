@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace MintPlayer.Data.Exceptions.Paging;
 
-namespace MintPlayer.Data.Exceptions.Paging
+public class InvalidSortPropertyException : Exception
 {
-    public class InvalidSortPropertyException : Exception
-    {
-        public InvalidSortPropertyException() : base("The specified sorting property does not exist.")
-        {
-        }
-    }
+	public InvalidSortPropertyException() : base("The specified sorting property does not exist.")
+	{
+	}
 }

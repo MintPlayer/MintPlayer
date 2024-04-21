@@ -1,19 +1,17 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using MintPlayer.Data.Entities.Interfaces;
 
-namespace MintPlayer.Data.Entities
+namespace MintPlayer.Data.Entities;
+
+internal class Artist : Subject, ISoftDelete
 {
-	internal class Artist : Subject, ISoftDelete
-	{
-		public string Name { get; set; }
-		public int? YearStarted { get; set; }
-		public int? YearQuit { get; set; }
+	public string Name { get; set; }
+	public int? YearStarted { get; set; }
+	public int? YearQuit { get; set; }
 
-		[NotMapped]
-		public override string Text => Name;
+	[NotMapped]
+	public override string Text => Name;
 
-		public List<ArtistPerson> Members { get; set; }
-		public List<ArtistSong> Songs { get; set; }
-	}
+	public List<ArtistPerson> Members { get; set; }
+	public List<ArtistSong> Songs { get; set; }
 }

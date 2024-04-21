@@ -1,6 +1,5 @@
-﻿namespace MintPlayer.Fetcher.Genius.Abstractions.Parsers.V2.Parsers
+﻿namespace MintPlayer.Fetcher.Genius.Abstractions.Parsers.V2.Parsers;
+
+public interface IAlbumV2Parser
 {
-	public interface IAlbumV2Parser
-	{
-	}
 }

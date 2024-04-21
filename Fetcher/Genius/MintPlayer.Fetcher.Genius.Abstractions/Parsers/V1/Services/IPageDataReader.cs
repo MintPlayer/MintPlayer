@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Services;
 
-namespace MintPlayer.Fetcher.Genius.Abstractions.Parsers.V1.Services
+public interface IPageDataReader
 {
-	public interface IPageDataReader
-	{
-		Task<string> ReadPageData(string html);
-	}
+	Task<string> ReadPageData(string html);
 }

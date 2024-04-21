@@ -1,9 +1,8 @@
-﻿namespace MintPlayer.Crawler.Enums
+﻿namespace MintPlayer.Crawler.Enums;
+
+public enum ECrawlStatus
 {
-    public enum CrawlStatus
-    {
-        Pending,
-        Success,
-        Error
-    }
+	Pending,
+	Success,
+	Error
 }

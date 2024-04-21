@@ -1,10 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
+		<LangVersion>12</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IsPackable>false</IsPackable>
+		<OutputType>Exe</OutputType>
 		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
 		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
-		<IsPackable>false</IsPackable>
 		<SpaRoot>ClientApp\</SpaRoot>
 		<DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 
@@ -14,22 +18,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.1" />
-		<PackageReference Include="MintPlayer.AspNetCore.ChangePassword" Version="6.0.0" />
-		<PackageReference Include="MintPlayer.AspNetCore.NoSniff" Version="6.0.2" />
-		<PackageReference Include="MintPlayer.AspNetCore.OpenSearch" Version="6.0.0" />
-		<PackageReference Include="MintPlayer.AspNetCore.SitemapXml" Version="6.0.2" />
-		<PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="6.0.4" />
-		<PackageReference Include="MintPlayer.AspNetCore.XsrfForSpas" Version="6.0.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-		<PackageReference Include="WebMarkupMin.AspNetCore3" Version="2.11.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+		<PackageReference Include="MintPlayer.AspNetCore.ChangePassword" Version="8.0.0" />
+		<PackageReference Include="MintPlayer.AspNetCore.Hsts" Version="8.0.0" />
+		<PackageReference Include="MintPlayer.AspNetCore.NoSniff" Version="8.0.0" />
+		<PackageReference Include="MintPlayer.AspNetCore.OpenSearch" Version="8.0.0" />
+		<PackageReference Include="MintPlayer.AspNetCore.SitemapXml" Version="8.0.0" />
+		<PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="8.2.0" />
+		<PackageReference Include="MintPlayer.AspNetCore.SpaServices.Xsrf" Version="8.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		<PackageReference Include="WebMarkupMin.AspNetCore8" Version="2.16.0" />
 	</ItemGroup>
 
 	<ItemGroup>

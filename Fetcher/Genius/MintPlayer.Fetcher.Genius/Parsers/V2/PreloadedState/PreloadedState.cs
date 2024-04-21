@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace MintPlayer.Fetcher.Genius.Parsers.V2.Common
+namespace MintPlayer.Fetcher.Genius.Parsers.V2.Common;
+
+internal class PreloadedState
 {
-	internal class PreloadedState
-	{
-		[JsonProperty("currentPage")]
-		public string CurrentPage { get; set; }
-	}
+	[JsonProperty("currentPage")]
+	public string CurrentPage { get; set; }
 }

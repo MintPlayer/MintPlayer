@@ -1,8 +1,5 @@
-﻿using System;
+﻿namespace MintPlayer.Fetcher.LoloLyrics.Abstractions;
 
-namespace MintPlayer.Fetcher.LoloLyrics.Abstractions
+public class Class1
 {
-    public class Class1
-    {
-    }
 }
