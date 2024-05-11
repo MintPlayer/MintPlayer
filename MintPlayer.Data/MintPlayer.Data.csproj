@@ -1,36 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20191227191458_AddLikes.cs" />
-    <Compile Remove="Migrations\20191227191458_AddLikes.Designer.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Migrations\20191227191458_AddLikes.cs" />
+		<Compile Remove="Migrations\20191227191458_AddLikes.Designer.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
-    <PackageReference Include="MintPlayer.Pagination" Version="1.0.3" />
-    <PackageReference Include="NEST" Version="7.16.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="6.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="6.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
+		<PackageReference Include="MintPlayer.Pagination" Version="1.0.3" />
+		<PackageReference Include="NEST" Version="7.16.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Fetcher\Fetcher\MintPlayer.Fetcher.Abstractions\MintPlayer.Fetcher.Abstractions.csproj" />
-    <ProjectReference Include="..\MintPlayer.Data.Abstractions\MintPlayer.Data.Abstractions.csproj" />
-    <ProjectReference Include="..\MintPlayer.Dtos\MintPlayer.Dtos.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Fetcher\Fetcher\MintPlayer.Fetcher.Abstractions\MintPlayer.Fetcher.Abstractions.csproj" />
+		<ProjectReference Include="..\MintPlayer.Data.Abstractions\MintPlayer.Data.Abstractions.csproj" />
+		<ProjectReference Include="..\MintPlayer.Dtos\MintPlayer.Dtos.csproj" />
+	</ItemGroup>
 
 </Project>

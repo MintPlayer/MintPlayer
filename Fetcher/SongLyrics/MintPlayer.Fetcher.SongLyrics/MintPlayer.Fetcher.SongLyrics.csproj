@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Fetcher\MintPlayer.Fetcher\MintPlayer.Fetcher.csproj" />
-    <ProjectReference Include="..\MintPlayer.Fetcher.SongLyrics.Abstractions\MintPlayer.Fetcher.SongLyrics.Abstractions.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Fetcher\MintPlayer.Fetcher\MintPlayer.Fetcher.csproj" />
+		<ProjectReference Include="..\MintPlayer.Fetcher.SongLyrics.Abstractions\MintPlayer.Fetcher.SongLyrics.Abstractions.csproj" />
+	</ItemGroup>
 
 </Project>
