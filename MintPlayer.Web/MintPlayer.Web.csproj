@@ -2,15 +2,14 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<IsPackable>false</IsPackable>
 		<SpaRoot>ClientApp\</SpaRoot>
 		<DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 
 		<!-- Set this to true if you enable server-side prerendering -->
 		<BuildServerSideRenderer>true</BuildServerSideRenderer>
-		<UserSecretsId>21fecde5-53de-4525-b2c3-a4fe7f01a7fd</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
