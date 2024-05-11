@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "MintPlayer.Data": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:63411;http://localhost:63412"
+    }
+  }
+}

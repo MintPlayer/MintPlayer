@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,9 +20,9 @@ using MintPlayer.AspNetCore.ChangePassword;
 using MintPlayer.AspNetCore.NoSniff;
 using MintPlayer.AspNetCore.OpenSearch;
 using MintPlayer.AspNetCore.SitemapXml;
+using MintPlayer.AspNetCore.SpaServices.Extensions;
 using MintPlayer.AspNetCore.SpaServices.Prerendering;
 using MintPlayer.AspNetCore.SpaServices.Routing;
-using MintPlayer.AspNetCore.XsrfForSpas;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Fetcher.Integration.Extensions;
 using MintPlayer.Web.Extensions;
@@ -146,7 +145,7 @@ namespace MintPlayer.Web
 			services.AddRouting();
 
 			// In production, the Angular files will be served from this directory
-			services.AddSpaStaticFiles(configuration =>
+			services.AddSpaStaticFilesImproved(configuration =>
 			{
 				configuration.RootPath = "ClientApp/dist";
 			});
@@ -394,10 +393,7 @@ namespace MintPlayer.Web
 					pattern: "{controller}/{action=Index}/{id?}")
 				.RequireCors(CorsPolicies.AllowDatatables);
 
-				endpoints.MapDefaultSitemapXmlStylesheet(options =>
-				{
-					options.StylesheetUrl = "/assets/stitemap.xsl";
-				});
+				endpoints.MapDefaultSitemapXmlStylesheet();
 			});
 
 			app.UseResponseCaching();
@@ -432,7 +428,7 @@ namespace MintPlayer.Web
 			app.UseWhen(
 				context => ShouldUseSpa(context),
 				app2 => app2
-					.UseSpa(spa =>
+					.UseSpaImproved(spa =>
 					{
 						spa.Options.SourcePath = "ClientApp";
 

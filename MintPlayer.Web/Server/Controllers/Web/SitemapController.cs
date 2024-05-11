@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MintPlayer.AspNetCore.SitemapXml;
-using MintPlayer.AspNetCore.SitemapXml.DependencyInjection.Interfaces;
+using MintPlayer.AspNetCore.SitemapXml.Abstractions;
 using MintPlayer.Web.Extensions;
 using MintPlayer.Dtos.Dtos;
 using MintPlayer.AspNetCore.SpaServices.Routing;
 using MintPlayer.Data.Abstractions.Services;
+using MintPlayer.AspNetCore.SitemapXml.Abstractions.Data;
 
 namespace MintPlayer.Web.Server.Controllers.Web
 {
@@ -94,7 +95,7 @@ namespace MintPlayer.Web.Server.Controllers.Web
 							return new Url
 							{
 								Loc = await spaRouteService.GenerateUrl($"person-show-name", new { id = s.Id, name = s.Text.Slugify() }, HttpContext),
-								ChangeFreq = AspNetCore.SitemapXml.Enums.ChangeFreq.Monthly,
+								ChangeFreq = AspNetCore.SitemapXml.Abstractions.Enums.ChangeFreq.Monthly,
 								LastMod = s.DateUpdate,
 								Links = links.ToList(),
 							};
@@ -115,7 +116,7 @@ namespace MintPlayer.Web.Server.Controllers.Web
 							return new Url
 							{
 								Loc = await spaRouteService.GenerateUrl($"artist-show-name", new { id = s.Id, name = s.Text.Slugify() }, HttpContext),
-								ChangeFreq = AspNetCore.SitemapXml.Enums.ChangeFreq.Monthly,
+								ChangeFreq = AspNetCore.SitemapXml.Abstractions.Enums.ChangeFreq.Monthly,
 								LastMod = s.DateUpdate,
 								Links = links.ToList()
 							};
@@ -177,7 +178,7 @@ namespace MintPlayer.Web.Server.Controllers.Web
 							return new Url
 							{
 								Loc = await spaRouteService.GenerateUrl($"song-show-title", new { id = s.Id, title = s.Text.Slugify() }, HttpContext),
-								ChangeFreq = AspNetCore.SitemapXml.Enums.ChangeFreq.Monthly,
+								ChangeFreq = AspNetCore.SitemapXml.Abstractions.Enums.ChangeFreq.Monthly,
 								LastMod = s.DateUpdate,
 								Links = links.ToList(),
 								Videos = parseSongVideos((Song)s),
