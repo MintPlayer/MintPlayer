@@ -1,9 +1,9 @@
 <div class="sidebar">
   <nav class="d-flex flex-column">
     <div class="p-1 text-center">
-      <facebook-share [routerLink]='["/"]' [queryParams]="{'lang': null}" class="m-1"></facebook-share>
-      <twitter-share [routerLink]='["/"]' [queryParams]="{'lang': null}" [text]="'home.title' | translate" class="mx-1 mt-1"></twitter-share>
-      <linkedin-share [routerLink]='["/"]' [queryParams]="{'lang': null}" [text]="'home.title' | translate" class="mx-1 mb-1"></linkedin-share>
+      <facebook-share [shareRouterLink]='["/"]' [queryParams]="{'lang': null}" class="m-1"></facebook-share>
+      <twitter-share [shareRouterLink]='["/"]' [queryParams]="{'lang': null}" [text]="'home.title' | translate" class="mx-1 mt-1"></twitter-share>
+      <linkedin-share [shareRouterLink]='["/"]' [queryParams]="{'lang': null}" [text]="'home.title' | translate" class="mx-1 mb-1"></linkedin-share>
     </div>
     <div class="p-1 text-center">
       <a [advRouterLink]='[]' [queryParams]="{'lang':null}" class="mx-2" title="English">

@@ -1,5 +1,5 @@
 <div class="container" *ngIf="artist != null">
-  <json-ld [json]="artistLd"></json-ld>
+  <ng-container [jsonLd]="artistLd"></ng-container>
   <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ artist.name }}</h1>

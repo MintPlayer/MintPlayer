@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { API_VERSION, MediumType, MediumTypeService, Person, PersonService, Tag, TagService } from '@mintplayer/ng-client';
+import { MINTPLAYER_API_VERSION, MediumType, MediumTypeService, Person, PersonService, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -18,7 +18,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
     @Inject(SERVER_SIDE) private serverSide: boolean,
-    @Inject(API_VERSION) apiVersion: string,
+    @Inject(MINTPLAYER_API_VERSION) apiVersion: string,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
@@ -32,10 +32,12 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     this.apiVersion = apiVersion;
     this.titleService.setTitle('Create person');
     if (serverSide === false) {
-      this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
-        this.mediumTypes = mediumTypes;
-      }).catch((error) => {
-        console.error('Could not fetch medium types', error);
+      this.mediumTypeService.getMediumTypes(false).subscribe({
+        next: (mediumTypes) => {
+          this.mediumTypes = mediumTypes;
+        }, error: (error) => {
+          console.error('Could not fetch medium types', error);
+        }
       });
     } else {
       this.mediumTypes = mediumTypesInj;
@@ -59,17 +61,21 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   tagSuggestions: Tag[] = [];
   onProvideTagSuggestions(searchText: string) {
-    this.tagService.suggestTags(searchText, true).then((tags) => {
-      this.tagSuggestions = tags;
+    this.tagService.suggestTags(searchText, true).subscribe({
+      next: (tags) => {
+        this.tagSuggestions = tags;
+      }
     });
   }
 
   savePerson() {
-    this.personService.createPerson(this.person).then((person) => {
-      this.hasChanges = false;
-      this.router.navigate(['person', person.id, this.slugifyHelper.slugify(person.text)]);
-    }).catch((error) => {
-      console.error('Could not create person', error);
+    this.personService.createPerson(this.person).subscribe({
+      next: (person) => {
+        this.hasChanges = false;
+        this.router.navigate(['person', person.id, this.slugifyHelper.slugify(person.text)]);
+      }, error: (error) => {
+        console.error('Could not create person', error);
+      }
     });
   }
 

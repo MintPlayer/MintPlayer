@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
 import { Tag, TagService } from '@mintplayer/ng-client';
 import { Subscription } from 'rxjs';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
@@ -18,7 +18,7 @@ export class ShowComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('TAG') tagInj: Tag,
-    @Inject(BASE_URL) private baseUrl: string,
+    private baseUrlService: BaseUrlService,
     private tagService: TagService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
@@ -34,6 +34,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     }
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   private routeParamsSubscription: Subscription;
 
   ngOnInit() {
@@ -89,10 +90,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   //#endregion
 
   private loadTag(id: number) {
-    this.tagService.getTag(id, true).then((tag) => {
-      this.setTag(tag);
-    }).catch((error) => {
-      console.error('Could not get tag', error);
+    this.tagService.getTag(id, true).subscribe({
+      next: (tag) => {
+        this.setTag(tag);
+      }, error: (error) => {
+        console.error('Could not get tag', error);
+      }
     });
   }
 
@@ -107,10 +110,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   }
 
   deleteTag() {
-    this.tagService.deleteTag(this.tag).then(() => {
-      this.router.navigate(['tag', 'category', this.tag.category.id]);
-    }).catch((error) => {
-      console.error('Could not delete tag category', error);
+    this.tagService.deleteTag(this.tag).subscribe({
+      next: () => {
+        this.router.navigate(['tag', 'category', this.tag.category.id]);
+      }, error: (error) => {
+        console.error('Could not delete tag category', error);
+      }
     });
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Medium } from '@mintplayer/ng-client';
-import { PlayerTypeFinderService } from '@mintplayer/ng-video-player';
+import { PlayerTypeFinderService } from '@mintplayer/ng-video-player/lib/services/player-type-finder/player-type-finder.service';
+//import { PlayerTypeFinderService } from '@mintplayer/ng-video-player';
 
 @Component({
   selector: 'media-list',
@@ -9,16 +10,17 @@ import { PlayerTypeFinderService } from '@mintplayer/ng-video-player';
 })
 export class MediaListComponent implements OnInit {
 
-  constructor(
-    private playerTypeFinder: PlayerTypeFinderService,
-  ) {
-  }
+  // constructor(
+  //   private playerTypeFinder: PlayerTypeFinderService,
+  // ) {
+  // }
 
   ngOnInit() {
   }
 
   isPlayable(url: string) {
-    return (this.playerTypeFinder.getPlatformWithId(url) !== null);
+    // return (this.playerTypeFinder.getPlatformWithId(url) !== null);
+    return true;
   }
 
   @Input() media: Medium[];

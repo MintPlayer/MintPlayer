@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, AfterViewInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
 import { HtmlLinkHelper } from '../../helpers/html-link.helper';
 
 @Component({
@@ -12,10 +12,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private metaService: Meta,
-    @Inject(BASE_URL) private baseUrl: string,
+    private baseUrlService: BaseUrlService,
     private htmlLink: HtmlLinkHelper,
-  ) {
-  }
+  ) { }
+
+  baseUrl = this.baseUrlService.getBaseUrl();
 
   ngOnInit() {
     this.htmlLink.setCanonicalWithoutQuery();

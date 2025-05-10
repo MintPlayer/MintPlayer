@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { API_VERSION, Artist, ArtistService, MediumType, MediumTypeService, Person, PersonService, SubjectService, SubjectType, Tag, TagService } from '@mintplayer/ng-client';
+import { MINTPLAYER_API_VERSION, Artist, ArtistService, MediumType, MediumTypeService, Person, PersonService, SubjectService, ESubjectType, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
@@ -17,7 +17,7 @@ import { HasChanges } from '../../../interfaces/has-changes';
 export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
     @Inject(SERVER_SIDE) private serverSide: boolean,
-    @Inject(API_VERSION) apiVersion: string,
+    @Inject(MINTPLAYER_API_VERSION) apiVersion: string,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private artistService: ArtistService,
     private subjectService: SubjectService,
@@ -56,37 +56,47 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   currentMemberSuggestions: Person[] = [];
   onProvideCurrentMemberSuggestions(searchText: string) {
-    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
-      this.currentMemberSuggestions = <Person[]>people;
+    this.subjectService.suggest(searchText, [ESubjectType.person]).subscribe({
+      next: (people) => {
+        this.currentMemberSuggestions = <Person[]>people;
+      }
     });
   }
   pastMemberSuggestions: Person[] = [];
   onProvidePastMemberSuggestions(searchText: string) {
-    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
-      this.pastMemberSuggestions = <Person[]>people;
+    this.subjectService.suggest(searchText, [ESubjectType.person]).subscribe({
+      next: (people) => {
+        this.pastMemberSuggestions = <Person[]>people;
+      }
     });
   }
   tagSuggestions: Tag[] = [];
   onProvideTagSuggestions(searchText: string) {
-    this.tagService.suggestTags(searchText, true).then((tags) => {
-      this.tagSuggestions = tags;
+    this.tagService.suggestTags(searchText, true).subscribe({
+      next: (tags) => {
+        this.tagSuggestions = tags;
+      }
     });
   }
 
   loadMediumTypes() {
-    this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
-      this.mediumTypes = mediumTypes;
-    }).catch((error) => {
-      console.error('Could not fetch medium types', error);
+    this.mediumTypeService.getMediumTypes(false).subscribe({
+      next: (mediumTypes) => {
+        this.mediumTypes = mediumTypes;
+      }, error: (error) => {
+        console.error('Could not fetch medium types', error);
+      }
     });
   }
 
   saveArtist() {
-    this.artistService.createArtist(this.artist).then((artist) => {
-      this.hasChanges = false;
-      this.router.navigate(['/artist', artist.id, this.slugifyHelper.slugify(artist.name)]);
-    }).catch((error) => {
-      console.error('Could not create artist', error);
+    this.artistService.createArtist(this.artist).subscribe({
+      next: (artist) => {
+        this.hasChanges = false;
+        this.router.navigate(['/artist', artist.id, this.slugifyHelper.slugify(artist.name)]);
+      }, error: (error) => {
+        console.error('Could not create artist', error);
+      }
     });
   }
 

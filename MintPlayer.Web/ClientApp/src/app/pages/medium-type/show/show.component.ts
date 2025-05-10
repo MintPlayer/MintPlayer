@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
-import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
+import { MediumType, MediumTypeService, EPlayerType } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
@@ -78,10 +78,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   //#endregion
 
   private loadMediumType(id: number) {
-    this.mediumTypeService.getMediumType(id, true).then((mediumtype) => {
-      this.setMediumType(mediumtype);
-    }).catch((error) => {
-      console.error('Could not fetch medium type', error);
+    this.mediumTypeService.getMediumType(id, true).subscribe({
+      next: (mediumtype) => {
+        this.setMediumType(mediumtype);
+      }, error: (error) => {
+        console.error('Could not fetch medium type', error);
+      }
     });
   }
 
@@ -98,14 +100,16 @@ export class ShowComponent implements OnInit, OnDestroy {
   }
 
   public deleteMediumType() {
-    this.mediumTypeService.deleteMediumType(this.mediumType).then(() => {
-      this.router.navigate(['mediumtype']);
-    }).catch((error) => {
-      console.error('Could not delete medium type', error);
+    this.mediumTypeService.deleteMediumType(this.mediumType).subscribe({
+      next: () => {
+        this.router.navigate(['mediumtype']);
+      }, error: (error) => {
+        console.error('Could not delete medium type', error);
+      }
     });
   }
 
-  public playerTypeEnum = PlayerType;
+  public playerTypeEnum = EPlayerType;
   public mediumType: MediumType = {
     id: 0,
     description: '',

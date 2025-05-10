@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
 import { Artist, ArtistService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
@@ -18,7 +18,7 @@ export class ShowComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('ARTIST') private artistInj: Artist,
-    @Inject(BASE_URL) private baseUrl: string,
+    private baseUrlService: BaseUrlService,
     private artistService: ArtistService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
@@ -35,6 +35,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     }
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   ngOnInit() {
     this.htmlLink.setCanonicalWithoutQuery();
   }
@@ -138,10 +139,12 @@ export class ShowComponent implements OnInit, OnDestroy {
     };
 
   private loadArtist(id: number) {
-    this.artistService.getArtist(id, true).then((artist) => {
-      this.setArtist(artist);
-    }).catch((error) => {
-      console.error('Could not get artist', error);
+    this.artistService.getArtist(id, true).subscribe({
+      next: (artist) => {
+        this.setArtist(artist);
+      }, error: (error) => {
+        console.error('Could not get artist', error);
+      }
     });
   }
 
@@ -177,10 +180,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   }
 
   public deleteArtist() {
-    this.artistService.deleteArtist(this.artist).then(() => {
-      this.router.navigate(['artist']);
-    }).catch((error) => {
-      console.error('Could not delete artist', error);
+    this.artistService.deleteArtist(this.artist).subscribe({
+      next: () => {
+        this.router.navigate(['artist']);
+      }, error: (error) => {
+        console.error('Could not delete artist', error);
+      }
     });
   }
 

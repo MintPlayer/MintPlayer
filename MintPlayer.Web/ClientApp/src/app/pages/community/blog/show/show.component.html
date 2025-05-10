@@ -1,5 +1,5 @@
 <div class="container" *ngIf="blogPost != null">
-  <json-ld [json]="blogPostLd"></json-ld>
+  <ng-container [jsonLd]="blogPostLd"></ng-container>
   <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ blogPost.title }}</h1>

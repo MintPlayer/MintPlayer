@@ -1,7 +1,7 @@
 import { DOCUMENT } from "@angular/common";
 import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BASE_URL } from "@mintplayer/ng-base-url";
+import { BaseUrlService } from "@mintplayer/ng-base-url";
 import { AdvancedRouter } from "@mintplayer/ng-router";
 import { HtmlLinkHelper } from "./html-link.helper";
 
@@ -13,9 +13,10 @@ export class HreflangTagHelper {
     private htmlLink: HtmlLinkHelper,
     private router: AdvancedRouter,
     @Inject(DOCUMENT) private document: HTMLDocument,
-    @Inject(BASE_URL) private baseUrl: string,
+    private baseUrlService: BaseUrlService,
   ) { }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   public setHreflangTags() {
     this.document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link) => {
       link.parentNode.removeChild(link);

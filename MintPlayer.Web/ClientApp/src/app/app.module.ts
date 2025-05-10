@@ -5,8 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { QUERY_PARAMS_CONFIG, QueryParamsConfig, AdvancedRouterModule } from '@mintplayer/ng-router';
-import { BaseUrlOptions, BASE_URL, BASE_URL_OPTIONS } from '@mintplayer/ng-base-url';
-import { API_VERSION } from '@mintplayer/ng-client';
+import { BaseUrlOptions, BaseUrlService, BASE_URL_OPTIONS } from '@mintplayer/ng-base-url';
+import { MINTPLAYER_API_VERSION, MINTPLAYER_BASE_URL } from '@mintplayer/ng-client';
 import { VideoPlayerModule } from '@mintplayer/ng-video-player';
 import { PlaylistControllerModule } from '@mintplayer/ng-playlist-controller';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +22,8 @@ import { CardModule } from './controls/card/card.module';
 import { ModalModule } from './components/modal/modal.module';
 import { FormsModule } from '@angular/forms';
 
-const getExternalUrl = (baseUrl: string) => {
+const getExternalUrl = (baseUrlService: BaseUrlService) => {
+  const baseUrl = baseUrlService.getBaseUrl();
   if (new RegExp("\\blocalhost\\b").test(baseUrl)) {
     return baseUrl;
   } else {
@@ -82,7 +83,7 @@ const getExternalUrl = (baseUrl: string) => {
     }, {
       provide: EXTERNAL_URL,
       useFactory: getExternalUrl,
-      deps: [BASE_URL]
+      deps: [BaseUrlService]
     }, {
       // Drop the scheme from the base-url provider
       provide: BASE_URL_OPTIONS,
@@ -90,8 +91,12 @@ const getExternalUrl = (baseUrl: string) => {
         dropScheme: true
       }
     }, {
-      provide: API_VERSION,
+      provide: MINTPLAYER_API_VERSION,
       useValue: 'v3'
+    }, {
+      provide: MINTPLAYER_BASE_URL,
+      useFactory: (service: BaseUrlService) => service.getBaseUrl(),
+      deps: [BaseUrlService]
     }
   ],
   bootstrap: [AppComponent]

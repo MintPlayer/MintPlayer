@@ -12,7 +12,7 @@ if (!environment.production) {
 }
 
 const providers: StaticProvider[] = [
-  { provide: 'API_VERSION', useValue: 'v3' },
+  { provide: 'MINTPLAYER_API_VERSION', useValue: 'v3' },
 
   { provide: SERVER_SIDE, useValue: false },
   { provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>null },

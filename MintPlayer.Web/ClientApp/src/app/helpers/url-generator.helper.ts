@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
 import { Artist, BlogPost, Person, Song } from '@mintplayer/ng-client';
 import { SlugifyHelper } from './slugify.helper';
 
@@ -8,11 +8,12 @@ import { SlugifyHelper } from './slugify.helper';
 })
 export class UrlGenerator {
   constructor(
-    @Inject(BASE_URL) private baseUrl: string,
+    private baseUrlService: BaseUrlService,
     private slugifyHelper: SlugifyHelper,
   ) {
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   public generateFullUrl(subject: Person | Artist | Song | BlogPost) {
     if ('firstName' in subject) {
       // Person

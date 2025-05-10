@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
-import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
+import { MediumType, MediumTypeService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -33,11 +33,13 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   };
 
   public saveMediumType() {
-    this.mediumTypeService.createMediumType(this.mediumType).then((mediumType) => {
-      this.hasChanges = false;
-      this.router.navigate(['mediumtype', mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
-    }).catch((error) => {
-      console.error('Could not create medium type', error);
+    this.mediumTypeService.createMediumType(this.mediumType).subscribe({
+      next: (mediumType) => {
+        this.hasChanges = false;
+        this.router.navigate(['mediumtype', mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
+      }, error: (error) => {
+        console.error('Could not create medium type', error);
+      }
     });
   }
 

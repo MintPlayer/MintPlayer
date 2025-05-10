@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { API_VERSION, Artist, MediumType, MediumTypeService, Song, SongService, SubjectService, SubjectType, Tag, TagService } from '@mintplayer/ng-client';
+import { MINTPLAYER_API_VERSION, Artist, MediumType, MediumTypeService, Song, SongService, SubjectService, ESubjectType, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -19,7 +19,7 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
     @Inject(SERVER_SIDE) private serverSide: boolean,
-    @Inject(API_VERSION) apiVersion: string,
+    @Inject(MINTPLAYER_API_VERSION) apiVersion: string,
     @Inject('MEDIUMTYPES') private mediumTypesInj: MediumType[],
     private songService: SongService,
     private subjectService: SubjectService,
@@ -35,10 +35,12 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
     this.apiVersion = apiVersion;
     this.titleService.setTitle('Add new song');
     if (serverSide === false) {
-      this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
-        this.mediumTypes = mediumTypes;
-      }).catch((error) => {
-        console.error('Could not fetch medium types', error);
+      this.mediumTypeService.getMediumTypes(false).subscribe({
+        next: (mediumTypes) => {
+          this.mediumTypes = mediumTypes;
+        }, error: (error) => {
+          console.error('Could not fetch medium types', error);
+        }
       });
     } else {
       this.mediumTypes = mediumTypesInj;
@@ -78,20 +80,26 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   artistSuggestions: Artist[] = [];
   onProvideArtistSuggestions(searchText: string) {
-    this.subjectService.suggest(searchText, [SubjectType.artist]).then((artists) => {
-      this.artistSuggestions = <Artist[]>artists;
+    this.subjectService.suggest(searchText, [ESubjectType.artist]).subscribe({
+      next: (artists) => {
+        this.artistSuggestions = <Artist[]>artists;
+      }
     });
   }
   uncreditedArtistSuggestions: Artist[] = [];
   onProvideUncreditedArtistSuggestions(searchText: string) {
-    this.subjectService.suggest(searchText, [SubjectType.artist]).then((artists) => {
-      this.uncreditedArtistSuggestions = <Artist[]>artists;
+    this.subjectService.suggest(searchText, [ESubjectType.artist]).subscribe({
+      next: (artists) => {
+        this.uncreditedArtistSuggestions = <Artist[]>artists;
+      }
     });
   }
   tagSuggestions: Tag[] = [];
   onProvideTagSuggestions(searchText: string) {
-    this.tagService.suggestTags(searchText, true).then((tags) => {
-      this.tagSuggestions = tags;
+    this.tagService.suggestTags(searchText, true).subscribe({
+      next: (tags) => {
+        this.tagSuggestions = tags;
+      }
     });
   }
 
@@ -101,11 +109,13 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   saveSong() {
-    this.songService.createSong(this.song).then((song) => {
-      this.hasChanges = false;
-      this.router.navigate(['song', song.id, this.slugifyHelper.slugify(song.title)]);
-    }).catch((error) => {
-      console.error('Could not create song', error);
+    this.songService.createSong(this.song).subscribe({
+      next: (song) => {
+        this.hasChanges = false;
+        this.router.navigate(['song', song.id, this.slugifyHelper.slugify(song.title)]);
+      }, error: (error) => {
+        console.error('Could not create song', error);
+      }
     });
   }
 

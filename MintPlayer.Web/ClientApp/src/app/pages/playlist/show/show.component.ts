@@ -6,7 +6,7 @@ import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlayButtonClickedEvent } from '../../../events/play-button-clicked.event';
 import { ePlaylistPlaybutton } from '../../../enums/ePlaylistPlayButton';
-import { Playlist, PlaylistAccessibility, PlaylistService } from '@mintplayer/ng-client';
+import { Playlist, EPlaylistAccessibility, PlaylistService } from '@mintplayer/ng-client';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -34,23 +34,25 @@ export class PlaylistShowComponent implements OnInit {
   }
 
   private loadPlaylist(id: number) {
-    this.playlistService.getPlaylist(id, true).then((playlist) => {
-      this.setPlaylist(playlist);
-    }).catch((error: HttpErrorResponse) => {
-      switch (error.status) {
-        case 401: // Unauthorized
-          this.router.navigate(['/account', 'login'], {
-            queryParams: {
-              return: this.nativeRouter.url
-            }
-          });
-          break;
-        case 403: // Forbidden
-          break;
-        case 404:
-          break;
+    this.playlistService.getPlaylist(id, true).subscribe({
+      next: (playlist) => {
+        this.setPlaylist(playlist);
+      }, error: (error: HttpErrorResponse) => {
+        switch (error.status) {
+          case 401: // Unauthorized
+            this.router.navigate(['/account', 'login'], {
+              queryParams: {
+                return: this.nativeRouter.url
+              }
+            });
+            break;
+          case 403: // Forbidden
+            break;
+          case 404:
+            break;
+        }
+        console.error('Could not get playlist', error);
       }
-      console.error('Could not get playlist', error);
     });
   }
 
@@ -62,10 +64,12 @@ export class PlaylistShowComponent implements OnInit {
   }
 
   deletePlaylist() {
-    this.playlistService.deletePlaylist(this.playlist).then(() => {
-      this.router.navigate(['playlist']);
-    }).catch((error) => {
-      console.error('Could not delete playlist', error);
+    this.playlistService.deletePlaylist(this.playlist).subscribe({
+      next: () => {
+        this.router.navigate(['playlist']);
+      }, error: (error) => {
+        console.error('Could not delete playlist', error);
+      }
     });
   }
 
@@ -85,7 +89,7 @@ export class PlaylistShowComponent implements OnInit {
     id: 0,
     description: '',
     tracks: [],
-    accessibility: PlaylistAccessibility.private,
+    accessibility: EPlaylistAccessibility.private,
     user: null
   };
 }

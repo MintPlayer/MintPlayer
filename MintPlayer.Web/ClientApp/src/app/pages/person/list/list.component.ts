@@ -39,10 +39,12 @@ export class ListComponent implements OnInit, OnDestroy {
           this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'FirstName';
           this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
 
-          this.personService.pagePeople(this.tableSettings.toPagination()).then((response) => {
-            this.setPersonData(response);
-          }).catch((error) => {
-            console.error('Could not fetch people', error);
+          this.personService.pagePeople(this.tableSettings.toPagination()).subscribe({
+            next: (response) => {
+              this.setPersonData(response);
+            }, error: (error) => {
+              console.error('Could not fetch people', error);
+            }
           });
         });
     }

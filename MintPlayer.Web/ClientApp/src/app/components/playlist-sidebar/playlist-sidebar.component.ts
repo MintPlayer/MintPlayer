@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PlayerProgress } from '@mintplayer/ng-player-progress';
-import { PlayerState } from '@mintplayer/ng-video-player';
+import { EPlayerState } from '@mintplayer/ng-video-player';
 import { SongRemovedEvent } from '../../events/song-removed.event';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { eRepeatMode } from '../../enums/eRepeatMode';
@@ -20,10 +20,10 @@ export class PlaylistSidebarComponent implements OnInit {
   constructor() {
   }
 
-  playerStateValues = PlayerState;
+  playerStateValues = EPlayerState;
 
   @Input()
-  public playerState: PlayerState;
+  public playerState: EPlayerState;
 
   @Input()
   public songs: (SongWithMedium | VideoUrl)[];

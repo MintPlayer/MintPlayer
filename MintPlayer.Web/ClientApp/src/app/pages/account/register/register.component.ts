@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { AccountService, User, UserData } from '@mintplayer/ng-client';
-import { LoginStatus } from '@mintplayer/ng-client';
+import { ELoginStatus } from '@mintplayer/ng-client';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
@@ -85,21 +85,28 @@ export class RegisterComponent implements OnInit, OnDestroy {
   };
 
   public register() {
-    this.accountService.register(this.data).then((result) => {
-      this.accountService.login(this.data.user.email, this.data.password).then((login_result) => {
-        this.accountService.csrfRefresh().then(() => {
-          if (login_result.status === LoginStatus.success) {
-            this.router.navigate(['/']);
-            this.loginComplete.next(login_result.user);
-          } else {
-            debugger;
-          }
-        });
-      }).catch((error) => {
+    this.accountService.register(this.data).subscribe({
+      next: (result) => {
+        this.accountService.login(this.data.user.email, this.data.password)
+          .subscribe({
+            next: (login_result) => {
+              this.accountService.csrfRefresh().subscribe({
+                next: () => {
+                  if (login_result.status === ELoginStatus.success) {
+                    this.router.navigate(['/']);
+                    this.loginComplete.next(login_result.user);
+                  } else {
+                    debugger;
+                  }
+                }
+              });
+            }, error: (error) => {
+              console.error('Could not register', error);
+            }
+          });
+      }, error: (error) => {
         console.error('Could not register', error);
-      });
-    }).catch((error) => {
-      console.error('Could not register', error);
+      }
     });
   }
 

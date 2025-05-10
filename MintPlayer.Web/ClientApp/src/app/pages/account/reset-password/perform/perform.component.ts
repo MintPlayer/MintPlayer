@@ -4,8 +4,8 @@ import { AfterViewInit } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { BASE_URL } from '@mintplayer/ng-base-url';
-import { API_VERSION } from '@mintplayer/ng-client';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
+import { MINTPLAYER_API_VERSION } from '@mintplayer/ng-client';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 
 @Component({
@@ -20,12 +20,13 @@ export class PerformComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private httpClient: HttpClient,
     private titleService: Title,
-    @Inject(BASE_URL) private baseUrl: string,
-    @Inject(API_VERSION) private apiVersion: string,
+    private baseUrlService: BaseUrlService,
+    @Inject(MINTPLAYER_API_VERSION) private apiVersion: string,
   ) {
     this.titleService.setTitle('Enter a new password');
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   ngOnInit() {
     this.email = this.route.snapshot.queryParamMap.get('email');
     this.token = this.route.snapshot.queryParamMap.get('token');
@@ -41,14 +42,15 @@ export class PerformComponent implements OnInit, AfterViewInit {
       newPassword: this.password,
       newPasswordConfirmation: this.passwordConfirmation
     })
-      .toPromise()
-      .then((response) => {
-        this.success = true;
-        setTimeout(() => {
-          this.router.navigate(['/account', 'login']);
-        }, 10000);
-      }).catch((error) => {
-        console.error('Failed to reset password');
+      .subscribe({
+        next: (response) => {
+          this.success = true;
+          setTimeout(() => {
+            this.router.navigate(['/account', 'login']);
+          }, 10000);
+        }, error: (error) => {
+          console.error('Failed to reset password');
+        }
       });
   }
 

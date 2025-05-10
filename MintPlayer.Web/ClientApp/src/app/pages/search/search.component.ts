@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
-import { API_VERSION, Artist, Person, SearchResults, Song, Subject, SubjectService, SubjectType } from '@mintplayer/ng-client';
+import { MINTPLAYER_API_VERSION, Artist, Person, SearchResults, Song, Subject, SubjectService, ESubjectType } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../helpers/html-link.helper';
 import { SlugifyPipe } from '../../pipes/slugify/slugify.pipe';
 import { UrlGenerator } from '../../helpers/url-generator.helper';
@@ -18,7 +18,7 @@ import { UrlGenerator } from '../../helpers/url-generator.helper';
 export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject(API_VERSION) apiVersion: string,
+    @Inject(MINTPLAYER_API_VERSION) apiVersion: string,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
     private subjectService: SubjectService,
@@ -26,10 +26,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     private metaService: Meta,
     private urlGenerator: UrlGenerator,
   ) {
-    this.route.paramMap.subscribe((params) => {
-      if (params.has('searchTerm')) {
-        this.searchterm = params.get('searchTerm');
-        this.performSearch();
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        if (params.has('searchTerm')) {
+          this.searchterm = params.get('searchTerm');
+          this.performSearch();
+        }
       }
     });
   }
@@ -91,11 +93,14 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   suggestions: Subject[] = [];
   provideSuggestions(searchTerm: string) {
-    this.subjectService.suggest(searchTerm, [SubjectType.person, SubjectType.artist, SubjectType.song]).then((suggestions) => {
-      this.suggestions = suggestions;
-    }).catch((error) => {
-      console.error('Could not perform search query', error);
-    });
+    this.subjectService.suggest(searchTerm, [ESubjectType.person, ESubjectType.artist, ESubjectType.song])
+      .subscribe({
+        next: (suggestions) => {
+          this.suggestions = suggestions;
+        }, error: (error) => {
+          console.error('Could not perform search query', error);
+        }
+      });
   }
 
   doSearch() {
@@ -103,11 +108,14 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   private performSearch() {
-    this.subjectService.search(this.searchterm, [SubjectType.person, SubjectType.artist, SubjectType.song]).then((results) => {
-      this.searchResults = results;
-    }).catch((error) => {
-      console.error('Could not perform search query', error);
-    });
+    this.subjectService.search(this.searchterm, [ESubjectType.person, ESubjectType.artist, ESubjectType.song])
+      .subscribe({
+        next: (results) => {
+          this.searchResults = results;
+        }, error: (error) => {
+          console.error('Could not perform search query', error);
+        }
+      });
   }
 
   gotoSubject(subject: Person | Artist | Song) {

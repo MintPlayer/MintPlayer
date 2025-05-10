@@ -34,13 +34,15 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
   }
 
   private loadSong(id: number) {
-    this.songService.getSong(id, true).then((song) => {
-      if (song.lyrics.timeline === null) {
-        song.lyrics.timeline = [];
+    this.songService.getSong(id, true).subscribe({
+      next: (song) => {
+        if (song.lyrics.timeline === null) {
+          song.lyrics.timeline = [];
+        }
+        this.setSong(song);
+      }, error: (error) => {
+        console.error('Could not fetch song', error);
       }
-      this.setSong(song);
-    }).catch((error) => {
-      console.error('Could not fetch song', error);
     });
   }
 
@@ -54,11 +56,13 @@ export class SyncComponent implements OnInit, DoCheck, HasChanges {
   }
 
   updateTimeline() {
-    this.songService.updateTimeline(this.song).then(() => {
-      this.hasChanges = false;
-      this.router.navigate(['/song', this.song.id, this.slugifyHelper.slugify(this.song.text)]);
-    }).catch((error) => {
-      console.error(error);
+    this.songService.updateTimeline(this.song).subscribe({
+      next: () => {
+        this.hasChanges = false;
+        this.router.navigate(['/song', this.song.id, this.slugifyHelper.slugify(this.song.text)]);
+      }, error: (error) => {
+        console.error(error);
+      }
     });
   }
 

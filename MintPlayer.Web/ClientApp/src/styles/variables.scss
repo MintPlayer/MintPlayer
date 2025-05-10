@@ -78,6 +78,14 @@ $fa-padding: 2px;
     --border-color: rgba(255,255,255,.15);
   }
 
+  .card {
+    color: #DFEDFA;
+  }
+
+  .table>:not(caption)>*>* {
+    color: #DFEDFA !important;
+  }
+
   .table {
     color: #DEDAD6;
 

@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Playlist, PlaylistScope, PlaylistService } from '@mintplayer/ng-client';
+import { Playlist, EPlaylistScope, PlaylistService } from '@mintplayer/ng-client';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
 import { AdvancedRouter } from '@mintplayer/ng-router';
@@ -39,10 +39,12 @@ export class PlaylistPublicComponent implements OnInit, OnDestroy {
           this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Description';
           this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
 
-          this.playlistService.pagePlaylists(this.tableSettings.toPagination(), PlaylistScope.public).then((playlists) => {
-            this.setPlaylistData(playlists);
-          }).catch((error) => {
-            console.error(error);
+          this.playlistService.pagePlaylists(this.tableSettings.toPagination(), EPlaylistScope.public).subscribe({
+            next: (playlists) => {
+              this.setPlaylistData(playlists);
+            }, error: (error) => {
+              console.error(error);
+            }
           });
         });
     }

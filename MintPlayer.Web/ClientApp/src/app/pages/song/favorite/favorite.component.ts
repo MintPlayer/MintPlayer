@@ -34,10 +34,12 @@ export class FavoriteComponent implements OnInit, OnDestroy {
           this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Title';
           this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
 
-          this.songService.pageFavoriteSongs(this.tableSettings.toPagination()).then((response) => {
-            this.setSongData(response);
-          }).catch((error) => {
-            console.error(error);
+          this.songService.pageFavoriteSongs(this.tableSettings.toPagination()).subscribe({
+            next: (response) => {
+              this.setSongData(response);
+            }, error: (error) => {
+              console.error(error);
+            }
           });
         });
     }
