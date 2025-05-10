@@ -33,10 +33,12 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   private loadTagCategory(id: number) {
-    this.tagCategoryService.getTagCategory(id, true).then((tagCategory) => {
-      this.setTagCategory(tagCategory);
-    }).catch((error) => {
-      console.error('Could not fetch tag category', error);
+    this.tagCategoryService.getTagCategory(id, true).subscribe({
+      next: (tagCategory) => {
+        this.setTagCategory(tagCategory);
+      }, error: (error) => {
+        console.error('Could not fetch tag category', error);
+      }
     });
   }
 
@@ -59,11 +61,13 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   };
 
   updateCategory() {
-    this.tagCategoryService.updateTagCategory(this.tagCategory).then((category) => {
-      this.hasChanges = false;
-      this.router.navigate(['tag', 'category', category.id]);
-    }).catch((error) => {
-      console.error('Could not create tag category', error);
+    this.tagCategoryService.updateTagCategory(this.tagCategory).subscribe({
+      next: (category) => {
+        this.hasChanges = false;
+        this.router.navigate(['tag', 'category', category.id]);
+      }, error: (error) => {
+        console.error('Could not create tag category', error);
+      }
     });
   }
 

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
 import { Person, PersonService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../helpers/url-generator.helper';
@@ -18,7 +18,7 @@ export class ShowComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('PERSON') personInj: Person,
-    @Inject(BASE_URL) private baseUrl: string,
+    private baseUrlService: BaseUrlService,
     private personService: PersonService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
@@ -35,6 +35,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     }
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   ngOnInit() {
     this.htmlLink.setCanonicalWithoutQuery();
   }
@@ -121,10 +122,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   //#endregion
 
   private loadPerson(id: number) {
-    this.personService.getPerson(id, true).then((person) => {
-      this.setPerson(person);
-    }).catch((error) => {
-      console.error('Could not get person', error);
+    this.personService.getPerson(id, true).subscribe({
+      next: (person) => {
+        this.setPerson(person);
+      }, error: (error) => {
+        console.error('Could not get person', error);
+      }
     });
   }
 
@@ -139,10 +142,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   }
 
   public deletePerson() {
-    this.personService.deletePerson(this.person).then(() => {
-      this.router.navigate(['person']);
-    }).catch((error) => {
-      console.error('Could not delete person', error);
+    this.personService.deletePerson(this.person).subscribe({
+      next: () => {
+        this.router.navigate(['person']);
+      }, error: (error) => {
+        console.error('Could not delete person', error);
+      }
     });
   }
 

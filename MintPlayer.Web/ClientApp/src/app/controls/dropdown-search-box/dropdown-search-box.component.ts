@@ -1,7 +1,4 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Inject, Output, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BASE_URL } from '@mintplayer/ng-base-url';
-import { AutocompleteElement } from '../autocomplete-element';
 
 @Component({
   selector: 'dropdown-search-box',
@@ -9,10 +6,6 @@ import { AutocompleteElement } from '../autocomplete-element';
   styleUrls: ['./dropdown-search-box.component.scss']
 })
 export class DropdownSearchBoxComponent implements OnInit {
-
-  constructor(
-  ) {
-  }
 
   @Input() searchPlaceholder: string;
   @Input() searchingCaption: string = 'Searching';

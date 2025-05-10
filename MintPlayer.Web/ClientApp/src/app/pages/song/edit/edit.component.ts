@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { API_VERSION, Artist, MediumType, MediumTypeService, Song, SongService, SubjectService, SubjectType, Tag, TagService } from '@mintplayer/ng-client';
+import { MINTPLAYER_API_VERSION, Artist, MediumType, MediumTypeService, Song, SongService, SubjectService, ESubjectType, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -18,7 +18,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
     @Inject(SERVER_SIDE) private serverSide: boolean,
-    @Inject(API_VERSION) apiVersion: string,
+    @Inject(MINTPLAYER_API_VERSION) apiVersion: string,
     private songService: SongService,
     private subjectService: SubjectService,
     private mediumTypeService: MediumTypeService,
@@ -69,28 +69,36 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   artistSuggestions: Artist[] = [];
   onProvideArtistSuggestions(searchText: string) {
-    this.subjectService.suggest(searchText, [SubjectType.artist]).then((artists) => {
-      this.artistSuggestions = <Artist[]>artists;
+    this.subjectService.suggest(searchText, [ESubjectType.artist]).subscribe({
+      next: (artists) => {
+        this.artistSuggestions = <Artist[]>artists;
+      }
     });
   }
   uncreditedArtistSuggestions: Artist[] = [];
   onProvideUncreditedArtistSuggestions(searchText: string) {
-    this.subjectService.suggest(searchText, [SubjectType.artist]).then((artists) => {
-      this.uncreditedArtistSuggestions = <Artist[]>artists;
+    this.subjectService.suggest(searchText, [ESubjectType.artist]).subscribe({
+      next: (artists) => {
+        this.uncreditedArtistSuggestions = <Artist[]>artists;
+      }
     });
   }
   tagSuggestions: Tag[] = [];
   onProvideTagSuggestions(searchText: string) {
-    this.tagService.suggestTags(searchText, true).then((tags) => {
-      this.tagSuggestions = tags;
+    this.tagService.suggestTags(searchText, true).subscribe({
+      next: (tags) => {
+        this.tagSuggestions = tags;
+      }
     });
   }
 
   private loadSong(id: number) {
-    this.songService.getSong(id, true).then((song) => {
-      this.setSong(song);
-    }).catch((error) => {
-      console.error('Could not fetch song', error);
+    this.songService.getSong(id, true).subscribe({
+      next: (song) => {
+        this.setSong(song);
+      }, error: (error) => {
+        console.error('Could not fetch song', error);
+      }
     });
   }
 
@@ -105,10 +113,12 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   private loadMediumTypes() {
-    this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
-      this.mediumTypes = mediumTypes;
-    }).catch((error) => {
-      console.error('Could not get medium types', error);
+    this.mediumTypeService.getMediumTypes(false).subscribe({
+      next: (mediumTypes) => {
+        this.mediumTypes = mediumTypes;
+      }, error: (error) => {
+        console.error('Could not get medium types', error);
+      }
     });
   }
 
@@ -118,18 +128,20 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   public updateSong() {
-    this.songService.updateSong(this.song).then((song) => {
-      this.hasChanges = false;
-      this.router.navigate(['song', this.song.id, this.slugifyHelper.slugify(song.title)]);
-    }).catch((error) => {
-      switch (error.status) {
-        case 409: {
-          console.log("Error 409", error);
-          this.concurrentSong = error.error;
-        } break;
-        default: {
-          console.error('Could not update song', error);
-        } break;
+    this.songService.updateSong(this.song).subscribe({
+      next: (song) => {
+        this.hasChanges = false;
+        this.router.navigate(['song', this.song.id, this.slugifyHelper.slugify(song.title)]);
+      }, error: (error) => {
+        switch (error.status) {
+          case 409: {
+            console.log("Error 409", error);
+            this.concurrentSong = error.error;
+          } break;
+          default: {
+            console.error('Could not update song', error);
+          } break;
+        }
       }
     });
   }

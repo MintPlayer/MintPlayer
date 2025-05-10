@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { API_VERSION, Playlist, PlaylistAccessibility, PlaylistService, Song, SubjectService, SubjectType } from '@mintplayer/ng-client';
+import { MINTPLAYER_API_VERSION, Playlist, EPlaylistAccessibility, PlaylistService, Song, SubjectService, ESubjectType } from '@mintplayer/ng-client';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
 import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
@@ -21,7 +21,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
 
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
-    @Inject(API_VERSION) apiVersion: string,
+    @Inject(MINTPLAYER_API_VERSION) apiVersion: string,
     @Inject('PLAYLIST') playlistInj: Playlist,
     private playlistService: PlaylistService,
     private subjectService: SubjectService,
@@ -33,7 +33,7 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     private enumHelper: EnumHelper,
   ) {
     this.apiVersion = apiVersion;
-    this.accessibilities = this.enumHelper.getItems(PlaylistAccessibility);
+    this.accessibilities = this.enumHelper.getItems(EPlaylistAccessibility);
 
     if (serverSide === false) {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
@@ -42,10 +42,12 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
   }
 
   private loadPlaylist(id: number) {
-    this.playlistService.getPlaylist(id, true).then((playlist) => {
-      this.setPlaylist(playlist);
-    }).catch((error) => {
-      console.error('Could not get playlist', error);
+    this.playlistService.getPlaylist(id, true).subscribe({
+      next: (playlist) => {
+        this.setPlaylist(playlist);
+      }, error: (error) => {
+        console.error('Could not get playlist', error);
+      }
     });
   }
 
@@ -64,8 +66,10 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
 
   songSuggestions: Song[] = [];
   onProvideSongSuggestions(searchText: string) {
-    this.subjectService.suggest(searchText, [SubjectType.song]).then((songs) => {
-      this.songSuggestions = <Song[]>songs;
+    this.subjectService.suggest(searchText, [ESubjectType.song]).subscribe({
+      next: (songs) => {
+        this.songSuggestions = <Song[]>songs;
+      }
     });
   }
 
@@ -79,13 +83,13 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
     id: 0,
     description: '',
     tracks: [],
-    accessibility: PlaylistAccessibility.private,
+    accessibility: EPlaylistAccessibility.private,
     user: null
   };
 
   public accessibilities: EnumItem[] = [];
   public accessibilitySelected(accessibility: number) {
-    this.playlist.accessibility = PlaylistAccessibility[PlaylistAccessibility[accessibility]];
+    this.playlist.accessibility = EPlaylistAccessibility[EPlaylistAccessibility[accessibility]];
   }
 
   trackDropped(event: CdkDragDrop<string[]>) {
@@ -109,11 +113,13 @@ export class PlaylistEditComponent implements OnInit, DoCheck, HasChanges {
   }
 
   savePlaylist() {
-    this.playlistService.updatePlaylist(this.playlist).then((playlist) => {
-      this.hasChanges = false;
-      this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
-    }).catch((error) => {
-      debugger;
+    this.playlistService.updatePlaylist(this.playlist).subscribe({
+      next: (playlist) => {
+        this.hasChanges = false;
+        this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
+      }, error: (error) => {
+        debugger;
+      }
     });
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
+import { MediumType, MediumTypeService, EPlayerType } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
@@ -77,10 +77,12 @@ export class ListComponent implements OnInit, OnDestroy {
   //#endregion
 
   private loadMediumTypes() {
-    this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
-      this.setMediumTypes(mediumTypes);
-    }).catch((error) => {
-      console.error('Could not fetch medium types', error);
+    this.mediumTypeService.getMediumTypes(false).subscribe({
+      next: (mediumTypes) => {
+        this.setMediumTypes(mediumTypes);
+      }, error: (error) => {
+        console.error('Could not fetch medium types', error);
+      }
     });
   }
 
@@ -89,6 +91,6 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   public mediumTypes: MediumType[] = [];
-  public playerTypes = PlayerType;
+  public playerTypes = EPlayerType;
 
 }

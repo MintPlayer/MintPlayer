@@ -5,7 +5,7 @@ import { AdvancedRouter } from '@mintplayer/ng-router';
 import { DatatableSettings } from '@mintplayer/ng-datatables';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PaginationResponse } from '@mintplayer/ng-pagination';
-import { Playlist, PlaylistScope, PlaylistService } from '@mintplayer/ng-client';
+import { Playlist, EPlaylistScope, PlaylistService } from '@mintplayer/ng-client';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -39,10 +39,12 @@ export class PlaylistListComponent implements OnInit, OnDestroy {
           this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Description';
           this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
 
-          this.playlistService.pagePlaylists(this.tableSettings.toPagination(), PlaylistScope.my).then((playlists) => {
-            this.setPlaylistData(playlists);
-          }).catch((error) => {
-            console.error(error);
+          this.playlistService.pagePlaylists(this.tableSettings.toPagination(), EPlaylistScope.my).subscribe({
+            next: (playlists) => {
+              this.setPlaylistData(playlists);
+            }, error: (error) => {
+              console.error(error);
+            }
           });
         });
     }

@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { API_VERSION, MediumType, MediumTypeService, Person, PersonService, Tag, TagService } from '@mintplayer/ng-client';
+import { MINTPLAYER_API_VERSION, MediumType, MediumTypeService, Person, PersonService, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -18,7 +18,7 @@ import { IBeforeUnloadEvent } from '../../../events/my-before-unload.event';
 export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   constructor(
     @Inject(SERVER_SIDE) private serverSide: boolean,
-    @Inject(API_VERSION) apiVersion: string,
+    @Inject(MINTPLAYER_API_VERSION) apiVersion: string,
     private personService: PersonService,
     private mediumTypeService: MediumTypeService,
     private tagService: TagService,
@@ -41,10 +41,12 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   private loadPerson(id: number) {
-    this.personService.getPerson(id, true).then((person) => {
-      this.setPerson(person);
-    }).catch((error) => {
-      console.error('Could not fetch person', error);
+    this.personService.getPerson(id, true).subscribe({
+      next: (person) => {
+        this.setPerson(person);
+      }, error: (error) => {
+        console.error('Could not fetch person', error);
+      }
     });
   }
 
@@ -59,10 +61,12 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   private loadMediumTypes() {
-    this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
-      this.mediumTypes = mediumTypes;
-    }).catch((error) => {
-      console.error('Could not get medium types', error);
+    this.mediumTypeService.getMediumTypes(false).subscribe({
+      next: (mediumTypes) => {
+        this.mediumTypes = mediumTypes;
+      }, error: (error) => {
+        console.error('Could not get medium types', error);
+      }
     });
   }
 
@@ -85,24 +89,28 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   tagSuggestions: Tag[] = [];
   onProvideTagSuggestions(searchText: string) {
-    this.tagService.suggestTags(searchText, true).then((tags) => {
-      this.tagSuggestions = tags;
+    this.tagService.suggestTags(searchText, true).subscribe({
+      next: (tags) => {
+        this.tagSuggestions = tags;
+      }
     });
   }
 
   updatePerson() {
-    this.personService.updatePerson(this.person).then((person) => {
-      this.hasChanges = false;
-      this.router.navigate(['person', this.person.id, this.slugifyHelper.slugify(person.text)]);
-    }).catch((error) => {
-      switch (error.status) {
-        case 409: {
-          console.log("Error 409", error);
-          this.concurrentPerson = error.error;
-        } break;
-        default: {
-          console.error('Could not update person', error);
-        } break;
+    this.personService.updatePerson(this.person).subscribe({
+      next: (person) => {
+        this.hasChanges = false;
+        this.router.navigate(['person', this.person.id, this.slugifyHelper.slugify(person.text)]);
+      }, error: (error) => {
+        switch (error.status) {
+          case 409: {
+            console.log("Error 409", error);
+            this.concurrentPerson = error.error;
+          } break;
+          default: {
+            console.error('Could not update person', error);
+          } break;
+        }
       }
     });
   }

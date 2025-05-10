@@ -25,8 +25,10 @@ export class ListComponent implements OnInit, OnDestroy {
       this.setBlogPosts(blogPostsInj);
     } else {
       this.loadBlogPosts();
-      this.accountService.currentRoles().then((roles) => {
-        this.isBlogger = roles.indexOf('Blogger') > -1;
+      this.accountService.currentRoles().subscribe({
+        next: (roles) => {
+          this.isBlogger = roles.indexOf('Blogger') > -1;
+        }
       });
     }
   }
@@ -82,10 +84,12 @@ export class ListComponent implements OnInit, OnDestroy {
   //#endregion
 
   private loadBlogPosts() {
-    this.blogPostService.getBlogPosts().then((blogPosts) => {
-      this.setBlogPosts(blogPosts);
-    }).catch((error) => {
-      console.error(error);
+    this.blogPostService.getBlogPosts().subscribe({
+      next: (blogPosts) => {
+        this.setBlogPosts(blogPosts);
+      }, error: (error) => {
+        console.error(error);
+      }
     });
   }
 

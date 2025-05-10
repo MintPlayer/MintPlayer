@@ -1,6 +1,6 @@
 import { Injectable, Inject } from "@angular/core";
 import { DOCUMENT } from '@angular/common';
-import { BASE_URL } from "@mintplayer/ng-base-url";
+import { BaseUrlService } from "@mintplayer/ng-base-url";
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +8,11 @@ import { BASE_URL } from "@mintplayer/ng-base-url";
 export class HtmlLinkHelper {
   constructor(
     @Inject(DOCUMENT) private document: HTMLDocument,
-    @Inject(BASE_URL) private baseUrl: string,
+    private baseUrlService: BaseUrlService,
   ) {
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   private linkTags = {};
 
   public set(key: string, url: string) {

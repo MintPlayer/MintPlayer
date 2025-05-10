@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { MediumType, MediumTypeService, PlayerType } from '@mintplayer/ng-client';
+import { MediumType, MediumTypeService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -37,10 +37,12 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   private loadMediumType(id: number) {
-    this.mediumTypeService.getMediumType(id, false).then((mediumType) => {
-      this.setMediumType(mediumType);
-    }).catch((error) => {
-      console.error('Could not fetch medium type', error);
+    this.mediumTypeService.getMediumType(id, false).subscribe({
+      next: (mediumType) => {
+        this.setMediumType(mediumType);
+      }, error: (error) => {
+        console.error('Could not fetch medium type', error);
+      }
     });
   }
 
@@ -62,11 +64,13 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   };
 
   public updateMediumType() {
-    this.mediumTypeService.updateMediumType(this.mediumType).then((mediumType) => {
-      this.hasChanges = false;
-      this.router.navigate(['mediumtype', this.mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
-    }).catch((error) => {
-      console.error('Could not update medium type', error);
+    this.mediumTypeService.updateMediumType(this.mediumType).subscribe({
+      next: (mediumType) => {
+        this.hasChanges = false;
+        this.router.navigate(['mediumtype', this.mediumType.id, this.slugifyHelper.slugify(mediumType.description)]);
+      }, error: (error) => {
+        console.error('Could not update medium type', error);
+      }
     });
   }
 

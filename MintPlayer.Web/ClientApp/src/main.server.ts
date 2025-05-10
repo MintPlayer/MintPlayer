@@ -15,7 +15,7 @@ export default createServerRenderer(params => {
 
   const providers: StaticProvider[] = [
     { provide: APP_BASE_HREF, useValue: params.baseUrl },
-    { provide: 'API_VERSION', useValue: 'v3' },
+    { provide: 'MINTPLAYER_API_VERSION', useValue: 'v3' },
 
     { provide: SERVER_SIDE, useValue: true },
     { provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>params },

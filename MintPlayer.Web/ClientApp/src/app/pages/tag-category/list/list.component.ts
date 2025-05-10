@@ -40,11 +40,14 @@ export class ListComponent implements OnInit, OnDestroy {
           this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Description';
           this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
 
-          this.categoryService.pageTagCategories({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
-            this.setTagCategoryData(response);
-          }).catch((error) => {
-            console.error(error);
-          });
+          this.categoryService.pageTagCategories({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection })
+            .subscribe({
+              next: (response) => {
+                this.setTagCategoryData(response);
+              }, error: (error) => {
+                console.error(error);
+              }
+            });
         });
     }
   }

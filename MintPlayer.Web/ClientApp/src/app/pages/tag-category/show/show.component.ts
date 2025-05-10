@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
 import { TagCategory, TagCategoryService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 
@@ -17,7 +17,7 @@ export class ShowComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('TAGCATEGORY') tagCategoryInj: TagCategory,
-    @Inject(BASE_URL) private baseUrl: string,
+    private baseUrlService: BaseUrlService,
     private tagCategoryService: TagCategoryService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
@@ -33,6 +33,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     }
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   ngOnInit() {
     this.htmlLink.setCanonicalWithoutQuery();
   }
@@ -81,10 +82,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   //#endregion
 
   private loadTagCategory(id: number) {
-    this.tagCategoryService.getTagCategory(id, true).then((tagCategory) => {
-      this.setTagCategory(tagCategory);
-    }).catch((error) => {
-      console.error('Could not get tag category', error);
+    this.tagCategoryService.getTagCategory(id, true).subscribe({
+      next: (tagCategory) => {
+        this.setTagCategory(tagCategory);
+      }, error: (error) => {
+        console.error('Could not get tag category', error);
+      }
     });
   }
 
@@ -99,10 +102,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   }
 
   deleteTagCategory() {
-    this.tagCategoryService.deleteTagCategory(this.tagCategory).then(() => {
-      this.router.navigate(['tag', 'category']);
-    }).catch((error) => {
-      console.error('Could not delete tag category', error);
+    this.tagCategoryService.deleteTagCategory(this.tagCategory).subscribe({
+      next: () => {
+        this.router.navigate(['tag', 'category']);
+      }, error: (error) => {
+        console.error('Could not delete tag category', error);
+      }
     });
   }
 

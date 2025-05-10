@@ -43,18 +43,22 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   loadTagCategory(categoryId: number) {
-    this.tagCategoryService.getTagCategory(categoryId, false).then((category) => {
-      this.tag.category = category;
-    }).catch((error) => {
-      console.error(error);
+    this.tagCategoryService.getTagCategory(categoryId, false).subscribe({
+      next: (category) => {
+        this.tag.category = category;
+      }, error: (error) => {
+        console.error(error);
+      }
     });
   }
 
   loadParentTag(parentTagId: number) {
-    this.tagService.getTag(parentTagId, true).then((parent) => {
-      this.tag.parent = parent;
-    }).catch((error) => {
-      console.error(error);
+    this.tagService.getTag(parentTagId, true).subscribe({
+      next: (parent) => {
+        this.tag.parent = parent;
+      }, error: (error) => {
+        console.error(error);
+      }
     });
   }
 
@@ -73,12 +77,14 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   };
 
   saveTag() {
-    this.tagService.createTag(this.tag).then((tag) => {
-      this.hasChanges = false;
-      var categoryId = parseInt(this.route.snapshot.paramMap.get('category_id'));
-      this.router.navigate(['/tag', 'category', categoryId, 'tags', tag.id]);
-    }).catch((error) => {
-      console.error(error);
+    this.tagService.createTag(this.tag).subscribe({
+      next: (tag) => {
+        this.hasChanges = false;
+        var categoryId = parseInt(this.route.snapshot.paramMap.get('category_id'));
+        this.router.navigate(['/tag', 'category', categoryId, 'tags', tag.id]);
+      }, error: (error) => {
+        console.error(error);
+      }
     });
   }
 

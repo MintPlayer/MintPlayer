@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { API_VERSION, Playlist, PlaylistAccessibility, PlaylistService, Song, SubjectService, SubjectType } from '@mintplayer/ng-client';
+import { MINTPLAYER_API_VERSION, Playlist, EPlaylistAccessibility, PlaylistService, Song, SubjectService, ESubjectType } from '@mintplayer/ng-client';
 import { Component, OnInit, HostListener, DoCheck, KeyValueDiffers, KeyValueDiffer, OnDestroy, Inject } from '@angular/core';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -17,7 +17,7 @@ import { EnumItem } from '../../../entities/enum-item';
 export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
-    @Inject(API_VERSION) apiVersion: string,
+    @Inject(MINTPLAYER_API_VERSION) apiVersion: string,
     private playlistService: PlaylistService,
     private subjectService: SubjectService,
     private router: AdvancedRouter,
@@ -26,13 +26,15 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
     private differs: KeyValueDiffers,
   ) {
     this.apiVersion = apiVersion;
-    this.accessibilities = this.enumHelper.getItems(PlaylistAccessibility);
+    this.accessibilities = this.enumHelper.getItems(EPlaylistAccessibility);
   }
 
   songSuggestions: Song[] = [];
   onProvideSongSuggestions(searchText: string) {
-    this.subjectService.suggest(searchText, [SubjectType.song]).then((songs) => {
-      this.songSuggestions = <Song[]>songs;
+    this.subjectService.suggest(searchText, [ESubjectType.song]).subscribe({
+      next: (songs) => {
+        this.songSuggestions = <Song[]>songs;
+      }
     });
   }
 
@@ -45,13 +47,13 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
     id: 0,
     description: '',
     tracks: [],
-    accessibility: PlaylistAccessibility.private,
+    accessibility: EPlaylistAccessibility.private,
     user: null
   };
 
   public accessibilities: EnumItem[] = [];
   public accessibilitySelected(accessibility: number) {
-    this.playlist.accessibility = PlaylistAccessibility[PlaylistAccessibility[accessibility]];
+    this.playlist.accessibility = EPlaylistAccessibility[EPlaylistAccessibility[accessibility]];
   }
 
   removeTrack(track: Song) {
@@ -75,11 +77,13 @@ export class PlaylistCreateComponent implements OnInit, OnDestroy, DoCheck, HasC
   }
 
   savePlaylist() {
-    this.playlistService.createPlaylist(this.playlist).then((playlist) => {
-      this.hasChanges = false;
-      this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
-    }).catch((error) => {
-      debugger;
+    this.playlistService.createPlaylist(this.playlist).subscribe({
+      next: (playlist) => {
+        this.hasChanges = false;
+        this.router.navigate(['/playlist', playlist.id, this.slugifyHelper.slugify(playlist.description)]);
+      }, error: (error) => {
+        debugger;
+      }
     });
   }
 

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { BASE_URL } from '@mintplayer/ng-base-url';
-import { API_VERSION } from '@mintplayer/ng-client';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
+import { MINTPLAYER_API_VERSION } from '@mintplayer/ng-client';
 
 @Component({
   selector: 'app-request',
@@ -14,12 +14,13 @@ export class RequestComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     private titleService: Title,
-    @Inject(BASE_URL) private baseUrl: string,
-    @Inject(API_VERSION) private apiVersion: string,
+    private baseUrlService: BaseUrlService,
+    @Inject(MINTPLAYER_API_VERSION) private apiVersion: string,
   ) {
     this.titleService.setTitle('Reset your password');
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   ngOnInit() {
   }
 
@@ -27,11 +28,13 @@ export class RequestComponent implements OnInit {
   emailSent: boolean;
 
   sendPasswordResetEmail() {
-    this.httpClient.post(`${this.baseUrl}/web/${this.apiVersion}/Account/password/reset`, { email: this.email }).toPromise()
-      .then((response) => {
-        this.emailSent = true;
-      }).catch((error) => {
-        console.log('Could not send password reset email', error);
+    this.httpClient.post(`${this.baseUrl}/web/${this.apiVersion}/Account/password/reset`, { email: this.email })
+      .subscribe({
+        next: (response) => {
+          this.emailSent = true;
+        }, error: (error) => {
+          console.log('Could not send password reset email', error);
+        }
       });
   }
 }

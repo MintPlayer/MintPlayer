@@ -6,7 +6,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { QUERY_PARAMS_CONFIG, QueryParamsConfig, AdvancedRouterModule } from '@mintplayer/ng-router';
 import { BaseUrlOptions, BASE_URL, BASE_URL_OPTIONS } from '@mintplayer/ng-base-url';
-import { API_VERSION } from '@mintplayer/ng-client';
+import { MINTPLAYER_API_VERSION } from '@mintplayer/ng-client';
 import { VideoPlayerModule } from '@mintplayer/ng-video-player';
 import { PlaylistControllerModule } from '@mintplayer/ng-playlist-controller';
 import { AppRoutingModule } from './app-routing.module';
@@ -90,7 +90,7 @@ const getExternalUrl = (baseUrl: string) => {
         dropScheme: true
       }
     }, {
-      provide: API_VERSION,
+      provide: MINTPLAYER_API_VERSION,
       useValue: 'v3'
     }
   ],

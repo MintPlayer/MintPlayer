@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { Title } from '@angular/platform-browser';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { API_VERSION, Artist, ArtistService, MediumType, MediumTypeService, Person, SubjectService, SubjectType, Tag, TagService } from '@mintplayer/ng-client';
+import { MINTPLAYER_API_VERSION, Artist, ArtistService, MediumType, MediumTypeService, Person, SubjectService, ESubjectType, Tag, TagService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { SlugifyHelper } from '../../../helpers/slugify.helper';
 import { HasChanges } from '../../../interfaces/has-changes';
@@ -19,7 +19,7 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   constructor(
     @Inject(SERVER_SIDE) private serverSide: boolean,
-    @Inject(API_VERSION) apiVersion: string,
+    @Inject(MINTPLAYER_API_VERSION) apiVersion: string,
     private artistService: ArtistService,
     private subjectService: SubjectService,
     private mediumTypeService: MediumTypeService,
@@ -62,28 +62,36 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
 
   currentMemberSuggestions: Person[] = [];
   onProvideCurrentMemberSuggestions(searchText: string) {
-    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
-      this.currentMemberSuggestions = <Person[]>people;
+    this.subjectService.suggest(searchText, [ESubjectType.person]).subscribe({
+      next: (people) => {
+        this.currentMemberSuggestions = <Person[]>people;
+      }
     });
   }
   pastMemberSuggestions: Person[] = [];
   onProvidePastMemberSuggestions(searchText: string) {
-    this.subjectService.suggest(searchText, [SubjectType.person]).then((people) => {
-      this.pastMemberSuggestions = <Person[]>people;
+    this.subjectService.suggest(searchText, [ESubjectType.person]).subscribe({
+      next: (people) => {
+        this.pastMemberSuggestions = <Person[]>people;
+      }
     });
   }
   tagSuggestions: Tag[] = [];
   onProvideTagSuggestions(searchText: string) {
-    this.tagService.suggestTags(searchText, true).then((tags) => {
-      this.tagSuggestions = tags;
+    this.tagService.suggestTags(searchText, true).subscribe({
+      next: (tags) => {
+        this.tagSuggestions = tags;
+      }
     });
   }
 
   private loadArtist(id: number) {
-    this.artistService.getArtist(id, true).then((artist) => {
-      this.setArtist(artist);
-    }).catch((error) => {
-      console.error('Could not fetch artist', error);
+    this.artistService.getArtist(id, true).subscribe({
+      next: (artist) => {
+        this.setArtist(artist);
+      }, error: (error) => {
+        console.error('Could not fetch artist', error);
+      }
     });
   }
 
@@ -98,26 +106,30 @@ export class EditComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   }
 
   private loadMediumTypes() {
-    this.mediumTypeService.getMediumTypes(false).then((mediumTypes) => {
-      this.mediumTypes = mediumTypes;
-    }).catch((error) => {
-      console.error('Could not get medium types', error);
+    this.mediumTypeService.getMediumTypes(false).subscribe({
+      next: (mediumTypes) => {
+        this.mediumTypes = mediumTypes;
+      }, error: (error) => {
+        console.error('Could not get medium types', error);
+      }
     });
   }
 
   public updateArtist() {
-    this.artistService.updateArtist(this.artist).then((artist) => {
-      this.hasChanges = false;
-      this.router.navigate(['artist', this.artist.id, this.slugifyHelper.slugify(artist.name)]);
-    }).catch((error: HttpErrorResponse) => {
-      switch (error.status) {
-        case 409: {
-          console.log("Error 409", error);
-          this.concurrentArtist = error.error;
-        } break;
-        default: {
-          console.error('Could not update artist', error);
-        } break;
+    this.artistService.updateArtist(this.artist).subscribe({
+      next: (artist) => {
+        this.hasChanges = false;
+        this.router.navigate(['artist', this.artist.id, this.slugifyHelper.slugify(artist.name)]);
+      }, error: (error: HttpErrorResponse) => {
+        switch (error.status) {
+          case 409: {
+            console.log("Error 409", error);
+            this.concurrentArtist = error.error;
+          } break;
+          default: {
+            console.error('Could not update artist', error);
+          } break;
+        }
       }
     });
   }

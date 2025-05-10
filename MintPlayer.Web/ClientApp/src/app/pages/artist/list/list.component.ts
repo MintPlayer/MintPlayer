@@ -41,10 +41,12 @@ export class ListComponent implements OnInit, OnDestroy {
           this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Name';
           this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
 
-          this.artistService.pageArtists(this.tableSettings.toPagination()).then((response) => {
-            this.setArtistData(response);
-          }).catch((error) => {
-            console.error(error);
+          this.artistService.pageArtists(this.tableSettings.toPagination()).subscribe({
+            next: (response) => {
+              this.setArtistData(response);
+            }, error: (error) => {
+              console.error(error);
+            }
           });
         });
     }

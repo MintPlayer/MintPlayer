@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
 import { AdvancedRouter } from '@mintplayer/ng-router';
-import { AccountService, API_VERSION, User } from '@mintplayer/ng-client';
+import { AccountService, MINTPLAYER_API_VERSION, User } from '@mintplayer/ng-client';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -18,11 +18,12 @@ export class TwoFactorComponent implements OnInit {
     private accountService: AccountService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
-    @Inject(BASE_URL) private baseUrl: string,
-    @Inject(API_VERSION) private apiVersion: string,
+    private baseUrlService: BaseUrlService,
+    @Inject(MINTPLAYER_API_VERSION) private apiVersion: string,
   ) {
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.returnUrl = params['return'] || '/';
@@ -35,11 +36,15 @@ export class TwoFactorComponent implements OnInit {
 
   verifyCode() {
     this.httpClient.post<User>(`${this.baseUrl}/web/${this.apiVersion}/Account/two-factor-login`, { code: this.setupCode, remember: this.twoFactorRememberMe }).subscribe((u) => {
-      this.accountService.csrfRefresh().then(() => {
-        this.accountService.currentUser().then((user) => {
-          this.loginComplete.next(user);
-          this.router.navigateByUrl(this.returnUrl);
-        });
+      this.accountService.csrfRefresh().subscribe({
+        next: () => {
+          this.accountService.currentUser().subscribe({
+            next: (user) => {
+              this.loginComplete.next(user);
+              this.router.navigateByUrl(this.returnUrl);
+            }
+          });
+        }
       });
     });
     return false;

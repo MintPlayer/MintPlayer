@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
 import { AccountService, BlogPost, BlogPostService } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../../helpers/html-link.helper';
 import { UrlGenerator } from '../../../../helpers/url-generator.helper';
@@ -19,7 +19,7 @@ export class ShowComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('BLOGPOST') private blogPostInj: BlogPost,
-    @Inject(BASE_URL) private baseUrl: string,
+    private baseUrlService: BaseUrlService,
     private blogPostService: BlogPostService,
     private accountService: AccountService,
     private router: AdvancedRouter,
@@ -35,12 +35,15 @@ export class ShowComponent implements OnInit, OnDestroy {
     } else {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
       this.loadBlogPost(id);
-      this.accountService.currentRoles().then((roles) => {
-        this.isBlogger = roles.indexOf('Blogger') > -1;
+      this.accountService.currentRoles().subscribe({
+        next: (roles) => {
+          this.isBlogger = roles.indexOf('Blogger') > -1;
+        }
       });
     }
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   ngOnInit() {
     this.htmlLink.setCanonicalWithoutQuery();
   }
@@ -170,10 +173,12 @@ export class ShowComponent implements OnInit, OnDestroy {
     };
 
   private loadBlogPost(id: number) {
-    this.blogPostService.getBlogPost(id).then((blogPost) => {
-      this.setBlogPost(blogPost);
-    }).catch((error) => {
-      console.error('Could not get blogpost', error);
+    this.blogPostService.getBlogPost(id).subscribe({
+      next: (blogPost) => {
+        this.setBlogPost(blogPost);
+      }, error: (error) => {
+        console.error('Could not get blogpost', error);
+      }
     });
   }
 
@@ -208,10 +213,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   }
 
   public deleteBlogPost() {
-    this.blogPostService.deleteBlogPost(this.blogPost).then(() => {
-      this.router.navigate(['/community', 'blog']);
-    }).catch((error) => {
-      console.error('Could not delete blog post', error);
+    this.blogPostService.deleteBlogPost(this.blogPost).subscribe({
+      next: () => {
+        this.router.navigate(['/community', 'blog']);
+      }, error: (error) => {
+        console.error('Could not delete blog post', error);
+      }
     });
   }
 }

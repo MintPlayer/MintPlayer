@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { AdvancedRouter } from '@mintplayer/ng-router';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
-import { BASE_URL } from '@mintplayer/ng-base-url';
+import { BaseUrlService } from '@mintplayer/ng-base-url';
 import { Medium, Song, SongService } from '@mintplayer/ng-client';
 import { Subject, Subscription } from 'rxjs';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
@@ -23,7 +23,7 @@ export class ShowComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(SERVER_SIDE) serverSide: boolean,
     @Inject('SONG') private songInj: Song,
-    @Inject(BASE_URL) private baseUrl: string,
+    private baseUrlService: BaseUrlService,
     private songService: SongService,
     private router: AdvancedRouter,
     private route: ActivatedRoute,
@@ -40,6 +40,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     }
   }
 
+  baseUrl = this.baseUrlService.getBaseUrl();
   private routeParamsSubscription: Subscription;
 
   ngOnInit() {
@@ -221,10 +222,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   } = null;
 
   private loadSong(id: number) {
-    this.songService.getSong(id, true).then((song) => {
-      this.setSong(song);
-    }).catch((error) => {
-      console.error('Could not fetch song', error);
+    this.songService.getSong(id, true).subscribe({
+      next: (song) => {
+        this.setSong(song);
+      }, error: (error) => {
+        console.error('Could not fetch song', error);
+      }
     });
   }
 
@@ -272,10 +275,12 @@ export class ShowComponent implements OnInit, OnDestroy {
   }
 
   public deleteSong() {
-    this.songService.deleteSong(this.song).then(() => {
-      this.router.navigate(['song']);
-    }).catch((error) => {
-      console.error('Could not delete song', error);
+    this.songService.deleteSong(this.song).subscribe({
+      next: () => {
+        this.router.navigate(['song']);
+      }, error: (error) => {
+        console.error('Could not delete song', error);
+      }
     });
   }
 

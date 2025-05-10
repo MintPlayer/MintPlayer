@@ -31,11 +31,13 @@ export class CreateComponent implements OnInit, OnDestroy, DoCheck, HasChanges {
   };
 
   public saveCategory() {
-    this.tagCategoryService.createTagCategory(this.tagCategory).then((category) => {
-      this.hasChanges = false;
-      this.router.navigate(['tag', 'category', category.id]);
-    }).catch((error) => {
-      console.error('Could not create tag category', error);
+    this.tagCategoryService.createTagCategory(this.tagCategory).subscribe({
+      next: (category) => {
+        this.hasChanges = false;
+        this.router.navigate(['tag', 'category', category.id]);
+      }, error: (error) => {
+        console.error('Could not create tag category', error);
+      }
     });
   }
 

@@ -39,11 +39,14 @@ export class ListComponent implements OnInit, OnDestroy {
           this.tableSettings.sortProperty = queryParams['sortproperty'] ?? 'Title';
           this.tableSettings.sortDirection = queryParams['sortdirection'] ?? 'ascending';
 
-          this.songService.pageSongs({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection }).then((response) => {
-            this.setSongData(response);
-          }).catch((error) => {
-            console.error('Could not fetch songs', error);
-          });
+          this.songService.pageSongs({ perPage: this.tableSettings.perPage.selected, page: this.tableSettings.page.selected, sortProperty: this.tableSettings.sortProperty, sortDirection: this.tableSettings.sortDirection })
+            .subscribe({
+              next: (response) => {
+                this.setSongData(response);
+              }, error: (error) => {
+                console.error('Could not fetch songs', error);
+              }
+            });
         });
     }
   }

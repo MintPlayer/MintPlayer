@@ -32,10 +32,12 @@ export class EditComponent implements OnInit, DoCheck, HasChanges {
   }
 
   private loadBlogPost(id: number) {
-    this.blogPostService.getBlogPost(id).then((blogPost) => {
-      this.setBlogPost(blogPost);
-    }).catch((error) => {
-      console.error('Could not fetch blog post', error);
+    this.blogPostService.getBlogPost(id).subscribe({
+      next: (blogPost) => {
+        this.setBlogPost(blogPost);
+      }, error: (error) => {
+        console.error('Could not fetch blog post', error);
+      }
     });
   }
 
@@ -63,11 +65,13 @@ export class EditComponent implements OnInit, DoCheck, HasChanges {
   };
 
   updateBlogPost() {
-    this.blogPostService.updateBlogPost(this.blogPost).then((blogPost) => {
-      this.hasChanges = false;
-      this.router.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
-    }).catch((error) => {
-      console.error(error);
+    this.blogPostService.updateBlogPost(this.blogPost).subscribe({
+      next: (blogPost) => {
+        this.hasChanges = false;
+        this.router.navigate(['/community', 'blog', blogPost.id, this.slugifyPipe.transform(blogPost.title)]);
+      }, error: (error) => {
+        console.error(error);
+      }
     });
   }
 
