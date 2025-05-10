@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Fetcher\MintPlayer.Fetcher\MintPlayer.Fetcher.csproj" />
-    <ProjectReference Include="..\MintPlayer.Fetcher.LyricsCom.Abstractions\MintPlayer.Fetcher.LyricsCom.Abstractions.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Fetcher\MintPlayer.Fetcher\MintPlayer.Fetcher.csproj" />
+		<ProjectReference Include="..\MintPlayer.Fetcher.LyricsCom.Abstractions\MintPlayer.Fetcher.LyricsCom.Abstractions.csproj" />
+	</ItemGroup>
 
 </Project>
