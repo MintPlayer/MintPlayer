@@ -1,5 +1,9 @@
 ﻿//#define RebuildSPA
 
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,10 +13,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,18 +23,13 @@ using MintPlayer.AspNetCore.ChangePassword;
 using MintPlayer.AspNetCore.NoSniff;
 using MintPlayer.AspNetCore.OpenSearch;
 using MintPlayer.AspNetCore.SitemapXml;
+using MintPlayer.AspNetCore.SpaServices.Extensions;
 using MintPlayer.AspNetCore.SpaServices.Prerendering;
 using MintPlayer.AspNetCore.SpaServices.Routing;
-using MintPlayer.AspNetCore.XsrfForSpas;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Fetcher.Integration.Extensions;
-using MintPlayer.Web.Extensions;
 using MintPlayer.Web.Server.Middleware;
 using MintPlayer.Web.Services;
-using System;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using WebMarkupMin.AspNetCore3;
 
 namespace MintPlayer.Web
@@ -146,7 +143,7 @@ namespace MintPlayer.Web
 			services.AddRouting();
 
 			// In production, the Angular files will be served from this directory
-			services.AddSpaStaticFiles(configuration =>
+			services.AddSpaStaticFilesImproved(configuration =>
 			{
 				configuration.RootPath = "ClientApp/dist";
 			});
@@ -349,7 +346,6 @@ namespace MintPlayer.Web
 			app.UseSwagger();
 			app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "MintPlayer API V1"));
 			app.UseAntiforgery();
-			app.UseOpenSearch();
 
 			app.UseAuthentication();
 
@@ -388,16 +384,13 @@ namespace MintPlayer.Web
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapChangePassword(() => spaRouteService.GenerateUrl("account-profile", new { }));
-
+				endpoints.MapOpenSearch();
 				endpoints.MapControllerRoute(
 					name: "default",
 					pattern: "{controller}/{action=Index}/{id?}")
 				.RequireCors(CorsPolicies.AllowDatatables);
 
-				endpoints.MapDefaultSitemapXmlStylesheet(options =>
-				{
-					options.StylesheetUrl = "/assets/stitemap.xsl";
-				});
+				endpoints.MapDefaultSitemapXmlStylesheet();
 			});
 
 			app.UseResponseCaching();
@@ -432,7 +425,7 @@ namespace MintPlayer.Web
 			app.UseWhen(
 				context => ShouldUseSpa(context),
 				app2 => app2
-					.UseSpa(spa =>
+					.UseSpaImproved(spa =>
 					{
 						spa.Options.SourcePath = "ClientApp";
 
