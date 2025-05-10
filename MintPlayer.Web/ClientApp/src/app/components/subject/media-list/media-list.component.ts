@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Medium } from '@mintplayer/ng-client';
-import { PlayerTypeFinderService } from '@mintplayer/ng-video-player';
+import { PlayerTypeFinderService } from '@mintplayer/ng-video-player/lib/services/player-type-finder/player-type-finder.service';
+//import { PlayerTypeFinderService } from '@mintplayer/ng-video-player';
 
 @Component({
   selector: 'media-list',

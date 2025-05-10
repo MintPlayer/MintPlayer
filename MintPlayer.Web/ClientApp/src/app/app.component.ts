@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { User, AccountService } from '@mintplayer/ng-client';
 import { SERVER_SIDE } from '@mintplayer/ng-server-side';
 import { PlayerProgress } from '@mintplayer/ng-player-progress';
-import { PlayerState, PlayerTypeFinderService, VideoPlayerComponent } from '@mintplayer/ng-video-player';
+import { EPlayerState, VideoPlayerComponent } from '@mintplayer/ng-video-player';
 import { Subject, Observable, BehaviorSubject, combineLatest, interval, of } from 'rxjs';
 import { filter, map, take, takeUntil } from 'rxjs/operators';
 
@@ -70,16 +70,17 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     private route: ActivatedRoute,
     private translateService: TranslateService,
     private hreflangTagHelper: HreflangTagHelper,
-    private playerTypeFinder: PlayerTypeFinderService,
   ) {
     //#region Get user
     if (serverSide === true) {
       this.activeUser = userInj;
     } else {
-      this.accountService.currentUser().then((user) => {
-        this.activeUser = user;
-      }).catch((error) => {
-        this.activeUser = null;
+      this.accountService.currentUser().subscribe({
+        next: (user) => {
+          this.activeUser = user;
+        }, error: (error) => {
+          this.activeUser = null;
+        }
       });
     }
     //#endregion
@@ -111,7 +112,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
           if (song === null) {
             this.player.setUrl(null);
             setTimeout(() => {
-              this.playerState$.next(PlayerState.unstarted);
+              this.playerState$.next(EPlayerState.unstarted);
             }, 10);
           } else if ('url' in song) {
             this.player.setUrl(song.url);
@@ -124,7 +125,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       });
 
     this.playerState$
-      .pipe(filter((playerState) => playerState === PlayerState.ended))
+      .pipe(filter((playerState) => playerState === EPlayerState.ended))
       .pipe(takeUntil(this.destroyed$))
       .subscribe((playerState) => {
         this.playNextSong();
@@ -135,7 +136,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.currentLyricsLine$ = combineLatest([this.playerState$, this.playlistControl.video$, interval(50)])
         .pipe(filter(([playerState, video, time]) => {
-          return (playerState === PlayerState.playing) && (video !== null);
+          return (playerState === EPlayerState.playing) && (video !== null);
         }))
         .pipe(map(([playerState, video, time]) => {
           if ('url' in video) {
@@ -231,12 +232,14 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   logoutClicked() {
-    this.accountService.logout().then(() => {
-      this.accountService.csrfRefresh().then(() => {
-        this.activeUser = null;
-      });
-    }).catch((error) => {
-      console.error('Could not logout', error);
+    this.accountService.logout().subscribe({
+      next: () => {
+        this.accountService.csrfRefresh().subscribe(() => {
+          this.activeUser = null;
+        });
+      }, error: (error) => {
+        console.error('Could not logout', error);
+      }
     });
   }
 
@@ -268,8 +271,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('player') player: VideoPlayerComponent;
 
-  playerState$ = new BehaviorSubject<PlayerState>(PlayerState.unstarted);
-  playerStateChanged(state: PlayerState) {
+  playerState$ = new BehaviorSubject<EPlayerState>(EPlayerState.unstarted);
+  playerStateChanged(state: EPlayerState) {
     this.playerState$.next(state);
   }
 
@@ -293,10 +296,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   playPausePlayer() {
     this.playerState$.pipe(take(1)).subscribe((playerState) => {
-      if (playerState === PlayerState.playing) {
-        this.player.playerState = PlayerState.paused;
+      if (playerState === EPlayerState.playing) {
+        this.player.playerState = EPlayerState.paused;
       } else {
-        this.player.playerState = PlayerState.playing;
+        this.player.playerState = EPlayerState.playing;
       }
     });
   }
@@ -320,13 +323,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   onDoAddVideoUrl(url: string) {
     if (url !== null) {
-      const playerType = this.playerTypeFinder.getPlatformWithId(url);
-      if (playerType !== null) {
-        this.playlistControl.addToPlaylist({ url });
-        this.isRequestingPlaylistUrl$.next(false);
-      } else {
-        this.isValidVideoUrl = false;
-      }
+      this.playlistControl.addToPlaylist({ url });
+      this.isRequestingPlaylistUrl$.next(false);
     } else {
       this.isValidVideoUrl = false;
       this.isRequestingPlaylistUrl$.next(false);

@@ -24,11 +24,13 @@ export class SubjectLikeComponent implements OnInit {
 
     } else {
       this.loading = true;
-      this.subjectService.getLikes(subject).then((data) => {
-        this.data = data;
-        this.loading = false;
-      }).catch((error) => {
-        console.error('Could not get like count', error);
+      this.subjectService.getLikes(subject).subscribe({
+        next: (data) => {
+          this.data = data;
+          this.loading = false;
+        }, error: (error) => {
+          console.error('Could not get like count', error);
+        }
       });
     }
   }
@@ -42,10 +44,12 @@ export class SubjectLikeComponent implements OnInit {
   };
 
   public like(like: boolean) {
-    this.subjectService.like(this.subject, like).then((data) => {
-      this.data = data;
-    }).catch((error) => {
-      console.error('Could not like the subject', error);
+    this.subjectService.like(this.subject, like).subscribe({
+      next: (data) => {
+        this.data = data;
+      }, error: (error) => {
+        console.error('Could not like the subject', error);
+      }
     });
   }
 

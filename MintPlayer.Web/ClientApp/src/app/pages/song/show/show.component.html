@@ -1,6 +1,6 @@
 <div class="container" *ngIf="song != null">
-  <json-ld [json]="songLd"></json-ld>
-  <json-ld *ngIf="videoLd != null" [json]="videoLd"></json-ld>
+  <ng-container [jsonLd]="songLd"></ng-container>
+  <ng-container [jsonLd]="videoLd" *ngIf="videoLd != null"></ng-container>
   <div class="form-group row mb-3">
     <div class="col-12">
       <h1 class="d-inline-block">{{ song.title }}</h1>
@@ -83,9 +83,9 @@
             <label class="fw-bold">Share</label>
           </div>
           <div class="col-sm-7 col-xl-9">
-            <facebook-share [routerLink]='["/song", song.id, song.title | slugify]' [queryParams]="{'lang': null}" class="m-1"></facebook-share>
-            <twitter-share [routerLink]='["/song", song.id, song.title | slugify]' [queryParams]="{'lang': null}" class="mx-1 mt-1"></twitter-share>
-            <linkedin-share [routerLink]='["/song", song.id, song.title | slugify]' [queryParams]="{'lang': null}" class="mx-1 mb-1"></linkedin-share>
+            <facebook-share [shareRouterLink]='["/song", song.id, song.title | slugify]' [queryParams]="{'lang': null}" class="m-1"></facebook-share>
+            <twitter-share [shareRouterLink]='["/song", song.id, song.title | slugify]' [queryParams]="{'lang': null}" class="mx-1 mt-1"></twitter-share>
+            <linkedin-share [shareRouterLink]='["/song", song.id, song.title | slugify]' [queryParams]="{'lang': null}" class="mx-1 mb-1"></linkedin-share>
           </div>
         </div>
       </div>
