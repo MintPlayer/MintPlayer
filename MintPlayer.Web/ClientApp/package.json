@@ -30,7 +30,7 @@
     "@angular/platform-server": "~13.3.0",
     "@angular/router": "~13.3.0",
     "@angular/service-worker": "~13.3.0",
-    "@mintplayer/ng-base-url": "^13.1.0",
+    "@mintplayer/ng-base-url": "~13.1.0",
     "@mintplayer/ng-client": "^13.1.0",
     "@mintplayer/ng-dailymotion-api": "^13.1.0",
     "@mintplayer/ng-datatables": "^13.1.0",
