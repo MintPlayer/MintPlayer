@@ -345,7 +345,8 @@ namespace MintPlayer.Web
 			app.UseNoSniff();
 			app.UseSwagger();
 			app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "MintPlayer API V1"));
-			app.UseAntiforgery();
+			MintPlayer.AspNetCore.SpaServices.Xsrf.AntiforgeryExtensions.UseAntiforgery(app);
+			//app.UseAntiforgery();
 
 			app.UseAuthentication();
 
