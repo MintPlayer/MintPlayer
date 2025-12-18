@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -10,20 +10,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="9.3.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="9.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="9.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="9.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="9.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.4" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+		<PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="10.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="10.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="10.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="10.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="10.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="10.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
-		<PackageReference Include="MintPlayer.Pagination" Version="9.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
+		<PackageReference Include="MintPlayer.Pagination" Version="10.0.0" />
 		<PackageReference Include="NEST" Version="7.16.0" />
 	</ItemGroup>
 
