@@ -39,10 +39,11 @@ export class WebAuthnService {
     if (!this.isSupported()) {
       return of(false);
     }
-    if (typeof PublicKeyCredential.isConditionalMediationAvailable !== 'function') {
+    const pkc = PublicKeyCredential as any;
+    if (typeof pkc.isConditionalMediationAvailable !== 'function') {
       return of(false);
     }
-    return from(PublicKeyCredential.isConditionalMediationAvailable());
+    return from(pkc.isConditionalMediationAvailable() as Promise<boolean>);
   }
 
   /**
@@ -72,12 +73,13 @@ export class WebAuthnService {
 
         // Step 3: Send attestation response to server
         const attestationResponse = credential.response as AuthenticatorAttestationResponse;
+        const attestationResponseAny = attestationResponse as any;
         const body = {
           id: this.bufferToBase64Url(credential.rawId),
           rawId: this.bufferToBase64Url(credential.rawId),
           attestationObject: this.bufferToBase64Url(attestationResponse.attestationObject),
           clientDataJSON: this.bufferToBase64Url(attestationResponse.clientDataJSON),
-          transports: attestationResponse.getTransports ? attestationResponse.getTransports() : [],
+          transports: attestationResponseAny.getTransports ? attestationResponseAny.getTransports() : [],
           displayName
         };
 
