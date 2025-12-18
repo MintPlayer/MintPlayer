@@ -31,6 +31,8 @@ using MintPlayer.Fetcher.Integration.Extensions;
 using MintPlayer.Web.Server.Middleware;
 using MintPlayer.Web.Services;
 using WebMarkupMin.AspNetCore3;
+using Fido2NetLib;
+using Fido2NetLib.Development;
 
 namespace MintPlayer.Web
 {
@@ -63,6 +65,19 @@ namespace MintPlayer.Web
 				})
 				.AddOpenSearch<OpenSearchService>()
 				.AddSitemapXml(options => options.StylesheetUrl = "/assets/stitemap.xsl");
+
+			// Configure Fido2 for WebAuthn/PassKeys
+			services.AddSingleton<IFido2>(provider =>
+			{
+				var config = new Fido2Configuration
+				{
+					ServerDomain = Configuration["Fido2:ServerDomain"],
+					ServerName = Configuration["Fido2:ServerName"],
+					Origins = Configuration.GetSection("Fido2:Origins").Get<System.Collections.Generic.HashSet<string>>(),
+					TimestampDriftTolerance = Configuration.GetValue<int>("Fido2:TimestampDriftTolerance")
+				};
+				return new Fido2(config);
+			});
 
 			services
 				.AddAuthentication()
@@ -101,6 +116,13 @@ namespace MintPlayer.Web
 			});
 
 			services.AddHttpContextAccessor();
+			services.AddDistributedMemoryCache();
+			services.AddSession(options =>
+			{
+				options.IdleTimeout = TimeSpan.FromMinutes(5);
+				options.Cookie.HttpOnly = true;
+				options.Cookie.IsEssential = true;
+			});
 
 			services.AddCors(options =>
 			{
@@ -358,6 +380,7 @@ namespace MintPlayer.Web
 				}
 			);
 			app.UseRouting();
+			app.UseSession();
 			app.UseCors(CorsPolicies.AllowDatatables);
 			app.UseAuthorization();
 			app.Use(async (context, next) =>

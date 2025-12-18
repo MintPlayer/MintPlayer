@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MintPlayer.Data;
 
@@ -11,9 +12,11 @@ using MintPlayer.Data;
 namespace MintPlayer.Data.Migrations
 {
     [DbContext(typeof(MintPlayerContext))]
-    partial class MintPlayerContextModelSnapshot : ModelSnapshot
+    [Migration("20251218072728_UpgradeToNet10")]
+    partial class UpgradeToNet10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -674,55 +677,6 @@ namespace MintPlayer.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("MintPlayer.Data.Entities.WebAuthnCredential", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("AaGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CredType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("CredentialId")
-                        .HasColumnType("varbinary(900)");
-
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastUsed")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte[]>("PublicKey")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<DateTime>("RegDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("SignatureCounter")
-                        .HasColumnType("bigint");
-
-                    b.Property<byte[]>("UserHandle")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CredentialId")
-                        .IsUnique()
-                        .HasFilter("[CredentialId] IS NOT NULL");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("WebAuthnCredentials");
-                });
-
             modelBuilder.Entity("MintPlayer.Data.Entities.Jobs.ElasticSearchIndexJob", b =>
                 {
                     b.HasBaseType("MintPlayer.Data.Entities.Jobs.Job");
@@ -1092,17 +1046,6 @@ namespace MintPlayer.Data.Migrations
                     b.Navigation("UserUpdate");
                 });
 
-            modelBuilder.Entity("MintPlayer.Data.Entities.WebAuthnCredential", b =>
-                {
-                    b.HasOne("MintPlayer.Data.Entities.User", "User")
-                        .WithMany("WebAuthnCredentials")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MintPlayer.Data.Entities.Jobs.ElasticSearchIndexJob", b =>
                 {
                     b.HasOne("MintPlayer.Data.Entities.Subject", "Subject")
@@ -1143,8 +1086,6 @@ namespace MintPlayer.Data.Migrations
                     b.Navigation("Likes");
 
                     b.Navigation("Lyrics");
-
-                    b.Navigation("WebAuthnCredentials");
                 });
 
             modelBuilder.Entity("MintPlayer.Data.Entities.Artist", b =>

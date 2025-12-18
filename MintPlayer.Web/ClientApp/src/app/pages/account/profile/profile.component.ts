@@ -11,6 +11,8 @@ import { Subject } from 'rxjs';
 import { filter, map, take, takeUntil, takeWhile } from 'rxjs/operators';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { TwoFactorRegistrationUrl } from '../../../interfaces/two-factor-registration-url';
+import { WebAuthnService } from '../../../services/webauthn/webauthn.service';
+import { WebAuthnCredentialInfo } from '../../../interfaces/webauthn-credential-info';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +32,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private httpClient: HttpClient,
     private baseUrlService: BaseUrlService,
     @Inject(MINTPLAYER_API_VERSION) private apiVersion: string,
+    private webAuthnService: WebAuthnService,
   ) {
+    // Check if WebAuthn is supported
+    this.webAuthnSupported = this.webAuthnService.isSupported();
     if (serverSide === true) {
       this.userLogins = loginsInj;
       this.loginProviders = providersInj;
@@ -70,6 +75,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 this.numberOfRecoveryCodesLeft = remainingNumberOfCodes;
               }
             });
+          // Load passkeys
+          if (this.webAuthnSupported) {
+            this.loadPasskeys();
+          }
         }
       });
     }
@@ -102,6 +111,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   twoFaRegistrationUrlSanitized: SafeUrl = null;
   backupCodes: string[] = null;
   numberOfRecoveryCodesLeft: number | null = null;
+
+  // Passkey properties
+  webAuthnSupported: boolean = false;
+  passkeys: WebAuthnCredentialInfo[] = [];
+  newPasskeyName: string = '';
+  isRegisteringPasskey: boolean = false;
+  passkeyError: string = null;
 
   socialLoginDone(result: LoginResult) {
     if (result.status) {
@@ -192,6 +208,51 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.backupCodes = backupCodes;
         }
       });
+  }
+
+  // Passkey methods
+  loadPasskeys() {
+    this.webAuthnService.getCredentials().subscribe({
+      next: (credentials) => {
+        this.passkeys = credentials;
+      },
+      error: (error) => {
+        console.error('Failed to load passkeys:', error);
+      }
+    });
+  }
+
+  registerPasskey() {
+    this.passkeyError = null;
+    this.isRegisteringPasskey = true;
+    const displayName = this.newPasskeyName || 'Passkey';
+
+    this.webAuthnService.registerPasskey(displayName).subscribe({
+      next: (credential) => {
+        this.passkeys.push(credential);
+        this.newPasskeyName = '';
+        this.isRegisteringPasskey = false;
+      },
+      error: (error) => {
+        console.error('Failed to register passkey:', error);
+        this.passkeyError = error.message || 'Failed to register passkey. Please try again.';
+        this.isRegisteringPasskey = false;
+      }
+    });
+  }
+
+  removePasskey(id: number) {
+    if (confirm('Are you sure you want to remove this passkey?')) {
+      this.webAuthnService.removeCredential(id).subscribe({
+        next: () => {
+          this.passkeys = this.passkeys.filter(p => p.id !== id);
+        },
+        error: (error) => {
+          console.error('Failed to remove passkey:', error);
+          this.passkeyError = 'Failed to remove passkey. Please try again.';
+        }
+      });
+    }
   }
 
   private destroyed$ = new Subject();

@@ -29,6 +29,22 @@
         </a>
       </div>
     </div>
+    <div class="row mb-3" *ngIf="webAuthnSupported">
+      <div class="col-12">
+        <div class="d-flex align-items-center my-3">
+          <hr class="flex-grow-1" />
+          <span class="px-3 text-muted">or</span>
+          <hr class="flex-grow-1" />
+        </div>
+        <div class="text-center">
+          <button type="button" class="btn btn-lg btn-outline-primary" (click)="loginWithPasskey()" [disabled]="isLoggingInWithPasskey">
+            <i class="fa fa-fingerprint" *ngIf="!isLoggingInWithPasskey"></i>
+            <i class="fa fa-spinner fa-spin" *ngIf="isLoggingInWithPasskey"></i>
+            Sign in with Passkey
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <h2>{{ 'account.use_social_login' | translate }}</h2>

@@ -14,18 +14,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using MintPlayer.Data.Abstractions.Services;
+using Fido2NetLib;
+using Fido2NetLib.Objects;
 
 namespace MintPlayer.Data.Services
 {
 	internal class AccountService : IAccountService
     {
         private readonly IAccountRepository accountRepository;
+        private readonly IWebAuthnRepository webAuthnRepository;
         private readonly IMailService mailService;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly LinkGenerator linkGenerator;
-        public AccountService(IAccountRepository accountRepository, IMailService mailService, IHttpContextAccessor httpContextAccessor, LinkGenerator linkGenerator)
+        public AccountService(
+            IAccountRepository accountRepository,
+            IWebAuthnRepository webAuthnRepository,
+            IMailService mailService,
+            IHttpContextAccessor httpContextAccessor,
+            LinkGenerator linkGenerator)
         {
             this.accountRepository = accountRepository;
+            this.webAuthnRepository = webAuthnRepository;
             this.mailService = mailService;
             this.httpContextAccessor = httpContextAccessor;
             this.linkGenerator = linkGenerator;
@@ -192,6 +201,37 @@ namespace MintPlayer.Data.Services
 		{
 			var result = await accountRepository.GetRemainingNumberOfRecoveryCodes(userProperty);
 			return result;
+		}
+
+		// WebAuthn/PassKeys
+		public async Task<CredentialCreateOptions> GetWebAuthnRegistrationOptions(ClaimsPrincipal userProperty, string displayName)
+		{
+			return await webAuthnRepository.GetRegistrationOptions(userProperty, displayName);
+		}
+
+		public async Task<WebAuthnCredentialInfo> CompleteWebAuthnRegistration(ClaimsPrincipal userProperty, AuthenticatorAttestationRawResponse attestationResponse, CredentialCreateOptions originalOptions, string displayName)
+		{
+			return await webAuthnRepository.CompleteRegistration(userProperty, attestationResponse, originalOptions, displayName);
+		}
+
+		public async Task<AssertionOptions> GetWebAuthnAssertionOptions(string email)
+		{
+			return await webAuthnRepository.GetAssertionOptions(email);
+		}
+
+		public async Task<LocalLoginResult> WebAuthnLogin(AuthenticatorAssertionRawResponse assertionResponse, AssertionOptions originalOptions)
+		{
+			return await webAuthnRepository.ValidateAssertion(assertionResponse, originalOptions);
+		}
+
+		public async Task<IEnumerable<WebAuthnCredentialInfo>> GetWebAuthnCredentials(ClaimsPrincipal userProperty)
+		{
+			return await webAuthnRepository.GetCredentials(userProperty);
+		}
+
+		public async Task<bool> RemoveWebAuthnCredential(ClaimsPrincipal userProperty, int credentialId)
+		{
+			return await webAuthnRepository.RemoveCredential(userProperty, credentialId);
 		}
 	}
 }
