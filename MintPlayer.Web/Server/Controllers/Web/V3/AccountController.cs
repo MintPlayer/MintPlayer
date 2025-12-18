@@ -15,6 +15,9 @@ using System.Text.Encodings.Web;
 using MintPlayer.Data.Exceptions.Account.TwoFactor;
 using Microsoft.AspNetCore.Hosting;
 using MintPlayer.Data.Abstractions.Services;
+using Fido2NetLib;
+using Fido2NetLib.Objects;
+using Microsoft.AspNetCore.Http;
 
 namespace MintPlayer.Web.Server.Controllers.Web.V3
 {
@@ -604,5 +607,184 @@ namespace MintPlayer.Web.Server.Controllers.Web.V3
 
 			return Ok();
 		}
+
+		#region WebAuthn/PassKeys
+
+		// POST: web/v3/account/webauthn/register/options
+		[Authorize]
+		[HttpPost("webauthn/register/options", Name = "web-v3-account-webauthn-register-options")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult<CredentialCreateOptions>> WebAuthnRegisterOptions([FromBody] WebAuthnRegisterOptionsVM model)
+		{
+			try
+			{
+				var options = await accountService.GetWebAuthnRegistrationOptions(User, model?.DisplayName);
+
+				// Store options in session for validation during registration completion
+				HttpContext.Session.SetString("webauthn.attestationOptions", options.ToJson());
+
+				return Ok(options);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { error = ex.Message });
+			}
+		}
+
+		// POST: web/v3/account/webauthn/register/complete
+		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpPost("webauthn/register/complete", Name = "web-v3-account-webauthn-register-complete")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult<WebAuthnCredentialInfo>> WebAuthnRegisterComplete([FromBody] WebAuthnRegisterResponseVM model)
+		{
+			try
+			{
+				// Retrieve stored options from session
+				var optionsJson = HttpContext.Session.GetString("webauthn.attestationOptions");
+				if (string.IsNullOrEmpty(optionsJson))
+				{
+					return BadRequest(new { error = "No registration in progress" });
+				}
+
+				var options = CredentialCreateOptions.FromJson(optionsJson);
+
+				// Build the attestation response
+				var attestationResponse = new AuthenticatorAttestationRawResponse
+				{
+					Id = Base64Url.Decode(model.Id),
+					RawId = Base64Url.Decode(model.RawId),
+					Response = new AuthenticatorAttestationRawResponse.ResponseData
+					{
+						AttestationObject = Base64Url.Decode(model.AttestationObject),
+						ClientDataJson = Base64Url.Decode(model.ClientDataJSON)
+					},
+					Type = PublicKeyCredentialType.PublicKey
+				};
+
+				var credential = await accountService.CompleteWebAuthnRegistration(User, attestationResponse, options, model.DisplayName);
+
+				// Clear the session
+				HttpContext.Session.Remove("webauthn.attestationOptions");
+
+				return Ok(credential);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { error = ex.Message });
+			}
+		}
+
+		// POST: web/v3/account/webauthn/login/options
+		[AllowAnonymous]
+		[HttpPost("webauthn/login/options", Name = "web-v3-account-webauthn-login-options")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult<AssertionOptions>> WebAuthnLoginOptions([FromBody] WebAuthnLoginOptionsVM model)
+		{
+			try
+			{
+				var options = await accountService.GetWebAuthnAssertionOptions(model?.Email);
+
+				// Store options in session for validation during login
+				HttpContext.Session.SetString("webauthn.assertionOptions", options.ToJson());
+
+				return Ok(options);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { error = ex.Message });
+			}
+		}
+
+		// POST: web/v3/account/webauthn/login
+		[AllowAnonymous]
+		[ValidateAntiForgeryToken]
+		[HttpPost("webauthn/login", Name = "web-v3-account-webauthn-login")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult<LocalLoginResult>> WebAuthnLogin([FromBody] WebAuthnLoginResponseVM model)
+		{
+			try
+			{
+				// Retrieve stored options from session
+				var optionsJson = HttpContext.Session.GetString("webauthn.assertionOptions");
+				if (string.IsNullOrEmpty(optionsJson))
+				{
+					return BadRequest(new { error = "No login in progress" });
+				}
+
+				var options = AssertionOptions.FromJson(optionsJson);
+
+				// Build the assertion response
+				var assertionResponse = new AuthenticatorAssertionRawResponse
+				{
+					Id = Base64Url.Decode(model.Id),
+					RawId = Base64Url.Decode(model.RawId),
+					Response = new AuthenticatorAssertionRawResponse.AssertionResponse
+					{
+						AuthenticatorData = Base64Url.Decode(model.AuthenticatorData),
+						ClientDataJson = Base64Url.Decode(model.ClientDataJSON),
+						Signature = Base64Url.Decode(model.Signature),
+						UserHandle = string.IsNullOrEmpty(model.UserHandle) ? null : Base64Url.Decode(model.UserHandle)
+					},
+					Type = PublicKeyCredentialType.PublicKey
+				};
+
+				var result = await accountService.WebAuthnLogin(assertionResponse, options);
+
+				// Clear the session
+				HttpContext.Session.Remove("webauthn.assertionOptions");
+
+				return Ok(result);
+			}
+			catch (LoginException)
+			{
+				return Unauthorized();
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { error = ex.Message });
+			}
+		}
+
+		// GET: web/v3/account/webauthn/credentials
+		[Authorize]
+		[HttpGet("webauthn/credentials", Name = "web-v3-account-webauthn-credentials")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult<IEnumerable<WebAuthnCredentialInfo>>> GetWebAuthnCredentials()
+		{
+			try
+			{
+				var credentials = await accountService.GetWebAuthnCredentials(User);
+				return Ok(credentials);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { error = ex.Message });
+			}
+		}
+
+		// DELETE: web/v3/account/webauthn/credentials/{id}
+		[Authorize]
+		[ValidateAntiForgeryToken]
+		[HttpDelete("webauthn/credentials/{id}", Name = "web-v3-account-webauthn-credentials-delete")]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		public async Task<ActionResult> DeleteWebAuthnCredential(int id)
+		{
+			try
+			{
+				var result = await accountService.RemoveWebAuthnCredential(User, id);
+				if (!result)
+				{
+					return NotFound();
+				}
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, new { error = ex.Message });
+			}
+		}
+
+		#endregion
 	}
 }

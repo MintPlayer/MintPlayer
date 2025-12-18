@@ -119,6 +119,61 @@
       </div>
     </content>
   </card>
+  <card class="d-block mb-3" *ngIf="webAuthnSupported">
+    <header>
+      <i class="fa fa-fingerprint"></i>
+      Passkeys
+    </header>
+    <content>
+      <div class="row mb-3">
+        <div class="col-12">
+          <p>Sign in with your fingerprint, face, or security key. No password required.</p>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="passkeys.length > 0">
+        <div class="col-12">
+          <h5>Registered Passkeys</h5>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let passkey of passkeys">
+              <div>
+                <strong>{{ passkey.displayName }}</strong>
+                <br />
+                <small class="text-muted">
+                  Registered: {{ passkey.regDate | date:'medium' }}
+                  <span *ngIf="passkey.lastUsed"> | Last used: {{ passkey.lastUsed | date:'medium' }}</span>
+                </small>
+              </div>
+              <button type="button" class="btn btn-sm btn-danger" (click)="removePasskey(passkey.id)">
+                <i class="fa fa-trash"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="passkeys.length === 0">
+        <div class="col-12">
+          <p class="text-muted">No passkeys registered yet.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <input type="text" [(ngModel)]="newPasskeyName" class="form-control" placeholder="Passkey name (e.g., My MacBook)" />
+        </div>
+        <div class="col-md-6">
+          <button type="button" class="btn btn-primary" (click)="registerPasskey()" [disabled]="isRegisteringPasskey">
+            <i class="fa fa-plus" *ngIf="!isRegisteringPasskey"></i>
+            <i class="fa fa-spinner fa-spin" *ngIf="isRegisteringPasskey"></i>
+            Register new Passkey
+          </button>
+        </div>
+      </div>
+      <div class="row mt-2" *ngIf="passkeyError">
+        <div class="col-12">
+          <div class="alert alert-danger">{{ passkeyError }}</div>
+        </div>
+      </div>
+    </content>
+  </card>
   <card class="d-block mb-3">
     <header>
       <i class="fa fa-comments"></i>

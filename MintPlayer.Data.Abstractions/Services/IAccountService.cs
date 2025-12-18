@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using MintPlayer.Dtos.Dtos;
 using Microsoft.AspNetCore.Authentication;
+using Fido2NetLib;
+using Fido2NetLib.Objects;
 
 namespace MintPlayer.Data.Abstractions.Services
 {
@@ -35,5 +37,13 @@ namespace MintPlayer.Data.Abstractions.Services
 		Task<User> TwoFactorLogin(string authenticatorCode, bool remember);
 		Task TwoFactorRecovery(string backupCode);
 		Task<int> GetRemainingNumberOfRecoveryCodes(ClaimsPrincipal userProperty);
+
+		// WebAuthn/PassKeys
+		Task<CredentialCreateOptions> GetWebAuthnRegistrationOptions(ClaimsPrincipal userProperty, string displayName);
+		Task<WebAuthnCredentialInfo> CompleteWebAuthnRegistration(ClaimsPrincipal userProperty, AuthenticatorAttestationRawResponse attestationResponse, CredentialCreateOptions originalOptions, string displayName);
+		Task<AssertionOptions> GetWebAuthnAssertionOptions(string email);
+		Task<LocalLoginResult> WebAuthnLogin(AuthenticatorAssertionRawResponse assertionResponse, AssertionOptions originalOptions);
+		Task<IEnumerable<WebAuthnCredentialInfo>> GetWebAuthnCredentials(ClaimsPrincipal userProperty);
+		Task<bool> RemoveWebAuthnCredential(ClaimsPrincipal userProperty, int credentialId);
 	}
 }

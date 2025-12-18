@@ -39,6 +39,7 @@ namespace MintPlayer.Data.Extensions
             services
                 // Repositories
                 .AddScoped<IAccountRepository, AccountRepository>()
+                .AddScoped<IWebAuthnRepository, WebAuthnRepository>()
                 .AddScoped<IArtistRepository, ArtistRepository>()
                 .AddScoped<IMediumRepository, MediumRepository>()
                 .AddScoped<IMediumTypeRepository, MediumTypeRepository>()

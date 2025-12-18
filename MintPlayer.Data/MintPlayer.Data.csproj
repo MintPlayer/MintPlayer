@@ -25,6 +25,7 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
 		<PackageReference Include="MintPlayer.Pagination" Version="10.0.0" />
 		<PackageReference Include="NEST" Version="7.16.0" />
+		<PackageReference Include="Fido2" Version="3.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

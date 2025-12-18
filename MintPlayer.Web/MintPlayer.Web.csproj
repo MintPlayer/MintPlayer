@@ -33,6 +33,7 @@
 		<PackageReference Include="MintPlayer.AspNetCore.SpaServices.Xsrf" Version="10.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
 		<PackageReference Include="WebMarkupMin.AspNetCore3" Version="2.18.1" />
+		<PackageReference Include="Fido2" Version="3.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

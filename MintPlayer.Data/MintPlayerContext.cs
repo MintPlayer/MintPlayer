@@ -40,6 +40,7 @@ namespace MintPlayer.Data
 		internal DbSet<Playlist> Playlists { get; set; }
 		internal DbSet<BlogPost> BlogPosts { get; set; }
 		internal DbSet<LogEntry> LogEntries { get; set; }
+		internal DbSet<WebAuthnCredential> WebAuthnCredentials { get; set; }
 
 		private readonly IConfiguration configuration;
 		public MintPlayerContext(IConfiguration configuration)
@@ -157,6 +158,16 @@ namespace MintPlayer.Data
 
 			// BlogPost
 			modelBuilder.Entity<BlogPost>().HasQueryFilter(bp => bp.UserDelete == null);
+
+			// WebAuthn Credentials
+			modelBuilder.Entity<WebAuthnCredential>()
+				.HasIndex(c => c.CredentialId)
+				.IsUnique();
+			modelBuilder.Entity<WebAuthnCredential>()
+				.HasOne(c => c.User)
+				.WithMany(u => u.WebAuthnCredentials)
+				.HasForeignKey(c => c.UserId)
+				.OnDelete(DeleteBehavior.Cascade);
 		}
 
 		/// <summary>Reads the configured application roles from the configuration.</summary>

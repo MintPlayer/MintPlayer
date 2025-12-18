@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { AccountService, LoginResult, User } from '@mintplayer/ng-client';
 import { HtmlLinkHelper } from '../../../helpers/html-link.helper';
 import { ELoginStatus } from '@mintplayer/ng-client';
+import { WebAuthnService } from '../../../services/webauthn/webauthn.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private htmlLink: HtmlLinkHelper,
     private metaService: Meta,
+    private webAuthnService: WebAuthnService,
   ) {
+    this.webAuthnSupported = this.webAuthnService.isSupported();
   }
 
   ngOnInit() {
@@ -95,6 +98,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     error: null,
     errorDescription: null,
   };
+
+  // Passkey properties
+  webAuthnSupported: boolean = false;
+  isLoggingInWithPasskey: boolean = false;
 
   login() {
     this.accountService.login(this.email, this.password).subscribe({
@@ -188,6 +195,43 @@ export class LoginComponent implements OnInit, OnDestroy {
         break;
       }
     }
+  }
+
+  loginWithPasskey() {
+    this.isLoggingInWithPasskey = true;
+    this.loginResult = {
+      status: ELoginStatus.success,
+      medium: '',
+      platform: 'passkey',
+      user: null,
+      error: null,
+      errorDescription: null,
+    };
+
+    // Use discoverable credentials (no email required)
+    this.webAuthnService.loginWithPasskey().subscribe({
+      next: (result) => {
+        this.isLoggingInWithPasskey = false;
+        this.accountService.csrfRefresh().subscribe({
+          next: () => {
+            this.loginComplete.next(result.user);
+            this.router.navigateByUrl(this.returnUrl);
+          }
+        });
+      },
+      error: (error) => {
+        this.isLoggingInWithPasskey = false;
+        console.error('Passkey login failed:', error);
+        this.loginResult = {
+          status: ELoginStatus.failed,
+          medium: '',
+          platform: 'passkey',
+          user: null,
+          error: 'Passkey login failed',
+          errorDescription: error.message || 'Could not sign in with passkey. Please try again or use another method.'
+        };
+      }
+    });
   }
 
   loginComplete: Subject<User> = new Subject<User>();

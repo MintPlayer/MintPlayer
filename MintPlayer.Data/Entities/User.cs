@@ -11,5 +11,6 @@ namespace MintPlayer.Data.Entities
 
         public List<Lyrics> Lyrics { get; set; }
 		public List<Like> Likes { get; set; }
+		public List<WebAuthnCredential> WebAuthnCredentials { get; set; }
 	}
 }
