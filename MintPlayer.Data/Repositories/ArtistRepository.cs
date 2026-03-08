@@ -9,6 +9,7 @@ using MintPlayer.Dtos.Dtos;
 using MintPlayer.Data.Helpers;
 using MintPlayer.Data.Extensions;
 using MintPlayer.Pagination;
+using MintPlayer.Pagination.Extensions;
 using MintPlayer.Data.Mappers;
 
 namespace MintPlayer.Data.Repositories
@@ -57,9 +58,7 @@ namespace MintPlayer.Data.Repositories
             var artists = mintplayer_context.Artists;
 
             // 1) Sort
-            var ordered_artists = request.SortDirection == System.ComponentModel.ListSortDirection.Descending
-                ? artists.OrderByDescending(request.SortProperty)
-                : artists.OrderBy(request.SortProperty);
+            var ordered_artists = artists.OrderBySortColumns(request.GetEffectiveSortColumns());
 
             // 2) Page
             var paged_artists = ordered_artists
@@ -134,9 +133,7 @@ namespace MintPlayer.Data.Repositories
                 .Where(s => s.Likes.Any(l => l.User == user && l.DoesLike));
 
             // 2) Sort
-            var ordered_artists = request.SortDirection == System.ComponentModel.ListSortDirection.Descending
-                ? filtered_artists.OrderByDescending(request.SortProperty)
-                : filtered_artists.OrderBy(request.SortProperty);
+            var ordered_artists = filtered_artists.OrderBySortColumns(request.GetEffectiveSortColumns());
 
             // 3) Page
             var paged_artists = ordered_artists
