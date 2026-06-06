@@ -1,0 +1,59 @@
+{
+  "persistentObject": {
+    "id": "2f167ae5-6428-4552-a4c2-8e36a169c998",
+    "name": "MediumType",
+    "clrType": "MintPlayer.Domain.Entities.MediumType",
+    "displayAttribute": "Name",
+    "tabs": [],
+    "groups": [],
+    "attributes": [
+      {
+        "id": "efe73cc0-f24f-41be-951a-76e79411ccd4",
+        "name": "Name",
+        "label": {
+          "en": "Name"
+        },
+        "dataType": "string",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 1,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "1cdbb54b-1c31-4a9e-8c05-9738f7b08a5a",
+        "name": "Description",
+        "label": {
+          "en": "Description"
+        },
+        "dataType": "string",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 2,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      }
+    ],
+    "queries": []
+  },
+  "queries": [
+    {
+      "id": "479ce114-8306-4d0f-a738-66bf183f89ae",
+      "name": "GetMediumTypes",
+      "source": "Database.MediumTypes",
+      "sortColumns": [
+        {
+          "property": "Name",
+          "direction": "asc"
+        }
+      ],
+      "renderMode": "Pagination",
+      "useProjection": false,
+      "isStreamingQuery": false
+    }
+  ]
+}
