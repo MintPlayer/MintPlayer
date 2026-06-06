@@ -1,0 +1,21 @@
+{
+  "groups": {
+    "00000000-0000-0000-0000-000000000000": { "en": "Everyone", "nl": "Iedereen", "fr": "Tout le monde" },
+    "a1b2c3d4-0000-0000-0000-000000000001": { "en": "Administrator", "nl": "Beheerder", "fr": "Administrateur" },
+    "a1b2c3d4-0000-0000-0000-000000000002": { "en": "Blogger", "nl": "Blogger", "fr": "Blogueur" }
+  },
+  "rights": [
+    {
+      "id": "10000000-0000-0000-0000-000000000001",
+      "resource": "QueryRead/MediumType",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000002",
+      "resource": "QueryReadEditNewDelete/MediumType",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    }
+  ]
+}

@@ -2,6 +2,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.HttpOverrides;
 using MintPlayer.AspNetCore.SpaServices.Extensions;
 using MintPlayer.Spark;
+using MintPlayer.Spark.Authorization.Extensions;
 using MintPlayer.Spark.Extensions;
 using MintPlayer.Web;
 
@@ -19,9 +20,19 @@ builder.Services.AddSpark(builder.Configuration, spark =>
 {
     spark.UseContext<MintPlayerSparkContext>();
 
-    // TODO(plan 1.2): replace with App_Data/security.json group authorization + a SparkUser
-    // subclass once auth is wired. Without an access-control registration Spark denies everything.
-    spark.AllowAnonymousAccess();
+    // Group-based access control from App_Data/security.json (deny-all by default;
+    // the all-zeros "Everyone" group grants anonymous read where listed).
+    spark.AddAuthorization(options => options.SecurityFilePath = "App_Data/security.json");
+
+    // ASP.NET Core Identity over RavenDB (cookie + bearer, XSRF header X-XSRF-TOKEN).
+    // Maps /spark/auth/* (login/register/forgot/reset/2fa). Migrated password hashes and
+    // authenticator keys validate here unchanged (proven in spikes/Spike.Migration).
+    spark.AddAuthentication<MintPlayerUser>();
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.Name = ".SparkAuth.MintPlayer";
 });
 
 builder.Services.AddSpaStaticFilesImproved(configuration =>

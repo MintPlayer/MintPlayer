@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MintPlayer.Domain\MintPlayer.Domain.csproj" />
     <ProjectReference Include="..\..\MintPlayer.Spark\libs\spark\MintPlayer.Spark\MintPlayer.Spark.csproj" />
+    <ProjectReference Include="..\..\MintPlayer.Spark\libs\authorization\MintPlayer.Spark.Authorization\MintPlayer.Spark.Authorization.csproj" />
     <ProjectReference Include="..\..\MintPlayer.Spark\libs\source_generators\MintPlayer.Spark.SourceGenerators\MintPlayer.Spark.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
