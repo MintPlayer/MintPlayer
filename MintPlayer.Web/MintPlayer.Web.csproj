@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <!-- TODO(plan 1.3): re-enable once the Angular app is scaffolded at ClientApp/. Until then the
+         SpaServices npm build/install targets would fail on the missing ClientApp/ folder. -->
+    <EnableSpaBuilder>false</EnableSpaBuilder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MintPlayer.AspNetCore.SpaServices" Version="10.5.0" />
+    <PackageReference Include="MintPlayer.SourceGenerators" Version="10.19.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Local Spark clone (C:\Repos\MintPlayer.Spark). Consuming the framework via ProjectReference
+       keeps the dev loop tight while app + framework are co-developed; switch to versioned NuGet
+       packages at release (see Phase 6). -->
+  <ItemGroup>
+    <ProjectReference Include="..\MintPlayer.Domain\MintPlayer.Domain.csproj" />
+    <ProjectReference Include="..\..\MintPlayer.Spark\libs\spark\MintPlayer.Spark\MintPlayer.Spark.csproj" />
+    <ProjectReference Include="..\..\MintPlayer.Spark\libs\source_generators\MintPlayer.Spark.SourceGenerators\MintPlayer.Spark.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="App_Data\translations.json" />
+    <AdditionalFiles Include="App_Data\Model\*.json" />
+  </ItemGroup>
+
+</Project>

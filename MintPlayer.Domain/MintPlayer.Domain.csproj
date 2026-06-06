@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- Spark attribute set ([Reference], [LookupReference], TranslatedString, AsDetail). Local
+       Spark clone at C:\Repos\MintPlayer.Spark (consistent with spikes/Spike.Migration). -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\MintPlayer.Spark\libs\spark\MintPlayer.Spark.Abstractions\MintPlayer.Spark.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
