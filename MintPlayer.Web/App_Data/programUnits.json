@@ -1,0 +1,21 @@
+{
+  "programUnitGroups": [
+    {
+      "id": "b1000000-0000-0000-0000-000000000001",
+      "name": { "en": "Catalog", "nl": "Catalogus", "fr": "Catalogue" },
+      "icon": "bi-collection",
+      "order": 1,
+      "programUnits": [
+        {
+          "id": "b1000000-0000-0000-0000-000000000101",
+          "name": { "en": "Medium types", "nl": "Mediumtypes", "fr": "Types de médias" },
+          "icon": "bi-disc",
+          "type": "query",
+          "queryId": "479ce114-8306-4d0f-a738-66bf183f89ae",
+          "alias": "medium-types",
+          "order": 1
+        }
+      ]
+    }
+  ]
+}

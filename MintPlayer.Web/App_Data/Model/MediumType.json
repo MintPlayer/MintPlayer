@@ -119,6 +119,7 @@
     {
       "id": "479ce114-8306-4d0f-a738-66bf183f89ae",
       "name": "GetMediumTypes",
+      "alias": "medium-types",
       "source": "Database.MediumTypes",
       "sortColumns": [
         {

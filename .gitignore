@@ -344,3 +344,5 @@ healthchecksdb
 
 # Keep the configuration for mintplayer.test
 !.vs/MintPlayer/config/applicationhost.config
+# Playwright MCP browser-session artifacts
+.playwright-mcp/

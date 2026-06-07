@@ -51,6 +51,10 @@ app.UseSpaStaticFilesImproved();
 app.UseRouting();
 app.UseSpark(o => o.SynchronizeModelsIfRequested<MintPlayerSparkContext>(args));
 
+// Dev-only: ensure an Administrator account exists for the admin auto-UI. No-op in
+// production and skipped during --spark-synchronize-model (UseSpark exits first).
+await app.SeedDevelopmentDataAsync();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
