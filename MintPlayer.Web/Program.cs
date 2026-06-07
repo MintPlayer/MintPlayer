@@ -1,10 +1,12 @@
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using MintPlayer.AspNetCore.SpaServices.Extensions;
 using MintPlayer.Spark;
 using MintPlayer.Spark.Authorization.Extensions;
 using MintPlayer.Spark.Extensions;
 using MintPlayer.Web;
+using MintPlayer.Web.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,11 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.Name = ".SparkAuth.MintPlayer";
 });
+
+// Transactional email (account confirmation + password reset) via MailKit. Overrides Identity's
+// no-op IEmailSender<TUser>; falls back to logging when no SMTP host is configured (dev).
+builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.SectionName));
+builder.Services.AddTransient<IEmailSender<MintPlayerUser>, MintPlayerEmailSender>();
 
 builder.Services.AddSpaStaticFilesImproved(configuration =>
 {

@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.17.0" />
     <PackageReference Include="MintPlayer.AspNetCore.SpaServices" Version="10.5.0" />
     <PackageReference Include="MintPlayer.SourceGenerators" Version="10.19.0">
       <PrivateAssets>all</PrivateAssets>
