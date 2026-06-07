@@ -123,6 +123,7 @@
       "id": "dc9bda11-7223-432e-bc9e-bffee4506e56",
       "name": "GetTagCategories",
       "source": "Database.TagCategories",
+      "alias": "tag-categories",
       "sortColumns": [
         {
           "property": "Description",
@@ -131,8 +132,8 @@
       ],
       "renderMode": "Pagination",
       "useProjection": false,
-      "isStreamingQuery": false,
-      "alias": "tag-categories"
+      "entityType": "TagCategory",
+      "isStreamingQuery": false
     }
   ]
 }

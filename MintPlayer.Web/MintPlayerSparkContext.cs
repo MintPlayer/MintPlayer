@@ -26,4 +26,7 @@ public class MintPlayerSparkContext : SparkContext
 
     public IRavenQueryable<Tag> Tags =>
         (IRavenQueryable<Tag>)Session.Query<Tag>().Where(x => !x.IsDeleted);
+
+    public IRavenQueryable<Person> People =>
+        (IRavenQueryable<Person>)Session.Query<Person>().Where(x => !x.IsDeleted);
 }

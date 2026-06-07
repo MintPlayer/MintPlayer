@@ -1,10 +1,27 @@
 {
   "programUnitGroups": [
     {
+      "id": "b2000000-0000-0000-0000-000000000001",
+      "name": { "en": "Music", "nl": "Muziek", "fr": "Musique" },
+      "icon": "bi-music-note-beamed",
+      "order": 1,
+      "programUnits": [
+        {
+          "id": "b2000000-0000-0000-0000-000000000101",
+          "name": { "en": "People", "nl": "Personen", "fr": "Personnes" },
+          "icon": "bi-person",
+          "type": "query",
+          "queryId": "777bf3cb-37c2-4527-afbf-57911e57fc5f",
+          "alias": "people",
+          "order": 1
+        }
+      ]
+    },
+    {
       "id": "b1000000-0000-0000-0000-000000000001",
       "name": { "en": "Catalog", "nl": "Catalogus", "fr": "Catalogue" },
       "icon": "bi-collection",
-      "order": 1,
+      "order": 2,
       "programUnits": [
         {
           "id": "b1000000-0000-0000-0000-000000000101",

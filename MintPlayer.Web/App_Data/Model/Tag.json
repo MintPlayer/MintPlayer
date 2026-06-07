@@ -141,6 +141,7 @@
       "id": "5aedd91f-cd47-4cb1-914d-b0ab291b16ff",
       "name": "GetTags",
       "source": "Database.Tags",
+      "alias": "tags",
       "sortColumns": [
         {
           "property": "Description",
@@ -149,14 +150,18 @@
       ],
       "renderMode": "Pagination",
       "useProjection": false,
-      "isStreamingQuery": false,
-      "alias": "tags"
+      "entityType": "Tag",
+      "isStreamingQuery": false
     },
     {
       "id": "c1000000-0000-0000-0000-000000000001",
       "name": "Category_Tags",
+      "description": {
+        "en": "Tags",
+        "nl": "Tags",
+        "fr": "Tags"
+      },
       "source": "Custom.Category_Tags",
-      "entityType": "Tag",
       "alias": "category-tags",
       "sortColumns": [
         {
@@ -166,18 +171,18 @@
       ],
       "renderMode": "Pagination",
       "useProjection": false,
-      "isStreamingQuery": false,
-      "description": {
-        "en": "Tags",
-        "nl": "Tags",
-        "fr": "Tags"
-      }
+      "entityType": "Tag",
+      "isStreamingQuery": false
     },
     {
       "id": "c1000000-0000-0000-0000-000000000002",
       "name": "Tag_Children",
+      "description": {
+        "en": "Child tags",
+        "nl": "Subtags",
+        "fr": "Sous-tags"
+      },
       "source": "Custom.Tag_Children",
-      "entityType": "Tag",
       "alias": "tag-children",
       "sortColumns": [
         {
@@ -187,12 +192,8 @@
       ],
       "renderMode": "Pagination",
       "useProjection": false,
-      "isStreamingQuery": false,
-      "description": {
-        "en": "Child tags",
-        "nl": "Subtags",
-        "fr": "Sous-tags"
-      }
+      "entityType": "Tag",
+      "isStreamingQuery": false
     }
   ]
 }

@@ -40,6 +40,18 @@
       "resource": "QueryReadEditNewDelete/Tag",
       "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
       "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000007",
+      "resource": "QueryRead/Person",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000008",
+      "resource": "QueryReadEditNewDelete/Person",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
     }
   ]
 }
