@@ -8,6 +8,7 @@ import { provideSparkAttributeRenderers } from '@mintplayer/ng-spark/renderers';
 
 import { routes } from './app.routes';
 import { provideServiceWorker } from '@angular/service-worker';
+import { provideBaseHref } from '@mintplayer/ng-base-url';
 import { MintPlayerTitleStrategy } from './seo/title-strategy';
 
 export const appConfig: ApplicationConfig = {
@@ -28,5 +29,7 @@ export const appConfig: ApplicationConfig = {
     }),
     // SEO base: route titles become "<page> | MintPlayer".
     { provide: TitleStrategy, useClass: MintPlayerTitleStrategy },
+    // @mintplayer/ng-seo: APP_BASE_HREF for canonical/href-lang URL building.
+    provideBaseHref(),
   ],
 };
