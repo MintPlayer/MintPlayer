@@ -1,0 +1,78 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+bs-shell {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+::ng-deep bs-shell {
+  bs-accordion {
+    bs-accordion-tab {
+      .accordion-item {
+        background-color: transparent;
+        border: none;
+      }
+
+      .accordion-header {
+        .accordion-button {
+          background-color: transparent;
+          color: inherit;
+          box-shadow: none;
+
+          &:not(.collapsed) {
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+        }
+      }
+
+      .accordion-body {
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 0;
+      }
+    }
+  }
+
+  .nav-link {
+    padding: 0.5rem 1rem;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &.active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+// We project our own <bs-navbar-toggler> into the topbar, so hide the web
+// component's built-in hamburger to avoid showing two togglers.
+::ng-deep mp-shell::part(hamburger) {
+  display: none;
+}
+
+// The navbar-toggler's bars use --bs-secondary-color (dark by default); lighten
+// it so the toggler is visible against the dark topbar.
+::ng-deep bs-navbar-toggler {
+  --bs-secondary-color: rgba(255, 255, 255, 0.85);
+}
+
+main {
+  height: 100%;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+// ng-bootstrap 22's <mp-shell> projects the sidebar into a shadow-DOM `.sidebar`
+// slot, which ::ng-deep can't reach. Colour the slotted <nav> directly and let
+// it fill the full-height sidebar column.
+nav.sidebar-inner {
+  background: #333;
+  min-height: 100%;
+}
