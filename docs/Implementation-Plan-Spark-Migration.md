@@ -38,14 +38,14 @@ Goal: turn the PRD's open decisions (D1–D7) into committed answers with eviden
 
 Goal: a running Spark host with RavenDB, auth, and one entity fully working through admin + public.
 
-- **1.1** Scaffold the ASP.NET Core 10 Spark host: `AddSparkFull` / `UseSparkFull` / `MapSparkFull`, `SparkContext`, RavenDB connection, Docker Compose (app + RavenDB).
-- **1.2** Define `SparkUser` subclass (carry `PictureUrl`, `Bypass2faForExternalLogin`); wire `security.json` groups (`Everyone`, `Administrator`, `Blogger`); cookie + XSRF; `IEmailSender` (MailKit) for confirm/reset.
-- **1.3** Scaffold the single Angular 21 app: two shells (`PublicShell` `/`, `AdminShell` `/admin` behind `sparkAuthGuard`), `...sparkRoutes()`, root `app.html` overlay slot, `SparkLanguageService` i18n bootstrap.
+- **1.1 ✅** Scaffold the ASP.NET Core 10 Spark host. **DONE** — `MintPlayer.Web` host using `AddSpark`+`UseContext<MintPlayerSparkContext>` (DemoApp pattern, not AllFeatures — avoids unused messaging/replication), RavenDB via `Spark:RavenDb` (db `MintPlayer`), `MintPlayer.Domain` entity lib, `MintPlayer.slnx`. Spark consumed via cross-repo `ProjectReference`. Docker Compose still TODO.
+- **1.2 ✅** `MintPlayerUser : SparkUser` (`PictureUrl`, `Bypass2faForExternalLogin`); `security.json` groups (`Everyone`/`Administrator`/`Blogger`); `spark.AddAuthorization` + `spark.AddAuthentication<MintPlayerUser>`; cookie `.SparkAuth.MintPlayer` + XSRF. **DONE** (verified `/spark/auth/*` mapped, anonymous Everyone read). `IEmailSender` (MailKit) still TODO.
+- **1.3 ✅** Angular **22** app at `MintPlayer.Web/ClientApp` (nested for SSR): `sparkAuthRoutes()`+`sparkRoutes()`, `bs-shell` shell (bsShellTopbar/bsShellSidebar, program-unit sidebar, auth bar, lang picker), `provideSparkAuth`/`provideSparkClientOperations`/`provideSparkAttributeRenderers`. **DONE** (SPA + Spark API serve together). Single shell for now — public/admin split deferred. **NB:** required a framework fix — ng-spark/ng-spark-auth realigned to ng-bootstrap 22 (datatable merge + toggle→checkbox), shipped as **`@mintplayer/ng-spark@22.0.0`** (Spark PR #179), now consumed here.
 - **1.4** Establish shared entity base class + soft-delete convention (`OnDeleteAsync` override + index filter), audit-timestamp convention, and the `OldId` field for migration.
-- **1.5** **Vertical slice: `MediumType`** (the simplest entity) — model, query, security rights, admin CRUD via auto-UI, model-sync workflow proven end-to-end.
+- **1.5 🟡** **Vertical slice: `MediumType`** — model, query, security rights, model-sync, and CRUD via `/spark/po/MediumType` all proven. Remaining: exercise create/edit through the admin auto-UI in the browser.
 - **1.6** Re-add PWA (`@angular/service-worker` + `ngsw-config.json`) and the SEO base (Angular `Meta`/`Title`, `@mintplayer/ng-json-ld`) per the D2 decision.
 
-**Exit criteria:** Log in, manage MediumTypes in the admin UI, deploy via Docker; i18n + PWA + SEO scaffolding in place.
+**Exit criteria:** Log in, manage MediumTypes in the admin UI, deploy via Docker; i18n + PWA + SEO scaffolding in place. _(Status 2026-06-07: 1.1–1.3 done; host+SPA+auth+MediumType slice running against RavenDB. Left: IEmailSender, 1.4 conventions, 1.6 PWA/SEO, Docker.)_
 
 ---
 
