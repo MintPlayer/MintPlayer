@@ -14,6 +14,24 @@
           "queryId": "479ce114-8306-4d0f-a738-66bf183f89ae",
           "alias": "medium-types",
           "order": 1
+        },
+        {
+          "id": "b1000000-0000-0000-0000-000000000102",
+          "name": { "en": "Tag categories", "nl": "Tagcategorieën", "fr": "Catégories de tags" },
+          "icon": "bi-tags",
+          "type": "query",
+          "queryId": "dc9bda11-7223-432e-bc9e-bffee4506e56",
+          "alias": "tag-categories",
+          "order": 2
+        },
+        {
+          "id": "b1000000-0000-0000-0000-000000000103",
+          "name": { "en": "Tags", "nl": "Tags", "fr": "Tags" },
+          "icon": "bi-tag",
+          "type": "query",
+          "queryId": "5aedd91f-cd47-4cb1-914d-b0ab291b16ff",
+          "alias": "tags",
+          "order": 3
         }
       ]
     }

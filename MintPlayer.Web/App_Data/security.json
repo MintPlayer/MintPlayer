@@ -16,6 +16,30 @@
       "resource": "QueryReadEditNewDelete/MediumType",
       "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
       "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000003",
+      "resource": "QueryRead/TagCategory",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000004",
+      "resource": "QueryReadEditNewDelete/TagCategory",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000005",
+      "resource": "QueryRead/Tag",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000006",
+      "resource": "QueryReadEditNewDelete/Tag",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
     }
   ]
 }

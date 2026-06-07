@@ -1,17 +1,17 @@
 {
   "persistentObject": {
-    "id": "2f167ae5-6428-4552-a4c2-8e36a169c998",
-    "name": "MediumType",
-    "clrType": "MintPlayer.Domain.Entities.MediumType",
-    "displayAttribute": "Name",
+    "id": "f39290dd-c0b9-4fea-bfcb-2ca81a2cd505",
+    "name": "TagCategory",
+    "clrType": "MintPlayer.Domain.Entities.TagCategory",
+    "displayAttribute": "Description",
     "tabs": [],
     "groups": [],
     "attributes": [
       {
-        "id": "efe73cc0-f24f-41be-951a-76e79411ccd4",
-        "name": "Name",
+        "id": "5679c065-41f9-44a8-a165-ed155cb6d6ce",
+        "name": "Description",
         "label": {
-          "en": "Name"
+          "en": "Description"
         },
         "dataType": "string",
         "isRequired": false,
@@ -23,13 +23,13 @@
         "rules": []
       },
       {
-        "id": "1cdbb54b-1c31-4a9e-8c05-9738f7b08a5a",
-        "name": "Description",
+        "id": "5f2392f4-d8cc-434e-a119-9c69a78c2c4d",
+        "name": "Color",
         "label": {
-          "en": "Description"
+          "en": "Color"
         },
-        "dataType": "string",
-        "isRequired": false,
+        "dataType": "color",
+        "isRequired": true,
         "isVisible": true,
         "isReadOnly": false,
         "order": 2,
@@ -38,7 +38,7 @@
         "rules": []
       },
       {
-        "id": "5f21ce89-bd97-49c7-a89a-e1060bca5337",
+        "id": "7547ebc6-6fe9-4510-81ba-872a34ba2d7d",
         "name": "CreatedAt",
         "label": {
           "en": "Created At"
@@ -53,7 +53,7 @@
         "rules": []
       },
       {
-        "id": "0edcc856-2e81-4f37-8877-62ea4a1ccfa7",
+        "id": "0df05fc1-34f1-48f9-9cb6-a3fc67d20dc4",
         "name": "ModifiedAt",
         "label": {
           "en": "Modified At"
@@ -68,7 +68,7 @@
         "rules": []
       },
       {
-        "id": "1a3fad1a-3129-4826-bf78-e61323c8a361",
+        "id": "cecdfa81-21d2-4ff0-a7a3-495a53bc25a4",
         "name": "IsDeleted",
         "label": {
           "en": "Is Deleted"
@@ -83,7 +83,7 @@
         "rules": []
       },
       {
-        "id": "791cc518-22b5-4fb5-821d-aac9b3cfea81",
+        "id": "81c675b8-3473-4728-aa02-a90d79d9614a",
         "name": "DeletedAt",
         "label": {
           "en": "Deleted At"
@@ -98,7 +98,7 @@
         "rules": []
       },
       {
-        "id": "995b49de-6b74-42e9-89bb-52d8ec7d9c80",
+        "id": "d630768f-a420-45f7-bc8b-821c8cf9129e",
         "name": "OldId",
         "label": {
           "en": "Old Id"
@@ -117,20 +117,19 @@
   },
   "queries": [
     {
-      "id": "479ce114-8306-4d0f-a738-66bf183f89ae",
-      "name": "GetMediumTypes",
-      "source": "Database.MediumTypes",
-      "alias": "medium-types",
+      "id": "dc9bda11-7223-432e-bc9e-bffee4506e56",
+      "name": "GetTagCategories",
+      "source": "Database.TagCategories",
       "sortColumns": [
         {
-          "property": "Name",
+          "property": "Description",
           "direction": "asc"
         }
       ],
       "renderMode": "Pagination",
       "useProjection": false,
-      "entityType": "MediumType",
-      "isStreamingQuery": false
+      "isStreamingQuery": false,
+      "alias": "tag-categories"
     }
   ]
 }

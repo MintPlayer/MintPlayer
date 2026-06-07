@@ -20,4 +20,10 @@ public class MintPlayerSparkContext : SparkContext
     // (an IRavenQueryable<T>) at runtime, which the model synchronizer + query executor require.
     public IRavenQueryable<MediumType> MediumTypes =>
         (IRavenQueryable<MediumType>)Session.Query<MediumType>().Where(x => !x.IsDeleted);
+
+    public IRavenQueryable<TagCategory> TagCategories =>
+        (IRavenQueryable<TagCategory>)Session.Query<TagCategory>().Where(x => !x.IsDeleted);
+
+    public IRavenQueryable<Tag> Tags =>
+        (IRavenQueryable<Tag>)Session.Query<Tag>().Where(x => !x.IsDeleted);
 }
