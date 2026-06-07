@@ -10,7 +10,7 @@ export const routes: Routes = [
     children: [
       ...sparkAuthRoutes(),
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', loadComponent: () => import('./pages/home/home').then(m => m.Home) },
+      { path: 'home', title: 'Home', loadComponent: () => import('./pages/home/home').then(m => m.Home) },
       // Metadata-driven query lists + PersistentObject create/edit/detail screens.
       ...sparkRoutes(),
     ],
