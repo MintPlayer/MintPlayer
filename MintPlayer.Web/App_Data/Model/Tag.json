@@ -132,7 +132,9 @@
         "rules": []
       }
     ],
-    "queries": []
+    "queries": [
+      "tag-children"
+    ]
   },
   "queries": [
     {
@@ -149,6 +151,48 @@
       "useProjection": false,
       "isStreamingQuery": false,
       "alias": "tags"
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000001",
+      "name": "Category_Tags",
+      "source": "Custom.Category_Tags",
+      "entityType": "Tag",
+      "alias": "category-tags",
+      "sortColumns": [
+        {
+          "property": "Description",
+          "direction": "asc"
+        }
+      ],
+      "renderMode": "Pagination",
+      "useProjection": false,
+      "isStreamingQuery": false,
+      "description": {
+        "en": "Tags",
+        "nl": "Tags",
+        "fr": "Tags"
+      }
+    },
+    {
+      "id": "c1000000-0000-0000-0000-000000000002",
+      "name": "Tag_Children",
+      "source": "Custom.Tag_Children",
+      "entityType": "Tag",
+      "alias": "tag-children",
+      "sortColumns": [
+        {
+          "property": "Description",
+          "direction": "asc"
+        }
+      ],
+      "renderMode": "Pagination",
+      "useProjection": false,
+      "isStreamingQuery": false,
+      "description": {
+        "en": "Child tags",
+        "nl": "Subtags",
+        "fr": "Sous-tags"
+      }
     }
   ]
 }

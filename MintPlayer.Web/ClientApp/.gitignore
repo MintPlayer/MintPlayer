@@ -42,3 +42,6 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Framework-generated auth scaffold helper (we wire auth manually in app.config.ts)
+/src/spark-auth.setup.ts

@@ -114,7 +114,9 @@
         "rules": []
       }
     ],
-    "queries": []
+    "queries": [
+      "category-tags"
+    ]
   },
   "queries": [
     {
