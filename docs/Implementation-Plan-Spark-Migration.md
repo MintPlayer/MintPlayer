@@ -57,17 +57,17 @@ Goal: model and CRUD-enable the full catalog; admin screens done via auto-UI; cu
 
 Vertical slices, in dependency order:
 
-- **2.1 Tag + TagCategory** — self-reference (`ParentId`), color, children sub-query; **custom renderers:** tag-tree view, color swatch (color swatch exists in Fleet demo — reuse).
-- **2.2 Person** — base fields, media AsDetail, tags multi-select (**custom multi-reference renderer**).
-- **2.3 Artist** — + members (AsDetail `{PersonRef, Active}`), songs link, media, tags.
-- **2.4 Song** — + artists (AsDetail `{ArtistRef, Credited}`), media, tags, released date.
-- **2.5 Cross-type search index** — `AbstractMultiMapIndexCreationTask<VSubject>` + `Custom.SearchAll` / `Custom.Suggest` query methods (RavenDB full-text + `SuggestUsing`, per D1).
+- **2.1 ✅ Tag + TagCategory** — `TagCategory`(Description, `System.Drawing.Color`) + `Tag`(Description, `[Reference]` Category, self-`[Reference]` Parent). **color-swatch renderer** (column/detail/edit, ng-bootstrap picker) built + registered. Hierarchy via parent-scoped child sub-queries (`Category_Tags`, `Tag_Children`) shown on detail pages. (Standalone tag-tree visualization deferred — sub-queries cover hierarchy management.) Verified in browser incl. create.
+- **2.2 ✅ Person** — `Subject` base (Media `AsDetail` of `Medium`{`[Reference]`MediumType,Value}; `TagIds` list) on `Entity`; `Person`(FirstName, LastName, Born, Died). **`VPerson` query-type + `People_Overview` index** computes `FullName` (display + full-text, filters `!IsDeleted`). Verified: FullName computed in list, not stored; Media AsDetail editor renders. _Tags still render as a raw string AsDetail — multi-reference picker pending._
+- **2.3 ✅ Artist** — `Artist`(Name, YearStarted, YearQuit, `Members` AsDetail `{PersonRef, Active}`). `Person_Artists` sub-query (bands a person is in) on the Person detail. Verified (Raven `.Any()` over embedded array).
+- **2.4 ✅ Song** — `Song`(Title, Released, `Artists` AsDetail `{ArtistRef, Credited}`). `Artist_Songs` sub-query (an artist's songs) on the Artist detail. Verified (Queen ↔ Bohemian Rhapsody ↔ Freddie round-trip).
+- **2.5 Cross-type search index** — `AbstractMultiMapIndexCreationTask<VSubject>` + `Custom.SearchAll` / `Custom.Suggest` query methods (RavenDB full-text + `SuggestUsing`, per D1). (`VPerson`/`People_Overview` establish the projection pattern.)
 - **2.6 Likes** — `Like` collection + aggregate-count index projection + like/unlike custom action or endpoint.
 - **2.7 Media player-type derivation** — port `SongHelper.GetPlayerInfos` regex logic as a computed/projection field.
 
-**Net-new renderers this phase:** multi-reference (tag) picker, tag-tree, drag-reorder list. Build these to be reusable; candidates for upstream.
+**Net-new renderers this phase:** ✅ color-swatch; **pending: multi-reference (tag) picker** (TagIds currently a raw string AsDetail across Person/Artist/Song — build once, shared), tag-tree, drag-reorder list. Reusable; upstream candidates.
 
-**Exit criteria:** Full catalog manageable in admin UI; unified search/suggest works; likes work.
+**Exit criteria:** Full catalog manageable in admin UI; unified search/suggest works; likes work. _(Status 2026-06-07: 2.1–2.4 done — Person/Artist/Song + Medium/Tag/TagCategory CRUD, relationships, sub-queries, program-unit menus all live + verified against RavenDB. Left: multi-reference tag picker, then 2.5 search / 2.6 likes / 2.7 player-type.)_
 
 ---
 
