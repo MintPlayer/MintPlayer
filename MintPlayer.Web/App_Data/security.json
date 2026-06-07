@@ -76,6 +76,42 @@
       "resource": "QueryReadEditNewDelete/Song",
       "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
       "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000001",
+      "resource": "QueryRead/Medium",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000002",
+      "resource": "QueryRead/ArtistMember",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000003",
+      "resource": "QueryRead/SongArtist",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000011",
+      "resource": "QueryReadEditNewDelete/Medium",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000012",
+      "resource": "QueryReadEditNewDelete/ArtistMember",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000013",
+      "resource": "QueryReadEditNewDelete/SongArtist",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
     }
   ]
 }
