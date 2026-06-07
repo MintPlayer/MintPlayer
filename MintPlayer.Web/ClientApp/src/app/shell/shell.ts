@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, inject, signal, effect, afterNextRe
 import { CommonModule, isPlatformBrowser, KeyValuePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { BsShellComponent, BsShellSidebarDirective, BsShellState } from '@mintplayer/ng-bootstrap/shell';
+import { BsShellComponent, BsShellSidebarDirective } from '@mintplayer/ng-bootstrap/shell';
 import type { ShellStateChangeEventDetail } from '@mintplayer/web-components/shell';
 import { BsAccordionComponent, BsAccordionTabComponent, BsAccordionTabHeaderComponent } from '@mintplayer/ng-bootstrap/accordion';
 import { BsNavbarTogglerComponent } from '@mintplayer/ng-bootstrap/navbar-toggler';
@@ -18,8 +18,13 @@ import { BsShellTopbarDirective } from './bs-shell-topbar.directive';
 /**
  * Application shell on ng-bootstrap 22's <bs-shell> (a lit <mp-shell> web component with named
  * slots): topbar (sidebar toggle, language picker, auth bar) + a collapsible sidebar driven by
- * Spark's program-unit metadata, with routed content in the main area. Ported from the Spark
- * Fleet demo shell.
+ * Spark's program-unit metadata, with routed content in the main area.
+ *
+ * Sidebar open/closed is a single writable boolean `sidebarState`: the topbar
+ * <bs-navbar-toggler> two-way binds it (`[(state)]`), and <bs-shell> is driven from it
+ * (`[state]="sidebarState() ? 'show' : 'hide'"`, mirrored back via (statechange)). We emulate
+ * responsive behaviour ourselves — open by default above the breakpoint, closed below, switching
+ * only on breakpoint crossings so a manual toggle isn't clobbered by every resize event.
  */
 @Component({
   selector: 'app-shell',
@@ -43,13 +48,16 @@ export class Shell {
 
   readonly lang = inject(SparkLanguageService);
   programUnitGroups = signal<ProgramUnitGroup[]>([]);
-  shellState = signal<BsShellState>('auto');
-  isSidebarVisible = signal<boolean>(false);
+
+  /** Single source of truth for sidebar open/closed; two-way bound to the navbar toggler. */
+  sidebarState = signal<boolean>(false);
+  private wasAboveBreakpoint = false;
 
   constructor() {
     afterNextRender(() => {
+      this.wasAboveBreakpoint = this.isAboveBreakpoint();
+      this.sidebarState.set(this.wasAboveBreakpoint);
       this.setupResizeListener();
-      this.updateSidebarVisibility();
     });
 
     // Re-fetch program units whenever auth state changes (login/logout).
@@ -64,21 +72,15 @@ export class Shell {
     this.programUnitGroups.set(config.programUnitGroups.sort((a, b) => a.order - b.order));
   }
 
-  toggleSidebar(open: boolean) {
-    this.shellState.set(open ? 'show' : 'hide');
-    this.updateSidebarVisibility();
-  }
-
-  // Mirror the shell's actual open/closed state back to the toggler without forcing show/hide,
-  // so responsive 'auto' mode is preserved. Explicit toggles go through the toggler.
-  onShellToggle(detail: ShellStateChangeEventDetail) {
-    this.isSidebarVisible.set(detail.open);
+  /** Reflect the shell's own open/close (e.g. backdrop click) back into the toggler's state. */
+  onShellStateChange(detail: ShellStateChangeEventDetail) {
+    this.sidebarState.set(detail.open);
   }
 
   onMenuItemClick() {
-    if (this.shellState() !== 'auto') {
-      this.shellState.set('hide');
-      this.updateSidebarVisibility();
+    // On narrow viewports the sidebar is an overlay — close it after navigating.
+    if (!this.isAboveBreakpoint()) {
+      this.sidebarState.set(false);
     }
   }
 
@@ -87,20 +89,15 @@ export class Shell {
       return;
     }
 
-    const onResize = () => this.updateSidebarVisibility();
+    const onResize = () => {
+      const above = this.isAboveBreakpoint();
+      if (above !== this.wasAboveBreakpoint) {
+        this.wasAboveBreakpoint = above;
+        this.sidebarState.set(above); // only flip on a breakpoint crossing
+      }
+    };
     window.addEventListener('resize', onResize);
     this.destroyRef.onDestroy(() => window.removeEventListener('resize', onResize));
-  }
-
-  private updateSidebarVisibility(): void {
-    const state = this.shellState();
-    if (state === 'show') {
-      this.isSidebarVisible.set(true);
-    } else if (state === 'hide') {
-      this.isSidebarVisible.set(false);
-    } else {
-      this.isSidebarVisible.set(this.isAboveBreakpoint());
-    }
   }
 
   private isAboveBreakpoint(): boolean {

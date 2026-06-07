@@ -1,8 +1,6 @@
-<bs-shell [state]="shellState()" [breakpoint]="'md'" (statechange)="onShellToggle($event)">
+<bs-shell [state]="sidebarState() ? 'show' : 'hide'" [breakpoint]="'md'" (statechange)="onShellStateChange($event)">
   <div *bsShellTopbar class="w-100 bg-dark d-flex align-items-center">
-    <bs-navbar-toggler [state]="isSidebarVisible()"
-                       (stateChange)="toggleSidebar($event)">
-    </bs-navbar-toggler>
+    <bs-navbar-toggler class="cursor-pointer" [(state)]="sidebarState"></bs-navbar-toggler>
     <a class="navbar-brand text-light ms-2" routerLink="/home">MintPlayer</a>
     <div class="ms-auto me-3 d-flex align-items-center gap-2">
       @if (lang.languages() | keyvalue; as langs) {
