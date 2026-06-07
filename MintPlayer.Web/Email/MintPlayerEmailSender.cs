@@ -65,7 +65,7 @@ public sealed class MintPlayerEmailSender : IEmailSender<MintPlayerUser>
         await client.ConnectAsync(options.Host, options.Port, security);
         if (!string.IsNullOrEmpty(options.User))
         {
-            await client.AuthenticateAsync(options.User, options.Password);
+            await client.AuthenticateAsync(options.User, options.Password ?? string.Empty);
         }
         await client.SendAsync(message);
         await client.DisconnectAsync(quit: true);

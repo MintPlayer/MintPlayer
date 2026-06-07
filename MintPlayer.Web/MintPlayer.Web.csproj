@@ -20,18 +20,19 @@
     </PackageReference>
   </ItemGroup>
 
-  <!-- Local Spark clone (C:\Repos\MintPlayer.Spark). Consuming the framework via ProjectReference
-       keeps the dev loop tight while app + framework are co-developed; switch to versioned NuGet
-       packages at release (see Phase 6).
-       NB: a package swap was attempted and reverted — the published feed is currently inconsistent
-       (MintPlayer.Spark preview.34 depends on MintPlayer.Spark.Abstractions >= preview.34, but
-       Abstractions is only published up to preview.20). Revisit once the framework republishes a
-       coherent set. -->
+  <!-- Spark framework via published NuGet packages (coherent preview.35 set — the earlier
+       Abstractions publish-skew that forced cross-repo ProjectReference is fixed). Consuming via
+       NuGet keeps the build single-context (no Spark source needed), which is what the Docker
+       image relies on. The source generators ship as a separate analyzer package; Abstractions is
+       pinned on MintPlayer.Domain so app + framework resolve the same assembly. -->
   <ItemGroup>
     <ProjectReference Include="..\MintPlayer.Domain\MintPlayer.Domain.csproj" />
-    <ProjectReference Include="..\..\MintPlayer.Spark\libs\spark\MintPlayer.Spark\MintPlayer.Spark.csproj" />
-    <ProjectReference Include="..\..\MintPlayer.Spark\libs\authorization\MintPlayer.Spark.Authorization\MintPlayer.Spark.Authorization.csproj" />
-    <ProjectReference Include="..\..\MintPlayer.Spark\libs\source_generators\MintPlayer.Spark.SourceGenerators\MintPlayer.Spark.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <PackageReference Include="MintPlayer.Spark" Version="10.0.0-preview.35" />
+    <PackageReference Include="MintPlayer.Spark.Authorization" Version="10.0.0-preview.35" />
+    <PackageReference Include="MintPlayer.Spark.SourceGenerators" Version="10.0.0-preview.35">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
