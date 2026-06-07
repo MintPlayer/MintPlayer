@@ -10,6 +10,9 @@ import { routes } from './app.routes';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideBaseHref } from '@mintplayer/ng-base-url';
 import { MintPlayerTitleStrategy } from './seo/title-strategy';
+import { ColorColumnRenderer } from './renderers/color-column-renderer';
+import { ColorDetailRenderer } from './renderers/color-detail-renderer';
+import { ColorEditRenderer } from './renderers/color-edit-renderer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,9 +23,16 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideSparkAuth(),
     provideSparkClientOperations(),
-    // Custom attribute renderers (tag picker, karaoke editor, video player, …) get
-    // registered here as the catalog UI is built out (Phase 2+).
-    provideSparkAttributeRenderers([]),
+    // Custom attribute renderers. Bind to a model attribute via its "renderer" field
+    // (e.g. TagCategory.Color → "color-swatch"). More land here as the catalog UI grows.
+    provideSparkAttributeRenderers([
+      {
+        name: 'color-swatch',
+        columnComponent: ColorColumnRenderer,
+        detailComponent: ColorDetailRenderer,
+        editComponent: ColorEditRenderer,
+      },
+    ]),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',

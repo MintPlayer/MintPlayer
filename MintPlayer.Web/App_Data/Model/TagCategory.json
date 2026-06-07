@@ -35,7 +35,8 @@
         "order": 2,
         "isArray": false,
         "showedOn": "Query, PersistentObject",
-        "rules": []
+        "rules": [],
+        "renderer": "color-swatch"
       },
       {
         "id": "7547ebc6-6fe9-4510-81ba-872a34ba2d7d",
