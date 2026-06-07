@@ -29,4 +29,7 @@ public class MintPlayerSparkContext : SparkContext
 
     public IRavenQueryable<Person> People =>
         (IRavenQueryable<Person>)Session.Query<Person>().Where(x => !x.IsDeleted);
+
+    public IRavenQueryable<Artist> Artists =>
+        (IRavenQueryable<Artist>)Session.Query<Artist>().Where(x => !x.IsDeleted);
 }

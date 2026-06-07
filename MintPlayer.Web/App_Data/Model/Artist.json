@@ -1,19 +1,17 @@
 {
   "persistentObject": {
-    "id": "453a4f42-86ee-46d5-bd98-d19d21c296aa",
-    "name": "Person",
-    "clrType": "MintPlayer.Domain.Entities.Person",
-    "queryType": "MintPlayer.Web.Projections.VPerson",
-    "indexName": "People_Overview",
-    "displayAttribute": "FullName",
+    "id": "940e265e-b076-40a0-863f-e5b9324c931a",
+    "name": "Artist",
+    "clrType": "MintPlayer.Domain.Entities.Artist",
+    "displayAttribute": "Name",
     "tabs": [],
     "groups": [],
     "attributes": [
       {
-        "id": "807d4e12-3b64-4c7c-b2f2-ad67b34fecba",
-        "name": "FirstName",
+        "id": "a71a50f1-6d90-4909-b083-cae480705423",
+        "name": "Name",
         "label": {
-          "en": "First Name"
+          "en": "Name"
         },
         "dataType": "string",
         "isRequired": false,
@@ -21,33 +19,31 @@
         "isReadOnly": false,
         "order": 1,
         "isArray": false,
-        "inQueryType": false,
-        "showedOn": "PersistentObject",
+        "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "adc4a2cd-d32b-47f5-9073-39a3c5f7b2fd",
-        "name": "LastName",
+        "id": "c2b78aab-7e6a-4e34-bb05-392dda981683",
+        "name": "YearStarted",
         "label": {
-          "en": "Last Name"
+          "en": "Year Started"
         },
-        "dataType": "string",
+        "dataType": "number",
         "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,
         "order": 2,
         "isArray": false,
-        "inQueryType": false,
-        "showedOn": "PersistentObject",
+        "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "91ce0805-a9df-4418-a41b-570b639e94b3",
-        "name": "Born",
+        "id": "b01a0dec-06c5-44cc-8ba9-9ef2ec4cebba",
+        "name": "YearQuit",
         "label": {
-          "en": "Born"
+          "en": "Year Quit"
         },
-        "dataType": "datetime",
+        "dataType": "number",
         "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,
@@ -57,22 +53,23 @@
         "rules": []
       },
       {
-        "id": "56b275ba-b5af-4979-9d95-eda83a2f4224",
-        "name": "Died",
+        "id": "68a766c7-fc4e-47ca-b81d-ec4c2b41e89f",
+        "name": "Members",
         "label": {
-          "en": "Died"
+          "en": "Members"
         },
-        "dataType": "datetime",
+        "dataType": "AsDetail",
         "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,
         "order": 4,
-        "isArray": false,
+        "asDetailType": "MintPlayer.Domain.Entities.ArtistMember",
+        "isArray": true,
         "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "fb5376b3-eb98-4fee-b8a9-6a6843421dee",
+        "id": "cf92bee5-ed15-4951-b1e9-033835c7b391",
         "name": "Media",
         "label": {
           "en": "Media"
@@ -84,12 +81,11 @@
         "order": 5,
         "asDetailType": "MintPlayer.Domain.Entities.Medium",
         "isArray": true,
-        "inQueryType": false,
-        "showedOn": "PersistentObject",
+        "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "5e79fc94-933a-4472-8171-af846caf126d",
+        "id": "d7f5333e-23b2-478a-8b0c-5a4130f03160",
         "name": "TagIds",
         "label": {
           "en": "Tag Ids"
@@ -101,12 +97,11 @@
         "order": 6,
         "asDetailType": "System.String",
         "isArray": true,
-        "inQueryType": false,
-        "showedOn": "PersistentObject",
+        "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "31bd2c77-50bf-4e8e-af48-535ad10d9081",
+        "id": "6d58c369-6bd2-43db-9c56-6e4a4577d960",
         "name": "CreatedAt",
         "label": {
           "en": "Created At"
@@ -117,12 +112,11 @@
         "isReadOnly": true,
         "order": 7,
         "isArray": false,
-        "inQueryType": false,
-        "showedOn": "PersistentObject",
+        "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "8bc44f22-3863-4ec4-974f-7750424a9b9e",
+        "id": "673f5090-a4c5-4d36-8567-cb29099b329c",
         "name": "ModifiedAt",
         "label": {
           "en": "Modified At"
@@ -133,12 +127,11 @@
         "isReadOnly": true,
         "order": 8,
         "isArray": false,
-        "inQueryType": false,
-        "showedOn": "PersistentObject",
+        "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "ef3884bc-7353-4f19-a501-5225a56323d1",
+        "id": "f6646ff9-74f9-424b-9d30-c87c8c0ce9e5",
         "name": "IsDeleted",
         "label": {
           "en": "Is Deleted"
@@ -149,12 +142,11 @@
         "isReadOnly": true,
         "order": 9,
         "isArray": false,
-        "inQueryType": false,
-        "showedOn": "PersistentObject",
+        "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "e4169035-2ad6-4164-865a-fff2366f87d8",
+        "id": "6d310d44-8345-436e-983e-5e85a8c84e73",
         "name": "DeletedAt",
         "label": {
           "en": "Deleted At"
@@ -165,12 +157,11 @@
         "isReadOnly": true,
         "order": 10,
         "isArray": false,
-        "inQueryType": false,
-        "showedOn": "PersistentObject",
+        "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "dd25f76f-6113-4ff7-a53b-8cd8d5bc4359",
+        "id": "884cc56d-4f43-4ec0-9d55-4e27ac46dc29",
         "name": "OldId",
         "label": {
           "en": "Old Id"
@@ -181,46 +172,47 @@
         "isReadOnly": true,
         "order": 11,
         "isArray": false,
-        "inQueryType": false,
-        "showedOn": "PersistentObject",
-        "rules": []
-      },
-      {
-        "id": "bbdc6397-5320-4069-b26e-6bfefeaa2da1",
-        "name": "FullName",
-        "label": {
-          "en": "Full Name"
-        },
-        "dataType": "string",
-        "isRequired": false,
-        "isVisible": true,
-        "isReadOnly": false,
-        "order": 12,
-        "isArray": false,
-        "inCollectionType": false,
-        "showedOn": "Query",
+        "showedOn": "Query, PersistentObject",
         "rules": []
       }
     ],
-    "queries": [
-      "person-artists"
-    ]
+    "queries": []
   },
   "queries": [
     {
-      "id": "777bf3cb-37c2-4527-afbf-57911e57fc5f",
-      "name": "GetPeople",
-      "source": "Database.People",
-      "alias": "people",
+      "id": "ef50bb00-fb3d-4a88-817f-15a2f305e90e",
+      "name": "GetArtists",
+      "source": "Database.Artists",
       "sortColumns": [
         {
-          "property": "LastName",
+          "property": "Name",
           "direction": "asc"
         }
       ],
       "renderMode": "Pagination",
       "useProjection": false,
-      "entityType": "Person",
+      "isStreamingQuery": false,
+      "alias": "artists"
+    },
+    {
+      "id": "c2000000-0000-0000-0000-000000000001",
+      "name": "Person_Artists",
+      "description": {
+        "en": "Member of",
+        "nl": "Lid van",
+        "fr": "Membre de"
+      },
+      "source": "Custom.Person_Artists",
+      "entityType": "Artist",
+      "alias": "person-artists",
+      "sortColumns": [
+        {
+          "property": "Name",
+          "direction": "asc"
+        }
+      ],
+      "renderMode": "Pagination",
+      "useProjection": false,
       "isStreamingQuery": false
     }
   ]

@@ -14,6 +14,15 @@
           "queryId": "777bf3cb-37c2-4527-afbf-57911e57fc5f",
           "alias": "people",
           "order": 1
+        },
+        {
+          "id": "b2000000-0000-0000-0000-000000000102",
+          "name": { "en": "Artists", "nl": "Artiesten", "fr": "Artistes" },
+          "icon": "bi-people",
+          "type": "query",
+          "queryId": "ef50bb00-fb3d-4a88-817f-15a2f305e90e",
+          "alias": "artists",
+          "order": 2
         }
       ]
     },

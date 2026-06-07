@@ -1,0 +1,46 @@
+{
+  "persistentObject": {
+    "id": "93305ab7-8d2e-4ebe-937e-5935b7da6638",
+    "name": "ArtistMember",
+    "clrType": "MintPlayer.Domain.Entities.ArtistMember",
+    "displayAttribute": "PersonId",
+    "tabs": [],
+    "groups": [],
+    "attributes": [
+      {
+        "id": "5a9ef8b0-1fe1-4100-8d4b-9cf55e2adc15",
+        "name": "PersonId",
+        "label": {
+          "en": "Person Id"
+        },
+        "dataType": "Reference",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 1,
+        "query": "GetPeople",
+        "referenceType": "MintPlayer.Domain.Entities.Person",
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "32f81152-b2f1-461f-9a1b-54b96365792a",
+        "name": "Active",
+        "label": {
+          "en": "Active"
+        },
+        "dataType": "boolean",
+        "isRequired": true,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 2,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      }
+    ],
+    "queries": []
+  },
+  "queries": []
+}
