@@ -11,7 +11,7 @@
 
 MintPlayer is today an ASP.NET Core MVC application using the repository pattern over EF Core + SQL Server, with Elasticsearch for search and a bespoke Angular 13 SPA (SSR + PWA). It is a public music catalog: artists, persons (band members), songs, tags, playlists, lyrics (with karaoke timing), likes, a blog, and a rich account system (local + 5 social providers, email confirmation, password reset, TOTP 2FA, WebAuthn passkeys).
 
-This project rewrites MintPlayer on top of **MintPlayer.Spark** (`C:\Repos\MintPlayer.Spark`) — a low-code framework that replaces DTOs, repositories, and controllers with a generic `PersistentObject` middleware over **RavenDB**, plus a metadata-driven Angular 21 admin UI. The goal is to **prune the large boilerplate surface** (DTOs, mappers, repositories, services, dual controller stacks) while preserving every user-facing feature.
+This project rewrites MintPlayer on top of **MintPlayer.Spark** (`C:\Repos\MintPlayer.Spark`) — a low-code framework that replaces DTOs, repositories, and controllers with a generic `PersistentObject` middleware over **RavenDB**, plus a metadata-driven Angular 22 admin UI. The goal is to **prune the large boilerplate surface** (DTOs, mappers, repositories, services, dual controller stacks) while preserving every user-facing feature.
 
 The bet is sound: Spark removes essentially all the CRUD/admin/data-access boilerplate and gives us auth, messaging, cron, indexing, and concurrency for free. The remaining hand-built work concentrates in areas Spark does **not** cover out of the box: **the bespoke public-facing UI** (global media player, song/artist pages, karaoke editor), and **the long tail of auth** (social login UI, 2FA enrollment, passkeys). SEO/SSR — originally the top risk — is handled by the existing **`MintPlayer.AspNetCore.SpaServices.Prerendering`** library, so it is wiring rather than net-new engineering.
 
@@ -34,7 +34,7 @@ The bet is sound: Spark removes essentially all the CRUD/admin/data-access boile
 
 | # | Non-goal |
 |---|----------|
-| N1 | Re-platforming away from Angular (we stay on Angular, upgraded to 21 to match ng-spark). |
+| N1 | Re-platforming away from Angular (we stay on Angular, upgraded to 22 to match ng-spark). |
 | N2 | Changing the product feature set or visual redesign (this is a re-platform, not a redesign). |
 | N3 | Making Spark an OpenID Connect identity provider. |
 | N4 | Migrating the standalone Crawler's scratch database; the crawler/fetcher logic is ported but its experimental storage is out of scope. |
@@ -86,7 +86,7 @@ Local login + registration, email confirmation, password reset, password change,
 ## 4. Target Architecture
 
 ```
-┌─────────────────────────── One Angular 21 app ───────────────────────────┐
+┌─────────────────────────── One Angular 22 app ───────────────────────────┐
 │  Public shell (/)                        Admin shell (/admin, authz)       │
 │  ├─ home, search, artist/song/person     ├─ ...sparkRoutes()  (auto CRUD)  │
 │  ├─ playlist, blog, gdpr                  │   po/{type}, query/{id}         │
@@ -119,7 +119,7 @@ Local login + registration, email confirmation, password reset, password change,
 | Data | SQL Server + EF Core | RavenDB (Spark `SparkContext`) |
 | Search | Elasticsearch (NEST) | RavenDB full-text + `SuggestUsing` (default); external engine only if needed |
 | Identity | ASP.NET Identity (SQL) | Spark Authorization (`SparkUser` in RavenDB) + Identity API |
-| Frontend | Angular 13 + Universal SSR + PWA | Angular 21, ng-spark admin + bespoke public site |
+| Frontend | Angular 13 + Universal SSR + PWA | Angular 22, ng-spark admin + bespoke public site |
 | Background | IHostedService + DB job queue | Spark Cron + Messaging + Subscription Workers |
 
 ---
@@ -270,8 +270,8 @@ A one-time ETL from SQL Server → RavenDB is required (net-new tooling, run **o
 | R2 | WebAuthn/passkeys absent from Spark; **in scope for v1** (D3). | Med-High | Port the existing Fido2NetLib backend + Angular components; allow extra schedule for it in Phase 5; contribute to `ng-spark-auth`. |
 | R3 | Social login UI + account linking are net-new frontend. | Medium | Build a reusable social-button + popup component early; reuse existing `@mintplayer/ng-*` social login components where possible. Consider upstreaming to ng-spark-auth. |
 | R4 | RavenDB full-text may underperform Elasticsearch for autocomplete at scale. | Medium | Benchmark with production data volume in Phase 1 spike. Keep the messaging-fed external-engine path as a fallback design. |
-| R5 | Data migration correctness (polymorphism, references). | Medium | Build idempotent ETL with reconciliation; dry-run against a prod snapshot; keep SQL backup for rollback. **Password-hash risk low** — identical default PBKDF2 hasher on both sides; copy `PasswordHash`+`SecurityStamp` verbatim and verify a real login round-trip in the Phase-0 spike. |
-| R6 | Angular 13 → 21 jump for ported bespoke components (player, karaoke). | Medium | Components largely depend on `@mintplayer/ng-*` libs already at v21 in the Spark monorepo; upgrade incrementally. |
+| R5 | Data migration correctness (polymorphism, references). | Medium | Build idempotent ETL with reconciliation; dry-run against a prod snapshot; keep SQL backup for rollback. **Password-hash risk low** — identical default PBKDF2 hasher on both sides; copy `PasswordHash`+`SecurityStamp` verbatim. **Proven in `spikes/Spike.Migration` (Phase-0 spike 0.4, 5/5 green):** verbatim-hash login, legacy lower-iteration hash → `SuccessRehashNeeded`, live TOTP code validates against the copied authenticator key, and TPH→3-collection reference resolution. |
+| R6 | Angular 13 → 22 jump for ported bespoke components (player, karaoke). | Medium | Components depend on `@mintplayer/ng-*` libs at v22 in the Spark monorepo. Adopting ng-spark required realigning it to ng-bootstrap 22 (datatable merge + toggle→checkbox), shipped as `@mintplayer/ng-spark@22.0.0` (Spark PR #179) — expect similar small framework PRs when porting the player/karaoke. |
 | R7 | Spark security issues (plaintext recovery codes/OAuth tokens). | Low-Med | Fix in `UserStore.cs` before production; contribute upstream. |
 | R8 | Two design systems (ng-bootstrap admin vs custom public). | Low | Scope admin theme under the admin shell; share the global player layer. |
 
@@ -300,7 +300,7 @@ A one-time ETL from SQL Server → RavenDB is required (net-new tooling, run **o
 | **D4** | Social providers in v1. | Google + Microsoft + Facebook + GitHub (low-effort backends). Twitter/LinkedIn included if their current OAuth2 packages integrate cleanly; otherwise fast-follow. |
 | **D5** | Public signed-JWT API. | **Keep** — other instances need to query it. Implemented as hand-written `ApiController`s over `IAsyncDocumentSession` + a dedicated JWT bearer scheme (see §5.6). Confirmed feasible. |
 | **D8** | Password migration. | **Migrate password hashes verbatim — no reset.** Both the old app and Spark use ASP.NET Core Identity's default `PasswordHasher<TUser>` (PBKDF2/Identity-V3, **not BCrypt**, no custom hasher), so the hash is portable. The ETL copies `AspNetUsers.PasswordHash` → `SparkUser.PasswordHash` and `SecurityStamp` → `SparkUser.SecurityStamp` (null hash for social-only users). Existing logins keep working; if the new app's hasher iteration count differs, Identity transparently re-hashes to the new parameters on the user's next successful login (forward-compatible). A one-time reset remains a fallback only. |
-| **D6** | Repo. | **New Spark solution/structure inside `C:\Repos\MintPlayer`**; old projects deleted as their replacements land. |
+| **D6** | Repo. | **New structure inside `C:\Repos\MintPlayer`** (executed): legacy app moved to `legacy/` (deleted at cutover), new `MintPlayer.Web` Spark host + `MintPlayer.Domain` + `MintPlayer.slnx` at the root. Spark consumed via `ProjectReference` to the local clone during co-development; switch to versioned NuGet packages at release (Phase 6). |
 | **D7** | Cutover. | **Single full-swoop replacement.** The old app and the new app never run side-by-side, and there is **no synchronization** between SQL Server and RavenDB. One offline migration run, then redeploy the new app in place of the old one. (No strangler, no dual-run, no live fallback.) Rollback, if needed, means redeploying the previous build against a retained SQL backup — a manual restore, not a live system. |
 
 ---
