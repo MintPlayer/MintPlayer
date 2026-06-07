@@ -23,6 +23,15 @@
           "queryId": "ef50bb00-fb3d-4a88-817f-15a2f305e90e",
           "alias": "artists",
           "order": 2
+        },
+        {
+          "id": "b2000000-0000-0000-0000-000000000103",
+          "name": { "en": "Songs", "nl": "Nummers", "fr": "Chansons" },
+          "icon": "bi-music-note",
+          "type": "query",
+          "queryId": "266b491e-1976-47a2-8920-e425273ec995",
+          "alias": "songs",
+          "order": 3
         }
       ]
     },

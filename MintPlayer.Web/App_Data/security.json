@@ -64,6 +64,18 @@
       "resource": "QueryReadEditNewDelete/Artist",
       "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
       "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-00000000000b",
+      "resource": "QueryRead/Song",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-00000000000c",
+      "resource": "QueryReadEditNewDelete/Song",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
     }
   ]
 }

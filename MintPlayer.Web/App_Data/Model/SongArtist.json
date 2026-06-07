@@ -1,0 +1,46 @@
+{
+  "persistentObject": {
+    "id": "cde3ef79-1f61-4dfd-bad6-9b6dbc04ef1d",
+    "name": "SongArtist",
+    "clrType": "MintPlayer.Domain.Entities.SongArtist",
+    "displayAttribute": "ArtistId",
+    "tabs": [],
+    "groups": [],
+    "attributes": [
+      {
+        "id": "475e6638-465d-4546-a2e0-9b64a959ff60",
+        "name": "ArtistId",
+        "label": {
+          "en": "Artist Id"
+        },
+        "dataType": "Reference",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 1,
+        "query": "GetArtists",
+        "referenceType": "MintPlayer.Domain.Entities.Artist",
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "959cb93b-8de7-45fe-8c22-b4b9e387e086",
+        "name": "Credited",
+        "label": {
+          "en": "Credited"
+        },
+        "dataType": "boolean",
+        "isRequired": true,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 2,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      }
+    ],
+    "queries": []
+  },
+  "queries": []
+}

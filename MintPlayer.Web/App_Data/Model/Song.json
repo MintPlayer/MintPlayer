@@ -1,17 +1,17 @@
 {
   "persistentObject": {
-    "id": "940e265e-b076-40a0-863f-e5b9324c931a",
-    "name": "Artist",
-    "clrType": "MintPlayer.Domain.Entities.Artist",
-    "displayAttribute": "Name",
+    "id": "f9041144-0e31-4f0e-bbcb-b46967799daa",
+    "name": "Song",
+    "clrType": "MintPlayer.Domain.Entities.Song",
+    "displayAttribute": "Title",
     "tabs": [],
     "groups": [],
     "attributes": [
       {
-        "id": "a71a50f1-6d90-4909-b083-cae480705423",
-        "name": "Name",
+        "id": "c745777c-48d5-4c9f-9c59-cf745a150c87",
+        "name": "Title",
         "label": {
-          "en": "Name"
+          "en": "Title"
         },
         "dataType": "string",
         "isRequired": false,
@@ -23,12 +23,12 @@
         "rules": []
       },
       {
-        "id": "c2b78aab-7e6a-4e34-bb05-392dda981683",
-        "name": "YearStarted",
+        "id": "0e76c052-d259-4b50-b187-1fdde42cbc40",
+        "name": "Released",
         "label": {
-          "en": "Year Started"
+          "en": "Released"
         },
-        "dataType": "number",
+        "dataType": "datetime",
         "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,
@@ -38,38 +38,23 @@
         "rules": []
       },
       {
-        "id": "b01a0dec-06c5-44cc-8ba9-9ef2ec4cebba",
-        "name": "YearQuit",
+        "id": "76263028-8bb9-4f5b-984f-299ae83307aa",
+        "name": "Artists",
         "label": {
-          "en": "Year Quit"
-        },
-        "dataType": "number",
-        "isRequired": false,
-        "isVisible": true,
-        "isReadOnly": false,
-        "order": 3,
-        "isArray": false,
-        "showedOn": "Query, PersistentObject",
-        "rules": []
-      },
-      {
-        "id": "68a766c7-fc4e-47ca-b81d-ec4c2b41e89f",
-        "name": "Members",
-        "label": {
-          "en": "Members"
+          "en": "Artists"
         },
         "dataType": "AsDetail",
         "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,
-        "order": 4,
-        "asDetailType": "MintPlayer.Domain.Entities.ArtistMember",
+        "order": 3,
+        "asDetailType": "MintPlayer.Domain.Entities.SongArtist",
         "isArray": true,
         "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "cf92bee5-ed15-4951-b1e9-033835c7b391",
+        "id": "a3d9bc32-8abe-4d1c-bd5c-3d1e35d74cff",
         "name": "Media",
         "label": {
           "en": "Media"
@@ -78,14 +63,14 @@
         "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,
-        "order": 5,
+        "order": 4,
         "asDetailType": "MintPlayer.Domain.Entities.Medium",
         "isArray": true,
         "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "d7f5333e-23b2-478a-8b0c-5a4130f03160",
+        "id": "d1c8168a-e918-4b30-833e-63968221ad21",
         "name": "TagIds",
         "label": {
           "en": "Tag Ids"
@@ -94,17 +79,32 @@
         "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,
-        "order": 6,
+        "order": 5,
         "asDetailType": "System.String",
         "isArray": true,
         "showedOn": "Query, PersistentObject",
         "rules": []
       },
       {
-        "id": "6d58c369-6bd2-43db-9c56-6e4a4577d960",
+        "id": "c858720f-3292-4adf-b3e6-756951d8599f",
         "name": "CreatedAt",
         "label": {
           "en": "Created At"
+        },
+        "dataType": "datetime",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 6,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "78463438-cdd7-4e95-ad63-d18f7b0491c1",
+        "name": "ModifiedAt",
+        "label": {
+          "en": "Modified At"
         },
         "dataType": "datetime",
         "isRequired": false,
@@ -116,12 +116,12 @@
         "rules": []
       },
       {
-        "id": "673f5090-a4c5-4d36-8567-cb29099b329c",
-        "name": "ModifiedAt",
+        "id": "16ee4ed8-bdfe-450c-aea6-af725690b931",
+        "name": "IsDeleted",
         "label": {
-          "en": "Modified At"
+          "en": "Is Deleted"
         },
-        "dataType": "datetime",
+        "dataType": "boolean",
         "isRequired": false,
         "isVisible": false,
         "isReadOnly": true,
@@ -131,12 +131,12 @@
         "rules": []
       },
       {
-        "id": "f6646ff9-74f9-424b-9d30-c87c8c0ce9e5",
-        "name": "IsDeleted",
+        "id": "51b97a82-0452-4b02-84e7-76824ecbeee7",
+        "name": "DeletedAt",
         "label": {
-          "en": "Is Deleted"
+          "en": "Deleted At"
         },
-        "dataType": "boolean",
+        "dataType": "datetime",
         "isRequired": false,
         "isVisible": false,
         "isReadOnly": true,
@@ -146,22 +146,7 @@
         "rules": []
       },
       {
-        "id": "6d310d44-8345-436e-983e-5e85a8c84e73",
-        "name": "DeletedAt",
-        "label": {
-          "en": "Deleted At"
-        },
-        "dataType": "datetime",
-        "isRequired": false,
-        "isVisible": false,
-        "isReadOnly": true,
-        "order": 10,
-        "isArray": false,
-        "showedOn": "Query, PersistentObject",
-        "rules": []
-      },
-      {
-        "id": "884cc56d-4f43-4ec0-9d55-4e27ac46dc29",
+        "id": "a7fe7473-6e85-4bef-8686-0a8b2a0f2628",
         "name": "OldId",
         "label": {
           "en": "Old Id"
@@ -170,52 +155,49 @@
         "isRequired": false,
         "isVisible": false,
         "isReadOnly": true,
-        "order": 11,
+        "order": 10,
         "isArray": false,
         "showedOn": "Query, PersistentObject",
         "rules": []
       }
     ],
-    "queries": [
-      "artist-songs"
-    ]
+    "queries": []
   },
   "queries": [
     {
-      "id": "ef50bb00-fb3d-4a88-817f-15a2f305e90e",
-      "name": "GetArtists",
-      "source": "Database.Artists",
-      "alias": "artists",
+      "id": "266b491e-1976-47a2-8920-e425273ec995",
+      "name": "GetSongs",
+      "source": "Database.Songs",
       "sortColumns": [
         {
-          "property": "Name",
+          "property": "Title",
           "direction": "asc"
         }
       ],
       "renderMode": "Pagination",
       "useProjection": false,
-      "entityType": "Artist",
-      "isStreamingQuery": false
+      "isStreamingQuery": false,
+      "alias": "songs"
     },
     {
-      "id": "c2000000-0000-0000-0000-000000000001",
-      "name": "Person_Artists",
+      "id": "c3000000-0000-0000-0000-000000000001",
+      "name": "Artist_Songs",
       "description": {
-        "en": "Member of",
-        "nl": "Lid van",
-        "fr": "Membre de"
+        "en": "Songs",
+        "nl": "Nummers",
+        "fr": "Chansons"
       },
-      "source": "Custom.Person_Artists",
-      "alias": "person-artists",
+      "source": "Custom.Artist_Songs",
+      "entityType": "Song",
+      "alias": "artist-songs",
       "sortColumns": [
         {
-          "property": "Name",
+          "property": "Title",
           "direction": "asc"
         }
       ],
       "renderMode": "Pagination",
       "useProjection": false,
-      "entityType": "Artist",
       "isStreamingQuery": false
     }
   ]
