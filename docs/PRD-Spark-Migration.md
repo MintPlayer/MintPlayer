@@ -1,8 +1,8 @@
 # PRD — Rewrite MintPlayer on MintPlayer.Spark + RavenDB
 
-**Status:** Draft for review
+**Status:** In implementation — Phase 1 complete; Phase 2 (core catalog) underway (2.1–2.4 done). See the plan for live status.
 **Author:** Pieterjan De Clippel (with Claude)
-**Date:** 2026-06-06
+**Date:** 2026-06-06 (updated 2026-06-08)
 **Related plan:** [`Implementation-Plan-Spark-Migration.md`](./Implementation-Plan-Spark-Migration.md)
 
 ---
@@ -135,8 +135,8 @@ Legend: ✅ clean fit · 🟡 needs config/custom code on a Spark hook · 🔴 n
 | Artist / Person / Song as entities | ✅ | Three RavenDB collections, three `SparkContext` properties. Shared base class for common fields. |
 | Cross-type unified search / favorites | 🔴 | `AbstractMultiMapIndexCreationTask<VSubject>` + a `Custom.` query method; no built-in polymorphic query. |
 | Artist↔Person (`Active`), Artist↔Song (`Credited`) | ✅ | AsDetail arrays embedding `{ Ref + flag }`, inline edit; or junction collections for heavy queries. |
-| Subject↔Tag (multi-select) | 🟡 | Store `string[] TagIds`; **multi-reference picker UI is a custom renderer** (no built-in array-of-references widget). |
-| Tag self-referencing tree + TagCategory color | 🟡 | `[Reference(typeof(Tag))]` on `ParentId`; `Color` auto-maps to `dataType:color`. Tree **view** widget is custom. Children via sub-query on detail page. |
+| Subject↔Tag (multi-select) | ✅ | `[Reference(typeof(Tag),"GetTags")] List<string> TagIds` — **now a native Spark multi-reference** (searchable multi-select picker + chip display, clean `string[]`). Required + shipped framework work: `MintPlayer.Spark preview.36` (reference/primitive array round-trip), `@mintplayer/ng-spark 22.0.2`, `@mintplayer/web-components 2.0.1`. |
+| Tag self-referencing tree + TagCategory color | ✅/🟡 | `[Reference(typeof(Tag))]` on `ParentId`; `Color` → `dataType:color` with a **color-swatch renderer** (built). Children via sub-query on detail (done). Tree **view** widget still custom/deferred. |
 | Playlist ordered tracks, public/private | ✅/🟡 | AsDetail array with `Index`; row-level visibility via `IsAllowedAsync`. Drag-reorder is a custom renderer. |
 | Per-user lyrics + karaoke timing `double[]` | ✅/🔴 | `Lyrics` collection stores cleanly; **timing-array editor is a custom renderer** (the karaoke sync UI). |
 | Media URLs typed + Visible flag | ✅ | AsDetail array + `LookupReference` for MediumType. |
@@ -300,7 +300,7 @@ A one-time ETL from SQL Server → RavenDB is required (net-new tooling, run **o
 | **D4** | Social providers in v1. | Google + Microsoft + Facebook + GitHub (low-effort backends). Twitter/LinkedIn included if their current OAuth2 packages integrate cleanly; otherwise fast-follow. |
 | **D5** | Public signed-JWT API. | **Keep** — other instances need to query it. Implemented as hand-written `ApiController`s over `IAsyncDocumentSession` + a dedicated JWT bearer scheme (see §5.6). Confirmed feasible. |
 | **D8** | Password migration. | **Migrate password hashes verbatim — no reset.** Both the old app and Spark use ASP.NET Core Identity's default `PasswordHasher<TUser>` (PBKDF2/Identity-V3, **not BCrypt**, no custom hasher), so the hash is portable. The ETL copies `AspNetUsers.PasswordHash` → `SparkUser.PasswordHash` and `SecurityStamp` → `SparkUser.SecurityStamp` (null hash for social-only users). Existing logins keep working; if the new app's hasher iteration count differs, Identity transparently re-hashes to the new parameters on the user's next successful login (forward-compatible). A one-time reset remains a fallback only. |
-| **D6** | Repo. | **New structure inside `C:\Repos\MintPlayer`** (executed): legacy app moved to `legacy/` (deleted at cutover), new `MintPlayer.Web` Spark host + `MintPlayer.Domain` + `MintPlayer.slnx` at the root. Spark consumed via `ProjectReference` to the local clone during co-development; switch to versioned NuGet packages at release (Phase 6). |
+| **D6** | Repo. | **New structure inside `C:\Repos\MintPlayer`** (executed): legacy app moved to `legacy/` (deleted at cutover), new `MintPlayer.Web` Spark host + `MintPlayer.Domain` + `MintPlayer.slnx` at the root. Spark **now consumed via published NuGet packages** (`10.0.0-preview.36`) — moved off the cross-repo `ProjectReference` once the feed was coherent; this also makes the Docker image a clean single-context build. Framework changes still land in the Spark repo and are pulled in by version bump. |
 | **D7** | Cutover. | **Single full-swoop replacement.** The old app and the new app never run side-by-side, and there is **no synchronization** between SQL Server and RavenDB. One offline migration run, then redeploy the new app in place of the old one. (No strangler, no dual-run, no live fallback.) Rollback, if needed, means redeploying the previous build against a retained SQL backup — a manual restore, not a live system. |
 
 ---
