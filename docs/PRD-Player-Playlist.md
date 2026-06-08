@@ -1,6 +1,6 @@
 # PRD — Draggable Media Player + Play-Queue + Playlist Sidebar
 
-**Status:** Proposed (investigation complete; awaiting go-ahead to implement)
+**Status:** In implementation — P0–P3 done (deps, `PlayerService`, draggable card, play-button wiring), P4 (sidebar) + P5 (polish/SSR/tests) remaining. Live status in the [companion plan](./Implementation-Plan-Player-Playlist.md).
 **Author:** Pieterjan De Clippel (with Claude)
 **Date:** 2026-06-08
 **Parent docs:** [`PRD-Spark-Migration.md`](./PRD-Spark-Migration.md) · [`Implementation-Plan-Spark-Migration.md`](./Implementation-Plan-Spark-Migration.md)
@@ -140,19 +140,23 @@ export class PlayerService {
       {{ player.currentEntry()?.title }}
       <button (click)="player.toggleSidebar()">…queue…</button>
     </bs-card-header>
-    <bs-card-body class="p-0">
-      <video-player [url]="player.currentEntry()?.url ?? null"
+    <bs-card-body class="p-0 position-relative">
+      <video-player [url]="player.currentEntry()!.url"
                     [autoplay]="true"
                     (playerStateChange)="player.onPlayerState($event)"
                     (progressChange)="player.onProgress($event)" />
+      <!-- Drag-shield: see below. Inert when idle, active while dragging. -->
+      <div class="player-drag-shield" [class.player-drag-shield--active]="dragging()"></div>
     </bs-card-body>
   </bs-card>
 </div>
 ```
 
 - `cdkDragHandle` on the header means buttons/iframe stay interactive; only the header drags.
-- Position persists in a `PlayerService` signal for the session; restored via `[cdkDragFreeDragPosition]`. **SSR-guarded** — the card renders only in the browser (`@if (isBrowser && player.hasCurrent())`), and position read/write uses `afterNextRender`.
-- Mounted in `shell.html` as a sibling of `<router-outlet>` so it never unmounts on navigation.
+- **Drag-shield over the iframe (D11).** An `<iframe>` (the embedded player) swallows mouse events over its rectangle, so a drag passing over it stalls (the document stops receiving `mousemove`, which cdkDrag relies on). A transparent shield sits above the player inside the card body: `pointer-events: none` when idle (the player's own controls work), toggled to `pointer-events: auto` only while dragging (`(cdkDragStarted)`→`dragging=true`, `(cdkDragEnded)`→`false`) so the moves stay in the page's DOM. Mirrors the legacy master-branch fix. (Implemented P2; verified live.)
+- Position persists in a `PlayerService` signal for the session; restored via `[cdkDragFreeDragPosition]`. **SSR-guarded** — the card renders only in the browser (`@if (isBrowser && player.hasCurrent())`).
+- The card unmounts when the queue empties (`hasCurrent()` false), which destroys `<video-player>` and stops playback; track changes keep it mounted and swap `[url]`. So `[url]` is only ever bound to a non-null URL.
+- Mounted in `shell.html` after `</bs-shell>` (outside `<router-outlet>`) so it never unmounts on navigation.
 
 ### 4.4 `PlaylistSidebar` — docked queue panel (mounted in `Shell`)
 
@@ -183,6 +187,7 @@ export class PlayerService {
 | D8 | Persisted `Playlist` entity | **Out of scope — stays Phase 3.1.** `PlayerService` is shaped to accept a saved playlist's tracks later. |
 | D9 | "Ended" detection | Via `(playerStateChange) === EPlayerState.ended` (no dedicated output). |
 | D10 | SSR | Player card + drag are **browser-only** (`isPlatformBrowser` / `afterNextRender`); the service is SSR-inert until a play action occurs. |
+| D11 | Iframe swallows drag events | A transparent **drag-shield** over the player, `pointer-events: none` when idle (native controls work) and `auto` only while dragging, keeps `mousemove` in the page DOM so the drag doesn't stall over the iframe. (Legacy master-branch fix; implemented P2.) |
 
 ---
 
