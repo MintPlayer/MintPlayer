@@ -76,6 +76,7 @@
           "en": "Tag Ids"
         },
         "dataType": "Reference",
+        "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,
         "order": 5,
@@ -83,8 +84,7 @@
         "referenceType": "MintPlayer.Domain.Entities.Tag",
         "isArray": true,
         "showedOn": "Query, PersistentObject",
-        "rules": [],
-        "isRequired": false
+        "rules": []
       },
       {
         "id": "c858720f-3292-4adf-b3e6-756951d8599f",
