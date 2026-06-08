@@ -77,4 +77,28 @@ describe('PlayerService', () => {
     player.toggleSidebar();
     expect(player.isOpen()).toBe(false);
   });
+
+  it('playNow optimistically marks playback as playing (so [playerState] agrees with autoplay)', () => {
+    player.playNow([entry('a')]);
+    expect(player.isPlaying()).toBe(true);
+  });
+
+  it('addToQueue starts playing only when the queue was empty', () => {
+    player.addToQueue([entry('a')]); // empty → starts
+    expect(player.isPlaying()).toBe(true);
+    player.onPlayerState(EPlayerState.paused);
+    player.addToQueue([entry('b')]); // not empty → leaves state alone
+    expect(player.playerState()).toBe(EPlayerState.paused);
+  });
+
+  it('displayTitle overlays a resolved title and falls back to the entry title', () => {
+    player.playNow([entry('a')]);
+    const current = player.currentEntry()!;
+    expect(player.displayTitle(current)).toBe('A'); // placeholder from the entry
+    player.setResolvedTitle('a', '  Bohemian Rhapsody  ');
+    expect(player.displayTitle(current)).toBe('Bohemian Rhapsody'); // resolved + trimmed
+    player.setResolvedTitle('a', '   '); // blank is ignored
+    expect(player.displayTitle(current)).toBe('Bohemian Rhapsody');
+    expect(player.displayTitle(null)).toBe('');
+  });
 });

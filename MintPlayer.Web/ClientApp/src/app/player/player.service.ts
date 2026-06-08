@@ -54,6 +54,15 @@ export class PlayerService {
   /** The floating card's drag position, remembered for the session. */
   readonly cardPosition = this._cardPosition.asReadonly();
 
+  private readonly _resolvedTitles = signal<ReadonlyMap<string, string>>(new Map());
+  /**
+   * Real media titles resolved from the player (`<video-player>.getTitle()`), keyed by {@link PlaylistEntry.key}.
+   * Overlaid on the queue display so entries enqueued with only a URL (the play buttons can't know the track
+   * name) show the actual title once it loads — see {@link displayTitle}. Kept separate from the immutable,
+   * engine-cloned entries rather than mutating them.
+   */
+  readonly resolvedTitles = this._resolvedTitles.asReadonly();
+
   /** True when something is loaded — drives the player card's visibility. */
   readonly hasCurrent = computed(() => this.currentEntry() !== null);
 
@@ -135,6 +144,30 @@ export class PlayerService {
 
   setCardPosition(position: CardPosition): void {
     this._cardPosition.set(position);
+  }
+
+  /** Record a player-resolved media title for an entry (no-op for blank/unchanged values). */
+  setResolvedTitle(key: string, title: string): void {
+    const trimmed = title.trim();
+    if (!trimmed) {
+      return;
+    }
+    this._resolvedTitles.update((map) => {
+      if (map.get(key) === trimmed) {
+        return map;
+      }
+      const next = new Map(map);
+      next.set(key, trimmed);
+      return next;
+    });
+  }
+
+  /** Display label for an entry: the player-resolved title if known, else the entry's own placeholder. */
+  displayTitle(entry: PlaylistEntry | null | undefined): string {
+    if (!entry) {
+      return '';
+    }
+    return this._resolvedTitles().get(entry.key) ?? entry.title;
   }
 
   // ----- bindings from the <video-player> outputs -----

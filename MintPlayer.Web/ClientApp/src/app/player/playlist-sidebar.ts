@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BsListGroupComponent, BsListGroupItemComponent } from '@mintplayer/ng-bootstrap/list-group';
 import { BsProgressComponent, BsProgressBarComponent } from '@mintplayer/ng-bootstrap/progress-bar';
+import { BsFormComponent, BsFormControlDirective } from '@mintplayer/ng-bootstrap/form';
 import { ERepeatMode } from '@mintplayer/playlist-controller';
 import { MediaPlayabilityService } from '../media/media-playability.service';
 import { playlistEntryFromUrl } from './media-resolver';
@@ -24,7 +25,10 @@ import { PlayerService } from './player.service';
  */
 @Component({
   selector: 'app-playlist-sidebar',
-  imports: [RouterLink, BsListGroupComponent, BsListGroupItemComponent, BsProgressComponent, BsProgressBarComponent],
+  imports: [
+    RouterLink, BsListGroupComponent, BsListGroupItemComponent, BsProgressComponent, BsProgressBarComponent,
+    BsFormComponent, BsFormControlDirective,
+  ],
   template: `
     @if (isBrowser && player.isOpen()) {
       <aside class="playlist-sidebar bg-body border-start shadow d-flex flex-column" aria-label="Play queue">
@@ -92,9 +96,9 @@ import { PlayerService } from './player.service';
                     }
                     @if (entry.routerLink; as link) {
                       <a [routerLink]="link" class="text-truncate flex-grow-1 text-decoration-none text-reset"
-                         [title]="entry.title" (click)="player.closeSidebar()">{{ entry.title }}</a>
+                         [title]="player.displayTitle(entry)" (click)="player.closeSidebar()">{{ player.displayTitle(entry) }}</a>
                     } @else {
-                      <span class="text-truncate flex-grow-1" [title]="entry.title">{{ entry.title }}</span>
+                      <span class="text-truncate flex-grow-1" [title]="player.displayTitle(entry)">{{ player.displayTitle(entry) }}</span>
                     }
                     <button type="button" class="btn btn-sm btn-link p-0 lh-1 text-secondary flex-shrink-0"
                             (click)="player.remove(entry)" title="Remove" aria-label="Remove from queue">
@@ -109,14 +113,16 @@ import { PlayerService } from './player.service';
           }
         </div>
 
-        <!-- Add URL -->
-        <form class="d-flex gap-2 p-2 border-top" (submit)="addUrl($event)">
-          <input type="url" class="form-control form-control-sm" placeholder="Add media URL…"
-                 [value]="urlInput()" (input)="onUrlInput($event)" aria-label="Media URL" />
-          <button type="submit" class="btn btn-sm btn-primary" [disabled]="!urlPlayable()" title="Add to queue">
-            <i class="bi bi-plus-lg"></i>
-          </button>
-        </form>
+        <!-- Add URL (bs-form ships the .form-control styling for the input) -->
+        <bs-form class="border-top d-block" (submitted)="addUrl($event)">
+          <div class="d-flex gap-2 p-2">
+            <input type="url" class="form-control-sm" placeholder="Add media URL…"
+                   [value]="urlInput()" (input)="onUrlInput($event)" aria-label="Media URL" />
+            <button type="submit" class="btn btn-sm btn-primary" [disabled]="!urlPlayable()" title="Add to queue">
+              <i class="bi bi-plus-lg"></i>
+            </button>
+          </div>
+        </bs-form>
       </aside>
     }
   `,

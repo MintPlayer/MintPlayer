@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, inject, signal, viewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CdkDrag, CdkDragEnd, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { EPlayerState } from '@mintplayer/player-provider';
 import { BsCardComponent, BsCardBodyComponent, BsCardHeaderComponent } from '@mintplayer/ng-bootstrap/card';
 import { VideoPlayerComponent } from '@mintplayer/ng-video-player';
 import { PlayerService } from './player.service';
@@ -41,8 +42,8 @@ import { PlayerService } from './player.service';
           class="player-card shadow">
           <bs-card-header cdkDragHandle class="player-handle d-flex align-items-center gap-2">
             <i class="bi bi-grip-vertical text-secondary"></i>
-            <span class="text-truncate flex-grow-1" [title]="player.currentEntry()?.title">
-              {{ player.currentEntry()?.title }}
+            <span class="text-truncate flex-grow-1" [title]="player.displayTitle(player.currentEntry())">
+              {{ player.displayTitle(player.currentEntry()) }}
             </span>
             <button type="button" class="btn btn-sm btn-link p-0 lh-1 text-body" (click)="player.toggleSidebar()"
                     title="Queue" aria-label="Queue">
@@ -60,7 +61,7 @@ import { PlayerService } from './player.service';
               [playerState]="player.playerState()"
               [width]="340"
               [height]="191"
-              (playerStateChange)="player.onPlayerState($event)"
+              (playerStateChange)="onPlayerState($event)"
               (progressChange)="player.onProgress($event)" />
             <!-- Keeps the drag alive over the iframe; inert (pointer-events:none) when not dragging. -->
             <div class="player-drag-shield" [class.player-drag-shield--active]="dragging()"></div>
@@ -96,9 +97,31 @@ export class PlayerCard {
   /** True while a drag is in progress — activates the pointer-shield over the iframe. */
   protected readonly dragging = signal(false);
 
+  private readonly videoPlayer = viewChild(VideoPlayerComponent);
+
   protected onDragEnded(event: CdkDragEnd): void {
     this.dragging.set(false);
     this.player.setCardPosition(event.source.getFreeDragPosition());
+  }
+
+  /**
+   * Forward player-state to the service and, once the medium is actually playing, ask the player for the
+   * real media title and record it for the current entry (the play buttons enqueue with only a URL). By
+   * `playing` the provider has loaded metadata, so `getTitle()` resolves to the track name.
+   */
+  protected onPlayerState(state: EPlayerState): void {
+    this.player.onPlayerState(state);
+    if (state === EPlayerState.playing) {
+      const entry = this.player.currentEntry();
+      const player = this.videoPlayer();
+      if (entry && player) {
+        player.getTitle().then((title) => {
+          if (title) {
+            this.player.setResolvedTitle(entry.key, title);
+          }
+        });
+      }
+    }
   }
 }
 

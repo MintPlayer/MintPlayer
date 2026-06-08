@@ -1,6 +1,6 @@
 # PRD — Draggable Media Player + Play-Queue + Playlist Sidebar
 
-**Status:** In implementation — P0–P4 done (deps, `PlayerService`, draggable card, play-button wiring, **docked sidebar + play/pause commanding**), browser-verified end-to-end. Remaining: P5 polish (display-name through play buttons, prerender smoke, sidebar/e2e specs) and a framework follow-up for queue **reorder** (see D6). Live status in the [companion plan](./Implementation-Plan-Player-Playlist.md).
+**Status:** In implementation — P0–P4 done + P5 in progress (deps, `PlayerService`, draggable card, play-button wiring, **docked sidebar, play/pause commanding, player-resolved queue titles**), browser-verified end-to-end. Remaining: P5 prerender smoke + sidebar/e2e specs, and a framework follow-up for queue **reorder** (see D6). Live status in the [companion plan](./Implementation-Plan-Player-Playlist.md).
 **Author:** Pieterjan De Clippel (with Claude)
 **Date:** 2026-06-08
 **Parent docs:** [`PRD-Spark-Migration.md`](./PRD-Spark-Migration.md) · [`Implementation-Plan-Spark-Migration.md`](./Implementation-Plan-Spark-Migration.md)
@@ -189,6 +189,7 @@ export class PlayerService {
 | D10 | SSR | Player card + drag are **browser-only** (`isPlatformBrowser` / `afterNextRender`); the service is SSR-inert until a play action occurs. |
 | D11 | Iframe swallows drag events | A transparent **drag-shield** over the player, `pointer-events: none` when idle (native controls work) and `auto` only while dragging, keeps `mousemove` in the page DOM so the drag doesn't stall over the iframe. (Legacy master-branch fix; implemented P2.) |
 | D12 | Play/pause commanding without fighting autoplay | The card binds `[playerState]="player.playerState()"` (the only public command surface on `<video-player>` is the `playerState` setter), and `PlayerService` sets `playing` the instant playback starts (`playNow` / `addToQueue`-from-empty). So the initial binding pushes `playing` (agreeing with `[autoplay]`) instead of the default `unstarted` that would fight it; `(playerStateChange)` then writes the real state back. Toggle round-trip is idempotent (no feedback loop). Resolves the play/pause deferral noted in P2. |
+| D13 | Queue entry titles | The play buttons enqueue with **only a URL** — the `Medium` carries no track name (`Value`+`TypeId` only) and the column renderer has no parent song, so there's no good static title to thread through. Instead the card calls **`<video-player>.getTitle()`** on first `playing` and `PlayerService` overlays the result on the queue display via a `key → title` map (`displayTitle(entry)`); entries stay immutable (respects the engine clone contract) and ad-hoc URLs get real titles too. Falls back to the URL until/if the title resolves. |
 
 ---
 
