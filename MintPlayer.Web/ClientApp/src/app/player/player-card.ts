@@ -15,8 +15,10 @@ import { PlayerService } from './player.service';
  * unmounts, which destroys `<video-player>` and stops playback. Track changes keep the card mounted and
  * just swap `[url]`.
  *
- * Play/pause commanding is deliberately not wired here (the `[playerState]` input would push an initial
- * `unstarted` that fights `[autoplay]`); transport controls live on the sidebar (P4).
+ * Play/pause is two-way with the {@link PlayerService}: `[playerState]` commands the player and
+ * `(playerStateChange)` reports back. The service sets `playing` the moment playback starts, so the
+ * initial binding agrees with `[autoplay]` rather than pushing an `unstarted` that would fight it.
+ * The transport buttons that drive this live on the sidebar (P4).
  *
  * Drag shield: an `<iframe>` (the embedded player) swallows mouse events over its rectangle, so a drag
  * passing over it would stall (the document stops receiving `mousemove`, which cdkDrag relies on). A
@@ -55,6 +57,7 @@ import { PlayerService } from './player.service';
             <video-player
               [url]="player.currentEntry()!.url"
               [autoplay]="true"
+              [playerState]="player.playerState()"
               [width]="340"
               [height]="191"
               (playerStateChange)="player.onPlayerState($event)"

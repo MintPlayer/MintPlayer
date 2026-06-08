@@ -76,25 +76,28 @@ Goal: real entry points feed the queue.
 
 ---
 
-## Phase P4 — Playlist sidebar — ~1.5 days
+## Phase P4 — Playlist sidebar — ✅ DONE (2026-06-08)
 
 Goal: the docked queue panel.
 
-- **P4.1** `src/app/player/playlist-sidebar.ts` (`app-playlist-sidebar`, standalone, `OnPush`): transport bar (shuffle/repeat/prev/play-pause/next), progress row, `<bs-list-group>` queue with now-playing highlight + `routerLink`/external-link + remove (PRD §4.4). Bind to `PlayerService` signals.
-- **P4.2** Drag-reorder: `cdkDropList` + `(cdkDropListDropped)` + `moveItemInArray` → `player.reorder(...)`.
-- **P4.3** "Add URL": small input gated by `MediaPlayabilityService.canPlay` → `player.addToQueue(...)`.
-- **P4.4** Mount in `shell.html`; open/close bound to `player.isOpen()`; toggle in the card header (and/or shell topbar via the `bsShellTopbar` pattern). Docked styling (`.scss`), themed like the legacy sidebar but using current shell variables.
+**Outcome:** ✅ `src/app/player/{playlist-sidebar.ts, playlist-sidebar.scss}` created (`app-playlist-sidebar`, standalone, OnPush, browser-only). A right-docked drawer (`z-index 1045`, above the card boundary) bound to `PlayerService`: header with live count badge + close; transport bar (shuffle toggle, prev, play/pause, next, repeat-cycle with `bi-repeat`/`bi-repeat-1` + active highlight); progress row (`<bs-progress>`/`<bs-progress-bar>` + `m:ss` time labels); `<bs-list-group>` queue with now-playing highlight (`bi-volume-up-fill` + `text-primary`, matched by `entry.key`), `routerLink` deep-link (closes the drawer) or plain title, and per-row remove; an "Add URL" form gated on `MediaPlayabilityService.canPlay`. Mounted in `shell.html` after `<app-player-card/>`. **Play/pause commanding wired (deferred from P2):** the card now binds `[playerState]="player.playerState()"`, and `PlayerService` sets `playing` the instant playback starts (`playNow`/`addToQueue`-from-empty) so the binding agrees with `[autoplay]` instead of pushing an `unstarted` that fights it. **Browser-verified end-to-end** (dev admin, Queen → *Bohemian Rhapsody*): card plays → Queue button opens the drawer → transport shows **Pause** (state reflected) → clicking Pause flips to **Play** (command reaches the iframe) → progress live-updates `0:17 / 5:59` → typing a valid YouTube URL enables the gated Add button → Add grows the queue to 2 rows. **14/14 unit specs green** (added `media-resolver.spec.ts`; fixed the long-stale scaffold `app.spec.ts > should render title` → now asserts the site-wide JSON-LD).
 
-**Exit (browser):** sidebar lists the queue, highlights current, transport works, reorder persists, remove works, add-URL enqueues, auto-advance reflects in the list.
+- **P4.1** ✅ `playlist-sidebar.ts` — transport / progress / queue list / now-playing / remove / deep-link, bound to `PlayerService` signals.
+- **P4.2** ⏭️ **Drag-reorder deferred — needs a framework change.** The queue engine (`@mintplayer/playlist-controller`) keeps order in a private `_playlist` with no public move/insert, and rebuilding via `setPlaylist` re-clones every entry and drops the currently-playing identity (restarts playback). A clean reorder requires a new engine method (`moveInPlaylist(from, to)`) in the playlist-controller package — tracked as a batched framework change, **not** worked around app-side. The sidebar ships without reorder; documented in the component JSDoc + PRD.
+- **P4.3** ✅ "Add URL" input gated by `MediaPlayabilityService.canPlay` → `player.addToQueue(...)`.
+- **P4.4** ✅ Mounted in `shell.html`; open/close bound to `player.isOpen()`; toggled from the card header Queue button. Docked `.scss` using shell/Bootstrap variables.
+
+**Exit (browser):** ✅ sidebar lists the queue, highlights current, transport works, remove works, add-URL enqueues, auto-advance reflects in the list. (Reorder intentionally out — see P4.2.)
 
 ---
 
-## Phase P5 — Polish, SSR, tests, docs — ~1 day
+## Phase P5 — Polish, SSR, tests, docs — partially done
 
-- **P5.1** SSR pass: confirm no `window`/drag access server-side; player card + sidebar render only in the browser; `ng build` + a prerender smoke of a song page shows no errors.
-- **P5.2** Accessibility/UX: focus states, keyboard on transport buttons, `aria-label`s, `cursor:move` on the handle, sensible default card position.
-- **P5.3** Specs: `PlayerService` (extend P1.4), `media-resolver`, and a Playwright e2e (play → drag → advance → reorder → remove).
-- **P5.4** Update `Implementation-Plan-Spark-Migration.md`: tick the Phase 4 *global media player* slice; add a back-reference noting Phase 3.1 will feed `PlayerService.playNow` with a saved playlist's tracks. Update these companion docs' status.
+- **P5.1** SSR pass: confirm no `window`/drag access server-side; player card + sidebar render only in the browser; `ng build` + a prerender smoke of a song page shows no errors. _(Card + sidebar are both `isPlatformBrowser`-gated; full prerender smoke still pending.)_
+- **P5.2** Accessibility/UX: focus states, keyboard on transport buttons, `aria-label`s, `cursor:move` on the handle, sensible default card position. _(All controls carry `title`/`aria-label`; toggles expose `aria-pressed`. The Media play-button still enqueues the raw URL as the title — wiring the song/medium display name through `playlistEntryFromUrl(url, {title, routerLink})` from the renderers is the main remaining polish.)_
+- **P5.3** Specs: `PlayerService` (8, P1.4) ✅, `media-resolver` (4) ✅, `app.spec` repaired ✅. **Still pending:** a Playwright e2e using real `page.mouse` stepping for drag-*motion* (CDK ignores synthetic events), and a `PlaylistSidebar` component spec.
+- **P5.4** Update `Implementation-Plan-Spark-Migration.md`: tick the Phase 4 *global media player* slice; add a back-reference noting Phase 3.1 will feed `PlayerService.playNow` with a saved playlist's tracks. Update these companion docs' status. _(Pending.)_
+- **P5.5** _(new)_ **Framework follow-up — queue reorder.** Add `moveInPlaylist(from, to)` (or equivalent in-place reorder) to `@mintplayer/playlist-controller` so the sidebar can offer `cdkDropList` drag-reorder without restarting playback; then wire `player.reorder(...)` + `moveItemInArray`. Batch with other framework changes.
 
 **Exit:** green build, green specs, browser-verified, docs updated.
 

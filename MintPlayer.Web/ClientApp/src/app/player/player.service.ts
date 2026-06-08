@@ -67,12 +67,20 @@ export class PlayerService {
     // setPlaylist is async but has no awaits — its body (and the video$ emission) runs synchronously.
     void this.controller.setPlaylist(entries);
     this.syncQueue();
+    // Command `playing` optimistically: the card binds `[playerState]`, and starting from `playing`
+    // (rather than the initial `unstarted`) makes that binding agree with `[autoplay]` instead of
+    // pushing an `unstarted` that fights it. The player's own `playerStateChange` then confirms it.
+    this._playerState.set(EPlayerState.playing);
   }
 
   /** Append `entries`; starts playing if nothing is currently loaded. */
   addToQueue(entries: PlaylistEntry[]): void {
+    const wasEmpty = !this.hasCurrent();
     this.controller.addToPlaylist(...entries);
     this.syncQueue();
+    if (wasEmpty) {
+      this._playerState.set(EPlayerState.playing); // see playNow — keep the binding aligned with autoplay.
+    }
   }
 
   /** Remove an entry. Pass an instance obtained from {@link queue} (identity-matched by the engine). */

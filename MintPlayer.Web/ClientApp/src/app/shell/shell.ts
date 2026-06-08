@@ -15,6 +15,7 @@ import { SparkIconComponent } from '@mintplayer/ng-spark/icon';
 import { ResolveTranslationPipe, IconNamePipe, RouterLinkPipe } from '@mintplayer/ng-spark/pipes';
 import { BsShellTopbarDirective } from './bs-shell-topbar.directive';
 import { PlayerCard } from '../player/player-card';
+import { PlaylistSidebar } from '../player/playlist-sidebar';
 
 /**
  * Application shell on ng-bootstrap 22's <bs-shell> (a lit <mp-shell> web component with named
@@ -36,7 +37,7 @@ import { PlayerCard } from '../player/player-card';
     BsNavbarTogglerComponent, BsSelectComponent, BsSelectOption,
     SparkIconComponent, SparkAuthBarComponent,
     ResolveTranslationPipe, IconNamePipe, RouterLinkPipe,
-    PlayerCard,
+    PlayerCard, PlaylistSidebar,
   ],
   templateUrl: './shell.html',
   styleUrl: './shell.scss',

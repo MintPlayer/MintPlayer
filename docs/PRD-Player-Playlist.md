@@ -1,6 +1,6 @@
 # PRD — Draggable Media Player + Play-Queue + Playlist Sidebar
 
-**Status:** In implementation — P0–P3 done (deps, `PlayerService`, draggable card, play-button wiring), P4 (sidebar) + P5 (polish/SSR/tests) remaining. Live status in the [companion plan](./Implementation-Plan-Player-Playlist.md).
+**Status:** In implementation — P0–P4 done (deps, `PlayerService`, draggable card, play-button wiring, **docked sidebar + play/pause commanding**), browser-verified end-to-end. Remaining: P5 polish (display-name through play buttons, prerender smoke, sidebar/e2e specs) and a framework follow-up for queue **reorder** (see D6). Live status in the [companion plan](./Implementation-Plan-Player-Playlist.md).
 **Author:** Pieterjan De Clippel (with Claude)
 **Date:** 2026-06-08
 **Parent docs:** [`PRD-Spark-Migration.md`](./PRD-Spark-Migration.md) · [`Implementation-Plan-Spark-Migration.md`](./Implementation-Plan-Spark-Migration.md)
@@ -163,7 +163,7 @@ export class PlayerService {
 - Driven entirely by `PlayerService` signals (a "smart" component here, since the service is the store — simpler than the legacy dumb-component + giant `AppComponent` wiring).
 - Transport bar: shuffle toggle, repeat cycle (`noRepeat→repeatOne→repeatAll`), previous, play/pause, next.
 - Progress row from `player.progress()`.
-- `<bs-list-group>` of `@for (entry of player.queue(); track entry.key)`: title, now-playing highlight when `entry.key === player.currentEntry()?.key`, `routerLink` for songs / external link for urls, a remove button. **Drag-reorder** via `cdkDropList` + `moveItemInArray` → `player.reorder(prev, cur)` (which calls `controller.setPlaylist`).
+- `<bs-list-group>` of `@for (entry of player.queue(); track entry.key)`: title, now-playing highlight when `entry.key === player.currentEntry()?.key`, `routerLink` for songs / external link for urls, a remove button. **Drag-reorder is deferred (see D6)** — the queue engine has no in-place move primitive, so it ships without reorder until a framework method lands.
 - "Add URL" button → small input/modal → `player.addToQueue([{ key:url, url, title:url }])` (gated by `MediaPlayabilityService.canPlay`).
 - Open/close bound to `player.isOpen()`; a toggle lives in the player-card header and/or the shell topbar.
 
@@ -182,12 +182,13 @@ export class PlayerService {
 | D3 | Where the player mounts | **In `Shell`**, outside `<router-outlet>`, so playback + queue survive navigation. |
 | D4 | Draggable mechanism | **`cdkDrag` on `<bs-card>` host + `cdkDragHandle` on header + `cdkDragBoundary` to a fixed full-viewport layer**; position persisted in a service signal, restored via `[cdkDragFreeDragPosition]`. |
 | D5 | New dependencies | Add **`@angular/cdk@^22`** (currently only transitive) and **`@mintplayer/playlist-controller@^20`** as direct deps. *(Corrected during P0: the queue engine is the framework-agnostic **core** package, versioned in the `20.x` line alongside `@mintplayer/video-player@20` / `player-provider@20` / the `@20` plugins already in package.json — not `22`. Peer dep `rxjs ^7.4.0`, satisfied.)* |
-| D6 | Sidebar reorder | **`cdkDropList` + `moveItemInArray`** → `controller.setPlaylist`. (Free-drag for the card; drop-list for the list — independent CDK mechanisms.) |
+| D6 | Sidebar reorder | **Deferred — needs a framework change (revised during P4).** The plan was `cdkDropList` + `moveItemInArray` → `controller.setPlaylist`, but `setPlaylist` re-clones every entry and drops the currently-playing identity (restarts playback), and the engine keeps order in a private `_playlist` with no public move/insert. Clean reorder requires a new `moveInPlaylist(from, to)` on `@mintplayer/playlist-controller` (batched framework change, P5.5). The sidebar ships without reorder; everything else (transport/remove/add/now-playing) is independent of it. |
 | D7 | Existing play buttons | **Route through `PlayerService`**; retire the per-button inline overlay. |
 | D8 | Persisted `Playlist` entity | **Out of scope — stays Phase 3.1.** `PlayerService` is shaped to accept a saved playlist's tracks later. |
 | D9 | "Ended" detection | Via `(playerStateChange) === EPlayerState.ended` (no dedicated output). |
 | D10 | SSR | Player card + drag are **browser-only** (`isPlatformBrowser` / `afterNextRender`); the service is SSR-inert until a play action occurs. |
 | D11 | Iframe swallows drag events | A transparent **drag-shield** over the player, `pointer-events: none` when idle (native controls work) and `auto` only while dragging, keeps `mousemove` in the page DOM so the drag doesn't stall over the iframe. (Legacy master-branch fix; implemented P2.) |
+| D12 | Play/pause commanding without fighting autoplay | The card binds `[playerState]="player.playerState()"` (the only public command surface on `<video-player>` is the `playerState` setter), and `PlayerService` sets `playing` the instant playback starts (`playNow` / `addToQueue`-from-empty). So the initial binding pushes `playing` (agreeing with `[autoplay]`) instead of the default `unstarted` that would fight it; `(playerStateChange)` then writes the real state back. Toggle round-trip is idempotent (no feedback loop). Resolves the play/pause deferral noted in P2. |
 
 ---
 
