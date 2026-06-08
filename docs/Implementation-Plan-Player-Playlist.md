@@ -61,9 +61,11 @@ Goal: a floating, draggable card that actually plays.
 
 ---
 
-## Phase P3 — Wire the existing play buttons — ~0.5 day
+## Phase P3 — Wire the existing play buttons — ✅ DONE (2026-06-08)
 
 Goal: real entry points feed the queue.
+
+**Outcome:** ✅ `MediaPlayButton` now injects `PlayerService` and on click calls `player.playNow([playlistEntryFromUrl(url, …)])` (added an optional `title` input); the self-contained inline overlay is gone. Both renderers (`media-column-renderer`, `media-detail-renderer`) forward `[url]` unchanged, so both now drive the global card. `ng build` (dev) green. **Browser-verified end-to-end** (P2 + P3 together, logged in as the dev admin): on Queen's detail page, clicking the Media-grid Play button makes the floating `<bs-card>` player appear bottom-right and **play the Bohemian Rhapsody YouTube medium** (screenshot captured). **Drag wiring verified** via DOM (`cdk-drag` on the card, `cdk-drag-handle` on the header, boundary layer present); CDK's drag motion is not reproducible with synthetic JS events / Playwright `dragTo`, so a faithful drag-*motion* assertion is deferred to the P5 e2e (real `page.mouse` stepping). (Bonus: confirmed `Song.Released` renders `1975-10-31` from the earlier DateOnly change.)
 
 - **P3.1** `MediaPlayButton` (`src/app/media/media-play-button.ts`): replace the inline overlay with `inject(PlayerService)` + `player.playNow([entry])` (build the entry via `media-resolver`). Keep the `canPlay` gating.
 - **P3.2** Confirm both renderers (`media-column-renderer.ts`, `media-detail-renderer.ts`) now drive the global card; remove the now-dead overlay markup/styles.
