@@ -75,15 +75,16 @@
         "label": {
           "en": "Tag Ids"
         },
-        "dataType": "AsDetail",
-        "isRequired": false,
+        "dataType": "Reference",
         "isVisible": true,
         "isReadOnly": false,
         "order": 5,
-        "asDetailType": "System.String",
+        "query": "GetTags",
+        "referenceType": "MintPlayer.Domain.Entities.Tag",
         "isArray": true,
         "showedOn": "Query, PersistentObject",
-        "rules": []
+        "rules": [],
+        "isRequired": false
       },
       {
         "id": "c858720f-3292-4adf-b3e6-756951d8599f",
@@ -168,6 +169,7 @@
       "id": "266b491e-1976-47a2-8920-e425273ec995",
       "name": "GetSongs",
       "source": "Database.Songs",
+      "alias": "songs",
       "sortColumns": [
         {
           "property": "Title",
@@ -176,8 +178,8 @@
       ],
       "renderMode": "Pagination",
       "useProjection": false,
-      "isStreamingQuery": false,
-      "alias": "songs"
+      "entityType": "Song",
+      "isStreamingQuery": false
     },
     {
       "id": "c3000000-0000-0000-0000-000000000001",
@@ -188,7 +190,6 @@
         "fr": "Chansons"
       },
       "source": "Custom.Artist_Songs",
-      "entityType": "Song",
       "alias": "artist-songs",
       "sortColumns": [
         {
@@ -198,6 +199,7 @@
       ],
       "renderMode": "Pagination",
       "useProjection": false,
+      "entityType": "Song",
       "isStreamingQuery": false
     }
   ]

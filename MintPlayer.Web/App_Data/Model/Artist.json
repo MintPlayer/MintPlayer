@@ -90,15 +90,16 @@
         "label": {
           "en": "Tag Ids"
         },
-        "dataType": "AsDetail",
-        "isRequired": false,
+        "dataType": "Reference",
         "isVisible": true,
         "isReadOnly": false,
         "order": 6,
-        "asDetailType": "System.String",
+        "query": "GetTags",
+        "referenceType": "MintPlayer.Domain.Entities.Tag",
         "isArray": true,
         "showedOn": "Query, PersistentObject",
-        "rules": []
+        "rules": [],
+        "isRequired": false
       },
       {
         "id": "6d58c369-6bd2-43db-9c56-6e4a4577d960",

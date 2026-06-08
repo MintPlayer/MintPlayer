@@ -10,7 +10,7 @@
        published Abstractions package. Must match the version MintPlayer.Spark pulls transitively
        in MintPlayer.Web so [Reference] et al. resolve to a single assembly. -->
   <ItemGroup>
-    <PackageReference Include="MintPlayer.Spark.Abstractions" Version="10.0.0-preview.35" />
+    <PackageReference Include="MintPlayer.Spark.Abstractions" Version="10.0.0-preview.36" />
   </ItemGroup>
 
 </Project>
