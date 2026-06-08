@@ -123,6 +123,7 @@ export class PlayerService {
 ```
 
 - Internally holds `new PlaylistController<PlaylistEntry>()` and bridges `video$` → `currentEntry` signal with `toSignal`. `queue` is recomputed from `controller.playlist` on each `video$` emission (the controller mutates the array in place, so we snapshot/copy).
+- **⚠ Identity contract (proven in P0.2):** `addToPlaylist`/`setPlaylist` **clone** each entry (`Object.assign`), and the controller's `removeFromPlaylist`/navigation match on **object identity of its own clones** — *not* on the originals you enqueued. Therefore `PlayerService` must expose `queue()` as **the controller's own instances** (`controller.playlist`, which already returns them) and `remove(entry)`/`jumpTo(entry)` must receive an instance taken from `queue()`. The sidebar naturally does this (it `@for`s over `player.queue()` and passes those back). Display/track-by uses `entry.key`; the controller calls use the same object reference.
 - `shuffle`/`repeat` are plain fields on the controller; `PlayerService` mirrors them into signals and writes through on the setters (keeps two-way UI binding signal-clean).
 - **Auto-advance:** the card binds `(playerStateChange)="player.onPlayerState($event)"`; on `ended` the service calls `controller.playerEnded()`, which emits the next `video$`, which the card observes and `setUrl`s. Identical data-flow to the legacy `AppComponent`, but centralised in the service.
 
@@ -176,7 +177,7 @@ export class PlayerService {
 | D2 | State management | **Root `providedIn:'root'` `PlayerService` exposing signals**, bridging the controller's `video$` via `toSignal`. No NgRx. Matches `MediaPlayabilityService`. |
 | D3 | Where the player mounts | **In `Shell`**, outside `<router-outlet>`, so playback + queue survive navigation. |
 | D4 | Draggable mechanism | **`cdkDrag` on `<bs-card>` host + `cdkDragHandle` on header + `cdkDragBoundary` to a fixed full-viewport layer**; position persisted in a service signal, restored via `[cdkDragFreeDragPosition]`. |
-| D5 | New dependencies | Add **`@angular/cdk@^22`** (currently only transitive) and **`@mintplayer/playlist-controller@^22`** as direct deps. |
+| D5 | New dependencies | Add **`@angular/cdk@^22`** (currently only transitive) and **`@mintplayer/playlist-controller@^20`** as direct deps. *(Corrected during P0: the queue engine is the framework-agnostic **core** package, versioned in the `20.x` line alongside `@mintplayer/video-player@20` / `player-provider@20` / the `@20` plugins already in package.json — not `22`. Peer dep `rxjs ^7.4.0`, satisfied.)* |
 | D6 | Sidebar reorder | **`cdkDropList` + `moveItemInArray`** → `controller.setPlaylist`. (Free-drag for the card; drop-list for the list — independent CDK mechanisms.) |
 | D7 | Existing play buttons | **Route through `PlayerService`**; retire the per-button inline overlay. |
 | D8 | Persisted `Playlist` entity | **Out of scope — stays Phase 3.1.** `PlayerService` is shaped to accept a saved playlist's tracks later. |
@@ -189,7 +190,7 @@ export class PlayerService {
 
 | # | Risk / question | Mitigation |
 |---|------------------|------------|
-| R1 | Version skew: `@mintplayer/playlist-controller` must align with the installed `@mintplayer/video-player@20` / `ng-video-player@22`. | Pin to the version built alongside `ng-video-player@22` in `C:\Repos\mintplayer-ng-video-player`; smoke-test enqueue→play→ended→advance before building UI. If the package isn't published at a compatible version, treat the engine port as a small framework task (it's one BehaviorSubject class). |
+| R1 | Version skew: `@mintplayer/playlist-controller` must align with the installed player core. | **Resolved in P0:** use **`^20.0.0`** — the queue engine is part of the `@20` framework-agnostic core family (`video-player`/`player-provider`/plugins), not the `22.x` Angular wrapper line. Smoke-test enqueue→play→ended→advance before building UI. |
 | R2 | A `Subject` can have several media; "which to play?" | Enqueue-time resolution: pick the first `MediaPlayabilityService.canPlay`-true medium (prefer `Visible`). Keep the rule in one helper. |
 | R3 | `cdkDrag` relies on a transitive `@angular/cdk`. | Promote to a direct dependency (D5) so it can't vanish on a bootstrap bump. |
 | R4 | SSR: drag/position touches `window`. | Browser-only rendering + `afterNextRender`; nothing drag-related runs server-side. |

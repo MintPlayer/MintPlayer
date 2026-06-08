@@ -18,11 +18,13 @@ This sequences the player/playlist work into small steps that each end in someth
 
 ---
 
-## Phase P0 — Dependencies & engine spike — ~0.5 day
+## Phase P0 — Dependencies & engine spike — ✅ DONE (2026-06-08)
 
 Goal: lock the foundation.
 
-- **P0.1** Add direct deps to `MintPlayer.Web/ClientApp/package.json`: `@angular/cdk@^22.0.0` (currently transitive via ng-bootstrap) and `@mintplayer/playlist-controller@^22` (pin to the version built alongside `ng-video-player@22` in `C:\Repos\mintplayer-ng-video-player`). `npm install`; confirm `@angular/cdk/drag-drop` and `@mintplayer/playlist-controller` both resolve.
+**Outcome:** ✅ `@angular/cdk@22.0.0` promoted to a direct dep (was transitive via ng-bootstrap; deduped) and `@mintplayer/playlist-controller@20.0.0` added — both resolve (`@angular/cdk/drag-drop` + the engine). The engine contract was proven by bundling it through **esbuild** (the app's real bundler — note the `@angular/build:unit-test`/vitest path *externalizes* node_modules to Node's strict ESM resolver, which rejects the package's extensionless internal imports; esbuild resolves them fine, so this is a test-harness quirk, not an app-build problem). Verified: enqueue auto-plays first; `playerEnded` advances then exhausts to `null`; `repeatAll` wraps; `repeatOne` holds on natural end while `next()` forces; shuffle yields a queued entry; removing the current entry advances. **Key finding → PRD §4.2 identity contract:** the controller clones entries and matches on object identity of its own clones, so the UI must pass back instances from `controller.playlist`. Throwaway spike files removed. _(Pre-existing unrelated failure noted: the scaffolded `app.spec.ts > should render title` expects 'Hello, ClientApp' which `App` no longer renders — not touched here.)_
+
+- **P0.1** Add direct deps to `MintPlayer.Web/ClientApp/package.json`: `@angular/cdk@^22.0.0` (currently transitive via ng-bootstrap) and `@mintplayer/playlist-controller@^20.0.0` (**corrected from ^22**: the queue engine is the framework-agnostic core, versioned `20.x` like `@mintplayer/video-player@20` / `player-provider@20` / the `@20` plugins already present; latest published is `20.0.0`, peer `rxjs ^7.4.0` ✓). `npm install`; confirm `@angular/cdk/drag-drop` and `@mintplayer/playlist-controller` both resolve.
 - **P0.2** Throwaway harness (a temporary route or spec): `new PlaylistController<{key,url,title}>()`, `addToPlaylist` two YouTube urls, subscribe `video$` → `<video-player>.setUrl`, on `playerStateChange===ended` call `playerEnded()`. Confirm: first plays, ends → second plays; `next()`/`previous()`/`shuffle`/`repeat` behave.
 
 **Exit:** deps resolve; the engine drives the player and auto-advances. **If the package is unavailable/incompatible at v22, stop and decide:** port the one-class engine into the app (`src/app/player/playlist-controller.ts`) or raise it as a framework task. Delete the harness after.
@@ -136,7 +138,7 @@ Strictly sequential — each phase depends on the prior. P3 can overlap P4 once 
 
 ## Biggest watch-items
 
-1. **Engine package version (R1)** — the whole plan rests on `@mintplayer/playlist-controller@22`; P0 settles it before any UI.
+1. **Engine package version (R1) — settled in P0:** `@mintplayer/playlist-controller@^20` (core family), not `22`.
 2. **SSR (R4)** — player card + drag are browser-only; never let drag/position logic run server-side.
 3. **`@angular/cdk` promoted to a direct dep (R3)** — don't ship on a transitive resolution.
 4. **Scope line (R5/D8)** — if "PlaylistController" was meant to include the **server-side persisted Playlist CRUD**, that's Phase 3.1 and expands this plan; confirm before P1.
