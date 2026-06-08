@@ -31,9 +31,11 @@ Goal: lock the foundation.
 
 ---
 
-## Phase P1 — `PlayerService` (the store) — ~1 day
+## Phase P1 — `PlayerService` (the store) — ✅ DONE (2026-06-08)
 
 Goal: the single source of truth, no UI yet.
+
+**Outcome:** ✅ `src/app/player/{playlist-entry.ts, media-resolver.ts, player.service.ts, player.service.spec.ts}` created. `PlayerService` (root singleton) wraps `PlaylistController<PlaylistEntry>`, bridges `video$`→`currentEntry` via `toSignal`, exposes `queue/playerState/progress/shuffle/repeat/isOpen/cardPosition/hasCurrent/isPlaying` signals + command methods (`playNow/addToQueue/remove/next/previous/togglePlayPause/setShuffle/cycleRepeat/toggleSidebar/onPlayerState/onProgress`); auto-advance on `EPlayerState.ended`; honours the engine clone/identity contract (queue exposes controller instances). **8/8 spec assertions green.** Added `@mintplayer/player-progress@^20` direct dep (for the `PlayerProgress` type). **Test-harness fix (bonus):** `vitest-base.config.ts` inlines `/@mintplayer\//` so Vitest transforms (rather than externalizes) the extensionless-ESM player packages; wired via `angular.json` test `runnerConfig: true`. Without it any spec importing the player stack fails to load (the P0.2 quirk).
 
 - **P1.1** `src/app/player/playlist-entry.ts` — the `PlaylistEntry` interface (PRD §4.1).
 - **P1.2** `src/app/player/media-resolver.ts` — `resolvePlayable(media): string | null` helper (pick first `MediaPlayabilityService.canPlay`-true medium, prefer `Visible`); reused by play buttons (R2).

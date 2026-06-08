@@ -29,6 +29,7 @@
     "@mintplayer/ng-spark-auth": "^22.0.0",
     "@mintplayer/ng-video-player": "^22.0.0",
     "@mintplayer/pagination": "^2.4.0",
+    "@mintplayer/player-progress": "^20.0.0",
     "@mintplayer/player-provider": "^20.0.0",
     "@mintplayer/playlist-controller": "^20.0.0",
     "@mintplayer/soundcloud-player": "^20.0.0",
