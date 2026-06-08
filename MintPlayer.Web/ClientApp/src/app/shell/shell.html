@@ -2,7 +2,7 @@
   <div *bsShellTopbar class="w-100 bg-dark d-flex align-items-center">
     <bs-navbar-toggler class="cursor-pointer" [(state)]="sidebarState"></bs-navbar-toggler>
     <a class="navbar-brand text-light ms-2" routerLink="/home">MintPlayer</a>
-    <div class="ms-auto me-3 d-flex align-items-center gap-2">
+    <div class="ms-auto d-flex align-items-center gap-2">
       @if (lang.languages() | keyvalue; as langs) {
         @if (langs.length > 1) {
           <bs-select [ngModel]="lang.language()"
