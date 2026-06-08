@@ -46,9 +46,11 @@ Goal: the single source of truth, no UI yet.
 
 ---
 
-## Phase P2 — Draggable player card — ~1 day
+## Phase P2 — Draggable player card — ✅ code done (2026-06-08; live browser verify folded into P3)
 
 Goal: a floating, draggable card that actually plays.
+
+**Outcome:** ✅ `src/app/player/player-card.ts` (`app-player-card`, standalone, OnPush): `<bs-card cdkDrag cdkDragBoundary>` with `cdkDragHandle` on the header, hosting `<video-player>` bound to `PlayerService` (`[url]` + `[autoplay]` + `(playerStateChange)`/`(progressChange)`; `[playerState]` deliberately *not* bound to avoid an initial `unstarted` fighting autoplay — play/pause command is P4). Header has queue-toggle + close buttons; `clear()` added to the service. Free-drag position persisted in `PlayerService.cardPosition` (restored via `[cdkDragFreeDragPosition]`, saved on `(cdkDragEnded)`). Browser-only (`isPlatformBrowser`), shown only while `hasCurrent()`. Mounted in `shell.html` after `</bs-shell>` (survives navigation). **`ng build` (dev) green.** Live browser verification (appears on play → plays → drag by header → stays in-viewport → persists across nav) is done in **P3**, where the real play-button trigger exists — avoids a throwaway dev button (plan item P2.4).
 
 - **P2.1** `src/app/player/player-card.ts` (`app-player-card`, standalone, `OnPush`): `<bs-card cdkDrag cdkDragHandle …>` + `<video-player>` bound to `PlayerService` (PRD §4.3). Inline template/styles (small-component convention).
 - **P2.2** Drag: `cdkDragBoundary` to a fixed full-viewport layer; persist position in a `PlayerService` signal on `(cdkDragEnded)`; restore via `[cdkDragFreeDragPosition]`. **Browser-only** render + `afterNextRender` for position.

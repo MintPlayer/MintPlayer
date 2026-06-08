@@ -81,6 +81,12 @@ export class PlayerService {
     this.syncQueue();
   }
 
+  /** Empty the queue and stop playback (current → null, which hides the player card). */
+  clear(): void {
+    void this.controller.setPlaylist([]);
+    this.syncQueue();
+  }
+
   // ----- transport -----
 
   next(): void {
