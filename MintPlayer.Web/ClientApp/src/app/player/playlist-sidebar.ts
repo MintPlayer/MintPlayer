@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 import { BsListGroupComponent, BsListGroupItemComponent } from '@mintplayer/ng-bootstrap/list-group';
 import { BsProgressComponent, BsProgressBarComponent } from '@mintplayer/ng-bootstrap/progress-bar';
 import { BsFormComponent, BsFormControlDirective } from '@mintplayer/ng-bootstrap/form';
+import { BsBadgeComponent } from '@mintplayer/ng-bootstrap/badge';
+import { Color } from '@mintplayer/ng-bootstrap';
 import { ERepeatMode } from '@mintplayer/playlist-controller';
 import { MediaPlayabilityService } from '../media/media-playability.service';
 import { playlistEntryFromUrl } from './media-resolver';
@@ -27,7 +29,7 @@ import { PlayerService } from './player.service';
   selector: 'app-playlist-sidebar',
   imports: [
     RouterLink, BsListGroupComponent, BsListGroupItemComponent, BsProgressComponent, BsProgressBarComponent,
-    BsFormComponent, BsFormControlDirective,
+    BsFormComponent, BsFormControlDirective, BsBadgeComponent,
   ],
   template: `
     @if (isBrowser && player.isOpen()) {
@@ -37,7 +39,7 @@ import { PlayerService } from './player.service';
           <i class="bi bi-music-note-list"></i>
           <span class="fw-semibold flex-grow-1">Queue</span>
           @if (player.queue().length) {
-            <span class="badge text-bg-secondary">{{ player.queue().length }}</span>
+            <bs-badge [type]="Color.secondary">{{ player.queue().length }}</bs-badge>
           }
         </header>
 
@@ -132,6 +134,9 @@ export class PlaylistSidebar {
   protected readonly player = inject(PlayerService);
   private readonly playability = inject(MediaPlayabilityService);
   protected readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
+  /** Exposed for the `<bs-badge [type]>` binding in the template. */
+  protected readonly Color = Color;
 
   /**
    * Top offset in px (the live topbar height, from the shell's `bsObserveSize`). Applied as the drawer's
