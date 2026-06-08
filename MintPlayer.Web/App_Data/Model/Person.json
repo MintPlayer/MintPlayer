@@ -5,6 +5,7 @@
     "clrType": "MintPlayer.Domain.Entities.Person",
     "queryType": "MintPlayer.Web.Projections.VPerson",
     "indexName": "People_Overview",
+    "displayFormat": "{FirstName} {LastName}",
     "displayAttribute": "FullName",
     "tabs": [],
     "groups": [],
@@ -95,6 +96,7 @@
           "en": "Tag Ids"
         },
         "dataType": "Reference",
+        "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,
         "order": 6,
@@ -103,8 +105,7 @@
         "isArray": true,
         "inQueryType": false,
         "showedOn": "PersistentObject",
-        "rules": [],
-        "isRequired": false
+        "rules": []
       },
       {
         "id": "31bd2c77-50bf-4e8e-af48-535ad10d9081",
