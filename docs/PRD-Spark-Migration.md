@@ -133,7 +133,7 @@ Legend: ✅ clean fit · 🟡 needs config/custom code on a Spark hook · 🔴 n
 | Requirement | Fit | Approach |
 |---|---|---|
 | Artist / Person / Song as entities | ✅ | Three RavenDB collections, three `SparkContext` properties. Shared base class for common fields. |
-| Cross-type unified search / favorites | 🔴 | `AbstractMultiMapIndexCreationTask<VSubject>` + a `Custom.` query method; no built-in polymorphic query. |
+| Cross-type unified search | ✅ | `Subjects_Search : AbstractMultiMapIndexCreationTask<VSubject>` over Artist/Person/Song (full-text `Text` + `Suggestion`); exposed via a custom anonymous `SearchController` (`/api/search` + `/api/search/suggest`). Not a Spark query-type — the framework's datatable search filters in-memory and doesn't pass the term to custom queries, so cross-collection full-text/suggest is a custom endpoint (coexists with Spark; `/api` excluded from SPA fallback). **D1 confirmed — Elasticsearch droppable.** (Favorites/likes tracked separately, Phase 2.6.) |
 | Artist↔Person (`Active`), Artist↔Song (`Credited`) | ✅ | AsDetail arrays embedding `{ Ref + flag }`, inline edit; or junction collections for heavy queries. |
 | Subject↔Tag (multi-select) | ✅ | `[Reference(typeof(Tag),"GetTags")] List<string> TagIds` — **now a native Spark multi-reference** (searchable multi-select picker + chip display, clean `string[]`). Required + shipped framework work: `MintPlayer.Spark preview.36` (reference/primitive array round-trip), `@mintplayer/ng-spark 22.0.2`, `@mintplayer/web-components 2.0.1`. |
 | Tag self-referencing tree + TagCategory color | ✅/🟡 | `[Reference(typeof(Tag))]` on `ParentId`; `Color` → `dataType:color` with a **color-swatch renderer** (built). Children via sub-query on detail (done). Tree **view** widget still custom/deferred. |
@@ -202,7 +202,7 @@ Legend: ✅ clean fit · 🟡 needs config/custom code on a Spark hook · 🔴 n
 | Requirement | Fit | Approach |
 |---|---|---|
 | Search indexing | ✅/🟡 | **Default: drop Elasticsearch**, use RavenDB `FieldIndexing.Search` indexes + `SuggestUsing`. If insufficient: feed an external engine via an `IRecipient<SubjectIndexMessage>` broadcast from `OnAfterSaveAsync`. |
-| Search-as-you-type | 🟡 | Custom `Custom.` query methods using RavenDB `Search(x => x.Name, term + "*")`; one per searchable entity. |
+| Search-as-you-type | ✅ | `GET /api/search` over the `Subjects_Search` multi-map index: one `Search(x => x.Text, "term term*")` clause (whole-term OR prefix) + optional `type` filter, `.ProjectInto<VSubject>()`. One endpoint spans all catalog types (not one `Custom.` query per entity — cross-collection, so a controller, not a Spark query). |
 | Crawler / Fetchers (scraping) | ✅/🔴 | Hosting fits: `ISparkCronJob` (periodic) + `IRecipient<FetchMessage>` (event-driven) + arbitrary `AddHostedService`. The scraper/parser code itself is ported as-is (net-new only in that it's lifted, not rewritten). |
 | Transactional email (SMTP) | 🟡 | No Spark email abstraction; register MailKit/`IEmailSender` as a normal service, optionally drive via messaging for durable retry. |
 | SEO endpoints | ✅ | Custom controllers coexist. |
@@ -294,7 +294,7 @@ A one-time ETL from SQL Server → RavenDB is required (net-new tooling, run **o
 
 | ID | Decision | Resolution |
 |----|----------|------------|
-| **D1** | Search engine. | **RavenDB full-text + `SuggestUsing`, benchmark first.** Validate quality/latency on prod-scale data in the Phase-0 spike before removing Elasticsearch. |
+| **D1** | Search engine. | **Resolved → RavenDB full-text + `SuggestUsing`; Elasticsearch dropped.** Cross-type search + typo-tolerant autocomplete proven working in Phase 2.5 (`Subjects_Search` multi-map index + `/api/search`). Prod-scale quality/latency benchmarking still owed before cutover (R4); the messaging-fed external-engine path is retained as a fallback design. |
 | **D2** | SEO/SSR strategy. | **Use `MintPlayer.AspNetCore.SpaServices.Prerendering`** — Angular rendered through Node via the `@angular/platform-server` boot module, data injected per-route with `OnSupplyData` (the current site's mechanism). Working reference: `C:\Repos\MintPlayer.AspNetCore.SpaServices\Demo\Prerendering`. SSR is **not** built from scratch; R1 downgraded. |
 | **D3** | Passkeys/WebAuthn in v1. | **Full parity including passkeys.** Port the Fido2NetLib WebAuthn flow in v1 so the new site matches the current one exactly. |
 | **D4** | Social providers in v1. | Google + Microsoft + Facebook + GitHub (low-effort backends). Twitter/LinkedIn included if their current OAuth2 packages integrate cleanly; otherwise fast-follow. |
