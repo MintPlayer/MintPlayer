@@ -26,7 +26,7 @@ public static class Migrator
                 OldId = p.Id,
                 FirstName = p.FirstName,
                 LastName = p.LastName,
-                Born = p.Born,
+                Born = p.Born is { } born ? DateOnly.FromDateTime(born) : null,
             }, ct);
         }
 
@@ -38,7 +38,7 @@ public static class Migrator
                 Id = SparkIds.Song(s.Id),
                 OldId = s.Id,
                 Title = s.Title,
-                Released = s.Released,
+                Released = DateOnly.FromDateTime(s.Released),
             }, ct);
         }
 

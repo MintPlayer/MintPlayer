@@ -28,7 +28,7 @@
         "label": {
           "en": "Released"
         },
-        "dataType": "datetime",
+        "dataType": "date",
         "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,

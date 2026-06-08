@@ -53,7 +53,7 @@ public sealed class Person
     public int OldId { get; set; }
     public string FirstName { get; set; } = "";
     public string LastName { get; set; } = "";
-    public DateTime? Born { get; set; }
+    public DateOnly? Born { get; set; }
 }
 
 public sealed class Song
@@ -61,7 +61,7 @@ public sealed class Song
     public string? Id { get; set; } // "songs/10"
     public int OldId { get; set; }
     public string Title { get; set; } = "";
-    public DateTime Released { get; set; }
+    public DateOnly Released { get; set; }
 }
 
 public sealed class TagCategory

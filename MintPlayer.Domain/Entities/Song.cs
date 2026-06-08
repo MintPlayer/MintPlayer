@@ -11,7 +11,7 @@ namespace MintPlayer.Domain.Entities;
 public class Song : Subject
 {
     public string Title { get; set; } = string.Empty;
-    public DateTime? Released { get; set; }
+    public DateOnly? Released { get; set; }
 
     public List<SongArtist> Artists { get; set; } = [];
 }

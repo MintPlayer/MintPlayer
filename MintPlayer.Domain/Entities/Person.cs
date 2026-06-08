@@ -15,6 +15,6 @@ public class Person : Subject
 {
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public DateTime? Born { get; set; }
-    public DateTime? Died { get; set; }
+    public DateOnly? Born { get; set; }
+    public DateOnly? Died { get; set; }
 }

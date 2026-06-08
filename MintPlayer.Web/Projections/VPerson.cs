@@ -15,6 +15,6 @@ public class VPerson
 {
     public string? Id { get; set; }
     public string FullName { get; set; } = string.Empty;
-    public DateTime? Born { get; set; }
-    public DateTime? Died { get; set; }
+    public DateOnly? Born { get; set; }
+    public DateOnly? Died { get; set; }
 }
