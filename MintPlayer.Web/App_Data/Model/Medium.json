@@ -3,7 +3,7 @@
     "id": "ecfd8e30-0b6d-4f99-b8e2-19842d144e18",
     "name": "Medium",
     "clrType": "MintPlayer.Domain.Entities.Medium",
-    "displayAttribute": "TypeId",
+    "breadcrumb": "{Value}",
     "tabs": [],
     "groups": [],
     "attributes": [

@@ -5,8 +5,8 @@
     "clrType": "MintPlayer.Domain.Entities.Person",
     "queryType": "MintPlayer.Web.Projections.VPerson",
     "indexName": "People_Overview",
-    "displayFormat": "{FirstName} {LastName}",
-    "displayAttribute": "FullName",
+    "breadcrumb": "{FirstName} {LastName}",
+    "breadcrumbProjectionSatisfiable": false,
     "tabs": [],
     "groups": [],
     "attributes": [

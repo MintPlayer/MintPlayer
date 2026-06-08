@@ -3,7 +3,7 @@
     "id": "f9041144-0e31-4f0e-bbcb-b46967799daa",
     "name": "Song",
     "clrType": "MintPlayer.Domain.Entities.Song",
-    "displayAttribute": "Title",
+    "breadcrumb": "{Title}",
     "tabs": [],
     "groups": [],
     "attributes": [

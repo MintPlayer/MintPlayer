@@ -1,4 +1,5 @@
 using System.Drawing;
+using MintPlayer.Spark.Abstractions;
 
 namespace MintPlayer.Domain.Entities;
 
@@ -8,6 +9,7 @@ namespace MintPlayer.Domain.Entities;
 /// embedded collection (RavenDB references). <see cref="Color"/> is a <see cref="System.Drawing.Color"/>
 /// (Spark's <c>color</c> dataType — round-tripped by the framework's Newtonsoft converter).
 /// </summary>
+[Breadcrumb("{Description}")]
 public class TagCategory : Entity
 {
     public string Description { get; set; } = string.Empty;

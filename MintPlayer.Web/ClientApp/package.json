@@ -24,7 +24,7 @@
     "@mintplayer/ng-bootstrap": "^22.4.0",
     "@mintplayer/ng-router-provider": "^22.0.0",
     "@mintplayer/ng-seo": "^22.0.1",
-    "@mintplayer/ng-spark": "^22.0.3",
+    "@mintplayer/ng-spark": "^22.0.4",
     "@mintplayer/ng-spark-auth": "^22.0.0",
     "@mintplayer/ng-video-player": "^22.0.0",
     "@mintplayer/pagination": "^2.4.0",

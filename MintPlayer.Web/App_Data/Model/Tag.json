@@ -3,7 +3,7 @@
     "id": "7f20deb0-de35-44ce-beb5-e5606ecad32d",
     "name": "Tag",
     "clrType": "MintPlayer.Domain.Entities.Tag",
-    "displayAttribute": "Description",
+    "breadcrumb": "{Description}",
     "tabs": [],
     "groups": [],
     "attributes": [

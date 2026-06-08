@@ -1,3 +1,5 @@
+using MintPlayer.Spark.Abstractions;
+
 namespace MintPlayer.Domain.Entities;
 
 /// <summary>
@@ -6,6 +8,7 @@ namespace MintPlayer.Domain.Entities;
 /// migration (implementation plan step 1.5) and the first adopter of the shared
 /// <see cref="Entity"/> base (audit timestamps, soft delete, legacy <c>OldId</c>).
 /// </summary>
+[Breadcrumb("{Name}")]
 public class MediumType : Entity
 {
     public string Name { get; set; } = string.Empty;

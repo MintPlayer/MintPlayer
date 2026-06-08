@@ -3,7 +3,7 @@
     "id": "93305ab7-8d2e-4ebe-937e-5935b7da6638",
     "name": "ArtistMember",
     "clrType": "MintPlayer.Domain.Entities.ArtistMember",
-    "displayAttribute": "PersonId",
+    "breadcrumb": "{PersonId}",
     "tabs": [],
     "groups": [],
     "attributes": [

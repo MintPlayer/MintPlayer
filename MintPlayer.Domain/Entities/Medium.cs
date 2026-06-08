@@ -7,6 +7,7 @@ namespace MintPlayer.Domain.Entities;
 /// <c>AsDetail</c> array on each <see cref="Subject"/> (legacy <c>Medium</c>, which was a separate
 /// table; here it lives inline on the owning document).
 /// </summary>
+[Breadcrumb("{Value}")]
 public class Medium
 {
     /// <summary>The URL / identifier on that medium. Declared first so it's the leading grid column,
