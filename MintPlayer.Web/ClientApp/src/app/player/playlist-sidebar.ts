@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, effect, inject, input, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BsListGroupComponent, BsListGroupItemComponent } from '@mintplayer/ng-bootstrap/list-group';
@@ -31,15 +31,14 @@ import { PlayerService } from './player.service';
   ],
   template: `
     @if (isBrowser && player.isOpen()) {
-      <aside id="play-queue" class="playlist-sidebar bg-body border-start shadow d-flex flex-column" aria-label="Play queue">
+      <aside id="play-queue" class="playlist-sidebar bg-body border-start shadow d-flex flex-column"
+             [style.margin-top.px]="topOffset()" aria-label="Play queue">
         <header class="d-flex align-items-center gap-2 px-3 py-2 border-bottom">
           <i class="bi bi-music-note-list"></i>
           <span class="fw-semibold flex-grow-1">Queue</span>
-          <span class="badge text-bg-secondary">{{ player.queue().length }}</span>
-          <button type="button" class="btn btn-sm btn-link p-0 lh-1 text-body" (click)="player.closeSidebar()"
-                  title="Close" aria-label="Close queue">
-            <i class="bi bi-x-lg"></i>
-          </button>
+          @if (player.queue().length) {
+            <span class="badge text-bg-secondary">{{ player.queue().length }}</span>
+          }
         </header>
 
         <!-- Transport -->
@@ -133,6 +132,13 @@ export class PlaylistSidebar {
   protected readonly player = inject(PlayerService);
   private readonly playability = inject(MediaPlayabilityService);
   protected readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
+  /**
+   * Top offset in px (the live topbar height, from the shell's `bsObserveSize`). Applied as the drawer's
+   * `margin-top` so it starts below the topbar — keeping the topbar's playlist toggler reachable to close it
+   * (which is why the drawer has no close button of its own).
+   */
+  readonly topOffset = input<number>();
 
   /** The "Add URL" field value. */
   protected readonly urlInput = signal('');

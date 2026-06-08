@@ -1,5 +1,5 @@
 <bs-shell [state]="sidebarState() ? 'show' : 'hide'" [breakpoint]="'md'" (statechange)="onShellStateChange($event)">
-  <div *bsShellTopbar class="w-100 bg-dark d-flex align-items-center">
+  <div *bsShellTopbar bsObserveSize #observeSize="bsObserveSize" class="w-100 bg-dark d-flex align-items-center">
     <bs-navbar-toggler class="cursor-pointer" [(state)]="sidebarState"></bs-navbar-toggler>
     <a class="navbar-brand text-light ms-2" routerLink="/home">MintPlayer</a>
     <div class="ms-auto d-flex align-items-center gap-2">
@@ -49,4 +49,4 @@
 
 <!-- Global floating player + its queue drawer — outside the router-outlet so playback survives navigation. -->
 <app-player-card />
-<app-playlist-sidebar />
+<app-playlist-sidebar [topOffset]="topbarHeight()" />

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, signal, effect, afterNextRender, PLATFORM_ID, DestroyRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, effect, afterNextRender, PLATFORM_ID, DestroyRef, viewChild, computed } from '@angular/core';
 import { CommonModule, isPlatformBrowser, KeyValuePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,7 @@ import type { ShellStateChangeEventDetail } from '@mintplayer/web-components/she
 import { BsAccordionComponent, BsAccordionTabComponent, BsAccordionTabHeaderComponent } from '@mintplayer/ng-bootstrap/accordion';
 import { BsNavbarTogglerComponent } from '@mintplayer/ng-bootstrap/navbar-toggler';
 import { BsPlaylistTogglerComponent } from '@mintplayer/ng-bootstrap/playlist-toggler';
+import { BsObserveSizeDirective } from '@mintplayer/ng-swiper/observe-size';
 import { BsSelectComponent, BsSelectOption } from '@mintplayer/ng-bootstrap/select';
 import { SparkAuthBarComponent } from '@mintplayer/ng-spark-auth/auth-bar';
 import { SparkAuthService } from '@mintplayer/ng-spark-auth/core';
@@ -36,7 +37,7 @@ import { PlayerService } from '../player/player.service';
     CommonModule, RouterModule, FormsModule, KeyValuePipe,
     BsShellComponent, BsShellSidebarDirective, BsShellTopbarDirective,
     BsAccordionComponent, BsAccordionTabComponent, BsAccordionTabHeaderComponent,
-    BsNavbarTogglerComponent, BsPlaylistTogglerComponent, BsSelectComponent, BsSelectOption,
+    BsNavbarTogglerComponent, BsPlaylistTogglerComponent, BsObserveSizeDirective, BsSelectComponent, BsSelectOption,
     SparkIconComponent, SparkAuthBarComponent,
     ResolveTranslationPipe, IconNamePipe, RouterLinkPipe,
     PlayerCard, PlaylistSidebar,
@@ -53,6 +54,15 @@ export class Shell {
 
   readonly lang = inject(SparkLanguageService);
   protected readonly player = inject(PlayerService);
+
+  /**
+   * The topbar's live height (the `bsObserveSize` directive lives in the `*bsShellTopbar` embedded view,
+   * so we reach it with a view query rather than a template ref — the ref can't cross the structural
+   * directive into the sibling `<app-playlist-sidebar>`). Feeds the sidebar's top offset so the drawer
+   * starts below the topbar, leaving the playlist toggler reachable.
+   */
+  protected readonly topbarObserveSize = viewChild(BsObserveSizeDirective);
+  protected readonly topbarHeight = computed(() => this.topbarObserveSize()?.height());
   programUnitGroups = signal<ProgramUnitGroup[]>([]);
 
   /** Single source of truth for sidebar open/closed; two-way bound to the navbar toggler. */
