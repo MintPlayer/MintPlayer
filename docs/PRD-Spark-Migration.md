@@ -140,7 +140,7 @@ Legend: ✅ clean fit · 🟡 needs config/custom code on a Spark hook · 🔴 n
 | Playlist ordered tracks, public/private | ✅/🟡 | AsDetail array with `Index`; row-level visibility via `IsAllowedAsync`. Drag-reorder is a custom renderer. |
 | Per-user lyrics + karaoke timing `double[]` | ✅/🔴 | `Lyrics` collection stores cleanly; **timing-array editor is a custom renderer** (the karaoke sync UI). |
 | Media URLs typed + Visible flag | ✅ | AsDetail array + `LookupReference` for MediumType. |
-| Likes/dislikes + aggregate counts | ✅/🟡 | `Like` collection clean; aggregate counts need an index projection (no built-in aggregate attribute). |
+| Likes/dislikes + aggregate counts | ✅ | One `UserLike` doc per user (id arrays `Likes`/`Dislikes`, all subject types in one doc → favorites = single load, toggle = atomic write); per-subject totals from `Likes_Count` fan-out map-reduce (one map per array, reduce by SubjectId). Built in Phase 2.6. |
 | Soft-delete | 🟡 | Override `OnDeleteAsync` to flag + filter every query/index. No built-in pattern. |
 | Optimistic concurrency | ✅ | Built in — `PersistentObject.Etag` (change vector), HTTP 409 on conflict. |
 | Multi-language UI **and** data | ✅ | `culture.json` + `TranslatedString` (first-class data type with per-language merge on save). |
@@ -151,7 +151,7 @@ Legend: ✅ clean fit · 🟡 needs config/custom code on a Spark hook · 🔴 n
 |---|---|---|
 | CRUD for all catalog entities | ✅ | Generic Spark middleware (`/spark/po/*`, `/spark/queries/*`). Eliminates both controller stacks. |
 | Paging + multi-column sort + search | ✅ | Built into `QueryExecutor`. **Search push-down** to RavenDB is custom per searchable entity (default filters in memory). |
-| Likes / favorites / suggest endpoints | 🟡 | Custom actions or minimal-API endpoints alongside Spark middleware. |
+| Likes / favorites / suggest endpoints | ✅ | Custom MVC controllers alongside Spark middleware: `SubjectController` (`/api/subject/likes`, `/api/subject/favorites`) + `SearchController` (`/api/search`, `/api/search/suggest`). `/api` excluded from the SPA fallback. Built in Phase 2.5–2.6. |
 | Public REST API with **signed JWTs** | ✅/🟡 | **Confirmed feasible (D5 = keep).** Write plain `[ApiController]`s that inject `IAsyncDocumentSession` (or `IDocumentStore`) and query the same RavenDB data layer Spark CRUD uses — proven by `Demo/WebhooksDemo/.../GitHubProjectsController.cs` (injects `IAsyncDocumentSession`, runs under `[Authorize]`, coexists via `AddControllers()`/`MapControllers()`). Register `AddJwtBearer()` as a separate named scheme with a signing key; guard the public API with `[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]`. A small login endpoint mints the JWT via the `UserManager<SparkUser>`/`SignInManager` Spark already registers. **Nuance:** injecting the typed `SparkContext` into a controller does *not* auto-populate its `.Session` (internal setter, set only by Spark's pipeline) — inject the session directly. See §5.6. |
 | AMP, sitemap, robots, OpenSearch, fetcher | ✅ | Plain MVC controllers/minimal-APIs coexist with Spark (proven in WebhooksDemo); exclude their paths from the SPA fallback. |
 | XSRF (X-XSRF-TOKEN) | ✅ | Exact match — Spark uses `X-XSRF-TOKEN` cookie/header out of the box. |
