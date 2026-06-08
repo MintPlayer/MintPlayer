@@ -31,7 +31,7 @@ import { PlayerService } from './player.service';
   ],
   template: `
     @if (isBrowser && player.isOpen()) {
-      <aside class="playlist-sidebar bg-body border-start shadow d-flex flex-column" aria-label="Play queue">
+      <aside id="play-queue" class="playlist-sidebar bg-body border-start shadow d-flex flex-column" aria-label="Play queue">
         <header class="d-flex align-items-center gap-2 px-3 py-2 border-bottom">
           <i class="bi bi-music-note-list"></i>
           <span class="fw-semibold flex-grow-1">Queue</span>

@@ -14,6 +14,8 @@
         }
       }
       <spark-auth-bar />
+      <bs-playlist-toggler [state]="player.isOpen()" (stateChange)="player.setSidebarOpen($event)"
+                           controls="play-queue" ariaLabel="Toggle play queue" />
     </div>
   </div>
   <nav bsShellSidebar class="sidebar-inner text-light p-2">

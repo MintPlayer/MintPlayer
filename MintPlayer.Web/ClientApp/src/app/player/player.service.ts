@@ -142,6 +142,10 @@ export class PlayerService {
     this._isOpen.set(false);
   }
 
+  setSidebarOpen(open: boolean): void {
+    this._isOpen.set(open);
+  }
+
   setCardPosition(position: CardPosition): void {
     this._cardPosition.set(position);
   }

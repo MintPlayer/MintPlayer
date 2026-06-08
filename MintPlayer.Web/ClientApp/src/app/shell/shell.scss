@@ -55,9 +55,10 @@ bs-shell {
   display: none;
 }
 
-// The navbar-toggler's bars use --bs-secondary-color (dark by default); lighten
-// it so the toggler is visible against the dark topbar.
-::ng-deep bs-navbar-toggler {
+// The navbar-toggler and playlist-toggler draw their bars with --bs-secondary-color
+// (dark by default); lighten it so both are visible against the dark topbar.
+::ng-deep bs-navbar-toggler,
+::ng-deep bs-playlist-toggler {
   --bs-secondary-color: rgba(255, 255, 255, 0.85);
 }
 

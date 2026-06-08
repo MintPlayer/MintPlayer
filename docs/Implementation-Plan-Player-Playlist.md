@@ -85,7 +85,7 @@ Goal: the docked queue panel.
 - **P4.1** ✅ `playlist-sidebar.ts` — transport / progress / queue list / now-playing / remove / deep-link, bound to `PlayerService` signals.
 - **P4.2** ⏭️ **Drag-reorder deferred — needs a framework change.** The queue engine (`@mintplayer/playlist-controller`) keeps order in a private `_playlist` with no public move/insert, and rebuilding via `setPlaylist` re-clones every entry and drops the currently-playing identity (restarts playback). A clean reorder requires a new engine method (`moveInPlaylist(from, to)`) in the playlist-controller package — tracked as a batched framework change, **not** worked around app-side. The sidebar ships without reorder; documented in the component JSDoc + PRD.
 - **P4.3** ✅ "Add URL" input gated by `MediaPlayabilityService.canPlay` → `player.addToQueue(...)`.
-- **P4.4** ✅ Mounted in `shell.html`; open/close bound to `player.isOpen()`; toggled from the card header Queue button. Docked `.scss` using shell/Bootstrap variables.
+- **P4.4** ✅ Mounted in `shell.html`; open/close bound to `player.isOpen()`; toggled from the card header Queue button **and a `<bs-playlist-toggler>` in the topbar top-right** (`[state]`/`(stateChange)` ↔ `player.isOpen()`/`setSidebarOpen`, `aria-controls="play-queue"`). Its bars use `--bs-secondary-color`, so the shell lightens that var for `bs-playlist-toggler` exactly as for `bs-navbar-toggler` (visible on the dark topbar). Docked `.scss` using shell/Bootstrap variables.
 
 **Exit (browser):** ✅ sidebar lists the queue, highlights current, transport works, remove works, add-URL enqueues, auto-advance reflects in the list. (Reorder intentionally out — see P4.2.)
 

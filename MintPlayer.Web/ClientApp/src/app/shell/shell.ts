@@ -6,6 +6,7 @@ import { BsShellComponent, BsShellSidebarDirective } from '@mintplayer/ng-bootst
 import type { ShellStateChangeEventDetail } from '@mintplayer/web-components/shell';
 import { BsAccordionComponent, BsAccordionTabComponent, BsAccordionTabHeaderComponent } from '@mintplayer/ng-bootstrap/accordion';
 import { BsNavbarTogglerComponent } from '@mintplayer/ng-bootstrap/navbar-toggler';
+import { BsPlaylistTogglerComponent } from '@mintplayer/ng-bootstrap/playlist-toggler';
 import { BsSelectComponent, BsSelectOption } from '@mintplayer/ng-bootstrap/select';
 import { SparkAuthBarComponent } from '@mintplayer/ng-spark-auth/auth-bar';
 import { SparkAuthService } from '@mintplayer/ng-spark-auth/core';
@@ -16,6 +17,7 @@ import { ResolveTranslationPipe, IconNamePipe, RouterLinkPipe } from '@mintplaye
 import { BsShellTopbarDirective } from './bs-shell-topbar.directive';
 import { PlayerCard } from '../player/player-card';
 import { PlaylistSidebar } from '../player/playlist-sidebar';
+import { PlayerService } from '../player/player.service';
 
 /**
  * Application shell on ng-bootstrap 22's <bs-shell> (a lit <mp-shell> web component with named
@@ -34,7 +36,7 @@ import { PlaylistSidebar } from '../player/playlist-sidebar';
     CommonModule, RouterModule, FormsModule, KeyValuePipe,
     BsShellComponent, BsShellSidebarDirective, BsShellTopbarDirective,
     BsAccordionComponent, BsAccordionTabComponent, BsAccordionTabHeaderComponent,
-    BsNavbarTogglerComponent, BsSelectComponent, BsSelectOption,
+    BsNavbarTogglerComponent, BsPlaylistTogglerComponent, BsSelectComponent, BsSelectOption,
     SparkIconComponent, SparkAuthBarComponent,
     ResolveTranslationPipe, IconNamePipe, RouterLinkPipe,
     PlayerCard, PlaylistSidebar,
@@ -50,6 +52,7 @@ export class Shell {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly lang = inject(SparkLanguageService);
+  protected readonly player = inject(PlayerService);
   programUnitGroups = signal<ProgramUnitGroup[]>([]);
 
   /** Single source of truth for sidebar open/closed; two-way bound to the navbar toggler. */
