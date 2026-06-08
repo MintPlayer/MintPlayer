@@ -53,7 +53,13 @@ app.UseForwardedHeaders();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseSpaStaticFilesImproved();
+// Serve the pre-built SPA (ng build output) only in production. In development this would shadow
+// the live Angular CLI dev-server (UseAngularCliServer below) with a stale dist/main.js, so edits
+// never reach the browser — serve the SPA exclusively from the CLI dev-server while developing.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseSpaStaticFilesImproved();
+}
 
 app.UseRouting();
 app.UseSpark(o => o.SynchronizeModelsIfRequested<MintPlayerSparkContext>(args));

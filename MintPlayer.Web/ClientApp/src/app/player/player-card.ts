@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CdkDrag, CdkDragEnd, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { BsCardComponent, BsCardBodyComponent, BsCardHeaderComponent } from '@mintplayer/ng-bootstrap/card';
@@ -17,6 +17,12 @@ import { PlayerService } from './player.service';
  *
  * Play/pause commanding is deliberately not wired here (the `[playerState]` input would push an initial
  * `unstarted` that fights `[autoplay]`); transport controls live on the sidebar (P4).
+ *
+ * Drag shield: an `<iframe>` (the embedded player) swallows mouse events over its rectangle, so a drag
+ * passing over it would stall (the document stops receiving `mousemove`, which cdkDrag relies on). A
+ * transparent shield sits above the player inside the card body; it is `pointer-events: none` when idle
+ * (so the player's own controls work) and `pointer-events: auto` only while dragging — keeping the moves
+ * in the page's DOM. (Mirrors the legacy master-branch fix.)
  */
 @Component({
   selector: 'app-player-card',
@@ -28,6 +34,7 @@ import { PlayerService } from './player.service';
           cdkDrag
           cdkDragBoundary=".player-drag-boundary"
           [cdkDragFreeDragPosition]="dragPosition()"
+          (cdkDragStarted)="dragging.set(true)"
           (cdkDragEnded)="onDragEnded($event)"
           class="player-card shadow">
           <bs-card-header cdkDragHandle class="player-handle d-flex align-items-center gap-2">
@@ -44,7 +51,7 @@ import { PlayerService } from './player.service';
               <i class="bi bi-x-lg"></i>
             </button>
           </bs-card-header>
-          <bs-card-body class="p-0 bg-black">
+          <bs-card-body class="p-0 bg-black position-relative">
             <video-player
               [url]="player.currentEntry()!.url"
               [autoplay]="true"
@@ -52,6 +59,8 @@ import { PlayerService } from './player.service';
               [height]="191"
               (playerStateChange)="player.onPlayerState($event)"
               (progressChange)="player.onProgress($event)" />
+            <!-- Keeps the drag alive over the iframe; inert (pointer-events:none) when not dragging. -->
+            <div class="player-drag-shield" [class.player-drag-shield--active]="dragging()"></div>
           </bs-card-body>
         </bs-card>
       </div>
@@ -67,6 +76,10 @@ import { PlayerService } from './player.service';
     }
     .player-handle { cursor: move; user-select: none; }
     video-player { display: block; }
+    .player-drag-shield {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    }
+    .player-drag-shield--active { pointer-events: auto; }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -77,7 +90,12 @@ export class PlayerCard {
   /** Restore the remembered drag offset (relative to the card's natural bottom-right spot). */
   protected readonly dragPosition = computed(() => this.player.cardPosition() ?? { x: 0, y: 0 });
 
+  /** True while a drag is in progress — activates the pointer-shield over the iframe. */
+  protected readonly dragging = signal(false);
+
   protected onDragEnded(event: CdkDragEnd): void {
+    this.dragging.set(false);
     this.player.setCardPosition(event.source.getFreeDragPosition());
   }
 }
+
