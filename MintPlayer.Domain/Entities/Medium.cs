@@ -9,10 +9,12 @@ namespace MintPlayer.Domain.Entities;
 /// </summary>
 public class Medium
 {
+    /// <summary>The URL / identifier on that medium. Declared first so it's the leading grid column,
+    /// where the play-triangle renderer ("media-player") shows a play button when the URL is playable
+    /// by the <c>&lt;video-player&gt;</c> component.</summary>
+    public string Value { get; set; } = string.Empty;
+
     /// <summary>The kind of medium (Spotify, YouTube, …).</summary>
     [Reference(typeof(MediumType), "GetMediumTypes")]
     public string? TypeId { get; set; }
-
-    /// <summary>The URL / identifier on that medium.</summary>
-    public string Value { get; set; } = string.Empty;
 }

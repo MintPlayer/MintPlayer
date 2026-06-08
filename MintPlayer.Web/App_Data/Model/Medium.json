@@ -8,23 +8,6 @@
     "groups": [],
     "attributes": [
       {
-        "id": "d9f66578-74cc-4726-bba6-71258b020646",
-        "name": "TypeId",
-        "label": {
-          "en": "Type Id"
-        },
-        "dataType": "Reference",
-        "isRequired": false,
-        "isVisible": true,
-        "isReadOnly": false,
-        "order": 1,
-        "query": "GetMediumTypes",
-        "referenceType": "MintPlayer.Domain.Entities.MediumType",
-        "isArray": false,
-        "showedOn": "Query, PersistentObject",
-        "rules": []
-      },
-      {
         "id": "879fec8d-5b7d-494e-853f-73f04c6865b0",
         "name": "Value",
         "label": {
@@ -34,7 +17,25 @@
         "isRequired": false,
         "isVisible": true,
         "isReadOnly": false,
+        "order": 1,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": [],
+        "renderer": "media-player"
+      },
+      {
+        "id": "d9f66578-74cc-4726-bba6-71258b020646",
+        "name": "TypeId",
+        "label": {
+          "en": "Type Id"
+        },
+        "dataType": "Reference",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
         "order": 2,
+        "query": "GetMediumTypes",
+        "referenceType": "MintPlayer.Domain.Entities.MediumType",
         "isArray": false,
         "showedOn": "Query, PersistentObject",
         "rules": []
