@@ -35,4 +35,7 @@ public class MintPlayerSparkContext : SparkContext
 
     public IRavenQueryable<Song> Songs =>
         (IRavenQueryable<Song>)Session.Query<Song>().Where(x => !x.IsDeleted);
+
+    public IRavenQueryable<Playlist> Playlists =>
+        (IRavenQueryable<Playlist>)Session.Query<Playlist>().Where(x => !x.IsDeleted);
 }

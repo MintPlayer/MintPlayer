@@ -36,10 +36,36 @@
       ]
     },
     {
+      "id": "b3000000-0000-0000-0000-000000000001",
+      "name": { "en": "Playlists", "nl": "Afspeellijsten", "fr": "Listes de lecture" },
+      "icon": "bi-music-note-list",
+      "order": 2,
+      "programUnits": [
+        {
+          "id": "b3000000-0000-0000-0000-000000000101",
+          "name": { "en": "My playlists", "nl": "Mijn afspeellijsten", "fr": "Mes listes de lecture" },
+          "icon": "bi-person-lines-fill",
+          "type": "query",
+          "queryId": "c4000000-0000-0000-0000-000000000001",
+          "alias": "my-playlists",
+          "order": 1
+        },
+        {
+          "id": "b3000000-0000-0000-0000-000000000102",
+          "name": { "en": "Public playlists", "nl": "Openbare afspeellijsten", "fr": "Listes de lecture publiques" },
+          "icon": "bi-globe",
+          "type": "query",
+          "queryId": "c4000000-0000-0000-0000-000000000002",
+          "alias": "public-playlists",
+          "order": 2
+        }
+      ]
+    },
+    {
       "id": "b1000000-0000-0000-0000-000000000001",
       "name": { "en": "Catalog", "nl": "Catalogus", "fr": "Catalogue" },
       "icon": "bi-collection",
-      "order": 2,
+      "order": 3,
       "programUnits": [
         {
           "id": "b1000000-0000-0000-0000-000000000101",

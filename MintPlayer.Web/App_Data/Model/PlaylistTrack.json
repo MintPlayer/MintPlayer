@@ -1,0 +1,46 @@
+{
+  "persistentObject": {
+    "id": "cc14b7a2-76d5-4c52-a4bc-9f4d181408d0",
+    "name": "PlaylistTrack",
+    "clrType": "MintPlayer.Domain.Entities.PlaylistTrack",
+    "breadcrumb": "{SongId}",
+    "tabs": [],
+    "groups": [],
+    "attributes": [
+      {
+        "id": "b7fcd049-6d9b-4cd4-a432-e3130d438e68",
+        "name": "SongId",
+        "label": {
+          "en": "Song Id"
+        },
+        "dataType": "Reference",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 1,
+        "query": "GetSongs",
+        "referenceType": "MintPlayer.Domain.Entities.Song",
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "a9e390de-ada6-4765-922b-67943a27df34",
+        "name": "Index",
+        "label": {
+          "en": "Index"
+        },
+        "dataType": "number",
+        "isRequired": true,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 2,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      }
+    ],
+    "queries": []
+  },
+  "queries": []
+}

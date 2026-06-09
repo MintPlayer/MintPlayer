@@ -112,6 +112,30 @@
       "resource": "QueryReadEditNewDelete/SongArtist",
       "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
       "isDenied": false
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000001",
+      "resource": "QueryRead/Playlist",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000002",
+      "resource": "QueryReadEditNewDelete/Playlist",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000003",
+      "resource": "QueryRead/PlaylistTrack",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000004",
+      "resource": "QueryReadEditNewDelete/PlaylistTrack",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
     }
   ]
 }
