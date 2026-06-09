@@ -23,21 +23,6 @@
         "isArray": false,
         "showedOn": "Query, PersistentObject",
         "rules": []
-      },
-      {
-        "id": "a9e390de-ada6-4765-922b-67943a27df34",
-        "name": "Index",
-        "label": {
-          "en": "Index"
-        },
-        "dataType": "number",
-        "isRequired": true,
-        "isVisible": true,
-        "isReadOnly": false,
-        "order": 2,
-        "isArray": false,
-        "showedOn": "Query, PersistentObject",
-        "rules": []
       }
     ],
     "queries": []

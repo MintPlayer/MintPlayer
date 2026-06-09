@@ -26,6 +26,10 @@ public class Playlist : Entity
     /// </summary>
     public string? OwnerId { get; set; }
 
-    /// <summary>The ordered tracks. Position is carried by <see cref="PlaylistTrack.Index"/>.</summary>
+    /// <summary>
+    /// The ordered tracks. Order is the array position itself (drag-reorder via Spark's
+    /// <c>[Sortable]</c> AsDetail support — no explicit index field needed).
+    /// </summary>
+    [Sortable]
     public List<PlaylistTrack> Tracks { get; set; } = [];
 }
