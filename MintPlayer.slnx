@@ -1,12 +1,4 @@
 <Solution>
-  <Folder Name="/spikes/">
-    <Project Path="spikes/Spike.Migration/Spike.Migration.csproj" />
-  </Folder>
-  <Project Path="../MintPlayer.Spark/libs/authorization/MintPlayer.Spark.Authorization/MintPlayer.Spark.Authorization.csproj" />
-  <Project Path="../MintPlayer.Spark/libs/source_generators/MintPlayer.Spark.SourceGenerators/MintPlayer.Spark.SourceGenerators.csproj" />
-  <Project Path="../MintPlayer.Spark/libs/spark/MintPlayer.Spark.Abstractions/MintPlayer.Spark.Abstractions.csproj" />
-  <Project Path="../MintPlayer.Spark/libs/spark/MintPlayer.Spark/MintPlayer.Spark.csproj" />
-  <Project Path="../MintPlayer.Spark/libs/testing/MintPlayer.Spark.Testing/MintPlayer.Spark.Testing.csproj" />
   <Project Path="MintPlayer.Domain/MintPlayer.Domain.csproj" />
   <Project Path="MintPlayer.Web/MintPlayer.Web.csproj" />
 </Solution>
