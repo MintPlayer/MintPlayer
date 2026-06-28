@@ -54,6 +54,37 @@
         "rules": []
       },
       {
+        "id": "0083dd3f-e00a-4f5d-92b1-4b641fa8f582",
+        "name": "Lyrics",
+        "label": {
+          "en": "Lyrics"
+        },
+        "dataType": "MultiLineString",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 4,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "ebd92cfb-376b-487f-9052-3e3339dfe662",
+        "name": "LyricsTimings",
+        "label": {
+          "en": "Lyrics Timings"
+        },
+        "dataType": "AsDetail",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": false,
+        "order": 5,
+        "asDetailType": "MintPlayer.Domain.Entities.LyricsTiming",
+        "isArray": true,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
         "id": "a3d9bc32-8abe-4d1c-bd5c-3d1e35d74cff",
         "name": "Media",
         "label": {

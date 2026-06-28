@@ -64,6 +64,10 @@ if (!app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseSpark(o => o.SynchronizeModelsIfRequested<MintPlayerSparkContext>(args));
 
+// Enable RavenDB revisions (Songs) so lyric edits are versioned. Runs after UseSpark, so it's
+// skipped during --spark-synchronize-model; idempotent across boots.
+await app.ConfigureRevisionsAsync();
+
 // Dev-only: ensure an Administrator account exists for the admin auto-UI. No-op in
 // production and skipped during --spark-synchronize-model (UseSpark exits first).
 await app.SeedDevelopmentDataAsync();

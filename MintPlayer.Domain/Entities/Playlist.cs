@@ -4,7 +4,7 @@ namespace MintPlayer.Domain.Entities;
 
 /// <summary>
 /// A user-curated, ordered collection of songs (legacy <c>Playlist</c>). Display = <c>[Breadcrumb]</c> "{Name}".
-/// Tracks are embedded as <see cref="Tracks"/> (AsDetail), ordered by <see cref="PlaylistTrack.Index"/>.
+/// Tracks are embedded as <see cref="Tracks"/> (AsDetail); their order is the array position itself.
 ///
 /// Ownership + visibility drive row-level security (see <c>PlaylistActions.IsAllowedAsync</c>):
 /// <see cref="OwnerId"/> is stamped with the creating user on first save; <see cref="IsPublic"/> decides

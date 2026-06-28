@@ -80,8 +80,8 @@
         "order": 5,
         "asDetailType": "MintPlayer.Domain.Entities.PlaylistTrack",
         "isArray": true,
-        "isSortable": true,
         "editMode": "inline",
+        "isSortable": true,
         "showedOn": "Query, PersistentObject",
         "rules": []
       },

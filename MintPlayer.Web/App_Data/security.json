@@ -2,7 +2,8 @@
   "groups": {
     "00000000-0000-0000-0000-000000000000": { "en": "Everyone", "nl": "Iedereen", "fr": "Tout le monde" },
     "a1b2c3d4-0000-0000-0000-000000000001": { "en": "Administrator", "nl": "Beheerder", "fr": "Administrateur" },
-    "a1b2c3d4-0000-0000-0000-000000000002": { "en": "Blogger", "nl": "Blogger", "fr": "Blogueur" }
+    "a1b2c3d4-0000-0000-0000-000000000002": { "en": "Blogger", "nl": "Blogger", "fr": "Blogueur" },
+    "a1b2c3d4-0000-0000-0000-000000000003": { "en": "Editor", "nl": "Editor", "fr": "Éditeur" }
   },
   "rights": [
     {
@@ -135,6 +136,43 @@
       "id": "30000000-0000-0000-0000-000000000004",
       "resource": "QueryReadEditNewDelete/PlaylistTrack",
       "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+
+    {
+      "id": "40000000-0000-0000-0000-000000000001",
+      "resource": "QueryReadEditNewDelete/Person",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    },
+    {
+      "id": "40000000-0000-0000-0000-000000000002",
+      "resource": "QueryReadEditNewDelete/Artist",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    },
+    {
+      "id": "40000000-0000-0000-0000-000000000003",
+      "resource": "QueryReadEditNewDelete/Song",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    },
+    {
+      "id": "40000000-0000-0000-0000-000000000004",
+      "resource": "QueryReadEditNewDelete/Medium",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    },
+    {
+      "id": "40000000-0000-0000-0000-000000000005",
+      "resource": "QueryReadEditNewDelete/SongArtist",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    },
+    {
+      "id": "40000000-0000-0000-0000-000000000006",
+      "resource": "QueryReadEditNewDelete/ArtistMember",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
       "isDenied": false
     }
   ]
