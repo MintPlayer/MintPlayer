@@ -1,0 +1,40 @@
+# Local/full-stack run: RavenDB + the MintPlayer.Web app. `docker compose up --build`.
+#
+# NOTE: the web container runs in Production (Development would start the Angular CLI dev server,
+# which isn't present in the runtime image — the SPA is pre-built and served as static files).
+# Because it's Production, the dev admin seeder does NOT run; provision admins separately.
+services:
+  ravendb:
+    image: ravendb/ravendb:7.2-latest
+    environment:
+      # Community/dev: accept the EULA and allow unsecured access on the compose network.
+      - RAVEN_License_Eula_Accepted=true
+      - RAVEN_Setup_Mode=None
+      - RAVEN_Security_UnsecuredAccessAllowed=PublicNetwork
+      - RAVEN_ServerUrl=http://0.0.0.0:8080
+    ports:
+      - "8080:8080" # RavenDB Studio at http://localhost:8080
+    volumes:
+      - ravendb-data:/opt/RavenDB/Server/RavenData
+
+  web:
+    build:
+      context: .
+      dockerfile: MintPlayer.Web/Dockerfile
+    depends_on:
+      - ravendb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      # Point Spark at the RavenDB service (overrides appsettings via env config).
+      - Spark__RavenDb__Urls__0=http://ravendb:8080
+      - Spark__RavenDb__Database=MintPlayer
+      # Configure SMTP here (or leave empty to log emails). Example:
+      # - Smtp__Host=smtp.example.com
+      # - Smtp__User=...
+      # - Smtp__Password=...
+    ports:
+      - "5080:8080" # app at http://localhost:5080
+
+volumes:
+  ravendb-data:

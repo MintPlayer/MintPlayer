@@ -1,0 +1,44 @@
+{
+  "persistentObject": {
+    "id": "41856fff-3d5c-441c-92d7-aeea4eea836a",
+    "name": "LyricsTiming",
+    "clrType": "MintPlayer.Domain.Entities.LyricsTiming",
+    "breadcrumb": "{MediumUrl}",
+    "tabs": [],
+    "groups": [],
+    "attributes": [
+      {
+        "id": "d49d029c-4ed3-4018-8616-9e3447199f0d",
+        "name": "MediumUrl",
+        "label": {
+          "en": "Medium Url"
+        },
+        "dataType": "string",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 1,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "d45fbbe5-12bd-4eb1-b4e9-3ed294f95ccf",
+        "name": "StartTimes",
+        "label": {
+          "en": "Start Times"
+        },
+        "dataType": "decimal",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 2,
+        "isArray": true,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      }
+    ],
+    "queries": []
+  },
+  "queries": []
+}

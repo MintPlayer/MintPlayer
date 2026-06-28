@@ -1,0 +1,26 @@
+# Keep the build context small + reproducible. Spark comes from NuGet, so no sibling repo needed.
+**/bin
+**/obj
+**/node_modules
+**/dist
+**/.angular
+**/.vs
+**/.vscode
+.git
+.gitignore
+.github
+
+# The entire pre-Spark app — never part of the new image.
+legacy/
+
+# Spikes, docs, and local-only files.
+spikes/
+docs/
+*.md
+**/*.user
+raven-license.log
+**/appsettings.*.local.json
+
+# Compose/Docker meta (not needed inside the build).
+docker-compose*.yml
+**/.dockerignore

@@ -1,35 +1,103 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
+using MintPlayer.AspNetCore.SpaServices.Extensions;
+using MintPlayer.Spark;
+using MintPlayer.Spark.Authorization.Extensions;
+using MintPlayer.Spark.Extensions;
+using MintPlayer.Web;
+using MintPlayer.Web.Email;
 
-namespace MintPlayer.Web
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder
-                        .UseStartup<Startup>()
-                        .UseUrls(
-                            "https://localhost:44329",
-                            "https://mintplayer.test:44329",
-                            "https://external.mintplayer.test:44329",
-                            "https://mintplayer.com",
-                            "https://external.mintplayer.com"
-                        )
-                        .UseIISIntegration();
-                });
-    }
+builder.Services.AddControllers();
+builder.Services.AddSpark(builder.Configuration, spark =>
+{
+    spark.UseContext<MintPlayerSparkContext>();
+
+    // Group-based access control from App_Data/security.json (deny-all by default;
+    // the all-zeros "Everyone" group grants anonymous read where listed).
+    spark.AddAuthorization(options => options.SecurityFilePath = "App_Data/security.json");
+
+    // ASP.NET Core Identity over RavenDB (cookie + bearer, XSRF header X-XSRF-TOKEN).
+    // Maps /spark/auth/* (login/register/forgot/reset/2fa). Migrated password hashes and
+    // authenticator keys validate here unchanged (proven in spikes/Spike.Migration).
+    spark.AddAuthentication<MintPlayerUser>();
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.Name = ".SparkAuth.MintPlayer";
+});
+
+// Transactional email (account confirmation + password reset) via MailKit. Overrides Identity's
+// no-op IEmailSender<TUser>; falls back to logging when no SMTP host is configured (dev).
+builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.SectionName));
+builder.Services.AddTransient<IEmailSender<MintPlayerUser>, MintPlayerEmailSender>();
+
+builder.Services.AddSpaStaticFilesImproved(configuration =>
+{
+    configuration.RootPath = "ClientApp/dist/ClientApp/browser";
+});
+
+var app = builder.Build();
+
+app.UseForwardedHeaders();
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+// Serve the pre-built SPA (ng build output) only in production. In development this would shadow
+// the live Angular CLI dev-server (UseAngularCliServer below) with a stale dist/main.js, so edits
+// never reach the browser — serve the SPA exclusively from the CLI dev-server while developing.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseSpaStaticFilesImproved();
+}
+
+app.UseRouting();
+app.UseSpark(o => o.SynchronizeModelsIfRequested<MintPlayerSparkContext>(args));
+
+// Enable RavenDB revisions (Songs) so lyric edits are versioned. Runs after UseSpark, so it's
+// skipped during --spark-synchronize-model; idempotent across boots.
+await app.ConfigureRevisionsAsync();
+
+// Dev-only: ensure an Administrator account exists for the admin auto-UI. No-op in
+// production and skipped during --spark-synchronize-model (UseSpark exits first).
+await app.SeedDevelopmentDataAsync();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapSpark();
+});
+
+app.UseWhen(
+    context => !context.Request.Path.StartsWithSegments("/spark")
+            && !context.Request.Path.StartsWithSegments("/api"),
+    appBuilder =>
+    {
+        appBuilder.UseSpaImproved(spa =>
+        {
+            spa.Options.SourcePath = "ClientApp";
+
+            if (app.Environment.IsDevelopment())
+            {
+                spa.UseAngularCliServer(npmScript: "start", cliRegexes: [openBrowserRegex()]);
+            }
+        });
+    });
+
+app.Run();
+
+partial class Program
+{
+    [GeneratedRegex(@"Local\:\s+(?<openbrowser>https?\:\/\/(.+))")]
+    private static partial Regex openBrowserRegex();
 }

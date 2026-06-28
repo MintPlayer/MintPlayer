@@ -1,0 +1,179 @@
+{
+  "groups": {
+    "00000000-0000-0000-0000-000000000000": { "en": "Everyone", "nl": "Iedereen", "fr": "Tout le monde" },
+    "a1b2c3d4-0000-0000-0000-000000000001": { "en": "Administrator", "nl": "Beheerder", "fr": "Administrateur" },
+    "a1b2c3d4-0000-0000-0000-000000000002": { "en": "Blogger", "nl": "Blogger", "fr": "Blogueur" },
+    "a1b2c3d4-0000-0000-0000-000000000003": { "en": "Editor", "nl": "Editor", "fr": "Éditeur" }
+  },
+  "rights": [
+    {
+      "id": "10000000-0000-0000-0000-000000000001",
+      "resource": "QueryRead/MediumType",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000002",
+      "resource": "QueryReadEditNewDelete/MediumType",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000003",
+      "resource": "QueryRead/TagCategory",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000004",
+      "resource": "QueryReadEditNewDelete/TagCategory",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000005",
+      "resource": "QueryRead/Tag",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000006",
+      "resource": "QueryReadEditNewDelete/Tag",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000007",
+      "resource": "QueryRead/Person",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000008",
+      "resource": "QueryReadEditNewDelete/Person",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-000000000009",
+      "resource": "QueryRead/Artist",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-00000000000a",
+      "resource": "QueryReadEditNewDelete/Artist",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-00000000000b",
+      "resource": "QueryRead/Song",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "10000000-0000-0000-0000-00000000000c",
+      "resource": "QueryReadEditNewDelete/Song",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000001",
+      "resource": "QueryRead/Medium",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000002",
+      "resource": "QueryRead/ArtistMember",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000003",
+      "resource": "QueryRead/SongArtist",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000011",
+      "resource": "QueryReadEditNewDelete/Medium",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000012",
+      "resource": "QueryReadEditNewDelete/ArtistMember",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000013",
+      "resource": "QueryReadEditNewDelete/SongArtist",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000001",
+      "isDenied": false
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000001",
+      "resource": "QueryRead/Playlist",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000002",
+      "resource": "QueryReadEditNewDelete/Playlist",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000003",
+      "resource": "QueryRead/PlaylistTrack",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000004",
+      "resource": "QueryReadEditNewDelete/PlaylistTrack",
+      "groupId": "00000000-0000-0000-0000-000000000000",
+      "isDenied": false
+    },
+
+    {
+      "id": "40000000-0000-0000-0000-000000000001",
+      "resource": "QueryReadEditNewDelete/Person",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    },
+    {
+      "id": "40000000-0000-0000-0000-000000000002",
+      "resource": "QueryReadEditNewDelete/Artist",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    },
+    {
+      "id": "40000000-0000-0000-0000-000000000003",
+      "resource": "QueryReadEditNewDelete/Song",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    },
+    {
+      "id": "40000000-0000-0000-0000-000000000004",
+      "resource": "QueryReadEditNewDelete/Medium",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    },
+    {
+      "id": "40000000-0000-0000-0000-000000000005",
+      "resource": "QueryReadEditNewDelete/SongArtist",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    },
+    {
+      "id": "40000000-0000-0000-0000-000000000006",
+      "resource": "QueryReadEditNewDelete/ArtistMember",
+      "groupId": "a1b2c3d4-0000-0000-0000-000000000003",
+      "isDenied": false
+    }
+  ]
+}

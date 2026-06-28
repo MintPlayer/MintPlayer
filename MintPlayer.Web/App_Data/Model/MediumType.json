@@ -1,0 +1,136 @@
+{
+  "persistentObject": {
+    "id": "2f167ae5-6428-4552-a4c2-8e36a169c998",
+    "name": "MediumType",
+    "clrType": "MintPlayer.Domain.Entities.MediumType",
+    "breadcrumb": "{Name}",
+    "tabs": [],
+    "groups": [],
+    "attributes": [
+      {
+        "id": "efe73cc0-f24f-41be-951a-76e79411ccd4",
+        "name": "Name",
+        "label": {
+          "en": "Name"
+        },
+        "dataType": "string",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 1,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "1cdbb54b-1c31-4a9e-8c05-9738f7b08a5a",
+        "name": "Description",
+        "label": {
+          "en": "Description"
+        },
+        "dataType": "string",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 2,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "5f21ce89-bd97-49c7-a89a-e1060bca5337",
+        "name": "CreatedAt",
+        "label": {
+          "en": "Created At"
+        },
+        "dataType": "datetime",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 3,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "0edcc856-2e81-4f37-8877-62ea4a1ccfa7",
+        "name": "ModifiedAt",
+        "label": {
+          "en": "Modified At"
+        },
+        "dataType": "datetime",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 4,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "1a3fad1a-3129-4826-bf78-e61323c8a361",
+        "name": "IsDeleted",
+        "label": {
+          "en": "Is Deleted"
+        },
+        "dataType": "boolean",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 5,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "791cc518-22b5-4fb5-821d-aac9b3cfea81",
+        "name": "DeletedAt",
+        "label": {
+          "en": "Deleted At"
+        },
+        "dataType": "datetime",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 6,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "995b49de-6b74-42e9-89bb-52d8ec7d9c80",
+        "name": "OldId",
+        "label": {
+          "en": "Old Id"
+        },
+        "dataType": "number",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 7,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      }
+    ],
+    "queries": []
+  },
+  "queries": [
+    {
+      "id": "479ce114-8306-4d0f-a738-66bf183f89ae",
+      "name": "GetMediumTypes",
+      "source": "Database.MediumTypes",
+      "alias": "medium-types",
+      "sortColumns": [
+        {
+          "property": "Name",
+          "direction": "asc"
+        }
+      ],
+      "renderMode": "Pagination",
+      "useProjection": false,
+      "entityType": "MediumType",
+      "isStreamingQuery": false
+    }
+  ]
+}
