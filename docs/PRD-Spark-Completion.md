@@ -282,7 +282,7 @@ Full write-up: [`docs/spikes/S7-api-v1/RESULT.md`](./spikes/S7-api-v1/RESULT.md)
 
 ### 6.8 Upstream fixes outside Spark (found by the spikes)
 
-Spark items are collected in [`Spark-Issue-MintPlayer-Migration.md`](./Spark-Issue-MintPlayer-Migration.md). The rest belong to the user's other repos and land in the same unit of work:
+Spark items are filed as [MintPlayer.Spark#460](https://github.com/MintPlayer/MintPlayer.Spark/issues/460) (source: [`Spark-Issue-MintPlayer-Migration.md`](./Spark-Issue-MintPlayer-Migration.md)). The rest belong to the user's other repos and land in the same unit of work:
 
 | Repo | Fix | Found in |
 |---|---|---|
