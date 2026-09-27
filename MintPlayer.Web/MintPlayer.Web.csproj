@@ -9,16 +9,20 @@
     <!-- Build/serve the nested Angular app via SpaServices. We use MintPlayer's Spark
          prerendering (Phase 1.6), not Angular's own SSR builder, so disable the SSR build path. -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
-    <!-- Absolute on purpose. NodeServices 10.4.0 defaults this to the relative $(SpaRoot) and hands it to
-         its own npm-install.proj, which lives in the NuGet cache — so "ClientApp/" resolves there and
-         `dotnet publish` fails with "The working directory ClientApp/ does not exist" (found in S8). -->
-    <NpmInstallWorkingDirectory>$(MSBuildProjectDirectory)/ClientApp/</NpmInstallWorkingDirectory>
-    <NodeModulesCheckPath>$(MSBuildProjectDirectory)/ClientApp/</NodeModulesCheckPath>
+<!-- Absolute on purpose. NodeServices (10.4.0 and 11.0.0-rc.2) hands these to its own
+         buildTransitive/npm-install.proj via <MSBuild>, where a relative "ClientApp/" resolves against the
+         NuGet cache folder, so `dotnet publish` fails with "working directory ClientApp/ does not exist"
+         (found in spikes S1 and S8; upstream fix belongs in MintPlayer.AspNetCore.SpaServices). -->
+    <NpmInstallWorkingDirectory>$(MSBuildProjectDirectory)/$(SpaRoot)</NpmInstallWorkingDirectory>
+    <NodeModulesCheckPath>$(MSBuildProjectDirectory)/$(SpaRoot)</NodeModulesCheckPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.17.0" />
-    <PackageReference Include="MintPlayer.AspNetCore.SpaServices" Version="10.5.0" />
+    <PackageReference Include="MintPlayer.AspNetCore.SpaServices" Version="11.0.0-rc.2" />
+    <!-- Server-side prerendering (D2, spike S1). 11.0.0-rc.2: needs 10.8+ for status/header preservation
+         (a 404 from OnSupplyData still renders). Brings MintPlayer.AspNetCore.SpaServices.Prerendering. -->
+    <PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="11.0.0-rc.2" />
     <PackageReference Include="MintPlayer.SourceGenerators" Version="10.19.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -4,6 +4,9 @@ import { sparkRoutes } from '@mintplayer/ng-spark/routes';
 import { Shell } from './shell/shell';
 
 export const routes: Routes = [
+  // Public, server-rendered pages (spike S1) sit outside the admin Shell: the Shell's auth-dependent
+  // chrome would render anonymously on the server and mismatch on hydration. F2 adds a public shell.
+  { path: 'song/:id', loadComponent: () => import('./pages/song/song-page').then(m => m.SongPage) },
   {
     path: '',
     component: Shell,

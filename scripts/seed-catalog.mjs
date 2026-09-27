@@ -8,7 +8,7 @@
 
 const API = 'https://mintplayer.com/api/v1';
 const RAVEN = 'http://localhost:8080';
-const DB = 'MintPlayer';
+const DB = process.env.RAVEN_DB || 'MintPlayer'; // override: RAVEN_DB=MintPlayer_S1 node scripts/seed-catalog.mjs
 const CREATED_AT = '2026-06-09T00:00:00.0000000+00:00'; // fixed → re-runs don't churn the field
 
 const clr = (t) => `MintPlayer.Domain.Entities.${t}, MintPlayer.Domain`;
