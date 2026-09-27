@@ -202,6 +202,10 @@ Source: native backup `mintplay_MintPlayer_2026-09-27_21-09-04` from `WEB22\MSSQ
 
 **Open from S2:** server timezone of the Plesk host (not in the backup) — assume `Europe/Brussels` unless told otherwise.
 
+### 6.2 S10 result — YouTube import (2026-09-27)
+
+**GO.** 98-video playlist = 5 units (`playlists` 1 + `playlistItems` 2 + `videos` 2 for the unmatched; 2.55 / 50), and preview → import is served from a 10-minute cache at 0 units. Matching by canonical id is **22 / 22 (100 %)** across 7 real playlists (5,081 videos) with 0 false positives, and 164 / 164 catalog YouTube URLs resolve through the `Songs_ByYouTubeId` index. Public-playlist overlap with the 141-song catalog is only 0–3 %. Drafts are tagged `Tags/youtube-import-draft` and restricted to Editor/Administrator. Details: [`docs/spikes/S10-youtube-import/RESULT.md`](spikes/S10-youtube-import/RESULT.md).
+
 ---
 
 ## 7. Phases

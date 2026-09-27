@@ -33,6 +33,8 @@ services:
       # - Smtp__Host=smtp.example.com
       # - Smtp__User=...
       # - Smtp__Password=...
+      # YouTube Data API v3 key for "Import a YouTube playlist" (F16) — keep it in the server .env:
+      # - YouTube__ApiKey=${YOUTUBE_API_KEY}
     ports:
       - "5080:8080" # app at http://localhost:5080
 
