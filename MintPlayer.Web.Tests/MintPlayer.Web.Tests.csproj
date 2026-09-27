@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <!-- Spark's buildTransitive targets demand the Spark source generators in every consuming project; a
+         test project must not re-run them (the app's generated code comes with the MintPlayer.Web reference). -->
+    <MintPlayerSparkSourceGeneratorsReferenceValidated>true</MintPlayerSparkSourceGeneratorsReferenceValidated>
+    <!-- SpaServices' buildTransitive npm targets flow in via MintPlayer.Web; there is no ClientApp here. -->
+    <EnableSpaBuilder>false</EnableSpaBuilder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MintPlayer.Web\MintPlayer.Web.csproj" />
+  </ItemGroup>
+
+</Project>

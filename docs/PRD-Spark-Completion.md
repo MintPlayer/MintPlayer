@@ -210,8 +210,6 @@ Source: native backup `mintplay_MintPlayer_2026-09-27_21-09-04` from `WEB22\MSSQ
 
 **Server timezone** of the Plesk host (not in the backup): resolved by D19 (`Europe/Amsterdam`).
 
----
-
 ### 6.2 S8 result — Hetzner deploy, local part (2026-09-27)
 
 Full write-up: [`docs/spikes/S8-hetzner-deploy/RESULT.md`](./spikes/S8-hetzner-deploy/RESULT.md). Merged into this branch. Nothing was deployed or pushed.
@@ -222,6 +220,12 @@ Full write-up: [`docs/spikes/S8-hetzner-deploy/RESULT.md`](./spikes/S8-hetzner-d
 - **Backup off-box:** RavenDB cloud/remote destinations need Professional/Enterprise; Community = local only. Unless the VPS license allows it, off-box = host cron `rsync` of the backup volume to a Hetzner Storage Box (D23 fallback).
 - **Still needs the user:** VPS dir + `.env` + `raven-license.json`; GHCR package visibility; `VPS_*` repo secrets — **only at cutover**, because the workflow deploys on `master`, which still holds the legacy app; DKIM key + `mail._domainkey` TXT; VPS IPv4 in SPF; outbound port 25; TTL 300 s then A-record switch; restore test on the VPS.
 - **Open:** RavenDB server 7.1.10 (pinned, as coverage) vs client 7.2.x — worked locally; decide whether prod moves to 7.2.x. App → Postfix is an internal hop: F9's sender must not require STARTTLS. Not yet exercised: www→apex redirect (needs Traefik), SSR inside the container (S1).
+
+### 6.3 S10 result — YouTube import (2026-09-27)
+
+**GO.** 98-video playlist = 5 units (`playlists` 1 + `playlistItems` 2 + `videos` 2 for the unmatched; 2.55 / 50), and preview → import is served from a 10-minute cache at 0 units. Matching by canonical id is **22 / 22 (100 %)** across 7 real playlists (5,081 videos) with 0 false positives, and 164 / 164 catalog YouTube URLs resolve through the `Songs_ByYouTubeId` index. Public-playlist overlap with the 141-song catalog is only 0–3 %. Drafts are tagged `Tags/youtube-import-draft` and restricted to Editor/Administrator. Details: [`docs/spikes/S10-youtube-import/RESULT.md`](spikes/S10-youtube-import/RESULT.md).
+
+---
 
 ## 7. Phases
 

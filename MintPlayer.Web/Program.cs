@@ -9,6 +9,7 @@ using MintPlayer.Spark.Authorization.Extensions;
 using MintPlayer.Spark.Extensions;
 using MintPlayer.Web;
 using MintPlayer.Web.Email;
+using MintPlayer.Web.YouTube;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,17 @@ builder.Services.ConfigureApplicationCookie(options =>
 // no-op IEmailSender<TUser>; falls back to logging when no SMTP host is configured (dev).
 builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.SectionName));
 builder.Services.AddTransient<IEmailSender<MintPlayerUser>, MintPlayerEmailSender>();
+
+// YouTube playlist import (F16). Key from YouTube:ApiKey (env YouTube__ApiKey, the server .env) or the
+// file named by YouTube:ApiKeyFile; it is sent as the X-Goog-Api-Key header, never in a (loggable) URL.
+builder.Services.Configure<YouTubeOptions>(builder.Configuration.GetSection(YouTubeOptions.SectionName));
+builder.Services.AddMemoryCache();
+builder.Services.AddHttpClient<IYouTubeDataApi, YouTubeDataApiClient>(client =>
+{
+    client.BaseAddress = new Uri(YouTubeDataApiClient.BaseAddress);
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
+builder.Services.AddScoped<YouTubePlaylistImporter>();
 
 builder.Services.AddSpaStaticFilesImproved(configuration =>
 {
