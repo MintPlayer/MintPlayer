@@ -42,6 +42,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.SectionName));
 builder.Services.AddTransient<IEmailSender<MintPlayerUser>, MintPlayerEmailSender>();
 
+// Listen-together rooms (F13 / spike S9): live room registry + socket protocol (singleton, in-memory
+// connections; room documents persisted in RavenDB).
+builder.Services.AddSingleton<MintPlayer.Web.Rooms.RoomService>();
+
 builder.Services.AddSpaStaticFilesImproved(configuration =>
 {
     configuration.RootPath = "ClientApp/dist/ClientApp/browser";
@@ -61,6 +65,11 @@ if (!app.Environment.IsDevelopment())
     app.UseSpaStaticFilesImproved();
 }
 
+// WebSockets for /ws/rooms/{id}. The 20 s keep-alive ping keeps idle room sockets alive through proxies
+// (Traefik / Docker / cloud LBs drop idle TCP after their idle timeout). Also lets the dev SPA proxy
+// tunnel the Angular CLI's live-reload socket.
+app.UseWebSockets(new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(20) });
+
 app.UseRouting();
 app.UseSpark(o => o.SynchronizeModelsIfRequested<MintPlayerSparkContext>(args));
 
@@ -76,11 +85,13 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapSpark();
+    MintPlayer.Web.Rooms.RoomEndpoints.MapRooms(endpoints);
 });
 
 app.UseWhen(
     context => !context.Request.Path.StartsWithSegments("/spark")
-            && !context.Request.Path.StartsWithSegments("/api"),
+            && !context.Request.Path.StartsWithSegments("/api")
+            && !context.Request.Path.StartsWithSegments("/ws"),
     appBuilder =>
     {
         appBuilder.UseSpaImproved(spa =>

@@ -5,6 +5,11 @@ import { PlayerProgress } from '@mintplayer/player-progress';
 import { ERepeatMode, PlaylistController } from '@mintplayer/playlist-controller';
 import { PlaylistEntry } from './playlist-entry';
 
+/** Imperative operations on the mounted player that have no `<video-player>` input binding. */
+export interface PlayerHandle {
+  seek(positionSec: number): void;
+}
+
 /** The floating player card's free-drag position, in px relative to its natural spot. */
 export interface CardPosition {
   x: number;
@@ -63,6 +68,16 @@ export class PlayerService {
    */
   readonly resolvedTitles = this._resolvedTitles.asReadonly();
 
+  private readonly _muted = signal(false);
+  /** Bound to `<video-player [mute]>`. */
+  readonly muted = this._muted.asReadonly();
+
+  /** `performance.now()` at the last {@link onProgress} — lets a caller extrapolate the live position. */
+  private progressAt = 0;
+
+  /** Imperative bridge to the mounted `<video-player>` (seek has no input binding). Set by the player card. */
+  private handle: PlayerHandle | null = null;
+
   /** True when something is loaded — drives the player card's visibility. */
   readonly hasCurrent = computed(() => this.currentEntry() !== null);
 
@@ -76,6 +91,7 @@ export class PlayerService {
     // setPlaylist is async but has no awaits — its body (and the video$ emission) runs synchronously.
     void this.controller.setPlaylist(entries);
     this.syncQueue();
+    this._progress.set(null); // the previous medium's position no longer applies
     // Command `playing` optimistically: the card binds `[playerState]`, and starting from `playing`
     // (rather than the initial `unstarted`) makes that binding agree with `[autoplay]` instead of
     // pushing an `unstarted` that fights it. The player's own `playerStateChange` then confirms it.
@@ -117,6 +133,45 @@ export class PlayerService {
   /** Toggle play/pause by commanding `<video-player>` through the {@link playerState} signal. */
   togglePlayPause(): void {
     this._playerState.set(this.isPlaying() ? EPlayerState.paused : EPlayerState.playing);
+  }
+
+  /** Command play / pause explicitly (listen-together follows the room state rather than toggling). */
+  setPlaying(playing: boolean): void {
+    this._playerState.set(playing ? EPlayerState.playing : EPlayerState.paused);
+  }
+
+  /** Seek the current medium. Returns false when no player is mounted yet. */
+  seek(positionSec: number): boolean {
+    if (!this.handle) {
+      return false;
+    }
+    this.handle.seek(positionSec);
+    return true;
+  }
+
+  setMuted(muted: boolean): void {
+    this._muted.set(muted);
+  }
+
+  /**
+   * Best estimate of the medium's position right now: the last reported `currentTime` extrapolated by the
+   * wall-clock time since (when playing). `null` before the first progress report of the current medium.
+   */
+  livePosition(): number | null {
+    const progress = this._progress();
+    if (!progress) {
+      return null;
+    }
+    const elapsed = this.isPlaying() ? (performance.now() - this.progressAt) / 1000 : 0;
+    return progress.currentTime + elapsed;
+  }
+
+  /** Called by the player card when `<video-player>` mounts / unmounts. */
+  registerPlayer(handle: PlayerHandle | null): void {
+    this.handle = handle;
+    if (!handle) {
+      this._progress.set(null);
+    }
   }
 
   setShuffle(value: boolean): void {
@@ -187,6 +242,7 @@ export class PlayerService {
   /** Fed by `(progressChange)`. Also feeds the engine's previous() restart-vs-back heuristic. */
   onProgress(progress: PlayerProgress): void {
     this._progress.set(progress);
+    this.progressAt = performance.now();
     this.controller.currentVideoPosition = progress.currentTime;
   }
 

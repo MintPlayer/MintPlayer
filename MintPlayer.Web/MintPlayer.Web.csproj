@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.17.0" />
+    <!-- WebSocket ReadMessage/WriteMessage helpers (Spark repo libs/socket_extensions), for listen-together rooms. -->
+    <PackageReference Include="MintPlayer.Dotnet.SocketExtensions" Version="10.0.1" />
     <PackageReference Include="MintPlayer.AspNetCore.SpaServices" Version="10.5.0" />
     <PackageReference Include="MintPlayer.SourceGenerators" Version="10.19.0">
       <PrivateAssets>all</PrivateAssets>
