@@ -13,4 +13,10 @@ public class MediumType : Entity
 {
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
+    /// <summary>
+    /// Whether media of this type are shown to ordinary viewers (legacy <c>MediumTypes.Visible</c>, D15).
+    /// Hidden types — e.g. legacy type 15 "Songteksten", which holds the genius.com lyric-source links —
+    /// are kept as data but shown only to privileged users. Defaults to <c>true</c> for new types.
+    /// </summary>
+    public bool Visible { get; set; } = true;
 }
