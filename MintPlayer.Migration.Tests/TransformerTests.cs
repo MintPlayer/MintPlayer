@@ -237,6 +237,7 @@ public class TransformerTests
         Assert.Null(admin.PictureUrl);
         Assert.Equal(hash ? new[] { RecoveryCodes.Hash("AAAA-1111"), RecoveryCodes.Hash("BBBB-2222") } : new[] { "AAAA-1111", "BBBB-2222" }, admin.TwoFactorRecoveryCodes);
         Assert.Contains(admin.Claims, c => c.ClaimType == "group" && c.ClaimValue == "Administrator");
+        Assert.Equal(["Administrator"], admin.Roles);
         Assert.Empty(admin.Tokens);
 
         var plain = Doc<MintPlayerUser>(plan, Ids.User(Plain));

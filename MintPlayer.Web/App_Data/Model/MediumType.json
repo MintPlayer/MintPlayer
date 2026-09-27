@@ -38,6 +38,21 @@
         "rules": []
       },
       {
+        "id": "6bc58b3a-b9e2-42e6-90d2-56396294a08e",
+        "name": "Visible",
+        "label": {
+          "en": "Visible"
+        },
+        "dataType": "boolean",
+        "isRequired": true,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 3,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
         "id": "5f21ce89-bd97-49c7-a89a-e1060bca5337",
         "name": "CreatedAt",
         "label": {

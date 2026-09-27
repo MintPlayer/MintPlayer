@@ -374,8 +374,12 @@ public static class LegacyTransformer
             {
                 if (!o.KnownGroups.Contains(roleName))
                     throw new InvalidOperationException($"Role on {id} is not a security.json group (pre-flight should have caught this).");
+                // Both forms: Roles[] feeds Identity (ClaimTypes.Role on the principal → /spark/auth/me "roles",
+                // IsInRole, Spark ACL); the "group" claim feeds the app's own User.HasClaim("group", …) checks
+                // (SongLyricsController, DevDataSeeder convention). Spark's membership provider de-duplicates.
+                user.Roles.Add(roleName);
                 user.Claims.Add(new SparkUserClaim { ClaimType = GroupClaimType, ClaimValue = roleName });
-                plan.Issue(IssueSeverity.Info, "role-to-group-claim", id, $"role {roleName} → group claim");
+                plan.Issue(IssueSeverity.Info, "role-to-group-claim", id, $"role {roleName} → Roles[] + group claim");
             }
 
             foreach (var t in tokens[u.Id])

@@ -140,6 +140,7 @@ public sealed class Reconciler(IDocumentStore store, SqlSnapshotSource source, T
         await Embedded("User logins", "SELECT COUNT(*) FROM {0}.AspNetUserLogins", users.Sum(x => x.Logins.Count));
         await Embedded("User claims + roles→group claims",
             "SELECT (SELECT COUNT(*) FROM {0}.AspNetUserClaims) + (SELECT COUNT(*) FROM {0}.AspNetUserRoles)", users.Sum(x => x.Claims.Count));
+        await Embedded("User roles (Roles[])", "SELECT COUNT(*) FROM {0}.AspNetUserRoles", users.Sum(x => x.Roles.Count));
         await Embedded("Users with password hash", "SELECT COUNT(*) FROM {0}.AspNetUsers WHERE PasswordHash IS NOT NULL", users.Count(x => x.PasswordHash != null));
         await Embedded("Users with 2FA enabled", "SELECT COUNT(*) FROM {0}.AspNetUsers WHERE TwoFactorEnabled = 1", users.Count(x => x.TwoFactorEnabled));
         await Embedded("Authenticator keys", "SELECT COUNT(*) FROM {0}.AspNetUserTokens WHERE LoginProvider = '[AspNetUserStore]' AND Name = 'AuthenticatorKey'",
