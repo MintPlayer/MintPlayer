@@ -9,11 +9,19 @@
     <!-- Build/serve the nested Angular app via SpaServices. We use MintPlayer's Spark
          prerendering (Phase 1.6), not Angular's own SSR builder, so disable the SSR build path. -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <!-- NodeServices 11.0.0-rc.2 passes these to buildTransitive/npm-install.proj via <MSBuild>, where a
+         relative "ClientApp\" resolves against the NuGet cache folder — publish then fails with
+         "working directory ClientApp\ does not exist". Absolute paths work around it (spike S1). -->
+    <NpmInstallWorkingDirectory>$(MSBuildProjectDirectory)\$(SpaRoot)</NpmInstallWorkingDirectory>
+    <NodeModulesCheckPath>$(MSBuildProjectDirectory)\$(SpaRoot)</NodeModulesCheckPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.17.0" />
-    <PackageReference Include="MintPlayer.AspNetCore.SpaServices" Version="10.5.0" />
+    <PackageReference Include="MintPlayer.AspNetCore.SpaServices" Version="11.0.0-rc.2" />
+    <!-- Server-side prerendering (D2, spike S1). 11.0.0-rc.2: needs 10.8+ for status/header preservation
+         (a 404 from OnSupplyData still renders). Brings MintPlayer.AspNetCore.SpaServices.Prerendering. -->
+    <PackageReference Include="MintPlayer.AspNetCore.SpaServices.Routing" Version="11.0.0-rc.2" />
     <PackageReference Include="MintPlayer.SourceGenerators" Version="10.19.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

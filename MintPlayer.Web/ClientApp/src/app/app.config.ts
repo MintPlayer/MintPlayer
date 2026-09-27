@@ -2,6 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, isDevMode } from
 import { provideRouter, TitleStrategy } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideSparkAuth, withSparkAuth } from '@mintplayer/ng-spark-auth';
 import { provideSparkClientOperations } from '@mintplayer/ng-spark/client-operations';
 import { provideSparkAttributeRenderers } from '@mintplayer/ng-spark/renderers';
@@ -22,6 +23,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
+    // SSR (spike S1): public pages are prerendered by MintPlayer.AspNetCore.SpaServices.Prerendering;
+    // the browser hydrates the server DOM instead of re-rendering it.
+    provideClientHydration(withEventReplay()),
     // Spark auth interceptor + XSRF (X-XSRF-TOKEN) on the same-origin /spark API.
     provideHttpClient(...withSparkAuth()),
     provideAnimations(),
