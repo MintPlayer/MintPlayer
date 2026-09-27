@@ -27,7 +27,6 @@ using MintPlayer.AspNetCore.SpaServices.Extensions;
 using MintPlayer.AspNetCore.SpaServices.Prerendering;
 using MintPlayer.AspNetCore.SpaServices.Routing;
 using MintPlayer.Data.Extensions;
-using MintPlayer.Fetcher.Integration.Extensions;
 using MintPlayer.Web.Server.Middleware;
 using MintPlayer.Web.Services;
 using WebMarkupMin.AspNetCore3;
@@ -56,7 +55,6 @@ namespace MintPlayer.Web
 				{
 					options.ConnectionString = Configuration.GetConnectionString("MintPlayer");
 				})
-				.AddFetcherIntegration()
 				.AddElasticSearch(options =>
 				{
 					options.Url = Configuration["ElasticSearch:Url"];
@@ -171,10 +169,6 @@ namespace MintPlayer.Web
 			});
 
 			services.AddSpaPrerenderingService<SpaRouteService>();
-
-			services
-				.AddFetcherContainer()
-				.AddGeniusFetcher();
 
 			services
 				.Configure<ForwardedHeadersOptions>(options =>

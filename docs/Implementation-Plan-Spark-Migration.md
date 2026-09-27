@@ -116,7 +116,7 @@ Backends mostly exist; this is largely net-new Angular + provider wiring.
 ## Phase 6 — Cross-cutting infra — ~2–3 weeks (parallelizable)
 
 - **6.1 Search indexing** — finalize per D1 (RavenDB-native, or `IRecipient<SubjectIndexMessage>` → external engine).
-- **6.2 Fetcher/Crawler** — port the 9 scrapers + container; host via `ISparkCronJob` (periodic) + `IRecipient<FetchMessage>` (event-driven); `web/v3/fetcher` → custom endpoint.
+- ~~**6.2 Fetcher/Crawler**~~ — **removed from scope 2026-09-27**; legacy projects deleted. See [PRD-Spark-Completion.md](./PRD-Spark-Completion.md) §2.3 (D10).
 - **6.3 SEO endpoints** — sitemap (XML, video/image, hreflang), robots.txt, AMP song page, OpenSearch descriptor — as custom controllers, paths excluded from SPA fallback.
 - **6.4 Email** — durable transactional email via messaging + MailKit.
 - **6.5 Background durability** — confirm Spark Messaging replaces the DB job queue (retry/backoff/dead-letter/checkpoint).
@@ -149,6 +149,8 @@ Backends mostly exist; this is largely net-new Angular + provider wiring.
 ---
 
 ## Migration tooling — `MintPlayer.Migration` (dedicated deliverable)
+
+> **Superseded (2026-09-27):** this section is stale against the current domain (ids, lyrics, likes, recovery codes, EF-context reuse). The authoritative design is [PRD-Spark-Completion.md](./PRD-Spark-Completion.md) §5.
 
 The SQL→RavenDB migration is a build item in its own right, not a script written at the end. Because the cutover is a single offline swoop (D7), it can be a straightforward batch tool — but it must map every entity correctly and be re-runnable.
 
