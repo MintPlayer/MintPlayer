@@ -1,10 +1,15 @@
-import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, effect, inject, signal, viewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CdkDrag, CdkDragEnd, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { EPlayerState } from '@mintplayer/player-provider';
 import { BsCardComponent, BsCardBodyComponent, BsCardHeaderComponent } from '@mintplayer/ng-bootstrap/card';
 import { VideoPlayerComponent } from '@mintplayer/ng-video-player';
 import { PlayerService } from './player.service';
+
+/** The private bits of `VideoPlayer` (20.x) we need for seeking. */
+interface SeekableVideoPlayer {
+  playerInfo?: { adapter?: { setProgress(time: number): void } };
+}
 
 /**
  * The global, floating video-player card. A `<bs-card>` made draggable by its header (`cdkDragHandle`),
@@ -59,6 +64,7 @@ import { PlayerService } from './player.service';
               [url]="player.currentEntry()!.url"
               [autoplay]="true"
               [playerState]="player.playerState()"
+              [mute]="player.muted()"
               [width]="340"
               [height]="191"
               (playerStateChange)="onPlayerState($event)"
@@ -98,6 +104,22 @@ export class PlayerCard {
   protected readonly dragging = signal(false);
 
   private readonly videoPlayer = viewChild(VideoPlayerComponent);
+
+  constructor() {
+    // Expose seek to the PlayerService (listen-together drift correction). `@mintplayer/video-player` 20.x has
+    // no public seek, so reach the provider adapter's `setProgress` (YouTube `seekTo`, SoundCloud `seekTo(ms)`)
+    // through the component's VideoPlayer. Framework follow-up: a public `VideoPlayer.seek()`.
+    effect((onCleanup) => {
+      const component = this.videoPlayer();
+      if (!component) {
+        return;
+      }
+      this.player.registerPlayer({
+        seek: (sec) => (component.player$.value as unknown as SeekableVideoPlayer)?.playerInfo?.adapter?.setProgress(sec),
+      });
+      onCleanup(() => this.player.registerPlayer(null));
+    });
+  }
 
   protected onDragEnded(event: CdkDragEnd): void {
     this.dragging.set(false);

@@ -55,6 +55,9 @@ builder.Services.AddHttpClient<IYouTubeDataApi, YouTubeDataApiClient>(client =>
     client.Timeout = TimeSpan.FromSeconds(30);
 });
 builder.Services.AddScoped<YouTubePlaylistImporter>();
+// Listen-together rooms (F13 / spike S9): live room registry + socket protocol (singleton, in-memory
+// connections; room documents persisted in RavenDB).
+builder.Services.AddSingleton<MintPlayer.Web.Rooms.RoomService>();
 
 builder.Services.AddSpaStaticFilesImproved(configuration =>
 {
@@ -83,6 +86,11 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseSpaStaticFilesImproved();
 }
+
+// WebSockets for /ws/rooms/{id}. The 20 s keep-alive ping keeps idle room sockets alive through proxies
+// (Traefik / Docker / cloud LBs drop idle TCP after their idle timeout). Also lets the dev SPA proxy
+// tunnel the Angular CLI's live-reload socket.
+app.UseWebSockets(new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(20) });
 
 app.UseRouting();
 app.UseSpark(o => o.SynchronizeModelsIfRequested<MintPlayerSparkContext>(args));
@@ -125,11 +133,13 @@ app.UseEndpoints(endpoints =>
 
     // AMP is dropped (D11): permanently redirect legacy AMP song URLs to the SSR'd song page.
     endpoints.MapGet("/amp/song/{id}", (string id) => Results.Redirect($"/song/{Uri.EscapeDataString(id)}", permanent: true));
+    MintPlayer.Web.Rooms.RoomEndpoints.MapRooms(endpoints);
 });
 
 app.UseWhen(
     context => !context.Request.Path.StartsWithSegments("/spark")
-            && !context.Request.Path.StartsWithSegments("/api"),
+            && !context.Request.Path.StartsWithSegments("/api")
+            && !context.Request.Path.StartsWithSegments("/ws"),
     appBuilder =>
     {
         appBuilder.UseSpaImproved(spa =>

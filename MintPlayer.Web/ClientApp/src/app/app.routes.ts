@@ -14,6 +14,9 @@ export const routes: Routes = [
       ...sparkAuthRoutes(),
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', title: 'Home', loadComponent: () => import('./pages/home/home').then(m => m.Home) },
+      // Listen-together rooms (F13, spike S9).
+      { path: 'room', title: 'Listen together', loadComponent: () => import('./room/room-page').then(m => m.RoomPage) },
+      { path: 'room/:id', title: 'Listen together', loadComponent: () => import('./room/room-page').then(m => m.RoomPage) },
       // Metadata-driven query lists + PersistentObject create/edit/detail screens. The detail screen is
       // overridden with the app's wrapper (adds per-type toolbar actions, e.g. "Play this playlist").
       ...sparkRoutes({ poDetail: () => import('./spark/app-po-detail').then(m => m.AppPoDetail) }),
