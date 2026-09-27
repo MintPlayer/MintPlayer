@@ -70,7 +70,7 @@ public sealed partial class SqlSnapshotSource : ILegacySource
         "SELECT Id, Title, Headline, Body, UserInsertId, UserDeleteId, DateInsert, DateUpdate, DateDelete FROM {0}.BlogPosts ORDER BY Id", ct);
 
     public IAsyncEnumerable<LegacyUser> Users(CancellationToken ct = default) => Query<LegacyUser>(
-        "SELECT Id, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, " +
+        "SELECT Id, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, " +
         "PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount, " +
         "PictureUrl, Bypass2faForExternalLogin FROM {0}.AspNetUsers ORDER BY Id", ct);
 

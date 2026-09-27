@@ -18,6 +18,7 @@ public sealed class MigrationOptions
     public string? SecurityJson { get; set; }
     public Dictionary<string, int> ExpectLive { get; } = [];
     public int Samples { get; set; } = 10;
+    public DateTimeOffset? MigratedAt { get; set; }
     public bool MigratePasskeys { get; set; }
 
     public const string Usage = """
@@ -37,6 +38,8 @@ public sealed class MigrationOptions
                                               mediumTypes, visibleMediumTypes, tags, tagCategories,
                                               playlists, publicPlaylists, blogPosts)
           --samples 10                        side-by-side catalog samples in samples.txt
+          --migrated-at <ISO instant>         CreatedAt for rows without audit dates (default: the
+                                              snapshot as-of = its latest audit timestamp)
           --migrate-passkeys                  no-op: production has no WebAuthnCredentials table (D13)
         """;
 
@@ -62,6 +65,7 @@ public sealed class MigrationOptions
                 case "--out": o.OutDir = Next(); break;
                 case "--samples": o.Samples = int.Parse(Next()); break;
                 case "--migrate-passkeys": o.MigratePasskeys = true; break;
+                case "--migrated-at": o.MigratedAt = DateTimeOffset.Parse(Next(), System.Globalization.CultureInfo.InvariantCulture); break;
                 case "--expect":
                     foreach (var pair in Next().Split(',', StringSplitOptions.RemoveEmptyEntries))
                     {

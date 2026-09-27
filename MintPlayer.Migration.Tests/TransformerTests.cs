@@ -33,8 +33,8 @@ public class TransformerTests
     {
         Users =
         [
-            new LegacyUser(Admin, "admin", "ADMIN", "Admin@Example.com", "ADMIN@EXAMPLE.COM", true, "AQAAAAIAAYagAAAAE-hash", "STAMP", null, false, true, null, true, 0, "", false),
-            new LegacyUser(Plain, "plain", "PLAIN", "plain@example.com", "PLAIN@EXAMPLE.COM", false, null, "STAMP2", null, false, false, null, true, 0, "", true),
+            new LegacyUser(Admin, "admin", "ADMIN", "Admin@Example.com", "ADMIN@EXAMPLE.COM", true, "AQAAAAIAAYagAAAAE-hash", "STAMP", "CS1", null, false, true, null, true, 0, "", false),
+            new LegacyUser(Plain, "plain", "PLAIN", "plain@example.com", "PLAIN@EXAMPLE.COM", false, null, "STAMP2", null, null, false, false, null, true, 0, "", true),
         ],
         Roles = [new LegacyRole(RoleAdmin, "Administrator")],
         UserRoles = [new LegacyUserRole(Admin, RoleAdmin)],

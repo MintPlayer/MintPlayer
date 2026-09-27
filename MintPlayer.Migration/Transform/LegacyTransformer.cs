@@ -39,6 +39,24 @@ public static class LegacyTransformer
         return plan;
     }
 
+    /// <summary>
+    /// The snapshot's "as of" instant: the latest audit timestamp found in it. Used as the default
+    /// <see cref="TransformOptions.MigratedAt"/> (CreatedAt of rows/tables without audit dates) so the
+    /// transform is deterministic per snapshot — a re-run or <c>--verify-only</c> reproduces every byte.
+    /// </summary>
+    public static DateTimeOffset SnapshotAsOf(LegacySnapshot s, TimeZoneInfo zone)
+    {
+        var all = s.Subjects.SelectMany(x => new DateTime?[] { x.DateInsert, x.DateUpdate, x.DateDelete })
+            .Concat(s.Tags.SelectMany(x => new DateTime?[] { x.DateInsert, x.DateUpdate, x.DateDelete }))
+            .Concat(s.TagCategories.SelectMany(x => new DateTime?[] { x.DateInsert, x.DateUpdate, x.DateDelete }))
+            .Concat(s.BlogPosts.SelectMany(x => new DateTime?[] { x.DateInsert, x.DateUpdate, x.DateDelete }))
+            .Concat(s.Lyrics.Select(x => (DateTime?)x.UpdatedAt))
+            .OfType<DateTime>()
+            .Where(d => !LegacyTime.IsMin(d))
+            .ToList();
+        return all.Count == 0 ? DateTimeOffset.UnixEpoch : LegacyTime.ToUtc(all.Max(), zone);
+    }
+
     private static (DateTimeOffset CreatedAt, DateTimeOffset? ModifiedAt) Audit(
         string id, DateTime dateInsert, DateTime? dateUpdate, TransformOptions o, MigrationPlan plan)
     {
@@ -47,7 +65,7 @@ public static class LegacyTransformer
             return (LegacyTime.ToUtc(dateInsert, o.TimeZone), modified);
 
         plan.Issue(IssueSeverity.Info, "created-fallback", id,
-            modified is null ? "DateInsert 0001-01-01, no DateUpdate → migration time" : "DateInsert 0001-01-01 → DateUpdate");
+            modified is null ? "DateInsert 0001-01-01, no DateUpdate → snapshot as-of time" : "DateInsert 0001-01-01 → DateUpdate");
         return (modified ?? o.MigratedAt, modified);
     }
 
@@ -334,6 +352,7 @@ public static class LegacyTransformer
                 EmailConfirmed = u.EmailConfirmed,
                 PasswordHash = u.PasswordHash,       // verbatim (D8): Identity v3 hashes validate unchanged
                 SecurityStamp = u.SecurityStamp,     // verbatim (D8)
+                ConcurrencyStamp = u.ConcurrencyStamp ?? u.Id.ToString("D"), // verbatim: keeps the transform deterministic
                 PhoneNumber = u.PhoneNumber,
                 PhoneNumberConfirmed = u.PhoneNumberConfirmed,
                 TwoFactorEnabled = u.TwoFactorEnabled,

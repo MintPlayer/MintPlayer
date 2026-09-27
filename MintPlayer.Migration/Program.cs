@@ -55,7 +55,7 @@ Phase("pre-flight ok");
 var plan = LegacyTransformer.Transform(snapshot, new TransformOptions
 {
     TimeZone = LegacyTime.Resolve(options.TimeZone),
-    MigratedAt = DateTimeOffset.UtcNow,
+    MigratedAt = options.MigratedAt ?? LegacyTransformer.SnapshotAsOf(snapshot, LegacyTime.Resolve(options.TimeZone)),
     HashRecoveryCodes = hashCodes,
     KnownGroups = knownGroups,
 });
@@ -85,7 +85,7 @@ if (options.Mode == RunMode.Run)
     Phase("indexes deployed and non-stale");
 }
 
-var report = await new Reconciler(store, source, log).RunAsync(plan, options.OutDir, options.Samples, options.ExpectLive);
+var report = await new Reconciler(store, source, log).RunAsync(plan, snapshot, options.OutDir, options.Samples, options.ExpectLive);
 Phase("reconciled");
 log.WriteLine($"total {total.Elapsed.TotalSeconds:0.00}s — reports in {Path.GetFullPath(options.OutDir)}");
 return report.Green ? 0 : 1;

@@ -62,6 +62,7 @@ public sealed record LegacyUser(
     bool EmailConfirmed,
     string? PasswordHash,
     string? SecurityStamp,
+    string? ConcurrencyStamp,
     string? PhoneNumber,
     bool PhoneNumberConfirmed,
     bool TwoFactorEnabled,

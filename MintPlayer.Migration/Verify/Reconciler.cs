@@ -31,6 +31,7 @@ public sealed class ReconcileReport
     public int UnresolvedReferences { get; set; }
     public int ReferencesToDeleted { get; set; }
     public Dictionary<string, int> LiveCounts { get; } = [];
+    public List<LyricsTimingResult> Lyrics { get; } = [];
     public bool Green => Counts.All(c => c.Ok) && Findings.All(f => f.Severity != IssueSeverity.Error);
 
     public void Error(string code, string subject, string detail) => Findings.Add(new MigrationIssue(IssueSeverity.Error, code, subject, detail));
@@ -52,7 +53,7 @@ public sealed class Reconciler(IDocumentStore store, SqlSnapshotSource source, T
 
     private static readonly string[] CatalogCollections = ["Artists", "People", "Songs", "Tags", "TagCategories", "MediumTypes", "BlogPosts"];
 
-    public async Task<ReconcileReport> RunAsync(MigrationPlan plan, string outDir, int samples, IReadOnlyDictionary<string, int> expectedLive, CancellationToken ct = default)
+    public async Task<ReconcileReport> RunAsync(MigrationPlan plan, Model.LegacySnapshot snapshot, string outDir, int samples, IReadOnlyDictionary<string, int> expectedLive, CancellationToken ct = default)
     {
         var report = new ReconcileReport();
         var serializer = SparkConventions.CreateComparisonSerializer();
@@ -178,6 +179,12 @@ public sealed class Reconciler(IDocumentStore store, SqlSnapshotSource source, T
                 report.Error("doc-hash-mismatch", doc.Id, "stored document differs from the transformed one");
         }
 
+        // ---- (2b) S6: karaoke highlight replay against legacy, from the stored songs
+        var storedSongs = stored.Where(kv => kv.Value is Song).ToDictionary(kv => kv.Key, kv => (Song)kv.Value, StringComparer.OrdinalIgnoreCase);
+        report.Lyrics.AddRange(LyricsTimingCheck.Run(snapshot, storedSongs));
+        foreach (var r in report.Lyrics.Where(r => r.Mismatches != 0 || !(r.MaxStartDelta <= 0.05)))
+            report.Error("lyrics-timing", r.SongId, $"{r.Mismatches}/{r.Samples} samples highlight a different line, max start delta {r.MaxStartDelta:0.###}s");
+
         // ---- (3) reference integrity
         foreach (var (id, entity) in stored)
         {
@@ -239,6 +246,10 @@ public sealed class Reconciler(IDocumentStore store, SqlSnapshotSource source, T
         lines.Add($"round-trip: {report.HashMatches}/{report.DocumentsCompared} SHA-256 equal");
         lines.Add($"references: {report.ReferencesChecked} checked, {report.UnresolvedReferences} unresolved, {report.ReferencesToDeleted} live→soft-deleted");
         lines.Add($"live: {string.Join(", ", report.LiveCounts.Select(kv => $"{kv.Key}={kv.Value}"))}");
+        lines.Add("");
+        lines.Add($"karaoke replay (S6): {report.Lyrics.Count} songs, {report.Lyrics.Sum(r => r.Samples)} samples @ {LyricsTimingCheck.Step * 1000:0} ms, " +
+                  $"{report.Lyrics.Sum(r => Math.Max(0, r.Mismatches))} mismatches, max start delta {(report.Lyrics.Count == 0 ? 0 : report.Lyrics.Max(r => r.MaxStartDelta)):0.###} s");
+        lines.AddRange(report.Lyrics.Select(r => $"  {r.SongId,-10} entries {r.LegacyEntries,3}  samples {r.Samples,6}  mismatches {r.Mismatches,3}  Δmax {r.MaxStartDelta:0.###}s  {r.Note}"));
         lines.Add("");
         lines.AddRange(report.Findings.OrderByDescending(f => f.Severity).Select(f => f.ToString()));
         lines.Add("");
