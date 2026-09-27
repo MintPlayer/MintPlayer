@@ -98,7 +98,7 @@ Done: 0.3–0.5, 1.x, 2.x, 3.1, 3.2 (redesigned), 4.1, 4.2, 6.1.
 
 ### 5.1 Shape
 
-.NET 10 console app in `MintPlayer.slnx`.
+.NET console app in `MintPlayer.slnx` (target framework follows the app: net10 today, net11 after F18).
 
 ```
 Sources/   ILegacySource (IAsyncEnumerable per table + Capabilities flags)
