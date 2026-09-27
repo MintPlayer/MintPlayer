@@ -9,6 +9,11 @@
     <!-- Build/serve the nested Angular app via SpaServices. We use MintPlayer's Spark
          prerendering (Phase 1.6), not Angular's own SSR builder, so disable the SSR build path. -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <!-- Absolute on purpose. NodeServices 10.4.0 defaults this to the relative $(SpaRoot) and hands it to
+         its own npm-install.proj, which lives in the NuGet cache — so "ClientApp/" resolves there and
+         `dotnet publish` fails with "The working directory ClientApp/ does not exist" (found in S8). -->
+    <NpmInstallWorkingDirectory>$(MSBuildProjectDirectory)/ClientApp/</NpmInstallWorkingDirectory>
+    <NodeModulesCheckPath>$(MSBuildProjectDirectory)/ClientApp/</NodeModulesCheckPath>
   </PropertyGroup>
 
   <ItemGroup>

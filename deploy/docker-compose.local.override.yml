@@ -1,0 +1,29 @@
+# LOCAL proof of the production stack (spike S8). Not used on the VPS.
+#
+#   docker build -f MintPlayer.Web/Dockerfile -t ghcr.io/mintplayer/mintplayer:master .
+#   docker compose -p mintplayer-s8 -f deploy/docker-compose.yml -f deploy/docker-compose.local.override.yml up -d
+#   -> http://localhost:18081/health/ready
+#
+# Differences from production:
+# - no Traefik / no external 'web' network; the app is published on host port 18081;
+# - RavenDB is NOT published on the host (a native RavenDB already owns localhost:8080);
+# - the licence one-shot and the smtp relay only start with `--profile full` (no licence file / DKIM key locally);
+# - ASPNETCORE_ENVIRONMENT stays Production, so this exercises the real SPA static-file path.
+services:
+
+  mintplayer-raven-license:
+    profiles: ["full"]
+
+  mintplayer-smtp:
+    profiles: ["full"]
+
+  mintplayer-app:
+    pull_policy: never
+    depends_on: !override
+      mintplayer-raven:
+        condition: service_healthy
+    labels: !reset []
+    networks: !override
+      - mintplayer-internal
+    ports:
+      - "127.0.0.1:18081:8080"

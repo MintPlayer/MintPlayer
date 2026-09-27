@@ -23,4 +23,6 @@ raven-license.log
 
 # Compose/Docker meta (not needed inside the build).
 docker-compose*.yml
+deploy/
+.claude/
 **/.dockerignore
