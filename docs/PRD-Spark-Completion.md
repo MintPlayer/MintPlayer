@@ -27,7 +27,11 @@ The single goal of this document: **migrate the entire website to Spark and cut 
 
 ### 2.2 Delivery rule
 
-All app work lands on `feature/spark-migration` → **one PR**. Framework changes needed in `MintPlayer.Spark` are batched into **one Spark PR**, published, then consumed.
+All app work lands on `feature/spark-migration` → **one PR**.
+
+Framework work in `MintPlayer.Spark` is split in two, by the user's decision (D32):
+1. **Spark PR 1 — everything MintPlayer needs**: the composable-contributor seam (row policies + lifecycle interceptors), `MintPlayer.Spark.SoftDelete`, `MintPlayer.Spark.History` + ng-spark History panel, the security fixes (F7), #189, and whatever S1/S3/S9 surface. Merged and published to nuget.org/npm, then consumed by MintPlayer. **The cutover depends on this PR only.**
+2. **Spark PR 2 — `MintPlayer.Spark.Moderation`** (D27), built on PR 1's packages after it merges. Not on the MintPlayer critical path.
 
 ### 2.3 Removed from scope (done 2026-09-27)
 
@@ -69,13 +73,18 @@ Done: 0.3–0.5, 1.x, 2.x, 3.1, 3.2 (redesigned), 4.1, 4.2, 6.1.
 | F2 | **Public site shell + SSR** | Wire `MintPlayer.AspNetCore.SpaServices.Prerendering` (D2) after spike S1: `main.server.ts`, `OnSupplyData` for subject pages, `UseSpaPrerendering`. |
 | F3 | **Public detail pages** | Song/Artist/Person/Playlist/Tag public pages (not the admin PO page), with per-entity JSON-LD (`application/ld+json`, ng-seo 22.0.1) + OG tags. |
 | F4 | **Search page + home** | UI over the existing `/api/search` + `/suggest`; home, public playlists, favorites, GDPR/privacy page, theme (4.6). |
-| F5 | **SEO endpoints** | `sitemap.xml`, `robots.txt`, OpenSearch description. AMP is dropped unless S1 shows it still matters (decision D11). |
-| F6 | **Auth long tail** | Email-confirm page, change password, profile; 2FA enrollment + recovery-code regeneration; social login for every provider legacy configures (Google, Microsoft, Facebook, Twitter/X packages in `MintPlayer.Data.csproj`, plus GitHub per D4)  + account linking; passkeys (D3). Build upstreamable into `ng-spark-auth`. |
+| F5 | **SEO endpoints** | `sitemap.xml`, `robots.txt`, OpenSearch description. AMP is dropped; `/amp/song/{id}` 301-redirects to `/song/{id}` (D11). |
+| F6 | **Auth long tail** | Email-confirm page, change password, profile; 2FA enrollment + recovery-code regeneration; social login for the five providers legacy registers — Facebook, Microsoft, Google, Twitter, LinkedIn (`legacy/MintPlayer.Web/Startup.cs:83-87`); GitHub (D4) is net-new, not parity  + account linking; passkeys (D3). Build upstreamable into `ng-spark-auth`. |
 | F7 | **Spark security fixes (R7)** | Recovery codes are already hashed in `UserStore.HashRecoveryCode` — verify; protect stored OAuth tokens (R2-M11). Spark PR. |
 | F8 | **Public `api/v1` (D5)** | Hand-written `[ApiController]`s over `IAsyncDocumentSession` + `AddJwtBearer` scheme; same routes/DTO shapes as legacy (Swagger at `/swagger/v1/swagger.json` is the contract). Keep `include_relations` header semantics. |
 | F9 | **Durable email + jobs** | Move mail sending onto Spark Messaging (retry/dead-letter). No periodic jobs remain (ES indexing and scraping are gone) — confirm and close 6.5. |
 | F10 | **Domain gaps for migration** | `MediumType.Visible` (hidden types must stay hidden to non-admins); `BlogPost` (F1). |
-| F11 | **Hardening** | Antiforgery on cookie-auth custom POSTs (`/api/subject/likes`, `/api/playlist/*`, `/api/song/lyrics/timings`); Spark #189; Docker image + CI `RAVENDB_LICENSE` secret. |
+| F11 | **Hardening** | Registration rate-limiting + captcha (bot sign-ups, D18); Antiforgery on cookie-auth custom POSTs (`/api/subject/likes`, `/api/playlist/*`, `/api/song/lyrics/timings`); Spark #189; Docker image + CI `RAVENDB_LICENSE` secret. |
+| F12 | **Soft delete on the row filter** | Target: adopt `MintPlayer.Spark.SoftDelete` (D28). Spark master (`5ebfaa45`, 2026-08-28) removed `OnLoadAsync(session,id)` / `OnQueryAsync(session)` that the app's soft delete relies on. Move it to `GetRowFilterAsync(action) => x => !x.IsDeleted` (applies to list/detail/edit/delete/stream/breadcrumb) and drop the hand-written filters in `EntityActions`, `MintPlayerSparkContext`, `ArtistActions`, `SongActions`. **Must land before upgrading past `preview.41`.** |
+| F13 | **Listen-together rooms** (new) | A host opens a room from a playlist or the queue; guests join by link; play/pause/seek/next synced over a WebSocket (ASP.NET Core WebSockets + Spark `SocketExtensions` JSON helpers); guests add songs to the shared queue and vote to skip; host can hand over control. Room state in RavenDB (survives redeploy), live state in memory. Spike S9. |
+| F14 | **Collaborative playlists + discovery** (new) | Owner invites co-editors (invite link / username) who may add, remove and reorder tracks — enforced with Spark row-level `IsAllowedAsync` ("owner or collaborator"); follow/like public playlists; public *Discover* page (most-liked, recently updated, by tag). |
+| F15 | **Resume anywhere + listening history** (new) | Per-user server-side queue + position (`PlayerStates/{userId}`), restored on any device; *Recently played* and simple personal stats (top artists/songs) from a `PlayEvents` collection + map-reduce index. |
+| F16 | **Import a YouTube playlist** (new) | Paste a YouTube playlist URL → YouTube Data API v3 `playlistItems.list` → match each video to an existing song by its YouTube `Medium` (canonical video id) → create a MintPlayer playlist; unmatched videos listed, optionally created as draft songs. API key in the server `.env`. Spike S10. |
 
 ---
 
@@ -99,7 +108,7 @@ Verify/    Reconciler
 
 **Why not reference the legacy EF context** (as the old plan said): `MintPlayerContext` and its entities are `internal`, global query filters hide soft-deleted rows, value converters silently rewrite the Timeline (×20) and Color, and it drags in NEST, Fido2 and five OAuth packages. Plain SQL over the `ModelSnapshot` schema is simpler and exact.
 
-Flags: `--dry-run | --run | --verify-only`, `--source sql|api|composite`, `--tz <prod timezone>`, `--editor-emails a,b`, `--migrate-passkeys` (off). `--run` wipes and recreates the target database (also avoids piling up Song revisions). Expected runtime: well under a minute plus index build.
+Flags: `--dry-run | --run | --verify-only`, `--source sql|api|composite`, `--tz <prod timezone>`, `--migrate-passkeys` (off). `--run` wipes and recreates the target database (also avoids piling up Song revisions). Expected runtime: well under a minute plus index build.
 
 ### 5.2 Mapping
 
@@ -115,13 +124,13 @@ Ids: `{Collection}/{legacyId}` exactly as `seed-catalog.mjs` already does (`Arti
 | `SubjectTag` | `Subject.TagIds` | dedup |
 | `MediumTypes` | `MediumTypes/{id}` | Description → Name; Visible → **Visible (F10)** |
 | `Tags` / `TagCategories` | same | ParentId/CategoryId refs (`0` → null); cycle check; ARGB → Color (report alpha ≠ 255) |
-| `Lyrics(SongId, UserId, Text, Timeline, UpdatedAt)` | `Song.Lyrics` + `Song.LyricsTimings` | latest version per song; `\n` endings; Timeline JSON `int[]` ÷ 20.0 — one entry per **non-blank** line, so re-index onto the `StartTimes` line layout and pad partial syncs with null; keyed to the song's first playable medium. Older versions → Song revisions (D12) |
+| `Lyrics(SongId, UserId, Text, Timeline, UpdatedAt)` | `Song.Lyrics` + `Song.LyricsTimings` | one text per song (the 4 duplicates are identical — D12); timeline = the most complete non-empty one; `\n` endings; Timeline JSON `int[]` ÷ 20.0 — one entry per **non-blank** line, so re-index onto the `StartTimes` line layout and pad partial syncs with null; keyed to the song's first playable medium. |
 | `Likes(SubjectId, UserId, DoesLike)` | `UserLikes/{userId}` | group per user into `Likes[]` / `Dislikes[]` |
 | `Playlists` + `PlaylistSong` | `Playlists/{id}` | Name ← Description; `IsPublic = Accessibility==1`; OwnerId; Tracks ordered by Index (duplicates kept) |
 | `BlogPosts` | `BlogPosts/{id}` | F1 |
 | `LogEntries`, `Jobs` | — | dropped (ES queue / logs) |
 | `AspNetUsers` | `MintPlayerUser` | scalars 1:1; **PasswordHash + SecurityStamp verbatim** (D8) |
-| `AspNetUserRoles` | `Roles[]` | role names (`Administrator`, `Blogger`) = `security.json` group names; Editor from `--editor-emails` |
+| `AspNetUserRoles` | `Roles[]` | role names (`Administrator`, `Blogger`) = `security.json` group names |
 | `AspNetUserLogins` / `Claims` | `Logins[]` / `Claims[]` | 1:1 |
 | `AspNetUserTokens` | `AuthenticatorKey`, `TwoFactorRecoveryCodes`, `Tokens[]` | AuthenticatorKey verbatim (TOTP keeps working); recovery codes split on `;` and **SHA-256 lower-hex hashed** to match Spark `UserStore.HashRecoveryCode` (amends the "verbatim" note in D8) |
 | — | compare-exchange `emails/{normalizedEmail}` → userId | required by Spark's email lookup/uniqueness |
@@ -142,14 +151,16 @@ Each spike ends in a written result appended to this doc (numbers, decision, or 
 
 | # | Spike | Timebox | Exit criterion |
 |---|---|---|---|
-| S1 | **SSR/prerender** — wire `SpaServices.Prerendering` into MintPlayer.Web for one song page with `OnSupplyData` | 2 d | `curl` of `/song/{id}` returns rendered title, OG tags and JSON-LD without JS; no hydration errors; works in the Docker image. Decide AMP (D11). |
+| S1 | **SSR/prerender** — wire `SpaServices.Prerendering` into MintPlayer.Web for one song page with `OnSupplyData` | 2 d | `curl` of `/song/{id}` returns rendered title, OG tags and JSON-LD without JS; no hydration errors; works in the Docker image.  |
 | S2 | **Prod data profiling** on a restored `.bak` | 0.5 d | Table of row counts; WebAuthn rows; duplicate emails; alpha≠255; `Released=MinValue`; orphan media; lyrics versions per song; non-empty claims/tokens; hidden medium types and what they contain; server timezone. Every "probably empty" resolved. |
 | S3 | **Identity round-trip** — migrate one password-only and one password+TOTP+recovery-codes user, log in via the running app | 1 d | Both log in; an existing authenticator code works; a legacy recovery code redeems; Administrator gets admin rights. |
 | ~~S4~~ | **Cancelled** — no passkeys in production (§6.1). Was: passkey feasibility — can a legacy Fido2 credential (user handle = `Guid.ToByteArray()`, no backup flags) authenticate through Identity passkeys + Spark `UserStore`? | 1 d | Working mapping, or D13 confirmed (re-enrol + a notice email to affected users). |
 | S5 | **End-to-end catalog migration** on the S2 snapshot | 1 d | Reconciler green, 0 unresolved references, 10 random subjects match legacy in the new UI. |
 | S6 | **Lyrics timing** conversion | 0.5 d | 5 migrated songs highlight within 0.05 s of legacy; mismatch rate reported. |
 | S7 | **`api/v1` compatibility** — replay recorded legacy responses (Swagger contract + the 8 catalog GETs) against the new controllers | 1 d | Field-level diff empty except documented deltas; JWT login works with the new user store. |
-| S8 | **Production hosting** — where RavenDB and the app run after cutover (IIS host today at `C:\Inetpub\mintplayer.com`; RavenDB service vs container, license, backups) | 1 d | Deployment decision + a tested backup/restore of the RavenDB database (D14). |
+| S8 | **Hetzner deploy** — the cutover also moves hosting from FoxXL Plesk (IIS + SQL Server 2019) to the Hetzner VPS (D14). Port the CodeCoverage pipeline: workflow, prod compose, Traefik labels for `mintplayer.com`, Node 22 in the runtime image, license one-shot, health checks | 1.5 d | A staging hostname on the VPS serves the image deployed by the workflow; one SSR'd page works in the container; a RavenDB backup is restored into a scratch database. |
+| S9 | **Listen-together sync** — two browsers in one room over a WebSocket through Traefik, YouTube + SoundCloud players | 2 d | Drift stays < 1 s over a 10-minute session incl. an ad/buffer stall on one client; reconnect after an app redeploy rejoins the room at the right position. |
+| S10 | **YouTube import** — Data API quota + matching | 0.5 d | Import of a 100-video playlist uses < 5 quota units per 50 items; ≥ 90 % of videos that exist in the catalog are matched by canonical video id. |
 
 A prod `.bak` was supplied on 2026-09-27 (see S2 results). S1–S8 can all proceed.
 
@@ -183,7 +194,7 @@ Source: native backup `mintplay_MintPlayer_2026-09-27_21-09-04` from `WEB22\MSSQ
 | BlogPosts | 10 (all live) | 2020-05 → 2023-05; all have an author |
 | Users | **752** | 722 Identity-v3 hashes, 30 social-only; 100 email-confirmed; only **109 show any activity** (confirmed email, like, playlist or external login); 0 duplicate emails/usernames |
 | Roles | Administrator 1, Blogger 1 | no claims at all |
-| External logins | Google 26, Facebook 4, Twitter 2, Microsoft 1, **LinkedIn 1** | LinkedIn is not in D4 |
+| External logins | Google 26, Facebook 4, Twitter 2, Microsoft 1, **LinkedIn 1** | all five are legacy providers (D17) |
 | 2FA | 2 users enabled; 13 authenticator keys; 2 recovery-code sets | 11 keys belong to users who never finished enrolment |
 | Jobs | 629 `elasticsearch` jobs, status 0 | drop |
 | LogEntries | 0 | drop |
@@ -197,14 +208,15 @@ Source: native backup `mintplay_MintPlayer_2026-09-27_21-09-04` from `WEB22\MSSQ
 | Phase | Content | Depends on |
 |---|---|---|
 | P0 | Cleanup (done: §2.3) · update stale plan docs | — |
-| P1 | Spikes S1, S3, S5–S8 (S2 done, S4 cancelled) · decisions recorded | — |
-| P2 | Domain gaps (F10), Blog (F1), hardening (F11), Spark PR (F7, #189, anything S1/S3/S4 needs) | P1 |
+| P1 | Spikes S1, S3, S5–S10 (S2 done, S4 cancelled) · decisions recorded | — |
+| P2 | Soft delete → `GetRowFilterAsync` (F12), domain gaps (F10), Blog (F1), hardening (F11), Spark PR (F7, #189, anything S1/S3/S4 needs) | P1 |
 | P3 | Public site: SSR shell (F2), detail pages (F3), search/home/GDPR/theme (F4), SEO endpoints (F5) | S1 |
 | P4 | Auth long tail (F6) — parallel with P3 | S3, S4 |
 | P5 | `api/v1` (F8), durable email (F9) — parallel with P3 | S7 |
+| P5b | Interactive features: collaborative playlists + discovery (F14), resume + history (F15), YouTube import (F16), listen-together rooms (F13) — parallel with P3 | S9, S10 |
 | P6 | `MintPlayer.Migration` full build (§5) | S2, S5, S6 |
 | P7 | Staging rehearsal: restore fresh `.bak` → migrate → reconcile → full regression (Playwright + visc-style smoke) → fix → repeat until clean | P2–P6 |
-| P8 | Cutover: maintenance page on legacy → final `.bak` → migrate → verify → switch IIS/DNS to the Spark app. Rollback = redeploy legacy + restore `.bak` (D7) | P7 |
+| P8 | Cutover (D30): `app_offline.htm` maintenance page on legacy → final `.bak` → migrate → verify → switch IIS/DNS to the Spark app. Rollback = redeploy legacy + restore `.bak` (D7) | P7 |
 | P9 | Decommission: delete `legacy/`, SQL Server, Elasticsearch; drop EF/NEST/Fido2 deps | P8 + soak period |
 
 Tests run once, at the end of each phase's implementation, not per milestone.
@@ -217,17 +229,30 @@ Carried over: D1 (RavenDB search), D2 (SpaServices prerendering), D3 (passkeys i
 
 | # | Decision | Proposed | Status |
 |---|---|---|---|
-| D9 | Migration source | SQL `.bak` primary; public API only for cross-check + dev seed | Proposed |
+| D9 | Migration source | SQL `.bak` primary (supplied 2026-09-27); public API only for cross-check + dev seed | **Decided 2026-09-27** |
 | D10 | Scraping | Removed; Fetcher/Crawler deleted; no replacement in this project | **Decided 2026-09-27** |
-| D11 | AMP pages | Drop | Open (S1) |
-| D12 | Lyrics history | Latest version into `Song.Lyrics`; older versions as Song revisions | Open |
+| D11 | AMP pages | Drop; `301` `/amp/song/{id}` → `/song/{id}` (AMP gives no search preference since the 2021 page-experience update; Core Web Vitals + SSR + JSON-LD cover SEO) | **Decided 2026-09-27** |
+| D12 | Lyrics history | Resolved by data (S2): the 4 songs with 2 versions have identical text; take that text and the **most complete non-empty timeline** (not "latest" — song 291's only timeline is on the older row). No revisions needed | **Decided 2026-09-27** |
 | D13 | Passkeys | Nothing to migrate — production has no WebAuthn table | **Closed 2026-09-27** |
-| D14 | Prod hosting of RavenDB + app | — | Open (S8) |
-| D15 | `MediumType.Visible` | Keep (add to domain) | Proposed |
-| D16 | Editor group membership | Passed via `--editor-emails`; none by default | Proposed |
-| D17 | LinkedIn login (1 user) | Drop the provider; that user signs in by password reset. Alternatively add LinkedIn to F6 | Open |
-| D18 | Inactive accounts (643 of 752 show no activity) | Migrate all (default; cheap, no data loss) vs prune | Open |
-| D19 | Timezone of legacy `DateTime.Now` values | `Europe/Brussels` | Proposed |
+| D14 | Prod hosting of RavenDB + app | **Same setup as Spark `apps/CodeCoverage`**: GHCR image built by a GitHub workflow → SSH deploy (`appleboy/ssh-action`, `VPS_*` secrets) to the Hetzner VPS → Traefik (`web` network, Let's Encrypt) → compose with pinned `ravendb/ravendb:7.1.x` on an internal network + one-shot license-activation container + server-side `.env`. Differences: runtime image **needs Node 22** for SpaServices prerendering (D2; CodeCoverage has none), `USER app`, `/health` endpoints | **Decided 2026-09-27** |
+| D15 | `MediumType.Visible` | **Keep**: add `Visible` to `MediumType`; media of invisible types are hidden from viewers without a new `ViewHiddenMedia` right (Administrator/Moderator). Type 15 "Songteksten" (the 5 genius links) migrates as hidden — kept as the source-URL dedup key for future scraping | **Decided 2026-09-27** |
+| D20 | Cutover bar | **Full parity (G3, D3, D4 re-affirmed)** — passkeys ship in v1 although production has none | **Decided 2026-09-27** |
+| D21 | Outgoing mail | Own `boky/postfix:v4.3.0` container in the MintPlayer stack, same config as CodeCoverage; `ALLOWED_SENDER_DOMAINS=mintplayer.com`; HELO stays the VPS PTR name `coverage.mintplayer.com` (one IPv4 → one PTR); IPv4 only; new DKIM key + `mail._domainkey.mintplayer.com` TXT; VPS IPv4 added to the `mintplayer.com` SPF record before the first send (DMARC `sp=reject`) | **Decided 2026-09-27** |
+| D22 | DNS at cutover | Same setup as `coverage.mintplayer.com`: keep the zone where it is, repoint `mintplayer.com`/`www` A records to the VPS; lower TTL to 300 s a day before (rollback = repoint) | **Decided 2026-09-27** |
+| D23 | RavenDB backups | Built-in **periodic backup task** configured from the app at startup (like `RevisionsConfigurator`): hourly incremental + nightly full to a VPS volume, plus an off-box copy (Hetzner Storage Box / S3-compatible — target still to pick; if the license tier forbids cloud destinations, local backup + cron `rsync`); 30-day retention; one restore test before cutover (S8) | **Decided 2026-09-27** |
+| D24 | Durable mail (F9) | `IEmailSender<MintPlayerUser>` / `ISparkLinkConfirmationSender` only **publish** `{TemplateName, Language, To, Data}` on Spark Messaging; an `IRecipient` resolves the MJML template, fills it with `Data`, renders MJML→HTML and hands it to the `mintplayer-smtp` Postfix. Links travel inside `Data` (tokens expire ≤ 1 day, die on use); dead-letter cutoff < token lifetime. Stack: Mjml.Net + Scriban | **Decided 2026-09-27** |
+| D25 | Mail template storage | MJML files in the repo, `MintPlayer.Web/Email/Templates/{name}.{lang}.mjml` (en/nl/fr), embedded resources; Scriban strict-variables on; a unit test renders every template × language with sample data so a missing field fails the build | **Decided 2026-09-27** |
+| D26 | Editing model | **Open editing + safety net (parity)**: signed-in members create/edit catalog items; delete = soft delete; every change is a revision stamped `ModifiedBy`; **Moderator** group views history/diff, reverts, restores, locks, hard-deletes. Built as a reusable Spark package (revision endpoints, opt-in soft-delete convention with Restore/Purge rights, audit stamping, ng-spark History panel) in the single Spark PR | **Decided 2026-09-27** |
+| D27 | Generic moderation | Ship **`MintPlayer.Spark.Moderation`** (+ ng-spark UI) in a **second Spark PR after PR 1 merges** (D32), designed after StackOverflow (reputation from votes, privilege thresholds, flags + review queues, moderator tools, audit log). MintPlayer is not required to adopt it; a Spark demo app uses it end to end and its E2E tests are the spec. Needs its own PRD in the Spark repo, drafted **before Spark PR 1 merges**, so the seam and History/SoftDelete APIs are checked against it before they are published | **Decided 2026-09-27** |
+| D28 | Spark package layout | New **core seam: composable, DI-registered contributors — no package ships a base actions class** (an app cannot derive from two). (1) **Row policies** (`IRowPolicy`): row filters and `IsAllowedAsync` AND-combined with the actions class overrides; per-request cache; zero cost for types a policy does not apply to. (2) **Lifecycle interceptors** (`IPersistentObjectInterceptor`): before/after save, delete (may replace the delete — soft delete), load; run in registration order around the actions class hooks. On top: **`MintPlayer.Spark.SoftDelete`** (`ISoftDeletable`, delete interception, Restore/Purge rights, show-deleted bypass), **`MintPlayer.Spark.History`** (revisions from the model, `ModifiedBy` stamping, revision/revert endpoints, ng-spark History panel), **`MintPlayer.Spark.Moderation`** (depends on both). Seam validated against the moderation PRD draft before Spark PR 1 merges | **Decided 2026-09-27** |
+| D29 | Lyrics model | **One shared `Song.Lyrics` text + History revisions** (revert/diff) instead of legacy per-user versions; karaoke timings stay keyed per medium. Intentional deviation from the legacy data model — parity is of capability (edit, recover), not of storage | **Decided 2026-09-27** |
+| D30 | Cutover window | **Maintenance page on legacy** (`app_offline.htm` uploaded to the Plesk site) for ~30–60 min at a quiet hour → final `.bak` → migrate + reconcile → repoint DNS. No legacy code change. Rollback window ≈ 1 h after the switch; after that, writes on the new site make rollback lossy | **Decided 2026-09-27** |
+| D31 | Listen-together access (F13) | Anyone with the link may **listen** (anonymous, display name); only **signed-in** users may add songs or vote to skip; only signed-in users host. Unguessable room ids, host can close the room to new listeners, rooms expire after inactivity, caps: 50 listeners/room and a per-host room limit | **Decided 2026-09-27** |
+| D32 | Spark delivery | Two Spark PRs: PR 1 ships seam + SoftDelete + History (+ F7, #189) and is merged/published before the MintPlayer cutover; PR 2 ships Moderation afterwards. Explicit exception to the one-PR rule, decided by the user | **Decided 2026-09-27** |
+| D16 | Editor / Moderator group | Rename **Editor → Moderator** (History/SoftDelete rights: history, diff, revert, restore, lock, purge); only member at migration: the current Administrator (Administrator ⊇ Moderator). No moderator mails, no new-account throttle — revisions are the safety net. `--editor-emails` flag dropped | **Decided 2026-09-27** |
+| D17 | LinkedIn login | Keep — legacy registers it (`AspNet.Security.OAuth.LinkedIn`, `Startup.cs:83-87`); migrates like any external login | **Decided 2026-09-27** |
+| D18 | Inactive accounts (643 of 752 show no activity) | Migrate all 752; **no migration announcement mail** (protects the shared VPS IP reputation) | **Decided 2026-09-27** |
+| D19 | Timezone of legacy `DateTime.Now` values | `Europe/Amsterdam` (FoxXL is Dutch hosting; same offsets as Brussels) — verify in S5 by comparing a known recent edit time | Proposed |
 
 ## 9. Risks
 
@@ -248,4 +273,5 @@ Kept for a possible future project.
 - **Legacy**: 9 regex-over-HTML fetchers behind `IFetcher{UrlRegex, Fetch}`; only Genius registered in prod; results were never saved automatically (`web/v3/fetcher` returned candidates matched by source URL stored as a `Medium`). Only fixtures: 7 Genius HTML pages.
 - **MintPlayer.AI** (v0.7.0, net10.0, managed + optional ILGPU CUDA): tensors with autograd, MLP/ResidualMlp/conv nets, Adam, RL trainers; no tokenizer, embeddings, RNN/attention or generic supervised trainer. Feasible formulation: **DOM-node classification with an MLP** (hand-crafted per-node features → title/artist/album/date/lyrics/image/media-link/other), plus a second line-level classifier to clean lyrics (lyric / section header / noise). Needed framework additions: supervised trainer + P/R/F1, dropout, classifier checkpoint with feature-schema version, EmbeddingBag, predict facade.
 - **Training data**: the prod catalog is too small (141 songs) for distant supervision; labels would come from sites' own structured blobs (JSON-LD, `__NEXT_DATA__`, Genius `__PRELOADED_STATE__`) matched to DOM nodes, evaluated leave-one-site-out.
+- **Dedup key**: hidden medium types (D15) keep source URLs (e.g. the 5 genius links on type 15) so a future extractor can recognise already-imported documents, as legacy `GetByMedium` did.
 - **Cascade**: structured metadata → trained net → optional LLM fallback on low confidence; cleaned, normalized output (split feat. artists, date precision, canonical media URLs, structured lyric sections).
