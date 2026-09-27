@@ -212,6 +212,17 @@ Source: native backup `mintplay_MintPlayer_2026-09-27_21-09-04` from `WEB22\MSSQ
 
 ---
 
+### 6.2 S8 result — Hetzner deploy, local part (2026-09-27)
+
+Full write-up: [`docs/spikes/S8-hetzner-deploy/RESULT.md`](./spikes/S8-hetzner-deploy/RESULT.md). Merged into this branch. Nothing was deployed or pushed.
+
+- **Built:** `MintPlayer.Web/Dockerfile` (Node 22 binary in the runtime stage, `USER app`, `npm ci` from the lockfile), `/health` + `/health/ready` (RavenDB check), `BackupConfigurator` (D23; off when `RavenBackup:FolderPath` is empty), `deploy/docker-compose.yml` (mirrors CodeCoverage + backup-volume ownership one-shot + DataProtection-keys volume), `deploy/docker-compose.local.override.yml`, `deploy/.env.example`, `.github/workflows/deploy.yml`.
+- **Proven locally:** health 200/200; SPA + deep links served in Production; backup task created, full + incremental files written; import of the full backup into a scratch DB matched 200/200 documents. Image 539 MB unpacked / ~143 MB compressed (Node adds 125 MB / 44 MB).
+- **Found:** (1) DataProtection keys were not persisted — every deploy would have signed everyone out and broken reset links; now on a volume. (2) `dotnet publish` fails on a clean tree: NodeServices 10.4.0 resolves the relative SPA folder inside the NuGet cache — worked around with absolute csproj paths; **upstream fix in MintPlayer.AspNetCore.SpaServices**. (3) Spark.Authorization's build runs an unpinned `npm i @mintplayer/ng-spark-auth` that drifts package versions on a fresh clone — **upstream fix in Spark PR 1**. (4) An unlicensed RavenDB refuses `RestoreBackupOperation` — the real restore test must be redone on the VPS with the license active.
+- **Backup off-box:** RavenDB cloud/remote destinations need Professional/Enterprise; Community = local only. Unless the VPS license allows it, off-box = host cron `rsync` of the backup volume to a Hetzner Storage Box (D23 fallback).
+- **Still needs the user:** VPS dir + `.env` + `raven-license.json`; GHCR package visibility; `VPS_*` repo secrets — **only at cutover**, because the workflow deploys on `master`, which still holds the legacy app; DKIM key + `mail._domainkey` TXT; VPS IPv4 in SPF; outbound port 25; TTL 300 s then A-record switch; restore test on the VPS.
+- **Open:** RavenDB server 7.1.10 (pinned, as coverage) vs client 7.2.x — worked locally; decide whether prod moves to 7.2.x. App → Postfix is an internal hop: F9's sender must not require STARTTLS. Not yet exercised: www→apex redirect (needs Traefik), SSR inside the container (S1).
+
 ## 7. Phases
 
 | Phase | Content | Depends on |
