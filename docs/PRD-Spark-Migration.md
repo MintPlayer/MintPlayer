@@ -1,6 +1,8 @@
 # PRD — Rewrite MintPlayer on MintPlayer.Spark + RavenDB
 
 **Status:** In implementation — Phase 1 complete; Phase 2 (core catalog) underway (2.1–2.4 done). See the plan for live status.
+
+> Superseded by PRD-Spark-Completion.md §3.3 (current per-phase status).
 **Author:** Pieterjan De Clippel (with Claude)
 **Date:** 2026-06-06 (updated 2026-06-08)
 **Related plan:** [`Implementation-Plan-Spark-Migration.md`](./Implementation-Plan-Spark-Migration.md)
@@ -37,7 +39,7 @@ The bet is sound: Spark removes essentially all the CRUD/admin/data-access boile
 | N1 | Re-platforming away from Angular (we stay on Angular, upgraded to 22 to match ng-spark). |
 | N2 | Changing the product feature set or visual redesign (this is a re-platform, not a redesign). |
 | N3 | Making Spark an OpenID Connect identity provider. |
-| N4 | Migrating the standalone Crawler's scratch database; the crawler/fetcher logic is ported but its experimental storage is out of scope. |
+| N4 | Migrating the standalone Crawler's scratch database; the crawler/fetcher logic is ported but its experimental storage is out of scope. *(Superseded by PRD-Spark-Completion.md D10: Fetcher/Crawler deleted, no scraping.)* |
 | N5 | Multi-tenant or cross-module replication (Spark's Replication/Webhooks packages are not needed for a single-module app). |
 
 ---
@@ -111,6 +113,8 @@ Local login + registration, email confirmation, password reset, password change,
    + full-text + suggestions)        (only if RavenDB FT proves insufficient)
 ```
 
+
+> Superseded by PRD-Spark-Completion.md D10/D11/F9: no fetcher, AMP or scraping/indexing cron jobs; mail is the only background work.
 ### 4.1 Stack
 
 | Layer | Current | Target |
@@ -120,7 +124,7 @@ Local login + registration, email confirmation, password reset, password change,
 | Search | Elasticsearch (NEST) | RavenDB full-text + `SuggestUsing` (default); external engine only if needed |
 | Identity | ASP.NET Identity (SQL) | Spark Authorization (`SparkUser` in RavenDB) + Identity API |
 | Frontend | Angular 13 + Universal SSR + PWA | Angular 22, ng-spark admin + bespoke public site |
-| Background | IHostedService + DB job queue | Spark Cron + Messaging + Subscription Workers |
+| Background | IHostedService + DB job queue | Spark Cron + Messaging + Subscription Workers *(Superseded by PRD-Spark-Completion.md F9: no periodic jobs remain.)* |
 
 ---
 
@@ -138,10 +142,10 @@ Legend: ✅ clean fit · 🟡 needs config/custom code on a Spark hook · 🔴 n
 | Subject↔Tag (multi-select) | ✅ | `[Reference(typeof(Tag),"GetTags")] List<string> TagIds` — **now a native Spark multi-reference** (searchable multi-select picker + chip display, clean `string[]`). Required + shipped framework work: `MintPlayer.Spark preview.36` (reference/primitive array round-trip), `@mintplayer/ng-spark 22.0.2`, `@mintplayer/web-components 2.0.1`. |
 | Tag self-referencing tree + TagCategory color | ✅/🟡 | `[Reference(typeof(Tag))]` on `ParentId`; `Color` → `dataType:color` with a **color-swatch renderer** (built). Children via sub-query on detail (done). Tree **view** widget still custom/deferred. |
 | Playlist ordered tracks, public/private | ✅/🟡 | AsDetail array with `Index`; row-level visibility via `IsAllowedAsync`. Drag-reorder is a custom renderer. |
-| Per-user lyrics + karaoke timing `double[]` | ✅/🔴 | `Lyrics` collection stores cleanly; **timing-array editor is a custom renderer** (the karaoke sync UI). |
+| Per-user lyrics + karaoke timing `double[]` | ✅/🔴 | `Lyrics` collection stores cleanly; **timing-array editor is a custom renderer** (the karaoke sync UI). *(Superseded by PRD-Spark-Completion.md D29: one shared `Song.Lyrics` + History revisions.)* |
 | Media URLs typed + Visible flag | ✅ | AsDetail array + `LookupReference` for MediumType. |
 | Likes/dislikes + aggregate counts | ✅ | One `UserLike` doc per user (id arrays `Likes`/`Dislikes`, all subject types in one doc → favorites = single load, toggle = atomic write); per-subject totals from `Likes_Count` fan-out map-reduce (one map per array, reduce by SubjectId). Built in Phase 2.6. |
-| Soft-delete | 🟡 | Override `OnDeleteAsync` to flag + filter every query/index. No built-in pattern. |
+| Soft-delete | 🟡 | Override `OnDeleteAsync` to flag + filter every query/index. No built-in pattern. *(Superseded by PRD-Spark-Completion.md F12/D28: `GetRowFilterAsync` → `MintPlayer.Spark.SoftDelete`.)* |
 | Optimistic concurrency | ✅ | Built in — `PersistentObject.Etag` (change vector), HTTP 409 on conflict. |
 | Multi-language UI **and** data | ✅ | `culture.json` + `TranslatedString` (first-class data type with per-language merge on save). |
 
@@ -153,7 +157,7 @@ Legend: ✅ clean fit · 🟡 needs config/custom code on a Spark hook · 🔴 n
 | Paging + multi-column sort + search | ✅ | Built into `QueryExecutor`. **Search push-down** to RavenDB is custom per searchable entity (default filters in memory). |
 | Likes / favorites / suggest endpoints | ✅ | Custom MVC controllers alongside Spark middleware: `SubjectController` (`/api/subject/likes`, `/api/subject/favorites`) + `SearchController` (`/api/search`, `/api/search/suggest`). `/api` excluded from the SPA fallback. Built in Phase 2.5–2.6. |
 | Public REST API with **signed JWTs** | ✅/🟡 | **Confirmed feasible (D5 = keep).** Write plain `[ApiController]`s that inject `IAsyncDocumentSession` (or `IDocumentStore`) and query the same RavenDB data layer Spark CRUD uses — proven by `Demo/WebhooksDemo/.../GitHubProjectsController.cs` (injects `IAsyncDocumentSession`, runs under `[Authorize]`, coexists via `AddControllers()`/`MapControllers()`). Register `AddJwtBearer()` as a separate named scheme with a signing key; guard the public API with `[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]`. A small login endpoint mints the JWT via the `UserManager<SparkUser>`/`SignInManager` Spark already registers. **Nuance:** injecting the typed `SparkContext` into a controller does *not* auto-populate its `.Session` (internal setter, set only by Spark's pipeline) — inject the session directly. See §5.6. |
-| AMP, sitemap, robots, OpenSearch, fetcher | ✅ | Plain MVC controllers/minimal-APIs coexist with Spark (proven in WebhooksDemo); exclude their paths from the SPA fallback. |
+| AMP, sitemap, robots, OpenSearch, fetcher | ✅ | Plain MVC controllers/minimal-APIs coexist with Spark (proven in WebhooksDemo); exclude their paths from the SPA fallback. *(Superseded by PRD-Spark-Completion.md D10/D11: fetcher deleted, AMP dropped with a 301.)* |
 | XSRF (X-XSRF-TOKEN) | ✅ | Exact match — Spark uses `X-XSRF-TOKEN` cookie/header out of the box. |
 
 ### 5.3 Authentication & Authorization
@@ -172,13 +176,15 @@ Legend: ✅ clean fit · 🟡 needs config/custom code on a Spark hook · 🔴 n
 | TOTP 2FA — enrollment (QR, enable/disable, recovery codes) | 🔴 | Backend endpoints exist; **enrollment UI is net-new Angular** (2–3 components). |
 | Social OAuth (Google, Microsoft, Facebook) | 🟡 | Backend: chain `AddGoogle/AddMicrosoftAccount/AddFacebook` to the IdentityBuilder. **Login buttons + popup flow are net-new frontend.** |
 | Social OAuth (GitHub) | ✅ | First-class `AddGitHub()` extension. |
-| Social OAuth (Twitter, LinkedIn) | 🔴 | Need third-party NuGet packages (Twitter is OAuth2/PKCE now); frontend buttons net-new. |
+| Social OAuth (Twitter, LinkedIn) | 🔴 | Need third-party NuGet packages (Twitter is OAuth2/PKCE now); frontend buttons net-new. *(Superseded by PRD-Spark-Completion.md F6/D17: all five legacy providers incl. Twitter + LinkedIn in v1.)* |
 | Account linking (add/remove logins) | 🔴 | Backend store methods exist; **`/manage-logins` page is net-new**. |
-| WebAuthn / passkeys | 🔴 | **Not in Spark at all** — but **in scope for v1** (D3 = full parity). Port the existing Fido2NetLib backend integration + Angular register/list/remove/passwordless-login components. Largest single auth effort; build to be upstreamable into `ng-spark-auth`. |
+| WebAuthn / passkeys | 🔴 | **Not in Spark at all** — but **in scope for v1** (D3 = full parity). Port the existing Fido2NetLib backend integration + Angular register/list/remove/passwordless-login components. Largest single auth effort; build to be upstreamable into `ng-spark-auth`. *(Superseded by PRD-Spark-Completion.md D13 + D20: nothing to port/migrate — prod has no WebAuthn table; passkeys ship net-new on Spark 11.x.)* |
 | Per-user "bypass 2FA for external login" | 🔴 | Custom field on `SparkUser` subclass + custom logic. |
 | Signed JWT issuance | 🟡 | See API section. |
 
 **Known Spark security issues to fix before production** (from `PRD-SecurityAudit.md`): 2FA recovery codes stored plaintext (R2-M10); OAuth tokens stored plaintext (R2-M11). Both are small fixes in `UserStore.cs` and should be contributed upstream.
+
+> Superseded by PRD-Spark-Completion.md F7 + §5.2: recovery codes are already hashed in Spark `UserStore.HashRecoveryCode`; OAuth tokens remain plaintext (R2-M11).
 
 ### 5.4 Frontend
 
@@ -203,8 +209,8 @@ Legend: ✅ clean fit · 🟡 needs config/custom code on a Spark hook · 🔴 n
 |---|---|---|
 | Search indexing | ✅/🟡 | **Default: drop Elasticsearch**, use RavenDB `FieldIndexing.Search` indexes + `SuggestUsing`. If insufficient: feed an external engine via an `IRecipient<SubjectIndexMessage>` broadcast from `OnAfterSaveAsync`. |
 | Search-as-you-type | ✅ | `GET /api/search` over the `Subjects_Search` multi-map index: one `Search(x => x.Text, "term term*")` clause (whole-term OR prefix) + optional `type` filter, `.ProjectInto<VSubject>()`. One endpoint spans all catalog types (not one `Custom.` query per entity — cross-collection, so a controller, not a Spark query). |
-| Crawler / Fetchers (scraping) | ✅/🔴 | Hosting fits: `ISparkCronJob` (periodic) + `IRecipient<FetchMessage>` (event-driven) + arbitrary `AddHostedService`. The scraper/parser code itself is ported as-is (net-new only in that it's lifted, not rewritten). |
-| Transactional email (SMTP) | 🟡 | No Spark email abstraction; register MailKit/`IEmailSender` as a normal service, optionally drive via messaging for durable retry. |
+| Crawler / Fetchers (scraping) | ✅/🔴 | Hosting fits: `ISparkCronJob` (periodic) + `IRecipient<FetchMessage>` (event-driven) + arbitrary `AddHostedService`. The scraper/parser code itself is ported as-is (net-new only in that it's lifted, not rewritten). *(Superseded by PRD-Spark-Completion.md D10: removed.)* |
+| Transactional email (SMTP) | 🟡 | No Spark email abstraction; register MailKit/`IEmailSender` as a normal service, optionally drive via messaging for durable retry. *(Superseded by PRD-Spark-Completion.md D24/D25: Spark Messaging + MJML templates + Postfix.)* |
 | SEO endpoints | ✅ | Custom controllers coexist. |
 | Background job durability | ✅ | Spark Messaging (retry, backoff, dead-letter, checkpoint) replaces the hand-rolled DB job queue. |
 | Deployment | ✅ | Docker Compose (app + RavenDB) + Traefik; guide provided. Single-node Raven by default — cluster is separate infra. |
@@ -250,14 +256,14 @@ A one-time ETL from SQL Server → RavenDB is required (net-new tooling, run **o
 
 | Concern | Plan |
 |---|---|
-| Subjects → 3 collections | Split `Subjects` rows by discriminator into `Artists`/`People`/`Songs` documents; map int IDs → RavenDB string IDs; keep an `OldId` field for cross-reference resolution. |
+| Subjects → 3 collections | Split `Subjects` rows by discriminator into `Artists`/`People`/`Songs` documents; map int IDs → RavenDB string IDs; keep an `OldId` field for cross-reference resolution. *(Superseded by PRD-Spark-Completion.md §5.2: explicit `{Collection}/{legacyId}` ids.)* |
 | Join tables → embedded/junction | `ArtistPerson`/`ArtistSong`/`SubjectTag`/`PlaylistSong` become embedded AsDetail arrays (or junction docs), preserving `Active`/`Credited`/`Index` flags. |
 | Lyrics timeline | The `int[]×20` JSON converts to native `double[]`; preserve scaling. |
 | TagCategory.Color | ARGB int → color value. |
 | Identity tables → SparkUser | Migrate users. **Password hashes migrate verbatim (D8)** — copy `AspNetUsers.PasswordHash` → `SparkUser.PasswordHash` and `SecurityStamp` → `SparkUser.SecurityStamp` (same default PBKDF2/Identity-V3 hasher on both sides; null hash for social-only users). Existing passwords keep working; Identity re-hashes to new parameters on next login if config differs. External logins and WebAuthn credentials migrate into the `SparkUser` document / passkey collection. 2FA continuity: see next row. |
-| **2FA (TOTP) continuity** | **Existing authenticator codes keep working without re-enrollment** — both the old app and Spark use the identical ASP.NET Core Identity `AuthenticatorTokenProvider`; only the storage location differs. The ETL must copy, **verbatim and untransformed**: (1) the **authenticator secret** from `AspNetUserTokens` where `LoginProvider = '[AspNetUserStore]'` and `Name = 'AuthenticatorKey'` → `SparkUser.AuthenticatorKey`; (2) `AspNetUsers.TwoFactorEnabled` → `SparkUser.TwoFactorEnabled`; (3) recovery codes from `AspNetUserTokens` `Name = 'RecoveryCodes'` (`;`-separated) → `SparkUser.TwoFactorRecoveryCodes`. The otpauth issuer label is irrelevant to verification. **Note:** recovery codes are plaintext on both sides today (security item R2-M10); if the upstream hashing fix is applied, migrate codes accordingly or regenerate after cutover. The TOTP secret itself stays plaintext on both sides — a direct copy preserves working codes. |
-| Soft-deleted rows | Carry `IsDeleted`/`DeletedAt`; do not import hard if policy is to purge. |
-| Referential integrity | Two-pass import: create all documents, then resolve references by `OldId`. |
+| **2FA (TOTP) continuity** | **Existing authenticator codes keep working without re-enrollment** — both the old app and Spark use the identical ASP.NET Core Identity `AuthenticatorTokenProvider`; only the storage location differs. The ETL must copy, **verbatim and untransformed**: (1) the **authenticator secret** from `AspNetUserTokens` where `LoginProvider = '[AspNetUserStore]'` and `Name = 'AuthenticatorKey'` → `SparkUser.AuthenticatorKey`; (2) `AspNetUsers.TwoFactorEnabled` → `SparkUser.TwoFactorEnabled`; (3) recovery codes from `AspNetUserTokens` `Name = 'RecoveryCodes'` (`;`-separated) → `SparkUser.TwoFactorRecoveryCodes`. The otpauth issuer label is irrelevant to verification. **Note:** recovery codes are plaintext on both sides today (security item R2-M10); if the upstream hashing fix is applied, migrate codes accordingly or regenerate after cutover. The TOTP secret itself stays plaintext on both sides — a direct copy preserves working codes. *(Superseded by PRD-Spark-Completion.md F7 + §5.2: recovery codes are SHA-256 hashed on migration, not copied verbatim.)* |
+| Soft-deleted rows | Carry `IsDeleted`/`DeletedAt`; do not import hard if policy is to purge. *(Superseded by PRD-Spark-Completion.md §5.2/§6.1.)* |
+| Referential integrity | Two-pass import: create all documents, then resolve references by `OldId`. *(Superseded by PRD-Spark-Completion.md §5.2: ids are deterministic, so one pass.)* |
 | Verification | Row-count reconciliation + spot-check queries against a static source snapshot. Take a full SQL backup before the run (rollback = redeploy old build + restore backup). Validate fully in staging before the production swoop. |
 
 ---
@@ -267,12 +273,12 @@ A one-time ETL from SQL Server → RavenDB is required (net-new tooling, run **o
 | ID | Risk | Severity | Mitigation |
 |----|------|----------|------------|
 | **R1** | ~~No SSR in ng-spark.~~ **Resolved by decision D2.** SEO via `MintPlayer.AspNetCore.SpaServices.Prerendering` (`@angular/platform-server` + `OnSupplyData`), the same approach the current site uses. | **Low-Med** | Phase-0 spike confirms `SparkService` works under server-side HTTP and `OnSupplyData` injects per-route data (titles, meta, JSON-LD) into Angular transfer state; ensure lazy admin chunks are excluded from prerender. |
-| R2 | WebAuthn/passkeys absent from Spark; **in scope for v1** (D3). | Med-High | Port the existing Fido2NetLib backend + Angular components; allow extra schedule for it in Phase 5; contribute to `ng-spark-auth`. |
+| R2 | WebAuthn/passkeys absent from Spark; **in scope for v1** (D3). | Med-High | Port the existing Fido2NetLib backend + Angular components; allow extra schedule for it in Phase 5; contribute to `ng-spark-auth`. *(Superseded by PRD-Spark-Completion.md D13 + D20.)* |
 | R3 | Social login UI + account linking are net-new frontend. | Medium | Build a reusable social-button + popup component early; reuse existing `@mintplayer/ng-*` social login components where possible. Consider upstreaming to ng-spark-auth. |
 | R4 | RavenDB full-text may underperform Elasticsearch for autocomplete at scale. | Medium | Benchmark with production data volume in Phase 1 spike. Keep the messaging-fed external-engine path as a fallback design. |
 | R5 | Data migration correctness (polymorphism, references). | Medium | Build idempotent ETL with reconciliation; dry-run against a prod snapshot; keep SQL backup for rollback. **Password-hash risk low** — identical default PBKDF2 hasher on both sides; copy `PasswordHash`+`SecurityStamp` verbatim. **Proven in `spikes/Spike.Migration` (Phase-0 spike 0.4, 5/5 green):** verbatim-hash login, legacy lower-iteration hash → `SuccessRehashNeeded`, live TOTP code validates against the copied authenticator key, and TPH→3-collection reference resolution. |
 | R6 | Angular 13 → 22 jump for ported bespoke components (player, karaoke). | Medium | Components depend on `@mintplayer/ng-*` libs at v22 in the Spark monorepo. Adopting ng-spark required realigning it to ng-bootstrap 22 (datatable merge + toggle→checkbox), shipped as `@mintplayer/ng-spark@22.0.0` (Spark PR #179) — expect similar small framework PRs when porting the player/karaoke. |
-| R7 | Spark security issues (plaintext recovery codes/OAuth tokens). | Low-Med | Fix in `UserStore.cs` before production; contribute upstream. |
+| R7 | Spark security issues (plaintext recovery codes/OAuth tokens). | Low-Med | Fix in `UserStore.cs` before production; contribute upstream. *(Superseded by PRD-Spark-Completion.md F7: recovery codes already hashed; OAuth tokens remain.)* |
 | R8 | Two design systems (ng-bootstrap admin vs custom public). | Low | Scope admin theme under the admin shell; share the global player layer. |
 
 ---
@@ -281,11 +287,13 @@ A one-time ETL from SQL Server → RavenDB is required (net-new tooling, run **o
 
 1. All entities (Artist, Person, Song, Tag, TagCategory, MediumType, Medium, Playlist, Lyrics, Like, BlogPost, User) are modeled in RavenDB and CRUD-manageable through Spark.
 2. The `MintPlayer.Data`, `MintPlayer.Data.Abstractions`, and `MintPlayer.Dtos` repository/service/mapper/DTO layers are deleted; controllers reduced to the SEO/AMP/fetcher/public-API set.
+   > Superseded by PRD-Spark-Completion.md D10/D11: no AMP or fetcher controllers.
 3. Every feature in Section 3 works end-to-end in staging, verified against a feature checklist.
 4. Search + autocomplete return correct results within target latency on production-scale data.
 5. SEO acceptance: public artist/song/person pages serve correct title/meta/JSON-LD to crawlers (mechanism per D2).
 6. Full auth suite functional (or passkeys explicitly deferred with a tracked follow-up).
 7. Data migration reconciles 100% of non-deleted records; users can log in with their existing passwords; external logins / 2FA / passkeys carry over.
+   > Superseded by PRD-Spark-Completion.md D13: no passkeys exist in production to carry over.
 8. Net hand-written LOC is materially lower than today (the boilerplate-pruning objective).
 
 ---
@@ -297,10 +305,10 @@ A one-time ETL from SQL Server → RavenDB is required (net-new tooling, run **o
 | **D1** | Search engine. | **Resolved → RavenDB full-text + `SuggestUsing`; Elasticsearch dropped.** Cross-type search + typo-tolerant autocomplete proven working in Phase 2.5 (`Subjects_Search` multi-map index + `/api/search`). Prod-scale quality/latency benchmarking still owed before cutover (R4); the messaging-fed external-engine path is retained as a fallback design. |
 | **D2** | SEO/SSR strategy. | **Use `MintPlayer.AspNetCore.SpaServices.Prerendering`** — Angular rendered through Node via the `@angular/platform-server` boot module, data injected per-route with `OnSupplyData` (the current site's mechanism). Working reference: `C:\Repos\MintPlayer.AspNetCore.SpaServices\Demo\Prerendering`. SSR is **not** built from scratch; R1 downgraded. |
 | **D3** | Passkeys/WebAuthn in v1. | **Full parity including passkeys.** Port the Fido2NetLib WebAuthn flow in v1 so the new site matches the current one exactly. |
-| **D4** | Social providers in v1. | Google + Microsoft + Facebook + GitHub (low-effort backends). Twitter/LinkedIn included if their current OAuth2 packages integrate cleanly; otherwise fast-follow. |
+| **D4** | Social providers in v1. | Google + Microsoft + Facebook + GitHub (low-effort backends). Twitter/LinkedIn included if their current OAuth2 packages integrate cleanly; otherwise fast-follow. *(Superseded by PRD-Spark-Completion.md F6/D17: Twitter + LinkedIn are v1, not fast-follow.)* |
 | **D5** | Public signed-JWT API. | **Keep** — other instances need to query it. Implemented as hand-written `ApiController`s over `IAsyncDocumentSession` + a dedicated JWT bearer scheme (see §5.6). Confirmed feasible. |
 | **D8** | Password migration. | **Migrate password hashes verbatim — no reset.** Both the old app and Spark use ASP.NET Core Identity's default `PasswordHasher<TUser>` (PBKDF2/Identity-V3, **not BCrypt**, no custom hasher), so the hash is portable. The ETL copies `AspNetUsers.PasswordHash` → `SparkUser.PasswordHash` and `SecurityStamp` → `SparkUser.SecurityStamp` (null hash for social-only users). Existing logins keep working; if the new app's hasher iteration count differs, Identity transparently re-hashes to the new parameters on the user's next successful login (forward-compatible). A one-time reset remains a fallback only. |
-| **D6** | Repo. | **New structure inside `C:\Repos\MintPlayer`** (executed): legacy app moved to `legacy/` (deleted at cutover), new `MintPlayer.Web` Spark host + `MintPlayer.Domain` + `MintPlayer.slnx` at the root. Spark **now consumed via published NuGet packages** (`10.0.0-preview.36`) — moved off the cross-repo `ProjectReference` once the feed was coherent; this also makes the Docker image a clean single-context build. Framework changes still land in the Spark repo and are pulled in by version bump. |
+| **D6** | Repo. | **New structure inside `C:\Repos\MintPlayer`** (executed): legacy app moved to `legacy/` (deleted at cutover), new `MintPlayer.Web` Spark host + `MintPlayer.Domain` + `MintPlayer.slnx` at the root. Spark **now consumed via published NuGet packages** (`10.0.0-preview.36`) — moved off the cross-repo `ProjectReference` once the feed was coherent; this also makes the Docker image a clean single-context build. Framework changes still land in the Spark repo and are pulled in by version bump. *(Superseded by PRD-Spark-Completion.md F18: app is on preview.41, upgrading to 11.x.)* |
 | **D7** | Cutover. | **Single full-swoop replacement.** The old app and the new app never run side-by-side, and there is **no synchronization** between SQL Server and RavenDB. One offline migration run, then redeploy the new app in place of the old one. (No strangler, no dual-run, no live fallback.) Rollback, if needed, means redeploying the previous build against a retained SQL backup — a manual restore, not a live system. |
 
 ---

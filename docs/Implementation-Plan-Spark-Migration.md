@@ -38,10 +38,10 @@ Goal: turn the PRD's open decisions (D1–D7) into committed answers with eviden
 
 Goal: a running Spark host with RavenDB, auth, and one entity fully working through admin + public.
 
-- **1.1 ✅** Scaffold the ASP.NET Core 10 Spark host. **DONE** — `MintPlayer.Web` host using `AddSpark`+`UseContext<MintPlayerSparkContext>` (DemoApp pattern, not AllFeatures — avoids unused messaging/replication), RavenDB via `Spark:RavenDb` (db `MintPlayer`), `MintPlayer.Domain` entity lib, `MintPlayer.slnx`. Spark consumed via **published NuGet packages** (`10.0.0-preview.35` set, after the Abstractions publish-skew was fixed — see packaging note). **Docker Compose done** (`docker-compose.yml` + `MintPlayer.Web/Dockerfile`: single-context build now that Spark is on NuGet; ravendb 7.2 + web; `docker compose config` validates — full image build pending a running daemon).
+- **1.1 ✅** Scaffold the ASP.NET Core 10 Spark host. **DONE** — `MintPlayer.Web` host using `AddSpark`+`UseContext<MintPlayerSparkContext>` (DemoApp pattern, not AllFeatures — avoids unused messaging/replication), RavenDB via `Spark:RavenDb` (db `MintPlayer`), `MintPlayer.Domain` entity lib, `MintPlayer.slnx`. Spark consumed via **published NuGet packages** (`10.0.0-preview.35` set, after the Abstractions publish-skew was fixed — see packaging note). **Docker Compose done** (`docker-compose.yml` + `MintPlayer.Web/Dockerfile`: single-context build now that Spark is on NuGet; ravendb 7.2 + web; `docker compose config` validates — full image build pending a running daemon). *(Superseded by PRD-Spark-Completion.md D14: pinned `ravendb/ravendb:7.1.x`, not 7.2.)*
 - **1.2 ✅** `MintPlayerUser : SparkUser` (`PictureUrl`, `Bypass2faForExternalLogin`); `security.json` groups (`Everyone`/`Administrator`/`Blogger`); `spark.AddAuthorization` + `spark.AddAuthentication<MintPlayerUser>`; cookie `.SparkAuth.MintPlayer` + XSRF. **DONE** (verified `/spark/auth/*` mapped, anonymous Everyone read). **`IEmailSender` done** — `MintPlayerEmailSender : IEmailSender<MintPlayerUser>` (MailKit, `Smtp` config section, branded HTML for confirm/reset; logs instead of sending when no host configured). Verified: register → confirmation email logged with a working `/spark/auth/confirmEmail` link.
 - **1.3 ✅** Angular **22** app at `MintPlayer.Web/ClientApp` (nested for SSR): `sparkAuthRoutes()`+`sparkRoutes()`, `bs-shell` shell (bsShellTopbar/bsShellSidebar, program-unit sidebar, auth bar, lang picker), `provideSparkAuth`/`provideSparkClientOperations`/`provideSparkAttributeRenderers`. **DONE** (SPA + Spark API serve together). Single shell for now — public/admin split deferred. **NB:** required a framework fix — ng-spark/ng-spark-auth realigned to ng-bootstrap 22 (datatable merge + toggle→checkbox), shipped as **`@mintplayer/ng-spark@22.0.0`** (Spark PR #179), now consumed here.
-- **1.4 ✅** Shared entity base + conventions. **DONE** — `MintPlayer.Domain/Entities/Entity.cs` (abstract base: `Id`, audit `CreatedAt`/`ModifiedAt`, soft-delete `IsDeleted`/`DeletedAt`, migration `OldId`); `MediumType : Entity`. `EntityActions<T> : DefaultPersistentObjectActions<T>` centralises the conventions (stamps CreatedAt on create / ModifiedAt on edit; `OnDeleteAsync` soft-deletes; `OnLoadAsync`/`OnQueryAsync` hide deleted), abstract so the actions generator skips it — `MediumTypeActions` is the concrete adopter. `MintPlayerSparkContext.MediumTypes` filters `!IsDeleted` (Raven auto-index predicate) so the named-query/datatable path excludes deleted rows too. Audit fields hidden+read-only in `MediumType.json` (idempotent across re-sync).
+- **1.4 ✅** Shared entity base + conventions. **DONE** — `MintPlayer.Domain/Entities/Entity.cs` (abstract base: `Id`, audit `CreatedAt`/`ModifiedAt`, soft-delete `IsDeleted`/`DeletedAt`, migration `OldId`); `MediumType : Entity`. `EntityActions<T> : DefaultPersistentObjectActions<T>` centralises the conventions (stamps CreatedAt on create / ModifiedAt on edit; `OnDeleteAsync` soft-deletes; `OnLoadAsync`/`OnQueryAsync` hide deleted), abstract so the actions generator skips it — `MediumTypeActions` is the concrete adopter. `MintPlayerSparkContext.MediumTypes` filters `!IsDeleted` (Raven auto-index predicate) so the named-query/datatable path excludes deleted rows too. Audit fields hidden+read-only in `MediumType.json` (idempotent across re-sync). *(Superseded by PRD-Spark-Completion.md F12: `OnLoadAsync`/`OnQueryAsync` are gone upstream — move to `GetRowFilterAsync`, then `MintPlayer.Spark.SoftDelete`.)*
 - **1.5 ✅** **Vertical slice: `MediumType`** — model, query, security rights, model-sync, CRUD all proven, **and verified end-to-end through the admin auto-UI in the browser** (login → create → edit → delete against RavenDB). `App_Data/programUnits.json` adds the Catalog → Medium types sidebar menu (query alias `medium-types`). Closed the 1.2 auth gap: `DevDataSeeder` (dev-only, idempotent) seeds an Administrator; group membership is a `"group"` claim valued with the group **name** (`AccessControlService` resolves name→id via security.json translations — a GUID-valued claim matches nothing). Browser run confirmed audit stamping + soft-delete live (deleted row drops out of the datatable + 404s on load; doc retained with `IsDeleted`/`DeletedAt`).
 - **1.6 ✅** PWA + SEO base. **DONE** — PWA via `ng add @angular/pwa` (`@angular/service-worker` + `ngsw-config.json`, branded `manifest.webmanifest` + icons, `provideServiceWorker` gated on `!isDevMode()` so it's inert in dev and served statically by the host in prod; prod build emits `ngsw.json` + workers; initial-bundle budget raised to 1MB/2MB). SEO base uses **`@mintplayer/ng-seo@22.0.0`** (+ peers `ng-base-url`, `ng-router-provider`): site-wide JSON-LD (`WebSite` + `Organization`) via the `[jsonLd]` directive in `app.html`, per-page canonical via `[canonicalUrl]` (absolute URLs from `provideBaseHref()`), plus `MintPlayerTitleStrategy` ("<page> | MintPlayer", kept because the package's `[seo]` title is per-page + all-or-nothing — less suited to the Spark auto-UI pages) and a default meta description in `index.html`. Verified in the browser (title, canonical `https://…/home`, description, manifest, both JSON-LD blocks as `application/ld+json`). A JSON-LD MIME bug in `ng-seo@22.0.0` (`application/json`, which crawlers ignore) was fixed upstream and shipped as **`22.0.1`** — consumed here and re-verified crawler-correct (0 stale `application/json` scripts).
 
@@ -73,8 +73,8 @@ Vertical slices, in dependency order:
 
 ## Phase 3 — Playlists, lyrics, blog — ~2–3 weeks
 
-- **3.1 Playlist** — ordered tracks (AsDetail `{SongRef, Index}` + drag-reorder renderer), public/private with `IsAllowedAsync` row-level security, my/public scoped queries.
-- **3.2 Lyrics** — per-user-per-song collection (`UserLyrics/{userId}/{songId}` id), `Text` + karaoke `double[]` timing; row-level access.
+- **3.1 ✅ Playlist** — ordered tracks (AsDetail `{SongRef, Index}` + drag-reorder renderer), public/private with `IsAllowedAsync` row-level security, my/public scoped queries. *(Done — PRD-Spark-Completion.md §3.3.)*
+- **3.2 ✅ Lyrics** — per-user-per-song collection (`UserLyrics/{userId}/{songId}` id), `Text` + karaoke `double[]` timing; row-level access. *(Done, redesigned — superseded by PRD-Spark-Completion.md D29: one shared `Song.Lyrics` + History revisions, no `UserLyrics/{userId}/{songId}`.)*
 - **3.3 Blog** — `BlogPost` entity, `Administrator`/`Blogger` group rights, public read.
 - **3.4 LogEntry** (optional) — or replace with structured logging.
 
@@ -86,8 +86,8 @@ Vertical slices, in dependency order:
 
 Goal: the public-facing UX, reusing the `@mintplayer/ng-*` component family.
 
-- **4.1 Global player shell** — root-level `<app-floating-player>` (draggable card, `@mintplayer/ng-video-player` + YouTube/Vimeo/DailyMotion/SoundCloud plugins), `<app-playlist-queue>` sidebar, root `PlayerService` (signals: queue, currentTrack, isPlaying, progress).
-- **4.2 Karaoke** — real-time synchronized lyrics display in the player; the **lyrics-sync editor** (full-screen timestamp editor) consuming the Lyrics API.
+- **4.1 ✅ Global player shell** — root-level `<app-floating-player>` (draggable card, `@mintplayer/ng-video-player` + YouTube/Vimeo/DailyMotion/SoundCloud plugins), `<app-playlist-queue>` sidebar, root `PlayerService` (signals: queue, currentTrack, isPlaying, progress). *(Done — PRD-Spark-Completion.md §3.3.)*
+- **4.2 ✅ Karaoke** — real-time synchronized lyrics display in the player; the **lyrics-sync editor** (full-screen timestamp editor) consuming the Lyrics API. *(Done — PRD-Spark-Completion.md §3.3.)*
 - **4.3 Public detail pages** — artist/person/song (custom layout, embedded player, like widget, share buttons, SEO meta + JSON-LD per entity), consuming `SparkService`. SSR/render per D2.
 - **4.4 Search page** — cross-entity results + autocomplete against the Phase-2.5 endpoints.
 - **4.5 Home, public playlists, blog reading, GDPR** pages.
@@ -105,8 +105,8 @@ Backends mostly exist; this is largely net-new Angular + provider wiring.
 - **5.2** **2FA enrollment** — QR display, enable/verify, recovery-code generation/display, disable; per-user "bypass 2FA for external login".
 - **5.3** **Social login** — backend `AddGoogle`/`AddMicrosoftAccount`/`AddFacebook`/`AddGitHub` (+ Twitter/LinkedIn third-party if in v1 per D4); frontend social buttons + popup/redirect flow; `external-providers` endpoint.
 - **5.4** **Account linking** — `/manage-logins` page (add/remove external logins).
-- **5.5** **Passkeys/WebAuthn** (per D3 — **in v1, full parity**) — port the Fido2NetLib backend + register/list/remove + passwordless-login Angular components; carry over the `WebAuthnCredential` data. Build to be upstreamable into `ng-spark-auth`.
-- **5.6** **Security fixes** — hash 2FA recovery codes, protect OAuth tokens (Spark `UserStore.cs`); contribute upstream.
+- **5.5** **Passkeys/WebAuthn** (per D3 — **in v1, full parity**) — port the Fido2NetLib backend + register/list/remove + passwordless-login Angular components; carry over the `WebAuthnCredential` data. Build to be upstreamable into `ng-spark-auth`. *(Superseded by PRD-Spark-Completion.md D13 + D20: nothing to carry over — prod has no WebAuthn table; passkeys ship net-new.)*
+- **5.6** **Security fixes** — hash 2FA recovery codes, protect OAuth tokens (Spark `UserStore.cs`); contribute upstream. *(Superseded by PRD-Spark-Completion.md F7: recovery codes are already hashed; OAuth tokens remain.)*
 - **5.7** Public signed-JWT API (only if D5 = keep).
 
 **Exit criteria:** Full account suite functional in staging; security fixes merged.
@@ -115,14 +115,14 @@ Backends mostly exist; this is largely net-new Angular + provider wiring.
 
 ## Phase 6 — Cross-cutting infra — ~2–3 weeks (parallelizable)
 
-- **6.1 Search indexing** — finalize per D1 (RavenDB-native, or `IRecipient<SubjectIndexMessage>` → external engine).
+- **6.1 ✅ Search indexing** — finalize per D1 (RavenDB-native, or `IRecipient<SubjectIndexMessage>` → external engine). *(Done — RavenDB-native, PRD-Spark-Completion.md §3.3.)*
 - ~~**6.2 Fetcher/Crawler**~~ — **removed from scope 2026-09-27**; legacy projects deleted. See [PRD-Spark-Completion.md](./PRD-Spark-Completion.md) §2.3 (D10).
-- **6.3 SEO endpoints** — sitemap (XML, video/image, hreflang), robots.txt, AMP song page, OpenSearch descriptor — as custom controllers, paths excluded from SPA fallback.
-- **6.4 Email** — durable transactional email via messaging + MailKit.
-- **6.5 Background durability** — confirm Spark Messaging replaces the DB job queue (retry/backoff/dead-letter/checkpoint).
+- **6.3 SEO endpoints** — sitemap (XML, video/image, hreflang), robots.txt, AMP song page, OpenSearch descriptor — as custom controllers, paths excluded from SPA fallback. *(Superseded by PRD-Spark-Completion.md D11: AMP dropped, `/amp/song/{id}` 301s.)*
+- **6.4 Email** — durable transactional email via messaging + MailKit. *(Superseded by PRD-Spark-Completion.md D24: Spark Messaging + MJML + Postfix, no MailKit.)*
+- **6.5 Background durability** — confirm Spark Messaging replaces the DB job queue (retry/backoff/dead-letter/checkpoint). *(Superseded by PRD-Spark-Completion.md F9: no periodic jobs remain.)*
 - **6.6 Public REST API (D5)** — hand-written `api/v1/*` `ApiController`s injecting `IAsyncDocumentSession`, guarded by a dedicated JWT bearer scheme; a login endpoint mints signed JWTs via `UserManager<SparkUser>`; Swagger doc. Project documents to response shapes inline (no DTO/repo/service layer).
 
-**Exit criteria:** Search, scraping, SEO endpoints, and email all functional and durable.
+**Exit criteria:** Search, scraping, SEO endpoints, and email all functional and durable. *(Superseded by PRD-Spark-Completion.md D10: no scraping.)*
 
 ---
 
@@ -131,7 +131,7 @@ Backends mostly exist; this is largely net-new Angular + provider wiring.
 - **7.1** Finalize the `MintPlayer.Migration` tool — full per-entity mapping, deterministic IDs, reconciliation report (see the **Migration tooling** section below for the design).
 - **7.2** Dry-run against a production SQL snapshot; reconcile row counts; spot-check; verify existing-password login (D8 hash migration) and that migrated 2FA users can complete TOTP login with their existing authenticator.
 - **7.3** Full feature-checklist regression in staging (every Section-3 item).
-- **7.4** Cutover (single swoop): take old app offline → full SQL backup → run the ETL against the static snapshot → deploy the new app in its place → smoke test → monitor. No dual-run, no sync. If it fails the smoke test, redeploy the old build and restore the backup.
+- **7.4** Cutover (single swoop): take old app offline → full SQL backup → run the ETL against the static snapshot → deploy the new app in its place → smoke test → monitor. No dual-run, no sync. If it fails the smoke test, redeploy the old build and restore the backup. *(Superseded by PRD-Spark-Completion.md D30: maintenance page on legacy.)*
 
 **Exit criteria:** Production fully on Spark/RavenDB in one replacement; old app retired; SQL backup retained for the rollback window.
 
@@ -140,7 +140,7 @@ Backends mostly exist; this is largely net-new Angular + provider wiring.
 ## Phase 8 — Decommission & cleanup — ~1 week
 
 - Delete `MintPlayer.Data`, `MintPlayer.Data.Abstractions`, `MintPlayer.Dtos`, the dual controller stacks, and the EF migrations.
-- Remove Elasticsearch infra (if D1 = drop).
+- Remove Elasticsearch infra (if D1 = drop). *(Superseded by PRD-Spark-Completion.md P9: ES is removed.)*
 - Update CI (add `RAVENDB_LICENSE`), docs, and the deployment runbook.
 - Retire SQL Server after the rollback window closes.
 
@@ -182,7 +182,7 @@ Assign RavenDB IDs derived from the old SQL primary keys: `artists/{oldId}`, `pe
 | `AspNetUsers` (+ `AspNetUserRoles`) | `SparkUser` | Copy `PasswordHash` + `SecurityStamp` **verbatim** (D8 — same default PBKDF2 hasher, no reset). Map roles → groups. Carry `PictureUrl`, `Bypass2faForExternalLogin`. |
 | `AspNetUserTokens` (`AuthenticatorKey`, `RecoveryCodes`) + `TwoFactorEnabled` | `SparkUser.AuthenticatorKey` / `.TwoFactorRecoveryCodes` / `.TwoFactorEnabled` | **Verbatim** — preserves working TOTP (see Phase 7 + PRD §6). |
 | `AspNetUserLogins` | `SparkUser.Logins` | External/social account links. |
-| `WebAuthnCredentials` | passkey collection / `SparkUser` | Carry credential blobs so passkeys keep working. |
+| `WebAuthnCredentials` | passkey collection / `SparkUser` | Carry credential blobs so passkeys keep working. *(Superseded by PRD-Spark-Completion.md D13: table does not exist in production.)* |
 
 ### Soft-delete & verification
 

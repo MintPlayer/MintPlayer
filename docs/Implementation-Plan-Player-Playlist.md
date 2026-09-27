@@ -10,7 +10,7 @@ This sequences the player/playlist work into small steps that each end in someth
 
 ## Guiding principles
 
-1. **De-risk the engine first.** Prove `@mintplayer/playlist-controller@22` ↔ `ng-video-player@22` enqueue→play→ended→advance in a throwaway harness *before* building the card or sidebar (P0).
+1. **De-risk the engine first.** Prove `@mintplayer/playlist-controller@22` ↔ `ng-video-player@22` enqueue→play→ended→advance in a throwaway harness *before* building the card or sidebar (P0). *(Superseded: the package is `@mintplayer/playlist-controller@^20`, see `ClientApp/package.json` and P0.1.)*
 2. **Service before UI.** `PlayerService` (the store) lands and is unit-smoke-tested before any component binds to it.
 3. **Mount in the Shell.** Player card + sidebar live outside the router-outlet so playback survives navigation.
 4. **Match the idiom.** Standalone + `OnPush` + `signal()`/`input()`/`effect()` + `inject()`, `@if`/`@for`, hyphenated filenames without `.component`, SSR-guarded. No NgRx.

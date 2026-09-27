@@ -6,6 +6,8 @@
 
 Legacy app: `C:\Repos\b\MintPlayer` (ASP.NET Core MVC + repo/service/DTO + EF Core + SQL Server + Elasticsearch + Angular 13 SSR/PWA).
 Current app: `C:\Repos\MintPlayer` (`MintPlayer.Web` host on **MintPlayer.Spark `preview.39`** + RavenDB; `MintPlayer.Domain` entities; Angular 22 SPA `MintPlayer.Web/ClientApp`).
+
+> Superseded by PRD-Spark-Completion.md F18: the app is now on `preview.41` and upgrades to Spark 11.x.
 Framework: `C:\Repos\MintPlayer.Spark`.
 
 > **Purpose.** Audit which important features of the legacy MintPlayer site exist in the current Spark implementation, identify gaps, and specify the approach to close the highest-value ones (the five the user flagged are detailed in §3).
@@ -32,16 +34,16 @@ Status legend: ✅ done · 🟡 partial · ❌ missing · ⏭️ deferred (later
 | **Blog** | `BlogPost` + reading/admin | ❌ no entity/pages | ⏭️ Phase 3.3 |
 | **Auth — baseline** | register/login/confirm/reset, 2fa-verify | ✅ Spark auth (Identity/RavenDB, cookie+XSRF), `sparkAuthRoutes()`, email sender, dev seeder | — |
 | **Auth — 2FA enrollment** | QR enable/disable, recovery codes | ❌ | ⏭️ Phase 5.2 |
-| **Auth — social login** | Google/Microsoft/Facebook/GitHub | ❌ no backend wiring or buttons | ⏭️ Phase 5.3 |
+| **Auth — social login** | Google/Microsoft/Facebook/GitHub | ❌ no backend wiring or buttons | ⏭️ Phase 5.3 *(Superseded by PRD-Spark-Completion.md F6/D17: all five legacy providers — Facebook, Microsoft, Google, Twitter, LinkedIn — plus GitHub.)* |
 | **Auth — passkeys/WebAuthn** | Fido2NetLib, register/list/passwordless | ❌ (D3: full parity in v1) | ⏭️ Phase 5.5 |
 | **Auth — account linking / profile / change-pw / email-confirm pages** | yes | ❌ | ⏭️ Phase 5.1/5.4 |
 | **Public REST API** | `api/v1/*` signed JWT (other instances consume) | ❌ (D5: keep) | ⏭️ Phase 6.6 |
-| **SEO endpoints** | sitemap, robots, AMP song page, OpenSearch, per-entity JSON-LD, OpenGraph, hreflang | 🟡 site-wide JSON-LD (`WebSite`/`Organization`) + canonical + title strategy + meta desc | ❌ per-entity JSON-LD, sitemap/robots/AMP/OpenSearch (Phase 6.3) |
+| **SEO endpoints** | sitemap, robots, AMP song page, OpenSearch, per-entity JSON-LD, OpenGraph, hreflang | 🟡 site-wide JSON-LD (`WebSite`/`Organization`) + canonical + title strategy + meta desc | ❌ per-entity JSON-LD, sitemap/robots/AMP/OpenSearch (Phase 6.3) *(Superseded by PRD-Spark-Completion.md D11: AMP dropped, 301 to `/song/{id}`.)* |
 | **SSR / prerendering** | Angular SSR/PWA | ❌ referenced (`MintPlayer.AspNetCore.SpaServices`) but **not wired** (no `main.server`/`OnSupplyData`/`UseSpaPrerendering`) | ⏭️ Phase 4.3 (D2) |
 | **PWA** | service worker + manifest | ✅ `provideServiceWorker` + `ngsw-config.json` + manifest/icons | — |
 | **i18n** | languages | ✅ Spark `SparkLanguageService` (en/fr/nl) for auto-UI | 🟡 no public-content i18n yet (little public content) |
-| **Fetcher / scrapers** | **9 LYRICS scrapers** (AZLyrics, Genius, LoloLyrics, Lyrics.com, Musixmatch, Muzikum, SongLyrics, SongMeanings, SongtekstenNet) + `IFetcherService` + `POST /web/v3/fetcher` | ❌ not ported | ⏭️ Phase 6.2 (feeds the lyrics feature, §3.4) |
-| **Roles** | User / Moderator / Blogger / Administrator | 🟡 Everyone / Administrator / Blogger / **Editor** (security.json; Editor = trusted catalog/lyrics curator) | ❌ no **Moderator** group (Editor now covers catalog curation) |
+| **Fetcher / scrapers** | **9 LYRICS scrapers** (AZLyrics, Genius, LoloLyrics, Lyrics.com, Musixmatch, Muzikum, SongLyrics, SongMeanings, SongtekstenNet) + `IFetcherService` + `POST /web/v3/fetcher` | ❌ not ported | ⏭️ Phase 6.2 (feeds the lyrics feature, §3.4) *(Superseded by PRD-Spark-Completion.md D10: Fetcher/Crawler deleted, not ported.)* |
+| **Roles** | User / Moderator / Blogger / Administrator | 🟡 Everyone / Administrator / Blogger / **Editor** (security.json; Editor = trusted catalog/lyrics curator) | ❌ no **Moderator** group (Editor now covers catalog curation) *(Superseded by PRD-Spark-Completion.md D16/D26: Editor renamed to Moderator; signed-in members edit.)* |
 | **Background jobs / messaging / durable email** | DB job queue, scheduled tasks | ❌ | ⏭️ Phase 6.4/6.5 |
 | **Data migration tool** | n/a | 🟡 only Phase-0 spike (now removed); full `MintPlayer.Migration` is Phase 7 | ⏭️ Phase 7 |
 | **LogEntry / request logging** | yes | ❌ | ⏭️ optional (Phase 3.4) |
@@ -98,7 +100,7 @@ Status legend: ✅ done · 🟡 partial · ❌ missing · ⏭️ deferred (later
 - **Model:** lyrics **text** is a plain `string? Song.Lyrics` (newline-delimited), **edited in the standard Spark song form** like the rest of the catalog — not a bespoke editor. Karaoke timing lives separately on `Song.LyricsTimings: List<LyricsTiming>` (hidden from the form; see §3.5).
 - **MultiLineString datatype (framework):** the form needed a `<textarea>`, which Spark lacked. Added a **`MultiLineString` datatype** to MintPlayer.Spark (PR #204, shipped `preview.41` / `ng-spark 22.0.8`): the model synchronizer **preserves** a hand-set `"dataType": "MultiLineString"` on a string attribute across re-sync (no `[MultiLine]` C# attribute — it's a model-JSON presentation override); `spark-po-form` renders a textarea (top-level + inline cells), `spark-po-detail` renders pre-wrapped text. `Song.json` → `Lyrics` is `MultiLineString`, visible.
 - **Revisions — app-side, no framework seam needed:** the anticipated `IDocumentStore` hook was unnecessary — `AddSpark` already registers `IDocumentStore` in DI, so `RevisionsConfigurator.cs` (called from `Program.cs`) sends `ConfigureRevisionsOperation` for the `Songs` collection at startup. Verified: 3 revisions recorded for an edited song.
-- **Edit rights:** lyrics text is catalog data → editable by the new **Editor** group + Administrators (see §6). `SongLyricsController` GET (`text`+`timings`+`canEdit`, anon) serves the karaoke read-model.
+- **Edit rights:** lyrics text is catalog data → editable by the new **Editor** group + Administrators (see §6). `SongLyricsController` GET (`text`+`timings`+`canEdit`, anon) serves the karaoke read-model. *(Superseded by PRD-Spark-Completion.md D16/D26: Editor → Moderator; open editing for signed-in members.)*
 - **Scope:** **framework** (MultiLineString, done + published) + **app-side** (everything else).
 
 ### 3.5 Karaoke timestamp synchronization — ✅ DONE (final design)
@@ -114,8 +116,8 @@ All three investigations (current-app inventory, legacy inventory, 5-gap deep-di
 - §3.1 — renderer reads parent subject id from the Spark detail-renderer context (`formData`); thread it through `MediaPlayButton`. **App-side.**
 - §3.2 — Spark custom actions exist but **return void** (can't return entries to client) → use a custom detail button + `GET /api/playlist/{id}/playable`. **App-side.**
 - §3.3 — legacy `subject-like.component` (thumbs up/down); current API already matches the legacy result shape. **App-side widget.**
-- §3.4 — **no `IDocumentStore` config seam in Spark** → revisions need a **framework change** (`ISparkBuilder.ConfigureDocumentStore`), with a fragile app-side `IDocumentStore`+`ConfigureRevisionsOperation` fallback. → candidate Spark issue (§5).
-- §3.5 — legacy timeline is a flat `List<double>` of seconds per-(song,user); modernize to per-line `StartTime` keyed to a medium. **App-side.**
+- §3.4 — **no `IDocumentStore` config seam in Spark** → revisions need a **framework change** (`ISparkBuilder.ConfigureDocumentStore`), with a fragile app-side `IDocumentStore`+`ConfigureRevisionsOperation` fallback. → candidate Spark issue (§5). *(Superseded by PRD-Spark-Completion.md D28: History ships as `MintPlayer.Spark.History`.)*
+- §3.5 — legacy timeline is a flat `List<double>` of seconds per-(song,user); modernize to per-line `StartTime` keyed to a medium. **App-side.** *(Superseded by PRD-Spark-Completion.md §5.2: legacy Timeline is `int[]`×20, one entry per non-blank line.)*
 
 ---
 
@@ -139,7 +141,7 @@ All three investigations (current-app inventory, legacy inventory, 5-gap deep-di
 4. ✅ **§3.4 lyrics** — lyrics **text** is `string? Song.Lyrics`, edited in the **standard song form** as a new Spark **`MultiLineString`** datatype (PR #204, `preview.41`/`22.0.8`); **RavenDB revisions on Songs enabled app-side** (`RevisionsConfigurator`, no framework seam needed — `IDocumentStore` is in DI). Verified: Editor edited via the PO-Edit textarea, persisted, 3 revisions, timing preserved.
 5. ✅ **§3.5 karaoke sync** — `Song.LyricsTimings: [{MediumUrl, StartTimes[]}]` (per-medium parallel array, hidden from the form); `app-song-lyrics` = read-only display + progress-driven highlight + Editor-only "Sync timing" (per-line "Set") saving via `PUT /api/song/lyrics/timings`. Verified end-to-end as the Editor.
 
-**Edit rights:** lyrics/catalog editing moved off Administrator-only to a new trusted **Editor** group (`security.json`: `QueryReadEditNewDelete` for Person/Artist/Song + embedded Medium/SongArtist/ArtistMember; dev `editor@mintplayer.com` seeded). Verified: the Editor edits Songs + syncs timing without Administrator.
+**Edit rights:** lyrics/catalog editing moved off Administrator-only to a new trusted **Editor** group (`security.json`: `QueryReadEditNewDelete` for Person/Artist/Song + embedded Medium/SongArtist/ArtistMember; dev `editor@mintplayer.com` seeded). Verified: the Editor edits Songs + syncs timing without Administrator. *(Superseded by PRD-Spark-Completion.md D16/D26.)*
 
 **Infra used (reusable):** `AppPoDetail` wrapper (`sparkRoutes({poDetail})`) + `PoContextService`/`PoContextCapture` host all per-type detail-page additions (play button, like widget, lyrics) with zero extra metadata fetches.
 
@@ -152,7 +154,7 @@ Remaining deferred phases (unchanged): public detail pages (4.3), search page (4
 Compact capture of the legacy investigation (root: `C:\Repos\b\MintPlayer`; backend `MintPlayer.Data/Entities`, `MintPlayer.Web/Server/Controllers/{Api/V1,Web/V3}`, DTOs `MintPlayer.Dtos`; Angular `MintPlayer.Web/ClientApp/src/app`). Stack: ASP.NET Core MVC + EF Core/SQL Server + Elasticsearch + Angular 13 SSR/PWA.
 
 **Data shapes**
-- `Lyrics` (per-song **and per-user**): `SongId:int`, `UserId:Guid`, `Text:string` (newline-delimited), `Timeline:List<double>` (seconds, 1:1 with lines, null=unsynced), `UpdatedAt`.
+- `Lyrics` (per-song **and per-user**): `SongId:int`, `UserId:Guid`, `Text:string` (newline-delimited), `Timeline:List<double>` (seconds, 1:1 with lines, null=unsynced), `UpdatedAt`. *(Superseded by PRD-Spark-Completion.md §5.2: `int[]`×20, one entry per non-blank line.)*
 - `Like`: `SubjectId:int`, `UserId:Guid`, `DoesLike:bool`. Read DTO `SubjectLikeResult {Likes:int, Dislikes:int, Like:bool?, Authenticated:bool}`.
 - `Playlist` (`User`, `Description`, `Accessibility: Private|Public`, soft-delete) + junction `PlaylistSong {PlaylistId, SongId, Index}` (ordering via `Index`).
 - `Medium {Type: eMediumType, Value: url}`; providers YouTube/DailyMotion/Vimeo/SoundCloud/Spotify/Apple.

@@ -47,9 +47,9 @@ This is deliberately **not** NgRx/component-store: the state is small, single-in
 
 | # | Non-goal |
 |---|----------|
-| N1 | **Server-persisted `Playlist` entity + CRUD.** That remains **Phase 3.1** of the master plan. This PRD is the *client-side playback experience*; `PlayerService.setQueue(...)` is designed to later accept a loaded playlist's tracks, but no RavenDB `Playlist` collection, controller, or "save queue as playlist" is built here. |
+| N1 | **Server-persisted `Playlist` entity + CRUD.** That remains **Phase 3.1** of the master plan. This PRD is the *client-side playback experience*; `PlayerService.setQueue(...)` is designed to later accept a loaded playlist's tracks, but no RavenDB `Playlist` collection, controller, or "save queue as playlist" is built here. *(Superseded: Phase 3.1 is done — PRD-Spark-Completion.md §3.3.)* |
 | N2 | Cross-session queue persistence (the queue lives for the browser session; legacy didn't persist it either). |
-| N3 | Karaoke/lyrics sync (legacy coupled lyrics to player progress — that is Phase 3.2; out of scope, but `progress` signal is exposed so 3.2 can consume it). |
+| N3 | Karaoke/lyrics sync (legacy coupled lyrics to player progress — that is Phase 3.2; out of scope, but `progress` signal is exposed so 3.2 can consume it). *(Superseded: Phase 3.2 is done — PRD-Spark-Completion.md §3.3.)* |
 | N4 | Reordering the *persisted* playlist (no persisted playlist here). Sidebar reorder mutates the in-memory queue only. |
 | N5 | Mobile-specific player chrome / PiP polish beyond what `<video-player>` already provides. |
 
@@ -184,7 +184,7 @@ export class PlayerService {
 | D5 | New dependencies | Add **`@angular/cdk@^22`** (currently only transitive) and **`@mintplayer/playlist-controller@^20`** as direct deps. *(Corrected during P0: the queue engine is the framework-agnostic **core** package, versioned in the `20.x` line alongside `@mintplayer/video-player@20` / `player-provider@20` / the `@20` plugins already in package.json — not `22`. Peer dep `rxjs ^7.4.0`, satisfied.)* |
 | D6 | Sidebar reorder | **Deferred — needs a framework change (revised during P4).** The plan was `cdkDropList` + `moveItemInArray` → `controller.setPlaylist`, but `setPlaylist` re-clones every entry and drops the currently-playing identity (restarts playback), and the engine keeps order in a private `_playlist` with no public move/insert. Clean reorder requires a new `moveInPlaylist(from, to)` on `@mintplayer/playlist-controller` (batched framework change, P5.5). The sidebar ships without reorder; everything else (transport/remove/add/now-playing) is independent of it. |
 | D7 | Existing play buttons | **Route through `PlayerService`**; retire the per-button inline overlay. |
-| D8 | Persisted `Playlist` entity | **Out of scope — stays Phase 3.1.** `PlayerService` is shaped to accept a saved playlist's tracks later. |
+| D8 | Persisted `Playlist` entity | **Out of scope — stays Phase 3.1.** `PlayerService` is shaped to accept a saved playlist's tracks later. *(Superseded: Phase 3.1 is done — PRD-Spark-Completion.md §3.3.)* |
 | D9 | "Ended" detection | Via `(playerStateChange) === EPlayerState.ended` (no dedicated output). |
 | D10 | SSR | Player card + drag are **browser-only** (`isPlatformBrowser` / `afterNextRender`); the service is SSR-inert until a play action occurs. |
 | D11 | Iframe swallows drag events | A transparent **drag-shield** over the player, `pointer-events: none` when idle (native controls work) and `auto` only while dragging, keeps `mousemove` in the page DOM so the drag doesn't stall over the iframe. (Legacy master-branch fix; implemented P2.) |
