@@ -85,6 +85,7 @@ Done: 0.3–0.5, 1.x, 2.x, 3.1, 3.2 (redesigned), 4.1, 4.2, 6.1.
 | F14 | **Collaborative playlists + discovery** (new) | Owner invites co-editors (invite link / username) who may add, remove and reorder tracks — enforced with Spark row-level `IsAllowedAsync` ("owner or collaborator"); follow/like public playlists; public *Discover* page (most-liked, recently updated, by tag). |
 | F15 | **Resume anywhere + listening history** (new) | Per-user server-side queue + position (`PlayerStates/{userId}`), restored on any device; *Recently played* and simple personal stats (top artists/songs) from a `PlayEvents` collection + map-reduce index. |
 | F16 | **Import a YouTube playlist** (new) | Paste a YouTube playlist URL → YouTube Data API v3 `playlistItems.list` → match each video to an existing song by its YouTube `Medium` (canonical video id) → create a MintPlayer playlist; unmatched videos listed, optionally created as draft songs. API key in the server `.env`. Spike S10. |
+| F17 | **Localized timestamps** (new) | Shared `<app-timestamp [value] [format]>` for every date on public pages (blog, added/updated, playlists, rooms, history): SSR uses the timezone cookie via `IRequestTimeZoneResolver`, else a neutral date; post-hydration localized/relative text (en/nl/fr); `<time datetime>` + ISO instants in JSON-LD; `MintPlayerUser.TimeZone` for mails (D33). |
 
 ---
 
@@ -249,10 +250,11 @@ Carried over: D1 (RavenDB search), D2 (SpaServices prerendering), D3 (passkeys i
 | D30 | Cutover window | **Maintenance page on legacy** (`app_offline.htm` uploaded to the Plesk site) for ~30–60 min at a quiet hour → final `.bak` → migrate + reconcile → repoint DNS. No legacy code change. Rollback window ≈ 1 h after the switch; after that, writes on the new site make rollback lossy | **Decided 2026-09-27** |
 | D31 | Listen-together access (F13) | Anyone with the link may **listen** (anonymous, display name); only **signed-in** users may add songs or vote to skip; only signed-in users host. Unguessable room ids, host can close the room to new listeners, rooms expire after inactivity, caps: 50 listeners/room and a per-host room limit | **Decided 2026-09-27** |
 | D32 | Spark delivery | Two Spark PRs: PR 1 ships seam + SoftDelete + History (+ F7, #189) and is merged/published before the MintPlayer cutover; PR 2 ships Moderation afterwards. Explicit exception to the one-PR rule, decided by the user | **Decided 2026-09-27** |
+| D33 | Localized timestamps (F17) | Cookie + neutral fallback: the client stores its IANA timezone + language in a cookie; SSR renders local time via `IRequestTimeZoneResolver` when the cookie exists, otherwise a neutral date; the client swaps in localized/relative text after hydration; always `<time datetime="…Z">` and exact ISO instants in JSON-LD. One shared `<app-timestamp>` component for every date. `MintPlayerUser.TimeZone` kept in sync from the cookie for queued mails | **Decided 2026-09-27** |
 | D16 | Editor / Moderator group | Rename **Editor → Moderator** (History/SoftDelete rights: history, diff, revert, restore, lock, purge); only member at migration: the current Administrator (Administrator ⊇ Moderator). No moderator mails, no new-account throttle — revisions are the safety net. `--editor-emails` flag dropped | **Decided 2026-09-27** |
 | D17 | LinkedIn login | Keep — legacy registers it (`AspNet.Security.OAuth.LinkedIn`, `Startup.cs:83-87`); migrates like any external login | **Decided 2026-09-27** |
 | D18 | Inactive accounts (643 of 752 show no activity) | Migrate all 752; **no migration announcement mail** (protects the shared VPS IP reputation) | **Decided 2026-09-27** |
-| D19 | Timezone of legacy `DateTime.Now` values | `Europe/Amsterdam` (FoxXL is Dutch hosting; same offsets as Brussels) — verify in S5 by comparing a known recent edit time | Proposed |
+| D19 | Timezone of legacy `DateTime.Now` values | `Europe/Amsterdam` (= Brussels offsets); the migration converts legacy local `DateTime`s to UTC instants (`DateTimeOffset`) | **Decided 2026-09-27** |
 
 ## 9. Risks
 
