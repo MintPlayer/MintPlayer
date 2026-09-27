@@ -4,7 +4,7 @@
 **Author:** Pieterjan De Clippel (with Claude)
 **Builds on:** [`PRD-Spark-Migration.md`](./PRD-Spark-Migration.md) (decisions D1–D8 still stand unless amended below), [`Implementation-Plan-Spark-Migration.md`](./Implementation-Plan-Spark-Migration.md), [`PRD-Feature-Parity.md`](./PRD-Feature-Parity.md), [`PRD-Player-Playlist.md`](./PRD-Player-Playlist.md)
 
-This document **supersedes** the "Phase 6.2 Fetcher/Crawler" item and the "Migration tooling — `MintPlayer.Migration`" section of the implementation plan; both were stale against the current code (see §6.1).
+This document **supersedes** the "Phase 6.2 Fetcher/Crawler" item and the "Migration tooling — `MintPlayer.Migration`" section of the implementation plan; both were stale against the current code (see §3.3 and §5).
 
 ---
 
@@ -43,7 +43,7 @@ Rationale: only Genius was ever registered in production, the UI entry point was
 
 ## 3. Findings that shape the plan
 
-### 3.1 Production data is small
+### 3.1 Production data is small (exact numbers: §6.1)
 
 Anonymous `GET https://mintplayer.com/api/v1/*` (with `Accept: application/json` and header `include_relations: true`) returned: **141 songs** (254 media, 127 with lyrics, 19 with karaoke timelines), **138 artists**, **9 persons**, 26 tags, 6 tag categories, **10 blog posts**, 2 public playlists (73 tracks), plus at least one private playlist. Consequences:
 - Migration runtime is seconds; the search-at-prod-volume benchmark (R4) is trivial.
@@ -52,7 +52,7 @@ Anonymous `GET https://mintplayer.com/api/v1/*` (with `Accept: application/json`
 ### 3.2 The API is not a sufficient migration source
 
 The API cannot deliver users (hashes, 2FA, logins, roles, passkeys), per-user likes, private playlists, lyrics history/authorship, soft-deleted rows or audit columns. It also hides 8 medium types (ids 5, 7, 9, 11, 12, 15, 16, 18) from non-admins — **the genius/musixmatch links, if stored, are media of those hidden types**; an admin JWT exposes them.
-→ **Primary source: a SQL Server backup (`.bak`) of production.** No local copy exists; it must be taken on the IIS host. The API is used only as a cross-check and for dev seeding (`scripts/seed-catalog.mjs` already does this).
+→ **Primary source: a SQL Server backup (`.bak`) of production.** Supplied 2026-09-27 and profiled in S2 (§6.1). The API is used only as a cross-check and for dev seeding (`scripts/seed-catalog.mjs` already does this).
 
 ### 3.3 Spark state (per phase of the original plan)
 
@@ -103,7 +103,7 @@ Flags: `--dry-run | --run | --verify-only`, `--source sql|api|composite`, `--tz 
 
 ### 5.2 Mapping
 
-Ids: `{Collection}/{legacyId}` exactly as `seed-catalog.mjs` already does (`Artists/12`, `People/3`, `Songs/40`, `Tags/7`, `TagCategories/2`, `MediumTypes/1`, `Playlists/9`, `BlogPosts/4`); users `MintPlayerUsers/{legacyGuid:D}`; every `Entity` gets `OldId`. Audit: `CreatedAt←DateInsert`, `ModifiedAt←DateUpdate`, `DeletedAt←DateDelete`, `IsDeleted ← UserDeleteId≠null ∨ DateDelete≠null`; local `DateTime.Now` values converted to UTC via `--tz`.
+Ids: `{Collection}/{legacyId}` exactly as `seed-catalog.mjs` already does (`Artists/12`, `People/3`, `Songs/40`, `Tags/7`, `TagCategories/2`, `MediumTypes/1`, `Playlists/9`, `BlogPosts/4`); users `MintPlayerUsers/{legacyGuid:D}`; every `Entity` gets `OldId`. Audit: `CreatedAt←DateInsert`, `ModifiedAt←DateUpdate`, `DeletedAt←DateDelete`, `IsDeleted ← UserDeleteId references an existing user` — legacy semantics of the `UserDelete == null` navigation filter; zero GUID and a bare `DateDelete` are live (§6.1); `DateInsert = 0001-01-01` → fallback; local `DateTime.Now` values converted to UTC via `--tz`.
 
 | Legacy | Target | Transform |
 |---|---|---|
@@ -114,8 +114,8 @@ Ids: `{Collection}/{legacyId}` exactly as `seed-catalog.mjs` already does (`Arti
 | `Media` | `Subject.Media[]` | ordered by Id, `{Value, TypeId}`; orphans (null SubjectId) reported + skipped |
 | `SubjectTag` | `Subject.TagIds` | dedup |
 | `MediumTypes` | `MediumTypes/{id}` | Description → Name; Visible → **Visible (F10)** |
-| `Tags` / `TagCategories` | same | ParentId/CategoryId refs; cycle check; ARGB → Color (report alpha ≠ 255) |
-| `Lyrics(SongId, UserId, Text, Timeline, UpdatedAt)` | `Song.Lyrics` + `Song.LyricsTimings` | latest version per song; `\n` endings; Timeline JSON `int[]` ÷ 20.0, keyed to the song's first playable medium, padded to line count. Older versions → Song revisions (D12) |
+| `Tags` / `TagCategories` | same | ParentId/CategoryId refs (`0` → null); cycle check; ARGB → Color (report alpha ≠ 255) |
+| `Lyrics(SongId, UserId, Text, Timeline, UpdatedAt)` | `Song.Lyrics` + `Song.LyricsTimings` | latest version per song; `\n` endings; Timeline JSON `int[]` ÷ 20.0 — one entry per **non-blank** line, so re-index onto the `StartTimes` line layout and pad partial syncs with null; keyed to the song's first playable medium. Older versions → Song revisions (D12) |
 | `Likes(SubjectId, UserId, DoesLike)` | `UserLikes/{userId}` | group per user into `Likes[]` / `Dislikes[]` |
 | `Playlists` + `PlaylistSong` | `Playlists/{id}` | Name ← Description; `IsPublic = Accessibility==1`; OwnerId; Tracks ordered by Index (duplicates kept) |
 | `BlogPosts` | `BlogPosts/{id}` | F1 |
@@ -125,7 +125,7 @@ Ids: `{Collection}/{legacyId}` exactly as `seed-catalog.mjs` already does (`Arti
 | `AspNetUserLogins` / `Claims` | `Logins[]` / `Claims[]` | 1:1 |
 | `AspNetUserTokens` | `AuthenticatorKey`, `TwoFactorRecoveryCodes`, `Tokens[]` | AuthenticatorKey verbatim (TOTP keeps working); recovery codes split on `;` and **SHA-256 lower-hex hashed** to match Spark `UserStore.HashRecoveryCode` (amends the "verbatim" note in D8) |
 | — | compare-exchange `emails/{normalizedEmail}` → userId | required by Spark's email lookup/uniqueness |
-| `WebAuthnCredentials` | `Passkeys[]` | **default: not migrated, users re-enrol** (D13, spike S4) |
+| `WebAuthnCredentials` | — | table does not exist in production (§6.1); nothing to migrate (D13) |
 
 Lost by design: authorship columns (`UserInsertId/UpdateId/DeleteId`), legacy `Media.Id`, TagCategory alpha, `ConcurrencyStamp`.
 
@@ -145,13 +145,50 @@ Each spike ends in a written result appended to this doc (numbers, decision, or 
 | S1 | **SSR/prerender** — wire `SpaServices.Prerendering` into MintPlayer.Web for one song page with `OnSupplyData` | 2 d | `curl` of `/song/{id}` returns rendered title, OG tags and JSON-LD without JS; no hydration errors; works in the Docker image. Decide AMP (D11). |
 | S2 | **Prod data profiling** on a restored `.bak` | 0.5 d | Table of row counts; WebAuthn rows; duplicate emails; alpha≠255; `Released=MinValue`; orphan media; lyrics versions per song; non-empty claims/tokens; hidden medium types and what they contain; server timezone. Every "probably empty" resolved. |
 | S3 | **Identity round-trip** — migrate one password-only and one password+TOTP+recovery-codes user, log in via the running app | 1 d | Both log in; an existing authenticator code works; a legacy recovery code redeems; Administrator gets admin rights. |
-| S4 | **Passkey feasibility** — can a legacy Fido2 credential (user handle = `Guid.ToByteArray()`, no backup flags) authenticate through Identity passkeys + Spark `UserStore`? | 1 d | Working mapping, or D13 confirmed (re-enrol + a notice email to affected users). |
+| ~~S4~~ | **Cancelled** — no passkeys in production (§6.1). Was: passkey feasibility — can a legacy Fido2 credential (user handle = `Guid.ToByteArray()`, no backup flags) authenticate through Identity passkeys + Spark `UserStore`? | 1 d | Working mapping, or D13 confirmed (re-enrol + a notice email to affected users). |
 | S5 | **End-to-end catalog migration** on the S2 snapshot | 1 d | Reconciler green, 0 unresolved references, 10 random subjects match legacy in the new UI. |
 | S6 | **Lyrics timing** conversion | 0.5 d | 5 migrated songs highlight within 0.05 s of legacy; mismatch rate reported. |
 | S7 | **`api/v1` compatibility** — replay recorded legacy responses (Swagger contract + the 8 catalog GETs) against the new controllers | 1 d | Field-level diff empty except documented deltas; JWT login works with the new user store. |
 | S8 | **Production hosting** — where RavenDB and the app run after cutover (IIS host today at `C:\Inetpub\mintplayer.com`; RavenDB service vs container, license, backups) | 1 d | Deployment decision + a tested backup/restore of the RavenDB database (D14). |
 
-Spikes S2–S6 need the prod `.bak` (user action: take it on the IIS host). S1, S7, S8 can start immediately.
+A prod `.bak` was supplied on 2026-09-27 (see S2 results). S1–S8 can all proceed.
+
+### 6.1 S2 result — production data profile (2026-09-27)
+
+Source: native backup `mintplay_MintPlayer_2026-09-27_21-09-04` from `WEB22\MSSQLSERVER2019` (Plesk, SQL Server 2019, 10 MB), restored to LocalDB as `MintPlayer_Snapshot_20260927` (files in `C:\Users\piete\SqlData\MintPlayerSnapshot`). Aggregates only; no personal values were read out.
+
+**Schema facts the tool must honour**
+- Tables live in schema **`mintplay`**, not `dbo` → schema name is a `SqlSnapshotSource` setting.
+- Last applied migration is **`20240627124318_xxx`**. Production never received `AddWebAuthnCredentials` or the .NET 10 migrations → **there is no `WebAuthnCredentials` table: no passkeys exist to migrate (D13 closed)**. Target the snapshot schema, not the repo's latest `ModelSnapshot`.
+- **Soft delete is encoded two ways.** `Subjects` use `UserDeleteId = NULL` for live rows; `MediumTypes`, `Tags`, `TagCategories`, `BlogPosts` use the **zero GUID** (`00000000-…`) for live rows. Legacy's query filter is `UserDelete == null` on the *navigation*, so the rule that reproduces it is: **`IsDeleted = UserDeleteId joins an existing AspNetUsers row`** — the zero GUID and a bare `DateDelete` both count as live. Verified: this yields exactly the live counts the public API serves (138 artists, 9 persons, 141 songs, 12 visible medium types). A naive `UserDeleteId IS NOT NULL` would drop every tag, category, medium type and blog post.
+- `Tags.ParentId = 0` and `Tags.CategoryId = 0` mean "none" → map to null (27 tags have ParentId 0; tags 41, 42 have CategoryId 0). All non-zero parents resolve; max depth 1; no cycles.
+- 8 subjects have `DateInsert = 0001-01-01` → `CreatedAt` falls back to `DateUpdate`, else the migration timestamp.
+- 2 `Media` rows have an empty `Value` → skip + report.
+
+**Counts** (live / soft-deleted)
+
+| Data | Rows | Notes |
+|---|---|---|
+| Artists | 145 (138 / 7) | |
+| Persons | 15 (9 / 6) | |
+| Songs | 141 (141 / 0) | one song has `DateDelete` set but no deleting user — live in legacy, so live after migration (keep `DeletedAt` null; report it) |
+| Media | 507 | 6 on deleted subjects; 0 orphans; hosts: YouTube 225, Wikipedia 183, official sites, Vimeo 4, Dailymotion 3, **genius.com 5** |
+| MediumTypes | 15 (13 / 2) | ids 5, 9, 11, 12, 16 hard-deleted; **type 15 "Songteksten" is `Visible = 0` and holds the 5 genius.com links** (3 artists, 2 songs). No musixmatch links exist. |
+| Tags / TagCategories | 51 (49 / 2) / 8 (6 / 2) | 3 categories have alpha ≠ 255 |
+| SubjectTag / ArtistSong / ArtistPerson | 132 / 154 (9 uncredited) / 11 | 0 orphans |
+| Lyrics | 145 rows, 141 songs | 4 songs have 2 versions; 14 empty texts; LF only |
+| Karaoke timelines | 20 | stored ×20 (`[336,490,…]` → 16.8 s …); **one entry per non-blank lyric line** (18 exact; songs 129 and 291 only partially synced: 12/63 and 1/63) |
+| Playlists / tracks | 16 (11 live: 9 private, 2 public; 5 deleted) / 116 | 3 duplicate (playlist, song) pairs — keep; all owners exist |
+| Likes | 156 likes, 0 dislikes | from only **3 users** |
+| BlogPosts | 10 (all live) | 2020-05 → 2023-05; all have an author |
+| Users | **752** | 722 Identity-v3 hashes, 30 social-only; 100 email-confirmed; only **109 show any activity** (confirmed email, like, playlist or external login); 0 duplicate emails/usernames |
+| Roles | Administrator 1, Blogger 1 | no claims at all |
+| External logins | Google 26, Facebook 4, Twitter 2, Microsoft 1, **LinkedIn 1** | LinkedIn is not in D4 |
+| 2FA | 2 users enabled; 13 authenticator keys; 2 recovery-code sets | 11 keys belong to users who never finished enrolment |
+| Jobs | 629 `elasticsearch` jobs, status 0 | drop |
+| LogEntries | 0 | drop |
+
+**Open from S2:** server timezone of the Plesk host (not in the backup) — assume `Europe/Brussels` unless told otherwise.
 
 ---
 
@@ -160,7 +197,7 @@ Spikes S2–S6 need the prod `.bak` (user action: take it on the IIS host). S1, 
 | Phase | Content | Depends on |
 |---|---|---|
 | P0 | Cleanup (done: §2.3) · update stale plan docs | — |
-| P1 | Spikes S1–S8 · decisions D9–D14 recorded | `.bak` for S2–S6 |
+| P1 | Spikes S1, S3, S5–S8 (S2 done, S4 cancelled) · decisions recorded | — |
 | P2 | Domain gaps (F10), Blog (F1), hardening (F11), Spark PR (F7, #189, anything S1/S3/S4 needs) | P1 |
 | P3 | Public site: SSR shell (F2), detail pages (F3), search/home/GDPR/theme (F4), SEO endpoints (F5) | S1 |
 | P4 | Auth long tail (F6) — parallel with P3 | S3, S4 |
@@ -184,19 +221,22 @@ Carried over: D1 (RavenDB search), D2 (SpaServices prerendering), D3 (passkeys i
 | D10 | Scraping | Removed; Fetcher/Crawler deleted; no replacement in this project | **Decided 2026-09-27** |
 | D11 | AMP pages | Drop | Open (S1) |
 | D12 | Lyrics history | Latest version into `Song.Lyrics`; older versions as Song revisions | Open |
-| D13 | Passkeys | Not migrated; users re-enrol, notified by email | Open (S4) |
+| D13 | Passkeys | Nothing to migrate — production has no WebAuthn table | **Closed 2026-09-27** |
 | D14 | Prod hosting of RavenDB + app | — | Open (S8) |
 | D15 | `MediumType.Visible` | Keep (add to domain) | Proposed |
 | D16 | Editor group membership | Passed via `--editor-emails`; none by default | Proposed |
+| D17 | LinkedIn login (1 user) | Drop the provider; that user signs in by password reset. Alternatively add LinkedIn to F6 | Open |
+| D18 | Inactive accounts (643 of 752 show no activity) | Migrate all (default; cheap, no data loss) vs prune | Open |
+| D19 | Timezone of legacy `DateTime.Now` values | `Europe/Brussels` | Proposed |
 
 ## 9. Risks
 
 | Risk | Mitigation |
 |---|---|
-| No prod backup available / can't restore locally | Take `.bak` on the IIS host first; restore to an mssql container. Everything in P6 is blocked without it. |
+| Snapshot drifts before cutover | The tool is re-run on a fresh `.bak` at P7/P8; the S2 queries (`docs/spikes/S2-data-profile/*.sql`, run with `sqlcmd -d <db> -i`) re-run as pre-flight. |
 | SSR wiring harder than expected (never spiked) | S1 first; fallback is static prerender of public routes at build time. |
 | Recovery codes / TOTP break after migration | S3 proves it end to end before P6. |
-| Passkey users locked out | They also have a password or social login in legacy (verify in S2); D13 notice email. |
+| Soft-delete misread (zero GUID) | Pre-flight asserts live counts match the public API (138 artists, 9 persons, 141 songs, 12 visible medium types). |
 | Hidden medium types lose visibility semantics | D15 + reconciler checks visibility per type. |
 | `api/v1` consumers break | S7 contract diff. |
 
