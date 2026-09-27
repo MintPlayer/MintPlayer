@@ -1,0 +1,52 @@
+<bs-shell [state]="sidebarState() ? 'show' : 'hide'" [breakpoint]="'md'" (statechange)="onShellStateChange($event)">
+  <div *bsShellTopbar bsObserveSize #observeSize="bsObserveSize" class="w-100 bg-dark d-flex align-items-center">
+    <bs-navbar-toggler class="cursor-pointer" [(state)]="sidebarState"></bs-navbar-toggler>
+    <a class="navbar-brand text-light ms-2" routerLink="/home">MintPlayer</a>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      @if (lang.languages() | keyvalue; as langs) {
+        @if (langs.length > 1) {
+          <bs-select [ngModel]="lang.language()"
+                     (ngModelChange)="lang.setLanguage($event)">
+            @for (l of langs; track l.key) {
+              <option [ngValue]="l.key">{{ l.value | resolveTranslation }}</option>
+            }
+          </bs-select>
+        }
+      }
+      <spark-auth-bar />
+      <bs-playlist-toggler [state]="player.isOpen()" (stateChange)="player.setSidebarOpen($event)"
+                           controls="play-queue" ariaLabel="Toggle play queue" />
+    </div>
+  </div>
+  <nav bsShellSidebar class="sidebar-inner text-light p-2">
+    <h5 class="p-3 border-bottom">MintPlayer</h5>
+    <bs-accordion class="d-block">
+      @for (group of programUnitGroups(); track group.id) {
+      <bs-accordion-tab>
+        <bs-accordion-tab-header>
+          <span class="triangle me-2"></span>
+          <spark-icon [name]="group.icon | iconName:'bi-folder'" />
+          <span class="ms-2">{{ group.name | resolveTranslation }}</span>
+        </bs-accordion-tab-header>
+        @for (unit of group.programUnits; track unit.id) {
+        <a [routerLink]="unit | routerLink"
+           routerLinkActive="active"
+           (click)="onMenuItemClick()"
+           class="d-block px-3 py-2 text-light text-decoration-none nav-link">
+          <spark-icon [name]="unit.icon | iconName:'bi-file'" />
+          <span class="ms-2">{{ unit.name | resolveTranslation }}</span>
+        </a>
+        }
+      </bs-accordion-tab>
+      }
+    </bs-accordion>
+  </nav>
+
+  <main class="p-4">
+    <router-outlet />
+  </main>
+</bs-shell>
+
+<!-- Global floating player + its queue drawer — outside the router-outlet so playback survives navigation. -->
+<app-player-card />
+<app-playlist-sidebar [topOffset]="topbarHeight()" />

@@ -1,0 +1,186 @@
+# Production stack for mintplayer.com on the Hetzner VPS (PRD D14). Pull-only: the deploy workflow
+# (.github/workflows/deploy.yml) refetches THIS file into /var/www/mintplayer and runs
+# `docker compose pull && up -d`. .env, raven-license.json and mail-dkim/ in that directory are
+# server-managed and never written by deploys. Mirrors MintPlayer.Spark apps/CodeCoverage/docker-compose.yml
+# — read the comments there for the measured reasons behind each choice; only differences are noted here.
+#
+# The repo-root docker-compose.yml is the DEV stack (builds locally); this one never builds.
+# Local proof: docker compose -f deploy/docker-compose.yml -f deploy/docker-compose.local.override.yml up -d
+
+services:
+
+  # One-shot: the backups volume is created root-owned (the path does not exist in the Raven image), and
+  # Raven runs as ravendb (999). Hand the volume to that user before Raven starts; idempotent.
+  mintplayer-raven-backup-init:
+    image: docker.io/ravendb/ravendb:7.1.10-ubuntu.22.04-x64
+    user: "0"
+    entrypoint: ["chown", "-R", "ravendb:ravendb", "/var/lib/ravendb/backups"]
+    volumes:
+      - raven-backups:/var/lib/ravendb/backups
+    network_mode: none
+    restart: "no"
+
+  mintplayer-raven:
+    # Pinned, same build as coverage-raven: floating tags have advanced to builds that reject unsecured
+    # access on a 0.0.0.0 bind, breaking deploys on a plain `docker compose pull`.
+    image: docker.io/ravendb/ravendb:7.1.10-ubuntu.22.04-x64
+    depends_on:
+      mintplayer-raven-backup-init:
+        condition: service_completed_successfully
+    environment:
+      - RAVEN_Setup_Mode=None
+      # Safe only because of the topology: no host ports, internal network only (never on 'web').
+      - RAVEN_Security_UnsecuredAccessAllowed=PublicNetwork
+      - RAVEN_ServerUrl=http://0.0.0.0:8080
+      - RAVEN_License_Eula_Accepted=true
+      # No licence settings: RavenDB 7.1.10 silently ignores a licence given as configuration.
+      # mintplayer-raven-license below activates it through the admin endpoint instead.
+    volumes:
+      - raven-data:/var/lib/ravendb/data
+      # Periodic backup target (D23). The app's BackupConfigurator points the task at this path.
+      # Off-box copy: see docs/spikes/S8-hetzner-deploy/RESULT.md (cloud destination or host rsync).
+      - raven-backups:/var/lib/ravendb/backups
+    networks:
+      - mintplayer-internal
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  # One-shot licence activation (see coverage-raven-license). Without ./raven-license.json this exits
+  # non-zero and the stack carries on unlicensed (AGPL); the app deliberately does not depend on it.
+  mintplayer-raven-license:
+    image: curlimages/curl:8.11.1
+    depends_on:
+      mintplayer-raven:
+        condition: service_healthy
+    volumes:
+      - ./raven-license.json:/raven-license.json:ro
+    networks:
+      - mintplayer-internal
+    command:
+      - "-sS"
+      - "-f"
+      - "--retry"
+      - "10"
+      - "--retry-delay"
+      - "3"
+      - "--retry-connrefused"
+      - "-X"
+      - "POST"
+      - "-H"
+      - "Content-Type: application/json"
+      - "--data-binary"
+      - "@/raven-license.json"
+      - "http://mintplayer-raven:8080/admin/license/activate"
+    restart: "no"
+
+  # Outgoing mail only (D21). No published ports, internal network only => unauthenticated is safe.
+  mintplayer-smtp:
+    image: boky/postfix:v4.3.0
+    environment:
+      # Envelope senders other than @mintplayer.com are refused, never relayed.
+      - ALLOWED_SENDER_DOMAINS=mintplayer.com
+      # HELO = the VPS PTR name. One IPv4 has one PTR, and it already says coverage.mintplayer.com,
+      # so both stacks announce that name (D21).
+      - HOSTNAME=coverage.mintplayer.com
+      - RELAYHOST=${MAIL_RELAY_HOST:-}
+      - RELAYHOST_USERNAME=${MAIL_RELAY_USERNAME:-}
+      - RELAYHOST_PASSWORD=${MAIL_RELAY_PASSWORD:-}
+      - DKIM_SELECTOR=${MAIL_DKIM_SELECTOR:-mail}
+      # IPv4 only: the v6 address has no PTR, and Outlook & co. are strict about v6 senders.
+      - POSTFIX_smtp_address_preference=ipv4
+      - POSTFIX_inet_protocols=ipv4
+    volumes:
+      # ./mail-dkim/mintplayer.com.private — FLAT file (not <domain>/<selector>.private, which the image
+      # silently skips and then sends UNSIGNED), owned 101:104 on the host. mintplayer.com has DMARC
+      # sp=reject, so DKIM is effectively mandatory. See RESULT.md "What needs the user".
+      - ./mail-dkim:/etc/opendkim/keys:ro
+      - smtp-queue:/var/spool/postfix
+    networks:
+      - mintplayer-internal
+    healthcheck:
+      test: ["CMD", "sh", "-c", "exec 3<>/dev/tcp/127.0.0.1/587"]
+      interval: 15s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
+    restart: unless-stopped
+
+  mintplayer-app:
+    # Pull-only: no build block, deploys are pull + restart.
+    image: ghcr.io/mintplayer/mintplayer:master
+    # Room for an in-flight Spark Messaging handler (F9 mail) to finish; keep below ClaimTtl (5 min).
+    stop_grace_period: 120s
+    depends_on:
+      mintplayer-raven:
+        condition: service_healthy
+      mintplayer-smtp:
+        condition: service_started
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Spark__RavenDb__Urls__0=http://mintplayer-raven:8080
+      - Spark__RavenDb__Database=MintPlayer
+      - Spark__RavenDb__EnsureDatabaseCreated=true
+      # Periodic backup (D23) — path inside the Raven container (the raven-backups volume).
+      - RavenBackup__FolderPath=/var/lib/ravendb/backups
+      - RavenBackup__RetentionDays=${RAVEN_BACKUP_RETENTION_DAYS:-30}
+      # Optional off-box S3 / S3-compatible copy. Empty bucket = local only. License-gated (RESULT.md).
+      - RavenBackup__S3__BucketName=${RAVEN_BACKUP_S3_BUCKET:-}
+      - RavenBackup__S3__RemoteFolderName=${RAVEN_BACKUP_S3_FOLDER:-mintplayer}
+      - RavenBackup__S3__AwsRegionName=${RAVEN_BACKUP_S3_REGION:-}
+      - RavenBackup__S3__CustomServerUrl=${RAVEN_BACKUP_S3_URL:-}
+      - RavenBackup__S3__ForcePathStyle=${RAVEN_BACKUP_S3_FORCE_PATH_STYLE:-true}
+      - RavenBackup__S3__AwsAccessKey=${RAVEN_BACKUP_S3_ACCESS_KEY:-}
+      - RavenBackup__S3__AwsSecretKey=${RAVEN_BACKUP_S3_SECRET_KEY:-}
+      # Outgoing mail via mintplayer-smtp (unauthenticated, internal hop, no TLS).
+      - Smtp__Host=${SMTP_HOST:-mintplayer-smtp}
+      - Smtp__Port=${SMTP_PORT:-587}
+      - Smtp__UseStartTls=false
+      - Smtp__From=${MAIL_FROM_ADDRESS:-no-reply@mintplayer.com}
+      - Smtp__FromName=${MAIL_FROM_NAME:-MintPlayer}
+    volumes:
+      # ASP.NET DataProtection key ring: must survive redeploys, or every deploy signs all users out and
+      # invalidates outstanding password-reset / confirmation links.
+      - dataprotection-keys:/home/app/.aspnet/DataProtection-Keys
+    labels:
+      - "traefik.enable=true"
+      # Hardcoded (not interpolated from .env): an empty/CRLF value once produced a non-matching router
+      # and Traefik's default cert on the coverage deployment.
+      - "traefik.http.routers.mintplayer.rule=Host(`mintplayer.com`) || Host(`www.mintplayer.com`)"
+      - "traefik.http.routers.mintplayer.entrypoints=websecure"
+      - "traefik.http.routers.mintplayer.tls.certresolver=letsencrypt"
+      # www -> apex, permanent. Runs in Traefik, so the app only ever sees the apex host.
+      - "traefik.http.routers.mintplayer.middlewares=mintplayer-www-redirect"
+      - "traefik.http.middlewares.mintplayer-www-redirect.redirectregex.regex=^https?://www\\.mintplayer\\.com/(.*)"
+      - "traefik.http.middlewares.mintplayer-www-redirect.redirectregex.replacement=https://mintplayer.com/$${1}"
+      - "traefik.http.middlewares.mintplayer-www-redirect.redirectregex.permanent=true"
+      - "traefik.http.services.mintplayer.loadbalancer.server.port=8080"
+      # Two networks: make Traefik use the 'web' IP (the internal one is unreachable -> random 504s).
+      - "traefik.docker.network=web"
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8080 && printf 'GET /health HTTP/1.0\\r\\nHost: localhost\\r\\n\\r\\n' >&3 && grep -q '200' <&3"]
+      interval: 15s
+      timeout: 5s
+      retries: 8
+      # Generous: first boot creates the database + indexes; the cutover import (D7) may run at startup.
+      start_period: 300s
+    networks:
+      - web
+      - mintplayer-internal
+    restart: unless-stopped
+
+volumes:
+  raven-data:
+  raven-backups:
+  smtp-queue:
+  dataprotection-keys:
+
+networks:
+  web:
+    external: true
+  mintplayer-internal:
+    driver: bridge

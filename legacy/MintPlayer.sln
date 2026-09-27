@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{0F06F26D-ABA3-48CB-87A9-66A63D20CE10}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Web", "MintPlayer.Web\MintPlayer.Web.csproj", "{7B031640-46DA-4EAC-B60C-740BD3659FCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Data", "MintPlayer.Data\MintPlayer.Data.csproj", "{1387C4D2-9136-4F58-83B1-DD689742279D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Dtos", "MintPlayer.Dtos\MintPlayer.Dtos.csproj", "{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D54F0C37-E279-49A4-8941-0B4FACDC6D6D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Data.Abstractions", "MintPlayer.Data.Abstractions\MintPlayer.Data.Abstractions.csproj", "{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B031640-46DA-4EAC-B60C-740BD3659FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B031640-46DA-4EAC-B60C-740BD3659FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B031640-46DA-4EAC-B60C-740BD3659FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B031640-46DA-4EAC-B60C-740BD3659FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1387C4D2-9136-4F58-83B1-DD689742279D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1387C4D2-9136-4F58-83B1-DD689742279D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1387C4D2-9136-4F58-83B1-DD689742279D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1387C4D2-9136-4F58-83B1-DD689742279D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F508DF66-A2A3-4F1B-8534-0AB16E9128FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7B031640-46DA-4EAC-B60C-740BD3659FCE} = {0F06F26D-ABA3-48CB-87A9-66A63D20CE10}
+		{1387C4D2-9136-4F58-83B1-DD689742279D} = {0F06F26D-ABA3-48CB-87A9-66A63D20CE10}
+		{F508DF66-A2A3-4F1B-8534-0AB16E9128FB} = {0F06F26D-ABA3-48CB-87A9-66A63D20CE10}
+		{BDCB011F-2AC4-4B7B-AA04-49BD66EF84E9} = {0F06F26D-ABA3-48CB-87A9-66A63D20CE10}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E212556-4D7B-4A49-A150-1E2293727B26}
+	EndGlobalSection
+EndGlobal

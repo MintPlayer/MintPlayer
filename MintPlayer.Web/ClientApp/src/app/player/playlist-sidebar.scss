@@ -1,0 +1,16 @@
+/* Docked play-queue drawer: fixed to the right edge, full height, above the floating player card's
+ * boundary (z-index 1040) so its controls are reachable while the card sits beneath it. */
+.playlist-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1045;
+  width: 320px;
+  max-width: 100vw;
+}
+
+/* Flush the projected list so rows meet the drawer edges. */
+:host ::ng-deep .list-group {
+  border-radius: 0;
+}

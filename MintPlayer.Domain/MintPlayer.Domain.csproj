@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- Spark attribute set ([Reference], [LookupReference], TranslatedString, AsDetail) via the
+       published Abstractions package. Must match the version MintPlayer.Spark pulls transitively
+       in MintPlayer.Web so [Reference] et al. resolve to a single assembly. -->
+  <ItemGroup>
+    <PackageReference Include="MintPlayer.Spark.Abstractions" Version="10.0.0-preview.41" />
+  </ItemGroup>
+
+</Project>

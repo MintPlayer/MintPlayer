@@ -1,0 +1,229 @@
+{
+  "persistentObject": {
+    "id": "453a4f42-86ee-46d5-bd98-d19d21c296aa",
+    "name": "Person",
+    "clrType": "MintPlayer.Domain.Entities.Person",
+    "queryType": "MintPlayer.Web.Projections.VPerson",
+    "indexName": "People_Overview",
+    "breadcrumb": "{FirstName} {LastName}",
+    "breadcrumbProjectionSatisfiable": false,
+    "tabs": [],
+    "groups": [],
+    "attributes": [
+      {
+        "id": "807d4e12-3b64-4c7c-b2f2-ad67b34fecba",
+        "name": "FirstName",
+        "label": {
+          "en": "First Name"
+        },
+        "dataType": "string",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 1,
+        "isArray": false,
+        "inQueryType": false,
+        "showedOn": "PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "adc4a2cd-d32b-47f5-9073-39a3c5f7b2fd",
+        "name": "LastName",
+        "label": {
+          "en": "Last Name"
+        },
+        "dataType": "string",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 2,
+        "isArray": false,
+        "inQueryType": false,
+        "showedOn": "PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "91ce0805-a9df-4418-a41b-570b639e94b3",
+        "name": "Born",
+        "label": {
+          "en": "Born"
+        },
+        "dataType": "date",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 4,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "56b275ba-b5af-4979-9d95-eda83a2f4224",
+        "name": "Died",
+        "label": {
+          "en": "Died"
+        },
+        "dataType": "date",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 5,
+        "isArray": false,
+        "showedOn": "Query, PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "fb5376b3-eb98-4fee-b8a9-6a6843421dee",
+        "name": "Media",
+        "label": {
+          "en": "Media"
+        },
+        "dataType": "AsDetail",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 6,
+        "asDetailType": "MintPlayer.Domain.Entities.Medium",
+        "isArray": true,
+        "inQueryType": false,
+        "showedOn": "PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "5e79fc94-933a-4472-8171-af846caf126d",
+        "name": "TagIds",
+        "label": {
+          "en": "Tag Ids"
+        },
+        "dataType": "Reference",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 7,
+        "query": "GetTags",
+        "referenceType": "MintPlayer.Domain.Entities.Tag",
+        "isArray": true,
+        "inQueryType": false,
+        "showedOn": "PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "31bd2c77-50bf-4e8e-af48-535ad10d9081",
+        "name": "CreatedAt",
+        "label": {
+          "en": "Created At"
+        },
+        "dataType": "datetime",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 8,
+        "isArray": false,
+        "inQueryType": false,
+        "showedOn": "PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "8bc44f22-3863-4ec4-974f-7750424a9b9e",
+        "name": "ModifiedAt",
+        "label": {
+          "en": "Modified At"
+        },
+        "dataType": "datetime",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 9,
+        "isArray": false,
+        "inQueryType": false,
+        "showedOn": "PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "ef3884bc-7353-4f19-a501-5225a56323d1",
+        "name": "IsDeleted",
+        "label": {
+          "en": "Is Deleted"
+        },
+        "dataType": "boolean",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 10,
+        "isArray": false,
+        "inQueryType": false,
+        "showedOn": "PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "e4169035-2ad6-4164-865a-fff2366f87d8",
+        "name": "DeletedAt",
+        "label": {
+          "en": "Deleted At"
+        },
+        "dataType": "datetime",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 11,
+        "isArray": false,
+        "inQueryType": false,
+        "showedOn": "PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "dd25f76f-6113-4ff7-a53b-8cd8d5bc4359",
+        "name": "OldId",
+        "label": {
+          "en": "Old Id"
+        },
+        "dataType": "number",
+        "isRequired": false,
+        "isVisible": false,
+        "isReadOnly": true,
+        "order": 12,
+        "isArray": false,
+        "inQueryType": false,
+        "showedOn": "PersistentObject",
+        "rules": []
+      },
+      {
+        "id": "bbdc6397-5320-4069-b26e-6bfefeaa2da1",
+        "name": "FullName",
+        "label": {
+          "en": "Full Name"
+        },
+        "dataType": "string",
+        "isRequired": false,
+        "isVisible": true,
+        "isReadOnly": false,
+        "order": 3,
+        "isArray": false,
+        "inCollectionType": false,
+        "showedOn": "Query",
+        "rules": []
+      }
+    ],
+    "queries": [
+      "person-artists"
+    ]
+  },
+  "queries": [
+    {
+      "id": "777bf3cb-37c2-4527-afbf-57911e57fc5f",
+      "name": "GetPeople",
+      "source": "Database.People",
+      "alias": "people",
+      "sortColumns": [
+        {
+          "property": "LastName",
+          "direction": "asc"
+        }
+      ],
+      "renderMode": "Pagination",
+      "useProjection": false,
+      "entityType": "Person",
+      "isStreamingQuery": false
+    }
+  ]
+}

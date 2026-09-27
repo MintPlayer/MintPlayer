@@ -1,49 +1,14 @@
-import { enableProdMode, StaticProvider } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { SERVER_SIDE } from '@mintplayer/ng-server-side';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { App } from './app/app';
 
-import { environment } from './environments/environment';
-import { AppBrowserModule } from './app/app.browser.module';
-import { BootFuncParams, BOOT_FUNC_PARAMS } from '@mintplayer/ng-base-url';
+// <head> is not hydrated. @mintplayer/ng-seo's [jsonLd] and [canonicalUrl] directives always append a
+// fresh element instead of adopting the server-rendered one, so after hydration every JSON-LD block and
+// the canonical link would exist twice. Drop the server-rendered copies; the directives re-create them
+// on bootstrap. (Workaround until ng-seo adopts existing elements — see docs/spikes/S1-ssr/RESULT.md.)
+document.head
+  .querySelectorAll('script[type="application/ld+json"], link[rel="canonical"]')
+  .forEach((el) => el.remove());
 
-
-if (!environment.production) {
-  console.log('Development');
-}
-
-const providers: StaticProvider[] = [
-  { provide: 'MINTPLAYER_API_VERSION', useValue: 'v3' },
-
-  { provide: SERVER_SIDE, useValue: false },
-  { provide: BOOT_FUNC_PARAMS, useValue: <BootFuncParams>null },
-
-  { provide: 'PEOPLE', useValue: null },
-  { provide: 'PERSON', useValue: null },
-  { provide: 'ARTISTS', useValue: null },
-  { provide: 'ARTIST', useValue: null },
-  { provide: 'SONGS', useValue: null },
-  { provide: 'SONG', useValue: null },
-  { provide: 'MEDIUMTYPES', useValue: null },
-  { provide: 'MEDIUMTYPE', useValue: null },
-  { provide: 'TAGCATEGORIES', useValue: null },
-  { provide: 'TAGCATEGORY', useValue: null },
-  { provide: 'TAG', useValue: null },
-  { provide: 'PLAYLIST', useValue: null },
-  { provide: 'PLAYLISTS', useValue: null },
-  { provide: 'BLOGPOSTS', useValue: null },
-  { provide: 'BLOGPOST', useValue: null },
-  { provide: 'LOGINS', useValue: null },
-  { provide: 'PROVIDERS', useValue: null },
-  { provide: 'USER', useValue: null },
-  { provide: 'PATH', useValue: null },
-  { provide: 'URL', useValue: null },
-];
-
-if (environment.production) {
-  enableProdMode();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  platformBrowserDynamic(providers).bootstrapModule(AppBrowserModule)
-  .catch(err => console.error(err));
-});
+bootstrapApplication(App, appConfig)
+  .catch((err) => console.error(err));
