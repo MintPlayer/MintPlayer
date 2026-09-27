@@ -256,6 +256,18 @@ Full write-up: [`docs/spikes/S5-S6-S3-migration/RESULT.md`](./spikes/S5-S6-S3-mi
 - **Not built yet:** `--source api|composite` (only `sql`), the in-tool public-API cross-check and `SignInManager` smoke login of §5.3 (S3 covered login against the running app).
 - **Behaviour change to note:** timings are keyed to the first playable medium (D29), so other recordings of a song show no karaoke; legacy applied its single timeline to whatever played.
 
+### 6.6 S9 result — listen-together sync (2026-09-27)
+
+Full write-up: [`docs/spikes/S9-listen-together/RESULT.md`](./spikes/S9-listen-together/RESULT.md). Prototype merged into this branch (`MintPlayer.Web/Rooms/`, `/room/:id`; 17 client unit tests). **Exit criteria met** on YouTube and SoundCloud; Traefik not exercised (none locally).
+
+- **Drift:** YouTube 572 s run max 0.124 s / avg 0.066 s, 0 seeks; paired host+guest 317 s max 0.041 s. SoundCloud 50 s max 0.093 s. 10 s stall on one guest → back to 0.05 s within 0.5 s of resuming. App process killed and restarted → both clients reconnected by themselves after ~36 s, room restored from RavenDB, drift 0.06–0.10 s with no seek.
+- **Access rules (D31) verified:** anonymous guest refused pause/add/vote/next; 50-listener cap; anonymous room creation 401; foreign `Origin` 403; 3 open rooms per host; 16 KiB message limit.
+- **Design:** playback stored as an anchor (media, position, server timestamp, playing); room documents `Rooms/{128-bit id}` saved on every change; clock offset from ping/pong; hard seek at > 0.75 s drift, soft seek at > 0.3 s held 8 s (SoundCloud had a steady −0.63 s offset); re-play after stalls; reconnect with backoff. YouTube sometimes reports "ended" mid-video → "ended" is only accepted near the real end.
+- **Limits of the measurement:** single machine (~1 ms RTT) — clock sync over a real network untested; ads unreachable, stall simulated; players muted.
+- **Needs upstream:** `@mintplayer/video-player` / `@mintplayer/ng-video-player` have no public `seek()` — the prototype reaches a private field. **Traefik v3:** WebSockets work without labels, but the entrypoint's default 60 s `readTimeout` cuts connections → set `respondingTimeouts.readTimeout=0` (or rely on reconnects); single replica only; check on the S8 staging host.
+- **Still to build for F13:** room expiry after inactivity, host hand-over, room UX (entry point, share link, name prompt), locking local player controls in a room, scheduling new items slightly in the future, per-connection rate limiting, tests for the room logic.
+- `SocketExtensions` 10.0.1 (NuGet, net10) is used; the Spark source is on net11 — needs an 11.x publish after F18. SpaServices appends its own `--port` to `ng serve`, so start-script ports have no effect.
+
 ## 7. Phases
 
 | Phase | Content | Depends on |
