@@ -4,8 +4,8 @@
 
 MintPlayer (music catalog, ~750 accounts) is being migrated from ASP.NET Core MVC + EF Core + SQL Server onto Spark + RavenDB and moved to the Hetzner VPS alongside CodeCoverage. The plan, decisions and spike results live in the MintPlayer repo: `docs/PRD-Spark-Completion.md` (decisions D1–D34, spikes S1–S10). This issue collects **everything the migration needs from Spark**, delivered in two PRs:
 
-- **PR 1 — required for the MintPlayer cutover** (items 1–10). Merged and published first; MintPlayer consumes the release.
-- **PR 2 — `MintPlayer.Spark.Moderation`** (item 11). Built on PR 1's packages afterwards; MintPlayer does not depend on it.
+- **PR 1 — required for the MintPlayer cutover** (items 1–11). Merged and published first; MintPlayer consumes the release.
+- **PR 2 — `MintPlayer.Spark.Moderation`** (item 12). Built on PR 1's packages afterwards; MintPlayer does not depend on it.
 
 MintPlayer currently runs Spark `10.0.0-preview.41`; it will upgrade to the 11.x line (passkeys exist only there), so everything below targets master / 11.x.
 
@@ -77,7 +77,21 @@ Durable, templated mail for every Spark app (MintPlayer uses it for confirmation
 - A recipient resolves the **MJML** template, fills it with `data` (e.g. Scriban with strict variables), renders MJML → HTML (e.g. Mjml.Net) and sends over SMTP (plain internal hop to a Postfix container must work — no forced STARTTLS).
 - Templates are **embedded resources of the consuming app** (`{name}.{lang}.mjml`), versioned with the code; a test helper renders every template × language with sample data so a missing field fails the build.
 - Per-message-type retry/expiry, so e.g. a password-reset mail dead-letters before its token expires (defaults today: `MaxAttempts = 5`, `RetentionDays = 7`).
+- **Bulk sends:** one "campaign" message fans out to one message per recipient via `BroadcastOnceAsync(…, "{campaignId}:{recipient}")` (idempotent expansion); never one mail with 1000 BCC recipients (no personalization, no per-recipient `List-Unsubscribe`, no bounce attribution, spam signal). Paced by the queue throttling of item 11 on a `mail-bulk` lane.
+- **Failure classification:** SMTP `5xx` / invalid address → `NonRetryableException` (dead-letter, no retry); `4xx` / connection errors → normal retry with backoff.
+- **Bounces:** most "address does not exist" results arrive **after** the local relay accepted the mail, as a DSN. VERP envelope sender (`bounces+{messageId}@domain`), a bounce endpoint the relay pipes DSNs to, and a **suppression list** (hard bounces, complaints) checked before queuing/sending — suppressed messages complete as "Suppressed" without sending.
+- **Stable `Message-ID`** derived from the Spark message id, so the at-least-once window (crash after SMTP accepted, before Completed) produces identifiable duplicates. Documented, not "fixed".
+- **Deployment note:** per-receiving-domain pacing belongs in Postfix (`smtp_destination_rate_delay`, `smtp_destination_concurrency_limit`, per-transport maps for large providers); the queue throttle controls total volume and priority.
 - Dev mode (the open questions in #432): in Development, mails go to a configurable developer address or a pickup folder instead of real recipients; templates that exist only in the repo are exactly what gets rendered, since they ship inside the app.
+
+### 11. Messaging: per-queue throttling (+ optional progress helper)
+
+Today every queue drains as fast as the feeder can claim messages; `[MessageQueue("name")]` carries only a name and all options are global. Mail (and any rate-limited downstream) needs pacing **per queue**, independent of who published:
+- Queue options: `MaxPerInterval` (e.g. 20 / minute), batch size + `MinDelayBetweenBatches` (e.g. 10, then wait 30 s), `MaxConcurrency`. Configurable in code/appsettings per queue name.
+- Over-budget messages are simply rescheduled (`NextAttemptAtUtc`) — no new state machine. With `SingleSubscription` one consumer owns a queue, so an in-feeder token bucket suffices; a compare-exchange bucket if multi-subscription mode needs it.
+- A "batch" is a **pacing window only** — each message keeps its own status and retry, so one failure never re-runs the others (today's per-message/per-handler behaviour must stay).
+- Pattern to document: separate lanes (`mail-transactional` generous, `mail-bulk` strict) so a campaign never delays a password reset.
+- *Optional:* `IMessageProgress` for handlers that must process a collection inside **one** message out of order — completed item ids in a sidecar document (`SparkMessages/{id}/progress`, appended by patch, removed with the message), `IsDoneAsync`/`MarkDoneAsync`. Deliberately **not** an array on `SparkMessage` (document growth, O(n²) rewrites, subscription churn). The existing string `ICheckpointRecipient` cursor stays for ordered processing.
 
 ### Nice to have in PR 1
 
@@ -103,6 +117,6 @@ A generic, opt-in moderation platform modelled on **Stack Overflow**, built on t
 
 ## Acceptance
 
-- [ ] PR 1: seam (1), SoftDelete (2), History + History panel (3), email sign-in (4), secrets at rest (5), auth flows (6), timezone cookie (7), `DisableActions` (8), pinned npm (9), MailManager (10, closes #432) — published to nuget.org / npm.
+- [ ] PR 1: seam (1), SoftDelete (2), History + History panel (3), email sign-in (4), secrets at rest (5), auth flows (6), timezone cookie (7), `DisableActions` (8), pinned npm (9), MailManager (10, closes #432), queue throttling (11) — published to nuget.org / npm.
 - [ ] MintPlayer upgraded to that release (tracked in the MintPlayer repo).
 - [ ] PR 2: Moderation package + demo app + E2E tests.
