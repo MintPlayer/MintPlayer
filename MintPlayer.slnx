@@ -1,4 +1,6 @@
 <Solution>
   <Project Path="MintPlayer.Domain/MintPlayer.Domain.csproj" />
   <Project Path="MintPlayer.Web/MintPlayer.Web.csproj" />
+  <Project Path="MintPlayer.Migration/MintPlayer.Migration.csproj" />
+  <Project Path="MintPlayer.Migration.Tests/MintPlayer.Migration.Tests.csproj" />
 </Solution>
