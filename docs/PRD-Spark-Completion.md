@@ -227,6 +227,17 @@ Full write-up: [`docs/spikes/S8-hetzner-deploy/RESULT.md`](./spikes/S8-hetzner-d
 
 ---
 
+### 6.4 S1 result — SSR / prerendering (2026-09-27)
+
+Full write-up: [`docs/spikes/S1-ssr/RESULT.md`](./spikes/S1-ssr/RESULT.md). Merged into this branch. **All exit criteria met; the build-time static-prerender fallback is not needed.**
+
+- `/song/{id}` is server-rendered from a Release publish: title, OG tags, canonical, `<h1>`, `<time datetime>`, MusicRecording JSON-LD — no JS needed. Hydration verified in a browser: 0 console errors, server DOM nodes reused, data via TransferState (no `/api` call). `/amp/song/{id}` → 301 (D11); missing song → 404 with the not-found page; admin routes skip prerendering.
+- Timing (warm): SSR p50 24–31 ms, p90 42 ms (plain shell 4 ms); first request after start 0.7–2.3 s (Node spin-up) → warm-up request in the health check.
+- **Design corrections to F2:** Angular's **application builder** with a server entry (not the demo's webpack server builder) → one self-contained 2.2 MB `main.server.mjs`, no `node_modules` at runtime; browser page becomes `index.csr.html` (set as the app default page). **SpaServices ≥ 10.8** is required (a 404 from `OnSupplyData` still renders) → bumped to `MintPlayer.AspNetCore.SpaServices(.Routing) 11.0.0-rc.2`. All public-page data must come through `OnSupplyData` (Angular 22 rejects relative HttpClient URLs during SSR). The admin shell cannot be server-rendered → F2 needs a **separate public shell**. The **service worker** served its cached shell to repeat visitors → every SSR route must be excluded from its navigation URLs (F2/F22).
+- **Runtime (D14):** Node **≥ 22.22.3** on PATH (binary only), writable `/tmp` for the `app` user (Node entry script is written to a temp file), Traefik must pass `X-Forwarded-*` (canonical/`og:url` use the request origin).
+- **Upstream bugs found (other repos, same batch):** `MintPlayer.AspNetCore.SpaServices` rc.2 — relative npm path resolved in the NuGet cache (also hit in S8; csproj workaround) and leftover "Before/After the next middleware" debug output on every request; `@mintplayer/ng-seo` — JSON-LD/canonical directives are not SSR-aware (append a second head element after hydration; `[seo]` adds a second description); `@mintplayer/ng-base-url` — `provideBaseHref()` throws during SSR. Workarounds in `main.ts`, `main.server.ts` and `SongPage`.
+- `npm install --legacy-peer-deps` strips peer packages from the lockfile; use `npm ci` (or `--force`) — there is no `.npmrc` in the repo.
+
 ## 7. Phases
 
 | Phase | Content | Depends on |
