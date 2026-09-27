@@ -1,0 +1,154 @@
+name: deploy
+
+# Builds ghcr.io/mintplayer/mintplayer and deploys it to mintplayer.com on the Hetzner VPS (PRD D14).
+# Same shape as MintPlayer.Spark .github/workflows/code-coverage-deploy.yml.
+#
+# ⚠️ Branch: this triggers on master. Until the Spark cutover merges feature/spark-migration into master,
+# master still holds the legacy app — do NOT enable the VPS_* secrets (or merge) before cutover day,
+# or the first push to master deploys. workflow_dispatch allows a manual staging run from any branch
+# (the deploy job itself only runs for master).
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'legacy/**'
+      - 'docs/**'
+      - '**/*.md'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: mintplayer/mintplayer
+
+jobs:
+  build-and-push:
+    name: Build and push Docker image
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+      attestations: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+
+    # No host .NET/Node setup: the Dockerfile's build stage restores, runs `npm ci` + `ng build`
+    # (SpaServices publish target) and publishes inside the container.
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v4
+
+    - name: Authenticate with GHCR
+      uses: docker/login-action@v4
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ github.token }}
+
+    - name: Extract tags/labels
+      id: meta-ghcr
+      uses: docker/metadata-action@v6
+      with:
+        github-token: ${{ github.token }}
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+    - name: Build and push Docker image
+      id: push-ghcr
+      uses: docker/build-push-action@v7
+      with:
+        context: .
+        file: ./MintPlayer.Web/Dockerfile
+        push: true
+        tags: ${{ steps.meta-ghcr.outputs.tags }}
+        labels: ${{ steps.meta-ghcr.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Generate artifact attestation
+      uses: actions/attest-build-provenance@v4
+      with:
+        subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        subject-digest: ${{ steps.push-ghcr.outputs.digest }}
+        push-to-registry: true
+
+    # Best-effort: the package must be public for the VPS to pull without credentials. Verify in the
+    # package settings after the first run rather than trusting this step.
+    - name: Make the package public
+      continue-on-error: true
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        gh api --method PATCH -H "Accept: application/vnd.github+json" \
+          "/orgs/${{ github.repository_owner }}/packages/container/mintplayer" \
+          -f visibility=public 2>&1 || echo "(skipped — already public, missing, or insufficient token scope)"
+
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: build-and-push
+    if: github.ref == 'refs/heads/master'
+
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v1.2.5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        key: ${{ secrets.VPS_SSH_KEY }}
+        port: ${{ secrets.VPS_PORT }}
+        passphrase: ${{ secrets.VPS_SSH_KEY_PASSPHRASE }}
+        envs: GITHUB_TOKEN
+        script: |
+          # Fail on the FIRST failing command (a missing .env must not report success).
+          set -e
+
+          mkdir -p /var/www/mintplayer
+          cd /var/www/mintplayer
+
+          # .env, raven-license.json and mail-dkim/ are server-managed; deploys never write them. Only the
+          # compose file is refreshed from the repo, so service/label changes ship with the push.
+          test -f .env || { echo "::error::/var/www/mintplayer/.env is missing — create it from deploy/.env.example (server-managed)"; exit 1; }
+          # A missing bind-mount source makes Docker create a DIRECTORY there; refuse instead.
+          test -f raven-license.json || echo "::warning::raven-license.json missing — RavenDB stays on AGPL (supported, but capped)"
+          test -d mail-dkim || { echo "::error::/var/www/mintplayer/mail-dkim/ is missing — see docs/spikes/S8-hetzner-deploy/RESULT.md (DKIM)"; exit 1; }
+
+          rm -f docker-compose.yml
+          curl -sf -H "Authorization: token $GITHUB_TOKEN" -o docker-compose.yml \
+            https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/deploy/docker-compose.yml
+
+          echo "$GITHUB_TOKEN" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+          docker compose --env-file .env pull
+          docker compose --env-file .env down --remove-orphans
+          docker compose --env-file .env up -d --remove-orphans
+
+          docker image prune -f
+          docker compose --env-file .env ps
+
+          # /health only proves the process answers; /health/ready round-trips RavenDB. Budget: 30 x 10s,
+          # inside the healthcheck start_period (first boot creates the database + indexes).
+          for i in $(seq 1 30); do
+            sleep 10
+            code=$(docker compose --env-file .env exec -T mintplayer-app bash -c "exec 3<>/dev/tcp/127.0.0.1/8080 && printf 'GET /health/ready HTTP/1.0\r\nHost: localhost\r\n\r\n' >&3 && head -1 <&3" | grep -o '[0-9][0-9][0-9]' | head -1 || echo 000)
+            echo "readiness attempt $i: HTTP $code"
+            if [ "$code" = "200" ]; then exit 0; fi
+          done
+          echo "::error::mintplayer did not become ready within 300s"
+          docker compose --env-file .env logs --tail 100 mintplayer-app
+          exit 1

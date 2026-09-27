@@ -68,12 +68,35 @@ app.UseSpark(o => o.SynchronizeModelsIfRequested<MintPlayerSparkContext>(args));
 // skipped during --spark-synchronize-model; idempotent across boots.
 await app.ConfigureRevisionsAsync();
 
+// RavenDB periodic backup (D23): hourly incremental + nightly full, 30-day retention. Config-driven
+// (RavenBackup:FolderPath) — no section in development, so no task is created there.
+await app.ConfigureBackupsAsync();
+
 // Dev-only: ensure an Administrator account exists for the admin auto-UI. No-op in
 // production and skipped during --spark-synchronize-model (UseSpark exits first).
 await app.SeedDevelopmentDataAsync();
 
 app.UseEndpoints(endpoints =>
 {
+    // Liveness: the process answers. Used by the compose healthcheck (must not restart-loop the
+    // container because RavenDB is briefly away).
+    endpoints.MapGet("/health", () => Results.Ok()).AllowAnonymous();
+    // Readiness: RavenDB answers for our database. Polled by the deploy workflow.
+    endpoints.MapGet("/health/ready", async (Raven.Client.Documents.IDocumentStore store, CancellationToken ct) =>
+    {
+        try
+        {
+            using var timeout = CancellationTokenSource.CreateLinkedTokenSource(ct);
+            timeout.CancelAfter(TimeSpan.FromSeconds(5));
+            await store.Maintenance.SendAsync(new Raven.Client.Documents.Operations.GetStatisticsOperation(), timeout.Token);
+            return Results.Ok();
+        }
+        catch (Exception)
+        {
+            return Results.StatusCode(StatusCodes.Status503ServiceUnavailable);
+        }
+    }).AllowAnonymous();
+
     endpoints.MapControllers();
     endpoints.MapSpark();
 });
