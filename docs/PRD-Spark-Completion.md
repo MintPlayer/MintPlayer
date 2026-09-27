@@ -168,7 +168,7 @@ Each spike ends in a written result appended to this doc (numbers, decision, or 
 | S9 | **Listen-together sync** — two browsers in one room over a WebSocket through Traefik, YouTube + SoundCloud players | 2 d | Drift stays < 1 s over a 10-minute session incl. an ad/buffer stall on one client; reconnect after an app redeploy rejoins the room at the right position. |
 | S10 | **YouTube import** — Data API quota + matching | 0.5 d | Import of a 100-video playlist uses < 5 quota units per 50 items; ≥ 90 % of videos that exist in the catalog are matched by canonical video id. |
 
-A prod `.bak` was supplied on 2026-09-27 (see S2 results). S1, S3, S5–S10 can proceed.
+**Status 2026-09-27: all spikes done** — S2 (§6.1), S8 local part (§6.2), S10 (§6.3), S1 (§6.4), S5/S6/S3 (§6.5), S9 (§6.6), S7 (§6.7); S4 cancelled. Still to do on real infrastructure: the S8 VPS part (deploy, Traefik, licensed restore test) and S9 over a real network. Spike code is merged into this branch.
 
 ### 6.1 S2 result — production data profile (2026-09-27)
 
@@ -267,6 +267,31 @@ Full write-up: [`docs/spikes/S9-listen-together/RESULT.md`](./spikes/S9-listen-t
 - **Needs upstream:** `@mintplayer/video-player` / `@mintplayer/ng-video-player` have no public `seek()` — the prototype reaches a private field. **Traefik v3:** WebSockets work without labels, but the entrypoint's default 60 s `readTimeout` cuts connections → set `respondingTimeouts.readTimeout=0` (or rely on reconnects); single replica only; check on the S8 staging host.
 - **Still to build for F13:** room expiry after inactivity, host hand-over, room UX (entry point, share link, name prompt), locking local player controls in a room, scheduling new items slightly in the future, per-connection rate limiting, tests for the room logic.
 - `SocketExtensions` 10.0.1 (NuGet, net10) is used; the Spark source is on net11 — needs an 11.x publish after F18. SpaServices appends its own `--port` to `ng serve`, so start-script ports have no effect.
+
+### 6.7 S7 result — legacy-compatible `api/v1` (2026-09-27)
+
+Full write-up: [`docs/spikes/S7-api-v1/RESULT.md`](./spikes/S7-api-v1/RESULT.md) (diff harness `apiv1_diff.py`, auth probe `apiv1_auth_probe.py`, recorded public responses + swagger). Code in `MintPlayer.Web/ApiV1/`, merged. **All exit criteria met.**
+
+- **Contract diff:** 39/39 cases pass (33 recorded legacy responses, 1 derived `song/page` reference, 5 status checks), 0 unexplained differences; the remaining 1,625 field differences are all documented deltas: change vector as `concurrencyStamp`; `media[].id` always 0; 2 artists show the snapshot date instead of `0001-01-01`; 2 empty media no longer returned; Songs/291 now has its 1-entry timeline.
+- **JWT:** separate `ApiV1Jwt` bearer scheme (`ApiV1:Jwt`, HS256, legacy issuer/audience, 2 h); Production refuses to start without a key. 22/22 probe checks on a synthetic migrated-style user: login by email **and** user name, legacy hash rehashed on login, `current-user`/`roles`/`playlist/my`/private playlist/own like 200 with a token and 401 without or tampered; hidden medium type 15 → 404 for users, 200 for an Administrator; a 2FA account gets `status: 2` and no token.
+- **Behavioural deltas:** JSON only (legacy XML gone); token `nameid` is the full id `MintPlayerUsers/{guid}`; anonymous endpoints also accept the JWT; two legacy 500s are now 404/401. **Consumers change nothing** for reads; they log in once more (new signing key).
+- **Implementation note:** `ApiV1Catalog` loads each collection once per request and ports the legacy mappers (incl. derived fields and two legacy EF quirks visible in responses). Fine at ~1,200 documents; revisit if the catalog grows.
+- **Not built (F8 remainder):** write endpoints, register, favorites, search/suggest, remaining page endpoints, serving swagger.json.
+- **Open for F8:** integer ids for documents created after cutover (they'd appear as `id: 0` — HiLo `{Collection}/{n}` ids or a stamped public id); keep or retire the write endpoints; switch blog posts to the F1 entity; verify the `song/page` title sort against the SQL collation; hidden media for Moderators vs only the `ViewHiddenMedia` right (D15).
+- **Upstream (other repo):** `MintPlayer.SourceGenerators` InjectSourceGenerator generates constructors that collide with primary constructors on derived classes → `ApiV1ControllerBase` resolves services from `HttpContext.RequestServices` for now. The NodeServices targets rewrite `ClientApp/package*.json` even with `-p:EnableSpaBuilder=false`.
+
+### 6.8 Upstream fixes outside Spark (found by the spikes)
+
+Spark items are collected in [`Spark-Issue-MintPlayer-Migration.md`](./Spark-Issue-MintPlayer-Migration.md). The rest belong to the user's other repos and land in the same unit of work:
+
+| Repo | Fix | Found in |
+|---|---|---|
+| `MintPlayer.AspNetCore.SpaServices` (NodeServices) | Relative `NpmInstallWorkingDirectory`/`NodeModulesCheckPath` resolved inside the NuGet cache → `dotnet publish` fails on a clean tree (csproj workaround in place); targets rewrite `ClientApp/package*.json` even with `EnableSpaBuilder=false` | S1, S7, S8 |
+| `MintPlayer.AspNetCore.SpaServices` 11.0.0-rc.2 | Leftover "Before/After the next middleware" debug output on every request | S1 |
+| `@mintplayer/ng-seo` | JSON-LD and canonical directives not SSR-aware (append a second head element after hydration); `[seo]` adds a second description | S1 |
+| `@mintplayer/ng-base-url` | `provideBaseHref()` throws during SSR | S1 |
+| `@mintplayer/video-player` + `@mintplayer/ng-video-player` | Public `seek()` (listen-together reaches a private field) | S9 |
+| `MintPlayer.SourceGenerators` | InjectSourceGenerator generates constructors that collide with primary constructors on derived classes | S7 |
 
 ## 7. Phases
 
