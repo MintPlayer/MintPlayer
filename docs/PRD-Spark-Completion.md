@@ -238,6 +238,24 @@ Full write-up: [`docs/spikes/S1-ssr/RESULT.md`](./spikes/S1-ssr/RESULT.md). Merg
 - **Upstream bugs found (other repos, same batch):** `MintPlayer.AspNetCore.SpaServices` rc.2 — relative npm path resolved in the NuGet cache (also hit in S8; csproj workaround) and leftover "Before/After the next middleware" debug output on every request; `@mintplayer/ng-seo` — JSON-LD/canonical directives are not SSR-aware (append a second head element after hydration; `[seo]` adds a second description); `@mintplayer/ng-base-url` — `provideBaseHref()` throws during SSR. Workarounds in `main.ts`, `main.server.ts` and `SongPage`.
 - `npm install --legacy-peer-deps` strips peer packages from the lockfile; use `npm ci` (or `--force`) — there is no `.npmrc` in the repo.
 
+### 6.5 S5 / S6 / S3 result — migration tool, karaoke timings, identity (2026-09-27)
+
+Full write-up: [`docs/spikes/S5-S6-S3-migration/RESULT.md`](./spikes/S5-S6-S3-migration/RESULT.md). `MintPlayer.Migration` + `MintPlayer.Migration.Tests` (51 tests) merged into this branch; `MediumType.Visible` added to the domain (D15).
+
+- **S5 — met.** Reconciler green on the production snapshot into `MintPlayer_Migration`: 1156 planned = 1156 stored documents, 1156/1156 SHA-256 identical, 1176 references / 0 unresolved, 752 `emails/` reservations, 3 indexes non-stale. Live counts equal the public API (138 artists, 9 persons, 141 songs, 12 visible medium types; 49 tags, 6 categories, 11 playlists, 10 blog posts). Runtime 10.6 s (6.0 s is database recreate; read + transform + write + indexes ≈ 1.5 s); `--verify-only` 7.3 s. The "10 subjects in the new UI" check was replaced by 10 side-by-side dumps (`samples.txt`); repeat it in the UI during P7.
+- **S6 — met, 0 % mismatch.** The new karaoke component indexes **all** lines of `text.split('\n')` including blanks; legacy skipped only strictly empty lines (a whitespace-only line counted). Transform: ÷ 20, re-index onto the all-lines layout, pad with null, key to the first playable medium. Replay at 10 ms steps: 20 timelines, 507,655 samples, 0 mismatches. The replay now runs in every reconcile.
+- **S3 — met.** Synthetic users on a copy of the snapshot: an old-format hash (HMAC-SHA256 10k iterations — 183 real users have it) logs in and is rehashed; a non-admin gets 403 on catalog writes; an Administrator with TOTP gets the 2FA challenge, logs in with a code from the migrated key (wrong code 401), creates a MediumType (201), and legacy recovery codes redeem once each.
+- **BLOCKING — email login.** Legacy signs in **by email**; Spark's `/spark/auth/login` (`MapIdentityApi`) looks the `email` field up as a **user name**. 750 of 752 users have a different user name → email login returns 401 for them. Fix in Spark PR 1 (F6/F7): resolve by email, fall back to user name.
+- **Corrections applied by this spike's design:**
+  - Recovery codes: the app's current Spark (preview.41) compares them in **plaintext**; only Spark master hashes them. The tool reads the referenced Spark version and stores plain now, hashed automatically after F18. F7's "already hashed" is true on master only.
+  - Roles → `Roles[]` **and** `group` claims (the app's checks read `group` claims; `/me` and Identity read `Roles[]`).
+  - `ConcurrencyStamp` is kept (reruns reproduce every byte).
+  - Rows without audit dates (MediumTypes, Playlists) get the snapshot's latest timestamp as `CreatedAt` (`--migrated-at` overrides).
+  - Two `Born` values stored at 22:00 (UTC-shifted local midnight) migrate as the next calendar day, i.e. the intended local date.
+  - Blog posts go to `BlogPosts` with a stopgap type until F1 adds the entity.
+- **Not built yet:** `--source api|composite` (only `sql`), the in-tool public-API cross-check and `SignInManager` smoke login of §5.3 (S3 covered login against the running app).
+- **Behaviour change to note:** timings are keyed to the first playable medium (D29), so other recordings of a song show no karaoke; legacy applied its single timeline to whatever played.
+
 ## 7. Phases
 
 | Phase | Content | Depends on |
