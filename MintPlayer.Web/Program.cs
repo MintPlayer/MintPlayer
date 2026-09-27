@@ -8,6 +8,7 @@ using MintPlayer.Spark;
 using MintPlayer.Spark.Authorization.Extensions;
 using MintPlayer.Spark.Extensions;
 using MintPlayer.Web;
+using MintPlayer.Web.ApiV1;
 using MintPlayer.Web.Email;
 using MintPlayer.Web.YouTube;
 
@@ -34,6 +35,10 @@ builder.Services.AddSpark(builder.Configuration, spark =>
     // authenticator keys validate here unchanged (proven in spikes/Spike.Migration).
     spark.AddAuthentication<MintPlayerUser>();
 });
+
+// Legacy-compatible public API under api/v1 (F8/D5, spike S7): hand-written controllers in ApiV1/ plus
+// their own JWT bearer scheme ("ApiV1Jwt", key from ApiV1:Jwt:Key). Never the default scheme.
+builder.Services.AddApiV1(builder.Configuration, builder.Environment);
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
