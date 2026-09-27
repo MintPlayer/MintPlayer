@@ -19,6 +19,8 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.17.0" />
+    <!-- api/v1 JWT bearer scheme (F8/D5, spike S7). -->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.12" />
     <PackageReference Include="MintPlayer.AspNetCore.SpaServices" Version="11.0.0-rc.2" />
     <!-- Server-side prerendering (D2, spike S1). 11.0.0-rc.2: needs 10.8+ for status/header preservation
          (a 404 from OnSupplyData still renders). Brings MintPlayer.AspNetCore.SpaServices.Prerendering. -->
